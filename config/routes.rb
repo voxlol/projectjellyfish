@@ -74,6 +74,8 @@ Rails.application.routes.draw do
   # Clouds
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
+  resources :bundles, except: [:edit, :new]
+
   # Project Routes
   resources :projects, defaults: { format: :json }, except: [:edit, :new]
   get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
