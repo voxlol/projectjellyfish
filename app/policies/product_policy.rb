@@ -3,19 +3,11 @@ class ProductPolicy < ApplicationPolicy
     true
   end
 
-  def create?
-    user.admin?
-  end
-
   def show?
     true
   end
 
   def new?
-    user.admin?
-  end
-
-  def update?
     user.admin?
   end
 
