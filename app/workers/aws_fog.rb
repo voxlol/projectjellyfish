@@ -88,16 +88,12 @@ class AwsFog
     )
     options = {}
     sec_pw = SecureRandom.hex[0..9]
-    Delayed::Worker.logger.debug "Your password: #{sec_pw}"
     details = order_item_details
-    Delayed::Worker.logger.debug "Order item details: #{details}"
-    # TODO: These detail names must be updated in DB and then fixed in MIQ and in Fog
-    # options['AllocatedStorage'] = details['disk_size']
-    # options['Engine'] = details['db_engine']
-    # options['DBInstanceClass'] = details['instance_size']
-    # options['StorageType'] = details['storage_type']
-    # options['MasterUsername'] = 'admin'
-    # options['MasterUserPassword'] = sec_pw
+    options = {}
+    details.each do |key, value|
+      options[key.camelize] = value
+    end
+    Delayed::Worker.logger.debug "Updated details: #{options}"
     db_instance_id = "id-#{@order_item.uuid[0..9]}"
     db = @aws_connection.create_db_instance(db_instance_id, options)
     order_item.provision_status = 'ok'
