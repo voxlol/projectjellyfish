@@ -8,10 +8,9 @@ class ProvisionWorker
       miq_provision
     else
       # TODO: Provision according to cloud provider using fog.io
-      case order_item.cloud.name
-      when 'AWS'
-      when 'Azure'
-      end
+      cloud = order_item.cloud.name.capitalize
+      provider = "#{cloud}Fog".constantize
+      provider.new.provision(order_item)
     end
   end
 
