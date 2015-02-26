@@ -10,7 +10,7 @@ class ProvisionWorker
       # TODO: Provision according to cloud provider using fog.io
       cloud = order_item.cloud.name.capitalize
       provider = "#{cloud}Fog".constantize
-      provider.new.provision(order_item)
+      provider.new(@order_item_id).provision
     end
   end
 
