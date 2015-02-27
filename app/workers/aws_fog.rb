@@ -15,12 +15,9 @@ class AwsFog
     rescue Fog::Compute::AWS::Error => e
       order_item.provision_status = :critical
       order_item.status_msg = e.message
-    rescue ArgumentError => e
+    rescue ArgumentError, StandardError => e
       order_item.provision_status = :critical
       order_item.status_msg = e.message
-    rescue StandardError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.response.reason_phrase
     ensure
       order_item.save
     end
