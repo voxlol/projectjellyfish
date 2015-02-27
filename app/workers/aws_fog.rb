@@ -26,6 +26,21 @@ class AwsFog
     details
   end
 
+  # TODO: come up for better method than this to fix branch condition size rubocop issues
+  def order_item_details_camelize
+    details = {}
+    answers = order_item.product.answers
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select { |row| row.product_type_question_id == question.id }.first
+      if questions.manageiq_key == 'db_instance_class'
+        details['DBInstanceClass'] = answer.nil? ? question.default : answer.answer
+      else
+        details[question.manageiq_key.camelize] = answer.nil? ? question.default : answer.answer
+      end
+    end
+    details
+  end
+
   def aws_settings
     @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
   end
@@ -89,15 +104,9 @@ class AwsFog
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
-    options = {}
     sec_pw = SecureRandom.hex[0..9]
-    details = order_item_details
+    options = order_item_details_camelize
     # TODO: Figure out solution for camelcase / snake case issues
-    options['DBInstanceClass'] = details['db_instance_class']
-    details.delete('db_instance_class')
-    details.each do |key, value|
-      options[key.camelize] = value
-    end
     options['MasterUserPassword'] = sec_pw
     options['MasterUsername'] = 'admin'
     Delayed::Worker.logger.debug "Updated details: #{options}"
