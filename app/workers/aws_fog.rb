@@ -58,6 +58,10 @@ class AwsFog
       order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
       order_item.save
+    rescue ArgumentError => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.message
+      order_item.save
     rescue StandardError => e
       order_item.provision_status = :critical
       order_item.status_msg = e.message
@@ -127,6 +131,10 @@ class AwsFog
     rescue Excon::Errors::BadRequest
       order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
+      order_item.save
+    rescue ArgumentError => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.message
       order_item.save
     rescue StandardError => e
       order_item.provision_status = :critical
