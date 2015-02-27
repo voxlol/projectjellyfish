@@ -1,12 +1,10 @@
 class ProvisionWorker
   def initialize(order_item_id)
-    Delayed::Worker.logger.debug 'Initializing provision worker'
     @order_item_id = order_item_id
   end
 
   def perform
     if miq_settings[:enabled]
-      Delayed::Worker.logger.debug 'MIQ is enabled'
       miq_provision
     else
       # TODO: Provision according to cloud provider using fog.io
@@ -19,7 +17,6 @@ class ProvisionWorker
   private
 
   def order_item
-    Delayed::Worker.logger.debug 'Trying to connect to db'
     @order_item ||= OrderItem.find @order_item_id
   end
 

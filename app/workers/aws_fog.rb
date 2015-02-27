@@ -1,7 +1,8 @@
 class AwsFog
   def initialize(order_item_id)
     @order_item_id = order_item_id
-    Fog.mock! if ENV['MOCK_MODE'] == 'true'
+    # Fog.mock! if ENV['MOCK_MODE'] == 'true'
+    ENV['MOCK_MODE'] == true ? Fog.mock! : Fog.unmock!
   end
 
   def provision
@@ -24,7 +25,7 @@ class AwsFog
     details
   end
 
-  # TODO: come up for better method than this to fix branch condition size rubocop issues
+  # TODO: Need to come up with a better way to manage CamelCase vs snake_case for DB instance creation
   def order_item_details_camelize
     details = {}
     answers = order_item.product.answers
@@ -44,7 +45,6 @@ class AwsFog
   end
 
   def provision_infrastructure
-    Delayed::Worker.logger.debug 'Provisioning Infrastructure'
     @aws_connection = Fog::Compute.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
@@ -56,13 +56,11 @@ class AwsFog
     begin
       create_infrastructure(details)
     rescue Excon::Errors::BadRequest
-      Delayed::Worker.logger.debug "Bad request: #{e.message}"
-      order_item.provision_status = 'critical'
+      order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
       order_item.save
     rescue StandardError => e
-      Delayed::Worker.logger.debug "Caught standard error: #{e.message}"
-      order_item.provision_status = 'critical'
+      order_item.provision_status = :critical
       order_item.status_msg = e.message
       order_item.save
     end
@@ -74,37 +72,44 @@ class AwsFog
     order_item.public_ip = server.public_ip_address
     order_item.instance_id = server.id
     order_item.private_ip = server.private_ip_address
-    order_item.provision_status = 'ok'
+    order_item.provision_status = :ok
     order_item.save
   end
 
   def provision_storage
     # Create the storage connection
-    aws_connection = Fog::Storage.new(
+    @aws_connection = Fog::Storage.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
     instance_name = "id-#{order_item.uuid[0..9]}"
     begin
-      storage = aws_connection.directories.create(
-        key: instance_name,
-        public: true
-      )
-      order_item.url = storage.public_url
-      order_item.instance_name = instance_name
-      order_item.provision_status = 'ok'
-      order_item.save
+      create_storage(instance_name)
     rescue Excon::Errors::BadRequest
-      order_item.provision_status = 'critical'
+      order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
       order_item.save
-    rescue StandardError => e
-      Delayed::Worker.logger.debug "Caught standard error: #{e.message}"
-      order_item.provision_status = 'critical'
+    rescue ArgumentError => e
+      order_item.provision_status = :critical
       order_item.status_msg = e.message
       order_item.save
+    rescue StandardError => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.response.reason_phrase
+      order_item.save
     end
+  end
+
+  def create_storage(instance_name)
+    storage = @aws_connection.directories.create(
+      key: instance_name,
+      public: true
+    )
+    order_item.url = storage.public_url
+    order_item.instance_name = instance_name
+    order_item.provision_status = 'ok'
+    order_item.save
   end
 
   def provision_databases
@@ -121,11 +126,11 @@ class AwsFog
     begin
       create_database(details, db_instance_id)
     rescue Excon::Errors::BadRequest
-      order_item.provision_status = 'critical'
+      order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
       order_item.save
     rescue StandardError => e
-      order_item.provision_status = 'critical'
+      order_item.provision_status = :critical
       order_item.status_msg = e.message
       order_item.save
     end
@@ -133,7 +138,7 @@ class AwsFog
 
   def create_database(details, db_instance_id)
     db = @aws_connection.create_db_instance(db_instance_id, details)
-    order_item.provision_status = 'ok'
+    order_item.provision_status = :ok
     order_item.username = 'admin'
     order_item.password = BCrypt::Password.create(@sec_pw)
     order_item.instance_name = db_instance_id
