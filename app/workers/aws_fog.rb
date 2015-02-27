@@ -1,5 +1,6 @@
 class AwsFog
   def initialize(order_item_id)
+    Delayed::Worker.logger.debug 'Initializing Fog'
     @order_item_id = order_item_id
     Fog.mock! # if ENV['MOCK_MODE'] == 'true'
   end
@@ -46,6 +47,7 @@ class AwsFog
       order_item.provision_status = 'critical'
       order_item.status_msg = e.message
       order_item.save
+      exit
     end
     # Store the created server information
     order_item.public_ip = server.public_ip_address
@@ -74,6 +76,7 @@ class AwsFog
       Delayed::Worker.logger.debug "Cause: #{e.cause}"
       order_item.status_msg = e.message
       order_item.save
+      exit
     end
     order_item.url = storage.public_url
     order_item.instance_name = instance_name
@@ -89,10 +92,14 @@ class AwsFog
     options = {}
     sec_pw = SecureRandom.hex[0..9]
     details = order_item_details
-    options = {}
+    # TODO: Figure out solution for camelcase / snake case issues
+    options['DBInstanceClass'] = details['db_instance_class']
+    details.delete('db_instance_class')
     details.each do |key, value|
       options[key.camelize] = value
     end
+    options['MasterUserPassword'] = sec_pw
+    options['MasterUsername'] = 'admin'
     Delayed::Worker.logger.debug "Updated details: #{options}"
     db_instance_id = "id-#{@order_item.uuid[0..9]}"
     db = @aws_connection.create_db_instance(db_instance_id, options)
