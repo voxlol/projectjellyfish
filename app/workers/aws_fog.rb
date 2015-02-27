@@ -1,7 +1,6 @@
 class AwsFog
   def initialize(order_item_id)
     @order_item_id = order_item_id
-    # Fog.mock! if ENV['MOCK_MODE'] == 'true'
     ENV['MOCK_MODE'] == true ? Fog.mock! : Fog.unmock!
   end
 
@@ -146,14 +145,5 @@ class AwsFog
     order_item.url = db.local_address
     order_item.public_ip = db.remote_ip
     order_item.save
-  end
-
-  def retire_infrastructure
-  end
-
-  def retire_storage
-  end
-
-  def retire_databases
   end
 end
