@@ -1,17 +1,37 @@
 class AwsFog
   def initialize(order_item_id)
     @order_item_id = order_item_id
-    ENV['MOCK_MODE'] == true ? Fog.mock! : Fog.unmock!
+    ENV['MOCK_MODE'] == 'true' ? Fog.mock! : Fog.unmock!
   end
 
   def provision
     product_type = order_item.product.product_type.name.capitalize.downcase
     method_call = method("provision_#{product_type}")
-    method_call.call
+    begin
+      method_call.call
+    rescue Excon::Errors::BadRequest
+      order_item.provision_status = :critical
+      order_item.status_msg = 'Bad request. Check authorization credentials.'
+    rescue Fog::Compute::AWS::Error => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.message
+    rescue ArgumentError => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.message
+    rescue StandardError => e
+      order_item.provision_status = :critical
+      order_item.status_msg = e.response.reason_phrase
+    ensure
+      order_item.save
+    end
   end
 
   def order_item
     @order_item ||= OrderItem.find @order_item_id
+  end
+
+  def aws_settings
+    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
   end
 
   def order_item_details
@@ -39,12 +59,8 @@ class AwsFog
     details
   end
 
-  def aws_settings
-    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
-  end
-
   def provision_infrastructure
-    @aws_connection = Fog::Compute.new(
+    aws_connection = Fog::Compute.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
@@ -52,99 +68,43 @@ class AwsFog
     details = order_item_details
     # TODO: Must get an image_id from product types
     details['image_id'] = 'ami-acca47c4'
-    begin
-      create_infrastructure(details)
-    rescue Excon::Errors::BadRequest
-      order_item.provision_status = :critical
-      order_item.status_msg = 'Bad request. Check authorization credentials.'
-      order_item.save
-    rescue ArgumentError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-      order_item.save
-    rescue StandardError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-      order_item.save
-    end
-  end
-
-  def create_infrastructure(details)
-    server = @aws_connection.servers.create(details)
+    server = aws_connection.servers.create(details)
     server.wait_for { ready? }
     order_item.public_ip = server.public_ip_address
     order_item.instance_id = server.id
     order_item.private_ip = server.private_ip_address
     order_item.provision_status = :ok
-    order_item.save
   end
 
   def provision_storage
     # Create the storage connection
-    @aws_connection = Fog::Storage.new(
+    aws_connection = Fog::Storage.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
     instance_name = "id-#{order_item.uuid[0..9]}"
-    begin
-      create_storage(instance_name)
-    rescue Excon::Errors::BadRequest
-      order_item.provision_status = :critical
-      order_item.status_msg = 'Bad request. Check authorization credentials.'
-      order_item.save
-    rescue ArgumentError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-      order_item.save
-    rescue StandardError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.response.reason_phrase
-      order_item.save
-    end
-  end
-
-  def create_storage(instance_name)
-    storage = @aws_connection.directories.create(
+    storage = aws_connection.directories.create(
       key: instance_name,
       public: true
     )
     order_item.url = storage.public_url
     order_item.instance_name = instance_name
     order_item.provision_status = 'ok'
-    order_item.save
   end
 
   def provision_databases
-    @aws_connection = Fog::AWS::RDS.new(
+    aws_connection = Fog::AWS::RDS.new(
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
-    sec_pw = SecureRandom.hex[0..9]
+    sec_pw = SecureRandom.hex 5
     details = order_item_details_camelize
     # TODO: Figure out solution for camelcase / snake case issues
     details['MasterUserPassword'] = sec_pw
     details['MasterUsername'] = 'admin'
     db_instance_id = "id-#{@order_item.uuid[0..9]}"
-    begin
-      create_database(details, db_instance_id)
-    rescue Excon::Errors::BadRequest
-      order_item.provision_status = :critical
-      order_item.status_msg = 'Bad request. Check authorization credentials.'
-      order_item.save
-    rescue ArgumentError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-      order_item.save
-    rescue StandardError => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-      order_item.save
-    end
-  end
-
-  def create_database(details, db_instance_id)
-    db = @aws_connection.create_db_instance(db_instance_id, details)
+    db = aws_connection.create_db_instance(db_instance_id, details)
     order_item.provision_status = :ok
     order_item.username = 'admin'
     order_item.password = BCrypt::Password.create(@sec_pw)
@@ -152,6 +112,5 @@ class AwsFog
     order_item.port = db.local_port
     order_item.url = db.local_address
     order_item.public_ip = db.remote_ip
-    order_item.save
   end
 end
