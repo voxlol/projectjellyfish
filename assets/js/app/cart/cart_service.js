@@ -57,7 +57,6 @@ CartService.prototype = {
    */
   add: function (requestedBy, project, product) {
     var tmpInCartPrice = this._getInCartPrice(product);
-    // Ensure at least two decimal points are shown
     product.in_cart_price = this._formatCurrency(tmpInCartPrice, 2, 3, ',', '.');
     this.cart.push({
       requestedBy: requestedBy,
@@ -130,7 +129,6 @@ CartService.prototype = {
     _.each(this.cart, _.bind(function(item, key, cart) {
       this.totalPrice=parseFloat(this.totalPrice)+(parseFloat(this._getInCartPrice(item.product))*10000);
     }, this));
-    // Ensure at least two decimal places are shown
     this.totalPrice = this.totalPrice/10000;
     this.totalPrice = this._formatCurrency(this.totalPrice, 2, 3, ',', '.');
     return this.totalPrice;
