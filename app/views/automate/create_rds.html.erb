@@ -49,9 +49,9 @@ order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
 product_hash = order_item_hash['product_details']
 order_id = order_item_hash['id']
 uuid = order_item_hash['uuid']
-allocated_storage = Integer(product_hash['disk_size'])
-db_instance_class = product_hash['instance_size']
-engine = product_hash['db_engine']
+allocated_storage = Integer(product_hash['allocated_storage'])
+db_instance_class = product_hash['db_instance_class']
+engine = product_hash['engine']
 username = 'admin'
 storage_type = product_hash['storage_type']
 security_groups_init = product_hash['security_groups']
