@@ -63,7 +63,7 @@ class OrderItemsController < ApplicationController
   param :id, :number, required:true
 
   def retire_service
-    
+    authorize OrderItem
   end
 
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
