@@ -104,7 +104,7 @@ class AwsFog
     db = aws_connection.create_db_instance(db_instance_id, details)
     order_item.provision_status = :ok
     order_item.username = 'admin'
-    order_item.password = BCrypt::Password.create(@sec_pw)
+    order_item.password = BCrypt::Password.create(sec_pw)
     order_item.instance_name = db_instance_id
     order_item.port = db.local_port
     order_item.url = db.local_address
