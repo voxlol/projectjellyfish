@@ -10,10 +10,6 @@ addons:
       repo_token:
         secure: "ai6+gVEZwIp5NUkV4c6WEQ6xGpsQ8jtaXlMST9Yxoptx+PiU4U2IyBrPiuYQfBnCBHfHSSrFe0doGgQiWFDmUX2MlEvXRajoGupFhk+xNcMS1jdLN7K+ktfWenNmyQtCTVx+cLT05uhNrHI2NwxpObFMSR2iPVxtqswROGra5YA="
 
-before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
-
 notifications:
   slack:
     secure: "htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec="
