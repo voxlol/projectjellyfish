@@ -94,17 +94,21 @@ class AwsFog
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
-    sec_pw = SecureRandom.hex 5
+    @sec_pw = SecureRandom.hex 5
     details = rds_details
     # TODO: Figure out solution for camelcase / snake case issues
-    details['MasterUserPassword'] = sec_pw
+    details['MasterUserPassword'] = @sec_pw
     details['MasterUsername'] = 'admin'
-    db_instance_id = "id-#{@order_item.uuid[0..9]}"
-    db = aws_connection.create_db_instance(db_instance_id, details)
+    @db_instance_id = "id-#{@order_item.uuid[0..9]}"
+    db = aws_connection.create_db_instance(@db_instance_id, details)
+    save_db_item(db)
+  end
+
+  def save_db_item(db)
     order_item.provision_status = :ok
     order_item.username = 'admin'
-    order_item.password = BCrypt::Password.create(sec_pw)
-    order_item.instance_name = db_instance_id
+    order_item.password = BCrypt::Password.create(@sec_pw)
+    order_item.instance_name = @db_instance_id
     order_item.port = db.local_port
     order_item.url = db.local_address
     order_item.public_ip = db.remote_ip
