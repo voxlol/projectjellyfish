@@ -49,18 +49,23 @@ class AwsFog
       when 'db_instance_class'
         details['DBInstanceClass'] = answer.nil? ? question.default : answer.answer
       else
-        details[question.manageiq_key.camelize] = answer.nil? ? question.default : answer.answer
+        details[question_key.camelize] = answer.nil? ? question.default : answer.answer
       end
     end
     details
   end
 
-  def provision_infrastructure
+  def infrastructure_connection
     aws_connection = Fog::Compute.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
+    aws_connection
+  end
+
+  def provision_infrastructure
+    aws_connection = infrastructure_connection
     details = order_item_details
     # TODO: Must get an image_id from product types
     details['image_id'] = 'ami-acca47c4'
@@ -72,13 +77,17 @@ class AwsFog
     order_item.provision_status = :ok
   end
 
-  def provision_storage
-    # Create the storage connection
+  def storage_connection
     aws_connection = Fog::Storage.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
+    aws_connection
+  end
+
+  def provision_storage
+    aws_connection = storage_connection
     instance_name = "id-#{order_item.uuid[0..9]}"
     storage = aws_connection.directories.create(
       key: instance_name,
@@ -89,11 +98,16 @@ class AwsFog
     order_item.provision_status = 'ok'
   end
 
-  def provision_databases
+  def databases_connection
     aws_connection = Fog::AWS::RDS.new(
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
+    aws_connection
+  end
+
+  def provision_databases
+    aws_connection = databases_connection
     @sec_pw = SecureRandom.hex 5
     details = rds_details
     # TODO: Figure out solution for camelcase / snake case issues
