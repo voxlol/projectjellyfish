@@ -77,6 +77,7 @@ group :development, :test do
   gem 'seed_dump'
   gem 'annotate' # Improves your sanity by annotating models
   gem 'rubocop'
+  gem 'pry-rails'
 end
 
 # Documentation

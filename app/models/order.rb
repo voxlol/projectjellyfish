@@ -28,6 +28,12 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
+  def bundle_id=(bundle_id)
+    order_items << Bundle.find(bundle_id).products.map do |product|
+      OrderItem.new(product: product, project: project)
+    end
+  end
+
   def item_count
     order_items.count
   end
@@ -42,5 +48,11 @@ class Order < ActiveRecord::Base
       total = total + order_item.setup_price + order_item.monthly_price + (order_item.hourly_price * 750)
     end
     total
+  end
+
+  private
+
+  def project
+    order_items.any? && order_items.first.project
   end
 end

@@ -24,7 +24,7 @@ FactoryGirl.define do
     active true
 
     after :build do |bundle|
-      bundle.products = build_pair(:product)
+      bundle.products ||= build_pair(:product)
     end
   end
 end
