@@ -17,7 +17,6 @@ class StaffController < ApplicationController
   param :query, String, desc: 'queries against first name, last name, and email'
 
   def index
-    authorize Staff
     respond_with_params staffs
   end
 
