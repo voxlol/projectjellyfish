@@ -39,12 +39,14 @@ class AwsFog
   end
 
   # TODO: Need to come up with a better way to manage CamelCase vs snake_case for DB instance creation
-  def order_item_details_camelize
+  def rds_details
     details = {}
     answers = order_item.product.answers
     order_item.product.product_type.questions.each do |question|
       answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      if question.manageiq_key == 'db_instance_class'
+      question_key = question.manageiq_key
+      case question_key
+      when 'db_instance_class'
         details['DBInstanceClass'] = answer.nil? ? question.default : answer.answer
       else
         details[question.manageiq_key.camelize] = answer.nil? ? question.default : answer.answer
@@ -93,7 +95,7 @@ class AwsFog
       aws_secret_access_key: aws_settings[:secret_key]
     )
     sec_pw = SecureRandom.hex 5
-    details = order_item_details_camelize
+    details = rds_details
     # TODO: Figure out solution for camelcase / snake case issues
     details['MasterUserPassword'] = sec_pw
     details['MasterUsername'] = 'admin'
