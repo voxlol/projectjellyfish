@@ -1,10 +1,10 @@
 class AwsFog
   def initialize(order_item_id)
     @order_item_id = order_item_id
-    ENV['MOCK_MODE'] == 'true' ? Fog.mock! : Fog.unmock!
   end
 
   def provision
+    ENV['MOCK_MODE'] == 'true' ? Fog.mock! : Fog.unmock!
     product_type = order_item.product.product_type.name.capitalize.downcase
     method_call = method("provision_#{product_type}")
     begin
