@@ -7,7 +7,7 @@ class AwsFog
     ENV['MOCK_MODE'] == 'true' ? Fog.mock! : Fog.unmock!
     product_type = order_item.product.product_type.name.capitalize.downcase
     begin
-      send("provision_#{product_type}")
+      send "provision_#{product_type}".to_sym
     rescue Excon::Errors::BadRequest
       order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
