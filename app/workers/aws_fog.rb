@@ -12,10 +12,7 @@ class AwsFog
     rescue Excon::Errors::BadRequest
       order_item.provision_status = :critical
       order_item.status_msg = 'Bad request. Check authorization credentials.'
-    rescue Fog::Compute::AWS::Error => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
-    rescue ArgumentError, StandardError => e
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
       order_item.provision_status = :critical
       order_item.status_msg = e.message
     ensure
