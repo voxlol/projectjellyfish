@@ -57,8 +57,7 @@ CartService.prototype = {
    */
   add: function (requestedBy, project, product) {
     var tmpInCartPrice = this._getInCartPrice(product);
-    // Ensure at least two decimal points are shown
-    product.in_cart_price = tmpInCartPrice.toFixed(Math.max(2, (tmpInCartPrice.toString().split('.')[1] || []).length));
+    product.in_cart_price = this._formatCurrency(tmpInCartPrice, 2, 3, ',', '.');
     this.cart.push({
       requestedBy: requestedBy,
       project:     project,
@@ -128,20 +127,39 @@ CartService.prototype = {
   getTotalPrice: function() {
     this.totalPrice = 0;
     _.each(this.cart, _.bind(function(item, key, cart) {
-      this.totalPrice=parseFloat(this.totalPrice)+parseFloat(item.product.in_cart_price);
+      this.totalPrice=parseFloat(this.totalPrice)+(parseFloat(this._getInCartPrice(item.product))*10000);
     }, this));
-    // Ensure at least two decimal places are shown
-    this.totalPrice = this.totalPrice.toFixed(Math.max(2, (this.totalPrice.toString().split('.')[1] || []).length));
+    this.totalPrice = this.totalPrice/10000;
+    this.totalPrice = this._formatCurrency(this.totalPrice, 2, 3, ',', '.');
     return this.totalPrice;
   },
   
+  /**
+   * Formats the prices to have at least 2 places after the decimal point,
+   * adds commas to separate every three places in the whole numbers.
+   * @param number  v: the value to be formatted
+   * @param integer n: length of decimal
+   * @param integer x: length of whole part
+   * @param mixed   s: sections delimiter
+   * @param mixed   c: decimal delimiter
+   *
+   * source: http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
+   * @private
+   */
+  _formatCurrency: function(v, n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = v.toFixed(Math.max(n, (v.toString().split('.')[1] || []).length));
+    
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+  },
+
   /**
    * Get the price to display in cart
    * 
    * @private
    */
   _getInCartPrice: function(product) {
-    return parseFloat(product.monthly_price) + (parseFloat(product.hourly_price) * 750);
+    return ((parseFloat(product.monthly_price)*10000) + ((parseFloat(product.hourly_price) * 10000)*750))/10000;
   },
 
   /**
