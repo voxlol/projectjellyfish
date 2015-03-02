@@ -13,9 +13,9 @@
 #
 
 class Bundle < ActiveRecord::Base
+  acts_as_paranoid
   has_many :bundled_products
   has_many :products, through: :bundled_products
 
-  time_for_a_boolean :deleted
   time_for_a_boolean :active
 end
