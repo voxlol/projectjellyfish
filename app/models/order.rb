@@ -53,6 +53,6 @@ class Order < ActiveRecord::Base
   private
 
   def project
-    order_items.any? && order_items.first.project
+    order_items.any? ? order_items.first.project : nil
   end
 end
