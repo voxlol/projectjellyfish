@@ -179,32 +179,35 @@ steps below each listed command on how to resolve the issues
 
 ####gem install bundler
 If you experience an error of ruby and Gemfile mismatch during this step:
-1. modify the ruby version of the Gemfile to match the version of ruby you have installed, in this case 2.1.5
+
+modify the ruby version of the Gemfile to match the version of ruby you have installed, in this case 2.1.5
  ```
  ruby '2.1.5'
  ```
-2. rerun the bundler install
+rerun the bundler install
 ```
  gem install bundler
 ```
 
 ####bundle install
 If you experience an error, particularly when installing the puma gem on this step complete the following:
+
 OpenSSL Package[link](http://packages.openknapsack.org/openssl/openssl-1.0.0o-x86-windows.tar.lzma)
+
 DevKit [link](http://rubyinstaller.org/downloads/):
 
-1. install DevKit compatible with your ruby version, e.g. in c:\devkit
-2. unpack the OpenSSL Package, e.g. in c:\openssl
-3. copy libeay32.dll and ssleay32.dll, from the DevKit bin directory to the ruby/bin directory
-4. initialize the DevKit build environment from the cli
+install DevKit compatible with your ruby version, e.g. in c:\devkit
+unpack the OpenSSL Package, e.g. in c:\openssl
+copy libeay32.dll and ssleay32.dll, from the DevKit bin directory to the ruby/bin directory
+initialize the DevKit build environment from the cli
 ```
 c:\devkit\devkitvars.bat
 ```
-5. run the following command to install the puma gem with the OpenSSL packages
+run the following command to install the puma gem with the OpenSSL packages
 ```
 gem install puma -- --with-opt-dir=c:\openssl
 ```
-6. run
+run
 ```
 bundle install
 ```
@@ -214,23 +217,23 @@ Additional information on this process can be found here:
 ####rake db:setup
 If you experience the PG pg_xxt load error when running rake db:setup :
 
-1. uninstall existing pg gem
+uninstall existing pg gem
 ```
 gem uninstall pg
 ```
-2. update the pg gem version in the gem file
+update the pg gem version in the gem file
 ```
 gem 'pg', '~> 0.18.1'
 ```
-3. add the tzinfo-data gem to the gemfile
+add the tzinfo-data gem to the gemfile
 ```
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 ```
-4. update all gems
+update all gems
 ```
  gem update
  ```
-5. rerun rake db:setup
+rerun rake db:setup
 ```
  rake db:setup
 ```
