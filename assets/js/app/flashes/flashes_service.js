@@ -4,59 +4,54 @@ var _ = require('lodash');
 
 /**@ngInject*/
 function FlashesService($timeout) {
+  var self = this;
+
   this.flashes = [];
-  this.$timeout = $timeout;
-}
 
-FlashesService.prototype.add = function(flash) {
-  var self = this;
+  function timeoutFlash(id) {
+    var index = _.findIndex(self.flashes, {id: id});
 
-  if (_.isArray(flash)) {
-    return _.each(flash, this.add.bind(this));
+    if (index >= 0) {
+      self.flashes.splice(index, 1);
+    }
   }
 
-  if (_.isString(flash)) {
-    flash = {type: 'info', message: flash};
-  }
+  this.add = function(flash) {
+    if (_.isArray(flash)) {
+      return _.each(flash, this.add.bind(this));
+    }
 
-  if ('error' == flash.type) {
-    flash.type = 'danger';
-  }
+    if (_.isString(flash)) {
+      flash = {type: 'info', message: flash};
+    }
 
-  if (flash.timeout) {
-    flash.id = _.uniqueId('flash');
-    flash.timeout = self.$timeout(function() {
-      self.timeout(flash.id);
-    }, 10000);
-  }
+    if ('error' == flash.type) {
+      flash.type = 'danger';
+    }
 
-  self.flashes.push(flash);
-};
+    if (flash.timeout) {
+      flash.id = _.uniqueId('flash');
+      flash.timeout = $timeout(function() {
+        timeoutFlash(flash.id);
+      }, 10000);
+    }
 
-FlashesService.prototype.remove = function(index) {
-  var self = this,
-    flash = self.flashes[index];
+    self.flashes.push(flash);
+  };
 
-  self.flashes.splice(index, 1);
+  this.remove = function(index) {
+    var flash = self.flashes[index];
 
-  if (flash.timeout) {
-    self.$timeout.cancel(flash.timeout);
-  }
-};
-
-FlashesService.prototype.timeout = function(id) {
-  var self = this,
-    index = _.findIndex(self.flashes, {id: id});
-
-  if (index >= 0) {
     self.flashes.splice(index, 1);
-  }
-};
 
-FlashesService.prototype.clear = function() {
-  var self = this;
+    if (flash.timeout) {
+      $timeout.cancel(flash.timeout);
+    }
+  };
 
-  self.flashes.length = 0;
-};
+  this.clear = function() {
+    self.flashes.length = 0;
+  };
+}
 
 module.exports = FlashesService;
