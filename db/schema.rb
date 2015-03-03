@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225203330) do
+ActiveRecord::Schema.define(version: 20150303012758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+  enable_extension "tablefunc"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -124,11 +125,7 @@ ActiveRecord::Schema.define(version: 20150225203330) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
-    t.string   "host"
-    t.integer  "port"
     t.integer  "miq_id"
-    t.inet     "public_ip"
-    t.string   "hostname"
     t.uuid     "uuid",                                               default: "uuid_generate_v4()"
     t.decimal  "setup_price",               precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",              precision: 10, scale: 4, default: 0.0
@@ -137,21 +134,12 @@ ActiveRecord::Schema.define(version: 20150225203330) do
     t.json     "payload_reply_from_miq"
     t.json     "payload_response_from_miq"
     t.integer  "latest_alert_id"
-    t.string   "url"
-    t.string   "instance_name"
-    t.string   "instance_id"
-    t.string   "username"
-    t.string   "password"
-    t.string   "status_msg"
-    t.inet     "private_ip"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
   add_index "order_items", ["deleted_at"], name: "index_order_items_on_deleted_at", using: :btree
-  add_index "order_items", ["hostname"], name: "index_order_items_on_hostname", using: :btree
   add_index "order_items", ["miq_id"], name: "index_order_items_on_miq_id", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  add_index "order_items", ["port", "host"], name: "index_order_items_on_port_and_host", using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
   add_index "order_items", ["service_id"], name: "index_order_items_on_service_id", using: :btree
 
@@ -295,9 +283,22 @@ ActiveRecord::Schema.define(version: 20150225203330) do
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0
     t.integer  "approval",                                        default: 0
+    t.datetime "archived"
   end
 
+  add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
+
+  create_table "provision_derivations", force: true do |t|
+    t.integer  "order_item_id"
+    t.text     "name"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "provision_derivations", ["id"], name: "index_provision_derivations_on_id", using: :btree
+  add_index "provision_derivations", ["order_item_id"], name: "index_provision_derivations_on_order_item_id", using: :btree
 
   create_table "setting_fields", force: true do |t|
     t.string   "label"
