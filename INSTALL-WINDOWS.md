@@ -173,23 +173,24 @@ rake upkeep:poll_miq_vms
 rake jobs:work
 ````
 
-#### Troubleshooting Tips for Windows Instillation Errors
+###Troubleshooting Tips for Windows Instillation Errors
 The following commands below are known to cause install issues on some windows machines, please see troubleshooting
 steps below each listed command on how to resolve the issues
 
-#gem install bundler
+####gem install bundler
 If you experience an error of ruby and gemfile mismatch during this step:
 ````
 first line of "Gemfile", change ruby version to - ruby '2.1.5'
 run gem install bundler
 ````
-#bundle install
+####bundle install
 If you experience an error, particularly when installing the puma gem on this step complete the following:
+OpenSSL Package[link](http://packages.openknapsack.org/openssl/openssl-1.0.0o-x86-windows.tar.lzma)
+DevKit? [link](http://rubyinstaller.org/downloads/):
 ````
 install DevKit compatible with your ruby version, e.g. in c:\devkit
-unpack the OpenSSL Package, e.g. in c:\openssl (use 7Zip or PeaZip) found here:
-[link](http://packages.openknapsack.org/openssl/openssl-1.0.0o-x86-windows.tar.lzma)
-copy the following ddls, libeay32.dll and ssleay32.dll, from the DevKit bin directory to your ruby/bin directory
+unpack the OpenSSL Package, e.g. in c:\openssl
+copy the following dlls, libeay32.dll and ssleay32.dll, from the DevKit bin directory to your ruby/bin directory
 open a windows console and initialize the DevKit build environment c:\devkit\devkitvars.bat
 run gem install puma -- --with-opt-dir=c:\openssl to install the puma gem with the OpenSSL packages
 run bundle install
@@ -197,7 +198,7 @@ run bundle install
 Additional information on this process can be found here:
 [link](https://github.com/hicknhack-software/rails-disco/wiki/Installing-puma-on-windows)
 
-#rake db:setup
+####rake db:setup
 If you experience the PG pg_xxt load error when running this command:
 ````
 gem uninstall pg
