@@ -11,8 +11,7 @@ addons:
         secure: "ai6+gVEZwIp5NUkV4c6WEQ6xGpsQ8jtaXlMST9Yxoptx+PiU4U2IyBrPiuYQfBnCBHfHSSrFe0doGgQiWFDmUX2MlEvXRajoGupFhk+xNcMS1jdLN7K+ktfWenNmyQtCTVx+cLT05uhNrHI2NwxpObFMSR2iPVxtqswROGra5YA="
 
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:create
 
 notifications:
   slack:
