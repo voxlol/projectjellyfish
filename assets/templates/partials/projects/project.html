@@ -1,8 +1,6 @@
-<div class="project-detail-page main-content container-fluid" set-width>
-
+<div class="project-detail-page container-fluid">
   <div class="approval-banner row" ng-hide="projectCtrl.project.approval == 'approved'">
     <!-- Pending Approval Banner -->
-
     <div class="col-sm-12" ng-show="projectCtrl.project.approval == 'undecided'">
       <i class="project-approval-icon fa fa-asterisk"></i>
 
@@ -25,7 +23,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-sm-12" ng-show="projectCtrl.project.approval == 'rejected'">
       <i class="project-approval-icon fa fa-exclamation"></i>
 
@@ -34,13 +31,9 @@
       <p><strong>{{projectCtrl.project.finalApproval().staff_name}}:</strong>
         {{projectCtrl.project.finalApproval().reason}}</p>
     </div>
-
   </div>
-
   <div class="content box-content">
-
     <!-- Title & Url -->
-
     <div class="page-title">
       <div class="page-title-icon">
         <img class="project-icon" ng-src="{{projectCtrl.project.img}}"
@@ -57,9 +50,7 @@
     </div>
 
     <!-- Metrics - Status, Budget, CPU, HDD, RAM -->
-
     <div class="info-boxes">
-
       <div class="info-box col18">
         <div class="info-box-icon">
           <progress-arc

@@ -30,6 +30,7 @@ angular.module('broker', [
   "ngCookies",
   "angular-progress-arc",
   require('./alerts').name,
+  require('./flashes').name,
   require('./question_input').name,
   require('./common').name,
   require('./base').name,
