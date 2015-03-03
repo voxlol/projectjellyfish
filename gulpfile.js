@@ -66,6 +66,8 @@ var paths = {
     }
   };
 
+var minify = true;
+
 /**
  * Main Bower tasks, calls bower install and then prunes it.
  */
@@ -152,7 +154,7 @@ gulp.task('scripts', ['bower'/*, 'clean-scripts'*/, 'jshint'], function() {
     .pipe(browserified)
     .pipe(unpathify())
     .pipe(concat('bundle.js'))
-    .pipe(uglify({preserveComments: 'some'}))
+    .pipe(minify ? uglify({preserveComments: 'some'}) : util.noop())
     .pipe(gulp.dest(paths.dest.scripts))
     .pipe(notify({
       title: 'Jellyfish UX : Javascript',
@@ -188,7 +190,7 @@ gulp.task('styles', ['bower'/*, 'clean-styles'*/, 'ie-styles'], function() {
   return es.concat(angularLoadingBarFiles, angucompleteFile, selectizeFile, angularUISelectFile, sassFiles)
     .pipe(concat('styles.css'))
     .pipe(autoprefix("last 2 version", "> 1%"))
-    .pipe(minifyCSS())
+    .pipe(minify ? minifyCSS() : util.noop())
     .pipe(notify({
       title: 'Jellyfish UX : Styles',
       message: 'Sass compiling and minification has finished',
@@ -260,6 +262,10 @@ gulp.task( 'server:restart', function() {
   gulp.watch( [ './app.js' ], server.restart );
 });
 
+gulp.task('set-debug', function() {
+  minify = false;
+});
+
 gulp.task('watch', function() {
   // watches JavaScript files for changes
   gulp.watch(appAssetSrc + '/js/**/*.js', ['jshint', 'scripts']);
@@ -275,5 +281,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['templates', 'scripts', 'styles', 'images', 'fonts', 'watch']);
+
+gulp.task('debug', ['set-debug', 'templates', 'scripts', 'styles', 'images', 'fonts', 'watch']);
 
 gulp.task('production', ['templates', 'scripts', 'styles', 'images', 'fonts']);
