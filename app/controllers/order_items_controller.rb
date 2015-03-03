@@ -61,13 +61,11 @@ class OrderItemsController < ApplicationController
 
   api :PUT, '/order_items/:id/retire_service'
   param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-  error code: 422, desc: ParameterValidation::Messages.missing
 
   def retire_service
     authorize OrderItem
     render nothing: true, status: :ok
-    RetireWorker.new('id').delay(queue: 'provision_request').perform
+    RetireWorker.new(params[:id]).delay(queue: 'retire_request').perform
   end
 
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
