@@ -38,7 +38,7 @@ describe Order do
 
   it 'updates an order with items' do
     order = Order.create(order_items_attributes: [order_item_model], staff_id: staff.id)
-    items = [{ id: order.order_items.first.id, port: 1234 }]
+    items = [{ id: order.order_items.first.id, setup_price: 12.34 }]
 
     order.update!(order_items_attributes: items)
 
