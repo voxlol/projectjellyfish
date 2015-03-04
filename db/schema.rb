@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304020634) do
+ActiveRecord::Schema.define(version: 20150304145349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,15 +145,14 @@ ActiveRecord::Schema.define(version: 20150304020634) do
     t.datetime "deleted_at"
     t.integer  "project_id"
     t.integer  "miq_id"
-    t.uuid     "uuid",                                               default: "uuid_generate_v4()"
-    t.decimal  "setup_price",               precision: 10, scale: 4, default: 0.0
-    t.decimal  "hourly_price",              precision: 10, scale: 4, default: 0.0
-    t.decimal  "monthly_price",             precision: 10, scale: 4, default: 0.0
-    t.json     "payload_to_miq"
-    t.json     "payload_reply_from_miq"
-    t.json     "payload_response_from_miq"
+    t.uuid     "uuid",                                             default: "uuid_generate_v4()"
+    t.decimal  "setup_price",             precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",            precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",           precision: 10, scale: 4, default: 0.0
+    t.json     "payload_request"
+    t.json     "payload_acknowledgement"
+    t.json     "payload_response"
     t.integer  "latest_alert_id"
-    t.string   "password"
     t.string   "status_msg"
   end
 
@@ -309,16 +308,6 @@ ActiveRecord::Schema.define(version: 20150304020634) do
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
-
-  create_table "provision_derivations", force: true do |t|
-    t.integer  "order_item_id"
-    t.text     "name"
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "provision_derivations", ["order_item_id"], name: "index_provision_derivations_on_order_item_id", using: :btree
 
   create_table "setting_fields", force: true do |t|
     t.string   "label"
