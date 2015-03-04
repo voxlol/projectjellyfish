@@ -32,7 +32,11 @@ class Provisioner < Providers
 
   def save_item(object)
     order_item.provision_status = :ok
-    order_item.payload_response_from_miq = object.as_json
+    order_item.payload_response_from_miq = object.to_json
+  end
+
+  def save_request(request)
+    order_item.payload_to_miq = request.to_json
   end
 
   def critical_error(message)
