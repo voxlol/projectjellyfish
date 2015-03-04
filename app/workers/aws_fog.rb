@@ -121,4 +121,28 @@ class AwsFog < Provisioner
     db = databases_connection.create_db_instance(db_instance_id, rds_details)
     save_item(db)
   end
+
+  def retire_infrastructure
+    Delayed::Worker.logger.debug 'Got to retire the infrastructure'
+    infrastructure_connection.servers.get('abcde')
+  end
+
+  def db_identifier
+    order_item.payload_response['data']['body']['CreateDBInstanceResult']['DBInstance']['DBInstanceIdentifier']
+  end
+
+  def db_snapshot
+    {
+      skip_final_snapshot: true,
+      instance_identifier: order_item.uuid[0..5]
+    }
+  end
+
+  def retire_databases
+    databases_connection.delete_db_instance(db_identifier, db_snapshot)
+  end
+
+  def retire_storage
+    Delayed::Worker.logger.debug 'Got to retire the storage'
+  end
 end
