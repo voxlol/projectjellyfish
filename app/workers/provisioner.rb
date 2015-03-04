@@ -32,22 +32,21 @@ class Provisioner < Providers
 
   def save_item(object)
     order_item.provision_status = :ok
-    order_item.payload_response_from_miq = object.to_json
+    order_item.payload_response = object.to_json
   end
 
   def save_request(request)
-    order_item.payload_to_miq = request.to_json
+    order_item.payload_request = request.to_json
   end
 
   def critical_error(message)
     order_item.provision_status = :critical
     Delayed::Worker.logger.debug "Critical error #{message}"
-    # order_item.status_msg = message
+    order_item.status_msg = message
   end
 
   def warning_error(message)
     order_item.provision_status = :warning
-    Delayed::Worker.logger.debug "The message #{message}"
-    # order_item.status_msg = message
+    order_item.status_msg = message
   end
 end

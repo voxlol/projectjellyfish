@@ -5,6 +5,7 @@ class ProvisionWorker < Provisioner
 
   def perform
     if miq_settings[:enabled]
+      Delayed::Worker.logger.debug "Miq settings url = #{miq_settings[:enabled]}"
       miq_provision
     else
       # TODO: Provision according to cloud provider using fog.io
@@ -20,14 +21,14 @@ class ProvisionWorker < Provisioner
       {
         action: 'order',
         resource: {
-          href: "#{miq_settings[:url]}/api/service_templates/#{provision.order_item.product.service_type_id}",
+          href: "#{miq_settings[:url]}/api/service_templates/#{order_item.product.service_type_id}",
           referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
-          email: miq_user.email,
+          email: miq_settings[:email],
           token: miq_settings[:token],
           order_item: {
             id: order_item.id,
             uuid: order_item.uuid.to_s,
-            product_details: provision.order_item_details
+            product_details: order_item_details
           }
         }
       }
