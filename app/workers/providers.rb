@@ -1,4 +1,6 @@
 class Providers
+  private
+
   def aws_settings
     @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
   end
