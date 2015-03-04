@@ -19,7 +19,6 @@ notifications:
 
 script:
 - bundle exec rspec
-- bundle exec rubocop
 
 deploy:
   provider: heroku
