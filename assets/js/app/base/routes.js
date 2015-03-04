@@ -14,23 +14,22 @@ module.exports = function($stateProvider, USER_ROLES) {
   }).state('base', {
     abstract: true,
     views: {
-      header: {
+      '' : {
+        templateUrl: '/partials/layouts/base.html'
+      },
+      'header@base': {
         templateUrl: "/partials/common/header.html",
         controller: "HeaderController as headerCtrl",
         resolve: HeaderData
       },
-      "left-sidebar" : {
+      "left-sidebar@base" : {
         templateUrl: "/partials/common/left_sidebar.html",
         controller: "LeftSidebarController as leftSidebarCtrl"
       },
-      "footer" : {
+      "footer@base" : {
         templateUrl: "/partials/common/footer.html",
         controller: "FooterController as footerCtrl",
         resolve: FooterData
-      },
-      "" : {
-        controller: "BaseController as baseCtrl",
-        template: "<div ui-view></div>"
       }
     },
     resolve: {
@@ -53,11 +52,11 @@ module.exports = function($stateProvider, USER_ROLES) {
   }).state('publicbase', {
     abstract: true,
     views: {
-      header : {
-        templateUrl: "/partials/common/header.html"
+      '' : {
+        templateUrl: '/partials/layouts/publicbase.html'
       },
-      "" : {
-        template: "<div ui-view></div>"
+      'header@publicbase' : {
+        templateUrl: "/partials/common/header.html"
       }
     },
     data: {
