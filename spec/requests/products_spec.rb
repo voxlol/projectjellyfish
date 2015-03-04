@@ -39,35 +39,6 @@ RSpec.describe 'Products API' do
     end
   end
 
-  describe 'PUT update' do
-    before(:each) do
-      @product = create :product
-      sign_in_as create :staff, :admin
-    end
-
-    it 'updates a product', :show_in_doc do
-      put "/products/#{@product.id}", options: ['test']
-      expect(response.status).to eq(204)
-    end
-
-    it 'returns an error when the product does not exist' do
-      put "/products/#{@product.id + 999}", options: ['test']
-      expect(response.status).to eq(404)
-      expect(json).to eq('error' => 'Not found.')
-    end
-  end
-
-  describe 'POST create' do
-    before :each do
-      sign_in_as create :staff, :admin
-    end
-
-    it 'creates an product', :show_in_doc do
-      post '/products/', options: ['test']
-      expect(response.body).to eq(Product.first.to_json)
-    end
-  end
-
   describe 'DELETE destroy' do
     before :each do
       @product = create :product

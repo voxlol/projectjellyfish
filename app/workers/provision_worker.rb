@@ -14,12 +14,28 @@ class ProvisionWorker < Provisioner
 
   private
 
+  def order_item
+    @order_item ||= OrderItem.find @order_item_id
+  end
+
+  def miq_settings
+    @miq_settings ||= Setting.find_by(hid: 'manageiq').settings_hash
+  end
+
+  def miq_user
+    @miq_user ||= Staff.find_by email: miq_settings[:email]
+  end
+
+  def service_type_id
+    order_item.product.provisionable.service_type_id
+  end
+
   def miq_provision
     message =
       {
         action: 'order',
         resource: {
-          href: "#{miq_settings[:url]}/api/service_templates/#{order_item.product.service_type_id}",
+          href: "#{miq_settings[:url]}/api/service_templates/#{service_type_id}",
           referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
           email: miq_settings[:email],
           token: miq_settings[:token],
@@ -32,7 +48,7 @@ class ProvisionWorker < Provisioner
       }
     order_item.provision_status = :unknown
     order_item.payload_request = message.to_json
-    order_item.save
+    order_item.save!
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     resource = RestClient::Resource.new(
@@ -46,11 +62,15 @@ class ProvisionWorker < Provisioner
     handle_response resource, message
   end
 
+  def service_catalog_id
+    order_item.product.provisionable.service_catalog_id
+  end
+
   def handle_response(resource, message)
-    response = resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
+    response = resource["api/service_catalogs/#{service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
 
     begin
-      data = ActiveSupport::JSON.decode(response)
+      data = ActiveSupport::JSON.decode(response.body)
       order_item.payload_acknowledgement = data.to_json
 
       case response.code
@@ -70,12 +90,36 @@ class ProvisionWorker < Provisioner
         message: e.try(:message) || "Action response was out of bounds, or something happened that wasn't expected"
       }.to_json
 
-      # Since the exception was caught delayed_jobs wouldn't requeue the job, let's raise an exception
-      raise 'error'
+      raise e
     ensure
-      order_item.save
+      order_item.save!
     end
 
     order_item.to_json
+  end
+
+  def aws_settings
+    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
+  end
+
+  def order_item_details
+    details = {}
+    answers = order_item.product.answers
+
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select do |row|
+        row.product_type_question_id == question.id
+      end.first
+
+      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
+    end
+
+    if aws_settings[:enabled]
+      details['access_key_id'] = aws_settings[:access_key]
+      details['secret_access_key'] = aws_settings[:secret_key]
+      details['image_id'] = 'ami-acca47c4'
+    end
+
+    details
   end
 end

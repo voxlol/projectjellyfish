@@ -70,6 +70,6 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision
-    ProvisionWorker.new(id).delay(queue: 'provision_request').perform
+    product.provisionable.provision(id).delay(queue: 'provision_request').perform
   end
 end

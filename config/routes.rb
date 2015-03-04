@@ -62,6 +62,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :manage_iq_products, defaults: { format: :json }
+
   # ProductTypes
   resources :product_types, except: [:edit, :new], defaults: { format: :json } do
     member do
