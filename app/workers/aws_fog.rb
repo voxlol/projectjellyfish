@@ -49,23 +49,21 @@ class AwsFog < Provisioner
   end
 
   def storage_connection
-    aws_connection = Fog::Storage.new(
+    Fog::Storage.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
-    aws_connection
   end
 
   def provision_storage
-    aws_connection = storage_connection
     instance_name = "id-#{order_item.uuid[0..9]}"
     request = {
       key: instance_name,
       public: true
     }
     save_request(request)
-    storage = aws_connection.directories.create(request)
+    storage = storage_connection.directories.create(request)
     save_storage(storage)
   end
 
@@ -122,9 +120,13 @@ class AwsFog < Provisioner
     save_item(db)
   end
 
+  def server_identifier
+    order_item.payload_response['id']
+  end
+
   def retire_infrastructure
-    Delayed::Worker.logger.debug 'Got to retire the infrastructure'
-    infrastructure_connection.servers.get('abcde')
+    infrastructure_connection.servers.delete(server_identifier)
+    order_item.provision_status = :retired
   end
 
   def db_identifier
@@ -140,9 +142,15 @@ class AwsFog < Provisioner
 
   def retire_databases
     databases_connection.delete_db_instance(db_identifier, db_snapshot)
+    order_item.provision_status = :retired
+  end
+
+  def storage_key
+    order_item.payload_response['key']
   end
 
   def retire_storage
-    Delayed::Worker.logger.debug 'Got to retire the storage'
+    storage_connection.delete_bucket(storage_key)
+    order_item.provision_status = :retired
   end
 end
