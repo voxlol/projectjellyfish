@@ -5,10 +5,8 @@ class ProvisionWorker < Provisioner
 
   def perform
     if miq_settings[:enabled]
-      Delayed::Worker.logger.debug "Miq settings url = #{miq_settings[:enabled]}"
       miq_provision
     else
-      # TODO: Provision according to cloud provider using fog.io
       fog_provision = "#{cloud}Fog".constantize
       fog_provision.new(@order_item_id).provision
     end

@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       put :start_service
       put :stop_service
       put :provision_update
+      put :retire_service
     end
   end
 
