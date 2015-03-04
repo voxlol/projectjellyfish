@@ -55,7 +55,7 @@ class OrderItem < ActiveRecord::Base
   validate :validate_product_id
 
   # Columns
-  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
 
   private
 

@@ -16,6 +16,19 @@ class AwsFog < Provisioner
     end
   end
 
+  def retire
+    mock_mode
+    begin
+      send "retire_#{product_type}".to_sym
+    rescue Excon::Errors::BadRequest
+      critical_error('Bad request. Check authorization credentials.')
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
+      critical_error(e.message)
+    ensure
+      order_item.save!
+    end
+  end
+
   def infrastructure_connection
     aws_connection = Fog::Compute.new(
       provider: 'AWS',
