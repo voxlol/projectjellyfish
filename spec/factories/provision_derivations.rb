@@ -11,7 +11,6 @@
 #
 # Indexes
 #
-#  index_provision_derivations_on_id             (id)
 #  index_provision_derivations_on_order_item_id  (order_item_id)
 #
 

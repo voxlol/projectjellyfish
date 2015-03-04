@@ -21,6 +21,8 @@
 #  payload_reply_from_miq    :json
 #  payload_response_from_miq :json
 #  latest_alert_id           :integer
+#  password                  :string(255)
+#  status_msg                :string(255)
 #
 # Indexes
 #

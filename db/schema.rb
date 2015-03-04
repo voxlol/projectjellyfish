@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303012758) do
+ActiveRecord::Schema.define(version: 20150304020634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
-  enable_extension "tablefunc"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -154,6 +153,8 @@ ActiveRecord::Schema.define(version: 20150303012758) do
     t.json     "payload_reply_from_miq"
     t.json     "payload_response_from_miq"
     t.integer  "latest_alert_id"
+    t.string   "password"
+    t.string   "status_msg"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
@@ -317,7 +318,6 @@ ActiveRecord::Schema.define(version: 20150303012758) do
     t.datetime "updated_at"
   end
 
-  add_index "provision_derivations", ["id"], name: "index_provision_derivations_on_id", using: :btree
   add_index "provision_derivations", ["order_item_id"], name: "index_provision_derivations_on_order_item_id", using: :btree
 
   create_table "setting_fields", force: true do |t|
