@@ -5,7 +5,7 @@ rvm: 2.2.0
 sudo: false
 
 addons:
-  postgresql: "9.3"
+  postgresql: "9.4"
   code_climate:
       repo_token:
         secure: "ai6+gVEZwIp5NUkV4c6WEQ6xGpsQ8jtaXlMST9Yxoptx+PiU4U2IyBrPiuYQfBnCBHfHSSrFe0doGgQiWFDmUX2MlEvXRajoGupFhk+xNcMS1jdLN7K+ktfWenNmyQtCTVx+cLT05uhNrHI2NwxpObFMSR2iPVxtqswROGra5YA="
