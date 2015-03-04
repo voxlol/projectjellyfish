@@ -39,9 +39,18 @@ class Provisioner < Providers
     order_item.payload_request = request.to_json
   end
 
+  def warning_retirement_error(message)
+    order_item.provision_status = :warning
+    order_item.status_msg = "Retirement failed: #{message}"[0..254]
+  end
+
+  def authentication_error
+    order_item.provision_status = :critical
+    order_item.status_msg = 'Bad request. Check for valid credentials and proper permissions.'
+  end
+
   def critical_error(message)
     order_item.provision_status = :critical
-    Delayed::Worker.logger.debug "Critical error #{message}"
     order_item.status_msg = message
   end
 

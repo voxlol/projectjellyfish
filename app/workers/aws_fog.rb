@@ -7,9 +7,9 @@ class AwsFog < Provisioner
     mock_mode
     begin
       send "provision_#{product_type}".to_sym
-    rescue Excon::Errors::BadRequest
-      critical_error('Bad request. Check authorization credentials.')
-    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
+    rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden
+      authentication_error
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, Fog::AWS::RDS::Error, NoMethodError  => e
       critical_error(e.message)
     ensure
       order_item.save!
@@ -20,10 +20,10 @@ class AwsFog < Provisioner
     mock_mode
     begin
       send "retire_#{product_type}".to_sym
-    rescue Excon::Errors::BadRequest
-      critical_error('Bad request. Check authorization credentials.')
-    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
-      critical_error(e.message)
+    rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden
+      authentication_error
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, Fog::AWS::RDS::Error, NoMethodError  => e
+      warning_retirement_error(e.message)
     ensure
       order_item.save!
     end
@@ -134,14 +134,11 @@ class AwsFog < Provisioner
   end
 
   def db_snapshot
-    {
-      skip_final_snapshot: true,
-      instance_identifier: order_item.uuid[0..5]
-    }
+    "snapshot-#{order_item.uuid[0..5]}"
   end
 
   def retire_databases
-    databases_connection.delete_db_instance(db_identifier, db_snapshot)
+    databases_connection.delete_db_instance(db_identifier, db_snapshot, false)
     order_item.provision_status = :retired
   end
 
