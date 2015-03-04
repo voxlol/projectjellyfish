@@ -89,8 +89,9 @@ bundle install
 
 ####Install PostgreSQL
 
-Navigate to http://www.postgresql.org/download/windows/ and select the desired installer (32-bit Windows and the
-latest version i.e. 9.3+)
+Navigate to http://www.postgresql.org/download/windows/ and select the desired installer 
+(32-bit Windows and the latest version indicated in the README.md)
+
 Follow installation steps, listen on localhost:5432 (set by default), and remember your root login credentials (you
 will be asked to type these in).
 

@@ -32,7 +32,7 @@ class ProvisionWorker < Provisioner
         }
       }
     order_item.provision_status = :unknown
-    order_item.payload_to_miq = message.to_json
+    order_item.payload_request = message.to_json
     order_item.save
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
@@ -52,7 +52,7 @@ class ProvisionWorker < Provisioner
 
     begin
       data = ActiveSupport::JSON.decode(response)
-      order_item.payload_reply_from_miq = data.to_json
+      order_item.payload_acknowledgement = data.to_json
 
       case response.code
       when 200..299
@@ -66,7 +66,7 @@ class ProvisionWorker < Provisioner
 
     rescue => e
       order_item.provision_status = :unknown
-      order_item.payload_reply_from_miq = {
+      order_item.payload_acknowledgement = {
         error: e.try(:response) || 'Request Timeout',
         message: e.try(:message) || "Action response was out of bounds, or something happened that wasn't expected"
       }.to_json
