@@ -19,15 +19,12 @@ class AwsFog < Provisioner
   # TODO: Need to come up with a better way to manage CamelCase vs snake_case for DB instance creation
   def rds_details
     details = {}
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      question_key = question.manageiq_key
-      case question_key
+    order_item_details.each do |key, value|
+      case key
       when 'db_instance_class'
-        details['DBInstanceClass'] = answer.nil? ? question.default : answer.answer
+        details['DBInstanceClass'] = value
       else
-        details[question_key.camelize] = answer.nil? ? question.default : answer.answer
+        details[key.camelize] = value
       end
     end
     details
