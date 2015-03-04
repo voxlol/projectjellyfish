@@ -19,7 +19,7 @@ of Jellyfish.  It provides a REST based API for Jellyfish-UX and for the Jellyfi
 Jellyfish-API has the following requirements
 
 * Ruby (Please check .ruby-version for the latest version to use, generally, this is the current version of Ruby)
-* PostgreSQL 9.3.x
+* PostgreSQL 9.4.x
 * ManageIQ (Anand)
 
 #### Installation

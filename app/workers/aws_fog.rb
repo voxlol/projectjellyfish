@@ -1,57 +1,19 @@
-class AwsFog
+class AwsFog < Provisioner
   def initialize(order_item_id)
     @order_item_id = order_item_id
   end
 
   def provision
-    ENV['MOCK_MODE'] == 'true' ? Fog.mock! : Fog.unmock!
-    product_type = order_item.product.product_type.name.capitalize.downcase
+    mock_mode
     begin
       send "provision_#{product_type}".to_sym
     rescue Excon::Errors::BadRequest
-      order_item.provision_status = :critical
-      order_item.status_msg = 'Bad request. Check authorization credentials.'
+      critical_error('Bad request. Check authorization credentials.')
     rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
-      order_item.provision_status = :critical
-      order_item.status_msg = e.message
+      critical_error(e.message)
     ensure
-      order_item.save
+      order_item.save!
     end
-  end
-
-  def order_item
-    @order_item ||= OrderItem.find @order_item_id
-  end
-
-  def aws_settings
-    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
-  end
-
-  def order_item_details
-    details = {}
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
-    end
-    details
-  end
-
-  # TODO: Need to come up with a better way to manage CamelCase vs snake_case for DB instance creation
-  def rds_details
-    details = {}
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      question_key = question.manageiq_key
-      case question_key
-      when 'db_instance_class'
-        details['DBInstanceClass'] = answer.nil? ? question.default : answer.answer
-      else
-        details[question_key.camelize] = answer.nil? ? question.default : answer.answer
-      end
-    end
-    details
   end
 
   def infrastructure_connection
@@ -66,14 +28,11 @@ class AwsFog
   def provision_infrastructure
     aws_connection = infrastructure_connection
     details = order_item_details
-    # TODO: Must get an image_id from product types
     details['image_id'] = 'ami-acca47c4'
+    save_request(details)
     server = aws_connection.servers.create(details)
     server.wait_for { ready? }
-    order_item.public_ip = server.public_ip_address
-    order_item.instance_id = server.id
-    order_item.private_ip = server.private_ip_address
-    order_item.provision_status = :ok
+    save_item(server)
   end
 
   def storage_connection
@@ -88,13 +47,21 @@ class AwsFog
   def provision_storage
     aws_connection = storage_connection
     instance_name = "id-#{order_item.uuid[0..9]}"
-    storage = aws_connection.directories.create(
+    request = {
       key: instance_name,
       public: true
+    }
+    save_request(request)
+    storage = aws_connection.directories.create(request)
+    save_storage(storage)
+  end
+
+  def save_storage(storage)
+    info = storage.all_attributes.merge(
+      public_url: storage.public_url,
+      location: storage.location
     )
-    order_item.url = storage.public_url
-    order_item.instance_name = instance_name
-    order_item.provision_status = 'ok'
+    save_item(info)
   end
 
   def databases_connection
@@ -105,25 +72,40 @@ class AwsFog
     aws_connection
   end
 
-  def provision_databases
-    aws_connection = databases_connection
-    @sec_pw = SecureRandom.hex 5
-    details = rds_details
-    # TODO: Figure out solution for camelcase / snake case issues
-    details['MasterUserPassword'] = @sec_pw
-    details['MasterUsername'] = 'admin'
-    @db_instance_id = "id-#{@order_item.uuid[0..9]}"
-    db = aws_connection.create_db_instance(@db_instance_id, details)
-    save_db_item(db)
+  # TODO: Need to come up with a better way to manage CamelCase vs snake_case for DB instance creation
+  def rds_item
+    details = {}
+    order_item_details.each do |key, value|
+      case key
+      when 'db_instance_class'
+        details['DBInstanceClass'] = value
+      else
+        details[key.camelize] = value
+      end
+    end
+    details
   end
 
-  def save_db_item(db)
-    order_item.provision_status = :ok
-    order_item.username = 'admin'
-    order_item.password = BCrypt::Password.create(@sec_pw)
-    order_item.instance_name = @db_instance_id
-    order_item.port = db.local_port
-    order_item.url = db.local_address
-    order_item.public_ip = db.remote_ip
+  def rds_details
+    details = rds_item.merge(
+      'MasterUserPassword' => @sec_pw,
+      'MasterUsername' => 'admin'
+    )
+    details
+  end
+
+  def encrypt_rds_details
+    details = rds_details
+    details['MasterUserPassword'] = BCrypt::Password.create(@sec_pw)
+    details
+  end
+
+  def provision_databases
+    @sec_pw = SecureRandom.hex 5
+    # TODO: Figure out solution for camelcase / snake case issues
+    db_instance_id = "id-#{order_item.uuid[0..9]}"
+    save_request(encrypt_rds_details)
+    db = databases_connection.create_db_instance(db_instance_id, rds_details)
+    save_item(db)
   end
 end

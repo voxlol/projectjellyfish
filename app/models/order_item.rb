@@ -2,47 +2,35 @@
 #
 # Table name: order_items
 #
-#  id                        :integer          not null, primary key
-#  order_id                  :integer
-#  cloud_id                  :integer
-#  product_id                :integer
-#  service_id                :integer
-#  provision_status          :integer
-#  created_at                :datetime
-#  updated_at                :datetime
-#  deleted_at                :datetime
-#  project_id                :integer
-#  host                      :string(255)
-#  port                      :integer
-#  miq_id                    :integer
-#  public_ip                 :inet
-#  hostname                  :string(255)
-#  uuid                      :uuid
-#  setup_price               :decimal(10, 4)   default(0.0)
-#  hourly_price              :decimal(10, 4)   default(0.0)
-#  monthly_price             :decimal(10, 4)   default(0.0)
-#  payload_to_miq            :json
-#  payload_reply_from_miq    :json
-#  payload_response_from_miq :json
-#  latest_alert_id           :integer
-#  url                       :string(255)
-#  instance_name             :string(255)
-#  instance_id               :string(255)
-#  username                  :string(255)
-#  password                  :string(255)
+#  id                      :integer          not null, primary key
+#  order_id                :integer
+#  cloud_id                :integer
+#  product_id              :integer
+#  service_id              :integer
+#  provision_status        :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  deleted_at              :datetime
+#  project_id              :integer
+#  miq_id                  :integer
+#  uuid                    :uuid
+#  setup_price             :decimal(10, 4)   default(0.0)
+#  hourly_price            :decimal(10, 4)   default(0.0)
+#  monthly_price           :decimal(10, 4)   default(0.0)
+#  payload_request         :json
+#  payload_acknowledgement :json
+#  payload_response        :json
+#  latest_alert_id         :integer
 #  status_msg                :string(255)
-#  private_ip                :inet
 #
 # Indexes
 #
-#  index_order_items_on_cloud_id       (cloud_id)
-#  index_order_items_on_deleted_at     (deleted_at)
-#  index_order_items_on_hostname       (hostname)
-#  index_order_items_on_miq_id         (miq_id)
-#  index_order_items_on_order_id       (order_id)
-#  index_order_items_on_port_and_host  (port,host)
-#  index_order_items_on_product_id     (product_id)
-#  index_order_items_on_service_id     (service_id)
+#  index_order_items_on_cloud_id    (cloud_id)
+#  index_order_items_on_deleted_at  (deleted_at)
+#  index_order_items_on_miq_id      (miq_id)
+#  index_order_items_on_order_id    (order_id)
+#  index_order_items_on_product_id  (product_id)
+#  index_order_items_on_service_id  (service_id)
 #
 
 class OrderItem < ActiveRecord::Base
@@ -55,6 +43,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
   has_many :alerts, inverse_of: :order_item
+  has_many :provision_derivations
   belongs_to :latest_alert, class_name: 'Alert'
 
   # Hooks

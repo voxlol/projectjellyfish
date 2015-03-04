@@ -27,7 +27,7 @@ sudo yum install sqlite-devel
 
 ####Install PostgreSQL
 
-Please install PostgreSQL 9.3+ via their docs
+Please install PostgreSQL (the version that is stated in README.md) via PostgreSQL's documented process.
 
 
 ####Install rbenv / rbenv-build / rbenv-sudo
@@ -35,11 +35,13 @@ Please install PostgreSQL 9.3+ via their docs
 Install rbenv as per the rbenv / rbenv-build / rbenv-sudo installation guide.
 
 
-####Install to Ruby 2.2.0, and set that as the global version
+####Install Ruby, and set that as the global version
+
+Please install the version of Ruby that is indicated in .ruby-version
 
 ````
-rbenv install 2.2.0
-rbenv global 2.2.0
+rbenv install [version.number]
+rbenv global [version.number]
 ````
 
 
