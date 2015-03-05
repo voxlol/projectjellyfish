@@ -16,7 +16,7 @@ su - jellyfish
 
 #### Install Pre-Requisites
 
-Get the Nginx Package for your RHEL Version (http://nginx.org/en/linux_packages.htm), and install.
+Get the Nginx Package for your RHEL Version (http://nginx.org/en/linux_packages.html), and install.
 
 ````
 sudo yum install git
