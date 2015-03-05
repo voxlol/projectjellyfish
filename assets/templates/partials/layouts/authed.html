@@ -1,0 +1,14 @@
+<div ui-view="header"></div>
+<div class="dashboard-pages" ng-cloak>
+  <div class="wrapper under-fixed-header">
+    <div ui-view="left-sidebar" class="left-sidebar"></div>
+    <div class="main-content" set-width>
+      <div class="content box-content">
+        <div flashes></div>
+        <div ui-view></div>
+      </div>
+    </div>
+    <span class="clearfix"></span>
+  </div>
+  <div ui-view="footer"></div>
+</div>

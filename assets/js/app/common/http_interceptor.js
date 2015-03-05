@@ -1,22 +1,18 @@
 'use strict';
 
 /**@ngInject*/
-function HttpInterceptor($q, $location, ROUTES) {
+function HttpInterceptor($q, $injector) {
 
   return {
     /**
-     * See also the stateChangeError method which handles state change for
+     * See also the init.js/stateChangeError method which handles state change for
      * routes that have promises that need to be resolved first.
      */
     responseError: function(error) {
-      if (401 === error.status) {
-        $location.path(ROUTES.logout);
-      }
-
-      // @todo should at some point take them to an access denied page, or
-      //       at the very least the default with a message.
-      if (403 === error.status) {
-        $location.path(ROUTES.default);
+      // When the server sends us a 500 or the server cannot be contacted the
+      // status is 0
+      if (0 === error.status) {
+        $injector.get('$state').transitionTo('errors.no-network');
       }
 
       return $q.reject(error);

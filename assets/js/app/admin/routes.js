@@ -5,7 +5,7 @@ var AdminData = require('./admin_controller').resolve;
 /**@ngInject*/
 module.exports = function($stateProvider, USER_ROLES) {
   $stateProvider
-    .state('base.admin', {
+    .state('base.authed.admin', {
       url: '/admin',
       abstract: true,
       controller: 'AdminController as admin',

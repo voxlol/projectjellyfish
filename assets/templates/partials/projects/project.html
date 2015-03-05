@@ -1,8 +1,6 @@
-<div class="project-detail-page main-content container-fluid" set-width>
-
+<div class="project-detail-page container-fluid">
   <div class="approval-banner row" ng-hide="projectCtrl.project.approval == 'approved'">
     <!-- Pending Approval Banner -->
-
     <div class="col-sm-12" ng-show="projectCtrl.project.approval == 'undecided'">
       <i class="project-approval-icon fa fa-asterisk"></i>
 
@@ -25,7 +23,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-sm-12" ng-show="projectCtrl.project.approval == 'rejected'">
       <i class="project-approval-icon fa fa-exclamation"></i>
 
@@ -34,13 +31,9 @@
       <p><strong>{{projectCtrl.project.finalApproval().staff_name}}:</strong>
         {{projectCtrl.project.finalApproval().reason}}</p>
     </div>
-
   </div>
-
   <div class="content box-content">
-
     <!-- Title & Url -->
-
     <div class="page-title">
       <div class="page-title-icon">
         <img class="project-icon" ng-src="{{projectCtrl.project.img}}"
@@ -51,15 +44,13 @@
       </div>
       <div class="fr">
         <div class="bottom-btn-box" ng-show="projectCtrl.project.approval == 'approved'">
-          <a ui-sref="base.project.edit({projectId: projectCtrl.project.id})" class="btn btn-primary">EDIT PROJECT</a>
+          <a ui-sref="base.authed.project.edit({projectId: projectCtrl.project.id})" class="btn btn-primary">EDIT PROJECT</a>
         </div>
       </div>
     </div>
 
     <!-- Metrics - Status, Budget, CPU, HDD, RAM -->
-
     <div class="info-boxes">
-
       <div class="info-box col18">
         <div class="info-box-icon">
           <progress-arc
@@ -121,14 +112,14 @@
       <section-header name="{{'Services (' + projectCtrl.project.services.length + ')'}}">
         <product-box class="product-box" ng-repeat="(serviceIndex, service) in projectCtrl.project.services"
                      product="projectCtrl.getServiceWithProduct(service)">
-          <a type="button" class="btn btn-primary" ui-sref="base.service({order_id: service.order_id, id: service.id})">View
+          <a type="button" class="btn btn-primary" ui-sref="base.authed.service({order_id: service.order_id, id: service.id})">View
             More</a>
           <a type="button" class="btn btn-danger"
              ng-click="projectCtrl.removeServiceFromProject(serviceIndex)">Remove</a>
         </product-box>
         <div class="add-box">
           <div class="product-box-shadow">
-            <a ui-sref="base.project.addService({projectId: projectCtrl.project.id})">
+            <a ui-sref="base.authed.project.addService({projectId: projectCtrl.project.id})">
               <div class="fa-stack">
                 <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
                 <i class="fa fa-fw fa-stack-1x fa-plus"></i>
@@ -149,7 +140,7 @@
 
         <div class="add-box">
           <div class="product-box-shadow">
-            <a ui-sref="base.project.view.addUser({projectId: projectCtrl.project.id})">
+            <a ui-sref="base.authed.project.view.addUser({projectId: projectCtrl.project.id})">
               <div class="fa-stack">
                 <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
                 <i class="fa fa-fw fa-stack-1x fa-plus"></i>

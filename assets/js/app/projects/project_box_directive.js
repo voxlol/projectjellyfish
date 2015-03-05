@@ -12,7 +12,7 @@ var ProjectBoxDirective = function() {
       project: "="
     },
     link: function($scope) {
-      $scope.sref = "base.project.view(" + angular.toJson({projectId: $scope.project.id}) + ")";
+      $scope.sref = 'base.authed.project.view(' + angular.toJson({projectId: $scope.project.id}) + ")";
     }
   };
 };

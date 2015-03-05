@@ -6,7 +6,7 @@ var DashboardData = require('./dashboard_controller').resolve;
 module.exports = function($stateProvider, USER_ROLES) {
   $stateProvider
     // Dashboard
-    .state('base.dashboard', {
+    .state('base.authed.dashboard', {
       url: "^/dashboard",
       templateUrl: "/partials/dashboard.html",
       resolve: DashboardData,

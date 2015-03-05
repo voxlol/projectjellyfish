@@ -5,7 +5,7 @@
  */
 
 /**@ngInject*/
-function ProductFormController($state) {
+function ProductFormController($state, FlashesService) {
   var self = this;
 
   this.product = null;
@@ -17,16 +17,24 @@ function ProductFormController($state) {
     this.product = parent.product;
   };
 
+  function onSuccess() {
+    $state.go('base.authed.admin.products.list');
+  }
+
+  function onFailure() {
+    FlashesService.add({
+      timeout: true,
+      type: 'error',
+      message: 'There was a problem saving the product. You may want to try again later.'
+    });
+  }
+
   this.create = function() {
     self.formSubmitted = true;
     if (self.form.$invalid) {
       return false;
     }
-    self.product.$save(function() {
-      $state.go('base.admin.products.list');
-    }, function() {
-      // TODO: Failure
-    });
+    self.product.$save(onSuccess, onFailure);
   };
 
   this.update = function() {
@@ -38,20 +46,12 @@ function ProductFormController($state) {
     // Make sure description is a string, textarea empty is null which is not valid;
     self.product.description = String(self.product.description);
 
-    self.product.$update(function() {
-      $state.go('base.admin.products.list');
-    }, function() {
-      // TODO: Failure
-    });
+    self.product.$update(onSuccess, onFailure);
   };
 
   this.destroy = function() {
     self.formSubmitted = true;
-    self.product.$delete(function() {
-      $state.go('base.admin.products.list');
-    }, function() {
-      // TODO: Failure
-    });
+    self.product.$delete(onSuccess, onFailure);
   };
 
   this.canSubmit = function() {

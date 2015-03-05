@@ -7,7 +7,7 @@ var BaseData = require('./base_marketplace_controller').resolve,
 /**@ngInject*/
 module.exports = function($stateProvider) {
   $stateProvider
-    .state('base.marketplace', {
+    .state('base.authed.marketplace', {
       url: '/marketplace',
       abstract: true,
       template: '<div class="ui-view marketplace"></div>',
@@ -15,13 +15,13 @@ module.exports = function($stateProvider) {
       controller: 'BaseMarketplaceController as baseMarketplaceCtrl'
     })
     // marketplace
-    .state('base.marketplace.list', {
+    .state('base.authed.marketplace.list', {
       url: "/list",
       templateUrl: "/partials/marketplace/marketplace.html",
       resolve: MarketplaceData,
       controller: "MarketplaceController as marketplaceCtrl"
     })
-    .state('base.marketplace.show', {
+    .state('base.authed.marketplace.show', {
       url: '/show/{id:int}',
       templateUrl: '/partials/marketplace/product.html',
       controller: 'ShowProductController as showCtrl',

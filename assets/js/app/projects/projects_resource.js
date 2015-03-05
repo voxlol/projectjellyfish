@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 /**@ngInject*/
 var ProjectsResource = function($resource, apiResource) {
-  var Project = $resource(apiResource('projectsById'), { id: '@id' }, {
+  var Project = $resource(apiResource('projectsById'), {id: '@id'}, {
     'query': {
       method: 'GET',
       params: {
@@ -20,7 +20,7 @@ var ProjectsResource = function($resource, apiResource) {
         'methods[]': ['domain', 'url', 'problem_count', 'account_number', 'resources', 'resources_unit', 'cpu', 'hdd', 'ram', 'status', 'monthly_spend', 'order_history']
       }
     },
-    'update': { method:'PUT' },
+    'update': {method: 'PUT'},
     'approve': {
       url: apiResource('projectsById') + '/approve',
       method: 'POST',

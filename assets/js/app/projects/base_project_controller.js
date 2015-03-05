@@ -16,8 +16,6 @@ BaseProjectController.resolve = {
   }
 };
 
-BaseProjectController.prototype = {
-
-};
+BaseProjectController.prototype = {};
 
 module.exports = BaseProjectController;

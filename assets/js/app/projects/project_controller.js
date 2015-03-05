@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 /**@ngInject*/
-function ProjectController($scope, $interval, project, ProjectUsersResource, OrderItemsResource, alerts, products) {
+function ProjectController($interval, project, ProjectUsersResource, OrderItemsResource, alerts, products, FlashesService) {
 
   this.intervalDelay = 30000;
   this.$interval = $interval;
@@ -19,6 +19,8 @@ function ProjectController($scope, $interval, project, ProjectUsersResource, Ord
 
   this.ProjectUsersResource = ProjectUsersResource;
   this.OrderItemsResource = OrderItemsResource;
+
+  this.FlashesService = FlashesService;
 
   /**
    * On creation/transition to scope, start refresh interval if
@@ -38,7 +40,10 @@ function ProjectController($scope, $interval, project, ProjectUsersResource, Ord
 ProjectController.resolve = {
   /**@ngInject*/
   project: function(ProjectsResource, $stateParams) {
-    return ProjectsResource.get({id: $stateParams.projectId, 'includes[]': ['approvals', 'approvers', 'services', 'project_answers', 'staff']}).$promise;
+    return ProjectsResource.get({
+      id: $stateParams.projectId,
+      'includes[]': ['approvals', 'approvers', 'services', 'project_answers', 'staff']
+    }).$promise;
   },
   /**@ngInject*/
   products: function(ProductsResource) {
@@ -85,19 +90,25 @@ ProjectController.prototype = {
   },
 
   removeUserFromProject: function(index) {
+    var self = this;
+
     this.ProjectUsersResource.delete({id: this.project.id, staff_id: this.project.users[index].id}).$promise.then(
       _.bind(function(data) {
         this.project.users.splice(index, 1);
       }, this),
       function(error) {
-        // @todo This should be handled more globally than disruptive alerts.
-        alert("There was an error removing this user. Please try again later");
+        self.FlashesService.add({
+          timeout: true,
+          type: 'error',
+          message: "There was an error removing this user. Please try again later"
+        });
       }
     );
   },
 
   removeServiceFromProject: function(serviceIndex) {
-    var service = this.project.services[serviceIndex];
+    var self = this,
+      service = this.project.services[serviceIndex];
 
     this.OrderItemsResource.delete({id: service.id, order_id: service.order_id}).$promise.then(
       _.bind(function() {
@@ -105,8 +116,11 @@ ProjectController.prototype = {
         this.project.services.splice(serviceIndex, 1);
       }, this),
       function(error) {
-        // @todo This should be handled more globally than disruptive alerts.
-        alert("There was an error removing this service.");
+        self.FlashesService.add({
+          timeout: true,
+          type: 'error',
+          message: "There was an error removing this service."
+        });
       }
     );
   },
@@ -222,12 +236,12 @@ ProjectController.prototype = {
     return !anyNotComplete;
 
   },
-  
+
   /**
    * Check that a variable is a number and defined (avoids NaN and undefined)
    *
    * http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
-   * 
+   *
    * @private
    */
   _isANumber: function(n) {
