@@ -136,7 +136,7 @@ rails s
 
 #####Install Nginx
 
-Get the Package for your RHEL Version (http://nginx.org/en/linux_packages.htm), and install
+Get the Package for your RHEL Version (http://nginx.org/en/linux_packages.html), and install
 
 ````
 sudo rpm -i rpm -i <url to repo file from above page>
