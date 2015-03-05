@@ -10,9 +10,15 @@ var LeftSidebarController = function($state, currentUser, projects, AuthService)
 };
 
 LeftSidebarController.prototype = {
-
   logout: function() {
     return this.AuthService.logout();
+  }
+};
+
+LeftSidebarController.resolve = {
+  /**@ngInject*/
+  projects: function(currentUser, ProjectsResource) {
+    return ProjectsResource.query().$promise;
   }
 };
 

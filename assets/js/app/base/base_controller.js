@@ -17,8 +17,6 @@ var BaseController = function($rootScope) {
 
 };
 
-BaseController.resolve = {
-
-};
+BaseController.resolve = {};
 
 module.exports = BaseController;

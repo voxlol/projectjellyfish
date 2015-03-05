@@ -21,13 +21,16 @@ var HeaderController = function($rootScope, $scope, $sce, JellyfishModal, CartSe
 
 HeaderController.resolve = {
   /**@ngInject*/
-  headerLinks: function(SettingsResource) {
+  alerts: function(currentUser, AlertsResource) {
+    return AlertsResource.query({'includes[]': ['project']}).$promise;
+  },
+  /**@ngInject*/
+  headerLinks: function(currentUser, SettingsResource) {
     return SettingsResource.get({hid: 'header'}).$promise;
   }
 };
 
 HeaderController.prototype = {
-
   cartModal: function () {
     this.JellyfishModal.open({
       id: 'cart',
