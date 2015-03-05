@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 /**@ngInject*/
-var ProjectUsersController = function($scope, $modalInstance, $q, $state, project, ProjectUsersResource, apiResource) {
+var ProjectUsersController = function($scope, $modalInstance, $q, $state, project, ProjectUsersResource, apiResource, FlashesService) {
 
   $scope.searchURL = apiResource("staffSearch");
   $scope.search = "";
@@ -18,12 +18,12 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
     }
   });
 
-  $scope.cancel = function () {
+  $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
 
   //todo: move the following methods to the controller prototype.
-  $scope.ok = function ($event) {
+  $scope.ok = function($event) {
 
     var criticalError = false;
     var duplicateRecord = false;
@@ -35,7 +35,7 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
       var user = $scope.userAdditons[key].originalObject;
 
       return ProjectUsersResource.save({id: project.id, staff_id: user.id}).$promise.then(
-        function(data){
+        function(data) {
         }, function(error) {
           // @todo We should use a code here not a string match.
           if (error.data.error === "Duplicate record.") {
@@ -50,7 +50,11 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
       $scope.updating = false;
 
       if (criticalError) {
-        alert("There was a problem adding these users. Please try again.");
+        FlashesService.add({
+          timeout: true,
+          type: 'error',
+          message: "There was a problem adding these users. Please try again."
+        });
       }
 
       // Refetch the project to reload the users.

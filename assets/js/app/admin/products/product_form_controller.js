@@ -5,7 +5,7 @@
  */
 
 /**@ngInject*/
-function ProductFormController($state) {
+function ProductFormController($state, FlashesService) {
   var self = this;
 
   this.product = null;
@@ -23,9 +23,13 @@ function ProductFormController($state) {
       return false;
     }
     self.product.$save(function() {
-      $state.go('base.admin.products.list');
+      $state.go('base.authed.admin.products.list');
     }, function() {
-      // TODO: Failure
+      FlashesService.add({
+        timeout: true,
+        type: 'error',
+        message: 'There was a problem saving the product. You may want to try again later.'
+      });
     });
   };
 
@@ -39,18 +43,26 @@ function ProductFormController($state) {
     self.product.description = String(self.product.description);
 
     self.product.$update(function() {
-      $state.go('base.admin.products.list');
+      $state.go('base.authed.admin.products.list');
     }, function() {
-      // TODO: Failure
+      FlashesService.add({
+        timeout: true,
+        type: 'error',
+        message: 'There was a problem updating the product. You may want to try again later.'
+      });
     });
   };
 
   this.destroy = function() {
     self.formSubmitted = true;
     self.product.$delete(function() {
-      $state.go('base.admin.products.list');
+      $state.go('base.authed.admin.products.list');
     }, function() {
-      // TODO: Failure
+      FlashesService.add({
+        timeout: true,
+        type: 'error',
+        message: 'There was a problem removing the product. You may want to try again later.'
+      });
     });
   };
 
