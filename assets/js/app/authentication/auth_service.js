@@ -3,7 +3,7 @@
 var angular = require('angular');
 
 /**@ngInject*/
-var AuthService = function($http, $q, $location, Session, apiResource, USER_ROLES, ROUTES) {
+var AuthService = function($http, $q, $state, Session, apiResource, USER_ROLES) {
   var authService = {};
 
   authService.ssoInit = function() {
@@ -32,7 +32,7 @@ var AuthService = function($http, $q, $location, Session, apiResource, USER_ROLE
       .delete(apiResource('signOut'))
       .success(function() {
         Session.destroy();
-        $location.path(ROUTES.login);
+        $state.transitionTo('base.public.login');
       });
   };
 
