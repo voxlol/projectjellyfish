@@ -4,16 +4,14 @@ class AwsFog < Provisioner
   end
 
   def provision
-    mock_mode
-    begin
-      send "provision_#{product_type}".to_sym
+    send "provision_#{product_type}".to_sym
+
     rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden
       authentication_error
     rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, Fog::AWS::RDS::Error, NoMethodError  => e
       critical_error(e.message)
     ensure
       order_item.save!
-    end
   end
 
   def retire
