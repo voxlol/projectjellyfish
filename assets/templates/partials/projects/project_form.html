@@ -1,6 +1,6 @@
 <form class="form-horizontal padded horizontal-spanning" role="form" name="projectForm" novalidate>
   <div ng-class="projectForm.name.$invalid && projectForm.name.$dirty ? 'form-group has-error' : 'form-group'">
-    <label for="name" class="col-sm-3 control-label">Name<div class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+    <label for="name" class="col-sm-3 control-label required">Name</label>
 
     <div class="col-sm-8 control-input">
       <input name="name" ng-model='project.name' class="form-control" id="name" placeholder="Project Name" required>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-group">
-    <label for="start-date" class="col-sm-3 control-label">Start Date<div class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+    <label for="start-date" class="col-sm-3 control-label required">Start Date</label>
 
     <div class="col-sm-8 control-input">
       <div class="input-group">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="form-group">
-    <label for="end-date" class="col-sm-3 control-label">End Date<div class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+    <label for="end-date" class="col-sm-3 control-label required">End Date</label>
 
     <div class="col-sm-8 control-input">
       <div class="input-group">
@@ -57,7 +57,7 @@
       <span ng-switch on="answer.project_question.field_type">
         <span ng-switch-when="check_box">
           <div class="form-group">
-            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label">{{answer.project_question.question}}<div ng-show="answer.project_question.required" class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label" ng-class="{'required': answer.project_question.required}">{{answer.project_question.question}}</label>
 
             <div class="col-sm-8 control-input">
               <input type="checkbox" name="{{answer.project_question_name}}" ng-model='answer.answer'
@@ -67,7 +67,7 @@
         </span>
         <span ng-switch-when="date">
           <div class="form-group">
-            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label">{{answer.project_question.question}}<div ng-show="answer.project_question.required" class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label" ng-class="{'required': answer.project_question.required}">{{answer.project_question.question}}</label>
 
             <div class="col-sm-8 control-input">
               <div class="input-group">
@@ -83,7 +83,7 @@
         </span>
         <span ng-switch-when="text">
           <div class="form-group">
-            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label">{{answer.project_question.question}}<div ng-show="answer.project_question.required" class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label" ng-class="{'required': answer.project_question.required}">{{answer.project_question.question}}</label>
 
             <div class="col-sm-8 control-input">
               <input name="{{answer.project_question_name}}" ng-model='answer.answer' class="form-control"
@@ -94,7 +94,7 @@
         </span>
         <span ng-switch-when="select_option">
           <div class="form-group">
-            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label">{{answer.project_question.question}}<div ng-show="answer.project_question.required" class="required-asterisk"><i class="fa fa-asterisk" /></div></label>
+            <label for="{{answer.project_question.id}}" class="col-sm-3 control-label" ng-class="{'required': answer.project_question.required}">{{answer.project_question.question}}</label>
 
             <div class="col-sm-8 control-input">
               <select name="{{answer.project_question_name}}" class="form-control" ng-model="answer.answer"
