@@ -114,5 +114,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Content Pages Routes
+  resources :content_pages, only: [:index, :create], defaults: { format: :json }
+  resources :content_pages, only: [:update, :show, :destroy], defaults: { format: :json }, param: :slug
+
   root 'welcome#index'
 end
