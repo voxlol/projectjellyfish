@@ -10,7 +10,6 @@ module.exports = angular.module('broker.common.exceptions', [])
   /**@ngInject*/
   $provide.decorator("$exceptionHandler", function($delegate) {
     return function(exception, cause) {
-      alert("Error occurred: " + exception);
       $delegate(exception, cause);
     };
   });

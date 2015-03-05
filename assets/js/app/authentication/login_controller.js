@@ -6,22 +6,21 @@ var _ = require('lodash');
 var isFailedLogin = false;
 
 /**@ngInject*/
-function LoginController($scope, $location, AuthService, ROUTES, ssoUrl) {
+function LoginController($scope, $state, AuthService, currentUser, ssoUrl) {
   this.$scope = $scope;
-  this.$location = $location;
+  this.$state = $state;
   this.AuthService = AuthService;
-  this.ROUTES = ROUTES;
   this.ssoUrl = ssoUrl;
 
   // If the user is already logged in, take them to the default route.
-  if (AuthService.isAuthenticated()) {
-    $location.path(ROUTES.default);
+  if (currentUser || AuthService.isAuthenticated()) {
+    $state.transitionTo('base.authed.dashboard');
   }
 }
 
 LoginController.prototype = {
 
-  login: function () {
+  login: function() {
 
     // Reset the failed login flag.
     isFailedLogin = false;
@@ -35,8 +34,8 @@ LoginController.prototype = {
 
     // @todo Add optional to redirect back to where they were instead of always going to dashboard.
     this.AuthService.login(credentials)
-      .success(_.bind(function () {
-        this.$location.path(this.ROUTES.default);
+      .success(_.bind(function() {
+        this.$state.transitionTo('base.authed.dashboard');
       }, this))
       .error(_.bind(function() {
         isFailedLogin = true;
@@ -52,6 +51,17 @@ LoginController.resolve = {
   /**@ngInject*/
   ssoUrl: function(AuthService) {
     return AuthService.ssoInit();
+  },
+  /**@ngInject*/
+  currentUser: function($q, UsersResource) {
+    var deferred = $q.defer();
+
+    UsersResource.getCurrentMember(function() {
+      deferred.resolve(true);
+    }, function() {
+      deferred.resolve(false);
+    });
+    return deferred.promise;
   }
 };
 
