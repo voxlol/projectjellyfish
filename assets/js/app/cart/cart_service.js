@@ -105,7 +105,7 @@ CartService.prototype = {
        * @todo This is probably not the best way to handle this, but since the cart can be launched
        *       from anywhere, it's hard to pass in a callback without making an equally ugly global one.
        */
-      if (this.$state.is('base.project.view')) {
+      if (this.$state.is('base.authed.project.view')) {
         this.$state.reload();
       }
 
@@ -118,7 +118,7 @@ CartService.prototype = {
       // @todo Error/Reject case.
     });
   },
-  
+
   /**
    * Returns sum of prices in cart
    *
@@ -133,7 +133,7 @@ CartService.prototype = {
     this.totalPrice = this._formatCurrency(this.totalPrice, 2, 3, ',', '.');
     return this.totalPrice;
   },
-  
+
   /**
    * Formats the prices to have at least 2 places after the decimal point,
    * adds commas to separate every three places in the whole numbers.
@@ -149,13 +149,13 @@ CartService.prototype = {
   _formatCurrency: function(v, n, x, s, c) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
         num = v.toFixed(Math.max(n, (v.toString().split('.')[1] || []).length));
-    
+
     return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
   },
 
   /**
    * Get the price to display in cart
-   * 
+   *
    * @private
    */
   _getInCartPrice: function(product) {

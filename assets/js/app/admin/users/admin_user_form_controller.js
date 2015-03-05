@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var adminUsersListState = 'base.admin.users.list';
+var adminUsersListState = 'base.authed.admin.users.list';
 
 /**
  * @todo This mirrors the product_form_controller.js file in a lot of regards, could be abstracted.
