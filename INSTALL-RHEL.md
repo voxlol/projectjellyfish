@@ -29,7 +29,7 @@ sudo yum install nginx
 ````
 
 
-#### heck out the latest code
+#### Check out the latest code
 
 ````
 git clone https://github.com/booz-allen-hamilton/jellyfish-ux.git
