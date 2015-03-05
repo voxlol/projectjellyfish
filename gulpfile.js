@@ -5,11 +5,11 @@ var plumber = require('gulp-plumber');
 var bower = require('gulp-bower');
 var server = require( 'gulp-develop-server');
 var es = require('event-stream');
-var fs = require('fs');
+// var fs = require('fs');
 
 // JS Hint
 var jshint = require('gulp-jshint');
-var filter = require('gulp-filter');
+//var filter = require('gulp-filter');
 
 // JavaScript
 var browserify = require('browserify');
@@ -38,7 +38,7 @@ var errorHandler = function(err) {
 var appAssetSrc = 'assets';
 var appAssetDest = 'public';
 var bowerPath = './bower_components';
-var theme = 'pepper-grinder';
+//var theme = 'pepper-grinder';
 var paths = {
     src: {
       scripts: ['./' + appAssetSrc + '/js/main.js'],
