@@ -31,9 +31,16 @@ Download the latest stable version. Try downloading from this [link](http://node
 
 #### Install project dependencies (use Git Bash)
 
-	$ cd ux
-	$ npm install
-	$ gulp production
+    $ cd ux
+    $ npm install
+    $ bower install
+    
+### Prepare the build for deployment
+Be sure to confirm that 'defaults.apiBasePath' in app.js is pointing to the desired API location.  By default this value reads: 'apiBasePath': 'http://localhost:3000'.
+
+    $ gulp production 
+
+
 
 #### Start node (use Git Bash)
 
@@ -44,6 +51,11 @@ Download the latest stable version. Try downloading from this [link](http://node
 Default port/host is http://localhost:5000
 
 #### Configuration
+To either be done in app.js prior to running:
+    $ gulp production
+Or in public/appConfig.js after running:
+    $ gulp production
+
 * process.env.PORT -- NodeJS server port (optional, defaults to 5000)
 * process.env.API_BASE_PATH -- Jellyfish API Base Path (optional, defaults to http://localhost:3000)
 
