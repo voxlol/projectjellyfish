@@ -12,6 +12,10 @@ class Provisioner < Providers
     order_item.product.product_type.name
   end
 
+  def service_type_id
+    order_item.product.provisionable.service_type_id
+  end
+
   def order_item_details
     details = {}
     answers = order_item.product.answers
