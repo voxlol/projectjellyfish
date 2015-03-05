@@ -5,36 +5,34 @@
 #  id                 :integer          not null, primary key
 #  name               :string(255)
 #  description        :text
-#  service_type_id    :integer
-#  service_catalog_id :integer
-#  cloud_id           :integer
-#  chef_role          :string(100)
 #  active             :boolean
 #  img                :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  options            :json
 #  deleted_at         :datetime
 #  product_type_id    :integer
 #  setup_price        :decimal(10, 4)   default(0.0)
 #  hourly_price       :decimal(10, 4)   default(0.0)
 #  monthly_price      :decimal(10, 4)   default(0.0)
+#  service_type_id    :integer
+#  service_catalog_id :integer
+#  cloud_id           :integer
+#  chef_role          :string(255)
+#  options            :json
+#  provisionable_type :string(255)
+#  provisionable_id   :integer
 #
 # Indexes
 #
-#  index_products_on_cloud_id         (cloud_id)
-#  index_products_on_deleted_at       (deleted_at)
-#  index_products_on_product_type_id  (product_type_id)
+#  index_products_on_deleted_at        (deleted_at)
+#  index_products_on_product_type_id   (product_type_id)
+#  index_products_on_provisionable_id  (provisionable_id)
 #
 
 describe Product do
-  context 'options' do
-    let(:options) { [{ dialog_name: 'name' }, { dialog_name: 'name2' }] }
-
-    it 'can store unstructured options' do
-      product = create :product, options: options
-      expect(product.options[0][:dialog_name]).to eq(options[0]['dialog_name'])
-      expect(product.options[1][:dialog_name]).to eq(options[1]['dialog_name'])
-    end
-  end
+  it { should belong_to(:provisionable) }
+  it { should have_many(:chargebacks) }
+  it { should belong_to(:product_type) }
+  it { should have_many(:answers) }
+  it { should accept_nested_attributes_for(:answers) }
 end

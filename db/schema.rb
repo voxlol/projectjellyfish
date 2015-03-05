@@ -151,6 +151,16 @@ ActiveRecord::Schema.define(version: 20150305002401) do
 
   add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
 
+  create_table "manage_iq_products", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "service_type_id"
+    t.integer  "service_catalog_id"
+    t.string   "chef_role",          limit: 100
+    t.json     "options"
+    t.integer  "cloud_id"
+  end
+
   create_table "notifications", force: true do |t|
     t.text     "text"
     t.text     "ago"
@@ -253,25 +263,22 @@ ActiveRecord::Schema.define(version: 20150305002401) do
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "service_type_id"
-    t.integer  "service_catalog_id"
-    t.integer  "cloud_id"
-    t.string   "chef_role",          limit: 100
     t.boolean  "active"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "options"
     t.datetime "deleted_at"
     t.integer  "product_type_id"
-    t.decimal  "setup_price",                    precision: 10, scale: 4, default: 0.0
-    t.decimal  "hourly_price",                   precision: 10, scale: 4, default: 0.0
-    t.decimal  "monthly_price",                  precision: 10, scale: 4, default: 0.0
+    t.decimal  "setup_price",        precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",       precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",      precision: 10, scale: 4, default: 0.0
+    t.string   "provisionable_type"
+    t.integer  "provisionable_id"
   end
 
-  add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["provisionable_id"], name: "index_products_on_provisionable_id", using: :btree
 
   create_table "project_answers", force: true do |t|
     t.integer  "project_id"
@@ -394,6 +401,11 @@ ActiveRecord::Schema.define(version: 20150305002401) do
 
   add_index "staff_projects", ["project_id"], name: "index_staff_projects_on_project_id", using: :btree
   add_index "staff_projects", ["staff_id", "project_id"], name: "index_staff_projects_on_staff_id_and_project_id", unique: true, using: :btree
+
+  create_table "team_member_products", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_setting_options", force: true do |t|
     t.string   "label"

@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       put :start_service
       put :stop_service
       put :provision_update
+      put :retire_service
     end
   end
 
@@ -60,6 +61,8 @@ Rails.application.routes.draw do
       get :answers
     end
   end
+
+  resources :manage_iq_products, defaults: { format: :json }
 
   # ProductTypes
   resources :product_types, except: [:edit, :new], defaults: { format: :json } do

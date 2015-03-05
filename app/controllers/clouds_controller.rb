@@ -6,7 +6,7 @@ class CloudsController < ApplicationController
   before_action :load_clouds, only: [:index]
 
   api :GET, '/clouds', 'Returns a collection of clouds'
-  param :includes, Array, required: false, in: %w(chargebacks  products)
+  param :includes, Array, required: false, in: %w(chargebacks products)
   param :page, :number, required: false
   param :per_page, :number, required: false
 

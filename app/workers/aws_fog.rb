@@ -7,10 +7,23 @@ class AwsFog < Provisioner
     mock_mode
     begin
       send "provision_#{product_type}".to_sym
-    rescue Excon::Errors::BadRequest
-      critical_error('Bad request. Check authorization credentials.')
-    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, NoMethodError  => e
+    rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden
+      authentication_error
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, Fog::AWS::RDS::Error, NoMethodError  => e
       critical_error(e.message)
+    ensure
+      order_item.save!
+    end
+  end
+
+  def retire
+    mock_mode
+    begin
+      send "retire_#{product_type}".to_sym
+    rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden
+      authentication_error
+    rescue ArgumentError, StandardError, Fog::Compute::AWS::Error, Fog::AWS::RDS::Error, NoMethodError  => e
+      warning_retirement_error(e.message)
     ensure
       order_item.save!
     end
@@ -36,23 +49,21 @@ class AwsFog < Provisioner
   end
 
   def storage_connection
-    aws_connection = Fog::Storage.new(
+    Fog::Storage.new(
       provider: 'AWS',
       aws_access_key_id: aws_settings[:access_key],
       aws_secret_access_key: aws_settings[:secret_key]
     )
-    aws_connection
   end
 
   def provision_storage
-    aws_connection = storage_connection
     instance_name = "id-#{order_item.uuid[0..9]}"
     request = {
       key: instance_name,
       public: true
     }
     save_request(request)
-    storage = aws_connection.directories.create(request)
+    storage = storage_connection.directories.create(request)
     save_storage(storage)
   end
 
@@ -107,5 +118,36 @@ class AwsFog < Provisioner
     save_request(encrypt_rds_details)
     db = databases_connection.create_db_instance(db_instance_id, rds_details)
     save_item(db)
+  end
+
+  def server_identifier
+    order_item.payload_response['id']
+  end
+
+  def retire_infrastructure
+    infrastructure_connection.servers.delete(server_identifier)
+    order_item.provision_status = :retired
+  end
+
+  def db_identifier
+    order_item.payload_response['data']['body']['CreateDBInstanceResult']['DBInstance']['DBInstanceIdentifier']
+  end
+
+  def db_snapshot
+    "snapshot-#{order_item.uuid[0..5]}"
+  end
+
+  def retire_databases
+    databases_connection.delete_db_instance(db_identifier, db_snapshot, false)
+    order_item.provision_status = :retired
+  end
+
+  def storage_key
+    order_item.payload_response['key']
+  end
+
+  def retire_storage
+    storage_connection.delete_bucket(storage_key)
+    order_item.provision_status = :retired
   end
 end

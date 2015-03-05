@@ -15,9 +15,6 @@
 #  index_clouds_on_deleted_at  (deleted_at)
 #
 
-class Cloud < ActiveRecord::Base
-  acts_as_paranoid
-
-  has_many :chargebacks
-  has_many :products, class_name: 'ManageIqProduct'
+describe Cloud do
+  it { should have_many(:products) }
 end

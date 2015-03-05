@@ -7,6 +7,11 @@ development: &default
   pool: 2
   timeout: 5000
 
+development:
+  <<: *default
+  adapter:  postgresql
+  database: jellyfish_development
+
 test:
   <<: *default
   database: jellyfish_test

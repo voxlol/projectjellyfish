@@ -31,6 +31,10 @@ class OrderItemPolicy < ApplicationPolicy
     admin_or_related
   end
 
+  def retire_service?
+    admin_or_related
+  end
+
   def provision_update?
     user.admin?
   end
