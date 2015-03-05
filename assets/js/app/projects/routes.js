@@ -8,14 +8,14 @@ var ProjectServicesData = require('./project_services_controller').resolve;
 module.exports = function($stateProvider) {
   $stateProvider
     // Create Project
-    .state('base.newProject', {
+    .state('base.authed.newProject', {
       url: "^/project/new",
       templateUrl: "/partials/projects/new_project.html",
       resolve: NewProjectData,
       controller: "NewProjectController as newProjectCtrl"
     })
     // Project Base
-    .state('base.project', {
+    .state('base.authed.project', {
       abstract: true,
       url: "^/project/:projectId",
       template: "<div ui-view></div>",
@@ -23,28 +23,28 @@ module.exports = function($stateProvider) {
       controller: "BaseProjectController as baseProjectCtrl"
     })
     // Project
-    .state('base.project.view', {
+    .state('base.authed.project.view', {
       url: "^/project/:projectId",
       templateUrl: "/partials/projects/project.html",
       controller: "ProjectController as projectCtrl"
     })
     // Edit Project
     // @todo This should extend the base.project state if possible.
-    .state('base.project.edit', {
+    .state('base.authed.project.edit', {
       url: "^/project/:projectId/edit",
       templateUrl: "/partials/projects/edit_project.html",
       resolve: EditProjectData,
       controller: "EditProjectController as editProjectCtrl"
     })
     // Add Service to Project
-    .state('base.project.addService', {
+    .state('base.authed.project.addService', {
       url: "^/project/:projectId/add-service",
       templateUrl: '/partials/projects/add_services.html',
       controller: 'ProjectServicesController as projectServicesCtrl',
       resolve: ProjectServicesData
     })
     // Add User to Project
-    .state('base.project.view.addUser', {
+    .state('base.authed.project.view.addUser', {
       url: "^/project/:projectId/add-user",
       /**@ngInject**/
       onEnter: function($stateParams, $state, JellyfishModal, project) {
@@ -52,7 +52,7 @@ module.exports = function($stateProvider) {
         // When the modal is resolved or rejected we want to transition
         // back to the project page.
         var onClose = function() {
-          return $state.transitionTo("base.project.view", $stateParams);
+          return $state.transitionTo('base.authed.project.view', $stateParams);
         };
 
         JellyfishModal.open({

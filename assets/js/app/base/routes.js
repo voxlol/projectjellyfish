@@ -1,66 +1,61 @@
 'use strict';
 
-var HeaderData = require('./header_controller').resolve;
-var FooterData = require('./footer_controller').resolve;
+var _ = require('lodash'),
+  SidebarData = require('./leftsidebar_controller').resolve,
+  HeaderData = require('./header_controller').resolve,
+  FooterData = require('./footer_controller').resolve;
 
 /**@ngInject*/
 module.exports = function($stateProvider, USER_ROLES) {
-  $stateProvider.state('root', {
-    url: "/",
+  $stateProvider.state('base', {
+    abstract: true,
+    template: '<div ui-view></div>',
+    controller: 'BaseController as baseCtrl',
     data: {
       authorizedRoles: [USER_ROLES.all]
-    },
-    controller: 'RootController'
-  }).state('base', {
+    }
+  }).state('base.authed', {
     abstract: true,
     views: {
-      '' : {
-        templateUrl: '/partials/layouts/base.html'
+      '': {
+        templateUrl: '/partials/layouts/authed.html'
       },
-      'header@base': {
-        templateUrl: "/partials/common/header.html",
-        controller: "HeaderController as headerCtrl",
-        resolve: HeaderData
+      'header@base.authed': {
+        templateUrl: '/partials/common/header.html',
+        controller: 'HeaderController as headerCtrl'
       },
-      "left-sidebar@base" : {
-        templateUrl: "/partials/common/left_sidebar.html",
-        controller: "LeftSidebarController as leftSidebarCtrl"
+      'left-sidebar@base.authed': {
+        templateUrl: '/partials/common/left_sidebar.html',
+        controller: 'LeftSidebarController as leftSidebarCtrl'
       },
-      "footer@base" : {
-        templateUrl: "/partials/common/footer.html",
-        controller: "FooterController as footerCtrl",
-        resolve: FooterData
+      'footer@base.authed': {
+        templateUrl: '/partials/common/footer.html',
+        controller: 'FooterController as footerCtrl'
       }
     },
-    resolve: {
+    resolve: _.merge({
       /**@ngInject*/
       currentUser: function(UsersResource) {
         return UsersResource.getCurrentMember().$promise;
-      },
-      /**@ngInject*/
-      alerts: function(AlertsResource) {
-        return AlertsResource.query({'includes[]': ['project']}).$promise;
-      },
-      /**@ngInject*/
-      projects: function(ProjectsResource) {
-        return ProjectsResource.query().$promise;
       }
-    },
+    }, SidebarData, HeaderData, FooterData),
     data: {
       authorizedRoles: [USER_ROLES.user, USER_ROLES.admin]
     }
-  }).state('publicbase', {
+  }).state('base.public', {
     abstract: true,
     views: {
-      '' : {
-        templateUrl: '/partials/layouts/publicbase.html'
+      '': {
+        templateUrl: '/partials/layouts/public.html'
       },
-      'header@publicbase' : {
-        templateUrl: "/partials/common/header.html"
+      'header@base.public': {
+        templateUrl: '/partials/common/header.html'
+      },
+      'footer@base.public': {
+        templateUrl: '/partials/common/footer.html',
+        controller: 'FooterController as footerCtrl',
+        resolve: {footerLinks: function() { return []; }}
       }
-    },
-    data: {
-      authorizedRoles: [USER_ROLES.all]
     }
   });
 };
