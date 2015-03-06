@@ -11,7 +11,7 @@ BaseMarketplaceController.resolve = {
   },
   /**@ngInject*/
   products: function(ProductsResource) {
-    return ProductsResource.query({"includes[]": ["cloud", "answers"], active: true}).$promise;
+    return ProductsResource.query({"includes[]": ["answers"], active: true}).$promise;
   }
 };
 

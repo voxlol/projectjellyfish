@@ -19,7 +19,7 @@ function ListProductsController(products, categories) {
 ListProductsController.resolve = {
   /**@ngInject*/
   products: function(ProductsResource) {
-    return ProductsResource.query({"includes[]": ["cloud"]}).$promise;
+    return ProductsResource.query().$promise;
   }
 };
 

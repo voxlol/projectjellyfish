@@ -80,8 +80,7 @@ CartService.prototype = {
     _.each(this.cart, _.bind(function(item, key, cart) {
       orderItems.push({
         product_id: item.product.id,
-        project_id: item.project.id,
-        cloud_id:   item.product.cloud.id
+        project_id: item.project.id
       });
 
       staffId = item.requestedBy.id;
