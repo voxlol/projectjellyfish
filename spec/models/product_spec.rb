@@ -14,11 +14,6 @@
 #  setup_price        :decimal(10, 4)   default(0.0)
 #  hourly_price       :decimal(10, 4)   default(0.0)
 #  monthly_price      :decimal(10, 4)   default(0.0)
-#  service_type_id    :integer
-#  service_catalog_id :integer
-#  cloud_id           :integer
-#  chef_role          :string(255)
-#  options            :json
 #  provisionable_type :string(255)
 #  provisionable_id   :integer
 #

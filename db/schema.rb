@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305002401) do
+ActiveRecord::Schema.define(version: 20150305002252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,17 +111,15 @@ ActiveRecord::Schema.define(version: 20150305002401) do
   add_index "content_page_revisions", ["staff_id"], name: "index_content_page_revisions_on_staff_id", using: :btree
 
   create_table "content_pages", force: true do |t|
-    t.integer  "content_page_revisions_id"
     t.integer  "staff_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.string   "title",                     null: false
-    t.string   "slug",                      null: false
+    t.string   "title",      null: false
+    t.string   "slug",       null: false
     t.text     "body"
   end
 
-  add_index "content_pages", ["content_page_revisions_id"], name: "index_content_pages_on_content_page_revisions_id", using: :btree
   add_index "content_pages", ["slug"], name: "index_content_pages_on_slug", unique: true, using: :btree
   add_index "content_pages", ["staff_id"], name: "index_content_pages_on_staff_id", using: :btree
 

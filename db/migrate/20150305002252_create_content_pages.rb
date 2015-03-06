@@ -11,5 +11,15 @@ class CreateContentPages < ActiveRecord::Migration
       t.text :body
     end
     add_index :content_pages, :slug, unique: true
+
+    create_table :content_page_revisions do |t|
+      t.belongs_to :content_pages, index: true
+      t.references :staff, index: true
+
+      t.timestamps
+
+      t.string :title, null: false
+      t.text :body
+    end
   end
 end

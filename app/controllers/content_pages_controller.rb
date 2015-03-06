@@ -1,10 +1,11 @@
 class ContentPagesController < ApplicationController
   after_action :verify_authorized
 
-  before_action :load_content_page_slug, only: [:create]
   before_action :load_content_page, only: [:show, :update, :destroy]
   before_action :load_content_page_params, only: [:create, :update]
   before_action :load_content_pages, only: [:index]
+
+  prepend_before_action :load_content_page_slug, only: [:create]
 
   api :GET, '/content_pages', 'Returns a collection of content pages'
   param :page, :number, required: false
@@ -30,16 +31,9 @@ class ContentPagesController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    @content_page = ContentPage.new @content_page_params
+    @content_page = ContentPage.create @content_page_params.merge(slug: @slug)
     authorize @content_page
-    @content_page.slug = @slug
-    @content_page.staff_id = current_user.id
-    @content_page.save
-
-    @content_revision_page = ContentPageRevision.new @content_page_params
-    @content_revision_page.content_pages_id = @content_page.id
-    @content_revision_page.save
-
+    @content_page.content_page_revisions.create @content_page_params
     respond_with @content_page
   end
 
@@ -53,14 +47,7 @@ class ContentPagesController < ApplicationController
   def update
     @content_page.update_attributes @content_page_params
     authorize @content_page
-    @content_page.staff_id = current_user.id
-    @content_page.save
-
-    @content_revision_page = ContentPageRevision.new @content_page_params
-    @content_revision_page.content_pages_id = @content_page.id
-    @content_revision_page.staff_id = current_user.id
-    @content_revision_page.save
-
+    @content_page.content_page_revisions.create @content_page_params
     respond_with @content_page
   end
 
@@ -77,12 +64,21 @@ class ContentPagesController < ApplicationController
   private
 
   def load_content_page_slug
-    slug = params[:title].strip_tags.to_s.parameterize
+    slug = ActionController::Base.helpers.strip_tags(params[:title].to_s).parameterize
     content_page_check = ContentPage.where('slug LIKE :slug', { slug: "#{slug}%" })
     @slug = content_page_check.count > 0 ? "#{slug}-#{content_page_check.count + 1}" : slug
   end
 
   def load_content_page_params
+    stripped_params = { staff_id: current_user.id }
+    params.each { |k, v|
+      if v.is_a? String
+        stripped_params[k.to_sym] = ActionController::Base.helpers.strip_tags(v)
+      else
+        stripped_params[k.to_sym] = v
+      end
+    }
+    params = ActionController::Parameters.new(stripped_params)
     @content_page_params = params.permit(:staff_id, :title, :body)
   end
 
