@@ -2,10 +2,9 @@ class ContentPagesController < ApplicationController
   after_action :verify_authorized
 
   before_action :load_content_page, only: [:show, :update, :destroy]
-  before_action :load_content_page_params, only: [:create, :update]
+  before_action :load_content_page_params_with_slug, only: [:create]
+  before_action :load_content_page_params, only: [:update]
   before_action :load_content_pages, only: [:index]
-
-  prepend_before_action :load_content_page_slug, only: [:create]
 
   api :GET, '/content_pages', 'Returns a collection of content pages'
   param :page, :number, required: false
@@ -17,7 +16,7 @@ class ContentPagesController < ApplicationController
   end
 
   api :GET, '/content_pages/:slug', 'Shows content page with :slug'
-  param :slug, String, required: true
+  param :slug, String, required: true, desc: 'The slug of this content page.'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -31,15 +30,15 @@ class ContentPagesController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    @content_page = ContentPage.create @content_page_params.merge(slug: @slug)
+    @content_page = ContentPage.create @content_page_params
     authorize @content_page
-    @content_page.content_page_revisions.create @content_page_params
+    @content_page.content_page_revisions.create @content_page_params.except(:slug)
     respond_with @content_page
   end
 
   api :PUT, '/content_pages/:slug', 'Updates content page with :slug'
   param :slug, String, required: true, desc: 'The slug of this content page.'
-  param :title, String, required: true, desc: 'The updated title of this content page.'
+  param :title, String, required: false, desc: 'The updated title of this content page.'
   param :body, String, required: false, desc: 'The updated body of this content page.'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -63,30 +62,38 @@ class ContentPagesController < ApplicationController
 
   private
 
-  def load_content_page_slug
-    slug = ActionController::Base.helpers.strip_tags(params[:title].to_s).parameterize
-    content_page_check = ContentPage.where('slug LIKE :slug', { slug: "#{slug}%" })
-    @slug = content_page_check.count > 0 ? "#{slug}-#{content_page_check.count + 1}" : slug
+  def load_content_page_params_with_slug
+    params_strip_tags
+    slug = ActionController::Base.helpers.strip_tags(@stripped_params[:title].to_s).parameterize
+    content_page_check = ContentPage.where('slug LIKE ?', "#{slug}%")
+    slug = content_page_check.count > 0 ? "#{slug}-#{content_page_check.count + 1}" : slug
+    @stripped_params[:slug] = slug
+    params = ActionController::Parameters.new(@stripped_params)
+    @content_page_params = params.permit(:staff_id, :slug, :title, :body)
   end
 
   def load_content_page_params
-    stripped_params = { staff_id: current_user.id }
-    params.each { |k, v|
-      if v.is_a? String
-        stripped_params[k.to_sym] = ActionController::Base.helpers.strip_tags(v)
-      else
-        stripped_params[k.to_sym] = v
-      end
-    }
-    params = ActionController::Parameters.new(stripped_params)
+    params_strip_tags
+    params = ActionController::Parameters.new(@stripped_params)
     @content_page_params = params.permit(:staff_id, :title, :body)
   end
 
   def load_content_page
-    @content_page = ContentPage.find_by_slug(params.require(:slug))
+    @content_page = ContentPage.find_by_slug!(params.require(:slug))
   end
 
   def load_content_pages
     @content_pages = query_with ContentPage.all, :pagination
+  end
+
+  def params_strip_tags
+    @stripped_params = { staff_id: current_user.id }
+    params.each do |k, v|
+      if v.is_a? String
+        @stripped_params[k.to_sym] = ActionController::Base.helpers.strip_tags(v)
+      else
+        @stripped_params[k.to_sym] = v
+      end
+    end
   end
 end

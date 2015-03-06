@@ -49,12 +49,12 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'updates a content page', :show_in_doc do
-      put "/content_pages/#{@content_page.slug}", body: 'test'
+      put "/content_pages/#{@content_page.slug}", title: 'test title', body: 'test body'
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the content page does not exist' do
-      put '/content_pages/this-slug-does-not-exist', body: 'test'
+      put '/content_pages/this-slug-does-not-exist', title: 'test title', body: 'test body'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -66,7 +66,7 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'creates an content page', :show_in_doc do
-      post '/content_pages/', title: 'test'
+      post '/content_pages/', title: 'test title', body: 'test body'
       expect(response.body).to eq(ContentPage.first.to_json)
     end
   end

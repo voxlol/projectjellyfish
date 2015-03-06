@@ -17,6 +17,5 @@
 #
 
 class ContentPageRevision < ActiveRecord::Base
-
   belongs_to :content_page
 end
