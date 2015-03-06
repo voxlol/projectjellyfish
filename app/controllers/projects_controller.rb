@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
       api.param :end_date, String
       api.param :img, String
       api.param :name, String, required: true
-      api.param :project_answers, Array, desc: 'Project answers' do
+      api.param :project_answers, Array, desc: 'Project answers', required: false do
         api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
       end
       api.param :staff_id, String

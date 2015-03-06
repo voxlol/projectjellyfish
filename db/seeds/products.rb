@@ -98,7 +98,7 @@ rds.questions.create(
   default: 'db.m3.medium',
   required: true,
   load_order: rds.questions.length,
-  manageiq_key: 'instance_size'
+  manageiq_key: 'db_instance_class'
 )
 
 rds.questions.create(
@@ -115,7 +115,7 @@ rds.questions.create(
   default: '',
   required: true,
   load_order: rds.questions.length,
-  manageiq_key: 'db_engine'
+  manageiq_key: 'engine'
 )
 
 # rds.questions.create(
@@ -139,7 +139,7 @@ rds.questions.create(
   default: '40',
   required: true,
   load_order: rds.questions.length,
-  manageiq_key: 'disk_size'
+  manageiq_key: 'allocated_storage'
 )
 
 rds.questions.create(

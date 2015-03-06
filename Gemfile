@@ -1,4 +1,4 @@
-ruby '2.2.0'
+ruby '2.2.1'
 
 source 'https://rubygems.org'
 
@@ -12,23 +12,11 @@ gem 'pg_search', '~> 0.7.8'
 # Pagination
 gem 'will_paginate', '~> 3.0.7'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring', group: :development
-
-# Pry for rails console
-gem 'pry-rails', group: :development
-
-# for travis
-gem 'rake', group: :test
 
 # for console, rake
 gem 'highline'
@@ -36,29 +24,14 @@ gem 'highline'
 # .Env gem Gem
 gem 'dotenv-rails'
 
-# Rubocop for testing
-gem 'rubocop', group: [:development, :test]
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7', require: 'bcrypt'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use puma as the app server
 gem 'puma'
 
-# Use web-console
-gem 'web-console', '~> 2.0.0', group: :development
-
 # Use responders
 gem 'responders'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 # Authentication
 gem 'devise'
@@ -67,16 +40,28 @@ gem 'ruby-saml'
 # Authorization
 gem 'pundit'
 
+gem 'time_for_a_boolean'
+
 # Tests
 group :development, :test do
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'rspec-rails', '~> 3.0'
-  gem 'database_cleaner', '~> 1.3.0'
+  gem 'annotate'
+  gem 'awesome_print'
   gem 'brakeman', require: false
-  gem 'license_finder'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'database_cleaner', '~> 1.3.0'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'license_finder'
+  gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rubocop'
   gem 'seed_dump'
-  gem 'annotate' # Improves your sanity by annotating models
+  gem 'spring'
+  gem 'web-console', '~> 2.0.0'
+end
+
+group :test do
+  gem 'rake' # for travis
+  gem 'shoulda-matchers', require: false
 end
 
 # Documentation
@@ -103,3 +88,6 @@ gem 'daemons'
 
 # Get picky about what is put into responses
 gem 'active_model_serializers', '~> 0.8.0'
+
+# fog.io
+gem 'fog'

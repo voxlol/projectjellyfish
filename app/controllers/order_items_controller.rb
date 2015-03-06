@@ -26,8 +26,6 @@ class OrderItemsController < ApplicationController
 
   api :PUT, '/order_items/:id', 'Updates order item with :id'
   param :id, :number, required: true
-  param :port, :number, required: false
-  param :host, String, required: false
   param :provision_status, %w(ok warning critical unknown pending)
   param :hourly_price, :number, required: false
   param :monthly_price, :number, required: false
@@ -59,6 +57,15 @@ class OrderItemsController < ApplicationController
     render nothing: true, status: :ok
   end
 
+  api :PUT, '/order_items/:id/retire_service'
+  param :id, :number, required: true
+
+  def retire_service
+    authorize OrderItem
+    render nothing: true, status: :ok
+    RetireWorker.new(params[:id]).delay(queue: 'retire_request').perform
+  end
+
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
   param :id, :number, required: true, desc: 'Order Item ID'
   param :status, String, required: true, desc: 'Status of the provision request'
@@ -67,10 +74,6 @@ class OrderItemsController < ApplicationController
     param :uuid, String, required: true, desc: 'V4 UUID Generated for order item upon creation'
     param :provision_status, String, required: true, desc: 'Status of the provision request'
     param :miq_id, :number, required: false, desc: 'The unique ID from ManageIQ'
-    param :ip_address, String, required: false, desc: 'Any IP Address that may be associated with this record'
-    param :hostname, String, required: false, desc: 'Any hostname that may be associated with this record'
-    param :host, String, required: false, desc: 'Any host that may be associated with this record'
-    param :port, :number, required: false, desc: 'Any port that may be associated with this record'
   end
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -78,6 +81,13 @@ class OrderItemsController < ApplicationController
 
   def provision_update
     authorize @order_item
+
+    ignore = %w(uuid order_item provision_status)
+    params[:info].each do |key, value|
+      next if ignore.include?(key) || value.blank?
+      @order_item.provision_derivations.build(order_item_id: params[:id], name: key, value: value)
+    end
+
     @order_item.update_attributes order_item_params_for_provision_update
     respond_with @order_item
   end
@@ -85,7 +95,7 @@ class OrderItemsController < ApplicationController
   private
 
   def order_item_params
-    params.permit(:uuid, :port, :host, :provision_status, :ip_address, :hostname, :hourly_price, :monthly_price, :setup_price)
+    params.permit(:uuid, :hourly_price, :monthly_price, :setup_price)
   end
 
   def load_order_item
@@ -93,7 +103,7 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params_for_provision_update
-    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port).merge(payload_response_from_miq: ActionController::Parameters.new(JSON.parse(request.body.read)))
+    params.require(:info).permit(:miq_id, :provision_status).merge(payload_response: ActionController::Parameters.new(JSON.parse(request.body.read)))
   end
 
   def load_order_item_for_provision_update

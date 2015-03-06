@@ -5,26 +5,23 @@
 #  id                 :integer          not null, primary key
 #  name               :string(255)
 #  description        :text
-#  service_type_id    :integer
-#  service_catalog_id :integer
-#  cloud_id           :integer
-#  chef_role          :string(100)
 #  active             :boolean
 #  img                :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  options            :json
 #  deleted_at         :datetime
 #  product_type_id    :integer
 #  setup_price        :decimal(10, 4)   default(0.0)
 #  hourly_price       :decimal(10, 4)   default(0.0)
 #  monthly_price      :decimal(10, 4)   default(0.0)
+#  provisionable_type :string(255)
+#  provisionable_id   :integer
 #
 # Indexes
 #
-#  index_products_on_cloud_id         (cloud_id)
-#  index_products_on_deleted_at       (deleted_at)
-#  index_products_on_product_type_id  (product_type_id)
+#  index_products_on_deleted_at        (deleted_at)
+#  index_products_on_product_type_id   (product_type_id)
+#  index_products_on_provisionable_id  (provisionable_id)
 #
 
 class Product < ActiveRecord::Base
@@ -33,7 +30,7 @@ class Product < ActiveRecord::Base
   store_accessor :options
 
   has_many :chargebacks
-  belongs_to :cloud
+  belongs_to :provisionable, polymorphic: true
   belongs_to :product_type
   has_many :answers, class_name: 'ProductAnswer'
 
