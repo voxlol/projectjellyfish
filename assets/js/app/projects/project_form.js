@@ -30,6 +30,10 @@ function ProjectForm() {
         }
       });
 
+      if ($scope.project.project_answers.length < 1) {
+        delete $scope.project.project_answers;
+      }
+
       $scope.startDateOpened = false;
       $scope.endDateOpened = false;
       $scope.answerDateOpened = [];
