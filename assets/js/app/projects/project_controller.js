@@ -47,7 +47,7 @@ ProjectController.resolve = {
   },
   /**@ngInject*/
   products: function(ProductsResource) {
-    return ProductsResource.query({"includes[]": ["cloud"]}).$promise;
+    return ProductsResource.query().$promise;
   }
 };
 
@@ -140,7 +140,6 @@ ProjectController.prototype = {
     // Hook on the product details we need to use the product box.
     serviceObject.img = product.img;
     serviceObject.name = product.name;
-    serviceObject.cloud = product.cloud;
     serviceObject.description = product.description;
 
     return serviceObject;
