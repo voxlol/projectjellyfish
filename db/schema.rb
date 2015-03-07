@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304145349) do
+ActiveRecord::Schema.define(version: 20150305002252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,31 @@ ActiveRecord::Schema.define(version: 20150304145349) do
   end
 
   add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
+
+  create_table "content_page_revisions", force: true do |t|
+    t.integer  "content_pages_id"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title",            null: false
+    t.text     "body"
+  end
+
+  add_index "content_page_revisions", ["content_pages_id"], name: "index_content_page_revisions_on_content_pages_id", using: :btree
+  add_index "content_page_revisions", ["staff_id"], name: "index_content_page_revisions_on_staff_id", using: :btree
+
+  create_table "content_pages", force: true do |t|
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.string   "title",      null: false
+    t.string   "slug",       null: false
+    t.text     "body"
+  end
+
+  add_index "content_pages", ["slug"], name: "index_content_pages_on_slug", unique: true, using: :btree
+  add_index "content_pages", ["staff_id"], name: "index_content_pages_on_staff_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -310,8 +335,10 @@ ActiveRecord::Schema.define(version: 20150304145349) do
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0
     t.integer  "approval",                                        default: 0
+    t.datetime "archived"
   end
 
+  add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
   create_table "setting_fields", force: true do |t|
