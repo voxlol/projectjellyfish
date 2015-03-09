@@ -3,7 +3,7 @@ class SessionsController < Devise::SessionsController
 
   skip_before_action :verify_signed_out_user, only: :destroy
   before_action :pre_hook
-  after_action :post_hook # TODO: VERIFY THAT AFTER_ACTION ORDER WON'T BREAK ANYTHING
+  after_action :post_hook
 
   api :POST, '/staff/sign_in', 'Signs user in'
   param :staff, Hash, desc: 'Staff' do
