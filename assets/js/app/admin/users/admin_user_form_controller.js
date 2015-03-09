@@ -60,7 +60,7 @@ AdminUserFormController.prototype = {
             this.FlashesService.add({
                 timeout: true,
                 type: 'error',
-                message: 'Error while creating user. Please try again, later.'
+                message: 'Error while creating user. Please try again.'
             });
             this._handleServerErrors(response.data.errors);
         }, this));
@@ -80,15 +80,15 @@ AdminUserFormController.prototype = {
                 message: 'User successfully updated.'
             });
             this.$state.go(adminUsersListState);
-            }, this),
+            }, this), _.bind(
         function(response) {
             this.FlashesService.add({
                 timeout: true,
                 type: 'error',
-                message: 'Error while updating user. Please try again, later.'
+                message: 'Error while updating user. Please try again.'
             });
             this._handleServerErrors(response.data.errors);
-        });
+        }, this) );
   },
 
   destroy: function() {
@@ -100,14 +100,14 @@ AdminUserFormController.prototype = {
             message: 'User was successfully deleted.'
         });
         this.$state.go(adminUsersListState);
-    }, this), function(response) {
+    }, this), _.bind(function(response) {
         this.FlashesService.add({
             timeout: true,
             type: 'error',
             message: 'Error while deleting user. Please try again, later.'
         });
         this._handleServerErrors(response.data.errors);
-    });
+    }, this) );
   },
 
   canSubmit: function() {
