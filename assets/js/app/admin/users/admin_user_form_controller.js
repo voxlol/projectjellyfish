@@ -40,6 +40,7 @@ AdminUserFormController.prototype = {
    */
   initForm: function(parent) {
     this.user = parent.user;
+    this.FlashesService = parent.FlashesService;
   },
 
   create: function() {
@@ -49,10 +50,20 @@ AdminUserFormController.prototype = {
     }
 
     this.user.$save(_.bind(function() {
-      this.$state.go(adminUsersListState);
-    }, this), _.bind(function(response) {
-      this._handleServerErrors(response.data.errors);
-    }, this));
+        this.FlashesService.add({
+            timeout: true,
+            type: 'success',
+            message: 'User successfully created.'
+        });
+        this.$state.go(adminUsersListState);
+        }, this), _.bind(function(response) {
+            this.FlashesService.add({
+                timeout: true,
+                type: 'error',
+                message: 'Error while creating user. Please try again, later.'
+            });
+            this._handleServerErrors(response.data.errors);
+        }, this));
 
   },
 
@@ -63,18 +74,39 @@ AdminUserFormController.prototype = {
     }
 
     this.user.$update(_.bind(function() {
-      this.$state.go(adminUsersListState);
-    }, this), function(response) {
-      this._handleServerErrors(response.data.errors);
-    });
+            this.FlashesService.add({
+                timeout: true,
+                type: 'success',
+                message: 'User successfully updated.'
+            });
+            this.$state.go(adminUsersListState);
+            }, this),
+        function(response) {
+            this.FlashesService.add({
+                timeout: true,
+                type: 'error',
+                message: 'Error while updating user. Please try again, later.'
+            });
+            this._handleServerErrors(response.data.errors);
+        });
   },
 
   destroy: function() {
     this.formSubmitted = true;
     this.user.$delete(_.bind(function() {
-      this.$state.go(adminUsersListState);
+        this.FlashesService.add({
+            timeout: true,
+            type: 'success',
+            message: 'User was successfully deleted.'
+        });
+        this.$state.go(adminUsersListState);
     }, this), function(response) {
-      this._handleServerErrors(response.data.errors);
+        this.FlashesService.add({
+            timeout: true,
+            type: 'error',
+            message: 'Error while deleting user. Please try again, later.'
+        });
+        this._handleServerErrors(response.data.errors);
     });
   },
 

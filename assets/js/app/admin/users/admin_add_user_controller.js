@@ -1,8 +1,9 @@
 'use strict';
 
 /**@ngInject*/
-var AdminAddUserController = function(user) {
+var AdminAddUserController = function(user, FlashesService) {
   this.user = user;
+  this.FlashesService = FlashesService;
 };
 
 AdminAddUserController.resolve = {
