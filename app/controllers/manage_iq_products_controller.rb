@@ -1,6 +1,8 @@
 class ManageIqProductsController < ApplicationController
   after_action :verify_authorized
+  after_action :post_hook
 
+  before_action :pre_hook
   before_action :load_manage_iq_product_params, only: [:create, :update]
   before_action :load_manage_iq_product, only: [:update]
 
@@ -82,5 +84,13 @@ class ManageIqProductsController < ApplicationController
 
   def load_manage_iq_product
     @manage_iq_product = ManageIqProduct.find(params.require(:id))
+  end
+
+  def pre_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
+  end
+
+  def post_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
   end
 end
