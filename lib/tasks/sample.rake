@@ -63,6 +63,7 @@ namespace :sample do
        { id: 27, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", options: nil },
        { id: 29, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", options: nil }
     ])
+    ManageIqProduct.connection.execute("ALTER SEQUENCE manage_iq_products_id_seq RESTART #{ManageIqProduct.all.order('id DESC').first.id + 1}")
 
     Product.create!([
        { id: 1, name: "Small", description: "Small EC2 Instance", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type_id: 1, setup_price: "1.99", hourly_price: "0.001", monthly_price: "0.05", provisionable_id: 1, provisionable_type: 'ManageIqProduct' },
