@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "title": "Big Data",
+  "required": ["cpu_count", "disk_size", "ram_size"],
+  "properties": {
+    "cpu_count": {
+      "title": "CPU",
+      "type": "string",
+      "enum": ["1", "2", "4", "6", "8"],
+      "default": "1"
+    },
+    "disk_size": {
+      "title": "Disk Size",
+      "type": "string",
+      "default": "40"
+    },
+    "ram_size": {
+      "title": "RAM",
+      "type": "string",
+      "default": "4"
+    }
+  }
+}

@@ -49,7 +49,8 @@ describe ManageIQ do
   def setup_provisioner_spec(client)
     create(:setting, hid: 'aws')
     create(:staff, email: 'test@example.com')
-    create(:setting,
+    create(
+      :setting,
       hid: 'manageiq',
       setting_fields: [
         build(:setting_field, hid: 'enabled', value: true),

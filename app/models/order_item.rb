@@ -48,7 +48,7 @@ class OrderItem < ActiveRecord::Base
 
   # Hooks
   before_create :inherit_price_data
-  after_create :provision
+  after_commit :provision, on: :create
 
   # Validations
   validates :product, presence: true

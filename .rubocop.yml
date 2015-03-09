@@ -6,6 +6,7 @@ AllCops:
     - vendor/**/*
     - bin/**
     - lib/tasks/sample.rake
+    - lib/jellyfish_fog_aws/spec/dummy/**/*
   RunRailsCops: true
 
 ClassLength:

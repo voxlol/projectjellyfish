@@ -34,7 +34,7 @@
 #
 
 describe OrderItem do
-  it 'instructs its provisioner to provision' do
+  it 'instructs its provisioner to provision', type: :integration do
     allow(ManageIQ).to receive(:delay).and_return(ManageIQ)
     allow(ManageIQ).to receive(:provision)
 
