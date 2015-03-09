@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 /**@ngInject*/
-function EditProjectQuestionController($scope, $state, projectQuestion, ProjectQuestion) {
+function EditProjectQuestionController($scope, $state, projectQuestion, ProjectQuestion, FlashesService) {
   $scope.projectQuestion = projectQuestion;
 
   $scope.submitProject = function() {
@@ -11,8 +11,20 @@ function EditProjectQuestionController($scope, $state, projectQuestion, ProjectQ
       updatedProjectQuestion = filteredProjectQuestion.options ? filteredProjectQuestion : _.omit(filteredProjectQuestion, 'options');
 
     ProjectQuestion.update(updatedProjectQuestion, function() {
-      $state.go('base.authed.admin.projects.project_questions', {}, {reload: true});
-    });
+            FlashesService.add({
+                timeout: true,
+                type: 'success',
+                message: 'Project question successfully edited.'
+            });
+            $state.go('base.authed.admin.projects.project_questions', {}, {reload: true});
+        },
+        function() {
+            FlashesService.add({
+                timeout: true,
+                type: 'error',
+                message: 'Project question did not update. Please try again, later.'
+            });
+        });
   };
 }
 

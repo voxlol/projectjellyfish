@@ -1,7 +1,7 @@
 'use strict';
 
 /**@ngInject*/
-function ProjectQuestionsController($scope, $state, projectQuestions) {
+function ProjectQuestionsController($scope, $state, projectQuestions, FlashesService) {
   $scope.projectQuestions = projectQuestions;
   $scope.projectQuestion = {};
 
@@ -11,8 +11,21 @@ function ProjectQuestionsController($scope, $state, projectQuestions) {
 
   $scope.deleteProjectQuestion = function(question) {
     question.$delete(function() {
-      $state.go('base.authed.admin.projects.project_questions', {}, {reload: true});
-    });
+            FlashesService.add({
+                timeout: true,
+                type: 'success',
+                message: 'Project question successfully deleted.'
+            });
+            $state.go('base.authed.admin.projects.project_questions', {}, {reload: true});
+        },
+        function() {
+            FlashesService.add({
+                timeout: true,
+                type: 'error',
+                message: 'Project question deletion failed. Please try again, later.'
+            });
+        }
+    );
   };
 
   $scope.editProjectQuestion = function(question) {

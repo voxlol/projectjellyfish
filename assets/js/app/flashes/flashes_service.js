@@ -29,6 +29,10 @@ function FlashesService($timeout) {
       flash.type = 'danger';
     }
 
+    if ('success' == flash.type){
+        flash.type = 'success';
+    }
+
     if (flash.timeout) {
       flash.id = _.uniqueId('flash');
       flash.timeout = $timeout(function() {

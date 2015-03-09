@@ -7,6 +7,11 @@ function EditSettingsController($scope, settings, FlashesService) {
   $scope.updateSetting = function(setting) {
     $scope.updating = true;
     setting.$update(function() {
+      FlashesService.add({
+          timeout: true,
+          type: 'success',
+          message: 'Updated this setting successfully.'
+      });
       $scope.updating = false;
     }, function() {
       $scope.updating = false;
