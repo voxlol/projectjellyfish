@@ -27,6 +27,8 @@
 
 class Project < ActiveRecord::Base
   # Includes
+  include OrderItemPrice
+
   acts_as_paranoid
 
   # Constants
@@ -89,7 +91,7 @@ class Project < ActiveRecord::Base
 
   def monthly_spend
     services.reduce(0) do |total, service|
-      total + service.setup_price + (service.hourly_price * 750) + service.monthly_price
+      total + calculate_price(service.setup_price, service.hourly_price, service.monthly_price)
     end
   end
 

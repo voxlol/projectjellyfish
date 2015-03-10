@@ -41,10 +41,24 @@ class OrdersController < ApplicationController
   param :bundle_id, :number, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
+  include OrderItemPrice
+
   def create
     authorize Order
-    @order = Order.create @orders_params
-    respond_with @order
+    @order = Order.new @orders_params
+
+    @order.order_items.each do |oi|
+      oi.hourly_price = oi.product.hourly_price
+      oi.monthly_price = oi.product.monthly_price
+      oi.setup_price = oi.product.setup_price
+    end
+
+    if @order.exceeds_budget?
+      render json: { error: 'The budget for one or more of these projects has been, or will be exceeded.' }, status: 409
+    else
+      @order.save
+      respond_with @order
+    end
   end
 
   api :PUT, '/orders/:id', 'Updates order with :id'
@@ -112,4 +126,7 @@ class OrdersController < ApplicationController
     @order = Order.find params.require(:id)
     @order_items = query_with OrderItem.where(order_id: @order.id), :includes, :pagination
   end
+
+  private
+
 end

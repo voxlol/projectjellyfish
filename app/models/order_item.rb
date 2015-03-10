@@ -57,6 +57,13 @@ class OrderItem < ActiveRecord::Base
   # Columns
   enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
 
+  def check_budget?
+    Rails.logger.debug 'Check Budget?'
+    Rails.logger.debug ap self
+    Rails.logger.debug ap project
+    Rails.logger.debug ap product
+  end
+
   private
 
   def validate_product_id
@@ -64,9 +71,6 @@ class OrderItem < ActiveRecord::Base
   end
 
   def inherit_price_data
-    self.hourly_price = product.hourly_price
-    self.monthly_price = product.monthly_price
-    self.setup_price = product.setup_price
   end
 
   def provision
