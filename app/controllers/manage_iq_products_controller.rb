@@ -61,7 +61,6 @@ class ManageIqProductsController < ApplicationController
       :service_type_id,
       :service_catalog_id,
       :chef_role,
-      :product_type_id,
       :cloud_id,
       options: []
     )
