@@ -9,9 +9,8 @@ var NewProjectController = function($scope, $state, ProjectsResource, projectQue
 
   $scope.createProject = function() {
     ProjectsResource.save($scope.project).$promise.then(function(project) {
-      console.log("SUCCESS ADDING NEW PROJECT!");
       $state.go('base.authed.project.view', {projectId: project.id});
-    }, function () { console.log("FAIL ADDING NEW PROJECT!");});
+    });
   };
 };
 
