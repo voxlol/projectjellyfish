@@ -56,6 +56,14 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
           message: "There was a problem adding these users. Please try again."
         });
       }
+      else
+      {
+        FlashesService.add({
+           timeout: true,
+            type: 'success',
+            message: "Users added successfully."
+        });
+      }
 
       // Refetch the project to reload the users.
       project.$get();
