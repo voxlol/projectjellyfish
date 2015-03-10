@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   after_action :verify_authorized
+  after_action :post_hook
 
+  before_action :pre_hook
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
   before_action :load_answers, only: [:answers]
@@ -57,5 +59,13 @@ class ProductsController < ApplicationController
   def load_answers
     load_product
     @answers = @product.answers
+  end
+
+  def pre_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
+  end
+
+  def post_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
   end
 end

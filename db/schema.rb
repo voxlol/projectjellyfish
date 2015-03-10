@@ -335,8 +335,10 @@ ActiveRecord::Schema.define(version: 20150305002252) do
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0
     t.integer  "approval",                                        default: 0
+    t.datetime "archived"
   end
 
+  add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
   create_table "setting_fields", force: true do |t|

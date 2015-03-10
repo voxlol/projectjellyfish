@@ -1,4 +1,7 @@
 class StaffController < ApplicationController
+  before_action :pre_hook
+  after_action :post_hook
+
   def self.document_staff_params
     param :email, String
     param :first_name, String
@@ -89,5 +92,13 @@ class StaffController < ApplicationController
 
   def staff_params
     params.permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
+  end
+
+  def pre_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
+  end
+
+  def post_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
   end
 end

@@ -1,7 +1,9 @@
 class ProjectsController < ApplicationController
   PROJECT_INCLUDES = %w(alerts approvals approvers latest_alerts project_answers project_detail services staff)
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
+  before_action :pre_hook
   after_action :verify_authorized
+  after_action :post_hook
 
   def self.document_project_params
     with_options required: false do |api|
@@ -12,7 +14,7 @@ class ProjectsController < ApplicationController
       api.param :end_date, String
       api.param :img, String
       api.param :name, String, required: true
-      api.param :project_answers, Array, desc: 'Project answers' do
+      api.param :project_answers, Array, desc: 'Project answers', required: false do
         api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
       end
       api.param :staff_id, String
@@ -104,5 +106,13 @@ class ProjectsController < ApplicationController
 
   def project
     @_project ||= Project.find(params[:id])
+  end
+
+  def pre_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
+  end
+
+  def post_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
   end
 end

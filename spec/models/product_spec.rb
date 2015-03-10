@@ -24,6 +24,8 @@
 #  index_products_on_provisionable_id  (provisionable_id)
 #
 
+#
+
 describe Product do
   it { should belong_to(:provisionable) }
   it { should have_many(:chargebacks) }
