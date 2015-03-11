@@ -169,13 +169,13 @@ namespace :sample do
 
     ProductTypeQuestion.create!([
        { id: 1, product_type_id: 1, label: "Instance Size", field_type: "select", placeholder: "", help: "", options: [["t2.micro", "t2.micro"], ["m3.medium", "m3.medium"], ["m3.large", "m3.large"]], default: "m3.medium", required: true, load_order: 0, manageiq_key: "instance_size"},
-       { id: 2, product_type_id: 1, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", options: nil, default: "40", required: true, load_order: 1, manageiq_key: "disk_size"},
-       { id: 3, product_type_id: 2, label: "RAM", field_type: "text", placeholder: "Size in GBs", help: "", options: nil, default: "4", required: true, load_order: 0, manageiq_key: "ram_size"},
-       { id: 4, product_type_id: 2, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", options: nil, default: "40", required: true, load_order: 1, manageiq_key: "disk_size"},
+       { id: 2, product_type_id: 1, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", default: "40", required: true, load_order: 1, manageiq_key: "disk_size"},
+       { id: 3, product_type_id: 2, label: "RAM", field_type: "text", placeholder: "Size in GBs", help: "", default: "4", required: true, load_order: 0, manageiq_key: "ram_size"},
+       { id: 4, product_type_id: 2, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", default: "40", required: true, load_order: 1, manageiq_key: "disk_size"},
        { id: 5, product_type_id: 2, label: "CPU", field_type: "select", placeholder: "", help: "", options: [["1", "1 CPU"], ["2", "2 CPUs"], ["4", "4 CPUs"], ["6", "6 CPUs"], ["8", "8 CPUs"]], default: "1", required: true, load_order: 2, manageiq_key: "cpu_count"},
        { id: 6, product_type_id: 3, label: "Instance Size", field_type: "select", placeholder: "", help: "", options: [["db.m3.medium", "db.m3.medium"], ["db.m3.large", "db.m3.large"], ["db.m3.xlarge", "db.m3.xlarge"]], default: "db.m3.medium", required: true, load_order: 0, manageiq_key: "db_instance_class"},
        { id: 7, product_type_id: 3, label: "DB Engine", field_type: "select", placeholder: "", help: "", options: [["aurora", "Aurora"], ["mysql", "MySQL"], ["postgresql", "PostgreSQL"], ["sqlserver", "SQL Server"]], default: "", required: true, load_order: 1, manageiq_key: "engine"},
-       { id: 8, product_type_id: 3, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", options: nil, default: "40", required: true, load_order: 2, manageiq_key: "allocated_storage"},
+       { id: 8, product_type_id: 3, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", default: "40", required: true, load_order: 2, manageiq_key: "allocated_storage"},
        { id: 9, product_type_id: 3, label: "Storage Type", field_type: "select", placeholder: "", help: "", options: [["standard", "standard"], ["gp2", "gp2"], ["io1", "io1"]], default: "ssd", required: true, load_order: 3, manageiq_key: "storage_type"},
        { id: 10, product_type_id: 4, label: "Storage Redundancy", field_type: "select", placeholder: "", help: "", options: [["normal", "Normal"], ["reduced", "Reduced"]], default: "normal", required: true, load_order: 0, manageiq_key: "availability"},
        { id: 11, product_type_id: 4, label: "Region", field_type: "select", placeholder: "", help: "", options: [["", "US Standard"], ["us-west-1", "US-West (Northern California)"], ["us-west-2", "US-West (Oregon)"], ["EU", "EU (Ireland)"], ["ap-northeast-1", "Asia Pacific (Tokyo)"], ["ap-southeast-1", "Asia Pacific (Singapore)"], ["ap-southeast-2", "Asia Pacific (Sydney)"]], default: "", required: true, load_order: 1, manageiq_key: "region"}
@@ -200,7 +200,7 @@ namespace :sample do
        { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"], field_type: 1},
        { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Yes", "No"], field_type: 1},
        { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Low", "Medium", "High"], field_type: 1},
-       { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, options: nil, field_type: 2}
+       { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, field_type: 2}
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")
 
@@ -211,15 +211,15 @@ namespace :sample do
     Approval.connection.execute("ALTER SEQUENCE approvals_id_seq RESTART #{Approval.all.order('id DESC').first.id + 1}")
 
     Order.create!([
-       { id: 1, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: {}, deleted_at: nil, total: 0.0},
-       { id: 2, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: {}, deleted_at: nil, total: 0.0},
-       { id: 3, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: {}, deleted_at: nil, total: 0.0},
-       { id: 4, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0},
-       { id: 5, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0},
-       { id: 6, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0},
-       { id: 7, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0},
-       { id: 8, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0},
-       { id: 9, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0}
+       { id: 1, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 2, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 3, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 4, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 5, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 6, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 7, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 8, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
+       { id: 9, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0}
     ])
     Order.connection.execute("ALTER SEQUENCE orders_id_seq RESTART #{Order.all.order('id DESC').first.id + 1}")
 
