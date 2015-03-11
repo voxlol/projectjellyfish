@@ -89,7 +89,9 @@ CartService.prototype = {
 
     var order = {
       staff_id: staffId,
-      order_items: orderItems
+      order_items: orderItems,
+      total: this.totalPrice,
+      provision_status: "active"
     };
 
     this.OrdersResource.save(order).$promise.then(_.bind(function() {
@@ -129,8 +131,7 @@ CartService.prototype = {
       this.totalPrice=parseFloat(this.totalPrice)+(parseFloat(this._getInCartPrice(item.product))*10000);
     }, this));
     this.totalPrice = this.totalPrice/10000;
-    this.totalPrice = this._formatCurrency(this.totalPrice, 2, 3, ',', '.');
-    return this.totalPrice;
+    return this._formatCurrency(this.totalPrice, 2, 3, ',', '.');
   },
 
   /**
