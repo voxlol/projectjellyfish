@@ -32,9 +32,8 @@ class ContentPagesController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    page = ContentPage.create content_page_params
-    authorize page
-    respond_with page
+    authorize ContentPage
+    respond_with ContentPage.create content_page_params
   end
 
   api :PUT, '/content_pages/:slug', 'Updates content page with :slug'
