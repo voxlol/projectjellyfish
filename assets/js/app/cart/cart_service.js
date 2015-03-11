@@ -2,10 +2,11 @@
 var _ = require('lodash');
 
 /**@ngInject*/
-var CartService = function($q, $state, OrdersResource) {
+var CartService = function($q, $state, OrdersResource, FlashesService) {
   this.$q = $q;
   this.OrdersResource = OrdersResource;
   this.$state = $state;
+  this.FlashesService = FlashesService;
 
   this.cart = this._getResource();
 };
@@ -96,6 +97,11 @@ CartService.prototype = {
 
       // Empty the Cart.
       this.clearCart();
+      this.FlashesService.add({
+          timeout: true,
+          type: 'success',
+          message: "Cart was successfully checked out."
+      });
 
       /**
        * If the state we are on is a project, reload it to get the new data.
@@ -113,9 +119,14 @@ CartService.prototype = {
         checkoutCallback();
       }
 
-    }, this), function() {
+    }, this), _.bind(function() {
       // @todo Error/Reject case.
-    });
+        this.FlashesService.add({
+            timeout: true,
+            type: 'error',
+            message: "Cart failed to checkout. Please try again."
+        });
+    }, this));
   },
 
   /**
