@@ -43,7 +43,7 @@ class ContentPagesController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    respond_with page.update_attributes content_page_params
+    respond_with content_page.update_attributes content_page_params
   end
 
   api :DELETE, '/content_pages/:slug', 'Deletes content page with :slug'
@@ -77,7 +77,6 @@ class ContentPagesController < ApplicationController
   end
 
   def content_page
-    Rails.logger.debug ap params
     @content_page = ContentPage.find(params.require(:slug)).tap { |c| authorize(c) }
   end
 
