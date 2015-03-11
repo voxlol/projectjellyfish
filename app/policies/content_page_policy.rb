@@ -4,34 +4,32 @@ class ContentPagePolicy < ApplicationPolicy
   end
 
   def create?
-    admin_or_related
+    user.admin?
   end
 
   def show?
-    admin_or_related
+    user.admin?
   end
 
   def new?
-    admin_or_related
+    user.admin?
   end
 
   def update?
-    admin_or_related
+    user.admin?
   end
 
   def destroy?
-    admin_or_related
+    user.admin?
+  end
+
+  def revert?
+    user.admin?
   end
 
   class Scope < Scope
     def resolve
       scope
     end
-  end
-
-  private
-
-  def admin_or_related
-    user.admin?
   end
 end
