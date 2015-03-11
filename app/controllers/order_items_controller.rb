@@ -61,9 +61,10 @@ class OrderItemsController < ApplicationController
   param :id, :number, required: true
 
   def retire_service
-    authorize OrderItem
+    order_item = OrderItem.find(params[:id])
+    authorize order_item
+    order_item.provisioner.delay(queue: 'retire_request').retire
     render nothing: true, status: :ok
-    RetireWorker.new(params[:id]).delay(queue: 'retire_request').perform
   end
 
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
