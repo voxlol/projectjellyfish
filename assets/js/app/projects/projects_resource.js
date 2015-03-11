@@ -56,7 +56,7 @@ var ProjectsResource = function($resource, apiResource) {
   });
 
   Project.prototype.finalApproval = function() {
-    if (0 === this.approvals.length) {
+    if ( (typeof this.approvals === "undefined") || (0 === this.approvals.length)) {
       return null;
     }
     return finalApproval(this.approvals, this.approvers);
