@@ -91,10 +91,9 @@ ProjectController.prototype = {
 
   removeUserFromProject: function(index) {
     var self = this;
-
-    this.ProjectUsersResource.delete({id: this.project.id, staff_id: this.project.users[index].id}).$promise.then(
+    this.ProjectUsersResource.delete({id: this.project.id, staff_id: this.project.staff[index].id}).$promise.then(
       _.bind(function(data) {
-        this.project.users.splice(index, 1);
+        this.project.staff.splice(index, 1);
       }, this),
       function(error) {
         self.FlashesService.add({
