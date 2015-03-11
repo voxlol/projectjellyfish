@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 /**@ngInject*/
-function EditProjectController($scope, $state, ProjectsResource, project, projectQuestions) {
+function EditProjectController($scope, $state, ProjectsResource, project, projectQuestions, FlashesService) {
   $scope.project = project;
   $scope.questions = projectQuestions;
 
@@ -12,7 +12,7 @@ function EditProjectController($scope, $state, ProjectsResource, project, projec
       'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'cpu', 'hdd', 'ram',
       'status', 'users', 'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
 
-    if ($scope.project.project_answers.length > 0) {
+    if ((typeof $scope.project.project_answers !== "undefined") && ($scope.project.project_answers.length > 0)) {
       filteredProject.project_answers = _.reduce($scope.project.project_answers,
         function(pas, pa) {
           pas.push(_.omit(pa, 'project_id', 'created_at', 'updated_at',
@@ -21,8 +21,27 @@ function EditProjectController($scope, $state, ProjectsResource, project, projec
         }, []);
     }
 
+    for (var prop in filteredProject)
+    {
+        if (filteredProject[prop] === null)
+        {
+            delete filteredProject[prop];
+        }
+    }
     ProjectsResource.update(filteredProject, function() {
-      $state.go('base.authed.project.view', {projectId: project.id}, {reload: true});
+        FlashesService.add({
+            timeout: true,
+            type: 'success',
+            message: 'Successfully updated the project.'
+        });
+        $state.go('base.authed.project.view', {projectId: project.id}, {reload: true});
+    },
+    function() {
+        FlashesService.add({
+            timeout: true,
+            type: 'error',
+            message: 'Failed to update the project. Please try again.'
+        });
     });
   };
 }
