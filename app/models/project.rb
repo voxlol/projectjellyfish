@@ -27,8 +27,6 @@
 
 class Project < ActiveRecord::Base
   # Includes
-  include OrderItemPrice
-
   acts_as_paranoid
 
   # Constants

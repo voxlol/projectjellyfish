@@ -19,8 +19,6 @@
 #
 
 class Order < ActiveRecord::Base
-  include OrderItemPrice
-
   acts_as_paranoid
 
   belongs_to :staff
