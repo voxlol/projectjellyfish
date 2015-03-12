@@ -72,7 +72,7 @@ describe 'Orders API' do
       expect(response.body).to eq(Order.first.to_json)
     end
 
-    it 'does not create an order if the project is over pudget', :show_in_doc do
+    it 'does not create an order if the project is over budget', :show_in_doc do
       product = create(:product, setup_price: 100)
       project = create(:project, budget: 10)
       post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
