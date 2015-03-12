@@ -47,7 +47,6 @@ class OrderItem < ActiveRecord::Base
   belongs_to :latest_alert, class_name: 'Alert'
 
   # Hooks
-  before_create :inherit_price_data
   after_commit :provision, on: :create
 
   # Validations
@@ -57,20 +56,10 @@ class OrderItem < ActiveRecord::Base
   # Columns
   enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
 
-  def check_budget?
-    Rails.logger.debug 'Check Budget?'
-    Rails.logger.debug ap self
-    Rails.logger.debug ap project
-    Rails.logger.debug ap product
-  end
-
   private
 
   def validate_product_id
     errors.add(:product, 'Product does not exist.') unless Product.exists?(product_id)
-  end
-
-  def inherit_price_data
   end
 
   def provision

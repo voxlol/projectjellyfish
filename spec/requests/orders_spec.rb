@@ -68,14 +68,14 @@ describe 'Orders API' do
     it 'creates an order', :show_in_doc do
       product = create(:product)
       project = create(:project)
-      post '/orders/', { staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }] }
+      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
       expect(response.body).to eq(Order.first.to_json)
     end
 
     it 'does not create an order if the project is over pudget', :show_in_doc do
       product = create(:product, setup_price: 100)
       project = create(:project, budget: 10)
-      post '/orders/', { staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }] }
+      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
       expect(response.code).to eq('409')
     end
   end

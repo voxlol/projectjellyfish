@@ -47,18 +47,18 @@ class Order < ActiveRecord::Base
   def total_per_order(oid)
     total = 0
     order_items.where(order_id: oid).each do |order_item|
-      total = total + calculate_price(order_item.setup_price, order_item.hourly_price, order_item.monthly_price)
+      total += calculate_price(order_item.setup_price, order_item.hourly_price, order_item.monthly_price)
     end
     total
   end
 
   def exceeds_budget?
-    grouped_order_items = order_items.group_by { |oi| oi.project }
+    grouped_order_items = order_items.group_by(&:project)
     grouped_order_items.reduce(false) do |over_budget, project_order_items|
       cost = project_order_items[1].reduce(0) do |sum, oi|
-        sum += calculate_price(oi.setup_price, oi.hourly_price, oi.monthly_price)
+        sum + calculate_price(oi.setup_price, oi.hourly_price, oi.monthly_price)
       end
-      over_budget || cost > project_order_items[0].budget
+      over_budget || cost + project_order_items[0].spent > project_order_items[0].budget
     end
   end
 

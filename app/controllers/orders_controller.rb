@@ -41,8 +41,6 @@ class OrdersController < ApplicationController
   param :bundle_id, :number, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
-  include OrderItemPrice
-
   def create
     authorize Order
     @order = Order.new @orders_params
@@ -126,7 +124,4 @@ class OrdersController < ApplicationController
     @order = Order.find params.require(:id)
     @order_items = query_with OrderItem.where(order_id: @order.id), :includes, :pagination
   end
-
-  private
-
 end

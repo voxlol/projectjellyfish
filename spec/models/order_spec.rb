@@ -33,28 +33,27 @@ describe Order do
     end
 
     it 'returns false if the total is under the project budget' do
-      order = setup_order(200)
+      order = setup_order(100)
 
       expect(order.exceeds_budget?).to be_falsy
     end
 
     def setup_order(setup_price)
-      project_one = create(:project, budget: 200)
-      project_two = create(:project, budget: 100)
+      project_one = create(:project, id: 1, budget: 200, spent: 0)
+      project_two = create(:project, id: 2, budget: 100, spent: 0)
       order_items = [
         build(:order_item,
               project: project_one,
-              product: create(:product,
-                              setup_price: setup_price,
-                              hourly_price: 0,
-                              monthly_price: 0)),
+              setup_price: setup_price,
+              hourly_price: 0,
+              monthly_price: 0),
         build(:order_item,
               project: project_two,
-              product: create(:product,
-                              setup_price: 25,
-                              hourly_price: 0, monthly_price: 0))
+              setup_price: setup_price,
+              hourly_price: 0,
+              monthly_price: 0)
       ]
-      create(:order, order_items: order_items)
+      create(:order, order_items: order_items, staff_id: staff.id)
     end
   end
 
