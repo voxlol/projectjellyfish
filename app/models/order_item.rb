@@ -56,6 +56,10 @@ class OrderItem < ActiveRecord::Base
   # Columns
   enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
 
+  def calculate_price(hours_in_month = 750)
+    setup_price + monthly_price + (hourly_price * hours_in_month)
+  end
+
   private
 
   def validate_product_id

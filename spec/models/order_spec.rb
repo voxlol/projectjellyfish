@@ -39,7 +39,7 @@ describe Order do
     end
 
     def setup_order(setup_price)
-      project_one = create(:project, id: 1, budget: 200, spent: 0)
+      project_one = create(:project, id: 1, budget: 250, spent: 0)
       project_two = create(:project, id: 2, budget: 100, spent: 0)
       order_items = [
         build(:order_item,
