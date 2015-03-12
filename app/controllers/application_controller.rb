@@ -49,4 +49,12 @@ class ApplicationController < ActionController::Base
   def json_request?
     request.format.json?
   end
+
+  def pre_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook', params)
+  end
+
+  def post_hook
+    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook', params)
+  end
 end
