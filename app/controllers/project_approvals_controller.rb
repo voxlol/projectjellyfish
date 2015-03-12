@@ -41,12 +41,4 @@ class ProjectApprovalsController < ApplicationController
   def project
     @_project ||= Project.find(params[:project_id]).tap { |proj| authorize(proj) }
   end
-
-  def pre_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
-  end
-
-  def post_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
-  end
 end

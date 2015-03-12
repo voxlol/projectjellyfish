@@ -60,12 +60,4 @@ class ProductsController < ApplicationController
     load_product
     @answers = @product.answers
   end
-
-  def pre_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
-  end
-
-  def post_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
-  end
 end

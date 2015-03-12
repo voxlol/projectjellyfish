@@ -180,12 +180,4 @@ class AlertsController < ApplicationController
     }
     Alert.where(conditions).order('updated_at DESC').limit(1).first
   end
-
-  def pre_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
-  end
-
-  def post_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
-  end
 end

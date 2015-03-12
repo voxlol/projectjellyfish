@@ -84,12 +84,4 @@ class ManageIqProductsController < ApplicationController
   def load_manage_iq_product
     @manage_iq_product = ManageIqProduct.find(params.require(:id))
   end
-
-  def pre_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
-  end
-
-  def post_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
-  end
 end

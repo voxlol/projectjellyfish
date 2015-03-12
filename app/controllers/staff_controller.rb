@@ -93,12 +93,4 @@ class StaffController < ApplicationController
   def staff_params
     params.permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
   end
-
-  def pre_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/pre_hook')
-  end
-
-  def post_hook
-    ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook')
-  end
 end
