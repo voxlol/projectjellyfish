@@ -1,4 +1,7 @@
 class ProjectStaffController < ApplicationController
+  before_action :pre_hook
+  after_action :post_hook
+
   api :GET, '/projects/:project_id/staff', 'Shows collection of staff for a :project_id'
   param :project_id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found

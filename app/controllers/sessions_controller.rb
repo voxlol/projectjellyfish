@@ -2,6 +2,8 @@ class SessionsController < Devise::SessionsController
   respond_to :json, :html
 
   skip_before_action :verify_signed_out_user, only: :destroy
+  before_action :pre_hook
+  after_action :post_hook
 
   api :POST, '/staff/sign_in', 'Signs user in'
   param :staff, Hash, desc: 'Staff' do

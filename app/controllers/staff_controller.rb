@@ -1,4 +1,7 @@
 class StaffController < ApplicationController
+  before_action :pre_hook
+  after_action :post_hook
+
   def self.document_staff_params
     param :email, String
     param :first_name, String

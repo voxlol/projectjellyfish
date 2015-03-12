@@ -1,6 +1,8 @@
 class ManageIqProductsController < ApplicationController
   after_action :verify_authorized
+  after_action :post_hook
 
+  before_action :pre_hook
   before_action :load_manage_iq_product_params, only: [:create, :update]
   before_action :load_manage_iq_product, only: [:update]
 
@@ -59,7 +61,6 @@ class ManageIqProductsController < ApplicationController
       :service_type_id,
       :service_catalog_id,
       :chef_role,
-      :product_type_id,
       :cloud_id,
       options: []
     )

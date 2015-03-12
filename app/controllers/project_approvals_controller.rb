@@ -1,4 +1,7 @@
 class ProjectApprovalsController < ApplicationController
+  before_action :pre_hook
+  after_action :post_hook
+
   api :GET, '/projects/:project_id/approvals', 'Returns a list of all approvals for a project'
   param :project_id, :number, required: true
 

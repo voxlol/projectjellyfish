@@ -117,5 +117,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # Content Pages Routes
+  resources :content_pages, only: [:index, :create], defaults: { format: :json }
+  resources :content_pages, only: [:update, :show, :destroy], defaults: { format: :json }, param: :slug
+  patch 'content_pages/revert/:slug', to: 'content_pages#revert', defaults: { format: :json }
+
   root 'welcome#index'
 end

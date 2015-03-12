@@ -1,7 +1,9 @@
 class ProjectsController < ApplicationController
   PROJECT_INCLUDES = %w(alerts approvals approvers latest_alerts project_answers project_detail services staff)
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
+  before_action :pre_hook
   after_action :verify_authorized
+  after_action :post_hook
 
   def self.document_project_params
     with_options required: false do |api|
