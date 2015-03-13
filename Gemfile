@@ -89,9 +89,6 @@ gem 'daemons'
 # Get picky about what is put into responses
 gem 'active_model_serializers', '~> 0.8.0'
 
-# fog.io
-gem 'fog'
-
 # Gems for Content Pages
 gem 'friendly_id'
 gem 'paper_trail'
