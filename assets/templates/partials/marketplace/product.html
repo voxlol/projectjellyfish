@@ -45,7 +45,7 @@
             <dd>{{answer.answer}}</dd>
           </div>
         </dl>
-        <hr/>
+        <hr ng-hide="showCtrl.product.answers.length < 1"/>
         <dl class="dl-horizontal">
           <dt>Setup Price</dt>
           <dd>$ {{showCtrl.product.setup_price}}</dd>
