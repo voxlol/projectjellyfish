@@ -1,8 +1,8 @@
 jellyfish-api
 =======
 
-[![Code Climate](https://codeclimate.com/repos/54d4fa64695680762a0024c5/badges/6d529333a903ef19c6c7/gpa.svg)](https://codeclimate.com/repos/54d4fa64695680762a0024c5/feed)
-[![Test Coverage](https://codeclimate.com/repos/54d4fa64695680762a0024c5/badges/6d529333a903ef19c6c7/coverage.svg)](https://codeclimate.com/repos/54d4fa64695680762a0024c5/feed)
+[![Code Climate](https://codeclimate.com/github/projectjellyfish/api/badges/gpa.svg)](https://codeclimate.com/github/projectjellyfish/api)
+[![Test Coverage](https://codeclimate.com/github/projectjellyfish/api/badges/coverage.svg)](https://codeclimate.com/github/projectjellyfish/api)
 [![Build Status](https://travis-ci.org/projectjellyfish/api.svg)](https://travis-ci.org/projectjellyfish/api)
 
 #### Overview
