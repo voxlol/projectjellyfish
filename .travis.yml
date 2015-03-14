@@ -8,7 +8,7 @@ addons:
   postgresql: "9.4"
   code_climate:
       repo_token:
-        secure: "NmM3/RgUqmnxkcOc3sTiP+nlJzuQ32R/yXlWYxBEqFHV/IMRmCV6G0Whz+QjAKTyh1X2xHXexwgDSbqoxytWctk6PrsPsELLIfFsP3xeOpHienwXF6wkq0NhV30dr+wrCPg7OHEbVVZv/B2fv5iZCCrk1M1CseF9Yc1P5lz08Iw="
+        secure: "jcbt0mfVBiGJaNc5XoTo/UWe0WUBtGLye01yIcBD9XBG64DcDCQ8zMV5miWxjeVvR0b7RZw3KBEECg43gVZXJRg4N+YVyNPTuBPOnKVqCJvMl3qojXuCOTWL3xMGSiKTc1ATwEELl9kcyQqD3xu+Cf1qIGvM8NOG8++fKawYLSg="
 
 before_script:
   - bundle exec rake db:create
