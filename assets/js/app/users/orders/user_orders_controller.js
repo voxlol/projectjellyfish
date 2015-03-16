@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 /**@ngInject*/
 function UserOrderController($scope, orders) {
-  var provision_status_map = { ok: 0, warning: 3, critical: 4, unknown: 2, pending: 1, retired: 5 };
+  var provision_status_map = { ok: 0, pending: 1, unknown: 2, warning: 3, critical: 4, retired: 5 };
   _.each(orders, function(order)
   {
     order.provision_status = "ok";
