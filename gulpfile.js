@@ -5,7 +5,7 @@ var plumber = require('gulp-plumber');
 var bower = require('gulp-bower');
 var server = require( 'gulp-develop-server');
 var es = require('event-stream');
-// var fs = require('fs');
+var jscs = require('gulp-jscs');
 
 // JS Hint
 var jshint = require('gulp-jshint');
@@ -87,6 +87,10 @@ gulp.task('jshint', ['bower'], function() {
   return gulp.src(appAssetSrc + '/js/**/*.js')
     .pipe(plumber({
       errorHandler: errorHandler
+    }))
+    .pipe(jscs())
+    .on("error", notify.onError({
+      message: 'JSCS task failed'
     }))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish-recolor'))
@@ -278,6 +282,14 @@ gulp.task('watch', function() {
 
   // watches Image files for changes
   gulp.watch(appAssetSrc + '/images/**/*', ['images']);
+});
+
+gulp.task('jscs', function() {
+  return gulp.src('assets/**/*.js')
+    .pipe(jscs())
+    .on("error", notify.onError(function (error) {
+      return "Error: " + error.message;
+    }))
 });
 
 gulp.task('default', ['templates', 'scripts', 'styles', 'images', 'fonts', 'watch']);
