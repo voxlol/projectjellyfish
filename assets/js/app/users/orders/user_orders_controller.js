@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 /**@ngInject*/
 function UserOrderController($scope, orders) {
+  // this enumeration of statuses is not consistent with the API's enumeration.
   var provision_status_map = { ok: 0, pending: 1, unknown: 2, warning: 3, critical: 4, retired: 5 };
   _.each(orders, function(order)
   {
@@ -14,6 +15,7 @@ function UserOrderController($scope, orders) {
       if (typeof order_item.provision_status === "undefined") {
         order_item.provision_status = "unknown";
       }
+      // if an order_item's status is of higher concern than the order's current status
       if (provision_status_map[order.provision_status] < provision_status_map[order_item.provision_status]) {
         if (order_item.provision_status === "retired") {
           retiredCount++;
@@ -27,6 +29,7 @@ function UserOrderController($scope, orders) {
         }
       }
     });
+    // not retired unless all order_items are retired
     if (retiredCount === order.order_items.length)
     {
       if (retiredCount > 0) {
