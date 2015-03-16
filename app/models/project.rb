@@ -89,7 +89,7 @@ class Project < ActiveRecord::Base
 
   def monthly_spend
     services.reduce(0) do |total, service|
-      total + service.setup_price + (service.hourly_price * 750) + service.monthly_price
+      total + service.calculate_price
     end
   end
 
