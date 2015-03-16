@@ -11,6 +11,8 @@ module Jellyfish
           end
 
           order_item.instance_name = instance_name
+          order_item.payload_response = storage.to_json
+          order_item.provision_status = 'ok'
           order_item.url = storage.public_url
         end
 
@@ -24,7 +26,7 @@ module Jellyfish
         private
 
         def connection
-          Fog::Storage.new(
+          ::Fog::Storage.new(
             provider: 'AWS',
             aws_access_key_id: aws_settings[:access_key],
             aws_secret_access_key: aws_settings[:secret_key]

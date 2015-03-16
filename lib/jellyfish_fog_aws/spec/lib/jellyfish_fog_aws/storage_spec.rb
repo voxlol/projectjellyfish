@@ -3,19 +3,26 @@ require 'spec_helper'
 module Jellyfish
   module Fog
     module AWS
-      describe Infrastructure do
+      describe Databases do
         it 'provisions infrastructure using fog' do
           enable_aws_fog_provisioning
 
-          Infrastructure.new(order_item).provision
+          Storage.new(order_item).provision
 
+          expect(order_item.instance_name).to eq 'id-1234567890'
+          expect(order_item.url).to eq 'https://id-1234567890.s3.amazonaws.com/'
           expect(order_item.provision_status).to eq 'ok'
           expect(order_item.payload_response).to be_present
         end
 
         def order_item
           @order_item ||= OpenStruct.new.tap do |order_item|
-            order_item.answers = {}
+            order_item.uuid = '1234567890'
+            order_item.answers = {
+              'AllocatedStorage' => 100,
+              'DBInstanceClass' => 'Test',
+              'Engine' => 'Test'
+            }
           end
         end
 

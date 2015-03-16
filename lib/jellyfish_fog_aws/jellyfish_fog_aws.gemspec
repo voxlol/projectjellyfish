@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails'
   s.add_dependency 'fog'
+  s.add_dependency 'bcrypt'
 
   s.add_development_dependency 'pg'
   s.add_development_dependency 'rspec-rails'

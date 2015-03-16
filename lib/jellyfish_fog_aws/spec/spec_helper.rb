@@ -4,6 +4,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'factory_girl'
 require 'database_cleaner'
+require 'bcrypt'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
