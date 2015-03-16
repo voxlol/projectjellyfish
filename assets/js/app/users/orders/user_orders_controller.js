@@ -4,6 +4,14 @@ var _ = require('lodash');
 
 /**@ngInject*/
 function UserOrderController($scope, orders) {
+  this.orders = this.getOrderStatus(orders);
+}
+
+UserOrderController.prototype.getOrders = function() {
+  return this.orders;
+};
+
+UserOrderController.prototype.getOrderStatus = function(orders) {
   // this enumeration of statuses is not consistent with the API's enumeration.
   var provision_status_map = { ok: 0, pending: 1, unknown: 2, warning: 3, critical: 4, retired: 5 };
   _.each(orders, function(order)
@@ -40,11 +48,7 @@ function UserOrderController($scope, orders) {
       }
     }
   });
-  this.orders = orders;
-}
-
-UserOrderController.prototype.getOrders = function() {
-  return this.orders;
+  return orders;
 };
 
 UserOrderController.resolve = {
