@@ -38,7 +38,7 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
         function(data) {
         }, function(error) {
           // @todo We should use a code here not a string match.
-          if (error.data.error === "Duplicate record.") {
+          if ((error.data !== null) && (error.data.error === "Duplicate record.")) {
             duplicateRecord = true;
           } else {
             criticalError = true;
@@ -48,12 +48,19 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
 
     $q.all(userInserts).finally(function() {
       $scope.updating = false;
-
       if (criticalError) {
         FlashesService.add({
           timeout: true,
           type: 'error',
           message: "There was a problem adding these users. Please try again."
+        });
+      }
+      else
+      {
+        FlashesService.add({
+           timeout: true,
+            type: 'success',
+            message: "Users added successfully."
         });
       }
 

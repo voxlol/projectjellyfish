@@ -17,24 +17,77 @@ function ProductFormController($state, FlashesService) {
     this.product = parent.product;
   };
 
-  function onSuccess() {
+  this.onSuccess = function(actionType) {
+      if (actionType === 'create') {
+          FlashesService.add({
+              timeout: true,
+              type: 'success',
+              message: 'Product was successfully added.'
+          });
+      }
+      else if (actionType === 'update') {
+          FlashesService.add({
+              timeout: true,
+              type: 'success',
+              message: 'Product was successfully edited.'
+          });
+      }
+      else if (actionType === 'destroy') {
+          FlashesService.add({
+              timeout: true,
+              type: 'success',
+              message: 'Product was successfully deleted.'
+          });
+      }
+      else
+      {
+          FlashesService.add({
+              timeout: true,
+              type: 'success',
+              message: 'Product: Success.'
+          });
+      }
     $state.go('base.authed.admin.products.list');
-  }
+  };
 
-  function onFailure() {
-    FlashesService.add({
-      timeout: true,
-      type: 'error',
-      message: 'There was a problem saving the product. You may want to try again later.'
-    });
-  }
+  this.onFailure = function(actionType) {
+    if (actionType === 'create') {
+        FlashesService.add({
+            timeout: true,
+            type: 'error',
+            message: 'There was a problem saving the product. You may want to try again later.'
+        });
+    }
+    else if (actionType === 'update') {
+      FlashesService.add({
+          timeout: true,
+          type: 'error',
+          message: 'There was a problem editing the product. You may want to try again later.'
+      });
+    }
+    else if (actionType === 'destroy') {
+      FlashesService.add({
+          timeout: true,
+          type: 'error',
+          message: 'There was a problem deleting the product. You may want to try again later.'
+      });
+    }
+    else
+    {
+        FlashesService.add({
+            timeout: true,
+            type: 'error',
+            message: 'Product: Failure.'
+        });
+    }
+  };
 
   this.create = function() {
     self.formSubmitted = true;
     if (self.form.$invalid) {
       return false;
     }
-    self.product.$save(onSuccess, onFailure);
+    self.product.$save(function() {self.onSuccess('create');}, function() {self.onFailure('create');});
   };
 
   this.update = function() {
@@ -46,12 +99,12 @@ function ProductFormController($state, FlashesService) {
     // Make sure description is a string, textarea empty is null which is not valid;
     self.product.description = String(self.product.description);
 
-    self.product.$update(onSuccess, onFailure);
+    self.product.$update(function() {self.onSuccess('update');}, function() {self.onFailure('update');});
   };
 
   this.destroy = function() {
     self.formSubmitted = true;
-    self.product.$delete(onSuccess, onFailure);
+    self.product.$delete(function() {self.onSuccess('destroy');}, function() {self.onFailure('destroy');});
   };
 
   this.canSubmit = function() {
