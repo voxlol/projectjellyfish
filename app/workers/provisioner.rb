@@ -34,4 +34,8 @@ class Provisioner
     order_item.provision_status = :critical
     order_item.status_msg = message
   end
+
+  def aws_settings
+    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
+  end
 end

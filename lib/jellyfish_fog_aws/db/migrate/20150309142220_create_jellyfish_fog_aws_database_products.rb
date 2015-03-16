@@ -5,6 +5,8 @@ class CreateJellyfishFogAwsDatabaseProducts < ActiveRecord::Migration
       t.string :db_instance_class
       t.string :engine
       t.string :allocated_storage
+      t.string :storage_type
+      t.string :availability
     end
   end
 end

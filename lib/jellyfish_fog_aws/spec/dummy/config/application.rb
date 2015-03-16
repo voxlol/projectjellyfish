@@ -24,7 +24,7 @@ module Dummy
   end
 end
 
-class Provisioner; end
+require File.expand_path("../../app/models/provisioner", __FILE__)
 
 Bundler.require
 require "jellyfish_fog_aws"

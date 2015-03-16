@@ -23,7 +23,7 @@ module Jellyfish
         private
 
         def connection
-          Fog::Compute.new(
+          ::Fog::Compute.new(
             provider: 'AWS',
             aws_access_key_id: aws_settings[:access_key],
             aws_secret_access_key: aws_settings[:secret_key]

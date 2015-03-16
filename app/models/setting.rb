@@ -19,21 +19,23 @@ class Setting < ActiveRecord::Base
     hid
   end
 
-  def nil_values(field)
-    field['value_withheld'] && field['value'].nil?
-  end
-
   # Returns a hash of setting_fields with their hids as the key and their value as the value
   # check_box fields are considered booleans and anything but 'true' is false
   def settings_hash
     setting_fields.map do |setting|
       value = case setting.field_type
               when 'check_box'
-                'true' == setting.value ? true : false
+                'true' == setting.value
               else
                 setting.value
               end
       [setting.hid.to_sym, value]
     end.to_h
+  end
+
+  private
+
+  def nil_values(field)
+    field['value_withheld'] && field['value'].nil?
   end
 end

@@ -1,4 +1,4 @@
-class JellyfishFogAwsStorageProducts < ActiveRecord::Migration
+class CreateJellyfishFogAwsStorageProducts < ActiveRecord::Migration
   def change
     create_table :jellyfish_fog_aws_storage_products do |t|
       t.timestamps

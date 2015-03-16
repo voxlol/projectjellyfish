@@ -29,7 +29,7 @@ module Jellyfish
         private
 
         def details
-          order_item.manageiq_answers.merge(
+          order_item.answers.merge(
             'MasterUserPassword' => @password,
             'MasterUsername' => 'admin'
           )
