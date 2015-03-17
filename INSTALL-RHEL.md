@@ -89,13 +89,14 @@ gem install pg
 ####Check out the latest code
 
 ````
-git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
+git clone https://github.com/projectjellyfish/api.git
 ````
 
 
 ####Install any dependencies
 
 ````
+cd /home/jellyfish/api
 bundle install
 ````
 
@@ -117,7 +118,7 @@ DEFAULT_URL=http://jellyfish-core-url.server.com
 
 ####Populate the database
 
-Run the following rake commands.  You only need to run "rake sample:jenkins" if
+Run the following rake commands.  You only need to run "rake sample:demo" if
 you are wanting, sample data (useful for development).  Please note that this
 rake task does not create the database or the database user (those will need
 to be created based on the DB you are using)
@@ -158,7 +159,7 @@ upstream myapp_puma {
 
 server {
   listen  80;
-  root /home/jellyfish/jellyfish-core/public;
+  root /home/jellyfish/api/public;
 
   location / {
         #all requests are sent to the UNIX socket
@@ -191,7 +192,7 @@ sudo /etc/init.d/nginx restart
 
 Start Core
 ````
-cd /home/jellyfish/jellyfish-core
+cd /home/jellyfish/api
 bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock
 ````
 
