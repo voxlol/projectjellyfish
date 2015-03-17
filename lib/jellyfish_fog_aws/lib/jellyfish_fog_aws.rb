@@ -1,4 +1,5 @@
 require 'fog'
+require 'bcrypt'
 require 'jellyfish_fog_aws/engine'
 require 'jellyfish_fog_aws/databases'
 require 'jellyfish_fog_aws/storage'

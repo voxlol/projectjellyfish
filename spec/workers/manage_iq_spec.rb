@@ -38,7 +38,7 @@ describe ManageIQ do
   end
 
   def build_order_item
-    create(:order_item, uuid: '61810e22-f212-4429-a1ca-f1aae51904a0')
+    create(:order_item, uuid: '61810e22-f212-4429-a1ca-f1aae51904a0', provision_status: :unknown)
   end
 
   def build_client(response_code = 200)

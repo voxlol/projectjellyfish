@@ -31,7 +31,7 @@ class ManageIQ < Provisioner
         message: e.try(:message) || "Action response was out of bounds, or something happened that wasn't expected"
       }
 
-      raise
+      raise e
     ensure
       order_item.save!
     end

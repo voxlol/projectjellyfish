@@ -6,16 +6,18 @@ module Jellyfish
           @password = SecureRandom.hex(5)
           db_instance_id = "id-#{order_item.uuid[0..9]}"
           begin
-            connection.create_db_instance(db_instance_id, details)
+            db = connection.create_db_instance(db_instance_id, details)
           rescue Excon::Errors::BadRequest, Excon::Errors::Forbidden => e
             raise e, 'Bad request. Check for valid credentials and proper permissions.', e.backtrace
           end
 
           order_item.instance_name = db_instance_id
-          order_item.password = BCrypt::Password.create(@password)
+          order_item.password = ::BCrypt::Password.create(@password)
           order_item.port = db.local_port
           order_item.public_ip = db.remote_ip
           order_item.url = db.local_address
+          order_item.payload_response = db.to_json
+          order_item.provision_status = 'ok'
           order_item.username = 'admin'
         end
 
@@ -36,7 +38,7 @@ module Jellyfish
         end
 
         def connection
-          Fog::AWS::RDS.new(
+          ::Fog::AWS::RDS.new(
             aws_access_key_id: aws_settings[:access_key],
             aws_secret_access_key: aws_settings[:secret_key]
           )

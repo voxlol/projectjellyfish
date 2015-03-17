@@ -6,11 +6,13 @@ module Jellyfish
           # TODO: Must get an image_id from product types
           details = order_item.answers.merge('image_id' => 'ami-acca47c4')
           server = nil
+
           handle_errors do
             server = connection.servers.create(details).tap { |s| s.wait_for { ready? } }
           end
-          order_item.provision_status = :ok
-          order_item.payload_response = server.attributes
+
+          order_item.provision_status = 'ok'
+          order_item.payload_response = server.to_json
         end
 
         def retire
