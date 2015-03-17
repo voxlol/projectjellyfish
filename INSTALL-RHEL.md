@@ -89,6 +89,7 @@ gem install pg
 ####Check out the latest code
 
 ````
+cd /home/jellyfish
 git clone https://github.com/projectjellyfish/api.git
 ````
 
@@ -147,9 +148,9 @@ Delete the default site config
 sudo rm /etc/nginx/conf.d/default.conf
 ````
 
-Create jellyfish.conf (with the file contents below)
+Create jellyfish-api.conf (with the file contents below)
 ````
-sudo vi /etc/nginx/conf.d/jellyfish.conf
+sudo vi /etc/nginx/conf.d/jellyfish-api.conf
 
 # File (update the my_app_url.com) and
 
