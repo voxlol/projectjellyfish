@@ -28,8 +28,8 @@
       </a>
     </div>
   </div>
-  <div class="project-status project-status-{{::project.status}}">
-    <div ng-switch on="::project.status">
+  <div class="project-status project-status-{{project.status}}">
+    <div ng-switch on="project.status">
       <i ng-switch-when="ok" class="fa fa-check-circle-o status-icon"></i>
       <i ng-switch-when="critical" class="fa fa-bolt status-icon"></i>
       <i ng-switch-when="warning" class="fa fa-exclamation-triangle status-icon"></i>

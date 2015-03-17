@@ -1,5 +1,5 @@
 //= require lodash
-//= require angularjs
+//= require angular
 //= require angular-ui-router
 //= require angular-animate
 //= require angular-resource
@@ -10,12 +10,12 @@
 //= require ng-currency
 //= require angucomplete-alt
 //= require angular-cookies
-//= require angular-progress-arc
+//= require angular-progress-arc/angular-progress-arc
 //= require angular-smart-table
 //= require angular-ui-select
 //= require jquery
-//= require microplugin
-//= require selectize
-//= require bootstrap
 //= require bootstrap-sass
+//= require objectpath
+//= require angular-schema-form
+//= require tv4
 //= require_tree .

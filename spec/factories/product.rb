@@ -13,12 +13,6 @@ FactoryGirl.define do
 
     provisionable factory: :manage_iq_product
 
-    product_type
-
-    after :create do |product|
-      product.product_type.questions.each do |question|
-        create :product_answer, product: product, product_type_question_id: question.id
-      end
-    end
+    product_type { ProductType.names.first }
   end
 end

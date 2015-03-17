@@ -15,7 +15,7 @@ function EditProductController(product, categories) {
 EditProductController.resolve = {
   /**@ngInject*/
   product: function(ProductsResource, $stateParams) {
-    return ProductsResource.get({id: $stateParams.id, 'includes[]': ['answers']}).$promise;
+    return ProductsResource.get({id: $stateParams.id}).$promise;
   }
 };
 

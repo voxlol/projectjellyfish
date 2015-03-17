@@ -3,15 +3,10 @@
 /**@ngInject*/
 function CreateProductController(product, categories, $stateParams) {
   this.product = product;
-  this.productType = _.find(categories, {id: $stateParams.product_type_id});
-
-  this.product.answers = _.map(this.productType.questions, function(question) {
-    return {
-      answer: question.default,
-      product_type_question_id: question.id,
-      question: question
-    };
-  });
+  this.product.img = "products/aws_ec2.png";
+  this.product.provisioning_answers = {};
+  this.categories = categories;
+  this.categoriesByName = _.object(_.map(categories, function(x){return [x.title, x]}))
 }
 
 CreateProductController.resolve = {

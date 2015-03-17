@@ -64,11 +64,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def answers
-    answers = product.answers
-    product.product_type.questions.map do |question|
-      answer = answers.find_by(product_type_question_id: question.id)
-      [question.manageiq_key, answer.nil? ? question.default : answer.answer]
-    end.to_h
+    product.provisioning_answers
   end
 
   private
