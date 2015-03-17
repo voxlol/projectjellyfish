@@ -1,7 +1,7 @@
 ## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish-Core on Red Hat Enterprise Linux (or similar,
-like CentOS).
+This guide will walk you through how to install and run Jellyfish-Core on Red 
+Hat Enterprise Linux (or similar, like CentOS).
 
 ####Create jellyfish user
 
@@ -27,7 +27,8 @@ sudo yum install sqlite-devel
 
 ####Install PostgreSQL
 
-Please install PostgreSQL (the version that is stated in README.md) via PostgreSQL's documented process.
+Please install PostgreSQL (the version that is stated in README.md) via 
+PostgreSQL's documented process.
 
 
 ####Install rbenv / rbenv-build / rbenv-sudo
@@ -54,7 +55,8 @@ gem install bundler
 
 ####Install rbenv-default-gems plugin
 
-This will re-install gems automatically for us whenever we install a new version of Ruby.
+This will re-install gems automatically for us whenever we install a new 
+version of Ruby.
 
 ````
 brew install rbenv-default-gems
@@ -126,22 +128,18 @@ rake db:seed
 rake sample:demo
 ````
 
-
 ####Start the server (for development)
 
 ````
 rails s
 ````
 
-
 #####Install Nginx
 
-Get the Package for your RHEL Version (http://nginx.org/en/linux_packages.html), and install
+Please install PostgreSQL (the version that is stated in README.md) via 
+PostgreSQL's documented process.
 
-````
-sudo rpm -i rpm -i <url to repo file from above page>
-sudo yum install nginx
-````
+#####Configure Nginx
 
 Delete the default site config
 ````
