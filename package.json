@@ -24,13 +24,14 @@
     "browserify-shim": "^3.8.0",
     "event-stream": "^3.1.7",
     "gulp": "^3.8.10",
-    "gulp-concat": "^2.4.1",
-    "gulp-develop-server": "^0.2.5",
     "gulp-angular-templatecache": "^1.4.2",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-bower": "0.0.7",
     "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.4.1",
+    "gulp-develop-server": "^0.2.5",
     "gulp-filter": "^1.0.2",
+    "gulp-jscs": "^1.4.0",
     "gulp-jshint": "^1.8.6",
     "gulp-minify-css": "^0.3.11",
     "gulp-notify": "^2.0.0",
@@ -136,7 +137,10 @@
       "exports": "angular.module('md5').name"
     },
     "angular-ui-select": {
-      "depends": ["angular", "angular-sanitize"],
+      "depends": [
+        "angular",
+        "angular-sanitize"
+      ],
       "exports": "angular.module('ui.select').name"
     },
     "angular-progress-arc": {
