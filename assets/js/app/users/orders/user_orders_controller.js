@@ -32,7 +32,7 @@ UserOrderController.prototype.getOrders = function() {
 UserOrderController.prototype.getOrderStatus = function(orders) {
   _.each(orders, function(order)
   {
-    if (_.every(order.order_items, function(order_item){return order_item.provision_status === "retired";})) {
+    if (_.every(order.order_items, {provision_status: 'retired'})) {
       order.provision_status = "retired";
     }
     else {
