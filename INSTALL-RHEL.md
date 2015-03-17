@@ -32,13 +32,14 @@ sudo yum install nginx
 #### Check out the latest code
 
 ````
-git clone https://github.com/booz-allen-hamilton/jellyfish-ux.git
+cd /home/jellyfish
+git clone https://github.com/projectjellyfish/ux.git
 ````
 
 #### Install dependencies
 
 ````
-cd jellyfish-ux
+cd /home/jellyfish/ux
 sudo npm install
 sudo npm install gulp -g
 sudo npm install forever -g
@@ -47,7 +48,7 @@ sudo npm install forever -g
 #### Run gulp
 
 ````
-cd jellyfish-ux
+cd /home/jellyfish/ux
 gulp production
 ````
 
@@ -60,7 +61,7 @@ host, set the apiBasePath to http://YOUR_SERVER_FQDN/api
 Note: This guide covers getting the server up and running on HTTP, you should run any production server over HTTPS.
 
 ````
-cd jellyfish-ux
+cd /home/jellyfish/ux
 vi public/appConfig.js
 ````
 
@@ -72,7 +73,7 @@ window.appConfig = {apiBasePath: "https://YOUR_SERVER_FQDN/api", orgLogo: "/imag
 
 #### Start UX
 ````
-cd jellyfish-ux
+cd /home/jellyfish/ux
 forever start app.js
 ````
 
@@ -83,10 +84,10 @@ sudo rm /etc/nginx/conf.d/default.conf
 
 Create jellyfish.conf (with the file contents below)
 ````
-sudo vi /etc/nginx/conf.d/jellyfish.conf
+sudo vi /etc/nginx/conf.d/jellyfish-ux.conf
 ````
 
-##### Contents of /etc/nginx/conf.d/jellyfish.conf
+##### Contents of /etc/nginx/conf.d/jellyfish-ux.conf
 
 ````
 upstream jellyfish_ux {
@@ -95,7 +96,7 @@ upstream jellyfish_ux {
 
 server {
   listen  80;
-  root /home/jellyfish/jellyfish-ux/public;
+  root /home/jellyfish/ux/public;
 
   location / {
         proxy_pass http://jellyfish_ux;
