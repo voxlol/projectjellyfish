@@ -9,6 +9,7 @@ module.exports = angular.module('broker.common.constants', [])
     admin: 'admin'
   })
   .constant('APP_CONFIG', angular.copy(window.appConfig))
+  .constant('APP_VERSION', angular.copy(window.appVersion))
   .constant('ROUTES', {
     login: '/login',
     logout: '/logout',
