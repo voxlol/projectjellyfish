@@ -31,4 +31,4 @@ var SectionHeaderDirective = function() {
   };
 };
 
-module.exports = SectionHeaderDirective;
+window.SectionHeaderDirective = SectionHeaderDirective;

@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var CartController = function($scope, $modalInstance, CartService) {
 
@@ -34,7 +32,7 @@ CartController.prototype = {
   removeItem: function(key) {
     return this.CartService.removeItemByKey(key);
   },
-  
+
   totalPrice: function() {
     return this.CartService.getTotalPrice();
   }
@@ -42,4 +40,4 @@ CartController.prototype = {
 
 };
 
-module.exports = CartController;
+window.CartController = CartController;

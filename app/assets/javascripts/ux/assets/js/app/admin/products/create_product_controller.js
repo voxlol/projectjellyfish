@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function CreateProductController(product, categories, $stateParams) {
   this.product = product;
@@ -23,6 +21,6 @@ CreateProductController.resolve = {
   }
 };
 
-module.exports = CreateProductController;
+window.CreateProductController = CreateProductController;
 
 

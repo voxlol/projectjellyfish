@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 function FallbackImage() {
   return {
     restrict: 'A',
@@ -19,4 +17,4 @@ function FallbackImage() {
   };
 }
 
-module.exports = FallbackImage;
+window.FallbackImage = FallbackImage;

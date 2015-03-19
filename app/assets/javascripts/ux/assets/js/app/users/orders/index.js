@@ -1,10 +1,20 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var OrderData = UserOrderController.resolve;
 
-var UsersOrdersModule = angular.module('broker.users.orders', [])
-    .factory('UserOrders', require('./user_orders'))
-    .controller('UserOrdersController', require('./user_orders_controller'))
-    .config(require('./routes'));
-
-module.exports = UsersOrdersModule;
+var UserOrdersModule = angular.module('broker.users.orders', [])
+    .factory('UserOrders', UserOrders)
+    .controller('UserOrdersController', UserOrderController)
+    .config(
+      function($stateProvider) {
+        $stateProvider
+          .state('base.authed.users.orders', {
+            url: '/orders',
+            templateUrl: '/partials/users/orders/index.html',
+            controller: 'UserOrdersController as userOrders',
+            resolve: OrderData
+          });
+      }
+    );
+window.UserOrdersModule = UserOrdersModule;

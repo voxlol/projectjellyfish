@@ -17,4 +17,4 @@ AdminAddUserController.prototype = {
 
 };
 
-module.exports = AdminAddUserController;
+window.AdminAddUserController = AdminAddUserController;

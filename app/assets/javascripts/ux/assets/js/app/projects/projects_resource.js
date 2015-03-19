@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var ProjectsResource = function($resource, apiResource) {
   var Project = $resource(apiResource('projectsById'), {id: '@id'}, {
@@ -65,4 +63,4 @@ var ProjectsResource = function($resource, apiResource) {
   return Project;
 };
 
-module.exports = ProjectsResource;
+window.ProjectsResource = ProjectsResource;

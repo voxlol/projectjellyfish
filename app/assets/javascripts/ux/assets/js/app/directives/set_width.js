@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
-
 /**@ngInject*/
 function SetWidth($rootScope) {
   return {
@@ -24,4 +22,4 @@ function SetWidth($rootScope) {
   };
 }
 
-module.exports = SetWidth;
+window.SetWidth = SetWidth;

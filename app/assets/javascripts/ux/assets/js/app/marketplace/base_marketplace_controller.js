@@ -15,4 +15,4 @@ BaseMarketplaceController.resolve = {
   }
 };
 
-module.exports = BaseMarketplaceController;
+window.BaseMarketplaceController = BaseMarketplaceController;

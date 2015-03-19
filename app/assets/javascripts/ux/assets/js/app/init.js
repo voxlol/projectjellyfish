@@ -1,9 +1,7 @@
 'use strict';
 
-var $ = require('jquery');
-
 /**@ngInject*/
-module.exports = function($http, $rootScope, $log, $location, AuthService, UsersResource, Session, $urlRouter, ROUTES, $state, APP_CONFIG, FlashesService) {
+var Init = function($http, $rootScope, $log, $location, AuthService, UsersResource, Session, $urlRouter, ROUTES, $state, APP_CONFIG, FlashesService) {
 
   $http.defaults.headers.common.Accept= 'application/json, text/javascript';
   $http.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
@@ -98,3 +96,5 @@ module.exports = function($http, $rootScope, $log, $location, AuthService, Users
     }
   });
 };
+
+window.Init = Init

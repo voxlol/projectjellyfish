@@ -120,4 +120,4 @@ function ProductFormController($state, FlashesService) {
   };
 }
 
-module.exports = ProductFormController;
+window.ProductFormController = ProductFormController;

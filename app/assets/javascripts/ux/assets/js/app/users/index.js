@@ -1,11 +1,21 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var UsersModule = angular.module('broker.users', ['broker.users.orders'])
+  .factory('UsersResource', UsersResource)
+  .directive('usersBox', UsersBoxDirective)
+  .controller('UsersController', UsersController)
+  .config(
+    /**@ngInject*/
+    function($stateProvider) {
+      $stateProvider
+        .state('base.authed.users', {
+          url: '/users',
+          abstract: true,
+          template: '<div class="page users-page" ui-view></div>',
+          controller: 'UsersController as usersCtrl'
+        });
+    }
+  );
 
-var UsersModule = angular.module('broker.users', [require('./orders').name])
-  .factory('UsersResource', require('./users_resource'))
-  .directive('usersBox', require('./users_box_directive'))
-  .controller('UsersController', require('./users_controller'))
-  .config(require('./routes'));
-
-module.exports = UsersModule;
+window.UsersModule = UsersModule;

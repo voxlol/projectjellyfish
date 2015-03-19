@@ -10,4 +10,4 @@ function FlashesDirective() {
   };
 }
 
-module.exports = FlashesDirective;
+window.FlashesDirective = FlashesDirective;

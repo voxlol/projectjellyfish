@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
-
 function DropDown() {
   return {
     restrict: 'A',
@@ -23,4 +21,4 @@ function DropDown() {
   };
 }
 
-module.exports = DropDown;
+window.DropDown = DropDown;

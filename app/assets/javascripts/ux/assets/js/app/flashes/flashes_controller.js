@@ -9,4 +9,4 @@ function FlashesController(FlashesService) {
   };
 }
 
-module.exports = FlashesController;
+window.FlashesController = FlashesController;

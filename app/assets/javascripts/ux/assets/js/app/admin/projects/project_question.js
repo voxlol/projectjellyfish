@@ -8,4 +8,4 @@ var ProjectQuestion = function($resource, apiResource) {
   return projectQuestion;
 };
 
-module.exports = ProjectQuestion;
+window.ProjectQuestion = ProjectQuestion;

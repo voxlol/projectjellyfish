@@ -1,8 +1,6 @@
 'use strict';
 
-var angular = require('angular');
-
-module.exports = angular.module('broker.common.exceptions', [])
+window.Exceptions = angular.module('broker.common.exceptions', [])
 
 /**@ngInject*/
   .config(function($provide) {
@@ -15,5 +13,4 @@ module.exports = angular.module('broker.common.exceptions', [])
   });
 });
 
-
-
+window.Exceptions = Exceptions

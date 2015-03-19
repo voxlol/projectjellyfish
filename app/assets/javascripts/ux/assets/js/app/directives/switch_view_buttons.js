@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
-
 /**@ngInject*/
 function SwitchViewButtons() {
   return {
@@ -34,4 +32,4 @@ function SwitchViewButtons() {
   };
 }
 
-module.exports = SwitchViewButtons;
+window.SwitchViewButtons = SwitchViewButtons;

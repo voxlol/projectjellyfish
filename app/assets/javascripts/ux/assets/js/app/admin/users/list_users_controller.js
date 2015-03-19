@@ -16,4 +16,4 @@ ListUsersController.prototype = {
 
 };
 
-module.exports = ListUsersController;
+window.ListUsersController = ListUsersController;

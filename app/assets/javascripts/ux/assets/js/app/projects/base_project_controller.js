@@ -18,4 +18,4 @@ BaseProjectController.resolve = {
 
 BaseProjectController.prototype = {};
 
-module.exports = BaseProjectController;
+window.BaseProjectController = BaseProjectController;

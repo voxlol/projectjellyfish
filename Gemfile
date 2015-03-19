@@ -92,3 +92,10 @@ gem 'active_model_serializers', '~> 0.8.0'
 # Gems for Content Pages
 gem 'friendly_id'
 gem 'paper_trail'
+
+gem 'sass'
+gem 'bower-rails'
+
+group :production, :staging do
+  gem 'rails_12factor'
+end

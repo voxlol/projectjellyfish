@@ -8,4 +8,4 @@ AdminController.resolve = {
 
 };
 
-module.exports = AdminController;
+window.AdminController = AdminController;

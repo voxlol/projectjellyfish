@@ -11,4 +11,4 @@ DashboardController.resolve = {
 
 };
 
-module.exports = DashboardController;
+window.DashboardController = DashboardController;

@@ -12,4 +12,4 @@ var UsersBoxDirective = function() {
   };
 };
 
-module.exports = UsersBoxDirective;
+window.UsersBoxDirective = UsersBoxDirective;

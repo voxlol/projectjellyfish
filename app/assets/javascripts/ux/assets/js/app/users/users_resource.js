@@ -40,4 +40,4 @@ var UsersResource = function($resource, apiResource, $state) {
   return Users;
 };
 
-module.exports = UsersResource;
+window.UsersResource = UsersResource;

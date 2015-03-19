@@ -26,4 +26,4 @@ function ProjectQuestionForm() {
   };
 }
 
-module.exports = ProjectQuestionForm;
+window.ProjectQuestionForm = ProjectQuestionForm;

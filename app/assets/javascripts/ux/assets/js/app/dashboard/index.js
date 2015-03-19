@@ -1,9 +1,22 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var DashboardData = DashboardController.resolve;
 
 var DashboardModule = angular.module('broker.dashboard', [])
-  .controller('DashboardController', require('./dashboard_controller'))
-  .config(require('./routes'));
+  .controller('DashboardController', DashboardController)
+  .config(
+    /**@ngInject*/
+    function($stateProvider, USER_ROLES) {
+      $stateProvider
+        // Dashboard
+        .state('base.authed.dashboard', {
+          url: "^/dashboard",
+          templateUrl: "/partials/dashboard.html",
+          resolve: DashboardData,
+          controller: "DashboardController as dashboardCtrl"
+        });
+    }
+  );
 
-module.exports = DashboardModule;
+window.DashboardModule = DashboardModule;

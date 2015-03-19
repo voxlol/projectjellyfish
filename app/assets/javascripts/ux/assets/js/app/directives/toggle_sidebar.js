@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
-
 /**@ngInject*/
 function ToggleSidebar($rootScope) {
   return {
@@ -27,4 +25,4 @@ function ToggleSidebar($rootScope) {
   };
 }
 
-module.exports = ToggleSidebar;
+window.ToggleSidebar = ToggleSidebar;

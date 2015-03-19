@@ -1,7 +1,5 @@
 'use strict';
 
-var angular = require('angular');
-
 /**@ngInject*/
 var HeaderController = function($rootScope, $scope, $sce, JellyfishModal, CartService, currentUser, alerts, headerLinks, AuthService) {
 
@@ -49,7 +47,7 @@ HeaderController.prototype = {
   }
 };
 
-module.exports = HeaderController;
+window.HeaderController = HeaderController;
 
 
 

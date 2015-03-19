@@ -1,8 +1,5 @@
 'use strict';
 
-var apiRoutes = require('apiRoutes');
-var _ = require('lodash');
-
 /**@ngInject*/
 function apiResource(APP_CONFIG) {
   // Get the data from the config if it has been passed in, otherwise use the default
@@ -19,4 +16,4 @@ function apiResource(APP_CONFIG) {
   };
 }
 
-module.exports = apiResource;
+window.apiResource = apiResource;

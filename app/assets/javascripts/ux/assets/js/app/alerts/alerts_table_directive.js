@@ -12,4 +12,4 @@ var AlertsTable = function() {
   };
 };
 
-module.exports = AlertsTable;
+window.AlertsTable = AlertsTable;

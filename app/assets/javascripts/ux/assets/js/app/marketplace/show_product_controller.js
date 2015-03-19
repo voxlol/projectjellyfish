@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function ShowProductController(products, categories, $stateParams) {
   var self = this;
@@ -16,4 +14,4 @@ function ShowProductController(products, categories, $stateParams) {
 
 ShowProductController.resolve = {};
 
-module.exports = ShowProductController;
+window.ShowProductController = ShowProductController;

@@ -21,4 +21,4 @@ function QuestionInputController() {
   };
 }
 
-module.exports = QuestionInputController;
+window.QuestionInputController = QuestionInputController;

@@ -40,4 +40,4 @@ ProjectQuestionsController.resolve = {
   }
 };
 
-module.exports = ProjectQuestionsController;
+window.ProjectQuestionsController = ProjectQuestionsController;

@@ -14,4 +14,4 @@ var OrderItemsResource = function($resource, apiResource) {
   });
 };
 
-module.exports = OrderItemsResource;
+window.OrderItemsResource = OrderItemsResource;

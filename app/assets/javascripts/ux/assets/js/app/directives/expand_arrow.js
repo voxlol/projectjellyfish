@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
-
 function ExpandArrow() {
   return {
     restrict: 'A',
@@ -20,4 +18,4 @@ function ExpandArrow() {
   };
 }
 
-module.exports = ExpandArrow;
+window.ExpandArrow = ExpandArrow;

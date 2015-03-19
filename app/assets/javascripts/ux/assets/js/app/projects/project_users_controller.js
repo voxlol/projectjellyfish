@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var ProjectUsersController = function($scope, $modalInstance, $q, $state, project, ProjectUsersResource, apiResource, FlashesService) {
 
@@ -77,4 +75,4 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
   };
 };
 
-module.exports = ProjectUsersController;
+window.ProjectUsersController = ProjectUsersController;

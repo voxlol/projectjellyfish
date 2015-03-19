@@ -1,7 +1,5 @@
 'use strict';
 
-var angular = require('angular');
-
 /**@ngInject*/
 var AuthService = function($http, $q, $state, Session, apiResource, USER_ROLES) {
   var authService = {};
@@ -56,4 +54,4 @@ var AuthService = function($http, $q, $state, Session, apiResource, USER_ROLES) 
   return authService;
 };
 
-module.exports = AuthService;
+window.AuthService = AuthService;

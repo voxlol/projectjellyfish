@@ -5,4 +5,4 @@ var CloudsResource = function($resource, apiResource) {
   return $resource(apiResource('cloudsById'));
 };
 
-module.exports = CloudsResource;
+window.CloudsResource = CloudsResource;

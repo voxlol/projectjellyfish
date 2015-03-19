@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function MarketplaceController(products, categories) {
   var self = this;
@@ -16,4 +14,4 @@ function MarketplaceController(products, categories) {
 
 MarketplaceController.resolve = {};
 
-module.exports = MarketplaceController;
+window.MarketplaceController = MarketplaceController;

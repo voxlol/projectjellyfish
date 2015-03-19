@@ -16,4 +16,4 @@ var ProductsResource = function($resource, apiResource) {
   });
 };
 
-module.exports = ProductsResource;
+window.ProductsResource = ProductsResource;

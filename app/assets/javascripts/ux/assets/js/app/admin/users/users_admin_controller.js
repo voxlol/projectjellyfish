@@ -4,4 +4,4 @@
 function UsersAdminController() {
 }
 
-module.exports = UsersAdminController;
+window.UsersAdminController = UsersAdminController;

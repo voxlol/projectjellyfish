@@ -22,5 +22,5 @@ LeftSidebarController.resolve = {
   }
 };
 
-module.exports = LeftSidebarController;
+window.LeftSidebarController = LeftSidebarController;
 

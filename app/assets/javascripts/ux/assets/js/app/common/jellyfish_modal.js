@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var JellyfishModal = function($modal) {
 
@@ -57,4 +55,4 @@ var JellyfishModal = function($modal) {
   };
 };
 
-module.exports = JellyfishModal;
+window.JellyfishModal = JellyfishModal;

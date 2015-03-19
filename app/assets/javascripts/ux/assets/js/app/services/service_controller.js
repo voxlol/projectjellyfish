@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function ServiceController(service, OrderItemsResource) {
   this.service = service;
@@ -53,5 +51,5 @@ ServiceController.resolve = {
   }
 };
 
-module.exports = ServiceController;
+window.ServiceController = ServiceController;
 

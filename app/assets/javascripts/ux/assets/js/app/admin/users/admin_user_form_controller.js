@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 var adminUsersListState = 'base.authed.admin.users.list';
 
 /**
@@ -169,4 +167,4 @@ AdminUserFormController.prototype = {
 };
 
 
-module.exports = AdminUserFormController;
+window.AdminUserFormController = AdminUserFormController;

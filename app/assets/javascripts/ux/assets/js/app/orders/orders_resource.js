@@ -5,4 +5,4 @@ var OrdersResource = function($resource, apiResource) {
   return $resource(apiResource('orders'), { id: '@id' });
 };
 
-module.exports = OrdersResource;
+window.OrdersResource = OrdersResource;

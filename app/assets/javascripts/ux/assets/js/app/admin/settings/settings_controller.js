@@ -4,4 +4,4 @@
 function SettingsController() {
 }
 
-module.exports = SettingsController;
+window.SettingsController = SettingsController;

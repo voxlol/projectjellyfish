@@ -33,4 +33,4 @@ NewProjectController.resolve = {
   }
 };
 
-module.exports = NewProjectController;
+window.NewProjectController = NewProjectController;

@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 // Set outside of the controller instantiation to make sure we keep the state.
 var isFailedLogin = false;
 
@@ -65,4 +63,4 @@ LoginController.resolve = {
   }
 };
 
-module.exports = LoginController;
+window.LoginController = LoginController;

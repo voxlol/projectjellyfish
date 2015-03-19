@@ -31,4 +31,4 @@ EditSettingsController.resolve = {
   }
 };
 
-module.exports = EditSettingsController;
+window.EditSettingsController = EditSettingsController;

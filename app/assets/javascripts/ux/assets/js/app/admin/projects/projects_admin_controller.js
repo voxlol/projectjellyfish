@@ -4,4 +4,4 @@
 function ProjectsAdminController() {
 }
 
-module.exports = ProjectsAdminController;
+window.ProjectsAdminController = ProjectsAdminController;

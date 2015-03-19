@@ -20,4 +20,4 @@ function HttpInterceptor($q, $injector) {
   };
 }
 
-module.exports = HttpInterceptor;
+window.HttpInterceptor = HttpInterceptor;

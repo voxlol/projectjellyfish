@@ -1,5 +1,4 @@
 'use strict';
-var _ = require('lodash');
 
 /**@ngInject*/
 var CartService = function($q, $state, OrdersResource, FlashesService) {
@@ -200,4 +199,4 @@ CartService.prototype = {
 
 };
 
-module.exports = CartService;
+window.CartService = CartService;

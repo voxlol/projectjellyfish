@@ -8,4 +8,4 @@ UsersController.resolve = {
 
 };
 
-module.exports = UsersController;
+window.UsersController = UsersController;

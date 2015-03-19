@@ -1,8 +1,7 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
-
 var SettingsModule = angular.module('broker.settings', [])
-    .factory('SettingsResource', require('./settings_resource'));
+    .factory('SettingsResource', SettingsResource);
 
-module.exports = SettingsModule;
+window.SettingsModule = SettingsModule;

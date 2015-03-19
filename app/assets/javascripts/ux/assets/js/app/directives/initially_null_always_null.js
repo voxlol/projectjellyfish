@@ -25,4 +25,4 @@ function InitiallyNullAlwaysNull() {
   };
 }
 
-module.exports = InitiallyNullAlwaysNull;
+window.InitiallyNullAlwaysNull = InitiallyNullAlwaysNull;

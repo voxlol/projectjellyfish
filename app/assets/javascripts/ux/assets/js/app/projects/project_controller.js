@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function ProjectController($interval, project, ProjectUsersResource, OrderItemsResource, alerts, products, FlashesService) {
 
@@ -258,4 +256,4 @@ ProjectController.prototype = {
   }
 };
 
-module.exports = ProjectController;
+window.ProjectController = ProjectController;

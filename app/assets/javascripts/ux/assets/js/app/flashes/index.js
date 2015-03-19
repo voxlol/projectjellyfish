@@ -1,10 +1,9 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
-
 var FlashesModule = angular.module('broker.flashes', [])
-  .controller('FlashesController', require('./flashes_controller'))
-  .directive('flashes', require('./flashes_directive'))
-  .service('FlashesService', require('./flashes_service'));
+  .controller('FlashesController', FlashesController)
+  .directive('flashes', FlashesDirective)
+  .service('FlashesService', FlashesService)
 
-module.exports = FlashesModule;
+window.FlashesModule = FlashesModule;

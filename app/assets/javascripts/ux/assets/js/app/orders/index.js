@@ -1,12 +1,24 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var OrdersData = OrdersController.resolve;
 
 var OrdersModule = angular.module('broker.orders', [])
-  .controller('OrdersController', require('./orders_controller'))
-  .factory('OrdersResource', require('./orders_resource'))
-  .factory('OrderItemsResource', require('./order_items_resource'))
-  .directive('ordersTable', require('./orders_table_directive'))
-  .config(require('./routes'));
+  .controller('OrdersController', OrdersController)
+  .factory('OrdersResource', OrdersResource)
+  .factory('OrderItemsResource', OrderItemsResource)
+  .directive('ordersTable', OrdersTable)
+  .config(
+    /**@ngInject*/
+    function($stateProvider) {
+      $stateProvider
+        .state('base.authed.orders', {
+          url: "/orders/:id",
+          controller: "OrdersController as ordersCtrl",
+          templateUrl: "/partials/orders/orders.html",
+          resolve: OrdersData
+        });
+    }
+  );
 
-module.exports = OrdersModule;
+window.OrdersModule = OrdersModule;

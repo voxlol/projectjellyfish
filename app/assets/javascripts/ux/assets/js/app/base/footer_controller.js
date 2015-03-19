@@ -19,7 +19,7 @@ FooterController.prototype = {
 
 };
 
-module.exports = FooterController;
+window.FooterController = FooterController;
 
 
 

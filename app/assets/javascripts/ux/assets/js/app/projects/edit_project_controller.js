@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function EditProjectController($scope, $state, ProjectsResource, project, projectQuestions, FlashesService) {
   $scope.project = project;
@@ -53,4 +51,4 @@ EditProjectController.resolve = {
   }
 };
 
-module.exports = EditProjectController;
+window.EditProjectController = EditProjectController;

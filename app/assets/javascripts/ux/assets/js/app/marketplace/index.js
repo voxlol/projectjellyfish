@@ -1,11 +1,38 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var BaseData = BaseMarketplaceController.resolve,
+  MarketplaceData = MarketplaceController.resolve,
+  ShowProductData = ShowProductController.resolve;
 
 var MarketplaceModule = angular.module('broker.marketplace', [])
-  .controller('BaseMarketplaceController', require('./base_marketplace_controller'))
-  .controller('MarketplaceController', require('./marketplace_controller'))
-  .controller('ShowProductController', require('./show_product_controller'))
-  .config(require('./routes'));
-
-module.exports = MarketplaceModule;
+  .controller('BaseMarketplaceController', BaseMarketplaceController)
+  .controller('MarketplaceController', MarketplaceController)
+  .controller('ShowProductController', ShowProductController)
+  .config(
+    /**@ngInject*/
+    function($stateProvider) {
+      $stateProvider
+        .state('base.authed.marketplace', {
+          url: '/marketplace',
+          abstract: true,
+          template: '<div class="ui-view marketplace"></div>',
+          resolve: BaseData,
+          controller: 'BaseMarketplaceController as baseMarketplaceCtrl'
+        })
+        // marketplace
+        .state('base.authed.marketplace.list', {
+          url: "/list",
+          templateUrl: "/partials/marketplace/marketplace.html",
+          resolve: MarketplaceData,
+          controller: "MarketplaceController as marketplaceCtrl"
+        })
+        .state('base.authed.marketplace.show', {
+          url: '/show/{id:int}',
+          templateUrl: '/partials/marketplace/product.html',
+          controller: 'ShowProductController as showCtrl',
+          resolve: ShowProductData
+        });
+    }
+  );
+window.MarketplaceModule = MarketplaceModule;

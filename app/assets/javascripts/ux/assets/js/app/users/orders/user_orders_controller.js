@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function UserOrderController($scope, orders) {
   this.orders = this.getOrderStatus(orders);
@@ -49,4 +47,4 @@ UserOrderController.resolve = {
   }
 };
 
-module.exports = UserOrderController;
+window.UserOrderController = UserOrderController;

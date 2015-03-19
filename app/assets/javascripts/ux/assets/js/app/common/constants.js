@@ -1,8 +1,6 @@
 'use strict';
 
-var angular = require('angular');
-
-module.exports = angular.module('broker.common.constants', [])
+var CommonConstants = angular.module('broker.common.constants', [])
   .constant('USER_ROLES', {
     all: '*',
     user: 'user',
@@ -16,5 +14,4 @@ module.exports = angular.module('broker.common.constants', [])
     default: '/dashboard'
   });
 
-
-
+window.CommonConstants = CommonConstants

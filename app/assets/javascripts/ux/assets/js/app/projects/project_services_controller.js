@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var ProjectServicesController = function($scope, CartService, project, products, categories, currentUser) {
   this.CartService = CartService;
@@ -50,4 +48,4 @@ ProjectServicesController.prototype = {
   }
 };
 
-module.exports = ProjectServicesController;
+window.ProjectServicesController = ProjectServicesController;

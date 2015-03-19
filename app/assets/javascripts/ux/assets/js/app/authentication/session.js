@@ -12,4 +12,4 @@ function Session() {
   return this;
 }
 
-module.exports = Session;
+window.Session = Session;

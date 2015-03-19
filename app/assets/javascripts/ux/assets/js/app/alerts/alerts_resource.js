@@ -10,4 +10,4 @@ var AlertsResource = function($resource, apiResource) {
   });
 };
 
-module.exports = AlertsResource;
+window.AlertsResource = AlertsResource;

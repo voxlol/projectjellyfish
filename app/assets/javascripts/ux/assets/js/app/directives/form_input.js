@@ -28,4 +28,4 @@ function FormInput() {
     };
 }
 
-module.exports = FormInput;
+window.FormInput = FormInput;

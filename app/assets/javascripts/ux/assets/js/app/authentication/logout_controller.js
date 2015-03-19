@@ -5,4 +5,4 @@ function LogoutController(AuthService) {
   AuthService.logout();
 }
 
-module.exports = LogoutController;
+window.LogoutController = LogoutController;

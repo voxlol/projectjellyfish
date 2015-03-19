@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var OrdersController = function(orderData, projects, products) {
 
@@ -61,4 +59,4 @@ OrdersController.resolve = {
 
 };
 
-module.exports = OrdersController;
+window.OrdersController = OrdersController;

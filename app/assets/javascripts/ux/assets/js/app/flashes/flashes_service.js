@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function FlashesService($timeout) {
   var self = this;
@@ -58,4 +56,4 @@ function FlashesService($timeout) {
   };
 }
 
-module.exports = FlashesService;
+window.FlashesService = FlashesService;

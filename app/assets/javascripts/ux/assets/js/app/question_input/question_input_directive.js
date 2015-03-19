@@ -19,4 +19,4 @@ function QuestionInputDirective() {
   };
 }
 
-module.exports = QuestionInputDirective;
+window.QuestionInputDirective = QuestionInputDirective;

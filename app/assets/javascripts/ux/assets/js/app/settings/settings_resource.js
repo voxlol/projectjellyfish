@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var SettingsResource = function($resource, apiResource) {
     return $resource(apiResource('settingById'), { id: '@id', hid: '@hid'}, {
@@ -46,4 +44,4 @@ var SettingsResource = function($resource, apiResource) {
     });
 };
 
-module.exports = SettingsResource;
+window.SettingsResource = SettingsResource;

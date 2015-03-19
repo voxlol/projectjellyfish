@@ -19,4 +19,4 @@ var BaseController = function($rootScope) {
 
 BaseController.resolve = {};
 
-module.exports = BaseController;
+window.BaseController = BaseController;

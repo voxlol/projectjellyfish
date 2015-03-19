@@ -24,4 +24,4 @@ var compareTo = function() {
     };
 };
 
-module.exports = compareTo;
+window.compareTo = compareTo;

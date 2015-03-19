@@ -2,7 +2,6 @@
   "name": "cloud-broker",
   "version": "0.0.1",
   "description": "",
-  "main": "index.html",
   "license": "All rights reserved",
   "private": true,
   "ignore": [

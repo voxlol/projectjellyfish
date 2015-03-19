@@ -1,10 +1,9 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
-
 var ProductsModule = angular.module('broker.products', [])
-  .factory('ProductsResource', require('./products_resource'))
-  .factory('ProductTypesResource', require('./product_types_resource'))
-  .directive('productBox', require('./product_box_directive'));
+  .factory('ProductsResource', ProductsResource)
+  .factory('ProductTypesResource', ProductTypesResource)
+  .directive('productBox', ProductBoxDirective )
 
-module.exports = ProductsModule;
+window.ProductsModule = ProductsModule;

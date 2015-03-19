@@ -12,4 +12,4 @@ var OrdersTable = function() {
   };
 };
 
-module.exports = OrdersTable;
+window.OrdersTable = OrdersTable;

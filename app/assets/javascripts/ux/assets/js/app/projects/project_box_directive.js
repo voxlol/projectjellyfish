@@ -1,7 +1,5 @@
 'use strict';
 
-var angular = require('angular');
-
 /**@ngInject*/
 var ProjectBoxDirective = function() {
   return {
@@ -17,4 +15,4 @@ var ProjectBoxDirective = function() {
   };
 };
 
-module.exports = ProjectBoxDirective;
+window.ProjectBoxDirective = ProjectBoxDirective;

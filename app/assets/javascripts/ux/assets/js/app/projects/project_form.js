@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function ProjectForm() {
   return {
@@ -73,4 +71,4 @@ function ProjectForm() {
   };
 }
 
-module.exports = ProjectForm;
+window.ProjectForm = ProjectForm;

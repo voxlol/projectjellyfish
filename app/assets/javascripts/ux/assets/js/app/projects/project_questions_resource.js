@@ -12,4 +12,4 @@ var ProjectQuestionsResource = function($resource, apiResource) {
   );
 };
 
-module.exports = ProjectQuestionsResource;
+window.ProjectQuestionsResource = ProjectQuestionsResource;

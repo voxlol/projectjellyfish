@@ -5,4 +5,4 @@ var ProductTypesResource = function($resource, apiResource) {
   return $resource(apiResource('productTypesById'));
 };
 
-module.exports = ProductTypesResource;
+window.ProductTypesResource = ProductTypesResource;

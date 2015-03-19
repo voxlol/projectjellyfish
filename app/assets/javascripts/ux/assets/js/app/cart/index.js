@@ -1,11 +1,18 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var CartModule = angular.module('broker.cart', [])
+  .controller('CartController', CartController)
+  .service('CartService', CartService)
+  .config(
+    /**@ngInject*/
+    function($stateProvider, USER_ROLES) {
+      $stateProvider.state('base.authed.cart', {
+        url: "^/cart",
+        templateUrl: '/partials/cart/cart.html',
+        controller: "CartController as cartCtrl"
+      });
+    }
+  );
 
-var AuthenticationModule = angular.module('broker.cart', [])
-  .controller('CartController', require('./cart_controller'))
-  .service('CartService', require('./cart_service'))
-  .config(require('./routes'));
-
-
-module.exports = AuthenticationModule;
+window.Cart = CartModule;

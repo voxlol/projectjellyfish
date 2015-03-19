@@ -17,4 +17,4 @@ AdminEditUserController.prototype = {
 
 };
 
-module.exports = AdminEditUserController;
+window.AdminEditUserController = AdminEditUserController;

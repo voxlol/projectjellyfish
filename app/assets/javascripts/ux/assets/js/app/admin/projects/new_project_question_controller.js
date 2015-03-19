@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 function NewProjectQuestionController($scope, $state, ProjectQuestion, FlashesService) {
   $scope.projectQuestion = {};
@@ -24,4 +22,4 @@ function NewProjectQuestionController($scope, $state, ProjectQuestion, FlashesSe
   };
 }
 
-module.exports = NewProjectQuestionController;
+window.NewProjectQuestionController = NewProjectQuestionController;

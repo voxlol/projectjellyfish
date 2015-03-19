@@ -50,4 +50,4 @@ ProductsAdminController.resolve = {
 
 };
 
-module.exports = ProductsAdminController;
+window.ProductsAdminController = ProductsAdminController;

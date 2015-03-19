@@ -1,8 +1,7 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
-
 var CloudsModule = angular.module('broker.clouds', [])
-  .factory('CloudsResource', require('./clouds_resource'));
+  .factory('CloudsResource', CloudsResource);
 
-module.exports = CloudsModule;
+window.CloudsModule = CloudsModule;

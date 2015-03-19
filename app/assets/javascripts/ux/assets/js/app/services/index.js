@@ -1,9 +1,24 @@
+//= require_tree .
 'use strict';
 
-var angular = require('angular');
+var ServiceData = ServiceController.resolve;
 
 var ServicesModule = angular.module('broker.services', [])
-  .controller('ServiceController', require('./service_controller'))
-  .config(require('./routes'));
+  .controller('ServiceController', ServiceController)
+  .config(
+    /**@ngInject*/
+    function($stateProvider, USER_ROLES) {
+      $stateProvider
+        // service details
+        .state('base.authed.service', {
+          // @todo order/:order_id should not be needed but API endpoints require it currently.
+          // :id is order_item.id
+          url: "^/order/:order_id/service/:id",
+          templateUrl: "/partials/service.html",
+          resolve: ServiceData,
+          controller: "ServiceController as serviceCtrl"
+        });
+    }
+  );
 
-module.exports = ServicesModule;
+window.ServicesModule = ServicesModule;

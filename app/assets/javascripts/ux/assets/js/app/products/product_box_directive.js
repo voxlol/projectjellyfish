@@ -12,4 +12,4 @@ var ProductBoxDirective = function() {
   };
 };
 
-module.exports = ProductBoxDirective;
+window.ProductBoxDirective = ProductBoxDirective;
