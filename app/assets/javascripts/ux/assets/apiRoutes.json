@@ -1,0 +1,35 @@
+{
+  "basePath": "/api",
+  "routes": {
+
+    "settingById":       "/settings/:id",
+    "settingsByHid":     "/settings/:hid",
+    "cloudsById":        "/clouds/:id",
+
+    "alerts":            "/alerts",
+
+    "orders":            "/orders/:id",
+    "orderItems":        "/order_items/:id",
+
+    "manageIqProductsById": "/manage_iq_products/:id",
+
+    "projectsById":      "/projects/:id",
+    "projectQuestions":  "/project_questions/:id",
+    "projectUser":       "/projects/:id/staff/:staff_id",
+    "servicesById":      "/services/:id",
+
+    "productsById":      "/products/:id",
+    "productTypesById":  "/product_types/:id",
+
+    "signIn":            "/staff/sign_in",
+    "signOut":           "/staff/sign_out",
+    "ssoInit":           "/saml/init",
+
+    "staffOrders":       "/staff/:staff_id/orders/:id",
+    "staffById":         "/staff/:id",
+    "staffProjects":     "/staff/:id/projects/:project_id",
+    "staffSearch":       "/staff?query=",
+    "currentMember":     "/staff/current_member"
+
+  }
+}

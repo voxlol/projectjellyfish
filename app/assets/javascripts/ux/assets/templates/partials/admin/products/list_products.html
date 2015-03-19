@@ -1,0 +1,20 @@
+<div class="products-list-page">
+  <section-header ng-repeat="category in listCtrl.categories" name="{{category.name}}"
+                  description="{{category.description}}" allow-view-type-toggle="true">
+    <product-box class="product-box" ng-repeat="product in category.products" product="product">
+      <a type="button" class="btn btn-primary" ui-sref="base.authed.admin.products.edit({id: product.id})">Edit</a>
+    </product-box>
+
+    <div class="add-box">
+      <div class="product-box-shadow">
+        <a ui-sref="base.authed.admin.products.create({product_type_id: category.id})">
+          <div class="fa-stack">
+            <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
+            <i class="fa fa-fw fa-stack-1x fa-plus"></i>
+          </div>
+          <div class="title">Add new product</div>
+        </a>
+      </div>
+    </div>
+  </section-header>
+</div>
