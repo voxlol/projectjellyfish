@@ -66,8 +66,17 @@ describe 'Orders API' do
     end
 
     it 'creates an order', :show_in_doc do
-      post '/orders/', staff_id: Staff.all.first.id, options: ['test']
+      product = create(:product)
+      project = create(:project)
+      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
       expect(response.body).to eq(Order.first.to_json)
+    end
+
+    it 'does not create an order if the project is over budget', :show_in_doc do
+      product = create(:product, setup_price: 100)
+      project = create(:project, budget: 10)
+      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
+      expect(response.code).to eq('409')
     end
   end
 

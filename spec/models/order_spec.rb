@@ -25,6 +25,38 @@ describe Order do
   let(:project) { create :project }
   let(:order_item_model) { { product_id: product.id, project_id: project.id } }
 
+  describe '#exceeds_budget?' do
+    it 'returns true if the total is over the project budget' do
+      order = setup_order(250)
+
+      expect(order.exceeds_budget?).to be_truthy
+    end
+
+    it 'returns false if the total is under the project budget' do
+      order = setup_order(100)
+
+      expect(order.exceeds_budget?).to be_falsy
+    end
+
+    def setup_order(setup_price)
+      project_one = create(:project, id: 1, budget: 250, spent: 0)
+      project_two = create(:project, id: 2, budget: 100, spent: 0)
+      order_items = [
+        build(:order_item,
+              project: project_one,
+              setup_price: setup_price,
+              hourly_price: 0,
+              monthly_price: 0),
+        build(:order_item,
+              project: project_two,
+              setup_price: setup_price,
+              hourly_price: 0,
+              monthly_price: 0)
+      ]
+      create(:order, order_items: order_items, staff_id: staff.id)
+    end
+  end
+
   it 'creates items w/ a product' do
     items = [order_item_model]
     order = Order.create(order_items_attributes: items, staff_id: staff.id)

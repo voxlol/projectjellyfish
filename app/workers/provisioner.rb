@@ -1,63 +1,41 @@
-class Provisioner < Providers
-  private
+class Provisioner
+  attr_reader :order_item
 
-  def order_item
-    @order_item ||= OrderItem.find @order_item_id
+  def self.provision(order_item_id)
+    perform(order_item_id, :critical_error) { |order_item| new(order_item).provision }
   end
 
-  def product_provisioner
-    Delayed::Worker.logger.debug "product type: #{order_item.product.product_type.name}"
-    order_item.product.product_type.name
+  def self.retire(order_item_id)
+    perform(order_item_id, :warning_retirement_error) { |order_item| new(order_item).retire }
   end
 
-  def service_type_id
-    order_item.product.provisionable.service_type_id
+  def initialize(order_item)
+    @order_item = order_item
   end
 
-  def order_item_details
-    details = {}
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
-    end
-    details
+  # private
+
+  def self.perform(order_item_id, error_method)
+    order_item = OrderItem.find(order_item_id)
+    yield order_item
+  rescue => e
+    send(error_method, order_item, e.message)
+    raise
+  ensure
+    order_item.save!
   end
 
-  def product_type
-    order_item.product.product_type.name.capitalize.downcase
-  end
-
-  def cloud
-    order_item.cloud.name.capitalize
-  end
-
-  def save_item(object)
-    order_item.provision_status = :ok
-    order_item.payload_response = object.to_json
-  end
-
-  def save_request(request)
-    order_item.payload_request = request.to_json
-  end
-
-  def warning_retirement_error(message)
+  def self.warning_retirement_error(order_item, message)
     order_item.provision_status = :warning
     order_item.status_msg = "Retirement failed: #{message}"[0..254]
   end
 
-  def authentication_error
-    order_item.provision_status = :critical
-    order_item.status_msg = 'Bad request. Check for valid credentials and proper permissions.'
-  end
-
-  def critical_error(message)
+  def self.critical_error(order_item, message)
     order_item.provision_status = :critical
     order_item.status_msg = message
   end
 
-  def warning_error(message)
-    order_item.provision_status = :warning
-    order_item.status_msg = message
+  def aws_settings
+    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
   end
 end

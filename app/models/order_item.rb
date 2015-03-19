@@ -47,7 +47,6 @@ class OrderItem < ActiveRecord::Base
   belongs_to :latest_alert, class_name: 'Alert'
 
   # Hooks
-  before_create :inherit_price_data
   after_commit :provision, on: :create
 
   # Validations
@@ -57,19 +56,27 @@ class OrderItem < ActiveRecord::Base
   # Columns
   enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
 
+  delegate :provisioner, to: :product
+
+  def calculate_price(hours_in_month = 750)
+    setup_price + monthly_price + (hourly_price * hours_in_month)
+  end
+
+  def answers
+    answers = product.answers
+    product.product_type.questions.map do |question|
+      answer = answers.find_by(product_type_question_id: question.id)
+      [question.manageiq_key, answer.nil? ? question.default : answer.answer]
+    end.to_h
+  end
+
   private
 
   def validate_product_id
     errors.add(:product, 'Product does not exist.') unless Product.exists?(product_id)
   end
 
-  def inherit_price_data
-    self.hourly_price = product.hourly_price
-    self.monthly_price = product.monthly_price
-    self.setup_price = product.setup_price
-  end
-
   def provision
-    product.provisionable.provision(id).delay(queue: 'provision_request').perform
+    provisioner.delay(queue: 'provision_request').provision(id)
   end
 end

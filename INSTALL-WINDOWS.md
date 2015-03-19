@@ -2,6 +2,8 @@
 
 This guide will walk you through how to install and run Jellyfish-API on Windows.
 
+### Please note Windows support is in ALPHA, and it not supported!
+
 ####Preface
 This guide only provides steps for installing with Ruby2.1.5. Jellyfish may require a higher version. There are
 four primary methods of installing the Jellyfish stack on Windows. Check if any of these methods are appropriate for

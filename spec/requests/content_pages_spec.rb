@@ -13,7 +13,14 @@ RSpec.describe 'Content Pages API' do
 
     it 'returns a collection of all of the content pages' do
       get '/content_pages'
-      expect(response.body).to eq(@content_pages.to_json)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response.length).to eq ContentPage.count
+      parsed_response.each do |content_page|
+        compare_content_pages(
+          content_page,
+          ContentPage.find(content_page['id'])
+        )
+      end
     end
 
     it 'paginates the content pages' do
@@ -31,7 +38,7 @@ RSpec.describe 'Content Pages API' do
 
     it 'returns a content page', :show_in_doc do
       get "/content_pages/#{@content_page.slug}"
-      expect(response.body).to eq(@content_page.to_json)
+      compare_content_pages(JSON.parse(response.body), @content_page)
     end
 
     it 'returns an error when the content page does not exist' do
@@ -67,7 +74,7 @@ RSpec.describe 'Content Pages API' do
 
     it 'creates an content page', :show_in_doc do
       post '/content_pages/', title: 'test title', body: 'test body'
-      expect(response.body).to eq(ContentPage.first.to_json)
+      compare_content_pages(JSON.parse(response.body), ContentPage.first)
     end
   end
 
@@ -87,5 +94,26 @@ RSpec.describe 'Content Pages API' do
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
+  end
+
+  def compare_content_pages(response, page)
+    expect(response.keys.length).to eq(page.attributes.length)
+    expect(response['id']).to eq(page.id)
+    expect(response['staff_id']).to eq(page.staff_id)
+    expect(response['title']).to eq(page.title)
+    expect(response['slug']).to eq(page.slug)
+    expect(response['body']).to eq(page.body)
+
+    check_dates(response, page)
+  end
+
+  def check_dates(response, page)
+    expect(response['created_at'].to_datetime.to_i)
+      .to be_within(0.1).of(page.created_at.to_i)
+
+    expect(response['updated_at'].to_datetime.to_i)
+      .to be_within(0.1).of(page.updated_at.to_i)
+
+    expect(response['deleted_at'].to_datetime.to_i).to be_within(0.1).of(page.deleted_at.to_i) if response['deleted_at'].present?
   end
 end

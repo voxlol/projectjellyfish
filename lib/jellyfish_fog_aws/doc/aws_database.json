@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "title": "Databases",
+  "required": ["db_instance_class", "engine", "allocated_storage"],
+  "properties": {
+    "db_instance_class": {
+      "title": "DB Instance Size",
+      "type": "string",
+      "enum": [
+        "db.m3.medium",
+        "db.m3.large",
+        "db.m3.xlarge"
+      ],
+      "default": "db.m3.medium"
+    },
+    "engine": {
+      "title": "DB Engine",
+      "type": "string",
+      "enum": [
+        "aurora",
+        "mysql",
+        "postgresql",
+        "sqlserver"
+      ]
+    },
+    "allocated_storage": {
+      "title": "Disk Size",
+      "type": "string",
+      "default": "40"
+    },
+    "storage_type": {
+      "title": "Storage Type",
+      "type": "string",
+      "enum": [
+        "ssd",
+        "standard",
+        "gp2",
+        "io1"
+      ],
+      "default": "ssd"
+    },
+    "availability": {
+      "title": "Storage Redundancy",
+      "type": "string",
+      "enum": [
+        "normal",
+        "reduced"
+      ],
+      "default": "normal"
+    }
+  }
+}

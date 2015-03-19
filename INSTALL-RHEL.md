@@ -1,7 +1,7 @@
 ## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish-Core on Red Hat Enterprise Linux (or similar,
-like CentOS).
+This guide will walk you through how to install and run Jellyfish-Core on Red 
+Hat Enterprise Linux (or similar, like CentOS).
 
 ####Create jellyfish user
 
@@ -27,7 +27,8 @@ sudo yum install sqlite-devel
 
 ####Install PostgreSQL
 
-Please install PostgreSQL (the version that is stated in README.md) via PostgreSQL's documented process.
+Please install PostgreSQL (the version that is stated in README.md) via 
+PostgreSQL's documented process.
 
 
 ####Install rbenv / rbenv-build / rbenv-sudo
@@ -54,7 +55,8 @@ gem install bundler
 
 ####Install rbenv-default-gems plugin
 
-This will re-install gems automatically for us whenever we install a new version of Ruby.
+This will re-install gems automatically for us whenever we install a new 
+version of Ruby.
 
 ````
 brew install rbenv-default-gems
@@ -87,13 +89,15 @@ gem install pg
 ####Check out the latest code
 
 ````
-git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
+cd /home/jellyfish
+git clone https://github.com/projectjellyfish/api.git
 ````
 
 
 ####Install any dependencies
 
 ````
+cd /home/jellyfish/api
 bundle install
 ````
 
@@ -115,7 +119,7 @@ DEFAULT_URL=http://jellyfish-core-url.server.com
 
 ####Populate the database
 
-Run the following rake commands.  You only need to run "rake sample:jenkins" if
+Run the following rake commands.  You only need to run "rake sample:demo" if
 you are wanting, sample data (useful for development).  Please note that this
 rake task does not create the database or the database user (those will need
 to be created based on the DB you are using)
@@ -126,31 +130,27 @@ rake db:seed
 rake sample:demo
 ````
 
-
 ####Start the server (for development)
 
 ````
 rails s
 ````
 
-
 #####Install Nginx
 
-Get the Package for your RHEL Version (http://nginx.org/en/linux_packages.html), and install
+Please install PostgreSQL (the version that is stated in README.md) via 
+PostgreSQL's documented process.
 
-````
-sudo rpm -i rpm -i <url to repo file from above page>
-sudo yum install nginx
-````
+#####Configure Nginx
 
 Delete the default site config
 ````
 sudo rm /etc/nginx/conf.d/default.conf
 ````
 
-Create jellyfish.conf (with the file contents below)
+Create jellyfish-api.conf (with the file contents below)
 ````
-sudo vi /etc/nginx/conf.d/jellyfish.conf
+sudo vi /etc/nginx/conf.d/jellyfish-api.conf
 
 # File (update the my_app_url.com) and
 
@@ -160,7 +160,7 @@ upstream myapp_puma {
 
 server {
   listen  80;
-  root /home/jellyfish/jellyfish-core/public;
+  root /home/jellyfish/api/public;
 
   location / {
         #all requests are sent to the UNIX socket
@@ -193,7 +193,7 @@ sudo /etc/init.d/nginx restart
 
 Start Core
 ````
-cd /home/jellyfish/jellyfish-core
+cd /home/jellyfish/api
 bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock
 ````
 

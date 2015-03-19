@@ -34,4 +34,13 @@
 #
 
 describe OrderItem do
+  it 'instructs its provisioner to provision', type: :integration do
+    allow(ManageIQ).to receive(:delay).and_return(ManageIQ)
+    allow(ManageIQ).to receive(:provision)
+
+    id = create(:order_item).id
+
+    expect(ManageIQ).to have_received(:delay).with(queue: 'provision_request')
+    expect(ManageIQ).to have_received(:provision).with(id)
+  end
 end
