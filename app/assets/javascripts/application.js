@@ -19,7 +19,7 @@
 //= require selectize
 //= require bootstrap-sass
 
-//= require_tree ./ux/assets/js/app/
+//= require_tree .
 
 window.appConfig = {
   apiBasePath: 'http://localhost:3000',
