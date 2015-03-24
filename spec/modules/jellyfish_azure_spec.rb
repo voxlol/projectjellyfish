@@ -13,7 +13,7 @@ def infrastructure_order_item
     order_item.answers = {
       'vm_name' => 'jellyfish_vm',
       'vm_user' => 'admin',
-      'image' => '0b11de9248dd4d87b18621318e037d37__RightImage-CentOS-6.2-x64-v5.8.8.1',
+      'image' => 'the_image',
       'location' => 'East Asia',
       'cloud_service_name' => 'testjellyfish',
       'certificate_file' => 'azure-cert.cer',
