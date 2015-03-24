@@ -14,7 +14,7 @@ var ServicesModule = angular.module('broker.services', [])
           // @todo order/:order_id should not be needed but API endpoints require it currently.
           // :id is order_item.id
           url: "^/order/:order_id/service/:id",
-          templateUrl: "/partials/service.html",
+          templateUrl: "/assets/templates/partials/service.html",
           resolve: ServiceData,
           controller: "ServiceController as serviceCtrl"
         });

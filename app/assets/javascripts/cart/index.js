@@ -9,7 +9,7 @@ var CartModule = angular.module('broker.cart', [])
     function($stateProvider, USER_ROLES) {
       $stateProvider.state('base.authed.cart', {
         url: "^/cart",
-        templateUrl: '/partials/cart/cart.html',
+        templateUrl: '/assets/templates/partials/cart/cart.html',
         controller: "CartController as cartCtrl"
       });
     }

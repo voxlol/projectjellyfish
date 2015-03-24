@@ -4,7 +4,7 @@
 function ProjectForm() {
   return {
     restrict: 'E',
-    templateUrl: '/partials/projects/project_form.html',
+    templateUrl: '/assets/templates/partials/projects/project_form.html',
     scope: {
       project: "=project",
       questions: "=questions",

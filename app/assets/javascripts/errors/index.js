@@ -9,13 +9,13 @@ var ErrorsModule = angular.module('broker.errors', [])
         abstract: true,
         views: {
           '': {
-            templateUrl: '/partials/layouts/errors.html'
+            templateUrl: '/assets/templates/partials/layouts/errors.html'
           },
           'header@errors': {
-            templateUrl: '/partials/common/header.html'
+            templateUrl: '/assets/templates/partials/common/header.html'
           },
           'footer@errors': {
-            templateUrl: '/partials/common/footer.html',
+            templateUrl: '/assets/templates/partials/common/footer.html',
             controller: 'FooterController as footerCtrl',
             resolve: {footerLinks: function() { return []; }}
           }
@@ -26,18 +26,18 @@ var ErrorsModule = angular.module('broker.errors', [])
       // Critical Errors - Don't try to load anything from the server
       }).state('errors.sorry', {
         url: '/terribly-sorry-about-that',
-        templateUrl: '/partials/errors/sorry.html'
+        templateUrl: '/assets/templates/partials/errors/sorry.html'
       }).state('errors.no-network', {
         url: '/server-unreachable',
-        templateUrl: '/partials/errors/no_network.html'
+        templateUrl: '/assets/templates/partials/errors/no_network.html'
 
       // Non-Critical Errors - Can continue to try and load resources
       }).state('base.authed.errors.not-found', {
         url: '/404-not-found',
-        templateUrl: '/partials/errors/not_found.html'
+        templateUrl: '/assets/templates/partials/errors/not_found.html'
       }).state('base.authed.errors.unauthorized', {
         url: '/401-unauthorized',
-        templateUrl: '/partials/errors/unauthorized.html'
+        templateUrl: '/assets/templates/partials/errors/unauthorized.html'
       });
     }
   );

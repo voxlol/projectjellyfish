@@ -23,13 +23,13 @@ var MarketplaceModule = angular.module('broker.marketplace', [])
         // marketplace
         .state('base.authed.marketplace.list', {
           url: "/list",
-          templateUrl: "/partials/marketplace/marketplace.html",
+          templateUrl: "/assets/templates/partials/marketplace/marketplace.html",
           resolve: MarketplaceData,
           controller: "MarketplaceController as marketplaceCtrl"
         })
         .state('base.authed.marketplace.show', {
           url: '/show/{id:int}',
-          templateUrl: '/partials/marketplace/product.html',
+          templateUrl: '/assets/templates/partials/marketplace/product.html',
           controller: 'ShowProductController as showCtrl',
           resolve: ShowProductData
         });

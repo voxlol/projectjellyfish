@@ -12,7 +12,7 @@ var DashboardModule = angular.module('broker.dashboard', [])
         // Dashboard
         .state('base.authed.dashboard', {
           url: "^/dashboard",
-          templateUrl: "/partials/dashboard.html",
+          templateUrl: "/assets/templates/partials/dashboard.html",
           resolve: DashboardData,
           controller: "DashboardController as dashboardCtrl"
         });

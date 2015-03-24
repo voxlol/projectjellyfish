@@ -15,7 +15,7 @@ var OrdersModule = angular.module('broker.orders', [])
         .state('base.authed.orders', {
           url: "/orders/:id",
           controller: "OrdersController as ordersCtrl",
-          templateUrl: "/partials/orders/orders.html",
+          templateUrl: "/assets/templates/partials/orders/orders.html",
           resolve: OrdersData
         });
     }

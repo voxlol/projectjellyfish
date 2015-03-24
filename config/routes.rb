@@ -147,6 +147,6 @@ Rails.application.routes.draw do
   users
   ).each do |path|
     get "/#{path}" => 'welcome#index'
-      get "/#{path}*x" => 'welcome#index'
+    get "/#{path}*x" => 'welcome#index'
   end
 end

@@ -32,7 +32,7 @@ HeaderController.prototype = {
   cartModal: function () {
     this.JellyfishModal.open({
       id: 'cart',
-      templateUrl: '/partials/cart/cart_modal.html',
+      templateUrl: '/assets/templates/partials/cart/cart_modal.html',
       controller: 'CartController as cartCtrl',
       size: 'lg'
     });

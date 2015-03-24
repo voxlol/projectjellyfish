@@ -4,7 +4,7 @@
 var ProductBoxDirective = function() {
   return {
     restrict: 'E',
-    templateUrl: '/partials/products/product_box.html',
+    templateUrl: '/assets/templates/partials/products/product_box.html',
     transclude: true,
     scope: {
       product: "="

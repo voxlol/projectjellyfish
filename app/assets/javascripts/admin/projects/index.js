@@ -23,18 +23,18 @@ var ProjectsAdminModule = angular.module('broker.admin.projects', [])
             })
             .state('base.authed.admin.projects.project_questions', {
               url: '/questions',
-              templateUrl: "/partials/admin/projects/project_questions.html",
+              templateUrl: "/assets/templates/partials/admin/projects/project_questions.html",
               controller: 'ProjectQuestionsController as projectQuestion',
               resolve: ProjectQuestionsData
             })
             .state('base.authed.admin.projects.new_project_questions', {
               url: '/questions/new',
-              templateUrl: "/partials/admin/projects/project_question.html",
+              templateUrl: "/assets/templates/partials/admin/projects/project_question.html",
               controller: 'NewProjectQuestionController as newProjectQuestion'
             })
             .state('base.authed.admin.projects.edit_project_questions', {
               url: '/questions/:id',
-              templateUrl: "/partials/admin/projects/project_question.html",
+              templateUrl: "/assets/templates/partials/admin/projects/project_question.html",
               controller: 'EditProjectQuestionController as editProjectQuestion',
               resolve: ProjectQuestionData
             });
