@@ -78,7 +78,7 @@ gem 'virtus'
 gem 'rack-cors'
 
 # CRONTAB SCHEDULER
-gem 'whenever'
+gem 'rufus-scheduler'
 
 # ActiveRecord DelayedJob
 gem 'delayed_job_active_record'
