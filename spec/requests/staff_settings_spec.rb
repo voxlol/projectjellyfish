@@ -8,7 +8,7 @@ context 'Staff Settings API' do
       staff.user_settings << user_setting
       sign_in_as create :staff, :admin
 
-      get "/staff/#{staff.id}/settings"
+      get "/api/v1/staff/#{staff.id}/settings"
       expect(response.status).to eq(200)
     end
   end
@@ -20,7 +20,7 @@ context 'Staff Settings API' do
       staff.user_settings << user_setting
       sign_in_as create :staff, :admin
 
-      get "/staff/#{staff.id}/settings/#{user_setting.id}"
+      get "/api/v1/staff/#{staff.id}/settings/#{user_setting.id}"
       expect(response.status).to eq(200)
       expect(json['name']).to eq(user_setting.name)
     end
@@ -32,7 +32,7 @@ context 'Staff Settings API' do
       sign_in_as staff
 
       data = attributes_for :user_setting
-      post "/staff/#{staff.id}/settings", data
+      post "/api/v1/staff/#{staff.id}/settings", data
       expect(json['name']).to eq(data[:name])
       expect(json['staff_id']).to eq(staff.id)
     end
@@ -46,7 +46,7 @@ context 'Staff Settings API' do
       sign_in_as staff
 
       data = { value: 'updated' }
-      put "/staff/#{staff.id}/settings/#{user_setting.id}", data
+      put "/api/v1/staff/#{staff.id}/settings/#{user_setting.id}", data
       expect(response.status).to eq(204)
     end
   end
@@ -58,7 +58,7 @@ context 'Staff Settings API' do
       staff.user_settings << user_setting
       sign_in_as staff
 
-      delete "/staff/#{staff.id}/settings/#{user_setting.id}"
+      delete "/api/v1/staff/#{staff.id}/settings/#{user_setting.id}"
       expect(response.status).to eq(204)
     end
   end

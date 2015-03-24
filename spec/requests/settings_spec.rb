@@ -12,13 +12,13 @@ RSpec.describe 'Setting API' do
     end
 
     it 'returns a collection of all of the settings' do
-      get '/settings'
+      get '/api/v1/settings'
       expect(json.length).to eq(1)
       expect(json[0]['setting_fields'].length).to eq(1)
     end
 
     it 'paginates the settings' do
-      get '/settings', page: 1, per_page: 1
+      get '/api/v1/settings', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -30,12 +30,12 @@ RSpec.describe 'Setting API' do
     end
 
     it 'returns an settings; lookup done by hid', :show_in_doc do
-      get "/settings/#{@setting.hid}"
+      get "/api/v1/settings/#{@setting.hid}"
       expect(response.body).to eq(@setting.to_json(include: %w(setting_fields)))
     end
 
     it 'returns an error when the setting does not exist' do
-      get '/settings/bad_hid'
+      get '/api/v1/settings/bad_hid'
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -49,12 +49,12 @@ RSpec.describe 'Setting API' do
     end
 
     it 'updates a setting', :show_in_doc do
-      put "/settings/#{@setting.id}", setting_fields: [{ id: @setting.setting_fields.first.id, value: 'new' }]
+      put "/api/v1/settings/#{@setting.id}", setting_fields: [{ id: @setting.setting_fields.first.id, value: 'new' }]
       expect(SettingField.first.value).to eq('new')
     end
 
     it 'returns an error when the setting does not exist' do
-      put "/settings/#{@setting.id + 999}"
+      put "/api/v1/settings/#{@setting.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -67,7 +67,7 @@ RSpec.describe 'Setting API' do
     end
 
     it 'verifies a setting no longer exists after delete', :show_in_doc do
-      delete "/settings/#{@setting.id}"
+      delete "/api/v1/settings/#{@setting.id}"
       expect(response.status).to eq(204)
     end
   end

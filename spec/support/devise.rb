@@ -8,7 +8,7 @@ module DeviseRequestHelper
   end
 
   def rest_sign_in(email, password)
-    post '/staff/sign_in', staff: { email: email, password: password }
+    post '/api/v1/staff/sign_in', staff: { email: email, password: password }
   end
 end
 

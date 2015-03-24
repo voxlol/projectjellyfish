@@ -13,12 +13,12 @@ RSpec.describe 'ProjectQuestions API' do
     end
 
     it 'returns a collection of all of the project_questions', :show_in_doc do
-      get '/project_questions'
+      get '/api/v1/project_questions'
       expect(json.length).to eq(2)
     end
 
     it 'paginates the project_questions' do
-      get '/project_questions', page: 1, per_page: 1
+      get '/api/v1/project_questions', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -30,12 +30,12 @@ RSpec.describe 'ProjectQuestions API' do
     end
 
     it 'returns an project_question', :show_in_doc do
-      get "/project_questions/#{@project_question.id}"
+      get "/api/v1/project_questions/#{@project_question.id}"
       expect(json['id']).to eq(@project_question.id)
     end
 
     it 'returns an error when the project_question does not exist' do
-      get "/project_questions/#{@project_question.id + 999}"
+      get "/api/v1/project_questions/#{@project_question.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -49,12 +49,12 @@ RSpec.describe 'ProjectQuestions API' do
     end
 
     it 'updates a project_question', :show_in_doc do
-      put "/project_questions/#{@project_question.id}", required: true
+      put "/api/v1/project_questions/#{@project_question.id}", required: true
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the project_question does not exist' do
-      put "/project_questions/#{@project_question.id + 999}", required: true
+      put "/api/v1/project_questions/#{@project_question.id + 999}", required: true
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -67,7 +67,7 @@ RSpec.describe 'ProjectQuestions API' do
     end
 
     it 'creates an project_question', :show_in_doc do
-      post '/project_questions/', @project_question.as_json
+      post '/api/v1/project_questions/', @project_question.as_json
       expect(response.body).to eq(ProjectQuestion.first.to_json)
     end
   end
@@ -79,12 +79,12 @@ RSpec.describe 'ProjectQuestions API' do
     end
 
     it 'removes the product', :show_in_doc do
-      delete "/project_questions/#{@project_question.id}"
+      delete "/api/v1/project_questions/#{@project_question.id}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the product does not exist' do
-      delete "/project_questions/#{@project_question.id + 999}"
+      delete "/api/v1/project_questions/#{@project_question.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

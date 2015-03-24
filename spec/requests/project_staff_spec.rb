@@ -8,7 +8,7 @@ RSpec.describe 'Project Staff API', :show_in_doc do
       project.staff << staff
       sign_in_as create :staff, :admin
 
-      get "/projects/#{project.id}/staff.json"
+      get "/api/v1/projects/#{project.id}/staff.json"
 
       expect(response.status).to eq(200)
       expect(json.length).to eq(1)
@@ -21,7 +21,7 @@ RSpec.describe 'Project Staff API', :show_in_doc do
       project = create :project
       sign_in_as create :staff, :admin
 
-      post("/projects/#{project.id}/staff/#{staff.id}.json")
+      post("/api/v1/projects/#{project.id}/staff/#{staff.id}.json")
 
       expect(response.status).to eq(201)
       expect(json['first_name']).to eq(staff.first_name)
@@ -35,7 +35,7 @@ RSpec.describe 'Project Staff API', :show_in_doc do
       project.staff << staff
       sign_in_as create :staff, :admin
 
-      delete "/projects/#{project.id}/staff/#{staff.id}.json"
+      delete "/api/v1/projects/#{project.id}/staff/#{staff.id}.json"
 
       expect(response.status).to eq(204)
     end
