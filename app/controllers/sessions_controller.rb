@@ -14,7 +14,18 @@ class SessionsController < Devise::SessionsController
   def create
     respond_to do |format|
       format.html do
-        super
+        if request.env['omniauth.auth']
+          @user = Staff.from_omniauth(request.env['omniauth.auth'])
+
+          if @user.persisted?
+            sign_in(resource_name, @user)
+            render json: @user
+          else
+            render json: { error: 'Invalid Login' }, status: 401
+          end
+        else
+          super
+        end
       end
       format.json do
         self.resource = warden.authenticate(auth_options)

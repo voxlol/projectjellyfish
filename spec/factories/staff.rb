@@ -21,6 +21,8 @@
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
 #  authentication_token   :string(255)
+#  provider               :string(255)
+#  uid                    :string(255)
 #
 # Indexes
 #

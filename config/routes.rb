@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
+  devise_scope :staff do
+    get '/staff/auth/:provider/callback', to: 'sessions#create'
+  end
+
   get 'saml/init', to: 'saml#init'
   post 'saml/consume', to: 'saml#consume'
 
