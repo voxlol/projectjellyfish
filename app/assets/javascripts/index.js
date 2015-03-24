@@ -128,5 +128,5 @@ angular.module('broker', [
         $state.transitionTo('errors.sorry');
       }
     });
-  };
+  }
 );

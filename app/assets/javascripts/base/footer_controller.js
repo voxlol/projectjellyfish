@@ -1,11 +1,11 @@
 'use strict';
 
 /**@ngInject*/
-var FooterController = function(footerLinks, APP_VERSION) {
+var FooterController = function(footerLinks, APP_CONFIG) {
 
   this.footerLinks = footerLinks;
   this.copyrightYear = new Date();
-  this.jellyfishVersion = APP_VERSION.ux;
+  this.jellyfishVersion = APP_CONFIG.version;
 };
 
 FooterController.resolve = {

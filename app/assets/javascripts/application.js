@@ -20,10 +20,3 @@
 //= require bootstrap-sass
 
 //= require_tree .
-
-window.appConfig = {
-  apiBasePath: 'http://localhost:3000',
-  orgLogo: '/images/logo.png',
-  orgColor: '#0a498a',
-  ux: '2.0.0'
-};
