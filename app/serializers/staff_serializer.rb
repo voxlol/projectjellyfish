@@ -1,5 +1,5 @@
 class StaffSerializer < ApplicationSerializer
-  attributes :id, :first_name, :last_name, :email, :phone, :role, :created_at, :updated_at, :mobile_token
+  attributes :id, :first_name, :last_name, :email, :phone, :role, :created_at, :updated_at, :api_token
 
   has_many :orders
   has_many :staff_projects
