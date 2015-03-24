@@ -27,7 +27,7 @@ def storage_order_item
     order_item.uuid = '1234567890'
     order_item.id = 1
     order_item.answers = {
-      'location' => 'East Asia',
+      'location' => 'East Asia'
     }
   end
 end
