@@ -5,7 +5,7 @@ var AdminData = AdminController.resolve;
 
 var AdminModule = angular.module(
     'broker.admin',
-    ['broker.products', 'broker.projects', 'broker.users', 'broker.settings']
+    ['broker.admin.products', 'broker.admin.projects', 'broker.admin.users', 'broker.admin.settings']
     )
   .controller('AdminController', AdminController)
   .config(function($stateProvider, USER_ROLES) {

@@ -1,7 +1,7 @@
 'use strict';
 
 window.appConfig = {
-  apiBasePath: 'http://localhost:3000/api/v1',
+  apiBasePath: window.apiBasePath,
   orgLogo: '/images/logo.png',
   orgColor: '#0a498a',
   version: '2.0.0'
