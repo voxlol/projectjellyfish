@@ -47,6 +47,9 @@ end
 if find_gem('jellyfish-azure')
   require 'jellyfish_fog_azure'
   describe Jellyfish::Fog::Azure do
+    ENV['AZURE_SUB_ID'] = 'abcdefg'
+    ENV['AZURE_PEM_PATH'] = 'azure-cert.pem'
+    ENV['AZURE_API_URL'] = 'https://management.core.windows.net'
     it 'provisions a new infrastructure product' do
       Jellyfish::Fog::Azure::Mock.new.mock!
       azure_settings
@@ -63,6 +66,12 @@ if find_gem('jellyfish-azure')
       item = Jellyfish::Fog::Azure::Storage.new(order_item)
       item.provision
       expect(order_item.provision_status).to eq(:ok)
+    end
+
+    it 'creates a new connection' do
+      Jellyfish::Fog::Azure::Mock.new.mock!
+      connection = Jellyfish::Fog::Azure::Connection.new.connect
+      expect(connection).to be_a_kind_of(::Fog::Compute::Azure::Mock)
     end
   end
 end
