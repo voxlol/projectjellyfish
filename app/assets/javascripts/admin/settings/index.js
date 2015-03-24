@@ -19,7 +19,7 @@ var AdminSettingsModule = angular.module('broker.admin.settings', [])
         .state('base.authed.admin.settings.edit', {
           url: '/edit',
           controller: 'EditSettingsController as editSettings',
-          templateUrl: "/assets/templates/partials/admin/settings/edit.html",
+          templateUrl: "/templates/partials/admin/settings/edit.html",
           resolve: SettingsData
         });
     }

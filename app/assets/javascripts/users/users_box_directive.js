@@ -4,7 +4,7 @@
 var UsersBoxDirective = function() {
   return {
     restrict: 'E',
-    templateUrl: '/assets/templates/partials/users/users_box.html',
+    templateUrl: '/templates/partials/users/users_box.html',
     transclude: true,
     scope: {
       user: "="

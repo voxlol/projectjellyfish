@@ -13,7 +13,7 @@ var AuthenticationModule = angular.module('broker.auth', [])
     function($stateProvider) {
       $stateProvider.state('base.public.login', {
         url: "/login",
-        templateUrl: '/assets/templates/partials/login.html',
+        templateUrl: '/templates/partials/login.html',
         controller: "LoginController as loginCtrl",
         resolve: LoginData
       }).state('base.public.logout', {

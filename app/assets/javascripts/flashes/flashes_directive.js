@@ -4,7 +4,7 @@
 function FlashesDirective() {
   return {
     restrict: 'EA',
-    templateUrl: '/assets/templates/partials/common/flashes.html',
+    templateUrl: '/templates/partials/common/flashes.html',
     controller: 'FlashesController',
     controllerAs: 'flashesCtrl'
   };

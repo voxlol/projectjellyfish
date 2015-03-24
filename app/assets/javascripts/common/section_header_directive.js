@@ -4,7 +4,7 @@
 var SectionHeaderDirective = function() {
   return {
     restrict: 'E',
-    templateUrl: '/assets/templates/partials/common/section_header.html',
+    templateUrl: '/templates/partials/common/section_header.html',
     transclude: true,
     scope: {
       name: '@',

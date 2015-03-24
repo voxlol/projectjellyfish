@@ -25,7 +25,7 @@ var ProjectsModule = angular.module('broker.projects', [])
         // Create Project
         .state('base.authed.newProject', {
           url: "^/project/new",
-          templateUrl: "/assets/templates/partials/projects/new_project.html",
+          templateUrl: "/templates/partials/projects/new_project.html",
           resolve: NewProjectData,
           controller: "NewProjectController as newProjectCtrl"
         })
@@ -40,21 +40,21 @@ var ProjectsModule = angular.module('broker.projects', [])
         // Project
         .state('base.authed.project.view', {
           url: "^/project/:projectId",
-          templateUrl: "/assets/templates/partials/projects/project.html",
+          templateUrl: "/templates/partials/projects/project.html",
           controller: "ProjectController as projectCtrl"
         })
         // Edit Project
         // @todo This should extend the base.project state if possible.
         .state('base.authed.project.edit', {
           url: "^/project/:projectId/edit",
-          templateUrl: "/assets/templates/partials/projects/edit_project.html",
+          templateUrl: "/templates/partials/projects/edit_project.html",
           resolve: EditProjectData,
           controller: "EditProjectController as editProjectCtrl"
         })
         // Add Service to Project
         .state('base.authed.project.addService', {
           url: "^/project/:projectId/add-service",
-          templateUrl: '/assets/templates/partials/projects/add_services.html',
+          templateUrl: '/templates/partials/projects/add_services.html',
           controller: 'ProjectServicesController as projectServicesCtrl',
           resolve: ProjectServicesData
         })
@@ -72,7 +72,7 @@ var ProjectsModule = angular.module('broker.projects', [])
 
             JellyfishModal.open({
               id: 'add-users',
-              templateUrl: '/assets/templates/partials/projects/add_users_modal.html',
+              templateUrl: '/templates/partials/projects/add_users_modal.html',
               controller: 'ProjectUsersController as projectUsersCtrl',
               /**
                * This is somewhat of a hack, because of using string based controller instantiation in the modal

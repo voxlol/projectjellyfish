@@ -11,7 +11,7 @@ var UserOrdersModule = angular.module('broker.users.orders', [])
         $stateProvider
           .state('base.authed.users.orders', {
             url: '/orders',
-            templateUrl: '/assets/templates/partials/users/orders/index.html',
+            templateUrl: '/templates/partials/users/orders/index.html',
             controller: 'UserOrdersController as userOrders',
             resolve: OrderData
           });

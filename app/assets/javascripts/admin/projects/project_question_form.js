@@ -4,7 +4,7 @@
 function ProjectQuestionForm() {
   return {
     restrict: 'E',
-    templateUrl: '/assets/templates/partials/admin/projects/project_question_form.html',
+    templateUrl: '/templates/partials/admin/projects/project_question_form.html',
     scope: {
       projectQuestion: "=",
       buttonLabel: '=',

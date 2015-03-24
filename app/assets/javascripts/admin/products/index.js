@@ -25,17 +25,17 @@ var ProductsAdminModule = angular.module('broker.admin.products', [])
           resolve: ProductsData
         }).state('base.authed.admin.products.list', {
           url: '/list',
-          templateUrl: '/assets/templates/partials/admin/products/list_products.html',
+          templateUrl: '/templates/partials/admin/products/list_products.html',
           controller: 'ListProductsController as listCtrl',
           resolve: ProductsListData
         }).state('base.authed.admin.products.edit', {
           url: '/edit/{id:int}',
-          templateUrl: '/assets/templates/partials/admin/products/edit_product.html',
+          templateUrl: '/templates/partials/admin/products/edit_product.html',
           controller: 'EditProductController as editCtrl',
           resolve: ProductEditData
         }).state('base.authed.admin.products.create', {
           url: '/create?{product_type_id:int}',
-          templateUrl: '/assets/templates/partials/admin/products/create_product.html',
+          templateUrl: '/templates/partials/admin/products/create_product.html',
           controller: 'CreateProductController as createCtrl',
           resolve: ProductCreateData
         });

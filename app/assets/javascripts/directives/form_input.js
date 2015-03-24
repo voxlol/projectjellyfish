@@ -4,7 +4,7 @@
 function FormInput() {
     return {
         restrict: 'E',
-        templateUrl: '/assets/templates/partials/common/form_input.html',
+        templateUrl: '/templates/partials/common/form_input.html',
         scope: {
           field: '='
         },

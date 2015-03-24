@@ -4,7 +4,7 @@
 var ProjectBoxDirective = function() {
   return {
     restrict: 'E',
-    templateUrl: '/assets/templates/partials/projects/project_box.html',
+    templateUrl: '/templates/partials/projects/project_box.html',
     transclude: true,
     scope: {
       project: "="

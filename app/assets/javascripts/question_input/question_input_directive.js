@@ -12,7 +12,7 @@ function QuestionInputDirective() {
     controller: 'QuestionInputController',
     controllerAs: 'qiCtrl',
     bindToController: true,
-    templateUrl: '/assets/templates/partials/common/question_input.html',
+    templateUrl: '/templates/partials/common/question_input.html',
     link: function(scope, el, attrs, required) {
       scope.qiCtrl.init(scope, el, attrs, required);
     }
