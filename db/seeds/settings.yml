@@ -622,3 +622,36 @@
     load_order: 3
     env_var_name: HEADER_LINK_4_URL
     hid: url_4
+- name: Azure
+  hid: azure
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: Enable Azure services.
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: AZURE_ENABLED
+    hid: enabled
+  - label: Subscription Id
+    field_type: password
+    help_text: Azure Subscription Id
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: AZURE_SUB_ID
+    hid: sub_id
+    secret: true
+  - label: Certificate File
+    field_type: text
+    help_text: Azure Management Certificate
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: AZURE_PEM_FILE
+    hid: pem_path
+    secret: true
+

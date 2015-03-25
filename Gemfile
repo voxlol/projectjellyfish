@@ -79,7 +79,7 @@ gem 'virtus'
 gem 'rack-cors'
 
 # CRONTAB SCHEDULER
-gem 'whenever'
+gem 'rufus-scheduler'
 
 # ActiveRecord DelayedJob
 gem 'delayed_job_active_record'
@@ -93,3 +93,6 @@ gem 'active_model_serializers', '~> 0.8.0'
 # Gems for Content Pages
 gem 'friendly_id'
 gem 'paper_trail'
+
+# Azure module
+gem 'jellyfish-azure'

@@ -21,6 +21,7 @@ Jellyfish API has the following requirements
 * Ruby (Please check .ruby-version for the latest version to use, generally, this is the current version of Ruby)
 * PostgreSQL 9.4.x
 * ManageIQ (Anand)
+* Red Hat Linux / Ubuntu Linux
 
 #### Installation
 
@@ -30,6 +31,7 @@ for specifics for how to install.
 INSTALL-OSX.md - Mac OS Installation (generally used for development)
 
 INSTALL-RHEL.md - Red Hat Enterprise Linux installation
+
 
 #### Other Installation Guide
 

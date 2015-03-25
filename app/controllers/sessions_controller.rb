@@ -32,6 +32,8 @@ class SessionsController < Devise::SessionsController
 
         if resource
           sign_in(resource_name, resource)
+          resource.api_token = resource.secret = SecureRandom.hex
+          resource.save # GENERATE NEW TOKEN FOR USER AND PERSIST IT TO DB
           render json: resource
         else
           render json: { error: 'Invalid Login' }, status: 401

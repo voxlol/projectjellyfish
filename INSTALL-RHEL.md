@@ -1,42 +1,74 @@
 ## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish-Core on Red 
-Hat Enterprise Linux (or similar, like CentOS).
+This guide will walk you through how to install and run Jellyfish-API on Red Hat Enterprise Linux (or similar,
+like CentOS).
 
-####Create jellyfish user
+#### Create jellyfish user
 
 ````
 sudo useradd jellyfish
 ````
 
-####Change to the jellyfish user
+#### Install Pre-Requisites
 
+````
+yum install git
+yum install gcc-c++ patch readline readline-devel zlib zlib-devel
+yum install libyaml-devel libffi-devel openssl-devel make
+yum install bzip2 autoconf automake libtool bison iconv-devel
+yum install sqlite-devel
+````
+
+#### Install PostgreSQL
+
+Please install PostgreSQL via PostgreSQL's directions on their website
+
+
+#### Create the Jellyfish PostgreSQL database and user
+
+You will need to be root to do this step.
+
+Change to the postgres user
+````
+su - postgres
+````
+
+Connect to the database server
+````
+psql template1
+````
+
+Add the jellyfish database user (set your password to something very secure)
+````
+template1=# CREATE USER jellyfish WITH PASSWORD 'myPassword';
+````
+
+Create the database for jellyfish to use
+````
+template1=# CREATE DATABASE jellyfish_production;
+````
+
+Grant the jellyfish user access to the jellyfish_production database
+````
+template1=# GRANT ALL PRIVILEGES ON DATABASE jellyfish_production to jellyfish;
+````
+
+Exit out of the postgres user
+
+#### Change to the jellyfish system users
 ````
 su - jellyfish
 ````
 
-####Install Pre-Requisites
+#### Install rbenv
 
-````
-sudo yum install git
-sudo yum install gcc-c++ patch readline readline-devel zlib zlib-devel
-sudo yum install libyaml-devel libffi-devel openssl-devel make
-sudo yum install bzip2 autoconf automake libtool bison iconv-devel
-sudo yum install sqlite-devel
-````
+Install rbenv as per the [rbenv install guide](https://github.com/sstephenson/rbenv)
 
-####Install PostgreSQL
+#### Install rbenv-build
 
-Please install PostgreSQL (the version that is stated in README.md) via 
-PostgreSQL's documented process.
+Install rbenv-build as per the [rbenv-build install guide](https://github.com/sstephenson/rbenv-build)
 
-
-####Install rbenv / rbenv-build / rbenv-sudo
-
-Install rbenv as per the rbenv / rbenv-build / rbenv-sudo installation guide.
-
-
-####Install Ruby, and set that as the global version
+#### Install Ruby, and set that as the global version
 
 Please install the version of Ruby that is indicated in .ruby-version
 
@@ -45,79 +77,44 @@ rbenv install [version.number]
 rbenv global [version.number]
 ````
 
-
-####Install bundler
+#### Install bundler
 
 ````
 gem install bundler
 ````
 
-
-####Install rbenv-default-gems plugin
-
-This will re-install gems automatically for us whenever we install a new 
-version of Ruby.
-
-````
-brew install rbenv-default-gems
-echo "bundler" >> ~/.rbenv/default-gems
-````
-
-
-####Skip rdoc generation (OPTIONAL)
-
-````
-echo "gem: --no-document" >> ~/.gemrc
-````
-
-
-####Install rails gem
-
-````
-gem install rails
-echo "rails" >> ~/.rbenv/default-gems
-````
-
-
-####Install pg gem
+#### Install pg gem
 
 ````
 gem install pg
 ```
 
-
-####Check out the latest code
+#### Check out the latest code
 
 ````
 cd /home/jellyfish
 git clone https://github.com/projectjellyfish/api.git
 ````
 
-
-####Install any dependencies
+#### Install any gems needed
 
 ````
 cd /home/jellyfish/api
 bundle install
 ````
 
+#### Add this data to ./.env
 
-####Add this data to ./.env
-
-You will need to create this file yourself (it is already in the .gitignore),
-the dotEnv gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
-you can simply create ENVIRONMENT vars yourself.
-
-Note: You will need to install PostgreSQL per their directions
+You will need to create this file yourself (it is already in the .gitignore), the dotEnv gem uses this to to
+"create" ENVIRONMENT variables.  Alternatively, you can simply create ENVIRONMENT vars yourself.
 
 ````
-DATABASE_URL=postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish
-CORS_ALLOW_ORIGIN=localhost:5000
+DATABASE_URL=postgres://jellyfish:myPassword@localhost:5432/jellyfish_production
+CORS_ALLOW_ORIGIN=*
 DEFAULT_URL=http://jellyfish-core-url.server.com
 ````
 
-
-####Populate the database
+#### Populate the database
 
 Run the following rake commands.  You only need to run "rake sample:demo" if
 you are wanting, sample data (useful for development).  Please note that this
@@ -130,18 +127,18 @@ rake db:seed
 rake sample:demo
 ````
 
-####Start the server (for development)
+#### Start the server (for development)
 
 ````
 rails s
 ````
 
-#####Install Nginx
+##### Install Nginx
 
 Please install PostgreSQL (the version that is stated in README.md) via 
 PostgreSQL's documented process.
 
-#####Configure Nginx
+##### Configure Nginx
 
 Delete the default site config
 ````
@@ -191,7 +188,7 @@ Restart Nginx
 sudo /etc/init.d/nginx restart
 ````
 
-Start Core
+Start API
 ````
 cd /home/jellyfish/api
 bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock

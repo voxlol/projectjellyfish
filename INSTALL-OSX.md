@@ -12,6 +12,10 @@ xcode-select --install
 
 #### Install thoughtbot Laptop Tools
 
+This will install pretty much everything that is needed by Jellyfish (including rbenv, PostgreSQL, etc.)
+
+** Important: Do NOT install rvm, as that will cause conflict with rbenv **
+
 ````
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
@@ -38,7 +42,7 @@ the dotEnv gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
 you can simply create ENVIRONMENT vars yourself.
 
 ````
-DATABASE_URL=postgres://YOUR_LOCAL_USERNAME:@localhost:5432/jellyfish
+DATABASE_URL=postgres://YOUR_LOCAL_USERNAME:@localhost:5432/jellyfish_development
 CORS_ALLOW_ORIGIN=localhost:5000
 DEFAULT_URL=http://localhost:3000
 ````
@@ -48,7 +52,7 @@ DEFAULT_URL=http://localhost:3000
 Running this CLI command will create the database for you in PostgreSQL
 
 ````
-createdb jellyfish
+createdb jellyfish_development
 ````
 
 
@@ -73,7 +77,7 @@ rails s
 
 #### Upkeep Rake Tasks
 
-The following rake commands need to be executed to maintain Jellyfish Core.
+The following rake commands need to be executed to maintain Jellyfish.
 
 ````
 # Updates the budgets for projects
