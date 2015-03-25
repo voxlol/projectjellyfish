@@ -47,9 +47,9 @@ end
 if find_gem('jellyfish-azure')
   require 'jellyfish_fog_azure'
   describe Jellyfish::Fog::Azure do
-    ENV['AZURE_SUB_ID'] = 'abcdefg'
-    ENV['AZURE_PEM_PATH'] = 'azure-cert.pem'
-    ENV['AZURE_API_URL'] = 'https://management.core.windows.net'
+    ENV['JF_AZURE_SUB_ID'] = 'abcdefg'
+    ENV['JF_AZURE_PEM_PATH'] = 'azure-cert.pem'
+    ENV['JF_AZURE_API_URL'] = 'https://management.core.windows.net'
     it 'provisions a new infrastructure product' do
       Jellyfish::Fog::Azure::Mock.new.mock!
       azure_settings
