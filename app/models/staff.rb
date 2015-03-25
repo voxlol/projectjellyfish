@@ -55,6 +55,8 @@ class Staff < ActiveRecord::Base
 
   enum role: [:user, :admin]
 
+  attr_accessor :api_token
+
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
 
   def gravatar
