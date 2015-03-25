@@ -1,17 +1,17 @@
 'use strict';
 
-angular.module('broker', [
+angular.module("broker", [
   "ui.router",
   "ngResource",
   "angular-loading-bar",
   "smart-table",
-  'ngAnimate',
+  "ngAnimate",
   "ui.gravatar",
   "angucomplete",
   "ui.bootstrap",
   "ui.select",
-  "fiestah.money",
   "ngCookies",
+  "ng-currency",
   "angular-progress-arc",
   "broker.common",
   "broker.base",

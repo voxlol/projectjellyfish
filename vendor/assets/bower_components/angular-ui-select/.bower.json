@@ -37,5 +37,5 @@
   },
   "_source": "git://github.com/angular-ui/ui-select.git",
   "_target": "*",
-  "_originalSource": "angular-ui/ui-select"
+  "_originalSource": "angular-ui-select"
 }

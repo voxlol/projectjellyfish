@@ -8,7 +8,7 @@
 //= require angular-gravatar/build/md5
 //= require angular-gravatar/build/angular-gravatar
 //= require angular-loading-bar
-//= require angular-money-directive
+//= require ng-currency
 //= require angucomplete
 //= require angular-cookies
 //= require angular-progress-arc
@@ -18,5 +18,4 @@
 //= require microplugin
 //= require selectize
 //= require bootstrap-sass
-
 //= require_tree .
