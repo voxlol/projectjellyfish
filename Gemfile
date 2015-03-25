@@ -92,3 +92,6 @@ gem 'active_model_serializers', '~> 0.8.0'
 # Gems for Content Pages
 gem 'friendly_id'
 gem 'paper_trail'
+
+# Azure module
+gem 'jellyfish-azure'
