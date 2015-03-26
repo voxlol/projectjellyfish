@@ -12,7 +12,7 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'returns a collection of all of the content pages' do
-      get '/content_pages'
+      get '/api/v1/content_pages'
       parsed_response = JSON.parse(response.body)
       expect(parsed_response.length).to eq ContentPage.count
       parsed_response.each do |content_page|
@@ -24,7 +24,7 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'paginates the content pages' do
-      get '/content_pages', page: 1, per_page: 1
+      get '/api/v1/content_pages', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -37,12 +37,12 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'returns a content page', :show_in_doc do
-      get "/content_pages/#{@content_page.slug}"
+      get "/api/v1/content_pages/#{@content_page.slug}"
       compare_content_pages(JSON.parse(response.body), @content_page)
     end
 
     it 'returns an error when the content page does not exist' do
-      get '/content_pages/this-slug-does-not-exist'
+      get '/api/v1/content_pages/this-slug-does-not-exist'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -56,12 +56,12 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'updates a content page', :show_in_doc do
-      put "/content_pages/#{@content_page.slug}", title: 'test title', body: 'test body'
+      put "/api/v1/content_pages/#{@content_page.slug}", title: 'test title', body: 'test body'
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the content page does not exist' do
-      put '/content_pages/this-slug-does-not-exist', title: 'test title', body: 'test body'
+      put '/api/v1/content_pages/this-slug-does-not-exist', title: 'test title', body: 'test body'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -73,7 +73,7 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'creates an content page', :show_in_doc do
-      post '/content_pages/', title: 'test title', body: 'test body'
+      post '/api/v1/content_pages/', title: 'test title', body: 'test body'
       compare_content_pages(JSON.parse(response.body), ContentPage.first)
     end
   end
@@ -85,12 +85,12 @@ RSpec.describe 'Content Pages API' do
     end
 
     it 'removes the content page', :show_in_doc do
-      delete "/content_pages/#{@content_page.slug}"
+      delete "/api/v1/content_pages/#{@content_page.slug}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the content page does not exist' do
-      delete '/content_pages/this-slug-does-not-exist'
+      delete '/api/v1/content_pages/this-slug-does-not-exist'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end

@@ -8,7 +8,7 @@ RSpec.describe 'Manage IQ Products API' do
       @manage_iq_product = create(:manage_iq_product, product: build(:product))
       sign_in_as create :staff, :admin
 
-      put "/manage_iq_products/#{@manage_iq_product.id}", options: ['test']
+      put "/api/v1/manage_iq_products/#{@manage_iq_product.id}", options: ['test']
 
       expect(response.status).to eq(204)
     end
@@ -17,7 +17,7 @@ RSpec.describe 'Manage IQ Products API' do
       @manage_iq_product = create(:manage_iq_product, product: build(:product))
       sign_in_as create :staff, :admin
 
-      put "/manage_iq_products/#{@manage_iq_product.id + 999}", options: ['test']
+      put "/api/v1/manage_iq_products/#{@manage_iq_product.id + 999}", options: ['test']
 
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
@@ -30,7 +30,7 @@ RSpec.describe 'Manage IQ Products API' do
     end
 
     it 'creates an product', :show_in_doc do
-      post '/manage_iq_products/', options: ['test']
+      post '/api/v1/manage_iq_products/', options: ['test']
       expect(Product.first).to be_present
       expect(response.body).to eq(ManageIqProduct.first.to_json)
     end

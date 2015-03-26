@@ -1,0 +1,62 @@
+<div class="login-box table-container table-box">
+  <div class="contents">
+
+    <div class="titles-box">
+      <h2>
+        <strong class="orange-texts">LOGIN</strong>
+      </h2>
+
+      <div class="titles-border-bar">
+        <span class="blues width218"></span>
+        <span class="whites width3"></span>
+      </div>
+    </div>
+    <!-- end .titles-box -->
+
+    <form ng-submit="loginCtrl.login()">
+      <div class="error" ng-show="loginCtrl.hasFailedLogin()">
+        <i class="fa fa-exclamation-triangle"></i>
+        Invalid Email or Password.
+      </div>
+      <table class="table-data">
+        <colgroup>
+          <col class="col40">
+          <col>
+        </colgroup>
+        <tbody>
+        <tr ng-show="loginCtrl.ssoUrl">
+          <td colspan="2" class="text-center">
+            <a class="btn btn-primary btn-lg" ng-href="{{loginCtrl.ssoUrl}}">
+              <i class="fa fa-key fa-fw"></i>
+              Log in with Single Sign-On
+            </a>
+            <p>
+              <br/>
+              &mdash; or &mdash;
+              <br/>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="left-text">Email</td>
+          <td class="min-value">
+            <input class="form-control" name="email" type="text" ng-model="email">
+          </td>
+        </tr>
+        <tr>
+          <td class="left-text">Password</td>
+          <td class="min-value">
+            <input class="form-control" name="password" type="password" ng-model="password">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="Login" class="btn btn-primary">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
