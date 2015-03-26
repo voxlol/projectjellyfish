@@ -11,12 +11,12 @@ RSpec.describe 'Products API' do
     end
 
     it 'returns a collection of all of the products', :show_in_doc do
-      get '/products'
+      get '/api/v1/products'
       expect(json.to_json).to eq(@products.to_json)
     end
 
     it 'paginates the products' do
-      get '/products', page: 1, per_page: 1
+      get '/api/v1/products', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -28,12 +28,12 @@ RSpec.describe 'Products API' do
     end
 
     it 'returns an product', :show_in_doc do
-      get "/products/#{@product.id}"
+      get "/api/v1/products/#{@product.id}"
       expect(response.body).to eq(@product.to_json)
     end
 
     it 'returns an error when the product does not exist' do
-      get "/products/#{@product.id + 999}"
+      get "/api/v1/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -46,12 +46,12 @@ RSpec.describe 'Products API' do
     end
 
     it 'removes the product', :show_in_doc do
-      delete "/products/#{@product.id}"
+      delete "/api/v1/products/#{@product.id}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the product does not exist' do
-      delete "/products/#{@product.id + 999}"
+      delete "/api/v1/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

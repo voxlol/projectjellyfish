@@ -8,7 +8,7 @@ context 'Staff Projects API' do
       staff.projects << project
       sign_in_as create :staff, :admin
 
-      get "/staff/#{staff.id}/projects"
+      get "/api/v1/staff/#{staff.id}/projects"
       expect(response.status).to eq(200)
       expect(json.length).to eq(1)
     end
@@ -20,7 +20,7 @@ context 'Staff Projects API' do
       staff = create :staff, :user
       sign_in_as create :staff, :admin
 
-      put "/staff/#{staff.id}/projects/#{project.id}"
+      put "/api/v1/staff/#{staff.id}/projects/#{project.id}"
       staff.reload
       expect(response.status).to eq(204)
       expect(staff.projects.length).to eq(1)
@@ -34,7 +34,7 @@ context 'Staff Projects API' do
       staff.projects << project
       sign_in_as create :staff, :admin
 
-      delete "/staff/#{staff.id}/projects/#{project.id}"
+      delete "/api/v1/staff/#{staff.id}/projects/#{project.id}"
       staff.reload
       expect(response.status).to eq(204)
       expect(staff.projects.length).to eq(0)

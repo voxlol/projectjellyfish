@@ -12,12 +12,12 @@ describe 'Orders API' do
     end
 
     it 'returns a collection of all of the orders w/ items', :show_in_doc do
-      get '/orders'
+      get '/api/v1/orders'
       expect(response.body).to eq(@orders.as_json(include: [:order_items]).to_json)
     end
 
     it 'paginates the orders' do
-      get '/orders', page: 1, per_page: 1
+      get '/api/v1/orders', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -30,12 +30,12 @@ describe 'Orders API' do
     end
 
     it 'returns an order', :show_in_doc do
-      get "/orders/#{@order.id}"
+      get "/api/v1/orders/#{@order.id}"
       expect(response.body).to eq(@order.as_json(include: [:order_items]).to_json)
     end
 
     it 'returns an error when the order does not exist' do
-      get "/orders/#{@order.id + 999}"
+      get "/api/v1/orders/#{@order.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -49,12 +49,12 @@ describe 'Orders API' do
     end
 
     it 'updates a order', :show_in_doc do
-      put "/orders/#{@order.id}", staff_id: Staff.all.first.id, options: ['test']
+      put "/api/v1/orders/#{@order.id}", staff_id: Staff.all.first.id, options: ['test']
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do
-      put "/orders/#{@order.id + 999}", options: ['test']
+      put "/api/v1/orders/#{@order.id + 999}", options: ['test']
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -68,14 +68,14 @@ describe 'Orders API' do
     it 'creates an order', :show_in_doc do
       product = create(:product)
       project = create(:project)
-      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
+      post '/api/v1/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
       expect(response.body).to eq(Order.first.to_json)
     end
 
     it 'does not create an order if the project is over budget', :show_in_doc do
       product = create(:product, setup_price: 100)
       project = create(:project, budget: 10)
-      post '/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
+      post '/api/v1/orders/', staff_id: Staff.all.first.id, order_items: [{ product_id: product.id, project_id: project.id }]
       expect(response.code).to eq('409')
     end
   end
@@ -87,12 +87,12 @@ describe 'Orders API' do
     end
 
     it 'removes the order', :show_in_doc do
-      delete "/orders/#{@order.id}"
+      delete "/api/v1/orders/#{@order.id}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do
-      delete "/orders/#{@order.id + 999}"
+      delete "/api/v1/orders/#{@order.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -106,7 +106,7 @@ describe 'Orders API' do
       end
 
       it 'returns a list of items' do
-        get "/orders/#{@order.id}/items"
+        get "/api/v1/orders/#{@order.id}/items"
         expect(json.length).to eq(2)
       end
     end

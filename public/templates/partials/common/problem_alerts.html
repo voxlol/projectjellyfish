@@ -1,0 +1,26 @@
+
+<div class="table-box">
+    <div class="data-box">
+        <table st-table="rowCollection" class="table table-responsive table-striped">
+            <thead>
+            <tr>
+                <th>STATUS</th>
+                <th>PROJECT</th>
+                <th>MESSAGE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in alerts">
+                <td ng-switch on="row.status">
+                    <i ng-switch-when="OK" class="alert-ok fa fa-bell"></i>
+                    <i ng-switch-when="WARNING" class="alert-warning fa fa-bell"></i>
+                    <i ng-switch-when="CRITICAL" class="alert-critical fa fa-bell"></i>
+                    <i ng-switch-default class="alert-unknown fa fa-question-circle"></i>
+                </td>
+                <td>{{row.project.name}}</td>
+                <td>{{row.message}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
