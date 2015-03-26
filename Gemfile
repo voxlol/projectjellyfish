@@ -37,6 +37,7 @@ gem 'responders'
 gem 'devise'
 gem 'ruby-saml'
 gem 'omniauth'
+gem 'omniauth-ldap'
 
 # Authorization
 gem 'pundit'

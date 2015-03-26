@@ -21,8 +21,6 @@
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
 #  authentication_token   :string(255)
-#  provider               :string(255)
-#  uid                    :string(255)
 #
 # Indexes
 #
@@ -66,15 +64,19 @@ class Staff < ActiveRecord::Base
     '3fc88b95c85e43f157cb1ffd0e37e832'
   end
 
-  def self.from_omniauth(auth)
-    find_by!(email: auth.info.email) do |staff|
-      staff.provider = auth.provider
-      staff.uid = auth.uid
-      staff.email = staff.email || auth.info.email
-      staff.encrypted_password = staff.encrypted_password || Devise.friendly_token[0, 20]
-      staff.first_name = auth.info.first_name || staff.first_name
-      staff.last_name = staff.last_name || auth.info.last_name
-      #staff.save!
+  def self.find_by_auth(auth_hash)
+    auth_match = Authentications.find_by(provider: auth_hash['proivider'], uid: auth_hash['uid'].to_s)
+
+    if auth_match
+      user = Staff.find(auth_match.staff_id)
+    else
+      user = Staff.find_by(email: auth_hash['info']['email'])
+
+      if user
+        Authentications.create staff_id: user.id, provider: auth_hash['provider'], uid: auth_hash['uid'].to_s
+      end
     end
+
+    user
   end
 end

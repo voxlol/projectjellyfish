@@ -15,11 +15,13 @@ class SessionsController < Devise::SessionsController
     respond_to do |format|
       format.html do
         if request.env['omniauth.auth']
-          @user = Staff.from_omniauth(request.env['omniauth.auth'])
+          auth_hash = request.env['omniauth.auth']
 
-          if @user.persisted?
-            sign_in(resource_name, @user)
-            render json: @user
+          user = Staff.find_by_auth(auth_hash)
+
+          if user
+            sign_in(resource_name, user)
+            render json: user
           else
             render json: { error: 'Invalid Login' }, status: 401
           end

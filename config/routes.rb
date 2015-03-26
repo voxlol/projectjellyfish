@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :staff, controllers: { sessions: 'sessions' }
 
   devise_scope :staff do
-    get '/staff/auth/:provider/callback', to: 'sessions#create'
+    match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   end
 
   get 'saml/init', to: 'saml#init'
