@@ -6,7 +6,7 @@ RSpec.describe 'Bundles', :show_in_doc do
       sign_in_as create(:staff, :admin)
       bundle_attributes = attributes_for(:bundle).stringify_keys!
 
-      post('/bundles.json', bundle_attributes)
+      post('/api/v1/bundles.json', bundle_attributes)
 
       expect(response).to be_success
       expect(json.slice('name', 'description', 'slug'))
@@ -19,7 +19,7 @@ RSpec.describe 'Bundles', :show_in_doc do
       sign_in_as create(:staff, :admin)
       bundle = create(:bundle)
 
-      put("/bundles/#{bundle.id}.json", name: 'new name')
+      put("/api/v1/bundles/#{bundle.id}.json", name: 'new name')
 
       expect(response).to be_success
       expect(bundle.reload.name).to eq 'new name'

@@ -12,18 +12,18 @@ RSpec.describe 'Staff Orders API' do
     end
 
     it 'returns an order for the staff member', :show_in_doc do
-      get "/staff/#{Staff.all.first.id}/orders/#{@order.id}"
+      get "/api/v1/staff/#{Staff.all.first.id}/orders/#{@order.id}"
       expect(response.body).to eq(@order.to_json(include: %w(order_items)))
     end
 
     it 'returns an error when the order does not exist' do
-      get "/staff/#{Staff.all.first.id}/orders/#{@order.id + 999}"
+      get "/api/v1/staff/#{Staff.all.first.id}/orders/#{@order.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
 
     it 'returns an error when the staff member does not exist' do
-      get "/staff/#{Staff.all.first.id + 999}/orders/#{@order.id}"
+      get "/api/v1/staff/#{Staff.all.first.id + 999}/orders/#{@order.id}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -37,18 +37,18 @@ RSpec.describe 'Staff Orders API' do
     end
 
     it 'returns orders', :show_in_doc do
-      get "/staff/#{Staff.all.first.id}/orders"
+      get "/api/v1/staff/#{Staff.all.first.id}/orders"
       expect(response.body).to eq(@orders.to_json(include: %w(order_items)))
     end
 
     it 'returns an error when the staff member does not exist' do
-      get "/staff/#{Staff.all.first.id + 999}/orders"
+      get "/api/v1/staff/#{Staff.all.first.id + 999}/orders"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
 
     it 'paginates the staff_orders' do
-      get "/staff/#{Staff.all.first.id}/orders", page: 1, per_page: 1
+      get "/api/v1/staff/#{Staff.all.first.id}/orders", page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end

@@ -20,12 +20,12 @@ RSpec.describe 'Projects API' do
       create :project_detail, project_id: @project2.id
       staff = create :staff
       create :staff_project, staff_id: staff.id, project_id: @project.id
-      get '/projects'
+      get '/api/v1/projects'
       expect(json.length).to eq(2)
     end
 
     it 'paginates the projects' do
-      get '/projects', page: 1, per_page: 1
+      get '/api/v1/projects', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -37,12 +37,12 @@ RSpec.describe 'Projects API' do
     end
 
     it 'retrieves project by id' do
-      get "/projects/#{@project.id}"
+      get "/api/v1/projects/#{@project.id}"
       expect(json['name']).to eq(@project.name)
     end
 
     it 'returns an error when the project does not exist' do
-      get "/projects/#{@project.id + 999}"
+      get "/api/v1/projects/#{@project.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -55,13 +55,13 @@ RSpec.describe 'Projects API' do
 
     it 'creates a new project record' do
       project_data = attributes_for(:project)
-      post '/projects', project_data
+      post '/api/v1/projects', project_data
       expect(json['name']).to eq(project_data[:name])
     end
 
     it 'creates a new project record w/ project answers', :show_in_doc do
       project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
-      post '/projects', project_data.merge(includes: %w(project_answers))
+      post '/api/v1/projects', project_data.merge(includes: %w(project_answers))
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
   end
@@ -73,19 +73,19 @@ RSpec.describe 'Projects API' do
     end
 
     it 'changes existing project' do
-      put "/projects/#{@project.id}", name: 'Updated', budget: 1.99
+      put "/api/v1/projects/#{@project.id}", name: 'Updated', budget: 1.99
       expect(response.status).to eq(204)
     end
 
     it 'updates a project record w/ project answers', :show_in_doc do
       project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
-      put "/projects/#{@project.id}", project_data
+      put "/api/v1/projects/#{@project.id}", project_data
       @project.reload
       expect(@project.project_answers.length).to eq(1)
     end
 
     it 'returns an error when the project does not exist' do
-      put "/projects/#{@project.id + 999}", attributes_for(:project)
+      put "/api/v1/projects/#{@project.id + 999}", attributes_for(:project)
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

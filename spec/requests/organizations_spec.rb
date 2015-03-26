@@ -12,12 +12,12 @@ RSpec.describe 'Organizations' do
     end
 
     it 'returns a collection of all of the organizations', :show_in_doc do
-      get '/organizations'
+      get '/api/v1/organizations'
       expect(response.body).to eq(@organizations.to_json)
     end
 
     it 'paginates the organizations' do
-      get '/organizations', page: 1, per_page: 1
+      get '/api/v1/organizations', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
   end
@@ -30,12 +30,12 @@ RSpec.describe 'Organizations' do
     end
 
     it 'returns an organization', :show_in_doc do
-      get "/organizations/#{@organization.id}"
+      get "/api/v1/organizations/#{@organization.id}"
       expect(response.body).to eq(@organization.to_json)
     end
 
     it 'returns an error when the organization does not exist' do
-      get "/organizations/#{@organization.id + 999}"
+      get "/api/v1/organizations/#{@organization.id + 999}"
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -49,12 +49,12 @@ RSpec.describe 'Organizations' do
     end
 
     it 'updates an organization', :show_in_doc do
-      put "/organizations/#{@organization.id}", name: 'some different name'
+      put "/api/v1/organizations/#{@organization.id}", name: 'some different name'
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the organization does not exist' do
-      put "/organizations/#{@organization.id + 999}", name: 'some different name'
+      put "/api/v1/organizations/#{@organization.id + 999}", name: 'some different name'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -66,7 +66,7 @@ RSpec.describe 'Organizations' do
     end
 
     it 'creates an organization', :show_in_doc do
-      post '/organizations/', name: 'some name', img: 'img.png', description: 'best org ever'
+      post '/api/v1/organizations/', name: 'some name', img: 'img.png', description: 'best org ever'
       expect(response.body).to eq(Organization.first.to_json)
     end
   end
@@ -78,12 +78,12 @@ RSpec.describe 'Organizations' do
     end
 
     it 'removes the organization', :show_in_doc do
-      delete "/organizations/#{@organization.id}"
+      delete "/api/v1/organizations/#{@organization.id}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the organization does not exist' do
-      delete "/organizations/#{@organization.id + 999}", name: 'some different name'
+      delete "/api/v1/organizations/#{@organization.id + 999}", name: 'some different name'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end

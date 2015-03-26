@@ -13,13 +13,13 @@ RSpec.describe 'Order Items API' do
 
   describe 'GET show' do
     it 'returns an order item', :show_in_doc do
-      get "/order_items/#{@order_item.id}"
+      get "/api/v1/order_items/#{@order_item.id}"
       expect(json['product_id']).to eq(@order_item.product_id)
       expect(json['project_id']).to eq(@order_item.project_id)
     end
 
     it 'returns an error when the order item does not exist' do
-      get "/order_items/#{@order_item.id + 999}"
+      get "/api/v1/order_items/#{@order_item.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -27,14 +27,14 @@ RSpec.describe 'Order Items API' do
 
   describe 'PUT update' do
     it 'update an order item', :show_in_doc do
-      put "/order_items/#{@order_item.id}", port: 123, host: 'www.example.com'
+      put "/api/v1/order_items/#{@order_item.id}", port: 123, host: 'www.example.com'
 
       @order_item.provision_status
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do
-      get "/order_items/#{@order_item.id + 999}"
+      get "/api/v1/order_items/#{@order_item.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -47,12 +47,12 @@ RSpec.describe 'Order Items API' do
     end
 
     it 'removes the order item', :show_in_doc do
-      delete "/order_items/#{@order_item.id}"
+      delete "/api/v1/order_items/#{@order_item.id}"
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do
-      delete "/order_items/#{@order_item.id + 999}"
+      delete "/api/v1/order_items/#{@order_item.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -60,12 +60,12 @@ RSpec.describe 'Order Items API' do
 
   describe 'Item service start / stop' do
     it 'can be started', :show_in_doc do
-      put "/order_items/#{@order_item.id}/start_service"
+      put "/api/v1/order_items/#{@order_item.id}/start_service"
       expect(response.status).to eq(200)
     end
 
     it 'can be stopped', :show_in_doc do
-      put "/order_items/#{@order_item.id}/stop_service"
+      put "/api/v1/order_items/#{@order_item.id}/stop_service"
       expect(response.status).to eq(200)
     end
   end
@@ -86,18 +86,18 @@ RSpec.describe 'Order Items API' do
     end
 
     it 'updates the order item with the payload and its data' do
-      put "/order_items/#{@order_item.id}/provision_update", @payload.to_json, HTTP_ACCEPT: 'application/json', CONTENT_TYPE: 'application/json'
+      put "/api/v1/order_items/#{@order_item.id}/provision_update", @payload.to_json, HTTP_ACCEPT: 'application/json', CONTENT_TYPE: 'application/json'
       expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do
-      put "/order_items/#{@order_item.id + 999}/provision_update", @payload.to_json, HTTP_ACCEPT: 'application/json', CONTENT_TYPE: 'application/json'
+      put "/api/v1/order_items/#{@order_item.id + 999}/provision_update", @payload.to_json, HTTP_ACCEPT: 'application/json', CONTENT_TYPE: 'application/json'
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
 
     it 'with missing or invalid parameters' do
-      put "/order_items/#{@order_item.id}/provision_update"
+      put "/api/v1/order_items/#{@order_item.id}/provision_update"
       expect(response.status).to eq(422)
     end
   end

@@ -95,3 +95,11 @@ gem 'paper_trail'
 
 # Azure module
 gem 'jellyfish-azure'
+
+gem 'sass'
+gem 'bower-rails'
+gem 'uglifier'
+
+group :production, :staging do
+  gem 'rails_12factor'
+end

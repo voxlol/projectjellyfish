@@ -1,0 +1,20 @@
+<div class="users-list-page">
+
+  <section-header name="Users">
+    <users-box class="product-box" ng-repeat="user in listUsersCtrl.users" user="user">
+      <a type="button" class="btn btn-primary" ui-sref="base.authed.admin.users.edit({id: user.id})">Edit</a>
+    </users-box>
+
+    <div class="add-box">
+      <div class="product-box-shadow">
+        <a ui-sref="base.authed.admin.users.add">
+          <div class="fa-stack">
+            <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
+            <i class="fa fa-fw fa-stack-1x fa-plus"></i>
+          </div>
+          <div class="title">Add New User</div>
+        </a>
+      </div>
+    </div>
+  </section-header>
+</div>

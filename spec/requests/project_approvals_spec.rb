@@ -7,7 +7,7 @@ context 'Project Approvals API' do
       approved_project = create :project
       approved_project.approvals << create(:approval)
 
-      get "projects/#{approved_project.id}/approvals.json"
+      get "/api/v1/projects/#{approved_project.id}/approvals.json"
 
       expect(json.length).to eq(1)
       expect(json[0]['approved']).to eq(true)
@@ -19,7 +19,7 @@ context 'Project Approvals API' do
       rejected_project = create :project
       rejected_project.approvals << create(:approval, :unapproved, reason: reason)
 
-      get "projects/#{rejected_project.id}/approvals.json"
+      get "/api/v1/projects/#{rejected_project.id}/approvals.json"
 
       expect(json.length).to eq(1)
       expect(json[0]['approved']).to eq(false)
@@ -32,7 +32,7 @@ context 'Project Approvals API' do
       sign_in_as create :staff, :admin
       project = create :project
 
-      post "/projects/#{project.id}/approve.json", includes: %w(approvals)
+      post "/api/v1/projects/#{project.id}/approve.json", includes: %w(approvals)
 
       project.reload
       expect(project.approval).to eq('approved')
@@ -45,7 +45,7 @@ context 'Project Approvals API' do
       sign_in_as create :staff
       project = create :project
 
-      post "/projects/#{project.id}/approve.json"
+      post "/api/v1/projects/#{project.id}/approve.json"
 
       expect(response.status).to eq(403)
     end
@@ -57,7 +57,7 @@ context 'Project Approvals API' do
       reason = 'because'
       sign_in_as create :staff, :admin
 
-      delete "/projects/#{project.id}/reject.json", reason: reason, includes: %w(approvals)
+      delete "/api/v1/projects/#{project.id}/reject.json", reason: reason, includes: %w(approvals)
 
       expect(project.reload.approval).to eq('rejected')
       expect(response.status).to eq 204
@@ -67,7 +67,7 @@ context 'Project Approvals API' do
       project = create :project
       sign_in_as create :staff, :admin
 
-      expect { delete "/projects/#{project.id}/reject" }
+      expect { delete "/api/v1/projects/#{project.id}/reject" }
         .to raise_error(Apipie::ParamMissing)
     end
 
@@ -75,7 +75,7 @@ context 'Project Approvals API' do
       project = create :project
       sign_in_as create :staff
 
-      delete "/projects/#{project.id}/reject", reason: 'because'
+      delete "/api/v1/projects/#{project.id}/reject", reason: 'because'
 
       expect(response.status).to eq(403)
     end
