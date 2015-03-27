@@ -16,7 +16,7 @@
 #
 
 FactoryGirl.define do
-  factory :content_page, :class => 'Authentications' do
+  factory :authentications do
     provider 'facebook'
     uid '1234567'
   end

@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   scope '/api/v1' do
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
-    
+
     devise_scope :staff do
-        match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
     end
 
     get 'saml/init', to: 'saml#init'
