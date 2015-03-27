@@ -14,12 +14,6 @@
     "postdeploy": "rake db:schema:load spec db:seed sample:demo"
   },
   "env": {
-    "AWS_ACCESS_KEY": {
-      "description": "AWS Access Key"
-    },
-    "AWS_SECRET_KEY": {
-      "description": "AWS Secret Key"
-    },
     "SECRET_KEY_BASE": {
       "description": "The Rails secret key base",
       "generator": "secret"
