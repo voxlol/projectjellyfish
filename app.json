@@ -15,12 +15,22 @@
   },
   "env": {
     "AWS_ACCESS_KEY": {
-      "description": "AWS Access Key",
-      "generator": "secret"
+      "description": "AWS Access Key"
     },
     "AWS_SECRET_KEY": {
-      "description": "AWS Secret Key",
-      "value": "5"
+      "description": "AWS Secret Key"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "The Rails secret key base",
+      "generator": "secret"
+    },
+    "RACK_ENV": {
+      "description": "The Rails Rack enviroment",
+      "value": "development"
+    },
+    "RAILS_ENV": {
+      "description": "The Rails enviroment",
+      "value": "development"
     }
   },
   "addons": [
