@@ -18,6 +18,9 @@ module TokenAuthentication
   # via parameters. However, anyone could use Rails's token
   # authentication features to get the token from a header.
   def authenticate_staff_from_token!
+    # user = Staff.find_by(email: request.headers['X-Staff-Email'], authentication_token: request.headers['X-Staff-Token'])
+    # return unless user.present?
+
     return unless request.headers['X-Staff-Token'].present? && request.headers['X-Staff-Email'].present?
     # Set the authentication params if not already present
     params[:user_token] = request.headers['X-Staff-Token']
