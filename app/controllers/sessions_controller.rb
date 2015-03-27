@@ -18,10 +18,10 @@ class SessionsController < Devise::SessionsController
       end
       format.json do
         self.resource = warden.authenticate(auth_options)
-        resource.authentication_token = nil # RESET USER TOKEN AFTER GETTING RESOURCE FROM WARDEN
-        resource.save # THIS FORCES A NEW API TOKEN TO BE GENERATED FOR USER
 
         if resource
+          resource.authentication_token = nil # RESET USER TOKEN AFTER GETTING RESOURCE FROM WARDEN
+          resource.save # THIS FORCES A NEW API TOKEN TO BE GENERATED FOR USER
           sign_in(resource_name, resource)
           resource.api_token = resource.authentication_token
           render json: resource
