@@ -18,12 +18,11 @@ class SessionsController < Devise::SessionsController
       end
       format.json do
         self.resource = warden.authenticate(auth_options)
-
         if resource
+          sign_in(resource_name, resource)
           resource.authentication_token = nil # RESET USER TOKEN AFTER GETTING RESOURCE FROM WARDEN
           resource.save # THIS FORCES A NEW USER API TOKEN TO BE GENERATED
-          sign_in(resource_name, resource)
-          resource.api_token = resource.authentication_token
+          resource.api_token = resource.secret
           render json: resource
         else
           render json: { error: 'Invalid Login' }, status: 401
