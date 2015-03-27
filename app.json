@@ -20,11 +20,11 @@
     },
     "RACK_ENV": {
       "description": "The Rails Rack enviroment",
-      "value": "development"
+      "value": "test"
     },
     "RAILS_ENV": {
       "description": "The Rails enviroment",
-      "value": "development"
+      "value": "test"
     }
   },
   "addons": [
