@@ -14,6 +14,6 @@ feature 'Project creation' do
     fill_in 'End Date', with: '2016-01-01'
     find('a', text: 'CREATE').click
 
-    expect(page).to have_content("Project created successfully.")
+    expect(page).to have_content('Project created successfully.')
   end
 end
