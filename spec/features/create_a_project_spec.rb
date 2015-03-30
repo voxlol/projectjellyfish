@@ -2,12 +2,10 @@ require 'rails_helper'
 
 feature 'Project creation' do
   scenario 'staff creates a project', :js do
-    visit root_path
     staff = create(:staff)
 
-    fill_in 'email', with: staff.email
-    fill_in 'password', with: staff.password
-    click_on 'Login'
+    login_as(staff)
+    visit dashboard_path
     click_on 'ADD NEW PROJECT'
     fill_in 'Name', with: 'Project Jellyfish'
     fill_in 'Icon', with: 'http://www.example.com/image.png'
