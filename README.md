@@ -11,12 +11,9 @@ Project Jellyfish is a broker system.  It allows admins to create a product cata
 TaaS, PaaS, or even Staff) and allows them to be assigned a cost, and then users can create projects and add those
 services to a project.  Jellyfish current supports IaaS via [ManageIQ](http://manageiq.org).
 
-Project Jellyfish has 3 main components: Jellyfish API, Jellyfish UX, and ManageIQ.  Jellyfish API is the API layer
-of Jellyfish.  It provides a REST based API for Jellyfish-UX and for the Jellyfish Mobile application.
-
 #### Requirements
 
-Jellyfish API has the following requirements
+Jellyfish has the following requirements
 
 * Ruby (Please check .ruby-version for the latest version to use, generally, this is the current version of Ruby)
 * PostgreSQL 9.4.x
