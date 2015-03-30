@@ -20,6 +20,7 @@
 
 class Order < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_taggable
 
   belongs_to :staff
   has_many :order_items

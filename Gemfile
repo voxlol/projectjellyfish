@@ -103,3 +103,6 @@ gem 'uglifier'
 group :production, :staging do
   gem 'rails_12factor'
 end
+
+# Add Tags
+gem 'acts-as-taggable-on'

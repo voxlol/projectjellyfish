@@ -14,6 +14,8 @@
 
 class Bundle < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_taggable
+
   has_many :bundled_products
   has_many :products, through: :bundled_products
 

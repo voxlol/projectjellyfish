@@ -36,6 +36,7 @@
 class OrderItem < ActiveRecord::Base
   # Includes
   acts_as_paranoid
+  acts_as_taggable
 
   # Relationships
   belongs_to :order
