@@ -142,7 +142,7 @@ class AlertsController < ApplicationController
   end
 
   def load_alerts
-    params.permit(:active, :not_status, :sort, :page, :per_page, :includes)
+    params.slice(:active, :not_status, :sort, :page, :per_page, :includes)
     query = policy_scope(Alert)
     if params[:active].present?
       query = params[:alert] ? query.active : query.inactive
