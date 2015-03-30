@@ -28,6 +28,7 @@
 class Project < ActiveRecord::Base
   # Includes
   acts_as_paranoid
+  acts_as_taggable
 
   # Constants
   STATES = Hash[%w(unknown ok pending warning critical).map.with_index.to_a]
