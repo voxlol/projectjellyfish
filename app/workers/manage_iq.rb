@@ -75,12 +75,15 @@ class ManageIQ < Provisioner
   end
 
   def request
-    # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
+    # On OS/X, for development only, it may be easiest just to disable certificate verification because the certificates are stored in the keychain, not the file system
+    # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+    ssl_verify = Rails.env.development? ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
+
     RestClient::Resource.new(
       miq_settings[:url],
       user: miq_settings[:username],
       password: miq_settings[:password],
-      verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+      verify_ssl: ssl_verify,
       timeout: 120,
       open_timeout: 60
     )
