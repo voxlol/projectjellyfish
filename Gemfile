@@ -106,3 +106,27 @@ end
 
 # Add Tags
 gem 'acts-as-taggable-on'
+
+# Add Dependencies
+source 'http://rails-assets.org' do
+  gem 'rails-assets-angularjs'
+  gem 'rails-assets-angucomplete-alt'
+  gem 'rails-assets-angular-animate'
+  gem 'rails-assets-angular-bootstrap'
+  gem 'rails-assets-angular-cookies'
+  gem 'rails-assets-angular-gravatar'
+  gem 'rails-assets-angular-loading-bar'
+  gem 'rails-assets-angular-progress-arc'
+  gem 'rails-assets-angular-resource'
+  gem 'rails-assets-angular-sanitize'
+  gem 'rails-assets-angular-smart-table'
+  gem 'rails-assets-angular-ui-router'
+  gem 'rails-assets-angular-ui-select'
+  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-fontawesome'
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-lodash'
+  gem 'rails-assets-ng-currency'
+  gem 'rails-assets-selectize'
+  gem 'rails-assets-bootstrap'
+end
