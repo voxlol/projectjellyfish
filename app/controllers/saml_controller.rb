@@ -1,5 +1,5 @@
 class SamlController < ApplicationController
-  before_action :saml_enabled?
+  before_action :ensure_saml_enabled
 
   def init
     respond_to do |format|
@@ -23,10 +23,17 @@ class SamlController < ApplicationController
 
   private
 
-  def saml_enabled?
-    @settings = Setting.find_by(hid: 'saml').settings_hash
-    return saml_failure unless @settings[:enabled]
+  def ensure_saml_enabled
+    return saml_failure unless saml_enabled?
     true
+  end
+
+  def saml_enabled?
+    if Setting.find_by(hid: 'saml')
+      Setting.find_by(hid: 'saml').settings_hash[:enabled]
+    else
+      false
+    end
   end
 
   def saml_failure

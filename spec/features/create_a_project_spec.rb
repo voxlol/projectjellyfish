@@ -5,6 +5,7 @@ feature 'Project creation' do
     staff = create(:staff)
 
     login_as(staff)
+
     visit dashboard_path
     click_on 'ADD NEW PROJECT'
     fill_in 'Name', with: 'Project Jellyfish'
