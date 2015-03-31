@@ -31,6 +31,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    addressable (2.3.7)
     annotate (2.6.8)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -67,6 +68,17 @@ GEM
       slim (~> 1.3.6)
       terminal-table (~> 1.4)
     builder (3.2.2)
+    capybara (2.4.4)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    capybara-angular (0.1.0)
+      capybara
+    capybara-webkit (1.4.1)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -145,6 +157,8 @@ GEM
       fog-azure
       rails
     json (1.8.2)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     license_finder (2.0.3)
       bundler
       httparty
@@ -318,6 +332,8 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     will_paginate (3.0.7)
     xml-simple (1.1.5)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -331,6 +347,8 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bower-rails
   brakeman
+  capybara-angular
+  capybara-webkit
   codeclimate-test-reporter
   daemons
   database_cleaner (~> 1.3.0)
@@ -342,6 +360,7 @@ DEPENDENCIES
   highline
   jbuilder (~> 2.0)
   jellyfish-azure
+  launchy
   license_finder
   paper_trail
   paranoia
