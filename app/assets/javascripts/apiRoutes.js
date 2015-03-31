@@ -7,6 +7,7 @@ window.apiRoutes = {
     "cloudsById":        "/clouds/:id",
 
     "alerts":            "/alerts",
+    "alertsById":        "/alerts/:id",
 
     "orders":            "/orders/:id",
     "orderItems":        "/order_items/:id",
@@ -18,7 +19,7 @@ window.apiRoutes = {
     "projectUser":       "/projects/:id/staff/:staff_id",
     "servicesById":      "/services/:id",
 
-    "productsById":      "/products/:id",
+    "productsById":      "/products/:id",s
     "productTypesById":  "/product_types/:id",
 
     "signIn":            "/staff/sign_in",
