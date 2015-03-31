@@ -6,7 +6,6 @@
 //= require angular-sanitize
 //= require angular-bootstrap
 //= require angular-gravatar
-//= require angular-gravatar
 //= require angular-loading-bar
 //= require ng-currency
 //= require angucomplete-alt
