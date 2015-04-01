@@ -17,7 +17,7 @@ FactoryGirl.define do
     end
 
     trait :check_box do
-      field_type :select_box
+      field_type :check_box
       value 'false'
     end
 

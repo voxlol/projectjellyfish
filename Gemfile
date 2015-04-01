@@ -57,6 +57,9 @@ group :development, :test do
   gem 'seed_dump'
   gem 'spring'
   gem 'web-console', '~> 2.0.0'
+  gem 'capybara-webkit'
+  gem 'capybara-angular'
+  gem 'launchy'
 end
 
 group :test do
