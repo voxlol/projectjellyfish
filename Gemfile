@@ -112,7 +112,7 @@ gem 'acts-as-taggable-on'
 
 # Add Dependencies
 source 'http://rails-assets.org' do
-  gem 'rails-assets-angularjs'
+  gem 'rails-assets-angular', '>=1.3.15'
   gem 'rails-assets-angucomplete-alt'
   gem 'rails-assets-angular-animate'
   gem 'rails-assets-angular-bootstrap'
