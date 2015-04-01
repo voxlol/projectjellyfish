@@ -4,4 +4,4 @@
 function AlertsAdminController() {
 }
 
-module.exports = AlertsAdminController;
+window.AlertsAdminController = AlertsAdminController;

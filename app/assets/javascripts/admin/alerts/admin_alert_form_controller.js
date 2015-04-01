@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 var adminAlertsListState = 'base.authed.admin.alerts.list';
 
 /**
@@ -71,6 +69,7 @@ AdminAlertFormController.prototype = {
       this.alert.order_item_id = '0';
     }
     this.alert.staff_id = String(parent.currentUser.id);
+    console.log("This ALERT: " + JSON.stringify(this.alert));
     if (typeof this.alert.start_date === "undefined" || this.alert.start_date === null) {
       this.alert.start_date = '';
       var startTime = new Date();
@@ -283,4 +282,4 @@ AdminAlertFormController.prototype = {
 };
 
 
-module.exports = AdminAlertFormController;
+window.AdminAlertFormController = AdminAlertFormController;

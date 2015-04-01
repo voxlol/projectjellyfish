@@ -19,7 +19,7 @@ window.apiRoutes = {
     "projectUser":       "/projects/:id/staff/:staff_id",
     "servicesById":      "/services/:id",
 
-    "productsById":      "/products/:id",s
+    "productsById":      "/products/:id",
     "productTypesById":  "/product_types/:id",
 
     "signIn":            "/staff/sign_in",

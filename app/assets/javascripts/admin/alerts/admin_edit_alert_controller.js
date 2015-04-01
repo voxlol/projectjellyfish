@@ -18,4 +18,4 @@ AdminEditAlertController.prototype = {
 
 };
 
-module.exports = AdminEditAlertController;
+window.AdminEditAlertController = AdminEditAlertController;

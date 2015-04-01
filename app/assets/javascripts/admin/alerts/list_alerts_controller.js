@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**@ngInject*/
 var ListAlertsController = function($scope, $state, alerts, FlashesService, users, AlertsResource) {
   this.alerts = alerts.filter(function(alert) {
@@ -84,4 +82,4 @@ ListAlertsController.prototype = {
   }
 };
 
-module.exports = ListAlertsController;
+window.ListAlertsController = ListAlertsController;

@@ -18,4 +18,4 @@ AdminAddAlertController.prototype = {
 
 };
 
-module.exports = AdminAddAlertController;
+window.AdminAddAlertController = AdminAddAlertController;
