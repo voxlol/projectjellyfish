@@ -7,7 +7,7 @@ angular.module("broker", [
   "smart-table",
   "ngAnimate",
   "ui.gravatar",
-  "angucomplete",
+  "angucomplete-alt",
   "ui.bootstrap",
   "ui.select",
   "ngCookies",

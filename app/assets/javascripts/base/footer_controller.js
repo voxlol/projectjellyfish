@@ -11,7 +11,12 @@ var FooterController = function(footerLinks, APP_CONFIG) {
 FooterController.resolve = {
   /**@ngInject*/
   footerLinks: function(currentUser, SettingsResource) {
-    return SettingsResource.get({hid: 'footer'}).$promise;
+    return SettingsResource.get({hid: 'footer'}).$promise.then(
+      function(data){
+        return data;
+      },
+      function(){}
+    );
   }
 };
 

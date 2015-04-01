@@ -18,7 +18,6 @@ RSpec.configure do |config|
 
   config.include BackgroundJobs
   config.include Capybara::Angular::DSL, type: :feature
-  config.before(:each, type: :feature) { load Rails.root.join 'db', 'seeds.rb' }
   config.before :suite do
     Warden.test_mode!
   end
