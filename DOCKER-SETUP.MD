@@ -2,6 +2,9 @@
 
 Guide to running API with Docker
 
+## Installing Docker
+Please see Docker's installation instructions available here: https://docs.docker.com/installation/mac/
+
 ## Setup
 The Dockerfile and docker-compose.yml are the two files that properly configure Jellyfish-API to run on Docker. These files do not need to be altered. In your .env file, remove the following references to avoid database conflicts:
 ```
@@ -32,7 +35,7 @@ docker-compose build
 ```
 To begin running the newly created Docker image, run
 ```
-docker-up
+docker-compose up
 ```
 In a different terminal, enter the following command to setup the database
 ```
