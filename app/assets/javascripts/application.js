@@ -1,5 +1,5 @@
 //= require lodash
-//= require angularjs
+//= require angular
 //= require angular-ui-router
 //= require angular-animate
 //= require angular-resource
