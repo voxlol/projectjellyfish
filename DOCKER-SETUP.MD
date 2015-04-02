@@ -12,22 +12,6 @@ DATABASE_URL=
 CORS_ALLOW_ORIGIN=
 DEFAULT_URL=
 ```
-Replace your database.yml with the following
-```
-development: &default
-  adapter: postgresql
-  encoding: unicode
-  database: postgres
-  pool: 5
-  username: postgres
-  password:
-  host: db
-
-test:
-  <<: *default
-  database: jellyfish
-```
-
 
 In a terminal inside of your project directory, run the following command to build the image:
 ```
@@ -39,7 +23,9 @@ docker-compose up
 ```
 In a different terminal, enter the following command to setup the database
 ```
-docker-compose run web rake db:create; rake db:migrate; rake db:seed; rake sample:demo
+docker-compose run web rake db:create
+docker-compose run web rake db:migrate
+docker-compose run web rake sample:demo
 ```
 Your application should now be running. To find your boot2docker ip address, run
 ```
