@@ -20,7 +20,7 @@ if Rails.env.development?
       'exclude_fixtures'     => 'false',
       'exclude_factories'    => 'false',
       'ignore_model_sub_dir' => 'true',
-      'skip_on_db_migrate'   => 'false',
+      'skip_on_db_migrate'   => 'true',
       'format_bare'          => 'true',
       'format_rdoc'          => 'false',
       'format_markdown'      => 'false',
@@ -30,5 +30,5 @@ if Rails.env.development?
     )
   end
 
-  Annotate.load_tasks
+  Annotate.load_tasks if ENV.key? 'ENABLE_ANNOTATIONS'
 end
