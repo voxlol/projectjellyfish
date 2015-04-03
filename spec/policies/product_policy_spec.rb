@@ -11,18 +11,15 @@ describe ProductPolicy do
     end
   end
 
-  permissions :answers? do
-    it 'allows access for a user' do
-      expect(ProductPolicy).to permit(current_staff)
-    end
-  end
+  %i(new? create? update? destroy?).each do |action|
+    permissions action do
+      it 'disallows a staff' do
+        expect(ProductPolicy).not_to permit(current_staff)
+      end
 
-  permissions :destroy? do
-    it 'prevents creation if not an admin' do
-      expect(ProductPolicy).not_to permit(current_staff)
-    end
-    it 'allows an admin to create clouds' do
-      expect(ProductPolicy).to permit(admin)
+      it 'allows an admin' do
+        expect(ProductPolicy).to permit(admin)
+      end
     end
   end
 

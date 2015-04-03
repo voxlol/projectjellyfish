@@ -1,2 +1,0 @@
-class ProductAnswersController < ApplicationController
-end

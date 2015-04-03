@@ -3,7 +3,7 @@
 This guide will walk you through how to install and run Jellyfish on a fresh Red Hat Enterprise Linux (or similar,
 like CentOS) installation for a production environment.
 
-#### Update system 
+#### Update system
 
 Update your system (optional, but always a good idea)
 

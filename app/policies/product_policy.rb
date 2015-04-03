@@ -15,7 +15,11 @@ class ProductPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def answers?
-    true
+  def create?
+    user.admin?
+  end
+
+  def update?
+    user.admin?
   end
 end

@@ -63,7 +63,7 @@ var ProjectUsersController = function($scope, $modalInstance, $q, $state, projec
       }
 
       // Refetch the project to reload the users.
-      project.$get({'includes[]': ['approvals', 'approvers', 'services', 'project_answers', 'staff']});
+      project.$get({'includes[]': ['approvals', 'approvers', 'services', 'staff']});
 
       $modalInstance.close();
     });

@@ -5,14 +5,14 @@ RSpec.describe 'Products API' do
 
   describe 'GET index' do
     before(:each) do
-      @product_type = create :product_type
+      create(:product)
       sign_in_as create :staff
       @products = Product.all
     end
 
     it 'returns a collection of all of the products', :show_in_doc do
       get '/api/v1/products'
-      expect(json.to_json).to eq(@products.to_json)
+      expect(json.map { |product| product['id'] }).to eq(@products.map(&:id))
     end
 
     it 'paginates the products' do
@@ -29,7 +29,7 @@ RSpec.describe 'Products API' do
 
     it 'returns an product', :show_in_doc do
       get "/api/v1/products/#{@product.id}"
-      expect(response.body).to eq(@product.to_json)
+      expect(json['id']).to eq(@product.id)
     end
 
     it 'returns an error when the product does not exist' do
@@ -54,6 +54,22 @@ RSpec.describe 'Products API' do
       delete "/api/v1/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+  end
+
+  describe 'POST create' do
+    it 'maps provisioning_answers to a hash' do
+      sign_in_as create :staff, :admin
+      product_attributes = attributes_for(
+        :product,
+        'provisioning_answers[foo]' => 'bar',
+        'provisioning_answers[baz]' => 'bat'
+      )
+
+      post products_path, product_attributes
+
+      expect(response).to be_success
+      expect(Product.last.provisioning_answers).to eq 'foo' => 'bar', 'baz' => 'bat'
     end
   end
 end
