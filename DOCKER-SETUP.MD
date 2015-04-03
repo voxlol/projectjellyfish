@@ -12,6 +12,7 @@ DATABASE_URL=
 CORS_ALLOW_ORIGIN=
 DEFAULT_URL=
 ```
+You will need to set your devise secret key as an environment variable.
 
 In a terminal inside of your project directory, run the following command to build the image:
 ```
