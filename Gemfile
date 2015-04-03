@@ -132,4 +132,7 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-ng-currency'
   gem 'rails-assets-selectize', "~> 0.11.2"
   gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap3-datetimepicker'
+  gem 'rails-assets-sass-bootstrap-glyphicons'
+  gem 'rails-assets-angular-bootstrap-datetimepicker-directive'
 end

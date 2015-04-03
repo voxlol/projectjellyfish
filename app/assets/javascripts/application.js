@@ -18,4 +18,7 @@
 //= require selectize
 //= require bootstrap
 //= require bootstrap-sass
+//= require moment.js
+//= require bootstrap3-datetimepicker
+//= require angular-bootstrap-datetimepicker-directive
 //= require_tree .

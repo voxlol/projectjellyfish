@@ -12,18 +12,22 @@
         <table st-table="rowCollection" class="table table-responsive table-striped">
             <colgroup>
                 <col class="col6">
-                <col class="col44">
+                <col class="col34">
                 <col class="col10">
                 <col class="col10">
-                <col class="col15">
-                <col class="col15">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
             </colgroup>
             <thead>
             <tr>
                 <th>Status</th>
                 <th>Message</th>
                 <th>Start Date</th>
+                <th>Start Time</th>
                 <th>End Date</th>
+                <th>End Time</th>
                 <th>Created By</th>
                 <th>Actions</th>
             </tr>
@@ -39,7 +43,9 @@
                 </td>
                 <td>{{alert.message}}</td>
                 <td>{{alert.start_date | date:'MMM d, yyyy'}}</td>
+                <td>{{alert.start_date | date:'h:mm a'}}</td>
                 <td>{{alert.end_date | date:'MMM d, yyyy'}}</td>
+                <td>{{alert.end_date | date:'h:mm a'}}</td>
                 <td>{{alert.user.first_name + ' ' + alert.user.last_name}}</td>
                 <td ng-hide="listAlertsCtrl.checkIfDeleted(alert)">
                     <span>
