@@ -30,7 +30,7 @@ class SamlController < ApplicationController
   private
 
   def saml_enabled?
-    @settings = Setting.find_by(hid: 'saml').settings_hash
+    @settings ||= Setting.find_by!(hid: 'saml').settings_hash
     return saml_failure unless @settings[:enabled]
     true
   end
