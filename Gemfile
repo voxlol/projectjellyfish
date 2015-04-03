@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18'
 gem 'pg_search', '~> 0.7.8'
 
 # Pagination
@@ -65,7 +65,6 @@ group :development, :test do
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
   gem 'web-console', '~> 2.0.0'
-  gem 'capybara-webkit'
   gem 'capybara-angular'
   gem 'launchy'
 end
@@ -119,8 +118,8 @@ gem 'acts-as-taggable-on'
 
 # Add Dependencies
 source 'http://rails-assets.org' do
+  gem 'rails-assets-angular', '>=1.3.15'
   gem 'rails-assets-angucomplete-alt'
-  gem 'rails-assets-angular'
   gem 'rails-assets-angular-animate'
   gem 'rails-assets-angular-bootstrap'
   gem 'rails-assets-angular-cookies'

@@ -66,6 +66,7 @@ GEM
       systemu (~> 2.6)
       uuid (~> 2.0)
     bcrypt (3.1.10)
+    bcrypt (3.1.10-x64-mingw32)
     bcrypt (3.1.10-x86-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -92,9 +93,6 @@ GEM
       xpath (~> 2.0)
     capybara-angular (0.1.0)
       capybara
-    capybara-webkit (1.4.1)
-      capybara (>= 2.3.0, < 2.5.0)
-      json
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
@@ -140,6 +138,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.8)
+    ffi (1.9.8-x64-mingw32)
     ffi (1.9.8-x86-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -275,6 +274,8 @@ GEM
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    nokogiri (1.6.6.2-x64-mingw32)
+      mini_portile (~> 0.6.0)
     nokogiri (1.6.6.2-x86-mingw32)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -285,8 +286,9 @@ GEM
       activerecord (~> 4.0)
     parser (2.2.0.3)
       ast (>= 1.1, < 3.0)
-    pg (0.17.1)
-    pg (0.17.1-x86-mingw32)
+    pg (0.18.1)
+    pg (0.18.1-x64-mingw32)
+    pg (0.18.1-x86-mingw32)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -301,6 +303,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.1-x64-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry (0.10.1-x86-mingw32)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -328,23 +335,23 @@ GEM
       sprockets-rails (~> 2.0)
     rails-assets-angucomplete-alt (0.0.38)
       rails-assets-angular (>= 1.2.0)
-    rails-assets-angular (1.2.28)
-    rails-assets-angular-animate (1.2.28)
-      rails-assets-angular (= 1.2.28)
-    rails-assets-angular-bootstrap (0.12.0)
-      rails-assets-angular (>= 1, < 1.3.0)
-    rails-assets-angular-cookies (1.2.28)
-      rails-assets-angular (= 1.2.28)
+    rails-assets-angular (1.3.15)
+    rails-assets-angular-animate (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-bootstrap (0.11.2)
+      rails-assets-angular (>= 1)
+    rails-assets-angular-cookies (1.3.15)
+      rails-assets-angular (= 1.3.15)
     rails-assets-angular-gravatar (0.3.1)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
     rails-assets-angular-loading-bar (0.7.1)
       rails-assets-angular (>= 1.2.9, < 2)
     rails-assets-angular-progress-arc (1.0.0)
       rails-assets-angular (>= 1.2.19)
-    rails-assets-angular-resource (1.2.28)
-      rails-assets-angular (= 1.2.28)
-    rails-assets-angular-sanitize (1.2.28)
-      rails-assets-angular (= 1.2.28)
+    rails-assets-angular-resource (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-sanitize (1.3.15)
+      rails-assets-angular (= 1.3.15)
     rails-assets-angular-schema-form (0.8.0)
       rails-assets-angular (>= 1.2)
       rails-assets-angular-sanitize (>= 1.2)
@@ -361,8 +368,8 @@ GEM
     rails-assets-jquery (2.1.3)
     rails-assets-lodash (3.6.0)
     rails-assets-microplugin (0.0.3)
-    rails-assets-ng-currency (0.7.13)
-      rails-assets-angular (~> 1.2.16)
+    rails-assets-ng-currency (0.8.3)
+      rails-assets-angular (~> 1.3.4)
     rails-assets-objectpath (1.1.0)
     rails-assets-selectize (0.12.0)
       rails-assets-jquery (>= 1.7.0)
@@ -386,6 +393,11 @@ GEM
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
+    rest-client (1.8.0-x64-mingw32)
+      ffi (~> 1.9)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -505,6 +517,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     will_paginate (3.0.7)
+    win32console (1.3.2)
     win32console (1.3.2-x86-mingw32)
     xml-simple (1.1.5)
     xpath (2.0.0)
@@ -512,6 +525,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
   x86-mingw32
 
 DEPENDENCIES
@@ -524,7 +538,6 @@ DEPENDENCIES
   bootstrap-sass
   brakeman
   capybara-angular
-  capybara-webkit
   codeclimate-test-reporter
   custom_configuration
   daemons
@@ -542,7 +555,7 @@ DEPENDENCIES
   license_finder
   paper_trail
   paranoia
-  pg (~> 0.17.1)
+  pg (~> 0.18)
   pg_search (~> 0.7.8)
   poltergeist
   pry-rails
@@ -551,7 +564,7 @@ DEPENDENCIES
   rack-cors
   rails (= 4.1.7)
   rails-assets-angucomplete-alt!
-  rails-assets-angular!
+  rails-assets-angular (>= 1.3.15)!
   rails-assets-angular-animate!
   rails-assets-angular-bootstrap!
   rails-assets-angular-cookies!
