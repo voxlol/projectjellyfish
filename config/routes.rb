@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     get 'saml/init', to: 'saml#init'
     post 'saml/consume', to: 'saml#consume'
+    get 'saml/metadata', to: 'saml#metadata'
 
     # Alerts Routes
     resources :alerts, defaults: { format: :json } do
