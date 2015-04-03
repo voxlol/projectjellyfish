@@ -59,8 +59,10 @@
 
   <br/>
 
-  <a class="fa fa-plus" ng-if="projectQuestion.options && projectQuestion.options.length !== 0"
-     ng-click="addOption()"> Add Option</a>
+  <a type="button" class="btn btn-default btn-option" ng-if="projectQuestion.options && projectQuestion.options.length !== 0"
+     ng-click="addOption()">+ Add Option</a>
+
+    <br/>
 
   <div class="form-group">
     <div class="col-sm-10">
