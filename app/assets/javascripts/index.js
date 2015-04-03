@@ -32,11 +32,7 @@ angular.module("broker", [
   "broker.dashboard",
   "broker.users",
   "broker.settings",
-<<<<<<< HEAD
   "schemaForm"
-=======
-  "ngRoute"
->>>>>>> playing with angular to get Project Questions Add and Edit page titles to show up
 ]).run(
   /**@ngInject*/
   function($http, $rootScope, $log, $location, AuthService, UsersResource, Session, $urlRouter, ROUTES, $state, APP_CONFIG, FlashesService) {

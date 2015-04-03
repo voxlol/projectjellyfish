@@ -3,6 +3,7 @@
 /**@ngInject*/
 function NewProjectQuestionController($scope, $state, ProjectQuestion, FlashesService) {
   $scope.projectQuestion = {};
+  $scope.pageFunction = $state.params.id;
 
   $scope.submitProject = function() {
     ProjectQuestion.save($scope.projectQuestion.options ? $scope.projectQuestion : _.omit($scope.projectQuestion, 'options'), function() {
