@@ -1,7 +1,15 @@
 ## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish-API on Red Hat Enterprise Linux (or similar,
-like CentOS).
+This guide will walk you through how to install and run Jellyfish on a fresh Red Hat Enterprise Linux (or similar,
+like CentOS) installation for a production environment.
+
+#### Update system
+
+Update your system (optional, but always a good idea)
+
+```
+sudo yum update
+```
 
 #### Create jellyfish user
 
@@ -12,52 +20,97 @@ sudo useradd jellyfish
 #### Install Pre-Requisites
 
 ````
-yum install git
-yum install gcc-c++ patch readline readline-devel zlib zlib-devel
-yum install libyaml-devel libffi-devel openssl-devel make
-yum install bzip2 autoconf automake libtool bison iconv-devel
-yum install sqlite-devel
+sudo yum install git
+sudo yum install gcc-c++ patch readline readline-devel zlib zlib-devel
+sudo yum install libyaml-devel libffi-devel openssl-devel make
+sudo yum install bzip2 autoconf automake libtool bison iconv-devel
+sudo yum install sqlite-devel libffi-devel openssl-devel
+sudo yum install ntp
 ````
 
-#### Install PostgreSQL
+#### Install PostgreSQL server
 
-Please install PostgreSQL via PostgreSQL's directions on their website
+Please install PostgreSQL (9.4+) via [PostgreSQL's directions on their website](https://wiki.postgresql.org/wiki/YUM_Installation)
 
+Note: You will need to install postgresql-server and postgresql-devel and postgresql94-contrib
 
-#### Create the Jellyfish PostgreSQL database and user
+#### Start the PostgreSQL server, and start on boot
 
-You will need to be root to do this step.
-
-Change to the postgres user
 ````
-su - postgres
+sudo service postgresql-9.4 initdb
+sudo service postgresql-9.4 start
+sudo chkconfig postgresql-9.4 on
 ````
 
-Connect to the database server
+#### Configure PostgreSQL server
+
+This section covers how to get PostgreSQL setup.
+
+##### Change to the postgres user
+````
+sudo su - postgres
+````
+
+##### Connect to the database server
 ````
 psql template1
 ````
 
-Add the jellyfish database user (set your password to something very secure)
+##### Add the jellyfish database user (set your password to something very secure)
 ````
 template1=# CREATE USER jellyfish WITH PASSWORD 'myPassword';
 ````
 
-Create the database for jellyfish to use
+##### Grant SUPERUSER to jellyfish user
+
+````
+template1=# ALTER USER myuser WITH SUPERUSER;
+````
+
+##### Create the database for jellyfish to use
 ````
 template1=# CREATE DATABASE jellyfish_production;
 ````
 
-Grant the jellyfish user access to the jellyfish_production database
+##### Grant the jellyfish user access to the jellyfish_production database
+
 ````
 template1=# GRANT ALL PRIVILEGES ON DATABASE jellyfish_production to jellyfish;
 ````
 
-Exit out of the postgres user
+##### Exit out of the Postgres user
+
+````
+exit
+````
+
+##### Edit /var/lib/pgsql/9.4/data/pg_hba.conf
+
+Change the following (change 'ident' to 'md5'):
+
+````
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            ident
+# IPv6 local connections:
+host    all             all             ::1/128                 ident
+````
+to
+````
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+````
+
+#### Restart PostgreSQL
+````
+sudo service postgresql-9.4 restart
+````
+
 
 #### Change to the jellyfish system users
 ````
-su - jellyfish
+sudo su - jellyfish
 ````
 
 #### Install rbenv
@@ -68,13 +121,20 @@ Install rbenv as per the [rbenv install guide](https://github.com/sstephenson/rb
 
 Install rbenv-build as per the [rbenv-build install guide](https://github.com/sstephenson/rbenv-build)
 
-#### Install Ruby, and set that as the global version
-
-Please install the version of Ruby that is indicated in .ruby-version
+#### Check out the latest code
 
 ````
-rbenv install [version.number]
-rbenv global [version.number]
+cd /home/jellyfish
+git clone https://github.com/projectjellyfish/api.git
+````
+
+#### Install Ruby, and set that as the global version
+
+Please install the version of Ruby that is indicated in .ruby-version in the Jellyfish code
+
+````
+rbenv install "$(cat /home/jellyfish/api/.ruby-version)"
+rbenv global "$(cat /home/jellyfish/api/.ruby-version)"
 ````
 
 #### Install bundler
@@ -86,32 +146,23 @@ gem install bundler
 #### Install pg gem
 
 ````
-gem install pg
+gem install pg -v '0.17.1' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 ```
-
-#### Check out the latest code
-
-````
-cd /home/jellyfish
-git clone https://github.com/projectjellyfish/api.git
-````
 
 #### Install any gems needed
 
 ````
 cd /home/jellyfish/api
-bundle install
+bundle install --without development:test
 ````
 
-#### Add this data to ./.env
+#### Create Enviroment Variables
 
-You will need to create this file yourself (it is already in the .gitignore), the dotEnv gem uses this to to
-"create" ENVIRONMENT variables.  Alternatively, you can simply create ENVIRONMENT vars yourself.
+Setup the environment variables
 
 ````
-DATABASE_URL=postgres://jellyfish:myPassword@localhost:5432/jellyfish_production
-CORS_ALLOW_ORIGIN=*
-DEFAULT_URL=http://jellyfish-core-url.server.com
+echo 'export DATABASE_URL=postgres://jellyfish:myPassword@localhost:5432/jellyfish_production' >> ~/.bash_profile
+echo 'export export RAILS_ENV=test' >> ~/.bash_profile
 ````
 
 #### Populate the database
@@ -122,12 +173,12 @@ rake task does not create the database or the database user (those will need
 to be created based on the DB you are using)
 
 ````
-rake db:setup
+rake db:migrate
 rake db:seed
 rake sample:demo
 ````
 
-#### Start the server (for development)
+#### Start the server (for production)
 
 ````
 rails s
@@ -135,12 +186,12 @@ rails s
 
 ##### Install Nginx
 
-Please install PostgreSQL (the version that is stated in README.md) via 
-PostgreSQL's documented process.
+Please install Nginx via Nginx documented process.
 
 ##### Configure Nginx
 
 Delete the default site config
+
 ````
 sudo rm /etc/nginx/conf.d/default.conf
 ````
@@ -148,9 +199,11 @@ sudo rm /etc/nginx/conf.d/default.conf
 Create jellyfish-api.conf (with the file contents below)
 ````
 sudo vi /etc/nginx/conf.d/jellyfish-api.conf
+````
 
-# File (update the my_app_url.com) and
 
+##### File (update the my_app_url.com)
+````
 upstream myapp_puma {
   server unix:///tmp/myapp_puma.sock;
 }

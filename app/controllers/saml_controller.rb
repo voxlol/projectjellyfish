@@ -1,5 +1,5 @@
 class SamlController < ApplicationController
-  before_action :ensure_saml_enabled
+  before_action :saml_enabled?
 
   def init
     respond_to do |format|
@@ -21,19 +21,18 @@ class SamlController < ApplicationController
     end
   end
 
-  private
-
-  def ensure_saml_enabled
-    return saml_failure unless saml_enabled?
-    true
+  def metadata
+    settings = saml_settings request
+    meta = OneLogin::RubySaml::Metadata.new
+    render xml: meta.generate(settings)
   end
 
+  private
+
   def saml_enabled?
-    if Setting.find_by(hid: 'saml')
-      Setting.find_by(hid: 'saml').settings_hash[:enabled]
-    else
-      false
-    end
+    @settings ||= Setting.find_by!(hid: 'saml').settings_hash
+    return saml_failure unless @settings[:enabled]
+    true
   end
 
   def saml_failure

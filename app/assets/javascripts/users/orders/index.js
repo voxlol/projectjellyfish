@@ -17,4 +17,6 @@ var UserOrdersModule = angular.module('broker.users.orders', [])
           });
       }
     );
+
 window.UserOrdersModule = UserOrdersModule;
+

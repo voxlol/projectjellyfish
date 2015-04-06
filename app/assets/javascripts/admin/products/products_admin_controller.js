@@ -1,8 +1,10 @@
 'use strict';
 
 /**@ngInject*/
-function ProductsAdminController(categories, clouds) {
+function ProductsAdminController(categories, categoriesByName, categoryNames, clouds) {
+  this.categoriesByName = categoriesByName;
   this.categories = categories;
+  this.categoryNames = categoryNames;
   this.clouds = clouds;
 
   // TODO: Where are images stored and retrieved from?
@@ -41,7 +43,15 @@ function ProductsAdminController(categories, clouds) {
 ProductsAdminController.resolve = {
   /**@ngInject*/
   categories: function(ProductTypesResource) {
-    return ProductTypesResource.query({'includes[]': ["questions"]}).$promise;
+    return ProductTypesResource.query().$promise;
+  },
+  /**@ngInject*/
+  categoriesByName: function(categories) {
+    return _.object(_.map(categories, function(x){return [x.title, x]}))
+  },
+  /**@ngInject*/
+  categoryNames: function(categories) {
+    return _.map(categories, "title");
   },
   /**@ngInject*/
   clouds: function(CloudsResource) {

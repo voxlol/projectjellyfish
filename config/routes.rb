@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     get 'saml/init', to: 'saml#init'
     post 'saml/consume', to: 'saml#consume'
+    get 'saml/metadata', to: 'saml#metadata'
 
     # Alerts Routes
     resources :alerts, defaults: { format: :json } do
@@ -65,12 +66,7 @@ Rails.application.routes.draw do
 
     resources :manage_iq_products, defaults: { format: :json }
 
-    # ProductTypes
-    resources :product_types, except: [:edit, :new], defaults: { format: :json } do
-      member do
-        get :questions
-      end
-    end
+    resources :product_types, except: [:edit, :new], defaults: { format: :json }
 
     # Chargebacks
     resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
