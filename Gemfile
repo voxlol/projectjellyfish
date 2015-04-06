@@ -65,7 +65,7 @@ group :development, :test do
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
   gem 'web-console', '~> 2.0.0'
-  gem 'capybara-angular'
+  gem 'capybara-angular', '0.1.0'
   gem 'launchy'
 end
 
