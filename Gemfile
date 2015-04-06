@@ -42,11 +42,11 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-gem 'jellyfish_fog_aws', path: 'lib/jellyfish_fog_aws', require: false
 gem 'custom_configuration'
 
 gem 'bootstrap-sass'
 gem 'sass-rails'
+gem 'jellyfish_fog_aws'
 
 # Tests
 group :development, :test do
