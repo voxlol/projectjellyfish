@@ -9,6 +9,10 @@ function ProjectQuestionsController($scope, $state, projectQuestions, FlashesSer
     $scope.projectQuestion.options.push('');
   };
 
+  $scope.removeOption = function() {
+    $scope.projectQuestion.options.pop('');
+  };
+
   $scope.deleteProjectQuestion = function(question) {
     question.$delete(function() {
             FlashesService.add({
