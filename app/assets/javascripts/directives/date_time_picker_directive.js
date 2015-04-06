@@ -1,10 +1,8 @@
+'use strict';
+
 /**@ngInject*/
 function DateTimePickerDirective($timeout) {
   var defaults = {
-    showClear: true,
-    showTodayButton: false,
-    sideBySide: true,
-    format: 'dddd, MMMM Do YYYY, h:mma'
   };
 
   return {
@@ -37,8 +35,14 @@ function DateTimePickerDirective($timeout) {
       });
 
 
-      el.on('blur', function() {
+      el.on('focusout', function() {
+        console.log("FOCUSOUT!");
         ngModel.$setViewValue(el.data('DateTimePicker').date());
+      });
+
+      el.on('focusin', function() {
+        console.log("FOCUSIN!");
+        el.data('DateTimePicker').show();
       });
     }
   };

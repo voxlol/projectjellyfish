@@ -1,4 +1,5 @@
 //= require lodash
+//= require jquery
 //= require angular
 //= require angular-ui-router
 //= require angular-animate
@@ -13,12 +14,10 @@
 //= require angular-progress-arc
 //= require angular-smart-table
 //= require angular-ui-select
-//= require jquery
 //= require microplugin
 //= require selectize
 //= require bootstrap
 //= require bootstrap-sass
 //= require moment.js
 //= require bootstrap3-datetimepicker
-//= require angular-bootstrap-datetimepicker-directive
 //= require_tree .

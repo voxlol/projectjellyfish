@@ -10,6 +10,6 @@ var DirectivesModule = angular.module('broker.directives', [])
   .directive('switchViewButtons', SwitchViewButtons)
   .directive('fallbackImage', FallbackImage)
   .directive('initiallyNullAlwaysNull', InitiallyNullAlwaysNull)
-  .directive('dateTimePickerDirective', DateTimePickerDirective)
+  .directive('datetimePicker', DateTimePickerDirective)
 
 window.DirectivesModule = DirectivesModule;
