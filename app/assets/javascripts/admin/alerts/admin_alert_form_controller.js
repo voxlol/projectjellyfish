@@ -32,23 +32,6 @@ var AdminAlertFormController = function($state, $scope, AlertsResource, FlashesS
     }
   ];
 
- /* this.start_time = '';
-  this.end_time = '';
-
-  $scope.openStartDate = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.endDateOpened = false;
-    $scope.startDateOpened = true;
-  };
-
-  $scope.openEndDate = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.startDateOpened = false;
-    $scope.endDateOpened = true;
-  }; */
-
 };
 
 AdminAlertFormController.prototype = {
@@ -69,35 +52,16 @@ AdminAlertFormController.prototype = {
       this.alert.order_item_id = '0';
     }
     this.alert.staff_id = String(parent.currentUser.id);
-    console.log("This ALERT: " + JSON.stringify(this.alert));
     if (typeof this.alert.start_date === "undefined" || this.alert.start_date === null) {
       this.alert.start_date = '';
-      //var startTime = new Date();
-      //startTime.setHours(0,0,0);
-      //this.start_time = String(startTime);
     }
-    /* else {
-      var startDate = new Date(this.alert.start_date);
-      this.start_time = String(startDate);
-    } */
     if (typeof this.alert.end_date === "undefined" || this.alert.end_date === null) {
       this.alert.end_date = '';
-      //var endTime = new Date();
-      //endTime.setHours(0,0,0);
-      //this.end_time = String(endTime);
     }
-    /* else {
-      var endDate = new Date(this.alert.end_date);
-      this.end_time = String(endDate);
-    } */
 
   },
 
   create: function() {
-    console.log("This.Alert.Start_Date: " + this.alert.start_date);
-    console.log("This.Alert.End_Date: " + this.alert.end_date);
-    //console.log("This.Start_Time: " + this.start_time);
-    //console.log("This.End_Time: " + this.end_time);
     this.formSubmitted = true;
     if (this.form.$invalid) {
       return false;
@@ -106,21 +70,9 @@ AdminAlertFormController.prototype = {
     if (this.alert.start_date === null) {
       this.alert.start_date = '';
     }
-    /* else {
-      var startDate = new Date(this.alert.start_date);
-      var startTime = new Date(this.start_time);
-      startDate.setHours(startTime.getHours(),startTime.getMinutes(),startTime.getSeconds());
-      this.alert.start_date = String(startDate);
-    } */
     if (this.alert.end_date === null) {
       this.alert.end_date = '';
     }
-    /* else {
-      var endDate = new Date(this.alert.end_date);
-      var endTime = new Date(this.end_time);
-      endDate.setHours(endTime.getHours(),endTime.getMinutes(),endTime.getSeconds());
-      this.alert.end_date = String(endDate);
-    } */
     this.alert.$save(_.bind(function() {
       this.FlashesService.add({
         timeout: true,
@@ -140,10 +92,6 @@ AdminAlertFormController.prototype = {
   },
 
   update: function() {
-    console.log("This.Alert.Start_Date: " + this.alert.start_date);
-    console.log("This.Alert.End_Date: " + this.alert.end_date);
-    //console.log("This.Start_Time: " + this.start_time);
-    //console.log("This.End_Time: " + this.end_time);
     this.formSubmitted = true;
     if (this.form.$invalid) {
       return false;
@@ -152,21 +100,9 @@ AdminAlertFormController.prototype = {
     if (this.alert.start_date === null) {
       this.alert.start_date = '';
     }
-    /* else {
-      var startDate = new Date(this.alert.start_date);
-      var startTime = new Date(this.start_time);
-      startDate.setHours(startTime.getHours(),startTime.getMinutes(),startTime.getSeconds());
-      this.alert.start_date = String(startDate);
-    } */
     if (this.alert.end_date === null) {
       this.alert.end_date = '';
     }
-    /* else {
-      var endDate = new Date(this.alert.end_date);
-      var endTime = new Date(this.end_time);
-      endDate.setHours(endTime.getHours(),endTime.getMinutes(),endTime.getSeconds());
-      this.alert.end_date = String(endDate);
-    } */
     if (this.oldStatus !== this.alert.status) {
       var newAlert = new this.AlertsResource();
       newAlert.message = String(this.alert.message);

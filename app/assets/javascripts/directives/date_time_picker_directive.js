@@ -3,6 +3,16 @@
 /**@ngInject*/
 function DateTimePickerDirective($timeout) {
   var defaults = {
+    icons: {
+      time: 'fa fa-clock-o',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      clear: 'fa fa-trash-o'
+    },
+    showClear: true
   };
 
   return {
@@ -36,12 +46,10 @@ function DateTimePickerDirective($timeout) {
 
 
       el.on('focusout', function() {
-        console.log("FOCUSOUT!");
         ngModel.$setViewValue(el.data('DateTimePicker').date());
       });
 
       el.on('focusin', function() {
-        console.log("FOCUSIN!");
         el.data('DateTimePicker').show();
       });
     }
