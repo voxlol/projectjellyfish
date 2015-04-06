@@ -88,7 +88,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-angular (0.1.1)
+    capybara-angular (0.1.0)
       capybara
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
@@ -505,7 +505,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass
   brakeman
-  capybara-angular
+  capybara-angular (= 0.1.0)
   codeclimate-test-reporter
   custom_configuration
   daemons
