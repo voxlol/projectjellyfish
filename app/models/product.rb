@@ -33,7 +33,7 @@ class Product < ActiveRecord::Base
   has_many :chargebacks
   belongs_to :provisionable, polymorphic: true
 
-  delegate :provisioner, to: :provisionable
+  delegate :provisioner, to: :product_type
 
   def product_type
     ProductType.new(self[:product_type])
