@@ -14,6 +14,7 @@
 //= require angular-progress-arc/angular-progress-arc
 //= require angular-smart-table
 //= require angular-ui-select
+//= require microplugin
 //= require selectize
 //= require bootstrap
 //= require bootstrap-sass

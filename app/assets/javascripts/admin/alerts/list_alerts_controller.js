@@ -24,7 +24,6 @@ var ListAlertsController = function($scope, $state, alerts, FlashesService, user
           type: 'success',
           message: 'Alert successfully deleted.'
         });
-        //$state.go('base.authed.admin.alerts.list', {}, {reload: true});
       },
       function() {
         FlashesService.add({

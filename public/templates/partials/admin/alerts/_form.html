@@ -20,16 +20,16 @@
     <ui-select id="status" name="status" ng-model="adminAlertFormCtrl.alert.status" ng-change="adminAlertFormCtrl.clearSubmitError('status')" theme="selectize" required />
     <ui-select-match>
             <span ng-switch on="$select.selected.value">
-                <div ng-switch-when="OK" ng-bind-html-unsafe="status.name" class="text-ok" ><div style="margin-right: 7px; display: inline-block;"><span class="fa fa-check-circle"/></div>{{$select.selected.name}}</div>
-                <div ng-switch-when="WARNING" ng-bind-html-unsafe="status.name" class="text-warning"><div style="margin-right: 7px; display: inline-block;"><span class="fa fa-exclamation-triangle"/></div>{{$select.selected.name}}</div>
-                <div ng-switch-when="CRITICAL" ng-bind-html-unsafe="status.name" class="text-critical"><div class="circle-warning" style="margin-right: 7px;"><span class="fa fa-bolt circle-contents"/></div>{{$select.selected.name}}</div>
+                <div ng-switch-when="OK" ng-bind-html-unsafe="status.name" class="text-ok" ><div class="icon-wrapper"><span class="fa fa-check-circle"/></div>{{$select.selected.name}}</div>
+                <div ng-switch-when="WARNING" ng-bind-html-unsafe="status.name" class="text-warning"><div class="icon-wrapper"><span class="fa fa-exclamation-triangle"/></div>{{$select.selected.name}}</div>
+                <div ng-switch-when="CRITICAL" ng-bind-html-unsafe="status.name" class="text-critical"><div class="circle-warning icon-wrapper"><span class="fa fa-bolt circle-contents"/></div>{{$select.selected.name}}</div>
             </span>
     </ui-select-match>
     <ui-select-choices repeat="status.value as status in adminAlertFormCtrl.statuses">
             <span ng-switch on="status.value">
-                <div ng-switch-when="OK" ng-bind-html-unsafe="status.name" class="text-ok" ><div style="margin-right: 7px; display: inline-block;"><span class="fa fa-check-circle"/></div>{{status.name}}</div>
-                <div ng-switch-when="WARNING" ng-bind-html-unsafe="status.name" class="text-warning"><div style="margin-right: 7px; display: inline-block;"><span class="fa fa-exclamation-triangle"/></div>{{status.name}}</div>
-                <div ng-switch-when="CRITICAL" ng-bind-html-unsafe="status.name" class="text-critical"><div class="circle-warning" style="margin-right: 7px;"><span class="fa fa-bolt circle-contents"/></div>{{status.name}}</div>
+                <div ng-switch-when="OK" ng-bind-html-unsafe="status.name" class="text-ok" ><div class="icon-wrapper"><span class="fa fa-check-circle"/></div>{{status.name}}</div>
+                <div ng-switch-when="WARNING" ng-bind-html-unsafe="status.name" class="text-warning"><div class="icon-wrapper"><span class="fa fa-exclamation-triangle"/></div>{{status.name}}</div>
+                <div ng-switch-when="CRITICAL" ng-bind-html-unsafe="status.name" class="text-critical"><div class="circle-warning icon-wrapper"><span class="fa fa-bolt circle-contents"/></div>{{status.name}}</div>
             </span>
     </ui-select-choices>
     </ui-select>

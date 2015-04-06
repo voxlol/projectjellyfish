@@ -118,11 +118,11 @@ gem 'acts-as-taggable-on'
 
 # Add Dependencies
 source 'http://rails-assets.org' do
-  gem 'rails-assets-angular', '~> 1.3.15'
+  gem 'rails-assets-angular', '>= 1.3.15'
   gem 'rails-assets-jquery'
   gem 'rails-assets-angucomplete-alt'
-  gem 'rails-assets-angular-animate', '~> 1.3.15'
-  gem 'rails-assets-angular-bootstrap', '~> 0.11.2'
+  gem 'rails-assets-angular-animate'
+  gem 'rails-assets-angular-bootstrap'
   gem 'rails-assets-angular-cookies'
   gem 'rails-assets-angular-gravatar'
   gem 'rails-assets-angular-loading-bar'
@@ -132,15 +132,14 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-angular-schema-form'
   gem 'rails-assets-angular-smart-table'
   gem 'rails-assets-angular-ui-router'
-  gem 'rails-assets-angular-ui-select', "~> 0.9.5"
+  gem 'rails-assets-angular-ui-select'
   gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-fontawesome'
   gem 'rails-assets-lodash'
   gem 'rails-assets-ng-currency'
-  gem 'rails-assets-selectize', "~> 0.11.2"
+  gem 'rails-assets-microplugin'
+  gem 'rails-assets-selectize'
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-bootstrap3-datetimepicker'
-  gem 'rails-assets-sass-bootstrap-glyphicons'
   gem 'rails-assets-objectpath'
   gem 'rails-assets-tv4'
 end
