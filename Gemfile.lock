@@ -540,6 +540,7 @@ DEPENDENCIES
   rails-assets-angular-loading-bar!
   rails-assets-angular-progress-arc!
   rails-assets-angular-resource!
+  rails-assets-angular-route!
   rails-assets-angular-sanitize!
   rails-assets-angular-schema-form!
   rails-assets-angular-smart-table!

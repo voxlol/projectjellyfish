@@ -7,6 +7,7 @@
 //= require angular-bootstrap
 //= require angular-gravatar
 //= require angular-loading-bar
+//= require angular-route
 //= require ng-currency
 //= require angucomplete-alt
 //= require angular-cookies

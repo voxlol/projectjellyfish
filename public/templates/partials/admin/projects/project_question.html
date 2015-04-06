@@ -1,8 +1,11 @@
 <div class="create-project-question">
   <div class="table-box">
-    <div class="titles-box">
-      <h2>
-        <strong>Add Project Question</strong>
+    <div class="titles-box" ng-switch on="pageFunction">
+      <h2 ng-switch-when="edit" ui-sref="base.authed.admin.projects.edit_project_questions">
+          <strong>Edit Project Question</strong>
+      </h2>
+      <h2 ng-switch-default>
+          <strong>Add Project Question</strong>
       </h2>
 
       <div class="titles-border-bar">
