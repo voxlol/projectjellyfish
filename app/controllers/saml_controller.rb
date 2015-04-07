@@ -55,8 +55,8 @@ class SamlController < ApplicationController
   def saml_settings(request)
     settings = OneLogin::RubySaml::Settings.new
 
-    settings.assertion_consumer_service_url = @settings[:saml_consume_url] || saml_consume_url
-    settings.issuer = @settings[:issuer] || saml_metadata_url
+    settings.assertion_consumer_service_url = @settings[:saml_consume_url] || saml_consume_url(host: request.host)
+    settings.issuer = @settings[:issuer] || saml_metadata_url(host: request.host)
     settings.idp_entity_id = @settings[:entity_id]
     settings.idp_sso_target_url = @settings[:sso_target_url]
     settings.idp_slo_target_url = @settings[:slo_target_url]
