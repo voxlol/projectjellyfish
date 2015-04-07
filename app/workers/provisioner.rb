@@ -36,10 +36,10 @@ class Provisioner
   end
 
   def aws_settings
-    @aws_settings ||= Setting.find_by(hid: 'aws').settings_hash
+    @aws_settings ||= Setting.find_by!(hid: 'aws').settings_hash
   end
 
   def azure_settings
-    @azure_settings ||= Setting.find_by(hid: 'azure').settings_hash
+    @azure_settings ||= Setting.find_by!(hid: 'azure').settings_hash
   end
 end
