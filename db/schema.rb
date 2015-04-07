@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330182856) do
+ActiveRecord::Schema.define(version: 20150331183418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,39 +224,12 @@ ActiveRecord::Schema.define(version: 20150330182856) do
 
   add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
 
-  create_table "product_answers", force: true do |t|
-    t.integer  "product_id",               null: false
-    t.integer  "product_type_question_id", null: false
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "product_answers", ["product_id"], name: "index_product_answers_on_product_id", using: :btree
-  add_index "product_answers", ["product_type_question_id"], name: "index_product_answers_on_product_type_question_id", using: :btree
-
-  create_table "product_type_questions", force: true do |t|
-    t.integer  "product_type_id",                 null: false
-    t.text     "label"
-    t.string   "field_type"
-    t.string   "placeholder"
-    t.text     "help"
-    t.json     "options"
-    t.text     "default"
-    t.boolean  "required",        default: false
-    t.integer  "load_order"
-    t.string   "manageiq_key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "product_type_questions", ["product_type_id", "load_order"], name: "question_order_idx", using: :btree
-
   create_table "product_types", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json     "questions_form_schema"
   end
 
   create_table "products", force: true do |t|
@@ -267,16 +240,16 @@ ActiveRecord::Schema.define(version: 20150330182856) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "product_type_id"
-    t.decimal  "setup_price",        precision: 10, scale: 4, default: 0.0
-    t.decimal  "hourly_price",       precision: 10, scale: 4, default: 0.0
-    t.decimal  "monthly_price",      precision: 10, scale: 4, default: 0.0
+    t.decimal  "setup_price",          precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",         precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",        precision: 10, scale: 4, default: 0.0
     t.string   "provisionable_type"
     t.integer  "provisionable_id"
+    t.json     "provisioning_answers"
+    t.string   "product_type"
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
-  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
   add_index "products", ["provisionable_id"], name: "index_products_on_provisionable_id", using: :btree
 
   create_table "project_answers", force: true do |t|

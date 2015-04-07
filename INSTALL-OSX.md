@@ -32,7 +32,7 @@ env RCRC=$HOME/dotfiles/rcrc rcup
 #### Clone the Repo
 
 ````
-git clone git@github.com:projectjellyfish/api.git
+git clone https://github.com/projectjellyfish/api.git
 ````
 
 #### Add this data to ./.env

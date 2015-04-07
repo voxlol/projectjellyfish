@@ -28,6 +28,9 @@
 
 .project-boxes
   .project-box
+    cursor: pointer
+    &:hover
+      border: 3px solid #1e56bb
     background: #fff
     margin: 0 25px 25px 0
     height: 290px
@@ -119,6 +122,8 @@
     box-shadow: 0 0 5px 1px #ccc
     border-radius: 5px
     float: left
+    &:hover
+      border: 3px solid #1e56bb
     .add-btn
       padding: 20px 0 0 15px
       width: 228px
@@ -128,6 +133,7 @@
         text-decoration: none
       i
         float: left
+        color: #2e96db
       span
         float: left
         font-family: "proximanova_semibold"
@@ -141,8 +147,8 @@
           padding: 0
           margin: 0
           width: 100%
-      &:hover span
-        color: #0a4887
+        &:hover span
+          color: #0a4887
       i
         background-position: -154px -128px
         width: 32px

@@ -11,8 +11,6 @@ window.apiRoutes = {
     "orders":            "/orders/:id",
     "orderItems":        "/order_items/:id",
 
-    "manageIqProductsById": "/manage_iq_products/:id",
-
     "projectsById":      "/projects/:id",
     "projectQuestions":  "/project_questions/:id",
     "projectUser":       "/projects/:id/staff/:staff_id",

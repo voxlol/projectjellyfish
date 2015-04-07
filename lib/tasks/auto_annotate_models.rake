@@ -30,5 +30,5 @@ if Rails.env.development?
     )
   end
 
-  Annotate.load_tasks
+  Annotate.load_tasks unless ENV.key? 'DISABLE_ANNOTATIONS'
 end

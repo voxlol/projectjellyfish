@@ -42,6 +42,12 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
+gem 'jellyfish_fog_aws', path: 'lib/jellyfish_fog_aws', require: false
+gem 'custom_configuration'
+
+gem 'bootstrap-sass'
+gem 'sass-rails'
+
 # Tests
 group :development, :test do
   gem 'annotate'
@@ -55,10 +61,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop'
   gem 'seed_dump'
+  gem 'selenium-webdriver'
+  gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
   gem 'web-console', '~> 2.0.0'
-  gem 'capybara-webkit'
-  gem 'capybara-angular'
+  gem 'capybara-angular', '0.1.0'
   gem 'launchy'
 end
 
@@ -100,7 +107,6 @@ gem 'paper_trail'
 gem 'jellyfish-azure'
 
 gem 'sass'
-gem 'bower-rails'
 gem 'uglifier'
 
 group :production, :staging do
@@ -112,7 +118,7 @@ gem 'acts-as-taggable-on'
 
 # Add Dependencies
 source 'http://rails-assets.org' do
-  gem 'rails-assets-angularjs'
+  gem 'rails-assets-angular', '>=1.3.15'
   gem 'rails-assets-angucomplete-alt'
   gem 'rails-assets-angular-animate'
   gem 'rails-assets-angular-bootstrap'
@@ -122,14 +128,15 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-angular-progress-arc'
   gem 'rails-assets-angular-resource'
   gem 'rails-assets-angular-sanitize'
+  gem 'rails-assets-angular-schema-form'
   gem 'rails-assets-angular-smart-table'
   gem 'rails-assets-angular-ui-router'
   gem 'rails-assets-angular-ui-select'
   gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-fontawesome'
   gem 'rails-assets-jquery'
   gem 'rails-assets-lodash'
   gem 'rails-assets-ng-currency'
+  gem 'rails-assets-objectpath'
   gem 'rails-assets-selectize'
-  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-tv4'
 end
