@@ -1,3 +1,0 @@
-DATABASE_URL=postgres://g:jellyfish@localhost:5432/jellyfish_development
-CORS_ALLOW_ORIGIN=localhost:5000
-DEFAULT_URL=http://localhost:3000
