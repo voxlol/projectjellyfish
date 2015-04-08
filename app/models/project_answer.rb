@@ -34,7 +34,7 @@ class ProjectAnswer < ActiveRecord::Base
   def answer
     case project_question.field_type
     when :date
-      DateTime.parse(self[:answer])
+      Time.zone.parse(self[:answer])
     when :check_box
       self[:answer] == 'true'
     else
