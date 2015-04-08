@@ -1,4 +1,4 @@
-class ManageIQ < Provisioner
+class ManageIQ < Jellyfish::Provisioner
   def provision
     Delayed::Worker.logger.debug("Miq settings url = #{miq_settings[:enabled]}")
     miq_provision

@@ -21,13 +21,7 @@ describe Jellyfish::Fog::AWS do
   end
 
   def create_aws_settings
-    create(
-      :setting,
-      hid: 'aws',
-      setting_fields: [
-        build(:setting_field, hid: 'access_key', value: 'key'),
-        build(:setting_field, hid: 'secret_key', value: 'value')
-      ]
-    )
+    allow(ENV).to receive(:fetch).with('AWS_ACCESS_KEY_ID').and_return('text')
+    allow(ENV).to receive(:fetch).with('AWS_SECRET_ACCESS_KEY').and_return('text')
   end
 end

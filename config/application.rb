@@ -7,10 +7,7 @@ require 'rest-client'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require_relative '../app/workers/provisioner'
-
-require 'jellyfish_fog_aws'
-
+Provisioner = Jellyfish::Provisioner
 module JellyfishCore
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
