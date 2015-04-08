@@ -43,9 +43,9 @@
                 </td>
                 <td>{{alert.message}}</td>
                 <td>{{alert.start_date | date:'MMM d, yyyy'}}</td>
-                <td>{{alert.start_date | date:'h:mm a'}}</td>
+                <td>{{alert.start_date | date:'h:mm a (UTC Z)'}}</td>
                 <td>{{alert.end_date | date:'MMM d, yyyy'}}</td>
-                <td>{{alert.end_date | date:'h:mm a'}}</td>
+                <td>{{alert.end_date | date:'h:mm a (UTC Z)'}}</td>
                 <td>{{alert.user.first_name + ' ' + alert.user.last_name}}</td>
                 <td ng-hide="listAlertsCtrl.checkIfDeleted(alert)">
                     <span>

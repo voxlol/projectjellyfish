@@ -556,6 +556,7 @@ DEPENDENCIES
   rails-assets-bootstrap3-datetimepicker!
   rails-assets-jquery!
   rails-assets-lodash!
+  rails-assets-microplugin!
   rails-assets-ng-currency!
   rails-assets-objectpath!
   rails-assets-selectize!
