@@ -59,7 +59,7 @@ describe ManageIQ do
     )
 
     allow(RestClient::Resource).to receive(:new) do
-      double('rest client', :[] => client)
+      double('rest client', '[]'.to_sym => client)
     end
   end
 end

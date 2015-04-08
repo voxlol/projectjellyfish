@@ -64,7 +64,7 @@ namespace :upkeep do
     Project.where(approved: true).each do |x|
       puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]'
 
-      current_date = Time.now
+      current_date = Time.zone.now
 
       total_spent = 0
 
@@ -117,7 +117,7 @@ namespace :upkeep do
 
   desc 'Show active alerts'
   task show_active_alerts: :environment do
-    @alerts = Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', DateTime.now, DateTime.now).order('created_at ASC')
+    @alerts = Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', Time.zone.now, Time.zone.now).order('created_at ASC')
     alerts.each do |alert|
       Alert.new.attributes.keys.each { |attr| puts alert.to_s + ' ' + attr + ': ' + alert[attr].to_s }
       puts "\n"
@@ -126,7 +126,7 @@ namespace :upkeep do
 
   desc 'Show inactive alerts'
   task show_inactive_alerts: :environment do
-    @alerts = Alert.where('end_date < ? OR start_date > ?', DateTime.now, DateTime.now).order('created_at ASC')
+    @alerts = Alert.where('end_date < ? OR start_date > ?', Time.zone.now, Time.zone.now).order('created_at ASC')
     alerts.each do |alert|
       Alert.new.attributes.keys.each { |attr| puts alert.to_s + ' ' + attr + ': ' + alert[attr].to_s }
       puts "\n"
@@ -298,7 +298,7 @@ namespace :upkeep do
       vm_info = ManageIQClient::VirtualMachine.find resource_id
       message_status = (vm_info[:power_state] == 'on') ? 'OK' : 'WARNING'
       message = message_status + ': ' + 'The VM resource with ID ' + resource_id.to_s + " is in the '" + vm_info[:power_state] + "' state."
-      @alert_params = { project_id: '0', staff_id: '0', order_id: resource_id, status: message_status, message: message, start_date: Time.now.to_s }
+      @alert_params = { project_id: '0', staff_id: '0', order_id: resource_id, status: message_status, message: message, start_date: Time.zone.now.to_s }
       conditions = { project_id: @alert_params[:project_id], order_id: @alert_params[:order_id], status: @alert_params[:status] }
       result = Alert.where(conditions).order('updated_at DESC').first
       @alert_id = (result.nil? || result.id.nil?) ? nil : result.id
