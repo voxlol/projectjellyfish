@@ -49,7 +49,7 @@ gem 'sass-rails'
 gem 'jellyfish_fog_aws'
 
 # Autoprefixer for CSS classes using Can I Use values.
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
 
 # Tests
 group :development, :test do
