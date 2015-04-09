@@ -1,3 +1,5 @@
+require 'null_provisioner'
+
 class ProductType
   attr_reader :name, :description
 
@@ -25,5 +27,9 @@ class ProductType
 
   def ==(other)
     other.name == name
+  end
+
+  def provisioner
+    Rails.configuration.x.provisioners.fetch(name, NullProvisioner)
   end
 end

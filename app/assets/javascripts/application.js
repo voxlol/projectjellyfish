@@ -1,4 +1,5 @@
 //= require lodash
+//= require jquery
 //= require angular
 //= require jquery
 //= require angular-ui-router
@@ -14,7 +15,15 @@
 //= require angular-progress-arc/angular-progress-arc
 //= require angular-smart-table
 //= require angular-ui-select
+<<<<<<< HEAD
+=======
+//= require microplugin
+//= require selectize
+//= require bootstrap
+>>>>>>> 7a10fffc5282cfcb907117b9009cafdd8683d3c0
 //= require bootstrap-sass
+//= require moment.js
+//= require bootstrap3-datetimepicker
 //= require objectpath
 //= require angular-schema-form
 //= require tv4

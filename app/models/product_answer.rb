@@ -9,11 +9,6 @@
 #  created_at               :datetime
 #  updated_at               :datetime
 #
-# Indexes
-#
-#  index_product_answers_on_product_id                (product_id)
-#  index_product_answers_on_product_type_question_id  (product_type_question_id)
-#
 
 class ProductAnswer < ActiveRecord::Base
 end

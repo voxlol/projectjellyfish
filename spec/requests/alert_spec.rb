@@ -66,7 +66,7 @@ RSpec.describe 'Alerts API' do
     it 'shows all alerts sorted by oldest_first', :show_in_doc do
       get '/api/v1/alerts', sort: ['oldest_first']
       expect(json.length).to eq(8)
-      expect(DateTime.parse(json[0]['updated_at']).to_s).to eq(@active_alert.updated_at.to_datetime.to_s)
+      expect(Time.zone.parse(json[0]['updated_at']).to_s).to eq(@active_alert.updated_at.to_s)
     end
 
     it 'shows all active non-OK alerts', :show_in_doc do

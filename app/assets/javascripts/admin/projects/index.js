@@ -19,7 +19,7 @@ var ProjectsAdminModule = angular.module('broker.admin.projects', [])
               url: '/projects',
               abstract: true,
               template: '<div class="projects-admin" ui-view></div>',
-              controller: 'ProjectsAdminController as productsAdminCtrl'
+              controller: 'ProjectsAdminController as projectsAdminCtrl'
             })
             .state('base.authed.admin.projects.project_questions', {
               url: '/questions',

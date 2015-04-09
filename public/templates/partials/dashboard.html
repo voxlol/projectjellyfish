@@ -1,12 +1,7 @@
-
-
-    <div  ng-repeat="charts in chartCollection | groupBy:2">
-        <div  class='col-sm-6' ng-repeat="chart in charts">
-            <div ng-drag="true" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)"  ng-drag-data="chart">
-                <nvd3 options='chart.options' data='chart.data'></nvd3>
-            </div>
+<div class="row" ng-repeat="charts in chartCollection | groupBy:2">
+    <div class='col-sm-6' ng-repeat="chart in charts">
+        <div ng-drag="true" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" ng-drag-data="chart">
+            <nvd3 options='chart.options' data='chart.data'></nvd3>
         </div>
     </div>
-
-
-
+</div>

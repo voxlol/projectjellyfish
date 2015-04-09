@@ -35,12 +35,12 @@
 
 describe OrderItem do
   it 'instructs its provisioner to provision', type: :integration do
-    allow(ManageIQ).to receive(:delay).and_return(ManageIQ)
-    allow(ManageIQ).to receive(:provision)
+    allow(NullProvisioner).to receive(:delay).and_return(NullProvisioner)
+    allow(NullProvisioner).to receive(:provision)
 
-    id = create(:order_item).id
+    id = create(:order_item, product: create(:product, product_type: 'null')).id
 
-    expect(ManageIQ).to have_received(:delay).with(queue: 'provision_request')
-    expect(ManageIQ).to have_received(:provision).with(id)
+    expect(NullProvisioner).to have_received(:delay).with(queue: 'provision_request')
+    expect(NullProvisioner).to have_received(:provision).with(id)
   end
 end

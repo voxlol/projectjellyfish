@@ -7,6 +7,7 @@ window.apiRoutes = {
     "cloudsById":        "/clouds/:id",
 
     "alerts":            "/alerts",
+    "alertsById":        "/alerts/:id",
 
     "orders":            "/orders/:id",
     "orderItems":        "/order_items/:id",

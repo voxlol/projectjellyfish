@@ -1,4 +1,4 @@
-class ManageIQ < Provisioner
+class ManageIQ < Jellyfish::Provisioner
   def provision
     Delayed::Worker.logger.debug("Miq settings url = #{miq_settings[:enabled]}")
     miq_provision
@@ -15,7 +15,8 @@ class ManageIQ < Provisioner
   end
 
   def service_catalog_id
-    order_item.product.provisionable.service_catalog_id
+    # order_item.product.provisionable.service_catalog_id
+    1
   end
 
   def handle_response
@@ -61,7 +62,7 @@ class ManageIQ < Provisioner
     {
       action: 'order',
       resource: {
-        href: "#{miq_settings[:url]}/api/service_templates/#{order_item.product.provisionable.service_type_id}",
+        href: "#{miq_settings[:url]}/api/service_templates/1", # TODO: Hard coded id because it referenced defunct provisionable
         referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
         email: miq_settings[:email],
         token: miq_settings[:token],

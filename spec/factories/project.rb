@@ -5,8 +5,8 @@ FactoryGirl.define do
     cc '--cc--'
     staff_id '-staff_id--'
     budget 100.0
-    start_date((DateTime.now + 1.week).to_date)
-    end_date((DateTime.now + 2.week).to_date)
+    start_date((Time.zone.now + 1.week).to_date)
+    end_date((Time.zone.now + 2.week).to_date)
     approval :undecided
     img '--img--'
 
