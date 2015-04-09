@@ -1,0 +1,64 @@
+<div>
+    <div class="page-title">
+        <div class="page-title-text">
+            <h3>Alerts</h3>
+        </div>
+        <div class="fr">
+            <a class="btn btn-primary" ui-sref="base.authed.admin.alerts.add">ADD ALERT</a>
+        </div>
+    </div>
+
+    <div class="table-container table-box">
+        <table st-table="rowCollection" class="table table-responsive table-striped">
+            <colgroup>
+                <col class="col6">
+                <col class="col34">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
+                <col class="col10">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Message</th>
+                <th>Start Date</th>
+                <th>Start Time</th>
+                <th>End Date</th>
+                <th>End Time</th>
+                <th>Created By</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="alert in listAlertsCtrl.alerts" ng-class="{'undo-box' : listAlertsCtrl.checkIfDeleted(alert)}">
+                <td ng-switch on="alert.status" class="status-col">
+                    <div ng-switch-when="OK" class="text-ok custom-tooltip" tooltip="{{alert.status}}" tooltip-trigger="mouseenter" tooltip-animation="false" tooltip-placement="top"><span class="fa fa-check-circle"/></div>
+                    <div ng-switch-when="WARNING" class="text-warning custom-tooltip" tooltip="{{alert.status}}" tooltip-trigger="mouseenter" tooltip-animation="false" tooltip-placement="top"><span class="fa fa-exclamation-triangle"/></div>
+                    <div ng-switch-when="CRITICAL" class="text-critical custom-tooltip" tooltip="{{alert.status}}" tooltip-trigger="mouseenter" tooltip-animation="false" tooltip-placement="top"><div class="circle-warning"><span class="fa fa-bolt circle-contents"/></div></div>
+                    <div ng-switch-when="PENDING" class="custom-tooltip"><div class="circle" tooltip="{{alert.status}}" tooltip-trigger="mouseenter" tooltip-animation="false" tooltip-placement="top"><span class="fa fa-ellipsis-h circle-contents"/></div></div>
+                    <div ng-switch-default class="text-unknown custom-tooltip" tooltip="{{alert.status}}" tooltip-trigger="mouseenter" tooltip-animation="false" tooltip-placement="top"><span class="fa fa-question-circle"/></div>
+                </td>
+                <td>{{alert.message}}</td>
+                <td>{{alert.start_date | date:'MMM d, yyyy'}}</td>
+                <td>{{alert.start_date | date:'h:mm a (UTC Z)'}}</td>
+                <td>{{alert.end_date | date:'MMM d, yyyy'}}</td>
+                <td>{{alert.end_date | date:'h:mm a (UTC Z)'}}</td>
+                <td>{{alert.user.first_name + ' ' + alert.user.last_name}}</td>
+                <td ng-hide="listAlertsCtrl.checkIfDeleted(alert)">
+                    <span>
+                        <a ui-sref="base.authed.admin.alerts.edit({id: alert.id})"><span class="fa fa-edit icon-wrapper"/>edit</a>
+                        <div class="icon-wrapper-lr">|</div>
+                        <a ng-click="listAlertsCtrl.deleteAlert(alert)"><span class="fa fa-trash-o icon-wrapper"/>delete</a>
+                    </span>
+                </td>
+                <td ng-show="listAlertsCtrl.checkIfDeleted(alert)">
+                    <a class= "text-undo" ng-click="listAlertsCtrl.undoDelete(alert)">Undo Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

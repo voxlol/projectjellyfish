@@ -1,0 +1,27 @@
+<div class="alerts-list-page main-content ">
+
+    <div class="content box-content">
+
+        <section-header name="Add Alert">
+            <form name="adminAlertFormCtrl.form" class="form-horizontal alert-form" role="form"
+                  ng-controller="AdminAlertFormController as adminAlertFormCtrl"
+                  ng-init="adminAlertFormCtrl.initForm(adminAddAlertCtrl)"
+                  ng-submit="adminAlertFormCtrl.create()"
+                  novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a ui-sref="base.authed.admin.alerts.list" class="btn btn-link">
+                            <i class="fa fa-long-arrow-left"></i>
+                            Back to Alerts
+                        </a>
+                    </div>
+                </div>
+
+                <div ng-include src="'/templates/partials/admin/alerts/_form.html'"></div>
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!adminAlertFormCtrl.canSubmit()">CREATE NEW ALERT</button>
+                </div>
+            </form>
+        </section-header>
+    </div>
+</div>
