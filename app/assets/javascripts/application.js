@@ -24,3 +24,8 @@
 //= require angular-schema-form
 //= require tv4
 //= require_tree .
+//= require d3
+//= require nvd3
+//= require angular-nvd3
+//= require ngDraggable
+//= require angular-filter
