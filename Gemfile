@@ -1,4 +1,4 @@
-ruby '2.2.1'
+ruby '2.1.5'
 
 source 'https://rubygems.org'
 
@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18.1'
 gem 'pg_search', '~> 0.7.8'
 
 # Pagination
@@ -39,7 +39,7 @@ gem 'ruby-saml'
 
 # Authorization
 gem 'pundit'
-
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'time_for_a_boolean'
 
 gem 'jellyfish_fog_aws', path: 'lib/jellyfish_fog_aws', require: false
@@ -139,4 +139,9 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-objectpath'
   gem 'rails-assets-selectize'
   gem 'rails-assets-tv4'
+  gem 'rails-assets-nvd3'
+  gem 'rails-assets-angular-nvd3'
+  gem 'rails-assets-d3'
+  gem 'rails-assets-ngDraggable'
+  gem 'rails-assets-angular-filter'
 end

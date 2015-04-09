@@ -1,4 +1,5 @@
 //= require_tree .
+
 'use strict';
 
 var DashboardData = DashboardController.resolve;

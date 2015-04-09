@@ -66,6 +66,7 @@ GEM
       systemu (~> 2.6)
       uuid (~> 2.0)
     bcrypt (3.1.10)
+    bcrypt (3.1.10-x64-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.4.1)
@@ -135,6 +136,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.8)
+    ffi (1.9.8-x64-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.29.0)
@@ -277,6 +279,8 @@ GEM
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    nokogiri (1.6.6.2-x64-mingw32)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     paper_trail (3.0.7)
       activerecord (>= 3.0, < 5.0)
@@ -285,7 +289,8 @@ GEM
       activerecord (~> 4.0)
     parser (2.2.0.3)
       ast (>= 1.1, < 3.0)
-    pg (0.17.1)
+    pg (0.18.1)
+    pg (0.18.1-x64-mingw32)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -300,6 +305,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.1-x64-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (2.11.1)
@@ -329,10 +339,16 @@ GEM
       rails-assets-angular (>= 1)
     rails-assets-angular-cookies (1.3.15)
       rails-assets-angular (= 1.3.15)
+    rails-assets-angular-filter (0.5.4)
+      rails-assets-angular
     rails-assets-angular-gravatar (0.3.1)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
     rails-assets-angular-loading-bar (0.7.1)
       rails-assets-angular (>= 1.2.9, < 2)
+    rails-assets-angular-nvd3 (0.1.1)
+      rails-assets-angular (~> 1.0)
+      rails-assets-d3 (~> 3.3.13)
+      rails-assets-nvd3 (~> 1.1.15.beta)
     rails-assets-angular-progress-arc (1.0.0)
       rails-assets-angular (>= 1.2.19)
     rails-assets-angular-resource (1.3.15)
@@ -352,11 +368,16 @@ GEM
       rails-assets-angular (>= 1.2.18)
     rails-assets-bootstrap-sass (3.3.4)
       rails-assets-jquery (>= 1.9.0)
+    rails-assets-d3 (3.3.13)
     rails-assets-jquery (2.1.3)
     rails-assets-lodash (3.6.0)
     rails-assets-microplugin (0.0.3)
     rails-assets-ng-currency (0.8.3)
       rails-assets-angular (~> 1.3.4)
+    rails-assets-ngDraggable (0.1.4)
+      rails-assets-angular
+    rails-assets-nvd3 (1.1.15.beta)
+      rails-assets-d3 (~> 3.3.13)
     rails-assets-objectpath (1.1.0)
     rails-assets-selectize (0.12.0)
       rails-assets-jquery (>= 1.7.0)
@@ -380,6 +401,11 @@ GEM
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
+    rest-client (1.8.0-x64-mingw32)
+      ffi (~> 1.9)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -464,6 +490,8 @@ GEM
       rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2015.2)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -489,12 +517,14 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     will_paginate (3.0.7)
+    win32console (1.3.2)
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   active_model_serializers (~> 0.8.0)
@@ -523,7 +553,7 @@ DEPENDENCIES
   license_finder
   paper_trail
   paranoia
-  pg (~> 0.17.1)
+  pg (~> 0.18.1)
   pg_search (~> 0.7.8)
   poltergeist
   pry-rails
@@ -536,8 +566,10 @@ DEPENDENCIES
   rails-assets-angular-animate!
   rails-assets-angular-bootstrap!
   rails-assets-angular-cookies!
+  rails-assets-angular-filter!
   rails-assets-angular-gravatar!
   rails-assets-angular-loading-bar!
+  rails-assets-angular-nvd3!
   rails-assets-angular-progress-arc!
   rails-assets-angular-resource!
   rails-assets-angular-sanitize!
@@ -546,9 +578,12 @@ DEPENDENCIES
   rails-assets-angular-ui-router!
   rails-assets-angular-ui-select!
   rails-assets-bootstrap-sass!
+  rails-assets-d3!
   rails-assets-jquery!
   rails-assets-lodash!
   rails-assets-ng-currency!
+  rails-assets-ngDraggable!
+  rails-assets-nvd3!
   rails-assets-objectpath!
   rails-assets-selectize!
   rails-assets-tv4!
@@ -568,6 +603,7 @@ DEPENDENCIES
   shoulda-matchers
   spring
   time_for_a_boolean
+  tzinfo-data
   uglifier
   virtus
   web-console (~> 2.0.0)

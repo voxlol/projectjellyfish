@@ -1,12 +1,14 @@
 //= require_tree .
 'use strict';
 
+var ProjectHomeData = ProjectHomeController.resolve;
 var NewProjectData = NewProjectController.resolve;
 var ProjectData = ProjectController.resolve;
 var EditProjectData = EditProjectController.resolve;
 var ProjectServicesData = ProjectServicesController.resolve;
 
 var ProjectsModule = angular.module('broker.projects', [])
+  .controller('ProjectHomeController', ProjectHomeController)
   .controller('BaseProjectController', BaseProjectController)
   .controller('NewProjectController', NewProjectController)
   .controller('EditProjectController', EditProjectController)
@@ -22,6 +24,13 @@ var ProjectsModule = angular.module('broker.projects', [])
     /**@ngInject*/
     function($stateProvider) {
       $stateProvider
+        // Project Homepage
+        .state('base.authed.projectHome', {
+          url: "^/project",
+          templateUrl: "/templates/partials/projects/project_home.html",
+          resolve: ProjectHomeData ,
+          controller: "ProjectHomeController as projecHomeCtrl"
+        })
         // Create Project
         .state('base.authed.newProject', {
           url: "^/project/new",

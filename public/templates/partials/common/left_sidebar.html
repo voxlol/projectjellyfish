@@ -10,19 +10,12 @@
           </a>
         </li>
         <li class="li-my-projects"
-            ng-class="{active: leftSidebarCtrl.$state.includes('base.authed.project.view'), current: leftSidebarCtrl.$state.includes('base.authed.project.view')}"
-            expand-arrow>
-          <a class="li-links">
+            ng-class="{active: leftSidebarCtrl.$state.includes('base.authed.projectHome')}">
+          <a  ui-sref="base.authed.projectHome" class="li-links">
             <span class="fa fa-file-o left-tray-icon left-tray-menu-icon"></span>
-            <span class="texts">MY PROJECTS </span>
+            <span class="texts">PROJECTS </span>
             <span class="number side-bar-space">{{leftSidebarCtrl.projects.length}}</span>
-            <span class="arrows-container"><i class="arrows fa fa-caret-right"></i></span>
           </a>
-          <ul>
-            <li ng-class="{first: $first}"
-                ng-repeat="item in leftSidebarCtrl.projects"><i></i><a ui-sref="base.authed.project.view({projectId: item.id})"
-                                                                       ui-sref-active="active">{{item.name}}</a></li>
-          </ul>
         </li>
 
         <li ng-class="{active: leftSidebarCtrl.$state.includes('base.authed.users.orders')}">
