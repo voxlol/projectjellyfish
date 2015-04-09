@@ -31,40 +31,6 @@ namespace :sample do
     ])
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
 
-    ManageIqProduct.create!([
-       { id: 1, service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 2, service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 3, service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 5, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 6, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 7, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 8, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 9, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 11, service_type_id: 5, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 4, service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 16, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0" },
-       { id: 17, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0" },
-       { id: 18, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0" },
-       { id: 19, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0" },
-       { id: 20, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 21, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 22, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 23, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0" },
-       { id: 24, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 25, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 26, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0" },
-       { id: 10, service_type_id: 5, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", options: {} },
-       { id: 28, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", options: nil },
-       { id: 31, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "--CHEF-ROLE--", options: nil },
-       { id: 32, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "--CHEF-ROLE--", options: nil },
-       { id: 30, service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "--CHEF-ROLE--", options: nil },
-       { id: 33, service_type_id: 0, service_catalog_id: 0, cloud_id: 7, chef_role: "--CHEF-ROLE--", options: nil },
-       { id: 34, service_type_id: 0, service_catalog_id: 0, cloud_id: 2, chef_role: "0", options: nil },
-       { id: 27, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", options: nil },
-       { id: 29, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", options: nil }
-    ])
-    ManageIqProduct.connection.execute("ALTER SEQUENCE manage_iq_products_id_seq RESTART #{ManageIqProduct.all.order('id DESC').first.id + 1}")
-
     Product.create!([
        { id: 1, name: "Small", description: "Small EC2 Instance", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "Infrastructure", setup_price: "1.99", hourly_price: "0.001", monthly_price: "0.05" },
        { id: 2, name: "Medium", description: "Medium EC2 Instance", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "Infrastructure", setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075" },
