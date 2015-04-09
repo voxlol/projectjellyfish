@@ -62,7 +62,7 @@ class ManageIQ < Jellyfish::Provisioner
     {
       action: 'order',
       resource: {
-        href: "#{miq_settings[:url]}/api/service_templates/1", #TODO: Hard coded id because it referenced defunct provisionable
+        href: "#{miq_settings[:url]}/api/service_templates/1", # TODO: Hard coded id because it referenced defunct provisionable
         referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
         email: miq_settings[:email],
         token: miq_settings[:token],
