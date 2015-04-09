@@ -11,8 +11,6 @@ FactoryGirl.define do
       "Product description #{n}"
     end
 
-    provisionable factory: :manage_iq_product
-
     product_type { ProductType.names.first }
   end
 end

@@ -21,12 +21,6 @@ RSpec.describe 'Clouds API' do
       expect(json[0]['chargebacks']).to_not eq(nil)
     end
 
-    it 'returns a collection of clouds w/ products' do
-      get '/api/v1/clouds', includes: [:products]
-
-      expect(json[0]['products']).to_not eq(nil)
-    end
-
     it 'paginates the clouds' do
       get '/api/v1/clouds', page: 1, per_page: 1
       expect(json.length).to eq(1)
@@ -54,11 +48,6 @@ RSpec.describe 'Clouds API' do
     it 'returns a cloud w/ chargebacks'do
       get "/api/v1/clouds/#{@cloud.id}", includes: [:chargebacks]
       expect(json['chargebacks']).to_not eq(nil)
-    end
-
-    it 'returns a cloud w/ products' do
-      # get "/api/v1/clouds/#{@cloud.id}" # , includes: [:products]
-      # expect(json['products']).to_not eq(nil)
     end
   end
 

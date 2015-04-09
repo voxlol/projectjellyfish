@@ -13,15 +13,12 @@
 #  setup_price          :decimal(10, 4)   default(0.0)
 #  hourly_price         :decimal(10, 4)   default(0.0)
 #  monthly_price        :decimal(10, 4)   default(0.0)
-#  provisionable_type   :string(255)
-#  provisionable_id     :integer
 #  provisioning_answers :json
 #  product_type         :string(255)
 #
 # Indexes
 #
-#  index_products_on_deleted_at        (deleted_at)
-#  index_products_on_provisionable_id  (provisionable_id)
+#  index_products_on_deleted_at  (deleted_at)
 #
 
 class Product < ActiveRecord::Base
@@ -31,7 +28,6 @@ class Product < ActiveRecord::Base
   store_accessor :options
 
   has_many :chargebacks
-  belongs_to :provisionable, polymorphic: true
 
   delegate :provisioner, to: :product_type
 
