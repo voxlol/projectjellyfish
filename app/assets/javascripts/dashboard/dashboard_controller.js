@@ -3,11 +3,11 @@
 /**@ngInject*/
 function DashboardController($scope, projects) {
 
-    $scope.chartCollection = [ {
+    $scope.chartCollection = [{
         options: {
             chart: {
                 type: 'cumulativeLineChart',
-                height:350,
+                height: 300,
                 margin: {
                     top: 20,
                     right: 20,
@@ -29,7 +29,7 @@ function DashboardController($scope, projects) {
                 clipVoronoi: false,
 
                 xAxis: {
-                    axisLabel: 'X Axis',
+                    axisLabel: '',
                     tickFormat: function (d) {
                         return d3.time.format('%m/%d/%y')(new Date(d))
                     },
@@ -38,16 +38,22 @@ function DashboardController($scope, projects) {
                 },
 
                 yAxis: {
-                    axisLabel: 'Y Axis',
+                    axisLabel: '% Usage',
                     tickFormat: function (d) {
                         return d3.format(',.1%')(d);
                     },
                     axisLabelDistance: 20
                 }
+            },
+            "title": {
+                "enable": true,
+                "text": "Present Service Utilization",
+                "class": "h3",
+                "css": {"width": "nullpx", "textAlign": "center"}
             }
         },
         data: [{
-            key: "Long",
+            key: "AWS",
             values: [
                 [1083297600000, -2.974623048543],
                 [1085976000000, -1.7740300785979],
@@ -156,7 +162,7 @@ function DashboardController($scope, projects) {
             ],
             mean: 250
         }, {
-            key: "Short",
+            key: "S3 Storage",
             values: [
                 [1083297600000, -0.77078283705125],
                 [1085976000000, -1.8356366650335],
@@ -266,7 +272,7 @@ function DashboardController($scope, projects) {
             mean: -60
         },
             {
-                key: "Gross",
+                key: "Hadoop",
                 mean: 125,
                 values: [
                     [1083297600000, -3.7454058855943],
@@ -375,7 +381,7 @@ function DashboardController($scope, projects) {
                     [1354251600000, 244.24733578385]
                 ]
             }, {
-                key: "S&P 1500",
+                key: "MS Exchange Server",
                 values: [
                     [1083297600000, -1.7798428181819],
                     [1085976000000, -0.36883324836999],
@@ -488,7 +494,7 @@ function DashboardController($scope, projects) {
         options: {
             chart: {
                 type: 'pieChart',
-                height:350,
+                height: 300,
                 x: function (d) {
                     return d.key;
                 },
@@ -506,35 +512,41 @@ function DashboardController($scope, projects) {
                         left: 0
                     }
                 }
+            },
+            "title": {
+                "enable": true,
+                "text": "Cumulative Service Allocation",
+                "class": "h3",
+                "css": {"width": "nullpx", "textAlign": "center"}
             }
         },
         data: [{
-            key: "One",
+            key: "Servers",
             y: 5
         }, {
-            key: "Two",
+            key: "Storage",
             y: 2
         }, {
-            key: "Three",
+            key: "Staff",
             y: 9
         }, {
-            key: "Four",
+            key: "Infrastructure",
             y: 7
         }, {
-            key: "Five",
+            key: "Software",
             y: 4
         }, {
-            key: "Six",
+            key: "MISC Resources",
             y: 3
         }, {
-            key: "Seven",
+            key: "Other",
             y: .5
         }]
-    },{
+    }, {
         options: {
             chart: {
                 type: 'discreteBarChart',
-                height:350,
+                height: 300,
                 margin: {
                     top: 20,
                     right: 20,
@@ -553,45 +565,50 @@ function DashboardController($scope, projects) {
                 },
                 transitionDuration: 500,
                 xAxis: {
-                    axisLabel: 'X Axis'
+                    axisLabel: 'Week'
                 },
                 yAxis: {
-                    axisLabel: 'Y Axis',
+                    axisLabel: 'Volume',
                     axisLabelDistance: 30
                 }
+            },
+            "title": {
+                "enable": true,
+                "text": "Order Frequency Insight",
+                "class": "h3",
+                "css": {"width": "nullpx", "textAlign": "center"}
             }
         },
         data: [{
             key: "Cumulative Return",
             values: [{
-                "label": "A",
+                "label": "1",
                 "value": -29.765957771107
             }, {
-                "label": "B",
+                "label": "2",
                 "value": 0
             }, {
-                "label": "C",
+                "label": "3",
                 "value": 32.807804682612
             }, {
-                "label": "D",
+                "label": "4",
                 "value": 196.45946739256
             }, {
-                "label": "E",
+                "label": "5",
                 "value": 0.19434030906893
             }, {
-                "label": "F",
+                "label": "6",
                 "value": -98.079782601442
             }, {
-                "label": "G",
+                "label": "7",
                 "value": -13.925743130903
             }, {
-                "label": "H",
+                "label": "8",
                 "value": -5.1387322875705
             }]
         }]
     }, {
         options: {
-
             "chart": {
                 "type": "bulletChart",
                 "transitionDuration": 500,
@@ -616,17 +633,18 @@ function DashboardController($scope, projects) {
             },
             "title": {
                 "enable": true,
-                "text": "Present Budget Assessment",
+                "text": "Cumulative Budget Posture",
                 "class": "h3",
                 "css": {"width": "nullpx", "textAlign": "center"}
             }
+
         },
         data: {
             "title": "Project 1",
-            "subtitle": "Funds Expended ($)",
+            "subtitle": "($ in thousands)",
             "ranges": [150, 225, 300],
             "measures": [220],
-            "markers": [250]
+            "markers": [0]
         }
     }
     ];
