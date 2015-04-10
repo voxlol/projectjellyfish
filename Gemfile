@@ -35,7 +35,7 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
-gem 'ruby-saml'
+gem 'ruby-saml', github: 'onelogin/ruby-saml'
 
 # Authorization
 gem 'pundit'
