@@ -5,7 +5,7 @@ RSpec.describe 'Projects API' do
     it 'returns a collection of all product types' do
       sign_in_as create(:staff, :admin)
 
-      get 'api/v1/product_types'
+      get '/api/v1/product_types'
 
       expect(json).to eq ProductType.all.values
     end

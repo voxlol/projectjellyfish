@@ -3,7 +3,7 @@ ruby '2.2.1'
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
+gem 'rails', '4.2.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.17.1'
@@ -42,11 +42,14 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-gem 'jellyfish_fog_aws', path: 'lib/jellyfish_fog_aws', require: false
 gem 'custom_configuration'
 
 gem 'bootstrap-sass'
 gem 'sass-rails'
+gem 'jellyfish_fog_aws'
+
+# Autoprefixer for CSS classes using Can I Use values.
+gem 'autoprefixer-rails'
 
 # Tests
 group :development, :test do
@@ -103,9 +106,6 @@ gem 'active_model_serializers', '~> 0.8.0'
 gem 'friendly_id'
 gem 'paper_trail'
 
-# Azure module
-gem 'jellyfish-azure'
-
 gem 'sass'
 gem 'uglifier'
 
@@ -118,7 +118,8 @@ gem 'acts-as-taggable-on'
 
 # Add Dependencies
 source 'http://rails-assets.org' do
-  gem 'rails-assets-angular', '>=1.3.15'
+  gem 'rails-assets-angular', '>= 1.3.15'
+  gem 'rails-assets-jquery'
   gem 'rails-assets-angucomplete-alt'
   gem 'rails-assets-angular-animate'
   gem 'rails-assets-angular-bootstrap'
@@ -133,10 +134,15 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-angular-ui-router'
   gem 'rails-assets-angular-ui-select'
   gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-jquery'
   gem 'rails-assets-lodash'
   gem 'rails-assets-ng-currency'
-  gem 'rails-assets-objectpath'
+  gem 'rails-assets-microplugin'
   gem 'rails-assets-selectize'
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap3-datetimepicker'
+  gem 'rails-assets-objectpath'
   gem 'rails-assets-tv4'
+  gem 'rails-assets-angular-nvd3'
+  gem 'rails-assets-ngDraggable'
+  gem 'rails-assets-angular-filter'
 end

@@ -16,5 +16,5 @@
 #
 
 describe Cloud do
-  it { should have_many(:products) }
+  it { should have_many(:chargebacks) }
 end

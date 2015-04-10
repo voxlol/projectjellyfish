@@ -32,7 +32,10 @@ angular.module("broker", [
   "broker.dashboard",
   "broker.users",
   "broker.settings",
-  "schemaForm"
+  "schemaForm",
+  "nvd3",
+  "ngDraggable",
+  "angular.filter"
 ]).run(
   /**@ngInject*/
   function($http, $rootScope, $log, $location, AuthService, UsersResource, Session, $urlRouter, ROUTES, $state, APP_CONFIG, FlashesService) {

@@ -16,10 +16,6 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #
-# Indexes
-#
-#  question_order_idx  (product_type_id,load_order)
-#
 
 class ProductTypeQuestion < ActiveRecord::Base
 end

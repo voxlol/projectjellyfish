@@ -7,6 +7,7 @@ require 'rest-client'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Provisioner = Jellyfish::Provisioner
 module JellyfishCore
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

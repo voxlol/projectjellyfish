@@ -6,8 +6,8 @@ feature 'Project creation' do
 
     login_as(staff)
 
-    visit dashboard_path
-    find('#addNewProject').click
+    visit '/project'
+    find('#addNewProject span').click
     fill_in 'Name', with: 'Project Jellyfish'
     fill_in 'Icon', with: 'http://www.example.com/image.png'
     fill_in 'Budget', with: '$100,000'
