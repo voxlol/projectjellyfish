@@ -1,4 +1,4 @@
-ruby '2.1.5'
+ruby '2.2.1'
 
 source 'https://rubygems.org'
 
@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18.1'
+gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.8'
 
 # Pagination
@@ -39,7 +39,7 @@ gem 'ruby-saml'
 
 # Authorization
 gem 'pundit'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
 gem 'time_for_a_boolean'
 
 gem 'custom_configuration'
