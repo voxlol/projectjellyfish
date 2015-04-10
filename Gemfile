@@ -142,4 +142,7 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-bootstrap3-datetimepicker'
   gem 'rails-assets-objectpath'
   gem 'rails-assets-tv4'
+  gem 'rails-assets-angular-nvd3'
+  gem 'rails-assets-ngDraggable'
+  gem 'rails-assets-angular-filter'
 end

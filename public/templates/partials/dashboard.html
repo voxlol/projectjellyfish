@@ -1,18 +1,7 @@
-<div class="dashboard-page">
-    <section-header name="Alerts" ng-show="dashboardCtrl.alerts.length > 0">
-        <alerts-table alerts="dashboardCtrl.alerts"></alerts-table>
-    </section-header>
-
-    <section-header name="Projects ({{dashboardCtrl.projects.length}})">
-        <div class="project-boxes">
-            <project-box ng-repeat="project in dashboardCtrl.projects" project="project"></project-box>
-            <div class="btn-box" id="addNewProject">
-                <div ui-sref="base.authed.newProject" class="add-btn add-icon">
-                    <i class="fa fa-plus-circle fa-1x"></i><span> ADD NEW PROJECT</span>
-                </div>
-            </div>
-            <!-- end .btn-box -->
+<div class="row" ng-repeat="charts in chartCollection | groupBy:2">
+    <div class='col-sm-6' ng-repeat="chart in charts">
+        <div ng-drag="true" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" ng-drag-data="chart">
+            <nvd3 options='chart.options' data='chart.data'></nvd3>
         </div>
-    </section-header>
-    <div class="clearfix"></div>
+    </div>
 </div>
