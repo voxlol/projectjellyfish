@@ -592,15 +592,33 @@ function DashboardController($scope, projects) {
     }, {
         options: {
 
-            chart: {
-                type: 'bulletChart',
-                transitionDuration: 500,
-                margin: {
-                    top: 40,
-                    right: 0,
-                    bottom: 0,
-                    left: 100
-                }
+            "chart": {
+                "type": "bulletChart",
+                "transitionDuration": 500,
+                "bullet": {
+                    "dispatch": {},
+                    "forceX": [0],
+                    "width": 380,
+                    "height": 30,
+                    "tickFormat": null,
+                    "margin": {"top": 0, "right": 0, "bottom": 0, "left": 0},
+                    "orient": "left"
+                },
+                "dispatch": {},
+                "forceX": [0],
+                "width": null,
+                "height": 55,
+                "tickFormat": null,
+                "margin": {"top": 5, "right": 40, "bottom": 20, "left": 120},
+                "orient": "left",
+                "tooltips": true,
+                "noData": "No Data Available."
+            },
+            "title": {
+                "enable": true,
+                "text": "Present Budget Assessment",
+                "class": "h3",
+                "css": {"width": "nullpx", "textAlign": "center"}
             }
         },
         data: {
