@@ -6,7 +6,7 @@ feature 'Project creation' do
 
     login_as(staff)
 
-    visit dashboard_path
+    visit '/projects/project_home'
     find('#addNewProject span').click
     fill_in 'Name', with: 'Project Jellyfish'
     fill_in 'Icon', with: 'http://www.example.com/image.png'
