@@ -387,24 +387,15 @@
     load_order: 0
     env_var_name: SAML_ENABLED
     hid: enabled
-  - label: Issuer
+  - label: Enabled
     field_type: text
     help_text:
     options:
-    value: ''
+    value: 'false'
     required:
-    load_order: 1
-    env_var_name: SAML_ISSUER
-    hid: issuer
-  - label: Entity ID
-    field_type: text
-    help_text:
-    options:
-    value: ''
-    required:
-    load_order: 2
-    env_var_name: SAML_ENTITY_ID
-    hid: entity_id
+    load_order: 0
+    env_var_name: SAML_REMOTE_XML_URL
+    hid: remote_xml_url
   - label: Certificate
     field_type: textarea
     help_text:

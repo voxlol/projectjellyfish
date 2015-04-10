@@ -6,9 +6,19 @@ Rails.application.routes.draw do
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
 
-    get 'saml/init', to: 'saml#init'
-    post 'saml/consume', to: 'saml#consume'
-    get 'saml/metadata', to: 'saml#metadata'
+    devise_scope :staff do
+      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+    end
+
+    resources :saml, only: :index do
+      collection do
+        get :init
+        get :sso
+        post :acs
+        get :metadata
+        get :logout
+      end
+    end
 
     # Alerts Routes
     resources :alerts, defaults: { format: :json } do
