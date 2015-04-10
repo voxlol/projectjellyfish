@@ -61,6 +61,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.10)
+    bcrypt (3.1.10-x64-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.4.1)
@@ -130,6 +131,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.8)
+    ffi (1.9.8-x64-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.29.0)
@@ -274,6 +276,8 @@ GEM
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    nokogiri (1.6.6.2-x64-mingw32)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     paper_trail (3.0.7)
       activerecord (>= 3.0, < 5.0)
@@ -282,7 +286,8 @@ GEM
       activerecord (~> 4.0)
     parser (2.2.0.3)
       ast (>= 1.1, < 3.0)
-    pg (0.17.1)
+    pg (0.18.1)
+    pg (0.18.1-x64-mingw32)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -297,6 +302,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.1-x64-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (2.11.1)
@@ -358,6 +368,9 @@ GEM
       rails-assets-jquery (>= 1.9.1)
     rails-assets-bootstrap-sass (3.3.4)
       rails-assets-jquery (>= 1.9.0)
+<<<<<<< HEAD
+    rails-assets-d3 (3.3.13)
+=======
     rails-assets-bootstrap3-datetimepicker (4.7.14)
       rails-assets-jquery (>= 1.8.3)
       rails-assets-moment (>= 2.8.0)
@@ -406,7 +419,16 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+<<<<<<< HEAD
+    rest-client (1.8.0-x64-mingw32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
+    rspec-core (3.2.2)
+=======
     rspec-core (3.2.3)
+>>>>>>> 7a10fffc5282cfcb907117b9009cafdd8683d3c0
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -487,6 +509,8 @@ GEM
       rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2015.2)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -512,18 +536,21 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     will_paginate (3.0.7)
+    win32console (1.3.2)
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   active_model_serializers (~> 0.8.0)
   acts-as-taggable-on
   annotate
   apipie-rails (~> 0.2.6)
+  autoprefixer-rails
   awesome_print
   bcrypt (~> 3.1.7)
   bootstrap-sass
@@ -545,7 +572,7 @@ DEPENDENCIES
   license_finder
   paper_trail
   paranoia
-  pg (~> 0.17.1)
+  pg (~> 0.18.1)
   pg_search (~> 0.7.8)
   poltergeist
   pry-rails
@@ -571,7 +598,11 @@ DEPENDENCIES
   rails-assets-angular-ui-select!
   rails-assets-bootstrap!
   rails-assets-bootstrap-sass!
+<<<<<<< HEAD
+  rails-assets-d3!
+=======
   rails-assets-bootstrap3-datetimepicker!
+>>>>>>> 7a10fffc5282cfcb907117b9009cafdd8683d3c0
   rails-assets-jquery!
   rails-assets-lodash!
   rails-assets-microplugin!
@@ -596,6 +627,7 @@ DEPENDENCIES
   shoulda-matchers
   spring
   time_for_a_boolean
+  tzinfo-data
   uglifier
   virtus
   web-console (~> 2.0.0)
