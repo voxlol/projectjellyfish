@@ -104,16 +104,16 @@ class SamlController < ApplicationController
   def saml_settings
     idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
     # Returns OneLogin::RubySaml::Settings prepopulated with idp metadata
-    settings = idp_metadata_parser.parse_remote(@settings[:remote_xml_url])
+    settings = idp_metadata_parser.parse_remote(ENV['SAML_REMOTE_XML_URL'])
 
     settings.assertion_consumer_service_url = acs_saml_index_url
     settings.assertion_consumer_logout_service_url = logout_saml_index_url
     settings.issuer = "#{metadata_saml_index_url}.xml"
 
-    settings.name_identifier_format = @settings[:identifier]
+    settings.name_identifier_format = ENV['SAML_IDENTIFIER']
     settings.authn_context = 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
 
-    settings.certificate = @settings[:certificate]
+    settings.certificate = ENV['SAML_CERTIFICATE']
 
     settings
   end
@@ -127,8 +127,7 @@ class SamlController < ApplicationController
   private
 
   def saml_enabled?
-    @settings ||= Setting.find_by!(hid: 'saml').settings_hash
-    return saml_failure unless @settings[:enabled]
+    return saml_failure unless ENV['SAML_ENABLED']
     true
   end
 
@@ -148,6 +147,6 @@ class SamlController < ApplicationController
   # User Redirection urls
 
   def authenticated_url
-    @settings[:redirect_url]
+    ENV['SAML_REDIRECT_URL']
   end
 end

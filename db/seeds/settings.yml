@@ -414,24 +414,6 @@
     load_order: 4
     env_var_name: SAML_IDENTIFIER
     hid: identifier
-  - label: Cert Fingerprint
-    field_type: text
-    help_text:
-    options:
-    value: ''
-    required:
-    load_order: 5
-    env_var_name: SAML_FINGERPRINT
-    hid: fingerprint
-  - label: SSO Target URL
-    field_type: text
-    help_text:
-    options:
-    value: ''
-    required:
-    load_order: 6
-    env_var_name: SAML_TARGET_URL
-    hid: sso_target_url
   - label: Redirect URL
     field_type: text
     help_text:
