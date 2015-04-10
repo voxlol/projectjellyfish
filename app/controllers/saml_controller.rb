@@ -9,20 +9,19 @@ class SamlController < ApplicationController
   end
 
   def sso
-    settings = get_saml_settings
+    settings = saml_settings
     if settings.nil?
-      render :action => :no_settings
+      render action: :no_settings
       return
     end
 
     request = OneLogin::RubySaml::Authrequest.new
     redirect_to(request.create(settings))
-
   end
 
   def acs
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse])
-    response.settings = get_saml_settings
+    response.settings = saml_settings
 
     if response.is_valid?
       user = Staff.find_by email: response_email(response)
@@ -53,71 +52,56 @@ class SamlController < ApplicationController
   # Create an SP initiated SLO
   def sp_logout_request
     # LogoutRequest accepts plain browser requests w/o paramters
-    settings = get_saml_settings
+    settings = saml_settings
 
     if settings.idp_slo_target_url.nil?
-      logger.info 'SLO IdP Endpoint not found in settings, executing then a normal logout'
       reset_session
     else
 
       # Since we created a new SAML request, save the transaction_id
       # to compare it with the response we get back
-      logout_request = OneLogin::RubySaml::Logoutrequest.new()
+      logout_request = OneLogin::RubySaml::Logoutrequest.new
       session[:transaction_id] = logout_request.uuid
-      logger.info "New SP SLO for User ID: '#{session[:user_id]}', Transaction ID: '#{session[:transaction_id]}'"
 
       if settings.name_identifier_value.nil?
         settings.name_identifier_value = session[:user_id]
       end
 
-      relayState =  url_for controller: 'saml', action: 'index'
-      redirect_to(logout_request.create(settings, :RelayState => relayState))
+      relay_state =  url_for controller: 'saml', action: 'index'
+      redirect_to(logout_request.create(settings, RelayState: relay_state))
     end
   end
 
   # After sending an SP initiated LogoutRequest to the IdP, we need to accept
   # the LogoutResponse, verify it, then actually delete our session.
   def process_logout_response
-    settings = get_saml_settings
+    settings = saml_settings
 
-    if session.has_key? :transation_id
-      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings, :matches_request_id => session[:transation_id])
+    if session.key? :transation_id
+      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings, matches_request_id: session[:transation_id])
     else
       logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings)
     end
 
-    logger.info "LogoutResponse is: #{logout_response.to_s}"
-
     # Validate the SAML Logout Response
-    if not logout_response.validate
-      logger.error 'The SAML Logout Response is invalid'
-    else
-      # Actually log out this session
-      if logout_response.success?
-        logger.info "Delete session for '#{session[:user_id]}'"
-        reset_session
-      end
-    end
+    # Actually log out this session
+    reset_session if logout_response.success?
   end
 
   # Method to handle IdP initiated logouts
   def idp_logout_request
-    settings = get_saml_settings
+    settings = saml_settings
     logout_request = OneLogin::RubySaml::SloLogoutrequest.new(params[:SAMLRequest])
-    if !logout_request.is_valid?
-      logger.error 'IdP initiated LogoutRequest was not valid!'
-      render :inline => logger.error
-    end
-    logger.info "IdP initiated Logout for #{logout_request.name_id}"
+    render inline: logger.error unless logout_request.is_valid?
 
     # Actually log out this session
     reset_session
 
-    logout_response = OneLogin::RubySaml::SloLogoutresponse.new.create(settings, logout_request_id, nil, :RelayState => params[:RelayState])
+    logout_response = OneLogin::RubySaml::SloLogoutresponse.new.create(settings, logout_request_id, nil, RelayState: params[:RelayState])
     redirect_to logout_response
   end
 
-  def get_saml_settings
+  def saml_settings
     idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
     # Returns OneLogin::RubySaml::Settings prepopulated with idp metadata
     settings = idp_metadata_parser.parse_remote('http://sso.projectjellyfish.org:8080/openam/saml2/jsp/exportmetadata.jsp?entityid=https://sso.projectjellyfish.org:8443/openam')
@@ -155,7 +139,7 @@ EsfmBbBdnRLMj4mjPc9gk+wh8w==
   end
 
   def metadata
-    settings = get_saml_settings
+    settings = saml_settings
     meta = OneLogin::RubySaml::Metadata.new
     render xml: meta.generate(settings), content_type: 'application/samlmetadata+xml'
   end
@@ -179,48 +163,6 @@ EsfmBbBdnRLMj4mjPc9gk+wh8w==
       response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
       response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn']
     ].find { |v| v[/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Z‌​a-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/i] }
-  end
-
-  def saml_settings(request)
-    idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
-
-    settings = idp_metadata_parser.parse_remote('http://bahsso.bah-sisp.com:8080/openam/saml2/jsp/exportmetadata.jsp?entityid=https://bahsso.bah-sisp.com:8443/openam')
-    #settings = OneLogin::RubySaml::Settings.new
-
-    settings.assertion_consumer_service_url = saml_consume_url host: request.host
-    settings.issuer = 'https://sso.projectjellyfish.org:8443/openam'
-    settings.name_identifier_format = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
-    settings.authn_context = 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
-    # settings.assertion_consumer_service_url = @settings[:saml_consume_url] || saml_consume_url(host: request.host)
-    # settings.issuer = @settings[:issuer] || saml_metadata_url(host: request.host)
-    # settings.name_identifier_format = @settings[:identifier]
-    #
-    # # Optional for most SAML IdPs
-    # settings.authn_context = 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
-
-    # settings = OneLogin::RubySaml::Settings.new
-    # settings.security[:authn_requests_signed] = true
-    # settings.security[:embed_sign] = true
-    # settings.security[:digest_method] = XMLSecurity::Document::SHA256
-    #settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA256
-
-    # ap @settings
-
-    # settings.assertion_consumer_service_url = @settings[:saml_consume_url] || saml_consume_url(host: request.host)
-    # settings.assertion_consumer_logout_service_binding = @settings[:saml_consume_]
-    # settings.issuer = @settings[:issuer] || saml_metadata_url(host: request.host)
-    # settings.idp_entity_id = @settings[:entity_id]
-    # settings.idp_sso_target_url = @settings[:sso_target_url]
-    # settings.idp_slo_target_url = @settings[:slo_target_url]
-    # settings.certificate = @settings[:certificate]
-    # settings.idp_cert_fingerprint = @settings[:fingerprint]
-    # settings.name_identifier_format = @settings[:identifier]
-
-    # settings.assertion_consumer_service_url = 'http://sso.projectjellyfish.org:8080/openam/AIDReqUri/IDPRole/metaAlias/idp'
-
-    ap settings
-
-    settings
   end
 
   # User Redirection urls
