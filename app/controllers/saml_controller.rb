@@ -4,7 +4,7 @@ class SamlController < ApplicationController
   def init
     respond_to do |format|
       format.html { redirect_to sso_saml_index_url request }
-      format.json { render json: { url: saml_init_url } }
+      format.json { render json: { url: init_saml_index_url } }
     end
   end
 
@@ -104,36 +104,16 @@ class SamlController < ApplicationController
   def saml_settings
     idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
     # Returns OneLogin::RubySaml::Settings prepopulated with idp metadata
-    settings = idp_metadata_parser.parse_remote('http://sso.projectjellyfish.org:8080/openam/saml2/jsp/exportmetadata.jsp?entityid=https://sso.projectjellyfish.org:8443/openam')
+    settings = idp_metadata_parser.parse_remote(ENV['SAML_REMOTE_XML_URL'])
 
     settings.assertion_consumer_service_url = acs_saml_index_url
     settings.assertion_consumer_logout_service_url = logout_saml_index_url
     settings.issuer = "#{metadata_saml_index_url}.xml"
 
-    settings.name_identifier_format = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+    settings.name_identifier_format = ENV['SAML_IDENTIFIER']
     settings.authn_context = 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
 
-    settings.certificate = '-----BEGIN CERTIFICATE-----
-MIIDbzCCAtigAwIBAgIJALLyD62/xQ5WMA0GCSqGSIb3DQEBBQUAMIGCMQswCQYD
-VQQGEwJVUzEOMAwGA1UECBMFVGV4YXMxITAfBgNVBAoTGEludGVybmV0IFdpZGdp
-dHMgUHR5IEx0ZDEYMBYGA1UEAxMPSmVyaW1pYWggTWlsdG9uMSYwJAYJKoZIhvcN
-AQkBFhdtaWx0b25famVyaW1pYWhAYmFoLmNvbTAeFw0xNTA0MDkyMDI3MzlaFw0x
-ODA0MDgyMDI3MzlaMIGCMQswCQYDVQQGEwJVUzEOMAwGA1UECBMFVGV4YXMxITAf
-BgNVBAoTGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDEYMBYGA1UEAxMPSmVyaW1p
-YWggTWlsdG9uMSYwJAYJKoZIhvcNAQkBFhdtaWx0b25famVyaW1pYWhAYmFoLmNv
-bTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAlG570+tDpHHkVJASVhaUIYwN
-wN4zePFDBUkwmtGSho5NF8glIunZDNjnJ1mG5TG15Eg3UvJUk6+xsN9VXCdBS4Y8
-LpUhT2bhbiZWWvDKcbDOPOq8pDTlhBC2YBEvFtuPkCx2tA7H8m0o+JRH+GokaDSY
-I8WhH9mii1PpgEvBzKkCAwEAAaOB6jCB5zAdBgNVHQ4EFgQUHa3b8vUm18bOsMuE
-Xf9JLxyiVJgwgbcGA1UdIwSBrzCBrIAUHa3b8vUm18bOsMuEXf9JLxyiVJihgYik
-gYUwgYIxCzAJBgNVBAYTAlVTMQ4wDAYDVQQIEwVUZXhhczEhMB8GA1UEChMYSW50
-ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMRgwFgYDVQQDEw9KZXJpbWlhaCBNaWx0b24x
-JjAkBgkqhkiG9w0BCQEWF21pbHRvbl9qZXJpbWlhaEBiYWguY29tggkAsvIPrb/F
-DlYwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQAKu7O244ykwkD3GoMJ
-rX9D+Wnb40yKaf+nw2HOzFJoBUfw8ZAg8bCpylKfgtDeNHF8maS2GYNgV6DSVpvN
-ZO010V1TQElu+KjiA7tmO/+Q7f+rK4cs9rxdadlxViqKQRNMCfkHE9/zLR55BhF1
-EsfmBbBdnRLMj4mjPc9gk+wh8w==
------END CERTIFICATE-----'
+    settings.certificate = ENV['SAML_CERTIFICATE']
 
     settings
   end
@@ -147,8 +127,11 @@ EsfmBbBdnRLMj4mjPc9gk+wh8w==
   private
 
   def saml_enabled?
-    @settings ||= Setting.find_by!(hid: 'saml').settings_hash
-    return saml_failure unless @settings[:enabled]
+    # This is the only way I could get the rspec tests to pass with Capybara
+    respond_to do |format|
+      format.html { return saml_failure if ENV['SAML_ENABLED'].nil? }
+      format.json { render json: { error: 'Not found.' } if ENV['SAML_ENABLED'].nil? }
+    end
     true
   end
 
@@ -168,6 +151,6 @@ EsfmBbBdnRLMj4mjPc9gk+wh8w==
   # User Redirection urls
 
   def authenticated_url
-    @settings[:redirect_url]
+    ENV['SAML_REDIRECT_URL']
   end
 end
