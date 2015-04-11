@@ -129,8 +129,8 @@ class SamlController < ApplicationController
   def saml_enabled?
     # This is the only way I could get the rspec tests to pass with Capybara
     respond_to do |format|
-      format.html { return saml_failure unless !ENV['SAML_ENABLED'].nil? }
-      format.json { render json: { error: 'Not found.' } unless !ENV['SAML_ENABLED'].nil? }
+      format.html { return saml_failure if ENV['SAML_ENABLED'].nil? }
+      format.json { render json: { error: 'Not found.' } if ENV['SAML_ENABLED'].nil? }
     end
     true
   end
