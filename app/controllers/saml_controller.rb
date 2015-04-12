@@ -3,8 +3,8 @@ class SamlController < ApplicationController
 
   def init
     respond_to do |format|
-      format.html { redirect_to sso_saml_index_url request }
-      format.json { render json: { url: init_saml_index_url } }
+      format.html { redirect_to sso_saml_index_url }
+      format.json { render json: { url: metadata_saml_index_url } }
     end
   end
 
@@ -24,10 +24,17 @@ class SamlController < ApplicationController
     response.settings = saml_settings
 
     if response.is_valid?
-      user = Staff.find_by email: response_email(response)
-      return saml_failure if user.nil?
-      sign_in user
-      redirect_to authenticated_url
+      staff = Staff.find_by email: response.name_id
+
+      if staff.nil?
+        staff = Staff.new
+        staff.email = response.name_id
+        staff.password = Devise.friendly_token.first(8)
+        authorize staff
+        staff.save!
+      end
+
+      sign_in staff
     else
       saml_failure
     end
@@ -127,30 +134,15 @@ class SamlController < ApplicationController
   private
 
   def saml_enabled?
-    # This is the only way I could get the rspec tests to pass with Capybara
-    respond_to do |format|
-      format.html { return saml_failure if ENV['SAML_ENABLED'].nil? }
-      format.json { render json: { error: 'Not found.' } if ENV['SAML_ENABLED'].nil? }
-    end
+    return saml_failure if ENV['SAML_ENABLED'].nil?
     true
   end
 
   def saml_failure
-    head 404, content_type: :plain
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/public/404", layout: false, status: :not_found }
+      format.json { render json: { error: MissingRecordDetection::Messages.not_found }, status: :not_found }
+    end
     false
-  end
-
-  def response_email(response)
-    [
-      response.name_id,
-      response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-      response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn']
-    ].find { |v| v[/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Z‌​a-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/i] }
-  end
-
-  # User Redirection urls
-
-  def authenticated_url
-    ENV['SAML_REDIRECT_URL']
   end
 end
