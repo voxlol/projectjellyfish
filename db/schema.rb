@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409153833) do
+ActiveRecord::Schema.define(version: 20150413155117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -301,33 +301,6 @@ ActiveRecord::Schema.define(version: 20150409153833) do
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
-
-  create_table "setting_fields", force: :cascade do |t|
-    t.string   "label",        limit: 255
-    t.integer  "field_type",               default: 0
-    t.string   "help_text",    limit: 255
-    t.json     "options"
-    t.text     "value"
-    t.string   "required",     limit: 1
-    t.integer  "load_order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "setting_id"
-    t.string   "env_var_name", limit: 255
-    t.boolean  "disabled",                 default: false
-    t.string   "hid",          limit: 255,                 null: false
-    t.boolean  "secret",                   default: false, null: false
-  end
-
-  add_index "setting_fields", ["setting_id", "hid"], name: "index_setting_fields_on_setting_id_and_hid", unique: true, using: :btree
-  add_index "setting_fields", ["setting_id"], name: "index_setting_fields_on_setting_id", using: :btree
-
-  create_table "settings", force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "hid",  limit: 255, null: false
-  end
-
-  add_index "settings", ["hid"], name: "index_settings_on_hid", unique: true, using: :btree
 
   create_table "staff", force: :cascade do |t|
     t.string   "first_name",             limit: 255
