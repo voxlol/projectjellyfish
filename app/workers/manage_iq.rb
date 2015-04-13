@@ -91,6 +91,13 @@ class ManageIQ < Jellyfish::Provisioner
   end
 
   def miq_settings
-    @miq_settings ||= Setting.find_by(hid: 'manageiq').settings_hash
+    @miq_settings = {}
+    @miq_settings[:enabled] = ENV['MIQ_ENABLED']
+    @miq_settings[:url] = ENV['MIQ_URL']
+    @miq_settings[:username] = ENV['MIQ_USERNAME']
+    @miq_settings[:password] = ENV['MIQ_PASSWORD']
+    @miq_settings[:email] = ENV['MIQ_USER_EMAIL']
+    @miq_settings[:token] = ENV['MIQ_USER_TOKEN']
+    @miq_settings
   end
 end
