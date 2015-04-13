@@ -34,7 +34,7 @@ class SamlController < ApplicationController
         staff.save!
       end
 
-      sign_in staff
+      sign_in_and_redirect(:staff, staff)
     else
       saml_failure
     end
