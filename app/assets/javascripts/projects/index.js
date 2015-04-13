@@ -13,12 +13,11 @@ var ProjectsModule = angular.module('broker.projects', [])
     .controller('NewProjectController', NewProjectController)
     .controller('EditProjectController', EditProjectController)
     .controller('ProjectController', ProjectController)
-    .controller('ProjectUsersController', ProjectUsersController)
     .controller('ProjectServicesController', ProjectServicesController)
     .directive('projectForm', ProjectForm)
     .directive('projectBox', ProjectBoxDirective)
+    .directive('groupsInput', GroupsInput)
     .factory('ProjectsResource', ProjectsResource)
-    .factory('ProjectUsersResource', ProjectUsersResource)
     .factory('ProjectQuestionsResource', ProjectQuestionsResource)
     .config(
     /**@ngInject*/
@@ -66,36 +65,6 @@ var ProjectsModule = angular.module('broker.projects', [])
                 templateUrl: '/templates/partials/projects/add_services.html',
                 controller: 'ProjectServicesController as projectServicesCtrl',
                 resolve: ProjectServicesData
-            })
-            // Add User to Project
-            .state('base.authed.project.view.addUser', {
-                url: "^/project/:projectId/add-user",
-                /**@ngInject**/
-                onEnter: function($stateParams, $state, JellyfishModal, project) {
-
-                    // When the modal is resolved or rejected we want to transition
-                    // back to the project page.
-                    var onClose = function() {
-                        return $state.transitionTo('base.authed.project.view', $stateParams);
-                    };
-
-                    JellyfishModal.open({
-                        id: 'add-users',
-                        templateUrl: '/templates/partials/projects/add_users_modal.html',
-                        controller: 'ProjectUsersController as projectUsersCtrl',
-                        /**
-                         * This is somewhat of a hack, because of using string based controller instantiation in the modal
-                         * the ui-router scope does not cascade into onEnter.  We use resolve to effectively inject the data
-                         * back in.
-                         */
-                        resolve: {
-                            project: function() {
-                                return project;
-                            }
-
-                        }
-                    }).result.then(onClose, onClose);
-                }
             });
     }
 );

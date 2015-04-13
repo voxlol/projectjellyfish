@@ -148,29 +148,6 @@ namespace :sample do
         { id: 21, order_id: 9, cloud_id: 2, :product => Product.where(id: 34).first, service_id: nil, provision_status: nil, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "add8e14e-6ac2-4476-a9f5-84c6b351a716", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", payload_request: nil, payload_acknowledgement: nil, payload_response: nil, latest_alert_id: nil},
     ])
     OrderItem.connection.execute("ALTER SEQUENCE order_items_id_seq RESTART #{OrderItem.all.order('id DESC').first.id + 1}")
-
-    Alert.create!([
-       { id: 1, project_id: 3, staff_id: 0, status: "CRITICAL", message: "$200 of $2,000 budget remaining. Please increase funding or instance will be retired.", start_date: nil, end_date: nil, order_item_id: 6},
-       { id: 2, project_id: 2, staff_id: 0, status: "WARNING", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, order_item_id: 3}
-    ])
-    Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
-
-    StaffProject.create!([
-       { id: 1, staff_id: 3, project_id: 1},
-       { id: 2, staff_id: 3, project_id: 2},
-       { id: 4, staff_id: 3, project_id: 5},
-       { id: 5, staff_id: 5, project_id: 3},
-       { id: 6, staff_id: 2, project_id: 3}
-    ])
-    StaffProject.connection.execute("ALTER SEQUENCE staff_projects_id_seq RESTART #{StaffProject.all.order('id DESC').first.id + 1}")
-
-    if !ENV['MIQ_ENABLED'].nil?
-      # Assume ManageIQ is enabled
-      ENV['MIQ_ENABLED'] = 'true'
-      # Find and set the ManageIQ user email and token
-      ENV['MIQ_USER_EMAIL'] = 'miq@projectjellyfish.org'
-      ENV['MIQ_USER_TOKEN'] = 'jellyfish-token'
-    end
   end
 
 end

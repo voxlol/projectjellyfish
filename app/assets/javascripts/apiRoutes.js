@@ -12,9 +12,10 @@ window.apiRoutes = {
     "orders":            "/orders/:id",
     "orderItems":        "/order_items/:id",
 
+    "projectGroups":     "/projects/:projectId/groups",
+    "projectGroupById":  "/projects/:projectId/groups/:groupId",
     "projectsById":      "/projects/:id",
     "projectQuestions":  "/project_questions/:id",
-    "projectUser":       "/projects/:id/staff/:staff_id",
     "servicesById":      "/services/:id",
 
     "productsById":      "/products/:id",
@@ -26,13 +27,15 @@ window.apiRoutes = {
 
     "staffOrders":       "/staff/:staff_id/orders/:id",
     "staffById":         "/staff/:id",
-    "staffProjects":     "/staff/:id/projects/:project_id",
     "staffSearch":       "/staff?query=",
     "currentMember":     "/staff/current_member",
+
     "services":           "/services",
     "serviceAll":         "/services/all_count",
     "serviceProject":     "/services/project_count",
-    "serviceOrderProfiles":     "/services/order_profiles"
+    "serviceOrderProfiles":     "/services/order_profiles",
 
+    "groups":            "/groups",
+    "groupsById":        "/groups/:id",
   }
 };

@@ -10,13 +10,11 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  deleted_at           :datetime
-#  product_type_id      :integer
 #  setup_price          :decimal(10, 4)   default(0.0)
 #  hourly_price         :decimal(10, 4)   default(0.0)
 #  monthly_price        :decimal(10, 4)   default(0.0)
-#  provisionable_type   :string
-#  provisionable_id     :integer
 #  provisioning_answers :json
+#  product_type         :string
 #
 # Indexes
 #
