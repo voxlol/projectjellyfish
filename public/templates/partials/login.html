@@ -26,7 +26,7 @@
         <tbody>
         <tr ng-show="loginCtrl.ssoUrl">
           <td colspan="2" class="text-center">
-            <a class="btn btn-primary btn-lg" ng-href="{{loginCtrl.ssoUrl}}">
+              <a class="btn btn-primary btn-lg" ng-click="loginCtrl.login(loginCtrl.ssoUrl)">
               <i class="fa fa-key fa-fw"></i>
               Log in with Single Sign-On
             </a>
