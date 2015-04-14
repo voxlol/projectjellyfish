@@ -30,7 +30,6 @@ class SamlController < ApplicationController
         staff = Staff.new
         staff.email = response.name_id
         staff.password = Devise.friendly_token.first(8)
-        authorize staff
         staff.save!
       end
 
