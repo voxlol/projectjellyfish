@@ -112,7 +112,7 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'verifies creation of a new sensu alert', :show_in_doc do
-      alert_data = { hostname: 'foo.bar.com', port: '5000', service: 'postgresql', status: 'OK', message: 'This is a test', event: 'tbd' }
+      alert_data = { host: 'foo.bar.com', port: '5000', service: 'postgresql', status: 'OK', message: 'This is a test' }
       post '/api/v1/alerts/sensu', alert_data
       expect(json['message']).to eq(alert_data[:message])
     end

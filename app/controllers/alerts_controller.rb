@@ -34,13 +34,14 @@ class AlertsController < ApplicationController
   end
 
   api :POST, '/alerts/sensu', 'Create new Sensu alert.'
-  param :hostname, String, required: true, desc: 'The host of the product associated with this alert.'
+  param :host, String, required: true, desc: 'The host of the product associated with this alert.'
   param :port, String, required: true, desc: 'The port of the product associated with this alert.'
   param :service, String, required: true, desc: 'Name of service deployed on host'
   param :status, String, required: true, desc: 'Status message associated issued with this service from Sense. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'Actual message content of alert.'
-  param :event, String, required: true, desc: 'TBD. Stubbed out for now.'
-  description 'Endpoint to push an alert from Sensu to Core. <br>If an alert already exists for this order, then update that order.'
+  param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
+  param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
+  description 'Endpoint to push an alert from Sensu to API. <br>If an alert already exists for this service, then update that service.'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def sensu
