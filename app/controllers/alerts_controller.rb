@@ -4,7 +4,7 @@ class AlertsController < ApplicationController
 
   before_action :pre_hook
   before_action :load_alerts, only: [:index]
-  before_action :load_alert, only: [:show, :edit, :update, :destroy]
+  before_action :load_alert, only: [:show, :update, :destroy]
   before_action :load_update_params, only: [:update]
   before_action :load_create_params, only: [:create]
 
