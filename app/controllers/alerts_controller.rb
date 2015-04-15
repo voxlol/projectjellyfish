@@ -38,7 +38,7 @@ class AlertsController < ApplicationController
   param :host, String, required: true, desc: 'The host of the product associated with this alert.'
   param :port, String, required: true, desc: 'The port of the product associated with this alert.'
   param :service, String, required: true, desc: 'Name of service deployed on host'
-  param :status, String, required: true, desc: 'Status message associated issued with this service from Sense. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
+  param :status, String, required: true, desc: 'Status message associated issued with this service from Sensu. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'Actual message content of alert.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
