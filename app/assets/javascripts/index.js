@@ -7,7 +7,7 @@ angular.module("broker", [
   "smart-table",
   "ngAnimate",
   "ui.gravatar",
-  "angucomplete",
+  "angucomplete-alt",
   "ui.bootstrap",
   "ui.select",
   "ngCookies",
@@ -31,7 +31,11 @@ angular.module("broker", [
   "broker.directives",
   "broker.dashboard",
   "broker.users",
-  "broker.settings"
+  "broker.settings",
+  "schemaForm",
+  "nvd3",
+  "ngDraggable",
+  "angular.filter"
 ]).run(
   /**@ngInject*/
   function($http, $rootScope, $log, $location, AuthService, UsersResource, Session, $urlRouter, ROUTES, $state, APP_CONFIG, FlashesService) {

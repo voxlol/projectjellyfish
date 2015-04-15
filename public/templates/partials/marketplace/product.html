@@ -40,12 +40,12 @@
           <dt>ManageIQ Type ID</dt><dd>{{showCtrl.product.service_type_id}}</dd>
           <dt>Chef Role</dt><dd>{{showCtrl.product.chef_role}}</dd>
           -->
-          <div ng-repeat="answer in showCtrl.product.answers">
+          <div ng-repeat="answer in showCtrl.product.product_answers">
             <dt>{{answer.question.label}}</dt>
             <dd>{{answer.answer}}</dd>
           </div>
         </dl>
-        <hr ng-hide="showCtrl.product.answers.length < 1"/>
+        <hr ng-hide="showCtrl.product.product_answers.length < 1"/>
         <dl class="dl-horizontal">
           <dt>Setup Price</dt>
           <dd>$ {{showCtrl.product.setup_price}}</dd>

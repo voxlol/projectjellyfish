@@ -19,3 +19,12 @@ test:
 production:
   <<: *default
   database: jellyfish_production
+
+docker:
+  adapter: postgresql
+  encoding: unicode
+  database: postgres
+  pool: 5
+  username: postgres
+  password:
+  host: db

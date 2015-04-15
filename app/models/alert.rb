@@ -21,6 +21,8 @@
 #
 
 class Alert < ActiveRecord::Base
+  acts_as_taggable
+
   belongs_to :order_item, inverse_of: :alerts
   belongs_to :project
 

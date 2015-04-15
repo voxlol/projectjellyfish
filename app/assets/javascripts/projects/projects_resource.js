@@ -26,7 +26,7 @@ var ProjectsResource = function($resource, apiResource) {
     },
     'reject': {
       url: apiResource('projectsById') + '/reject',
-      method: 'POST',
+      method: 'DELETE',
       params: {'includes[]': ['approvals', 'approvers']}
     },
     'approvals': {

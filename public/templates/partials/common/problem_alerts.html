@@ -11,7 +11,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="row in alerts">
-                <td ng-switch on="row.status">
+                <td ng-switch on="row.status" class="text-center">
                     <i ng-switch-when="OK" class="alert-ok fa fa-bell"></i>
                     <i ng-switch-when="WARNING" class="alert-warning fa fa-bell"></i>
                     <i ng-switch-when="CRITICAL" class="alert-critical fa fa-bell"></i>

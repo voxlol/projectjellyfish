@@ -1,0 +1,18 @@
+<div class="dashboard-page">
+    <section-header name="Alerts" ng-show="dashboardCtrl.alerts.length > 0">
+        <alerts-table alerts="dashboardCtrl.alerts"></alerts-table>
+    </section-header>
+
+    <section-header name="Projects ({{projecHomeCtrl.projects.length}})">
+        <div class="project-boxes">
+            <project-box ng-repeat="project in projecHomeCtrl.projects" project="project"></project-box>
+            <div class="btn-box" id="addNewProject">
+                <div ui-sref="base.authed.newProject" class="add-btn add-icon">
+                    <i class="fa fa-plus-circle fa-1x"></i><span> ADD NEW PROJECT</span>
+                </div>
+            </div>
+            <!-- end .btn-box -->
+        </div>
+    </section-header>
+    <div class="clearfix"></div>
+</div>

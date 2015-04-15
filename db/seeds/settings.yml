@@ -387,51 +387,42 @@
     load_order: 0
     env_var_name: SAML_ENABLED
     hid: enabled
-  - label: Issuer
+  - label: Enabled
     field_type: text
     help_text:
     options:
-    value: ''
+    value: 'false'
     required:
-    load_order: 1
-    env_var_name: SAML_ISSUER
-    hid: issuer
+    load_order: 0
+    env_var_name: SAML_REMOTE_XML_URL
+    hid: remote_xml_url
   - label: Certificate
     field_type: textarea
     help_text:
     options:
     value: ''
     required:
-    load_order: 2
+    load_order: 3
     env_var_name: SAML_CERTIFICATE
     hid: certificate
-  - label: Cert Fingerprint
-    field_type: text
-    help_text:
-    options:
-    value: ''
-    required:
-    load_order: 3
-    env_var_name: SAML_FINGERPRINT
-    hid: fingerprint
-  - label: SSO Target URL
+  - label: Name ID Format
     field_type: text
     help_text:
     options:
     value: ''
     required:
     load_order: 4
-    env_var_name: SAML_TARGET_URL
-    hid: target_url
+    env_var_name: SAML_IDENTIFIER
+    hid: identifier
   - label: Redirect URL
     field_type: text
     help_text:
     options:
     value: ''
     required:
-    load_order: 5
+    load_order: 7
     env_var_name: SAML_REDIRECT_URL
-    hid: redirect_url
+    hid: sso_redirect_url
 - name: VMware
   hid: vmware
   setting_fields:

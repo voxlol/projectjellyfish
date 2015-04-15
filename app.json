@@ -1,0 +1,33 @@
+{
+  "name": "Project Jellyfish",
+  "description": "Project Jellyfish Core System",
+  "keywords": [
+    "rails",
+    "ruby",
+    "jellyfish"
+  ],
+  "website": "http://projectjellyfish.org/",
+  "repository": "https://github.com/projectjellyfish/api",
+  "logo": "http://www.projectjellyfish.org/assets/images/logo-icon.svg",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "rake db:schema:load spec db:seed sample:demo"
+  },
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "The Rails secret key base",
+      "generator": "secret"
+    },
+    "RACK_ENV": {
+      "description": "The Rails Rack enviroment",
+      "value": "test"
+    },
+    "RAILS_ENV": {
+      "description": "The Rails enviroment",
+      "value": "test"
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

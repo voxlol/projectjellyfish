@@ -1,4 +1,4 @@
-class ManageIQ < Provisioner
+class ManageIQ < Jellyfish::Provisioner
   def provision
     Delayed::Worker.logger.debug("Miq settings url = #{miq_settings[:enabled]}")
     miq_provision
@@ -15,7 +15,8 @@ class ManageIQ < Provisioner
   end
 
   def service_catalog_id
-    order_item.product.provisionable.service_catalog_id
+    # order_item.product.provisionable.service_catalog_id
+    1
   end
 
   def handle_response
@@ -61,7 +62,7 @@ class ManageIQ < Provisioner
     {
       action: 'order',
       resource: {
-        href: "#{miq_settings[:url]}/api/service_templates/#{order_item.product.provisionable.service_type_id}",
+        href: "#{miq_settings[:url]}/api/service_templates/1", # TODO: Hard coded id because it referenced defunct provisionable
         referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
         email: miq_settings[:email],
         token: miq_settings[:token],
@@ -75,18 +76,28 @@ class ManageIQ < Provisioner
   end
 
   def request
-    # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
+    # On OS/X, for development only, it may be easiest just to disable certificate verification because the certificates are stored in the keychain, not the file system
+    # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+    ssl_verify = Rails.env.development? ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
+
     RestClient::Resource.new(
       miq_settings[:url],
       user: miq_settings[:username],
       password: miq_settings[:password],
-      verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+      verify_ssl: ssl_verify,
       timeout: 120,
       open_timeout: 60
     )
   end
 
   def miq_settings
-    @miq_settings ||= Setting.find_by(hid: 'manageiq').settings_hash
+    @miq_settings = {}
+    @miq_settings[:enabled] = ENV['MIQ_ENABLED']
+    @miq_settings[:url] = ENV['MIQ_URL']
+    @miq_settings[:username] = ENV['MIQ_USERNAME']
+    @miq_settings[:password] = ENV['MIQ_PASSWORD']
+    @miq_settings[:email] = ENV['MIQ_USER_EMAIL']
+    @miq_settings[:token] = ENV['MIQ_USER_TOKEN']
+    @miq_settings
   end
 end

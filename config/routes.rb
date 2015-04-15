@@ -10,8 +10,15 @@ Rails.application.routes.draw do
       match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
     end
 
-    get 'saml/init', to: 'saml#init'
-    post 'saml/consume', to: 'saml#consume'
+    resources :saml, only: :index do
+      collection do
+        get :init
+        get :sso
+        post :acs
+        get :metadata
+        get :logout
+      end
+    end
 
     # Alerts Routes
     resources :alerts, defaults: { format: :json } do
@@ -69,12 +76,7 @@ Rails.application.routes.draw do
 
     resources :manage_iq_products, defaults: { format: :json }
 
-    # ProductTypes
-    resources :product_types, except: [:edit, :new], defaults: { format: :json } do
-      member do
-        get :questions
-      end
-    end
+    resources :product_types, except: [:edit, :new], defaults: { format: :json }
 
     # Chargebacks
     resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
@@ -151,6 +153,6 @@ Rails.application.routes.draw do
     users
   ).each do |path|
     get "/#{path}" => 'welcome#index'
-    get "/#{path}*x" => 'welcome#index'
+    get "/#{path}/*path" => 'welcome#index'
   end
 end

@@ -7,6 +7,7 @@ require 'rest-client'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Provisioner = Jellyfish::Provisioner
 module JellyfishCore
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -24,9 +25,6 @@ module JellyfishCore
     config.generators.helper = false
     config.generators.views = false
     config.generators.assets = false
-
-    config.assets.paths << Rails.root.join(*%w(vendor assets bower_components))
-    config.assets.paths << Rails.root.join(*%w(vendor assets bower_components bootstrap-sass assets))
 
     unless ENV['CORS_ALLOW_ORIGIN'].nil?
       config.middleware.insert_before 'Warden::Manager', 'Rack::Cors' do

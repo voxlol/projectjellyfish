@@ -3,6 +3,7 @@
 /**@ngInject*/
 function EditProjectQuestionController($scope, $state, projectQuestion, ProjectQuestion, FlashesService) {
   $scope.projectQuestion = projectQuestion;
+  $scope.pageFunction = $state.params.id;
 
   $scope.submitProject = function() {
     var filteredProjectQuestion = _.omit($scope.projectQuestion, 'created_at', 'updated_at', 'deleted_at'),
@@ -34,3 +35,5 @@ EditProjectQuestionController.resolve = {
 };
 
 window.EditProjectQuestionController = EditProjectQuestionController;
+
+

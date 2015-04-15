@@ -1,41 +1,36 @@
-jellyfish-api
+jellyfish
 =======
 
-[![Code Climate](https://codeclimate.com/github/projectjellyfish/api/badges/gpa.svg)](https://codeclimate.com/github/projectjellyfish/api)
-[![Test Coverage](https://codeclimate.com/github/projectjellyfish/api/badges/coverage.svg)](https://codeclimate.com/github/projectjellyfish/api)
+[![Code Climate](https://codeclimate.com/repos/551958df69568055c00020f8/badges/b227e3bde5577507002e/gpa.svg)](https://codeclimate.com/repos/551958df69568055c00020f8/feed)
+[![Test Coverage](https://codeclimate.com/repos/551958df69568055c00020f8/badges/b227e3bde5577507002e/coverage.svg)](https://codeclimate.com/repos/551958df69568055c00020f8/feed)
 [![Build Status](https://travis-ci.org/projectjellyfish/api.svg)](https://travis-ci.org/projectjellyfish/api)
 
 #### Overview
 
 Project Jellyfish is a broker system.  It allows admins to create a product catalog of any type of service (IaaS,
 TaaS, PaaS, or even Staff) and allows them to be assigned a cost, and then users can create projects and add those
-services to a project.  Jellyfish current supports IaaS via [ManageIQ](http://manageiq.org).
-
-Project Jellyfish has 3 main components: Jellyfish API, Jellyfish UX, and ManageIQ.  Jellyfish API is the API layer
-of Jellyfish.  It provides a REST based API for Jellyfish-UX and for the Jellyfish Mobile application.
+services to a project.
 
 #### Requirements
 
-Jellyfish API has the following requirements
+Jellyfish has the following requirements
 
 * Ruby (Please check .ruby-version for the latest version to use, generally, this is the current version of Ruby)
-* PostgreSQL 9.4.x
-* ManageIQ (Anand)
-* Red Hat Linux / Ubuntu Linux
+* PostgreSQL 9.4+
+* Red Hat Enterprise Linux / CentOS
 
 #### Installation
 
-Jellyfish API is a Ruby on Rails app, and you can install it as such.  Please see the appropriate installation guide
+Jellyfish is a Ruby on Rails app, and you can install it as such.  Please see the appropriate installation guide
 for specifics for how to install.
 
 INSTALL-OSX.md - Mac OS Installation (generally used for development)
 
-INSTALL-RHEL.md - Red Hat Enterprise Linux installation
+INSTALL-RHEL.md - Red Hat Enterprise Linux / CentOS installation
 
+#### Heroku Quick Install (beta)
 
-#### Other Installation Guide
-
-MANAGEIQ.md - How to setup ManageIQ to work with Jellyfish-API
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 #### License
 

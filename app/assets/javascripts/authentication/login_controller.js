@@ -18,45 +18,47 @@ function LoginController($scope, $state, AuthService, currentUser, ssoUrl) {
 
 LoginController.prototype = {
 
-  login: function() {
+  login: function (sso) {
+    if (sso !== undefined) {
+      window.location = sso;
+    } else {
+      // Reset the failed login flag.
+      isFailedLogin = false;
 
-    // Reset the failed login flag.
-    isFailedLogin = false;
+      var credentials = {
+        staff: {
+          email: this.$scope.email,
+          password: this.$scope.password
+        }
+      };
 
-    var credentials = {
-      staff: {
-        email: this.$scope.email,
-        password: this.$scope.password
-      }
-    };
-
-    // @todo Add optional to redirect back to where they were instead of always going to dashboard.
-    this.AuthService.login(credentials)
-      .success(_.bind(function() {
-        this.$state.transitionTo('base.authed.dashboard');
-      }, this))
-      .error(_.bind(function() {
-        isFailedLogin = true;
-      }, this));
+      // @todo Add optional redirect  to origin rather than dashboard.
+      this.AuthService.login(credentials).success(_.bind(function () {
+          this.$state.transitionTo('base.authed.dashboard');
+        }, this))
+        .error(_.bind(function () {
+          isFailedLogin = true;
+        }, this));
+    }
   },
 
-  hasFailedLogin: function() {
+  hasFailedLogin: function () {
     return isFailedLogin;
   }
 };
 
 LoginController.resolve = {
   /**@ngInject*/
-  ssoUrl: function(AuthService) {
+  ssoUrl: function (AuthService) {
     return AuthService.ssoInit();
   },
   /**@ngInject*/
-  currentUser: function($q, UsersResource) {
+  currentUser: function ($q, UsersResource) {
     var deferred = $q.defer();
 
-    UsersResource.getCurrentMember(function() {
+    UsersResource.getCurrentMember(function () {
       deferred.resolve(true);
-    }, function() {
+    }, function () {
       deferred.resolve(false);
     });
     return deferred.promise;

@@ -47,19 +47,12 @@ describe ManageIQ do
   end
 
   def setup_provisioner_spec(client)
-    create(:setting, hid: 'aws')
     create(:staff, email: 'test@example.com')
-    create(
-      :setting,
-      hid: 'manageiq',
-      setting_fields: [
-        build(:setting_field, hid: 'enabled', value: true),
-        build(:setting_field, hid: 'email', value: 'test@example.com')
-      ]
-    )
+    ENV['MIQ_ENABLED'] = 'true'
+    ENV['MIQ_USER_EMAIL'] = 'test@example.com'
 
     allow(RestClient::Resource).to receive(:new) do
-      double('rest client', :[] => client)
+      double('rest client', '[]'.to_sym => client)
     end
   end
 end

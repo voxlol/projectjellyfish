@@ -37,6 +37,7 @@ class Staff < ActiveRecord::Base
   self.table_name = :staff
 
   acts_as_paranoid
+  acts_as_taggable
 
   has_many :orders
   has_many :user_settings

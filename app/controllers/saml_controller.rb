@@ -3,70 +3,145 @@ class SamlController < ApplicationController
 
   def init
     respond_to do |format|
-      format.html { redirect_to idp_login_request_url request }
-      format.json { render json: { url: saml_init_url } }
+      format.html { redirect_to sso_saml_index_url }
+      format.json { render json: { url: init_saml_index_url } }
     end
   end
 
-  def consume
-    response = idp_response params
-    response.settings = saml_settings request
+  def sso
+    settings = saml_settings
+    if settings.nil?
+      render action: :no_settings
+      return
+    end
+
+    request = OneLogin::RubySaml::Authrequest.new
+    redirect_to(request.create(settings))
+  end
+
+  def acs
+    response = OneLogin::RubySaml::Response.new(params[:SAMLResponse])
+    response.settings = saml_settings
+
     if response.is_valid?
-      user = Staff.find_by email: response_email(response)
-      return saml_failure if user.nil?
-      sign_in user
-      redirect_to authenticated_url
+      staff = Staff.find_by email: response.name_id
+
+      if staff.nil?
+        staff = Staff.new
+        staff.email = response.name_id
+        staff.password = Devise.friendly_token.first(8)
+        staff.save!
+      end
+
+      sign_in_and_redirect(:staff, staff)
     else
       saml_failure
     end
   end
 
-  private
+  # Trigger SP and IdP initiated Logout requests
+  def logout
+    # If we're given a logout request, handle it in the IdP logout initiated method
+    if params[:SAMLRequest]
+      return idp_logout_request
 
-  def saml_enabled?
-    @settings = Setting.find_by(hid: 'saml').settings_hash
-    return saml_failure unless @settings[:enabled]
-    true
+      # We've been given a response back from the IdP
+    elsif params[:SAMLResponse]
+      return process_logout_response
+    elsif params[:slo]
+      return sp_logout_request
+    else
+      reset_session
+    end
   end
 
-  def saml_failure
-    head 404, content_type: :plain
-    false
+  # Create an SP initiated SLO
+  def sp_logout_request
+    # LogoutRequest accepts plain browser requests w/o paramters
+    settings = saml_settings
+
+    if settings.idp_slo_target_url.nil?
+      reset_session
+    else
+
+      # Since we created a new SAML request, save the transaction_id
+      # to compare it with the response we get back
+      logout_request = OneLogin::RubySaml::Logoutrequest.new
+      session[:transaction_id] = logout_request.uuid
+
+      if settings.name_identifier_value.nil?
+        settings.name_identifier_value = session[:user_id]
+      end
+
+      relay_state =  url_for controller: 'saml', action: 'index'
+      redirect_to(logout_request.create(settings, RelayState: relay_state))
+    end
   end
 
-  def response_email(response)
-    [
-      response.name_id,
-      response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-      response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn']
-    ].find { |v| v[/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Z‌​a-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/i] }
+  # After sending an SP initiated LogoutRequest to the IdP, we need to accept
+  # the LogoutResponse, verify it, then actually delete our session.
+  def process_logout_response
+    settings = saml_settings
+
+    if session.key? :transation_id
+      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings, matches_request_id: session[:transation_id])
+    else
+      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings)
+    end
+
+    # Validate the SAML Logout Response
+    # Actually log out this session
+    reset_session if logout_response.success?
   end
 
-  def idp_response(params)
-    OneLogin::RubySaml::Response.new(params[:SAMLResponse])
+  # Method to handle IdP initiated logouts
+  def idp_logout_request
+    settings = saml_settings
+    logout_request = OneLogin::RubySaml::SloLogoutrequest.new(params[:SAMLRequest])
+    render inline: logger.error unless logout_request.is_valid?
+
+    # Actually log out this session
+    reset_session
+
+    logout_response = OneLogin::RubySaml::SloLogoutresponse.new.create(settings, logout_request_id, nil, RelayState: params[:RelayState])
+    redirect_to logout_response
   end
 
-  def saml_settings(request)
-    settings = OneLogin::RubySaml::Settings.new
+  def saml_settings
+    idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
+    # Returns OneLogin::RubySaml::Settings prepopulated with idp metadata
+    settings = idp_metadata_parser.parse_remote(ENV['SAML_REMOTE_XML_URL'])
 
-    settings.assertion_consumer_service_url = saml_consume_url host: request.host
-    settings.issuer = "http://#{request.port == 80 ? request.host : request.host_with_port}"
-    settings.idp_sso_target_url = @settings[:target_url]
-    settings.idp_cert = @settings[:certificate]
-    settings.idp_cert_fingerprint = @settings[:fingerprint]
+    settings.assertion_consumer_service_url = acs_saml_index_url
+    settings.assertion_consumer_logout_service_url = logout_saml_index_url
+    settings.issuer = "#{metadata_saml_index_url}.xml"
+
+    settings.name_identifier_format = ENV['SAML_IDENTIFIER']
     settings.authn_context = 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
+
+    settings.certificate = ENV['SAML_CERTIFICATE']
 
     settings
   end
 
-  def idp_login_request_url(request)
-    idp_request = OneLogin::RubySaml::Authrequest.new
-    idp_request.create saml_settings request
+  def metadata
+    settings = saml_settings
+    meta = OneLogin::RubySaml::Metadata.new
+    render xml: meta.generate(settings), content_type: 'application/samlmetadata+xml'
   end
 
-  # User Redirection urls
+  private
 
-  def authenticated_url
-    @settings[:redirect_url]
+  def saml_enabled?
+    return saml_failure if ENV['SAML_ENABLED'].nil?
+    true
+  end
+
+  def saml_failure
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/public/404", layout: false, status: :not_found }
+      format.json { render json: { error: MissingRecordDetection::Messages.not_found }, status: :not_found }
+    end
+    false
   end
 end

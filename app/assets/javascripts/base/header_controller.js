@@ -24,7 +24,7 @@ HeaderController.resolve = {
   },
   /**@ngInject*/
   headerLinks: function(currentUser, SettingsResource) {
-    return SettingsResource.get({hid: 'header'}).$promise;
+    return {};
   }
 };
 
