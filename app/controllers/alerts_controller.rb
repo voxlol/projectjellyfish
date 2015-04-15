@@ -4,7 +4,7 @@ class AlertsController < ApplicationController
 
   before_action :pre_hook
   before_action :load_alerts, only: [:index]
-  before_action :load_alert, only: [:show, :edit, :update, :destroy]
+  before_action :load_alert, only: [:show, :update, :destroy]
   before_action :load_update_params, only: [:update]
   before_action :load_create_params, only: [:create]
 
@@ -13,6 +13,7 @@ class AlertsController < ApplicationController
 
   api :GET, '/alerts', 'Returns all alerts.'
   param :active, :bool, required: false
+  param :latest, :bool, required: false
   param :sort, Array, required: false
   param :not_status, Array, required: false
   param :includes, Array, required: false, in: %w(project)
@@ -34,13 +35,14 @@ class AlertsController < ApplicationController
   end
 
   api :POST, '/alerts/sensu', 'Create new Sensu alert.'
-  param :hostname, String, required: true, desc: 'The host of the product associated with this alert.'
+  param :host, String, required: true, desc: 'The host of the product associated with this alert.'
   param :port, String, required: true, desc: 'The port of the product associated with this alert.'
   param :service, String, required: true, desc: 'Name of service deployed on host'
-  param :status, String, required: true, desc: 'Status message associated issued with this service from Sense. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
+  param :status, String, required: true, desc: 'Status message associated issued with this service from Sensu. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'Actual message content of alert.'
-  param :event, String, required: true, desc: 'TBD. Stubbed out for now.'
-  description 'Endpoint to push an alert from Sensu to Core. <br>If an alert already exists for this order, then update that order.'
+  param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
+  param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
+  description 'Endpoint to push an alert from Sensu to API. <br>If an alert already exists for this service, then update that service.'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def sensu
@@ -48,13 +50,12 @@ class AlertsController < ApplicationController
     authorize @alert
     if @alert_id.nil?
       @alert.save
-      respond_with @alert
     else # ON DUPLICATE ALERT UPDATE
-      params[:id] = @alert_id
-      load_alert
+      @alert = Alert.find(@alert_id)
       load_update_params
-      update
+      @alert.update_attributes @alert_params
     end
+    respond_with @alert
   end
 
   api :POST, '/alerts', 'Creates a new alert'
@@ -125,39 +126,66 @@ class AlertsController < ApplicationController
   end
 
   def load_sensu_params
-    params.require :status
+    params.require :host
+    params.require :port
     params.require :service
+    params.require :status
     params.require :message
-    # TODO : Should refactor so params is not modified to make a request
-    load_staff_and_project_id
-    params[:project_id] = @id_mapping[:project_id]
-    params[:staff_id] = @id_mapping[:staff_id]
-    params[:order_item_id] = @id_mapping[:order_item_id]
-    @alert_params = params.permit(:project_id, :staff_id, :order_item_id, :status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:status, :message, :start_date, :end_date)
+    load_alert_mapping
+    @alert_params[:project_id] = @alert_mapping[:project_id]
+    @alert_params[:staff_id] = @alert_mapping[:staff_id]
+    @alert_params[:order_item_id] = @alert_mapping[:order_item_id]
   end
 
-  def load_staff_and_project_id
-    # TODO : This is a system setting; It should be saved into system configuration
-    @id_mapping = { project_id: 1, staff_id: 0, order_item_id: 1 }
+  def load_alert_mapping
+    # TODO : Hardcoded now, but should take host/port/service and map to project/order; staff_id == 0 or TBD
+    @alert_mapping = { project_id: '1', staff_id: '0', order_item_id: '1' }
   end
 
   def load_alerts
-    params.slice(:active, :not_status, :sort, :page, :per_page, :includes)
+    params.slice(:active, :not_status, :sort, :page, :per_page, :includes, :latest)
     query = policy_scope(Alert)
-    if params[:active].present?
-      query = params[:alert] ? query.active : query.inactive
+    query = apply_active_or_inactive(query)
+    query = apply_not_status(query)
+    query = apply_sort(query)
+    query = apply_latest(query)
+    @alerts = query_with query.where(nil), :includes, :pagination
+  end
+
+  def apply_latest(query)
+    if params[:latest].present? && params[:latest] == 'true'
+      query = query.latest
     end
-    if params[:not_status].present?
-      (%w(OK WARNING CRITICAL PENDING UNKNOWN) & params[:not_status]).each do |status|
-        query = query.not_status(status)
-      end
-    end
+    query
+  end
+
+  def apply_sort(query)
     if params[:sort].present?
       (%w(project_order oldest_first newest_first) & params[:sort]).each do |sort|
         query = query.send sort.to_sym
       end
     end
-    @alerts = query_with query.where(nil), :includes, :pagination
+    query
+  end
+
+  def apply_not_status(query)
+    if params[:not_status].present?
+      (%w(OK WARNING CRITICAL PENDING UNKNOWN) & params[:not_status]).each do |status|
+        query = query.not_status(status)
+      end
+    end
+    query
+  end
+
+  def apply_active_or_inactive(query)
+    if params[:active].present?
+      query = params[:active] == 'true' ? query.active : query.inactive
+    end
+    if params[:inactive].present?
+      query = params[:inactive] == 'true' ? query.inactive : query.active
+    end
+    query
   end
 
   def load_alert
