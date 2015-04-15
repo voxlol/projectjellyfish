@@ -13,6 +13,7 @@ class AlertsController < ApplicationController
 
   api :GET, '/alerts', 'Returns all alerts.'
   param :active, :bool, required: false
+  param :latest, :bool, required: false
   param :sort, Array, required: false
   param :not_status, Array, required: false
   param :includes, Array, required: false, in: %w(project)
