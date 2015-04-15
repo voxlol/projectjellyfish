@@ -50,13 +50,12 @@ class AlertsController < ApplicationController
     authorize @alert
     if @alert_id.nil?
       @alert.save
-      respond_with @alert
     else # ON DUPLICATE ALERT UPDATE
-      params[:id] = @alert_id
-      load_alert
+      @alert = Alert.find(@alert_id)
       load_update_params
-      update
+      @alert.update_attributes @alert_params
     end
+    respond_with @alert
   end
 
   api :POST, '/alerts', 'Creates a new alert'
@@ -127,39 +126,66 @@ class AlertsController < ApplicationController
   end
 
   def load_sensu_params
-    params.require :status
+    params.require :host
+    params.require :port
     params.require :service
+    params.require :status
     params.require :message
-    # TODO : Should refactor so params is not modified to make a request
-    load_staff_and_project_id
-    params[:project_id] = @id_mapping[:project_id]
-    params[:staff_id] = @id_mapping[:staff_id]
-    params[:order_item_id] = @id_mapping[:order_item_id]
-    @alert_params = params.permit(:project_id, :staff_id, :order_item_id, :status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:status, :message, :start_date, :end_date)
+    load_alert_mapping
+    @alert_params[:project_id] = @alert_mapping[:project_id]
+    @alert_params[:staff_id] = @alert_mapping[:staff_id]
+    @alert_params[:order_item_id] = @alert_mapping[:order_item_id]
   end
 
-  def load_staff_and_project_id
-    # TODO : This is a system setting; It should be saved into system configuration
-    @id_mapping = { project_id: 1, staff_id: 0, order_item_id: 1 }
+  def load_alert_mapping
+    # TODO : Hardcoded now, but should take host/port/service and map to project/order; staff_id == 0 or TBD
+    @alert_mapping = { project_id: '1', staff_id: '0', order_item_id: '1' }
   end
 
   def load_alerts
-    params.slice(:active, :not_status, :sort, :page, :per_page, :includes)
+    params.slice(:active, :not_status, :sort, :page, :per_page, :includes, :latest)
     query = policy_scope(Alert)
-    if params[:active].present?
-      query = params[:alert] ? query.active : query.inactive
+    query = apply_active_or_inactive(query)
+    query = apply_not_status(query)
+    query = apply_sort(query)
+    query = apply_latest(query)
+    @alerts = query_with query.where(nil), :includes, :pagination
+  end
+
+  def apply_latest(query)
+    if params[:latest].present? && params[:latest] == 'true'
+      query = query.latest
     end
-    if params[:not_status].present?
-      (%w(OK WARNING CRITICAL PENDING UNKNOWN) & params[:not_status]).each do |status|
-        query = query.not_status(status)
-      end
-    end
+    query
+  end
+
+  def apply_sort(query)
     if params[:sort].present?
       (%w(project_order oldest_first newest_first) & params[:sort]).each do |sort|
         query = query.send sort.to_sym
       end
     end
-    @alerts = query_with query.where(nil), :includes, :pagination
+    query
+  end
+
+  def apply_not_status(query)
+    if params[:not_status].present?
+      (%w(OK WARNING CRITICAL PENDING UNKNOWN) & params[:not_status]).each do |status|
+        query = query.not_status(status)
+      end
+    end
+    query
+  end
+
+  def apply_active_or_inactive(query)
+    if params[:active].present?
+      query = params[:active] == 'true' ? query.active : query.inactive
+    end
+    if params[:inactive].present?
+      query = params[:inactive] == 'true' ? query.inactive : query.active
+    end
+    query
   end
 
   def load_alert
