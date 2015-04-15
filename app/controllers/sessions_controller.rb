@@ -17,13 +17,10 @@ class SessionsController < Devise::SessionsController
         if request.env['omniauth.auth']
           auth_hash = request.env['omniauth.auth']
 
-          user = Staff.find_by_auth(auth_hash)
+          staff = Staff.find_by_auth(auth_hash)
 
-          if user
-            sign_in(resource_name, user)
-            render json: user
-          else
-            render json: { error: 'Invalid Login' }, status: 401
+          if staff
+            sign_in_and_redirect(resource_name, staff)
           end
         else
           super

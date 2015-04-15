@@ -9,8 +9,8 @@
 #  phone                  :string(30)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  encrypted_password     :string(255)      default(""), not null
-#  reset_password_token   :string(255)
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
 #  sign_in_count          :integer          default(0), not null
@@ -20,7 +20,7 @@
 #  last_sign_in_ip        :inet
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
-#  authentication_token   :string(255)
+#  authentication_token   :string
 #
 # Indexes
 #
@@ -66,18 +66,19 @@ class Staff < ActiveRecord::Base
   end
 
   def self.find_by_auth(auth_hash)
-    auth_match = Authentications.find_by(provider: auth_hash['proivider'], uid: auth_hash['uid'].to_s)
+    auth_match = Authentications.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'].to_s)
 
     if auth_match
-      user = Staff.find(auth_match.staff_id)
+      staff = Staff.find(auth_match.staff_id)
     else
-      user = Staff.find_by(email: auth_hash['info']['email'])
-
-      if user
-        Authentications.create staff_id: user.id, provider: auth_hash['provider'], uid: auth_hash['uid'].to_s
-      end
+      staff = Staff.find_by!(email: auth_hash['info']['email'])
     end
 
-    user
+    if staff
+      staff.ensure_authentication_token
+      Authentications.create staff_id: staff.id, provider: auth_hash['provider'], uid: auth_hash['uid'].to_s
+    end
+
+    staff
   end
 end

@@ -6,8 +6,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  staff_id   :integer
-#  provider   :string(255)
-#  uid        :string(255)
+#  provider   :string
+#  uid        :string
 #
 # Indexes
 #
