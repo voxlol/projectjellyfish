@@ -86,6 +86,11 @@ Rails.application.routes.draw do
 
     resources :bundles, except: [:edit, :new]
 
+    # Services (Alias for OrderItem)
+    get 'services' => 'services#index', as: :services_index
+    get 'services/count' => 'services#count', as: :services_count
+    get 'services/:tag' => 'services#show', as: :services_show
+
     # Project Routes
     resources :projects, defaults: { format: :json }, except: [:edit, :new]
     get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
