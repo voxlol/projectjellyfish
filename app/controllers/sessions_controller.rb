@@ -19,9 +19,7 @@ class SessionsController < Devise::SessionsController
 
           staff = Staff.find_by_auth(auth_hash)
 
-          if staff
-            sign_in_and_redirect(resource_name, staff)
-          end
+          sign_in_and_redirect(resource_name, staff) unless staff.nil?
         else
           super
         end
