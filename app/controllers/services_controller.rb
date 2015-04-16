@@ -8,12 +8,31 @@ class ServicesController < ApplicationController
     render json: @services, each_serializer: ServiceSerializer
   end
 
+  api :GET, '/services/all_count', 'Returns a count of services across all projects'
+  def all_count
+    authorize Service.new
+    load_services_via_sql
+    # BUILD COUNTS OF SERVICES ACROSS ALL PROJECTS
+    overall_rollup = {}
+    @services.each do |p|
+      overall_rollup[p.service_name] = overall_rollup[p.service_name].nil? ? 1 : (overall_rollup[p.service_name] + 1)
+    end
+    # NORMALIZE COUNTS INTO DATA POINTS
+    data_points = []
+    overall_rollup.each do |k, v|
+      data_point = { key: k, value: v }
+      data_points << data_point
+    end
+    render json: data_points
+  end
+
   api :GET, '/services/project_count', 'Returns a count of services grouped by project'
   def project_count
     authorize Service.new
     load_services_via_sql
     service_keys = {}
     all_projects = {}
+    # BUILD COUNTS OF SERVICES PER PROJECT
     @services.each do |p|
       service_key = p.service_name
       project_key = p.project_name
@@ -22,6 +41,7 @@ class ServicesController < ApplicationController
       service_keys[service_key][:projects][project_key] = 0 if service_keys[service_key][:projects][project_key].nil?
       service_keys[service_key][:projects][project_key] += 1
     end
+    # NORMALIZE COUNTS INTO DATA POINTS
     data_points = []
     service_keys.each do |service_key, service_projects|
       data_point = { key: service_key, values: [] }

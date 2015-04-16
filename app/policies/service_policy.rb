@@ -3,6 +3,10 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
+  def all_count?
+    true
+  end
+
   def project_count?
     true
   end
