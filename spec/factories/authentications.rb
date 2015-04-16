@@ -17,7 +17,7 @@
 
 FactoryGirl.define do
   factory :authentications do
-    provider 'facebook'
-    uid '1234567'
+    provider 'ldap'
+    uid 'uid=jellyfishuser,ou=Users,o=54c12645725f76272c00680f,dc=projectjellyfish,dc=com'
   end
 end
