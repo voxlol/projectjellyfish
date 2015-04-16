@@ -48,11 +48,11 @@ class ServicesController < ApplicationController
 
     # QUERY OUT DESIRED ATTRIBUTES - TODO: FIGURE OUT A BETTER WAY TO DO THIS
     @services = OrderItem.select(
-        'order_items.*,
-    projects.name as project_name,
-    projects.description as project_description,
-    products.name as service_name,
-    products.description as service_description'
+      'order_items.*,
+  projects.name as project_name,
+  projects.description as project_description,
+  products.name as service_name,
+  products.description as service_description'
     ).from('order_items').where(project_id: project_ids).joins(:project, :product)
   end
 
@@ -68,11 +68,11 @@ class ServicesController < ApplicationController
 
     # QUERY OUT DESIRED ATTRIBUTES - TODO: FIGURE OUT A BETTER WAY TO DO THIS
     @services = OrderItem.tagged_with(params[:tag]).select(
-        'order_items.*,
-      projects.name as project_name,
-      projects.description as project_description,
-      products.name as service_name,
-      products.description as service_description'
+      'order_items.*,
+    projects.name as project_name,
+    projects.description as project_description,
+    products.name as service_name,
+    products.description as service_description'
     ).from('order_items').where(project_id: project_ids).joins(:project, :product)
   end
 end
