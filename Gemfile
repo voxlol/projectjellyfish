@@ -117,7 +117,7 @@ end
 gem 'acts-as-taggable-on'
 
 # Add Dependencies
-#source 'http://rails-assets.org' do
+source 'http://rails-assets.org' do
   gem 'rails-assets-angular', '>= 1.3.15'
   gem 'rails-assets-jquery'
   gem 'rails-assets-angucomplete-alt'
@@ -145,4 +145,4 @@ gem 'acts-as-taggable-on'
   gem 'rails-assets-angular-nvd3'
   gem 'rails-assets-ngDraggable'
   gem 'rails-assets-angular-filter'
-#end
+end

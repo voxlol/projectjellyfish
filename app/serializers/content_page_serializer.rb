@@ -7,8 +7,8 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #  staff_id   :integer
-#  slug       :string           not null
-#  title      :string           not null
+#  slug       :string(255)      not null
+#  title      :string(255)      not null
 #  body       :text
 #
 # Indexes

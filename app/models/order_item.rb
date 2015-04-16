@@ -21,7 +21,7 @@
 #  payload_acknowledgement :json
 #  payload_response        :json
 #  latest_alert_id         :integer
-#  status_msg              :string
+#  status_msg              :string(255)
 #
 # Indexes
 #
