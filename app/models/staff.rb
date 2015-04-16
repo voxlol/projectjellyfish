@@ -61,10 +61,6 @@ class Staff < ActiveRecord::Base
 
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
 
-  def gravatar
-    '3fc88b95c85e43f157cb1ffd0e37e832'
-  end
-
   def self.find_by_auth(auth_hash)
     auth_match = Authentications.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'].to_s)
 

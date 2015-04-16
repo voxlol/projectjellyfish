@@ -19,7 +19,7 @@ class SessionsController < Devise::SessionsController
 
           staff = Staff.find_by_auth(auth_hash)
 
-          if staff.present? sign_in_and_redirect(resource_name, staff)
+          sign_in_and_redirect(resource_name, staff) if staff.present?
         else
           super
         end
