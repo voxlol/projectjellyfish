@@ -8,6 +8,33 @@ class ServicesController < ApplicationController
     render json: @services, each_serializer: ServiceSerializer
   end
 
+  api :GET, '/services/project_count', 'Returns a count of services grouped by project'
+  def project_count
+    authorize Service.new
+    load_services_via_sql
+    service_keys = {}
+    all_projects = {}
+    @services.each do |p|
+      service_key = p.service_name
+      project_key = p.project_name
+      all_projects[project_key] = { x: project_key, y: 0 } if all_projects[project_key].nil?
+      service_keys[service_key] = { projects: {} } if service_keys[service_key].nil?
+      service_keys[service_key][:projects][project_key] = 0 if service_keys[service_key][:projects][project_key].nil?
+      service_keys[service_key][:projects][project_key] += 1
+    end
+    data_points = []
+    service_keys.each do |service_key, service_projects|
+      data_point = { key: service_key, values: [] }
+      all_projects.each do |project_key, project_hash|
+        value = project_hash.clone
+        value[:y] = service_projects[:projects][project_key] unless service_projects[:projects][project_key].nil?
+        data_point[:values] << value
+      end
+      data_points << data_point
+    end
+    render json: data_points
+  end
+
   api :GET, '/services/count', 'Returns a count of independent services across projects'
   def count
     authorize Service.new
