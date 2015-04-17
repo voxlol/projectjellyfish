@@ -126,14 +126,6 @@ function DashboardController($scope, serviceAllCount,
         orient: "left",
         tooltips: true,
         noData: "Data Incoming, Thanks for your patience."
-      },
-      styles: {
-        classes: {
-          "with-3d-shadow": true,
-          "with-transitions": true,
-          "gallery": true
-        },
-        "css": {}
       }
     },
     data: {}
