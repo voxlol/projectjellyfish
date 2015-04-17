@@ -1,18 +1,19 @@
 'use strict';
 
 /**@ngInject*/
-function DashboardController($scope, serviceAllCount, serviceProjectCount, projectList) {
+function DashboardController($scope, serviceAllCount,
+                             serviceProjectCount, projectList) {
 
   this.projectList = projectList;
-  $scope.budgetCharts = []
+  $scope.budgetCharts = [];
 
   angular.forEach(this.projectList, function (value) {
     $scope.temp = {
-      "title": value.name,
-      "subtitle": "($ USD)",
-      "ranges": [0, value.budget],
-      "measures": [value.spent],
-      "markers": [0]
+      title: value.name,
+      subtitle: "($ USD)",
+      ranges: [0, value.budget],
+      measures: [value.spent],
+      markers: [0]
     };
     $scope.budgetCharts.push($scope.temp);
 
@@ -222,10 +223,7 @@ function DashboardController($scope, serviceAllCount, serviceProjectCount, proje
     $scope.chartCollection[index] = obj;
     $scope.chartCollection[secondIndex] = secondObj;
   };
-
-
 }
-
 
 DashboardController.resolve = {
   /**@ngInject*/
