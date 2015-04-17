@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Staff signs in' do
   scenario 'normal staff successfully signs in with email and password', :js do
-    visit root_path+'/login'
+    visit root_path + '/login'
     staff = create(:staff)
 
     fill_in 'email', with: staff.email
