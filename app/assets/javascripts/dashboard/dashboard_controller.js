@@ -1,9 +1,8 @@
-"use strict";
-
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount,
                              serviceProjectCount, projectList) {
-
+  "use strict";
+  var d3, angular;
   this.projectList = projectList;
   $scope.budgetCharts = [];
 
