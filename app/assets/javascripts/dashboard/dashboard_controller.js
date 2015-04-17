@@ -22,7 +22,7 @@ function DashboardController($scope, serviceAllCount,
   $scope.chartCollection = [{
     options: {
       chart: {
-        type: 'multiBarChart',
+        type: "multiBarChart",
         height: 350,
         margin: {
           top: 20,
@@ -35,32 +35,32 @@ function DashboardController($scope, serviceAllCount,
         transitionDuration: 500,
         stacked: true,
         xAxis: {
-          axisLabel: '',
+          axisLabel: "",
           showMaxMin: false,
           tickFormat: function (d) {
             return d;
           }
         },
         yAxis: {
-          axisLabel: 'Number of Instances',
+          axisLabel: "Number of Instances",
           axisLabelDistance: 50,
           tickFormat: function (d) {
             return d;
           }
         }
       },
-      "title": {
-        "enable": true,
-        "text": "Service Allocation by Project",
-        "class": "h4",
-        "css": {"width": "nullpx", "textAlign": "center"}
+      title: {
+        enable: true,
+        text: "Service Allocation by Project",
+        class: "h4",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: []
   }, {
     options: {
       chart: {
-        type: 'pieChart',
+        type: "pieChart",
         height: 350,
         pie: {
           growOnHover: true
@@ -84,52 +84,52 @@ function DashboardController($scope, serviceAllCount,
           }
         }
       },
-      "title": {
-        "enable": true,
-        "text": "Cumulative Service Allocation",
-        "class": "h3",
-        "css": {"width": "nullpx", "textAlign": "center"}
+      title: {
+        enable: true,
+        text: "Cumulative Service Allocation",
+        class: "h3",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: []
   }, {
     options: {
-      "chart": {
-        "type": "bulletChart",
-        "transitionDuration": 500,
-        "bullet": {
-          "dispatch": {},
-          "forceX": [
+      chart: {
+        type: "bulletChart",
+        transitionDuration: 500,
+        bullet: {
+          dispatch: {},
+          forceX: [
             0
           ],
-          "tickFormat": null,
-          "margin": {
-            "top": 0,
-            "right": 10,
-            "bottom": 0,
-            "left": 10
+          tickFormat: null,
+          margin: {
+            top: 0,
+            right: 10,
+            bottom: 0,
+            left: 10
           },
-          "orient": "left"
+          orient: "left"
         },
-        "dispatch": {},
-        "forceX": [
+        dispatch: {},
+        forceX: [
           0
         ],
-        "width": null,
-        "height": 50,
-        "tickFormat": null,
-        "margin": {
-          "top": 5,
-          "right": 40,
-          "bottom": 20,
-          "left": 180
+        width: null,
+        height: 50,
+        tickFormat: null,
+        margin: {
+          top: 5,
+          right: 40,
+          bottom: 20,
+          left: 180
         },
-        "orient": "left",
-        "tooltips": true,
+        orient: "left",
+        tooltips: true,
         noData: "Data Incoming, Thanks for your patience."
       },
-      "styles": {
-        "classes": {
+      styles: {
+        classes: {
           "with-3d-shadow": true,
           "with-transitions": true,
           "gallery": true
@@ -141,7 +141,7 @@ function DashboardController($scope, serviceAllCount,
   }, {
     options: {
       chart: {
-        type: 'discreteBarChart',
+        type: "discreteBarChart",
         height: 350,
         margin: {
           top: 20,
@@ -157,50 +157,50 @@ function DashboardController($scope, serviceAllCount,
         },
         showValues: true,
         valueFormat: function (d) {
-          return d3.format(',.4f')(d);
+          return d3.format(",.4f")(d);
         },
         transitionDuration: 500,
         xAxis: {
-          axisLabel: 'Week'
+          axisLabel: "Week"
         },
         yAxis: {
-          axisLabel: 'Volume',
+          axisLabel: "Volume",
           axisLabelDistance: 30
         }
       },
-      "title": {
-        "enable": true,
-        "text": "*NOTIONAL* Order Frequency Insight",
-        "class": "h3",
-        "css": {"width": "nullpx", "textAlign": "center"}
+      title: {
+        enable: true,
+        text: "*NOTIONAL* Order Frequency Insight",
+        class: "h3",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: [{
       key: "Cumulative Return",
       values: [{
-        "key": "1",
-        "value": -29.765957771107
+        key: 1,
+        value: -29.765957771107
       }, {
-        "key": "2",
-        "value": 0
+        key: 2,
+        value: 0
       }, {
-        "key": "3",
-        "value": 32.807804682612
+        key: 3,
+        value: 32.807804682612
       }, {
-        "key": "4",
-        "value": 196.45946739256
+        key: 4,
+        value: 196.45946739256
       }, {
-        "key": "5",
-        "value": 0.19434030906893
+        key: 5,
+        value: 0.19434030906893
       }, {
-        "key": "6",
-        "value": -98.079782601442
+        key: 6,
+        value: -98.079782601442
       }, {
-        "key": "7",
-        "value": -13.925743130903
+        key: 7,
+        value: -13.925743130903
       }, {
-        "key": "8",
-        "value": -5.1387322875705
+        key: 8,
+        value: -5.1387322875705
       }]
     }]
   }
