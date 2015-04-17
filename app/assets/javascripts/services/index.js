@@ -2,10 +2,10 @@
 var ServiceData = ServiceController.resolve;
 
 var ServicesModule = angular.module("broker.services", [])
-  .controller("ServiceController", ServiceController)
-  .factory("ServicesResource", ServicesResource)
-  .factory("ServiceAllCountResource", ServiceAllCountResource)
-  .factory("ServiceProjectCountResource", ServiceProjectCountResource)
+  .controller("ServiceController", window.ServiceController)
+  .factory("ServicesResource", window.ServicesResource)
+  .factory("ServiceAllCountResource", window.ServiceAllCountResource)
+  .factory("ServiceProjectCountResource", window.ServiceProjectCountResource)
   .config(
     /**@ngInject*/
     function($stateProvider, USER_ROLES) {
