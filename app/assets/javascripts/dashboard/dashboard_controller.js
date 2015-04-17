@@ -3,20 +3,20 @@
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount, serviceProjectCount, projectList) {
 
-  this.projectList = projectList;
-  $scope.budgetCharts = []
-
-  angular.forEach(this.projectList, function (value) {
-    $scope.temp = {
-      "title": value.name,
-      "subtitle": "($ USD)",
-      "ranges": [0, value.budget],
-      "measures": [value.spent],
-      "markers": [0]
-    };
-    $scope.budgetCharts.push($scope.temp);
-
-  });
+  //this.projectList = projectList;
+  //$scope.budgetCharts = []
+  //
+  //angular.forEach(this.projectList, function (value) {
+  //  $scope.temp = {
+  //    "title": value.name,
+  //    "subtitle": "($ USD)",
+  //    "ranges": [0, value.budget],
+  //    "measures": [value.spent],
+  //    "markers": [0]
+  //  };
+  //  $scope.budgetCharts.push($scope.temp);
+  //
+  //});
 
   $scope.chartCollection = [{
     options: {
