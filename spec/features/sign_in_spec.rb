@@ -10,5 +10,6 @@ feature 'Staff signs in' do
     click_on 'Login'
 
     expect(page).to have_content("#{staff.first_name} #{staff.last_name}")
+
   end
 end
