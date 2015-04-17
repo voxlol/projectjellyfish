@@ -9,7 +9,7 @@ function DashboardController($scope, serviceAllCount,
   angular.forEach(this.projectList, function (value) {
     $scope.temp = {
       title: value.name,
-      subtitle: '($ USD)',
+      subtitle: "($ USD)",
       ranges: [0, value.budget],
       measures: [value.spent],
       markers: [0]
