@@ -24,6 +24,10 @@ window.apiRoutes = {
     "signOut":           "/staff/sign_out",
     "ssoInit":           "/saml/init",
 
+    "services":           "/services/",
+    "serviceAll":         "/services/all_count",
+    "serviceProject":     "/services/project_count",
+
     "staffOrders":       "/staff/:staff_id/orders/:id",
     "staffById":         "/staff/:id",
     "staffProjects":     "/staff/:id/projects/:project_id",
