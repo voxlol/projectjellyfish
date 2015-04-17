@@ -34,4 +34,4 @@ window.apiRoutes = {
     "serviceProject":     "/services/project_count"
 
   }
-}
+};
