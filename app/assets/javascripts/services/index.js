@@ -1,5 +1,5 @@
 //= require_tree .
-'use strict';
+"use strict";
 
 var ServiceData = ServiceController.resolve;
 

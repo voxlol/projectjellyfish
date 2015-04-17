@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**@ngInject*/
 var ServiceProjectCountResource = function($resource, apiResource) {
@@ -10,7 +10,7 @@ var ServiceProjectCountResource = function($resource, apiResource) {
     query: {
       isArray: true,
       method: 'GET'
-    }})
+    }});
 };
 
 window.ServiceProjectCountResource = ServiceProjectCountResource;

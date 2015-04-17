@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount,
@@ -228,7 +228,7 @@ function DashboardController($scope, serviceAllCount,
 DashboardController.resolve = {
   /**@ngInject*/
   serviceAllCount: function (ServiceAllCountResource) {
-    //console.log(ServicesResource.count().$promise);
+
     return ServiceAllCountResource.query().$promise;
   },
   /**@ngInject*/

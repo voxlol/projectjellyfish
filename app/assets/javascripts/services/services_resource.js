@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**@ngInject*/
 var ServicesResource = function ($resource, apiResource) {
@@ -11,7 +11,7 @@ var ServicesResource = function ($resource, apiResource) {
       isArray: true,
       method: 'GET'
     }
-  })
+  });
 };
 
 window.ServicesResource = ServicesResource;

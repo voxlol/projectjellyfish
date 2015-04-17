@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**@ngInject*/
 var ServiceAllCountResource = function ($resource, apiResource) {
@@ -11,7 +11,7 @@ var ServiceAllCountResource = function ($resource, apiResource) {
       isArray: true,
       method: 'GET'
     }
-  })
+  });
 };
 
 window.ServiceAllCountResource = ServiceAllCountResource;
