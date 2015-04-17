@@ -2,7 +2,7 @@
 function DashboardController($scope, serviceAllCount,
                              serviceProjectCount, projectList) {
   "use strict";
-  var d3, angular;
+
   this.projectList = projectList;
   $scope.budgetCharts = [];
 
@@ -156,7 +156,7 @@ function DashboardController($scope, serviceAllCount,
         },
         showValues: true,
         valueFormat: function (d) {
-          return d3.format(",.4f")(d);
+          return d;
         },
         transitionDuration: 500,
         xAxis: {
