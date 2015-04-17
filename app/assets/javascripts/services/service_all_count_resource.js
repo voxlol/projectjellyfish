@@ -2,14 +2,14 @@
 
 /**@ngInject*/
 var ServiceAllCountResource = function ($resource, apiResource) {
-  return $resource(apiResource('serviceAll'), {
+  return $resource(apiResource("serviceAll"), {
     get: {
-      method: 'GET',
+      method: "GET",
       isArray: false
     },
     query: {
       isArray: true,
-      method: 'GET'
+      method: "GET"
     }
   });
 };

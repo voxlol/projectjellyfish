@@ -2,14 +2,14 @@
 
 /**@ngInject*/
 var ServiceProjectCountResource = function($resource, apiResource) {
-  return $resource(apiResource('serviceProject'),{
+  return $resource(apiResource("serviceProject"),{
     get: {
-      method: 'GET',
+      method: "GET",
       isArray: false
     },
     query: {
       isArray: true,
-      method: 'GET'
+      method: "GET"
     }});
 };
 

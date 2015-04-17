@@ -2,14 +2,14 @@
 
 /**@ngInject*/
 var ServicesResource = function ($resource, apiResource) {
-  return $resource(apiResource('services'), {
+  return $resource(apiResource("services"), {
     get: {
-      method: 'GET',
+      method: "GET",
       isArray: false
     },
     query: {
       isArray: true,
-      method: 'GET'
+      method: "GET"
     }
   });
 };
