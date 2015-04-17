@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Staff signs in' do
   scenario 'normal staff successfully signs in with email and password', :js do
-    visit root_path
+    visit root_path+'/login'
     staff = create(:staff)
 
     fill_in 'email', with: staff.email
@@ -10,6 +10,5 @@ feature 'Staff signs in' do
     click_on 'Login'
 
     expect(page).to have_content("#{staff.first_name} #{staff.last_name}")
-
   end
 end
