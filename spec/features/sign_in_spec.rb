@@ -9,6 +9,6 @@ feature 'Staff signs in' do
     fill_in 'password', with: staff.password
     click_on 'Login'
 
-    expect(page).to have_content("#{staff.first_name} #{staff.last_name}")
+    expect(page).to have_css("#{staff.first_name} #{staff.last_name}")
   end
 end
