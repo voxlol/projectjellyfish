@@ -22,7 +22,7 @@ function DashboardController($scope, serviceAllCount,
   $scope.chartCollection = [{
     options: {
       chart: {
-        type: 'multiBarChart',
+        type: "multiBarChart",
         height: 350,
         margin: {
           top: 20,
@@ -35,14 +35,14 @@ function DashboardController($scope, serviceAllCount,
         transitionDuration: 500,
         stacked: true,
         xAxis: {
-          axisLabel: '',
+          axisLabel: "",
           showMaxMin: false,
           tickFormat: function (d) {
             return d;
           }
         },
         yAxis: {
-          axisLabel: 'Number of Instances',
+          axisLabel: "Number of Instances",
           axisLabelDistance: 50,
           tickFormat: function (d) {
             return d;
@@ -51,21 +51,21 @@ function DashboardController($scope, serviceAllCount,
       },
       title: {
         enable: true,
-        text: 'Service Allocation by Project',
-        class: 'h4',
-        css: {width: 'nullpx', textAlign: 'center'}
+        text: "Service Allocation by Project",
+        class: "h4",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: []
   }, {
     options: {
       chart: {
-        type: 'pieChart',
+        type: "pieChart",
         height: 350,
         pie: {
           growOnHover: true
         },
-        noData: 'Data Incoming, Thanks for your patience.',
+        noData: "Data Incoming, Thanks for your patience.",
         x: function (d) {
           return d.key;
         },
@@ -86,16 +86,16 @@ function DashboardController($scope, serviceAllCount,
       },
       title: {
         enable: true,
-        text: 'Cumulative Service Allocation',
-        class: 'h3',
-        css: {width: 'nullpx', textAlign: 'center'}
+        text: "Cumulative Service Allocation",
+        class: "h3",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: []
   }, {
     options: {
       chart: {
-        type: 'bulletChart',
+        type: "bulletChart",
         transitionDuration: 500,
         bullet: {
           dispatch: {},
@@ -109,7 +109,7 @@ function DashboardController($scope, serviceAllCount,
             bottom: 0,
             left: 10
           },
-          orient: 'left'
+          orient: "left"
         },
         dispatch: {},
         forceX: [
@@ -124,24 +124,24 @@ function DashboardController($scope, serviceAllCount,
           bottom: 20,
           left: 180
         },
-        orient: 'left',
+        orient: "left",
         tooltips: true,
-        noData: 'Data Incoming, Thanks for your patience.'
+        noData: "Data Incoming, Thanks for your patience."
       },
       styles: {
         classes: {
-          'with-3d-shadow': true,
-          'with-transitions': true,
-          'gallery': true
+          "with-3d-shadow": true,
+          "with-transitions": true,
+          "gallery": true
         },
-        'css': {}
+        "css": {}
       }
     },
     data: {}
   }, {
     options: {
       chart: {
-        type: 'discreteBarChart',
+        type: "discreteBarChart",
         height: 350,
         margin: {
           top: 20,
@@ -157,26 +157,26 @@ function DashboardController($scope, serviceAllCount,
         },
         showValues: true,
         valueFormat: function (d) {
-          return d3.format(',.4f')(d);
+          return d3.format(",.4f")(d);
         },
         transitionDuration: 500,
         xAxis: {
-          axisLabel: 'Week'
+          axisLabel: "Week"
         },
         yAxis: {
-          axisLabel: 'Volume',
+          axisLabel: "Volume",
           axisLabelDistance: 30
         }
       },
       title: {
         enable: true,
-        text: '*NOTIONAL* Order Frequency Insight',
-        class: 'h3',
-        css: {width: 'nullpx', textAlign: 'center'}
+        text: "*NOTIONAL* Order Frequency Insight",
+        class: "h3",
+        css: {width: "nullpx", textAlign: "center"}
       }
     },
     data: [{
-      key: 'Cumulative Return',
+      key: "Cumulative Return",
       values: [{
         key: 1,
         value: -29.765957771107
@@ -208,10 +208,10 @@ function DashboardController($scope, serviceAllCount,
 
   angular.forEach($scope.chartCollection, function (value) {
     switch (value.options.chart.type) {
-      case 'pieChart':
+      case "pieChart":
         value.data = serviceAllCount;
         break;
-      case 'multiBarChart':
+      case "multiBarChart":
         value.data = serviceProjectCount;
         break;
     }
