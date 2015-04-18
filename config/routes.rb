@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :user_setting_options, defaults: { format: :json }
 
     # Approvals
-    resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
+    resources :staff, defaults: { format: :json }, only: [:index]
     resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
       # Staff Orders
       resources :orders, controller: :staff_orders, defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]

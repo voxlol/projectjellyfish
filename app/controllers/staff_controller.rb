@@ -14,7 +14,7 @@ class StaffController < ApplicationController
 
   api :GET, '/staff', 'Returns a collection of staff'
   param :includes, Array, in: %w(user_settings projects)
-  param :methods, Array, in: %w(gravatar allowed)
+  param :methods, Array, in: %w(allowed)
   param :page, :number
   param :per_page, :number
   param :query, String, desc: 'queries against first name, last name, and email'
