@@ -16,32 +16,32 @@
         <col class="col05">
         <col class="col05">
         <col class="col05">
-        <col class="col40">
-        <col class="col05">
-        <col class="col05">
       </colgroup>
       <thead>
       <tr>
-        <th>Question</th>
-        <th>Type</th>
-        <th>Help Text</th>
-        <th>Load Order</th>
-        <th>Options</th>
-        <th>Required</th>
-        <th>Actions</th>
+        <th>Question Title</th>
+        <th>Field Type</th>
+        <th>Question Order</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="projectQuestion in projectQuestions">
-        <td>{{projectQuestion.question}}</td>
-        <td>{{projectQuestion.field_type}}</td>
-        <td>{{projectQuestion.help_text}}</td>
-        <td>{{projectQuestion.load_order}}</td>
-        <td>{{projectQuestion.options}}</td>
-        <th>{{projectQuestion.required}}</th>
+        <td>{{projectQuestion.question}} <span ng-if="projectQuestion.required" class="text-danger">*</span></td>
         <td>
-          <a class="fa fa-edit" ng-click="editProjectQuestion(projectQuestion)"></a>
-          <a class="fa fa-trash-o" ng-click="deleteProjectQuestion(projectQuestion)"></a>
+          <span ng-switch="projectQuestion.field_type">
+            <span ng-switch-when="text">Text</span>
+            <span ng-switch-when="select_option">Select Option</span>
+            <span ng-switch-when="check_box">Checkbox</span>
+            <span ng-switch-when="date">Date</span>
+          </span>
+        </td>
+        <td>{{projectQuestion.load_order}}</td>
+        <td>
+          <span class="pull-right">
+            <a class="fa fa-edit" ng-click="editProjectQuestion(projectQuestion)"></a>
+            <a class="fa fa-trash-o" ng-click="deleteProjectQuestion(projectQuestion)"></a>
+          </span>
         </td>
       </tr>
       </tbody>
@@ -49,4 +49,5 @@
   </div>
   <!-- end .table-box -->
   <br/>
+  <p><span class="text-danger">*</span> = Indicates a required field</p>
 </div>
