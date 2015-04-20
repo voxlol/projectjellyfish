@@ -43,8 +43,6 @@ you can simply create ENVIRONMENT vars yourself.
 
 ````
 DATABASE_URL=postgres://YOUR_LOCAL_USERNAME:@localhost:5432/jellyfish_development
-CORS_ALLOW_ORIGIN=localhost:5000
-DEFAULT_URL=http://localhost:3000
 ````
 
 #### Create the database
