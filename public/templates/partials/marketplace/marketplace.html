@@ -5,8 +5,8 @@
                   allow-view-type-toggle="true"
                   ng-show=" category.products.length > 0"
     />
-  <product-box class="product-box" ng-repeat="product in category.products" product="product">
-    <a type="button" class="btn btn-primary" ui-sref="base.authed.marketplace.show({id: product.id})">View More</a>
-  </product-box>
+    <product-box class="product-box" ng-repeat="product in category.products" product="product">
+      <a type="button" class="btn btn-primary" ui-sref="base.authed.marketplace.show({id: product.id})">View More</a>
+    </product-box>
   </section-header>
 </div>
