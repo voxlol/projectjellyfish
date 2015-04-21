@@ -260,3 +260,4 @@ DashboardController.resolve = {
 };
 
 window.DashboardController = DashboardController;
+window.lodash = _;
