@@ -35,11 +35,13 @@ body
     tbody
       tr:nth-child(odd)
         background-color: #f5f9fd
+      tr:nth-child(odd):hover
+        background-color: #f5f5f5
 
   .title-box
     padding: 20px 0
     color: #292e35
-    font-size: 16px
+    //font-size: 16px
     .title
       float: left
     h2
@@ -47,19 +49,36 @@ body
   thead
     tr
       th
-        background-color: #ebf3fc
-        border: 1px solid #ffffff
-        font-size: 12px
+        //background-color: #ebf3fc
+        //border: 1px solid #ffffff
+        font-size: 15px
         font-family: proximanova_regular
         padding: 9px 12px
   tbody
     tr
-      background-color: #f8fbfe
+      //background-color: #f8fbfe
     td
       line-height: 17px
       font-size: 14px
       padding: 9px 12px
 
+.st-sort-ascent:before
+  content: '\25B2'
+
+.st-sort-descent:before
+  content: '\25BC'
+
+.selectRow
+  cursor: pointer
+
+.btn-nav
+  margin-top: 6px
+  margin-left: 12px
+
+.list-box
+  width: 120px
+
+  font-size: initial !important
 .info-boxes
   display: table
   width: 100%
