@@ -47,6 +47,9 @@ class OrderItem < ActiveRecord::Base
   has_many :provision_derivations
   belongs_to :latest_alert, class_name: 'Alert'
 
+  # Update the parent Order total
+  after_create :update_order_total
+
   # Hooks
   after_commit :provision, on: :create
 
@@ -75,5 +78,10 @@ class OrderItem < ActiveRecord::Base
 
   def provision
     provisioner.delay(queue: 'provision_request').provision(id)
+  end
+
+  def update_order_total
+    @orders_params = { total: order.total + calculate_price }
+    order.update @orders_params
   end
 end
