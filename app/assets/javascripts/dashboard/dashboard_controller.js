@@ -6,17 +6,44 @@ function DashboardController($scope, serviceAllCount,
   this.projectList = projectList;
   $scope.budgetCharts = [];
 
-  angular.forEach(this.projectList, function (value) {
-    $scope.temp = {
-      title: value.name,
-      subtitle: "($ USD)",
-      ranges: [0, value.budget],
-      measures: [value.spent],
-      markers: [0]
-    };
-    $scope.budgetCharts.push($scope.temp);
+  angular.forEach(projectList, function (value) {
 
-  });
+      if (_.inRange(value.budget, 0, 9999)) {
+        $scope.temp = {
+          title: value.name,
+          subtitle: "($ USD)",
+          ranges: [0, 0, value.budget],
+          measures: [value.spent],
+          markers: [0]
+        }
+      } else if (_.inRange(value.budget, 10000, 999999)) {
+        $scope.temp = {
+          title: value.name,
+          subtitle: "($ USD, thousands)",
+          ranges: [0, 0, (value.budget / 1000)],
+          measures: [(value.spent / 1000)],
+          markers: [0]
+        }
+      } else if (_.inRange(value.budget, 1000000, 999999999)) {
+        $scope.temp = {
+          title: value.name,
+          subtitle: "($ USD, millions)",
+          ranges: [0, 0, (value.budget / 1000000)],
+          measures: [(value.spent / 1000000)],
+          markers: [0]
+        }
+      } else {
+        $scope.temp = {
+          title: value.name,
+          subtitle: "($ USD)",
+          ranges: [0, 0, value.budget],
+          measures: [value.spent],
+          markers: [0]
+        }
+      }
+      $scope.budgetCharts.push($scope.temp);
+    }
+  );
 
   $scope.chartCollection = [{
     options: {

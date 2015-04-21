@@ -12,8 +12,7 @@
             <tr class="selectRow">
                 <th class="text-left" st-sort="id">ORDER ID</th>
                 <th class="text-left" ng-if="!item_count" st-sort="order_items">ITEMS</th>
-                <th class="text-left" ng-if="item_count" st-sort="item_count">ITEMS</th>
-                <th class="text-left" st-sort="total">TOTAL</th>
+                <th class="text-left" st-sort="total">PROJECTED TOTAL (monthly)</th>
                 <th class="text-left" st-sort="provision_status">STATUS</th>
                 <th class="text-left" st-sort="created_at">REQUEST DATE</th>
             </tr>
@@ -31,4 +30,3 @@
         </table>
     </div>
 </div>
-{{orders}}
