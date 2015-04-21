@@ -1,3 +1,4 @@
+/* global _:false */
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount,
                              serviceProjectCount, projectList) {
@@ -260,4 +261,3 @@ DashboardController.resolve = {
 };
 
 window.DashboardController = DashboardController;
-window.lodash = _;
