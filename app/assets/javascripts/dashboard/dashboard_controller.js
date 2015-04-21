@@ -15,7 +15,7 @@ function DashboardController($scope, serviceAllCount,
           ranges: [0, 0, value.budget],
           measures: [value.spent],
           markers: [0]
-        }
+        };
       } else if (_.inRange(value.budget, 10000, 999999)) {
         $scope.temp = {
           title: value.name,
@@ -23,7 +23,7 @@ function DashboardController($scope, serviceAllCount,
           ranges: [0, 0, (value.budget / 1000)],
           measures: [(value.spent / 1000)],
           markers: [0]
-        }
+        };
       } else if (_.inRange(value.budget, 1000000, 999999999)) {
         $scope.temp = {
           title: value.name,
@@ -31,7 +31,7 @@ function DashboardController($scope, serviceAllCount,
           ranges: [0, 0, (value.budget / 1000000)],
           measures: [(value.spent / 1000000)],
           markers: [0]
-        }
+        };
       } else {
         $scope.temp = {
           title: value.name,
@@ -39,7 +39,7 @@ function DashboardController($scope, serviceAllCount,
           ranges: [0, 0, value.budget],
           measures: [value.spent],
           markers: [0]
-        }
+        };
       }
       $scope.budgetCharts.push($scope.temp);
     }
