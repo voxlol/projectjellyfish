@@ -1,2 +1,4 @@
 ruby:
   config_file: .ruby-style.yml
+javascript:
+  config_file: .javascript-style.json

@@ -1,4 +1,3 @@
-/* global _:false */
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount,
                              serviceProjectCount, projectList) {
