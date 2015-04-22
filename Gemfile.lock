@@ -581,7 +581,7 @@ DEPENDENCIES
   rails-assets-angular-progress-arc!
   rails-assets-angular-resource!
   rails-assets-angular-sanitize!
-  rails-assets-angular-schema-form!
+  rails-assets-angular-schema-form (= 0.8.0)!
   rails-assets-angular-smart-table!
   rails-assets-angular-ui-router!
   rails-assets-angular-ui-select!
