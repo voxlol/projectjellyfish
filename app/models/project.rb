@@ -91,7 +91,7 @@ class Project < ActiveRecord::Base
   def monthly_spend
     services.reduce(0) do |total, service|
       total + service.calculate_price
-    end
+    end.to_f
   end
 
   def problem_count

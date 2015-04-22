@@ -51,7 +51,7 @@ class Order < ActiveRecord::Base
     grouped_order_items = order_items.group_by(&:project)
     grouped_order_items.reduce(false) do |over_budget, project_order_items|
       cost = project_order_items[1].map(&:calculate_price).sum
-      over_budget || cost + project_order_items[0].spent > project_order_items[0].budget
+      over_budget || cost + project_order_items[0].spent.to_f > project_order_items[0].budget
     end
   end
 
