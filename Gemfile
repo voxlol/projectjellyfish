@@ -147,3 +147,6 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-ngDraggable'
   gem 'rails-assets-angular-filter'
 end
+
+# TO ENCODE DECIMALS AS JSON NUMBERS
+gem 'activesupport-json_encoder'
