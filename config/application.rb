@@ -22,6 +22,8 @@ module JellyfishCore
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    ActiveSupport::JSON::Encoding.encode_big_decimal_as_string = false
+
     config.generators.helper = false
     config.generators.views = false
     config.generators.assets = false
