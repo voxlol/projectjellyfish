@@ -28,7 +28,7 @@ INSTALL-OSX.md - Mac OS Installation (generally used for development)
 
 INSTALL-RHEL.md - Red Hat Enterprise Linux / CentOS installation
 
-#### Heroku Quick Install (beta)
+#### Heroku Quick Install
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
