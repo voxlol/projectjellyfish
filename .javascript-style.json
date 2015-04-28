@@ -15,6 +15,7 @@
   "predef": [
     "$",
     "jQuery",
+    "d3",
 
     "jasmine",
     "beforeEach",
