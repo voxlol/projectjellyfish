@@ -60,23 +60,23 @@ function DashboardController($scope, serviceAllCount,
           axisLabel: "Date",
           showMaxMin: false,
           axisLabelDistance: 2,
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.time.format("%x")(new Date(d));
           }
         },
         yAxis: {
           axisLabel: "Cost ($ USD)",
           axisLabelDistance: 10,
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.format(",.1f")(d);
           }
         },
-        tooltips:true,
-        tooltipContent: function(key, x, y) {
+        tooltips: true,
+        tooltipContent: function (key, x, y) {
 
           //         var total = e.point.y+e.point.y0+e.point.y1;
           return "<h3>" + key + "</h3>" +
-            "<p>$" + y + " on " + x +"</p>";
+            "<p>$" + y + " on " + x + "</p>";
 
         }
       }
@@ -740,7 +740,8 @@ function DashboardController($scope, serviceAllCount,
         size: 14742.56,
         y1: 47076.56
       }]
-    }] }, {
+    }]
+  }, {
     options: {
       title: {
         enable: true,
@@ -776,39 +777,51 @@ function DashboardController($scope, serviceAllCount,
     }, data: [
       {
         key: "Projects Total",
-        values: [{x: 1, y: 525.46, series: 3}, {x: 2, y: 723.23, series: 3}, {
-          x: 3,
-          y: 1262.29,
-          series: 3
-        }, {x: 4, y: 1917.29, series: 3}, {x: 5, y: 2228.8900000000003, series: 3}, {
-          x: 6,
-          y: 2221.76,
-          series: 3
-        }, {x: 7, y: 2026.8, series: 3}, {x: 8, y: 1972.23, series: 3}, {
-          x: 9,
-          y: 1333.77,
-          series: 3
-        }, {x: 10, y: 921.3100000000001, series: 3}, {x: 11, y: 633.71, series: 3}, {
-          x: 12,
-          y: 476.09000000000003,
-          series: 3
-        }, {x: 13, y: 425.66, series: 3}, {x: 14, y: 434.1, series: 3}, {
-          x: 15,
-          y: 391.57,
-          series: 3
-        }, {x: 16, y: 454.18999999999994, series: 3}, {x: 17, y: 451.22, series: 3}, {
-          x: 18,
-          y: 906.01,
-          series: 3
-        }, {x: 19, y: 1734.42, series: 3}, {x: 20, y: 3134.19, series: 3}, {
-          x: 21,
-          y: 3997.1099999999997,
-          series: 3
-        }, {x: 22, y: 3429.96, series: 3}, {x: 23, y: 1941.26, series: 3}, {
-          x: 24,
-          y: 910.67,
-          series: 3
-        }]
+        values: [{x: 1, y: 525.46, series: 3},
+          {x: 2, y: 723.23, series: 3},
+          {
+            x: 3,
+            y: 1262.29,
+            series: 3
+          }, {x: 4, y: 1917.29, series: 3},
+          {x: 5, y: 2228.8900000000003, series: 3},
+          {
+            x: 6,
+            y: 2221.76,
+            series: 3
+          }, {x: 7, y: 2026.8, series: 3},
+          {x: 8, y: 1972.23, series: 3}, {
+            x: 9,
+            y: 1333.77,
+            series: 3
+          }, {x: 10, y: 921.3100000000001, series: 3},
+          {x: 11, y: 633.71, series: 3},
+          {
+            x: 12,
+            y: 476.09000000000003,
+            series: 3
+          }, {x: 13, y: 425.66, series: 3},
+          {x: 14, y: 434.1, series: 3}, {
+            x: 15,
+            y: 391.57,
+            series: 3
+          }, {x: 16, y: 454.18999999999994, series: 3},
+          {x: 17, y: 451.22, series: 3},
+          {
+            x: 18,
+            y: 906.01,
+            series: 3
+          }, {x: 19, y: 1734.42, series: 3},
+          {x: 20, y: 3134.19, series: 3}, {
+            x: 21,
+            y: 3997.1099999999997,
+            series: 3
+          }, {x: 22, y: 3429.96, series: 3},
+          {x: 23, y: 1941.26, series: 3}, {
+            x: 24,
+            y: 910.67,
+            series: 3
+          }]
       },
       {
         key: "Project Jellyfish",
@@ -1061,7 +1074,7 @@ function DashboardController($scope, serviceAllCount,
         ]
       },
       {
-        key: Blog,
+        key: "Blog",
         values: [
           {
             x: 1,
@@ -1371,7 +1384,7 @@ function DashboardController($scope, serviceAllCount,
         value.data = serviceAllCount;
         break;
       case "multiBarChart":
-        if(value.options.title.text == "Service Allocation by Project"){
+        if (value.options.title.text == "Service Allocation by Project") {
           value.data = serviceProjectCount;
         }
         break;
