@@ -3,9 +3,9 @@
 # Table name: bundles
 #
 #  id          :integer          not null, primary key
-#  name        :string(255)
+#  name        :string
 #  description :text
-#  img         :string(255)
+#  img         :string
 #  active_at   :datetime
 #  deleted_at  :datetime
 #  created_at  :datetime
