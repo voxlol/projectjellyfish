@@ -1,0 +1,21 @@
+{
+  "AWS Fog Storage": {
+    "type": "object",
+    "title": "AWS Fog Storage",
+    "description": "Amazon Fog Storage",
+    "required": ["availability", "region"],
+    "properties": {
+      "availability": {
+        "title": "Storage Redundancy",
+        "type": "string",
+        "enum": ["normal", "reduced"],
+        "default": "normal"
+      },
+      "disk_size": {
+        "title": "Disk Size",
+        "type": "integer",
+        "default": 40
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "AWS Fog Databases": {
+    "type": "object",
+    "title": "AWS Fog Databases",
+    "description": "Amazon Fog Databases",
+    "required": ["db_instance_size", "db_engine", "disk_size", "storage_type", "storage_redundancy"],
+    "properties": {
+      "db_instance_size": {
+        "instance_size": {
+          "x-schema-form": {
+            "labelHtmlClass": "col-sm-2",
+            "fieldHtmlClass": "col-sm-10"
+          },
+        "title": "DB Instance Size",
+        "type": "string",
+        "enum": [
+          "db.m3.medium",
+          "db.m3.large",
+          "db.m3.xlarge"
+        ],
+        "default": "db.m3.medium"
+      },
+      "engine": {
+        "title": "DB Engine",
+        "type": "string",
+        "enum": [
+          "aurora",
+          "mysql",
+          "postgresql",
+          "sqlserver"
+        ],
+        "default": "postgresql"
+      },
+      "disk_size": {
+        "title": "Disk Size in GB",
+        "type": "integer",
+        "default": 40
+      },
+      "storage_type": {
+        "title": "Storage Type",
+        "type": "string",
+        "enum": [
+          "standard",
+          "gp2",
+          "io1",
+          "ssd"
+        ],
+        "default": "ssd"
+      }
+      "storage_redundancy": {
+        "title": "Storage Redundancy",
+        "type": "string",
+        "enum": [
+          "x",
+          "y",
+          "z"
+        ],
+        "default": "x"
+      }
+    }
+  }
+}

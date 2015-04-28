@@ -1,0 +1,168 @@
+{
+  "AWS": {
+    "type": "object",
+    "title": "AWS VM",
+    "description": "Amazon EC2 VMs",
+    "required": ["instance_size", "disk_size", "allocated_storage"],
+    "properties": {
+      "instance_size": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "DB Instance Size",
+        "type": "string",
+        "enum": [
+          "t2.micro",
+          "m3.medium",
+          "m3.large"
+        ],
+        "default": "m3.medium"
+      },
+      "disk_size": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Disk Size in GB",
+        "type": "integer",
+        "default": 40
+      }
+    }
+  },
+  "VMWare": {
+    "type": "object",
+    "title": "VMware VM",
+    "description": "VMware VMs",
+    "required": ["ram_size", "disk_size", "cpu_count"],
+    "properties": {
+      "ram_size": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "RAM size in GB",
+        "type": "integer",
+        "default": 4
+      },
+      "disk_size": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Disk Size in GB",
+        "type": "integer",
+        "default": 40
+      },
+      "cpu_count": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "CPU",
+        "type": "string",
+        "default": "1",
+        "enum": [
+          "1", "2", "4", "6", "8"
+        ]
+      }
+    }
+  },
+  "RDS": {
+    "type": "object",
+    "title": "RDS",
+    "description": "RDS",
+    "required": ["db_instance_class", "engine", "disk_size", "storage_type"],
+    "properties": {
+      "db_instance_class": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Instance Size",
+        "type": "string",
+        "enum": [
+          "db.m3.medium",
+          "db.m3.large",
+          "db.m3.xlarge"
+        ],
+        "default": "db.m3.medium"
+      },
+      "engine": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "DB Engine",
+        "type": "string",
+        "enum": [
+          "aurora",
+          "mysql",
+          "postgresql",
+          "sqlserver"
+        ],
+        "default": "postgresql"
+      },
+      "disk_size": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Disk Size in GB",
+        "type": "integer",
+        "default": 40
+      },
+      "storage_type": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Storage Type",
+        "type": "string",
+        "enum": [
+          "standard",
+          "gp2",
+          "io1",
+          "ssd"
+        ],
+        "default": "ssd"
+      }
+    }
+  },
+  "Storage": {
+    "type": "object",
+    "title": "Storage",
+    "description": "Storage Solutions",
+    "required": ["availability", "region"],
+    "properties": {
+      "availability": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Storage Redundancy",
+        "type": "string",
+        "enum": ["normal", "reduced"],
+        "default": "normal"
+      },
+      "region": {
+        "x-schema-form": {
+          "labelHtmlClass": "col-sm-2",
+          "fieldHtmlClass": "col-sm-10"
+        },
+        "title": "Region",
+        "type": "string",
+        "enum": [
+          "us-standard",
+          "us-west-1",
+          "us-west-2",
+          "eu",
+          "ap-northeast-1",
+          "ap-southeast-1",
+          "ap-southeast-2"
+        ],
+        "default": "us-standard"
+      }
+    }
+  }
+}

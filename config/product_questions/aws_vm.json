@@ -1,0 +1,29 @@
+{
+  "AWS VM": {
+    "type": "object",
+    "title": "AWS VM",
+    "description": "Amazon EC2 VMs",
+    "required": [
+      "instance_size",
+      "disk_size",
+      "allocated_storage"
+    ],
+    "properties": {
+      "instance_size": {
+        "title": "DB Instance Size",
+        "type": "string",
+        "enum": [
+          "t2.micro",
+          "m3.medium",
+          "m3.large"
+        ],
+        "default": "m3.medium"
+      },
+      "disk_size": {
+        "title": "Disk Size in GB",
+        "type": "integer",
+        "default": 40
+      }
+    }
+  }
+}
