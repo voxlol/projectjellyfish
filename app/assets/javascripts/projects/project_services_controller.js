@@ -19,7 +19,7 @@ var ProjectServicesController = function($scope, CartService, project, products,
 
   _.each(this.categories, _.bind(function(category) {
     category.products = _.filter(this.products, function(product) {
-      return product.product_type_id == category.id;
+      return product.product_type == category.title;
     });
   }, this));
 };
