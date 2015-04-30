@@ -1,5 +1,5 @@
 /**@ngInject*/
-var ServiceProjectCountResource = function($resource, apiResource, $state) {
+var ServiceProjectCountResource = function($resource, apiResource) {
   "use strict";
   return $resource(apiResource("serviceProject"));
 };

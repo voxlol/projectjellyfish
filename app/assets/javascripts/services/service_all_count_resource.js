@@ -1,5 +1,5 @@
 /**@ngInject*/
-var ServiceAllCountResource = function ($resource, apiResource, $state) {
+var ServiceAllCountResource = function ($resource, apiResource) {
   "use strict";
   return $resource(apiResource("serviceAll"));
 };

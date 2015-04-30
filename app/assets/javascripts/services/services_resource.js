@@ -1,5 +1,5 @@
 /**@ngInject*/
-var ServicesResource = function ($resource, apiResource, $state) {
+var ServicesResource = function ($resource, apiResource) {
   "use strict";
   return $resource(apiResource("services"));
 };
