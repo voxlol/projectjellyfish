@@ -1,16 +1,7 @@
 /**@ngInject*/
-var ServiceAllCountResource = function ($resource, apiResource) {
+var ServiceAllCountResource = function ($resource, apiResource, $state) {
   "use strict";
-  return $resource(apiResource("serviceAll"), {
-    get: {
-      method: "GET",
-      isArray: false
-    },
-    query: {
-      isArray: true,
-      method: "GET"
-    }
-  });
+  return $resource(apiResource("serviceAll"));
 };
 
 window.ServiceAllCountResource = ServiceAllCountResource;

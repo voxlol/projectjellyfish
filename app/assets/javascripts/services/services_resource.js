@@ -1,16 +1,7 @@
 /**@ngInject*/
-var ServicesResource = function ($resource, apiResource) {
+var ServicesResource = function ($resource, apiResource, $state) {
   "use strict";
-  return $resource(apiResource("services"), {
-    get: {
-      method: "GET",
-      isArray: false
-    },
-    query: {
-      isArray: true,
-      method: "GET"
-    }
-  });
+  return $resource(apiResource("services"));
 };
 
 window.ServicesResource = ServicesResource;
