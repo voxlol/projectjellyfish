@@ -1,18 +1,29 @@
-<div class="create-project-question">
-  <div class="table-box">
-    <div class="titles-box" ng-switch on="pageFunction">
-        <h2 ui-sref="base.authed.admin.projects.edit_project_questions">
-            <strong ng-if="pageFunction">Edit Project Question</strong>
-            <strong ng-if="!pageFunction">Add Project Question</strong>
-        </h2>
-
-      <div class="titles-border-bar">
-        <span class="blues width137"></span>
-        <span class="whites width3"></span>
-      </div>
+<div class="row">
+    <div class="col-sm-6">
+        <a ui-sref="base.authed.admin.projects.project_questions" class="btn btn-info btn-nav">
+            <i class="fa fa-caret-left"></i>
+            Back to Project Questions
+        </a>
     </div>
-  </div>
+</div>
 
-  <project-question-form button-label="'SUBMIT'" project-question="projectQuestion" submit-function="submitProject()">
-  </project-question-form>
+<div class="content box-content"
+    <div class="create-project-question">
+      <div class="table-box">
+        <div class="titles-box" ng-switch on="pageFunction">
+            <h2 ui-sref="base.authed.admin.projects.edit_project_questions">
+                <strong ng-if="pageFunction">Edit Project Question</strong>
+                <strong ng-if="!pageFunction">Add Project Question</strong>
+            </h2>
+
+          <div class="titles-border-bar">
+            <span class="blues width137"></span>
+            <span class="whites width3"></span>
+          </div>
+        </div>
+      </div>
+
+      <project-question-form button-label="'SUBMIT'" project-question="projectQuestion" submit-function="submitProject()">
+      </project-question-form>
+    </div>
 </div>
