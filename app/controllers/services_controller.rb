@@ -77,6 +77,13 @@ class ServicesController < ApplicationController
     render json: @services, each_serializer: ServiceSerializer
   end
 
+  api :GET, '/services/order_profiles', 'Lists project orders with start date and order item count'
+  def order_profiles
+    authorize Service.new
+    project_orders = { key: 'Project Jellyfish', values: [[1_083_297_600_000, 12], [1_083_224_600_000, 4]] }
+    render json: project_orders
+  end
+
   private
 
   def load_services_via_policy
