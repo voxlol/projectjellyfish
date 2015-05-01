@@ -4,7 +4,8 @@
 var isFailedLogin = false;
 
 /**@ngInject*/
-function LoginController($scope, $state, AuthService, currentUser, ssoUrl) {
+function LoginController($scope, $state, AuthService,
+                         currentUser, ssoUrl, FlashesService) {
   this.$scope = $scope;
   this.$state = $state;
   this.AuthService = AuthService;
@@ -12,6 +13,11 @@ function LoginController($scope, $state, AuthService, currentUser, ssoUrl) {
 
   // If the user is already logged in, take them to the default route.
   if (currentUser || AuthService.isAuthenticated()) {
+    FlashesService.add({
+      timeout: true,
+      type: 'success',
+      message: 'URL does not exist yet, redirecting to the Dashboard.'
+    });
     $state.transitionTo('base.authed.dashboard');
   }
 }
