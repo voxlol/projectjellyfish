@@ -28,11 +28,13 @@
             </a>
         </div>
     </div>
-    <div class="project-status project-status-{{project.status}}">
-        <div ng-switch on="project.status">
+    <div class="project-status project-status-{{project.approval}}">
+        <div ng-switch on="project.approval">
             <i ng-switch-when="ok" class="fa fa-check-circle-o status-icon"></i>
             <i ng-switch-when="critical" class="fa fa-bolt status-icon"></i>
             <i ng-switch-when="warning" class="fa fa-exclamation-triangle status-icon"></i>
+            <i ng-switch-when="approved" class="fa fa-check-circle-o status-icon"></i>
+            <i ng-switch-when="undecided" class="fa fa-question-circle status-icon"></i>
             <i ng-switch-default class="fa fa-ellipsis-h status-icon"></i>
         </div>
     </div>
