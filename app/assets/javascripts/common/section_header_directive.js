@@ -8,6 +8,7 @@ var SectionHeaderDirective = function() {
     transclude: true,
     scope: {
       name: '@',
+      type: '@',
       description: '@',
       allowViewTypeToggle: '@',
       viewType: '@'

@@ -11,21 +11,23 @@ function ProductFormController($scope, $state, FlashesService) {
   this.product = null;
   this.formSubmitted = false;
 
+
   this.buildForm = function (formData) {
     $scope.formItems = [];
-    angular.forEach(formData, function (item) {
-      console.log(item.title);
-      console.log({type: "section", htmlClass: "col-sm-6", items:[item.title]});
-      $scope.formItems.push(item.title);
+    angular.forEach(formData, function (item, key) {
+      $scope.formItems.push({
+        type: "section",
+        htmlClass: "col-sm-6 customForm",
+        items: [{
+          key:key,
+          feedback: false,
+        disableSuccessState: true}]
+      });
     });
-    for(var i; i <= $scope.formItems.length; i+2){
-
-    }
-    console.log( $scope.formItems);
-    this.form = $scope.formItems;
+    this.schemaForm = $scope.formItems;
   };
 
-  this.priceRegex = "\\d{1,6}(\\.\\d{1,4})?";
+  this.priceRlmegex = "\\d{1,6}(\\.\\d{1,4})?";
 
   this.initForm = function (parent) {
     angular.extend(this, parent);
