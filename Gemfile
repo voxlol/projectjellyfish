@@ -130,7 +130,7 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-angular-progress-arc'
   gem 'rails-assets-angular-resource'
   gem 'rails-assets-angular-sanitize'
-  gem 'rails-assets-angular-schema-form', '0.8.0'
+  gem 'rails-assets-angular-schema-form', '0.8.1'
   gem 'rails-assets-angular-smart-table'
   gem 'rails-assets-angular-ui-router'
   gem 'rails-assets-angular-ui-select'
