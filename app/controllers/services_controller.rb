@@ -85,7 +85,7 @@ class ServicesController < ApplicationController
     @project_orders.each do |p|
       project_key = p.project_name
       project_orders[project_key] = { key: project_key, values: [] } unless project_orders.key? project_key
-      project_orders[project_key][:values] << [p.order_created_at, p.order_item_count]
+      project_orders[project_key][:values] << [p.order_created_at.to_i, p.order_item_count]
     end
     render json: project_orders.values
   end
