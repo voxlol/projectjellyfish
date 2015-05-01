@@ -32,6 +32,11 @@ INSTALL-RHEL.md - Red Hat Enterprise Linux / CentOS installation
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+#### API Documentation
+
+To access docs on the API, please start rails server (make sure enviroment is either "test" or "development") and 
+navigate to http://your.jellyfish.install.url/documentation
+
 #### License
 
 See LICENSE
