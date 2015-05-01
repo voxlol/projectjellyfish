@@ -2,12 +2,12 @@
     <div class="col-sm-6">
         <a ui-sref="base.authed.admin.alerts.list" class="btn btn-info btn-nav">
             <i class="fa fa-caret-left"></i>
-            Back to Alerts
+            Back to Admin Alerts
         </a>
     </div>
 </div>
 
-<div class="alerts-list-page main-content ">
+<div class="alerts-list-page">
     <div class="content box-content">
 
         <section-header name="Add Alert">
@@ -18,10 +18,12 @@
                   novalidate>
 
                 <div ng-include src="'/templates/partials/admin/alerts/_form.html'"></div>
-                <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!adminAlertFormCtrl.canSubmit()">CREATE
+
+                <div class="col-sm-6 btn-line">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!adminAlertFormCtrl.canSubmit()">ADD
                         NEW ALERT
                     </button>
+                    <a ui-sref="base.authed.admin.alerts.list" class="btn btn-link">CANCEL</a>
                 </div>
             </form>
         </section-header>
