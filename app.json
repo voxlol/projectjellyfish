@@ -19,12 +19,12 @@
       "generator": "secret"
     },
     "RACK_ENV": {
-      "description": "The Rails Rack enviroment",
-      "value": "test"
+      "description": "The Rails Rack environment",
+      "value": "production"
     },
     "RAILS_ENV": {
-      "description": "The Rails enviroment",
-      "value": "test"
+      "description": "The Rails environment",
+      "value": "production"
     }
   },
   "addons": [
