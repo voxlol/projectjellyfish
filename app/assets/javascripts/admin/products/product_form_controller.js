@@ -5,7 +5,7 @@
  */
 
 /**@ngInject*/
-function ProductFormController($scope, $state, FlashesService) {
+function ProductFormController($state, FlashesService) {
   var self = this;
 
   this.product = null;
@@ -13,9 +13,9 @@ function ProductFormController($scope, $state, FlashesService) {
 
 
   this.buildForm = function (formData) {
-    $scope.formItems = [];
+    self.formItems = [];
     angular.forEach(formData, function (item, key) {
-      $scope.formItems.push({
+      self.formItems.push({
         type: "section",
         htmlClass: "col-sm-6 customForm",
         items: [{
@@ -24,7 +24,7 @@ function ProductFormController($scope, $state, FlashesService) {
         disableSuccessState: true}]
       });
     });
-    this.schemaForm = $scope.formItems;
+    this.schemaForm = self.formItems;
   };
 
   this.priceRlmegex = "\\d{1,6}(\\.\\d{1,4})?";
