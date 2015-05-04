@@ -24,7 +24,7 @@ function ProductFormController($state, FlashesService) {
         disableSuccessState: true}]
       });
     });
-    this.schemaForm = self.formItems;
+    return this.schemaForm = self.formItems;
   };
 
   this.priceRlmegex = "\\d{1,6}(\\.\\d{1,4})?";
