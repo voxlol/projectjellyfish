@@ -108,7 +108,8 @@
     </div>
 </div>
 
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productMonthlyPrice'),'has-success': productForm.hasSuccess('productMonthlyPrice') }">
+<div class="form-group"
+     ng-class="{'has-error': productForm.hasError('productMonthlyPrice'),'has-success': productForm.hasSuccess('productMonthlyPrice') }">
     <label class="col-sm-2 control-label" for="productMonthlyPrice">Monthly Price:</label>
 
     <div class="col-sm-6 control-input">
@@ -154,15 +155,15 @@
     </div>
 
 </div>
-<div class="col-lg-12"  ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
 
+<div class="col-lg-12" ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
+    <section-header name="{{productForm.product.product_type}} Properties" type="subheader"></section-header>
 
-    <section-header name="{{productForm.product.product_type}} Properties" type="subheader">
+        <div sf-model="productForm.product.provisioning_answers"
+              ng-form
+              sf-schema="productsAdminCtrl.categoriesByName[productForm.product.product_type]"
+              sf-form="productForm.schemaForm"
+              sf-options="{tv4Validation:false}"
+                ></div>
 
-    <div sf-model="productForm.product.provisioning_answers"
-         ng-form
-         sf-schema="productsAdminCtrl.categoriesByName[productForm.product.product_type]"
-         sf-form="productForm.schemaForm"
-         sf-options="{tv4Validation:false}"
-        ></div>
 </div>
