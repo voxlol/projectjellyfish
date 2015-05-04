@@ -24,7 +24,9 @@ function ProductFormController($state, FlashesService) {
         disableSuccessState: true}]
       });
     });
-    return this.schemaForm = self.formItems;
+    this.schemaForm = self.formItems;
+
+    return false;
   };
 
   this.priceRlmegex = "\\d{1,6}(\\.\\d{1,4})?";
@@ -40,6 +42,8 @@ function ProductFormController($state, FlashesService) {
       message: message || "Product: Operation completed successfully!"
     });
     $state.go("base.authed.admin.products.list");
+
+    return false;
   };
 
   this.onFailure = function (message) {
