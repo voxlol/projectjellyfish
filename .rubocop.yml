@@ -29,5 +29,6 @@ Style/GlobalVars:
 
 Rails/HasAndBelongsToMany:
   Enabled: false
+
 GuardClause:
   Enabled: false

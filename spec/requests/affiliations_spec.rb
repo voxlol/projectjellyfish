@@ -5,6 +5,7 @@ RSpec.describe 'Groups API' do
 
   describe 'POST create' do
     it 'adds a user to a group' do
+      sign_in_as create :staff, :admin
       group = create(:group)
       project = create(:project)
 
@@ -18,6 +19,7 @@ RSpec.describe 'Groups API' do
 
   describe 'DELETE destroy' do
     it 'removes a user from a group' do
+      sign_in_as create :staff, :admin
       group = create(:group)
       project = create(:project, groups: [group])
 
@@ -29,6 +31,7 @@ RSpec.describe 'Groups API' do
     end
 
     it 'raises 404 when the group is not affiliated with the project' do
+      sign_in_as create :staff, :admin
       group = create(:group)
       project = create(:project)
 

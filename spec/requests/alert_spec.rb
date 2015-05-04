@@ -5,7 +5,6 @@ RSpec.describe 'Alerts API' do
 
   describe 'GET index' do
     before :each do
-      sign_in_as create :staff, :admin
       create :alert
       create :alert, :first
       create :alert, :second
@@ -15,13 +14,21 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'returns a collection of all alerts', :show_in_doc do
+      sign_in_as create :staff, :admin
       get '/api/v1/alerts'
       expect(json.length).to eq(6)
     end
 
     it 'paginates the alerts' do
+      sign_in_as create :staff, :admin
       get '/api/v1/alerts', page: 1, per_page: 5
       expect(json.length).to eq(5)
+    end
+
+    it "returns a 401 error if the user isn't logged in" do
+      @project = create :project
+      get '/api/v1/alerts'
+      expect(response).to be_unauthorized
     end
   end
 

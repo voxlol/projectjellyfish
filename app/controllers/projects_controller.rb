@@ -25,8 +25,8 @@ class ProjectsController < ApplicationController
   param :per_page, :number
 
   def index
-    projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
     authorize_and_normalize(Project.new)
+    projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
     respond_with_params projects
   end
 
