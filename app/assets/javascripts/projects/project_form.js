@@ -2,6 +2,7 @@
 
 /**@ngInject*/
 function ProjectForm() {
+
   return {
     restrict: 'E',
     templateUrl: '/templates/partials/projects/project_form.html',
@@ -61,9 +62,20 @@ function ProjectForm() {
         $scope.answerDateOpened[index] = true;
       };
 
+      $scope.today = function() {
+        $scope.dt = new Date();
+      };
+      $scope.today();
+
+      $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+      };
+      $scope.toggleMin();
+
       $scope.dateOptions = {
         formatYear: 'yy',
-        startingDay: 1
+        startingDay: 0,
+        showWeeks: false
       };
 
       $scope.format = 'yyyy-MM-dd';

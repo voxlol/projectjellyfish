@@ -12,7 +12,8 @@ var CommonModule = angular.module(
   .directive('compareTo', compareTo)
   .config(
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-      $urlRouterProvider.otherwise('/dashboard');
+
+      $urlRouterProvider.otherwise('/login');
 
       $locationProvider.html5Mode(true);
 

@@ -30,3 +30,4 @@
 //= require angular-nvd3
 //= require ngDraggable
 //= require angular-filter
+//= require es5-shim

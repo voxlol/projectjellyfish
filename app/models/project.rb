@@ -6,18 +6,18 @@
 #  name        :string(255)
 #  description :text
 #  cc          :string(10)
-#  budget      :float
 #  staff_id    :string(255)
-#  start_date  :date
-#  end_date    :date
 #  img         :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  deleted_at  :datetime
-#  spent       :decimal(12, 2)   default(0.0)
 #  status      :integer          default(0)
 #  approval    :integer          default(0)
 #  archived    :datetime
+#  spent       :decimal(12, 2)   default(0.0)
+#  budget      :decimal(12, 2)   default(0.0)
+#  start_date  :datetime
+#  end_date    :datetime
 #
 # Indexes
 #
@@ -66,10 +66,11 @@ class Project < ActiveRecord::Base
   end
 
   def compute_current_status!
-    self.status = latest_alerts.reduce('unknown') do |m, r|
-      STATES[r.status.downcase] > STATES[m] ? r : m
-    end.to_sym
-    save!
+    if latest_alerts.any?
+      update(status: highest_priority_latest_alert.status.downcase)
+    else
+      update(status: 'unknown')
+    end
   end
 
   def domain
@@ -89,9 +90,7 @@ class Project < ActiveRecord::Base
   end
 
   def monthly_spend
-    services.reduce(0) do |total, service|
-      total + service.calculate_price
-    end.to_f
+    services.to_a.sum(&:calculate_price).to_f
   end
 
   def problem_count
@@ -120,5 +119,11 @@ class Project < ActiveRecord::Base
 
   def ram
     '2 GB'
+  end
+
+  private
+
+  def highest_priority_latest_alert
+    latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
   end
 end

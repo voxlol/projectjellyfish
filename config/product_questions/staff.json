@@ -1,0 +1,7 @@
+{
+  "Staff": {
+    "type": "object",
+    "title": "Staff",
+    "description": "Staff Solutions"
+  }
+}

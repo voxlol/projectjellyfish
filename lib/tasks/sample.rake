@@ -88,6 +88,26 @@ namespace :sample do
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")
 
+    ProjectAnswer.create!([
+       { id: 1, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 1).first, answer: "Mobile Application API for Client X"},
+       { id: 2, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 2).first, answer: "M0M00004567889"},
+       { id: 3, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 3).first, answer: "2015-02-28T05:00:00.000Z"},
+       { id: 4, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 4).first, answer: "true"},
+       { id: 5, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 5).first, answer: "East Coast Data Center"},
+       { id: 6, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 6).first, answer: "No"},
+       { id: 7, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 7).first, answer: "Low"},
+       { id: 8, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 8).first, answer: "3"},
+       { id: 9, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 1).first, answer: "Cloud File Share for Client X"},
+       { id: 10, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 2).first, answer: "M0M00004567889"},
+       { id: 11, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 3).first, answer: "2015-02-28T05:00:00.000Z"},
+       { id: 12, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 4).first, answer: "true"},
+       { id: 13, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 5).first, answer: "West Coast Data Center"},
+       { id: 14, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 6).first, answer: "Yes"},
+       { id: 15, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 7).first, answer: "High"},
+       { id: 16, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 8).first, answer: "5"}
+    ])
+    ProjectAnswer.connection.execute("ALTER SEQUENCE project_answers_id_seq RESTART #{ProjectAnswer.all.order('id DESC').first.id + 1}")
+
     Approval.create!([
        { id: 1, staff_id: 3, project_id: 1, approved: false, reason: nil},
        { id: 2, staff_id: 3, project_id: 2, approved: true, reason: nil}

@@ -1,4 +1,4 @@
-ruby '2.2.1'
+ruby '2.2.2'
 
 source 'https://rubygems.org'
 
@@ -146,6 +146,7 @@ source 'http://rails-assets.org' do
   gem 'rails-assets-angular-nvd3'
   gem 'rails-assets-ngDraggable'
   gem 'rails-assets-angular-filter'
+  gem 'rails-assets-es5-shim'
 end
 
 # TO ENCODE DECIMALS AS JSON NUMBERS

@@ -17,7 +17,7 @@ var CommonConstants = angular.module('broker.common.constants', [])
   .constant('ROUTES', {
     login: '/login',
     logout: '/logout',
-    default: '/dashboard'
+    default: '/login'
   });
 
 window.CommonConstants = CommonConstants
