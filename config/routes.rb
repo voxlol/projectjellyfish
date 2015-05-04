@@ -88,6 +88,7 @@ Rails.application.routes.draw do
 
     # Services (Alias for OrderItem)
     get 'services' => 'services#index', as: :services_index
+    get 'services/order_profiles' => 'services#order_profiles', as: :services_order_profiles
     get 'services/count' => 'services#count', as: :services_count
     get 'services/all_count' => 'services#all_count', as: :services_all_count
     get 'services/project_count' => 'services#project_count', as: :services_project_count

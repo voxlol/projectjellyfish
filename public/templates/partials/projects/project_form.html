@@ -30,7 +30,7 @@
       <div class="input-group">
         <span class="input-group-addon" ng-click="openStartDate($event)"><i class="fa fa-calendar"></i></span>
         <input id="start-date" name="start-date" type="text" ng-click="openStartDate($event)" class="form-control"
-               datepicker-popup="{{format}}" ng-model="project.start_date" is-open="startDateOpened"
+               datepicker-popup="{{format}}" ng-model="project.start_date" is-open="startDateOpened" min-date="minDate"
                datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="input-group">
         <span class="input-group-addon" ng-click="openEndDate($event)"><i class="fa fa-calendar"></i></span>
         <input id="end-date" name-="end-date" type="text" ng-click="openEndDate($event)" class="form-control"
-               datepicker-popup="{{format}}" ng-model="project.end_date" is-open="endDateOpened"
+               datepicker-popup="{{format}}" ng-model="project.end_date" is-open="endDateOpened" min-date="project.start_date"
                datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
       </div>
     </div>
@@ -76,6 +76,7 @@
                        is-open="answerDateOpened[$index]" datepicker-options="dateOptions" close-text="Close">
               </div>
             </div>
+              {{answer.project_question_name}}
           </div>
         </span>
         <span ng-switch-when="text">

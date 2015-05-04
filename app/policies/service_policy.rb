@@ -15,6 +15,10 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
+  def order_profiles?
+    true
+  end
+
   def show?
     true
   end
