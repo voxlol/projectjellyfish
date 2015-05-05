@@ -44,7 +44,7 @@ class AlertPolicy < ApplicationPolicy
       if user.admin?
         scope
       else
-        scope.joins(project: [:staff]).where('staff.id = ?', user.id)
+        user.alerts
       end
     end
   end

@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #  load_order :integer
-#  options    :json
+#  options    :jsonb
 #  field_type :integer          default(0)
 #
 # Indexes

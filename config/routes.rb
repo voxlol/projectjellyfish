@@ -42,9 +42,6 @@ Rails.application.routes.draw do
 
       # Staff Settings (user_settings)
       resources :settings, controller: :staff_settings, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy]
-
-      # Staff Projects
-      resources :projects, controller: :staff_projects, defaults: { format: :json }, only: [:index, :update, :destroy]
     end
 
     # Organizations
@@ -96,6 +93,8 @@ Rails.application.routes.draw do
 
     # Project Routes
     resources :projects, defaults: { format: :json }, except: [:edit, :new]
+    post 'projects/:project_id/groups' => 'affiliations#create', as: :affiliations
+    delete 'projects/:project_id/groups/:group_id' => 'affiliations#destroy', as: :affiliation
     get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
     post 'projects/:project_id/staff/:id' => 'project_staff#create', as: :project_staff
     delete 'projects/:project_id/staff/:id' => 'project_staff#destroy'
@@ -136,6 +135,8 @@ Rails.application.routes.draw do
     resources :content_pages, only: [:index, :create], defaults: { format: :json }
     resources :content_pages, only: [:update, :show, :destroy], defaults: { format: :json }, param: :slug
     patch 'content_pages/revert/:slug', to: 'content_pages#revert', defaults: { format: :json }
+
+    resources :groups, defaults: { format: :json }
   end
 
   root 'welcome#index'

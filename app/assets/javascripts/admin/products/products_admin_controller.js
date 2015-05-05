@@ -1,7 +1,6 @@
-'use strict';
-
 /**@ngInject*/
 function ProductsAdminController(categories, categoriesByName, categoryNames, clouds) {
+  'use strict';
   this.categoriesByName = categoriesByName;
   this.categories = categories;
   this.categoryNames = categoryNames;
@@ -36,7 +35,7 @@ function ProductsAdminController(categories, categoriesByName, categoryNames, cl
     'products/f5.png',
     'products/man.png',
     'products/woman.png',
-    'products/mean.png',
+    'products/mean.png'
   ];
 }
 
@@ -47,17 +46,16 @@ ProductsAdminController.resolve = {
   },
   /**@ngInject*/
   categoriesByName: function(categories) {
-    return _.object(_.map(categories, function(x){return [x.title, x]}))
+    return _.object(_.map(categories, function(x){return [x.title, x];}));
   },
   /**@ngInject*/
   categoryNames: function(categories) {
-    return _.map(categories, "title");
+    return _.map(categories, 'title');
   },
   /**@ngInject*/
   clouds: function(CloudsResource) {
     return CloudsResource.query().$promise;
   }
-
 };
 
 window.ProductsAdminController = ProductsAdminController;

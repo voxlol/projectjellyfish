@@ -6,6 +6,7 @@ var ServicesModule = angular.module("broker.services", [])
   .factory("ServicesResource", window.ServicesResource)
   .factory("ServiceAllCountResource", window.ServiceAllCountResource)
   .factory("ServiceProjectCountResource", window.ServiceProjectCountResource)
+  .factory("ServiceOrderProfilesResource", window.ServiceOrderProfilesResource)
   .config(
     /**@ngInject*/
     function($stateProvider, USER_ROLES) {

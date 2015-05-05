@@ -35,8 +35,9 @@ class Project < ActiveRecord::Base
 
   # Relationships
   has_many :project_answers
-  has_many :staff_projects
-  has_many :staff, through: :staff_projects
+  has_many :memberships
+  has_many :groups, through: :memberships
+  has_many :staff, through: :groups
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
   has_many :alerts
   has_many :latest_alerts, through: :services, class_name: 'Alert'
@@ -51,7 +52,7 @@ class Project < ActiveRecord::Base
   enum approval: { undecided: 0, approved: 1, rejected: 2 }
 
   # Scopes
-  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
+  scope :main_inclusions, -> { includes(:project_answers, :services, :staff) }
   scope :active, -> { where(archived: nil) }
   scope :archived, -> { where.not(archived: nil) }
 

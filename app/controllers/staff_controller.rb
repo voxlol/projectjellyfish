@@ -33,7 +33,7 @@ class StaffController < ApplicationController
   end
 
   api :GET, '/staff/current_member', 'Shows logged in member'
-  param :includes, Array, in: %w(user_settings projects notifications cart)
+  param :includes, Array, in: %w(user_settings projects notifications cart groups)
   error code: 401, desc: 'User is not signed in.'
 
   def current_member

@@ -29,6 +29,8 @@ module JellyfishCore
     config.generators.assets = false
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.active_record.raise_in_transactional_callbacks = true
+
     unless ENV['CORS_ALLOW_ORIGIN'].nil?
       config.middleware.insert_before 'Warden::Manager', 'Rack::Cors' do
         allow do

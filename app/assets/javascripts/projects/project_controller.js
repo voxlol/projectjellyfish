@@ -1,38 +1,35 @@
 'use strict';
 
 /**@ngInject*/
-function ProjectController($interval, project, ProjectUsersResource, OrderItemsResource, alerts, products, FlashesService) {
+function ProjectController($scope, $interval, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
 
-  this.intervalDelay = 30000;
-  this.$interval = $interval;
+  $scope.intervalDelay = 30000;
+  $scope.$interval = $interval;
 
-  this.project = project;
-  this.reason = null; // The reason this project has been rejected.
+  $scope.project = project;
+  $scope.reason = null; // The reason this project has been rejected.
 
   // Filter the alerts to only show them for this project.
-  this.alerts = _.filter(alerts, function(alert) {
-    return alert.project_id == project.id;
+  $scope.alerts = _.filter(alerts, function(alert) {
+    return alert.project_id == $scope.project.id;
   });
-  this.products = products;
+  $scope.products = products;
 
-  this.ProjectUsersResource = ProjectUsersResource;
-  this.OrderItemsResource = OrderItemsResource;
+  $scope.OrderItemsResource = OrderItemsResource;
 
-  this.FlashesService = FlashesService;
+  $scope.FlashesService = FlashesService;
+
+  $scope.groups = currentUser.groups;
 
   /**
-   * On creation/transition to scope, start refresh interval if
-   * we need to to reload unfinished service data.
-   *
-   * TODO : Revisit the data refresh
+   * Links the service with the product.
+   * @param project
+   * @param serviceObject
+   * @returns {*}
    */
-  //$scope.$on('$stateChangeSuccess', _.bind(function () {
-  //  this.stopRefreshInterval();
-  //}, this));
-  //
-  //$scope.$on('$stateChangeStart', _.bind(function() {
-  //  this.startRefreshInterval();
-  //}, this));
+  $scope.productFromService = function(service) {
+    return ProductsResource.get(service.product_id);
+  }
 }
 
 ProjectController.resolve = {
@@ -40,83 +37,29 @@ ProjectController.resolve = {
   project: function(ProjectsResource, $stateParams) {
     return ProjectsResource.get({
       id: $stateParams.projectId,
-      'includes[]': ['approvals', 'approvers', 'services', 'staff', 'project_answers']
+      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups']
     }).$promise;
   },
   /**@ngInject*/
   products: function(ProductsResource) {
     return ProductsResource.query().$promise;
-  }
+  },
+  currentUser: function(UsersResource) {
+    return UsersResource.getCurrentMember(
+      {'includes[]': ['groups']}
+    ).$promise;
+  },
 };
 
 ProjectController.prototype = {
 
-  /**
-   * Setup refresh interval if not all services are complete.
-   * Will automatically stop polling after all services are complete.
-   * Polls Every 30 Seconds.
-   */
-  startRefreshInterval: function() {
-    var self = this;
-    if (!self._areAllServicesComplete()) {
-      self.interval = this.$interval(function() {
-        self.project.$get(function() {
-          if (self._areAllServicesComplete()) {
-            self.stopRefreshInterval();
-          }
-        });
-      }, this.intervalDelay);
-    }
-  },
-
-  /**
-   * Clear/Stop the polling.
-   */
-  stopRefreshInterval: function() {
-    this.$interval.cancel(this.interval);
-    this.interval = undefined;
-  },
-
-  /**
-   * Project Approval actions
-   */
-  approve: function() {
-    this.project.$approve();
-  },
-  reject: function() {
-    this.project.$reject({reason: this.reason});
-  },
-
-  removeUserFromProject: function(index) {
-    var self = this;
-
-    this.ProjectUsersResource.delete({id: this.project.id, staff_id: this.project.staff[index].id}).$promise.then(
-      _.bind(function(data) {
-        this.project.staff.splice(index, 1);
-        self.FlashesService.add({
-            timeout: true,
-            type: 'success',
-            message: "The user was successfully removed from this project."
-        });
-      }, this),
-      function(error) {
-        self.FlashesService.add({
-          timeout: true,
-          type: 'error',
-          message: "There was an error removing this user."
-        });
-      }
-    );
-  },
-
-  removeServiceFromProject: function(serviceIndex) {
-    var self = this,
-      service = this.project.services[serviceIndex];
+  removeServiceFromProject: function(project, serviceIndex) {
+    var self = this
 
     this.OrderItemsResource.delete({id: service.id, order_id: service.order_id}).$promise.then(
       _.bind(function() {
         // Remove it from the existing array.
-        this.project.services.splice(serviceIndex, 1);
+        $scope.project.services.splice(serviceIndex, 1);
         self.FlashesService.add({
             timeout: true,
             type: 'success',
@@ -133,30 +76,10 @@ ProjectController.prototype = {
     );
   },
 
-  /**
-   * Links the service with the product.
-   * @param serviceObject
-   * @returns {*}
-   */
-  getServiceWithProduct: function(serviceObject) {
-    var productId = serviceObject.product_id;
-
-    var product = _.find(this.products, function(obj) {
-      return obj.id == productId;
-    });
-
-    // Hook on the product details we need to use the product box.
-    serviceObject.img = product.img;
-    serviceObject.name = product.name;
-    serviceObject.description = product.description;
-
-    return serviceObject;
-  },
-
-  getLeftData: function() {
-    var projectBudget = this.project.budget || 0;
-    var projectSpent = this.project.spent || 0;
-    var monthlySpend = this.project.monthly_spend || 0;
+  getLeftData: function(project) {
+    var projectBudget = project.budget || 0;
+    var projectSpent = project.spent || 0;
+    var monthlySpend = project.monthly_spend || 0;
 
     var leftPercent = 1.0;
     var leftMonths = '>12';
@@ -193,9 +116,9 @@ ProjectController.prototype = {
     };
   },
 
-  getBudgetData: function() {
-    var projectBudget = this.project.budget || 0;
-    var projectSpent = this.project.spent || 0;
+  getBudgetData: function(project) {
+    var projectBudget = project.budget || 0;
+    var projectSpent = project.spent || 0;
     var usedPercent = 0.0;
     var usedColor = 'green';
 
@@ -230,10 +153,10 @@ ProjectController.prototype = {
    *
    * @private
    */
-  _areAllServicesComplete: function() {
+  _areAllServicesComplete: function(project) {
 
     // This short circuits on the first non complete item.
-    var anyNotComplete = _.some(this.project.services, function(item, key) {
+    var anyNotComplete = _.some(project.services, function(item, key) {
       // @todo Who nows if this will be the final status.
       return item.provision_status !== 'Complete';
     });

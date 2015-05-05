@@ -18,9 +18,10 @@ RSpec.describe 'Projects API' do
     it 'returns a collection of all projects', :show_in_doc  do
       create :project_detail, project_id: @project.id
       create :project_detail, project_id: @project2.id
-      staff = create :staff
-      create :staff_project, staff_id: staff.id, project_id: @project.id
+      create(:staff).groups << Group.new(projects: [@project])
+
       get '/api/v1/projects'
+
       expect(json.length).to eq(2)
     end
 
@@ -49,20 +50,41 @@ RSpec.describe 'Projects API' do
   end
 
   describe 'POST create' do
-    before :each do
+    it 'creates a new project record for admin' do
       sign_in_as create :staff, :admin
-    end
-
-    it 'creates a new project record' do
       project_data = attributes_for(:project)
+
       post '/api/v1/projects', project_data
+
       expect(json['name']).to eq(project_data[:name])
     end
 
-    it 'creates a new project record w/ project answers', :show_in_doc do
+    it 'creates a new project record w/ project answers for admin', :show_in_doc do
+      sign_in_as create :staff, :admin
       project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
+
       post '/api/v1/projects', project_data.merge(includes: %w(project_answers))
+
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
+    end
+
+    it 'fails to create a new project without a group for staff' do
+      sign_in_as create(:staff, groups: [create(:group)])
+      project_data = attributes_for(:project, group_ids: [])
+
+      post '/api/v1/projects', project_data
+
+      expect(response.status).to eq(422)
+    end
+
+    it 'fails to create a new project without a group for staff' do
+      group = create(:group)
+      sign_in_as create(:staff, groups: [group])
+      project_data = attributes_for(:project, group_ids: [group.id])
+
+      post '/api/v1/projects', project_data
+
+      expect(response).to be_success
     end
   end
 

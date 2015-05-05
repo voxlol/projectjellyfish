@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423163922) do
+ActiveRecord::Schema.define(version: 20150505190455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,23 @@ ActiveRecord::Schema.define(version: 20150423163922) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "description"
+  end
+
+  create_table "groups_staff", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+    t.integer  "staff_id"
+  end
+
+  add_index "groups_staff", ["group_id"], name: "index_groups_staff_on_group_id", using: :btree
+  add_index "groups_staff", ["staff_id"], name: "index_groups_staff_on_staff_id", using: :btree
+
   create_table "logs", force: :cascade do |t|
     t.integer  "staff_id",   null: false
     t.integer  "level"
@@ -160,6 +177,16 @@ ActiveRecord::Schema.define(version: 20150423163922) do
   end
 
   add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
+
+  create_table "memberships", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+    t.integer  "project_id"
+  end
+
+  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
+  add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.text     "text"
@@ -186,9 +213,9 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.decimal  "setup_price",             precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",            precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",           precision: 10, scale: 4, default: 0.0
-    t.json     "payload_request"
-    t.json     "payload_acknowledgement"
-    t.json     "payload_response"
+    t.jsonb    "payload_request"
+    t.jsonb    "payload_acknowledgement"
+    t.jsonb    "payload_response"
     t.integer  "latest_alert_id"
     t.string   "status_msg"
   end
@@ -206,7 +233,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "options"
+    t.jsonb    "options"
     t.datetime "deleted_at"
     t.float    "total",           default: 0.0
   end
@@ -244,7 +271,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.decimal  "setup_price",                      precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",                     precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",                    precision: 10, scale: 4, default: 0.0
-    t.json     "provisioning_answers"
+    t.jsonb    "provisioning_answers"
     t.string   "product_type"
   end
 
@@ -286,7 +313,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "load_order"
-    t.json     "options"
+    t.jsonb    "options"
     t.integer  "field_type",             default: 0
   end
 
@@ -338,14 +365,6 @@ ActiveRecord::Schema.define(version: 20150423163922) do
   add_index "staff", ["deleted_at"], name: "index_staff_on_deleted_at", using: :btree
   add_index "staff", ["email"], name: "index_staff_on_email", unique: true, using: :btree
   add_index "staff", ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true, using: :btree
-
-  create_table "staff_projects", force: :cascade do |t|
-    t.integer "staff_id"
-    t.integer "project_id"
-  end
-
-  add_index "staff_projects", ["project_id"], name: "index_staff_projects_on_project_id", using: :btree
-  add_index "staff_projects", ["staff_id", "project_id"], name: "index_staff_projects_on_staff_id_and_project_id", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -404,4 +423,8 @@ ActiveRecord::Schema.define(version: 20150423163922) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "groups_staff", "groups", on_delete: :cascade
+  add_foreign_key "groups_staff", "staff", on_delete: :cascade
+  add_foreign_key "memberships", "groups", on_delete: :cascade
+  add_foreign_key "memberships", "projects", on_delete: :cascade
 end
