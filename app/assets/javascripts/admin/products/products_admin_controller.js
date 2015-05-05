@@ -46,7 +46,7 @@ ProductsAdminController.resolve = {
   },
   /**@ngInject*/
   categoriesByName: function(categories) {
-    return _.object(_.map(categories, function(x){return [x.title, x]}));
+    return _.object(_.map(categories, function(x){return [x.title, x];}));
   },
   /**@ngInject*/
   categoryNames: function(categories) {
@@ -56,7 +56,6 @@ ProductsAdminController.resolve = {
   clouds: function(CloudsResource) {
     return CloudsResource.query().$promise;
   }
-
 };
 
 window.ProductsAdminController = ProductsAdminController;
