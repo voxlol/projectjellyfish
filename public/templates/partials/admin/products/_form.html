@@ -33,8 +33,6 @@
     <div class="col-sm-6 control-input">
         <select id="productType" ng-options="type for type in productsAdminCtrl.categoryNames"
                 name="productType"
-                ng-click="productForm.buildForm(productsAdminCtrl.categoriesByName[productForm.product.product_type]
-                .properties);"
                 ng-model="productForm.product.product_type"
                 class="form-control" required></select>
 
@@ -44,6 +42,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="form-group" ng-class="{'has-error': productForm.hasError('productImg')}">
     <label class="col-sm-2 control-label">Icon:</label>

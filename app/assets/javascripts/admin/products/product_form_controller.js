@@ -5,11 +5,33 @@
  */
 
 /**@ngInject*/
-function ProductFormController($state, FlashesService) {
+function ProductFormController($scope, $rootScope, $state, FlashesService, ProductTypesResource) {
   var self = this;
 
   this.product = null;
   this.formSubmitted = false;
+  $scope.prodsByName = ProductTypesResource.query();
+
+
+  $scope.$watchCollection('productForm.product.product_type', function(productTypeSelected) {
+    angular.forEach($scope.prodsByName, function(item){
+      if(item.title == productTypeSelected){
+        self.formItems = [];
+        angular.forEach(item.properties, function (item, key) {
+          self.formItems.push({
+            type: "section",
+            htmlClass: "col-sm-6 customForm",
+            items: [{
+              key:key,
+              feedback: false,
+              disableSuccessState: true}]
+          });
+        });
+        self.schemaForm = self.formItems;
+        return false;
+      }
+    })
+  });
 
 
   this.buildForm = function (formData) {

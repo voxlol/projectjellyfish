@@ -36,7 +36,7 @@ function ProductsAdminController(categories, categoriesByName, categoryNames, cl
     'products/f5.png',
     'products/man.png',
     'products/woman.png',
-    'products/mean.png',
+    'products/mean.png'
   ];
 }
 
