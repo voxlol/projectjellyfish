@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423163922) do
+ActiveRecord::Schema.define(version: 20150505190455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,9 +213,9 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.decimal  "setup_price",             precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",            precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",           precision: 10, scale: 4, default: 0.0
-    t.json     "payload_request"
-    t.json     "payload_acknowledgement"
-    t.json     "payload_response"
+    t.jsonb    "payload_request"
+    t.jsonb    "payload_acknowledgement"
+    t.jsonb    "payload_response"
     t.integer  "latest_alert_id"
     t.string   "status_msg"
   end
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "options"
+    t.jsonb    "options"
     t.datetime "deleted_at"
     t.float    "total",           default: 0.0
   end
@@ -271,7 +271,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.decimal  "setup_price",                      precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",                     precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",                    precision: 10, scale: 4, default: 0.0
-    t.json     "provisioning_answers"
+    t.jsonb    "provisioning_answers"
     t.string   "product_type"
   end
 
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20150423163922) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "load_order"
-    t.json     "options"
+    t.jsonb    "options"
     t.integer  "field_type",             default: 0
   end
 

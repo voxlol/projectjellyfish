@@ -17,9 +17,9 @@
 #  setup_price             :decimal(10, 4)   default(0.0)
 #  hourly_price            :decimal(10, 4)   default(0.0)
 #  monthly_price           :decimal(10, 4)   default(0.0)
-#  payload_request         :json
-#  payload_acknowledgement :json
-#  payload_response        :json
+#  payload_request         :jsonb
+#  payload_acknowledgement :jsonb
+#  payload_response        :jsonb
 #  latest_alert_id         :integer
 #  status_msg              :string
 #

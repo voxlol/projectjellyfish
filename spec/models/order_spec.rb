@@ -8,7 +8,7 @@
 #  active          :boolean
 #  created_at      :datetime
 #  updated_at      :datetime
-#  options         :json
+#  options         :jsonb
 #  deleted_at      :datetime
 #  total           :float            default(0.0)
 #

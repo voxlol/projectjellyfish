@@ -13,7 +13,7 @@
 #  setup_price          :decimal(10, 4)   default(0.0)
 #  hourly_price         :decimal(10, 4)   default(0.0)
 #  monthly_price        :decimal(10, 4)   default(0.0)
-#  provisioning_answers :json
+#  provisioning_answers :jsonb
 #  product_type         :string
 #
 # Indexes
