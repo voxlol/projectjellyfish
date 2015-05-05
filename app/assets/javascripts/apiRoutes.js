@@ -31,7 +31,8 @@ window.apiRoutes = {
     "currentMember":     "/staff/current_member",
     "services":           "/services",
     "serviceAll":         "/services/all_count",
-    "serviceProject":     "/services/project_count"
+    "serviceProject":     "/services/project_count",
+    "serviceOrderProfiles":     "/services/order_profiles"
 
   }
 };
