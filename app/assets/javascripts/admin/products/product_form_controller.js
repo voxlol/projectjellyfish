@@ -13,15 +13,15 @@ function ProductFormController($scope, $state,
   $scope.prodsByName = ProductTypesResource.query();
 
 
-  $scope.$watchCollection("productForm.product.product_type",
+  $scope.$watchCollection('productForm.product.product_type',
     function(productTypeSelected) {
     angular.forEach($scope.prodsByName, function(item){
       if(item.title == productTypeSelected){
         self.formItems = [];
         angular.forEach(item.properties, function (item, key) {
           self.formItems.push({
-            type: "section",
-            htmlClass: "col-sm-6 customForm",
+            type: 'section',
+            htmlClass: 'col-sm-6 customForm',
             items: [{
               key:key,
               feedback: false,
@@ -39,8 +39,8 @@ function ProductFormController($scope, $state,
     self.formItems = [];
     angular.forEach(formData, function (item, key) {
       self.formItems.push({
-        type: "section",
-        htmlClass: "col-sm-6 customForm",
+        type: 'section',
+        htmlClass: 'col-sm-6 customForm',
         items: [{
           key:key,
           feedback: false,
@@ -52,7 +52,7 @@ function ProductFormController($scope, $state,
     return false;
   };
 
-  this.priceRlmegex = "\\d{1,6}(\\.\\d{1,4})?";
+  this.priceRlmegex = '\\d{1,6}(\\.\\d{1,4})?';
 
   this.initForm = function (parent) {
     angular.extend(this, parent);
@@ -61,10 +61,10 @@ function ProductFormController($scope, $state,
   this.onSuccess = function (message) {
     FlashesService.add({
       timeout: true,
-      type: "success",
-      message: message || "Product: Operation completed successfully!"
+      type: 'success',
+      message: message || 'Product: Operation completed successfully!'
     });
-    $state.go("base.authed.admin.products.list");
+    $state.go('base.authed.admin.products.list');
 
     return false;
   };
@@ -72,8 +72,8 @@ function ProductFormController($scope, $state,
   this.onFailure = function (message) {
     FlashesService.add({
       timeout: true,
-      type: "error",
-      message: message || "Product: Operation failed to complete. You may want to try again later."
+      type: 'error',
+      message: message || 'Product: Operation failed to complete. You may want to try again later.'
     });
   };
 
@@ -84,9 +84,9 @@ function ProductFormController($scope, $state,
     }
 
     self.product.$save(function () {
-      self.onSuccess("Product was successfully added.");
+      self.onSuccess('Product was successfully added.');
     }, function () {
-      self.onFailure("There was a problem saving the product. You may want to try again later.");
+      self.onFailure('There was a problem saving the product. You may want to try again later.');
     });
   };
 
@@ -100,9 +100,9 @@ function ProductFormController($scope, $state,
     self.product.description = String(self.product.description);
 
     self.product.$update(function () {
-      self.onSuccess("Product was successfully updated.");
+      self.onSuccess('Product was successfully updated.');
     }, function () {
-      self.onFailure("There was a problem editing the product. You may want to try again later.");
+      self.onFailure('There was a problem editing the product. You may want to try again later.');
     });
   };
 
@@ -110,9 +110,9 @@ function ProductFormController($scope, $state,
     self.formSubmitted = true;
 
     self.product.$delete(function () {
-      self.onSuccess("Product was successfully deleted.");
+      self.onSuccess('Product was successfully deleted.');
     }, function () {
-      self.onFailure("There was a problem deleting the product. You may want to try again later.");
+      self.onFailure('There was a problem deleting the product. You may want to try again later.');
     });
   };
 
