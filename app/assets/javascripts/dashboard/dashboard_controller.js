@@ -1,9 +1,11 @@
 /**@ngInject*/
 function DashboardController($scope, serviceAllCount,
-                             serviceProjectCount, projectList) {
+                             serviceProjectCount, projectList,
+                             orderProfiles) {
   "use strict";
 
   this.projectList = projectList;
+  this.orderProfiles = orderProfiles;
   $scope.budgetCharts = [];
 
   angular.forEach(projectList, function (value) {
@@ -73,8 +75,6 @@ function DashboardController($scope, serviceAllCount,
         },
         tooltips: true,
         tooltipContent: function (key, x, y) {
-
-          //         var total = e.point.y+e.point.y0+e.point.y1;
           return "<h3>" + key + "</h3>" +
             "<p>$" + y + " on " + x + "</p>";
 
@@ -1254,20 +1254,12 @@ function DashboardController($scope, serviceAllCount,
         },
         showLabels: false,
         transitionDuration: 500,
-        labelThreshold: 0.01,
-        legend: {
-          margin: {
-            top: 20,
-            right: 35,
-            bottom: 5,
-            left: 0
-          }
-        }
+        labelThreshold: 0.01
       },
       title: {
         enable: true,
         text: "Cumulative Service Allocation",
-        class: "h3",
+        class: "h4",
         css: {width: "nullpx", textAlign: "center"}
       }
     },
@@ -1313,68 +1305,50 @@ function DashboardController($scope, serviceAllCount,
   }, {
     options: {
       chart: {
-        type: "discreteBarChart",
+        type: "lineChart",
         height: 350,
         margin: {
           top: 20,
           right: 20,
-          bottom: 60,
+          bottom: 40,
           left: 55
         },
         x: function (d) {
-          return d.key;
+          return d[0];
         },
         y: function (d) {
-          return d.value;
+          return d[1];
         },
-        showValues: true,
-        valueFormat: function (d) {
-          return d;
+        color: d3.scale.category10().range(),
+        transitionDuration: 300,
+        interactiveLayer: {
+          tooltip: true,
+          showGuideLine: true
         },
-        transitionDuration: 500,
-        xAxis: {
-          axisLabel: "Week"
-        },
+        useInteractiveGuideline: true,
         yAxis: {
-          axisLabel: "Volume",
+          axisLabel: "Number of Orders",
+          tickFormat: function (d) {
+            return d3.format(",.1f")(d);
+          },
           axisLabelDistance: 30
-        }
+        },
+        xAxis: {
+          axisLabel: "Order Date - Time",
+          tickFormat: function (d) {
+            return d3.time.format("%m/%d/%y - %H%M")(new Date(d));
+          },
+          axisLabelDistance: 30
+        },
+        noData: "You do not have permission to view this data presently."
       },
       title: {
         enable: true,
-        text: "*NOTIONAL* Order Frequency Insight",
-        class: "h3",
-        css: {width: "nullpx", textAlign: "center"}
+        text: "Order Volume Insight",
+        class: "h4"
       }
     },
-    data: [{
-      key: "Cumulative Return",
-      values: [{
-        key: 1,
-        value: -29.765957771107
-      }, {
-        key: 2,
-        value: 0
-      }, {
-        key: 3,
-        value: 32.807804682612
-      }, {
-        key: 4,
-        value: 196.45946739256
-      }, {
-        key: 5,
-        value: 0.19434030906893
-      }, {
-        key: 6,
-        value: -98.079782601442
-      }, {
-        key: 7,
-        value: -13.925743130903
-      }, {
-        key: 8,
-        value: -5.1387322875705
-      }]
-    }]
+    data: []
   }
   ];
 
@@ -1386,6 +1360,11 @@ function DashboardController($scope, serviceAllCount,
       case "multiBarChart":
         if (value.options.title.text == "Service Allocation by Project") {
           value.data = serviceProjectCount;
+        }
+        break;
+      case "lineChart":
+        if (value.options.title.text == "Order Volume Insight") {
+          value.data = orderProfiles;
         }
         break;
     }
@@ -1412,6 +1391,10 @@ DashboardController.resolve = {
   /**@ngInject*/
   projectList: function (ProjectsResource) {
     return ProjectsResource.query().$promise;
+  },
+  /**@ngInject*/
+  orderProfiles: function (ServiceOrderProfilesResource) {
+    return ServiceOrderProfilesResource.query().$promise;
   }
 };
 
