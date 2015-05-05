@@ -1,11 +1,11 @@
-'use strict';
-
 /**
  * @todo This mirrors the admin_user_form_controller.js file in a lot of regards, could be abstracted.
  */
 
 /**@ngInject*/
-function ProductFormController($scope, $rootScope, $state, FlashesService, ProductTypesResource) {
+function ProductFormController($scope, $state,
+                               FlashesService, ProductTypesResource) {
+  'use strict';
   var self = this;
 
   this.product = null;
@@ -13,7 +13,8 @@ function ProductFormController($scope, $rootScope, $state, FlashesService, Produ
   $scope.prodsByName = ProductTypesResource.query();
 
 
-  $scope.$watchCollection('productForm.product.product_type', function(productTypeSelected) {
+  $scope.$watchCollection("productForm.product.product_type",
+    function(productTypeSelected) {
     angular.forEach($scope.prodsByName, function(item){
       if(item.title == productTypeSelected){
         self.formItems = [];
@@ -30,7 +31,7 @@ function ProductFormController($scope, $rootScope, $state, FlashesService, Produ
         self.schemaForm = self.formItems;
         return false;
       }
-    })
+    });
   });
 
 
