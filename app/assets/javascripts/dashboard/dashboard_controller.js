@@ -1305,7 +1305,7 @@ function DashboardController($scope, serviceAllCount,
   }, {
     options: {
       chart: {
-        type: 'lineChart',
+        type: "lineChart",
         height: 350,
         margin: {
           top: 20,
@@ -1336,7 +1336,7 @@ function DashboardController($scope, serviceAllCount,
         xAxis: {
           axisLabel: "Order Date - Time",
           tickFormat: function (d) {
-            return d3.time.format("%m/%d/%y - %H%M")(new Date(d))
+            return d3.time.format("%m/%d/%y - %H%M")(new Date(d));
           },
           axisLabelDistance: 30
         },
