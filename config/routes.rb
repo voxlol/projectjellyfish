@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     # User Setting Options Routes
     resources :user_setting_options, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :api_tokens, defaults: { format: :json }
 
     # Approvals
     resources :staff, only: [:index]

@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20150508193045) do
   add_index "alerts", ["order_item_id"], name: "index_order_item_id", using: :btree
   add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
 
+  create_table "api_tokens", force: :cascade do |t|
+    t.integer  "staff_id"
+    t.string   "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "api_tokens", ["staff_id"], name: "index_api_tokens_on_staff_id", using: :btree
+
   create_table "approvals", force: :cascade do |t|
     t.integer  "staff_id"
     t.integer  "project_id"
@@ -430,6 +439,7 @@ ActiveRecord::Schema.define(version: 20150508193045) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "api_tokens", "staff"
   add_foreign_key "groups_staff", "groups", on_delete: :cascade
   add_foreign_key "groups_staff", "staff", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
