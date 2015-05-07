@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505190455) do
+ActiveRecord::Schema.define(version: 20150507151552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20150505190455) do
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
+    t.integer  "role_id"
   end
 
   create_table "groups_staff", force: :cascade do |t|
@@ -339,6 +340,12 @@ ActiveRecord::Schema.define(version: 20150505190455) do
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.text   "description"
+    t.jsonb  "permissions"
+  end
 
   create_table "staff", force: :cascade do |t|
     t.string   "first_name",             limit: 255

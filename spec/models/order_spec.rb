@@ -43,15 +43,17 @@ describe Order do
       project_two = create(:project, id: 2, budget: 100, spent: 0)
       order_items = [
         build(:order_item,
-              project: project_one,
-              setup_price: setup_price,
-              hourly_price: 0,
-              monthly_price: 0),
+          project: project_one,
+          setup_price: setup_price,
+          hourly_price: 0,
+          monthly_price: 0
+        ),
         build(:order_item,
-              project: project_two,
-              setup_price: setup_price,
-              hourly_price: 0,
-              monthly_price: 0)
+          project: project_two,
+          setup_price: setup_price,
+          hourly_price: 0,
+          monthly_price: 0
+       )
       ]
       create(:order, order_items: order_items, staff_id: staff.id)
     end
