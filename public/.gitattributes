@@ -1,3 +1,3 @@
-[merge "keepMine"]
-        name = always keep mine during merge
-        driver = keepMine.sh %O %A %B1
+[merge "keepLocal"]
+        name = "always preserve local during merge"
+        driver = keepLocal.sh %O %A %B1
