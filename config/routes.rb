@@ -92,15 +92,15 @@ Rails.application.routes.draw do
     get 'services/:tag' => 'services#show', as: :services_show
 
     # Project Routes
-    resources :projects, defaults: { format: :json }, except: [:edit, :new]
-    post 'projects/:project_id/groups' => 'affiliations#create', as: :affiliations
-    delete 'projects/:project_id/groups/:group_id' => 'affiliations#destroy', as: :affiliation
-    get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
-    post 'projects/:project_id/staff/:id' => 'project_staff#create', as: :project_staff
-    delete 'projects/:project_id/staff/:id' => 'project_staff#destroy'
-    get 'projects/:project_id/approvals' => 'project_approvals#index', as: :project_approvals
-    post 'projects/:project_id/approve' => 'project_approvals#update', as: :approve_project
-    delete 'projects/:project_id/reject' => 'project_approvals#destroy', as: :reject_project
+    scope 'projects/:project_id' do
+      post 'groups' => 'affiliations#create', as: :affiliations
+      delete 'groups/:group_id' => 'affiliations#destroy', as: :affiliation
+
+      get 'approvals' => 'project_approvals#index', as: :project_approvals
+      post 'approve' => 'project_approvals#update', as: :approve_project
+      delete 'reject' => 'project_approvals#destroy', as: :reject_project
+    end
+    resources :projects
 
     # ProjectQuestion Routes
     resources :project_questions
