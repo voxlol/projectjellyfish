@@ -5,25 +5,9 @@ describe ProjectPolicy do
     it 'allows access for a user' do
       expect(subject).to permit(build_stubbed(:staff))
     end
+
     it 'allows access for an admin' do
       expect(subject).to permit(build_stubbed(:staff, :admin))
-    end
-  end
-
-  permissions :show? do
-    it 'prevents unassociated users from viewing projects' do
-      expect(subject).not_to permit(build_stubbed(:staff), build_stubbed(:project))
-    end
-
-    it 'allows you to see your projects' do
-      staff = create(:staff)
-      project = create(:project)
-      staff.groups.create(projects: [project])
-
-      expect(subject).to permit(staff, staff.projects.first)
-    end
-    it 'allows an admin to see any project' do
-      expect(subject).to permit(build_stubbed(:staff, :admin), build_stubbed(:project))
     end
   end
 
@@ -44,37 +28,31 @@ describe ProjectPolicy do
     end
   end
 
-  permissions :update? do
-    it 'prevents updates if not an associated user' do
-      expect(subject).not_to permit(build_stubbed(:staff), build_stubbed(:project))
-    end
+  %i(show? edit? update? destroy?).each do |permission|
+    permissions(permission) do
+      it 'prevents unassociated users from viewing projects' do
+        expect(subject).not_to permit(build_stubbed(:staff), build_stubbed(:project))
+      end
 
-    it 'allows you to update your projects' do
-      staff = create(:staff)
-      project = create(:project)
-      staff.groups.create(projects: [project])
+      it 'allows you to read projects if one of your group’s roles has the permission' do
+        staff = create(:staff)
+        project = create(:project)
+        staff.groups.create!(projects: [project], role: create(:role))
 
-      expect(subject).to permit(staff, staff.projects.first)
-    end
+        expect(subject).to permit(staff, project)
+      end
 
-    it 'allows an admin to make updates' do
-      expect(subject).to permit(build_stubbed(:staff, :admin), build_stubbed(:project))
-    end
-  end
+      it 'disallows on related project with insufficient permissions' do
+        staff = create(:staff)
+        project = create(:project)
+        staff.groups.create!(projects: [project], role: create(:role, permissions: {}))
 
-  permissions :destroy? do
-    it 'prevents an unassociated user from deleting a project' do
-      expect(subject).not_to permit(build_stubbed(:staff), build_stubbed(:project))
-    end
-    it 'allows you to delete your projects' do
-      staff = create(:staff)
-      project = create(:project)
-      staff.groups.create(projects: [project])
+        expect(subject).not_to permit(staff, project)
+      end
 
-      expect(subject).to permit(staff, staff.projects.first)
-    end
-    it 'allows an admin to delete any project' do
-      expect(subject).to permit(build_stubbed(:staff, :admin), build_stubbed(:project))
+      it 'allows an admin to see any project' do
+        expect(subject).to permit(build_stubbed(:staff, :admin), build_stubbed(:project))
+      end
     end
   end
 end

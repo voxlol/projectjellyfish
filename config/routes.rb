@@ -93,8 +93,8 @@ Rails.application.routes.draw do
 
     # Project Routes
     scope 'projects/:project_id' do
-      post 'groups' => 'affiliations#create', as: :affiliations
-      delete 'groups/:group_id' => 'affiliations#destroy', as: :affiliation
+      post 'groups' => 'memberships#create', as: :memberships
+      delete 'groups/:group_id' => 'memberships#destroy', as: :membership
 
       get 'approvals' => 'project_approvals#index', as: :project_approvals
       post 'approve' => 'project_approvals#update', as: :approve_project
