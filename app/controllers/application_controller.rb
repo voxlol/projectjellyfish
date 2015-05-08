@@ -26,6 +26,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?, only: [:create, :acs]
+  before_action :require_user
+
+  def require_user
+    head :unauthorized unless user_signed_in?
+  end
 
   def current_user
     current_staff

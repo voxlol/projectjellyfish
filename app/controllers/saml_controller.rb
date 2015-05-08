@@ -1,5 +1,6 @@
 class SamlController < ApplicationController
   before_action :saml_enabled?
+  skip_before_action :require_user, only: :init
 
   def init
     respond_to do |format|

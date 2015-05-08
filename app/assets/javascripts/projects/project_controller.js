@@ -37,7 +37,7 @@ ProjectController.resolve = {
   project: function(ProjectsResource, $stateParams) {
     return ProjectsResource.get({
       id: $stateParams.projectId,
-      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups']
+      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;
   },
   /**@ngInject*/

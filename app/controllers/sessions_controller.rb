@@ -1,6 +1,7 @@
 class SessionsController < Devise::SessionsController
   respond_to :json, :html
 
+  skip_before_action :require_user
   skip_before_action :verify_signed_out_user, only: :destroy
   before_action :pre_hook
   after_action :post_hook
