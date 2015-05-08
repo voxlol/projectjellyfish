@@ -1,0 +1,3 @@
+[merge "keepLocal"]
+        name = always Local mine during merge
+        driver = keepLocal.sh %O %A %B1
