@@ -299,7 +299,7 @@ module.exports = (function() {
     ],
     browserSyncOptions: {
       proxy: 'localhost:' + (process.env.PORT || '8001'),
-      port: 3000,
+      port: 3001,
       files: [],
       ghostMode: {
         clicks: true,
