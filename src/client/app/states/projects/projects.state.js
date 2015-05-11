@@ -14,8 +14,10 @@
   function getStates() {
     return {
       'projects': {
-        abstract: true,
         url: '/projects',
+        templateUrl: 'app/states/projects/projects.html',
+        controller: ProjectsController,
+        controllerAs: 'vm',
         title: 'Projects'
       }
     };
@@ -28,11 +30,32 @@
   function sidebarItems() {
     return {
       'projects': {
-        type: 'dropdown',
+        type: 'state',
+        state: 'projects',
         label: 'My Projects',
         style: 'projects',
         order: 1
       }
     };
+  }
+
+
+  /* @ngInject */
+  function ProjectsController(logger) {
+    /* jshint validthis: true */
+    var vm = this;
+
+    vm.activate = activate;
+    vm.title = 'Projects';
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+      logger.info('Activated Project View');
+    }
+
+
   }
 })();

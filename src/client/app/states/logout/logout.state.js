@@ -30,7 +30,7 @@
     return {
       'logout': {
         type: 'state',
-        state: 'logout',
+        state: 'login',
         label: 'Logout',
         style: 'logout',
         isVisible: isVisible,
@@ -56,7 +56,7 @@
     activate();
 
     function activate() {
-      logger.info('Activated Logout View');
+      logger.info('You have been logged out.');
     }
   }
 })();

@@ -14,8 +14,10 @@
   function getStates() {
     return {
       'order-history': {
-        abstract: true,
         url: '/order-history',
+        templateUrl: 'app/states/order-history/order-history.html',
+        controller: OrderHistoryController,
+        controllerAs: 'vm',
         title: 'Order History'
       }
     };
@@ -35,5 +37,18 @@
         order: 2
       }
     };
+  }
+
+  /** @ngInject */
+  function OrderHistoryController(logger) {
+    var vm = this;
+
+    vm.title = 'Order History';
+
+    activate();
+
+    function activate() {
+      logger.info('Activated Order History View');
+    }
   }
 })();

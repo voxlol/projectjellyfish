@@ -4,16 +4,13 @@
     </a>
   </div>
 
-
-
-
 <div class="login__window">
    <div class="login__title">
     LOGIN
   </div>
 
-  <form ng-submit="loginCtrl.login()">
-    <div class="error" ng-show="loginCtrl.hasFailedLogin()">
+  <form ng-submit="vm.login()">
+    <div class="error" ng-show="vm.hasFailedLogin()">
       <i class="fa fa-exclamation-triangle"></i>
       Invalid Email or Password.
     </div>
@@ -23,9 +20,9 @@
         <col>
       </colgroup>
       <tbody>
-      <tr ng-show="loginCtrl.ssoUrl">
+      <tr ng-show="vm.ssoUrl">
         <td colspan="2" class="text-center">
-          <a class="btn btn-primary btn-lg" ng-click="loginCtrl.login(loginCtrl.ssoUrl)">
+          <a class="btn btn-primary btn-lg" ng-click="vm.login(vm.ssoUrl)">
             <i class="fa fa-key fa-fw"></i>
             Log in with Single Sign-On
           </a>

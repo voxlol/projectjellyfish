@@ -61,7 +61,7 @@
 
       function init() {
         // Route cancellation:
-        // On routing error, go to the dashboard.
+        // On routing error, go to the login page.
         // Provide an exit clause if it tries to do it twice.
         $rootScope.$on('$stateChangeError', handleRoutingErrors);
         $rootScope.$on('$stateChangeSuccess', updateTitle);
@@ -91,7 +91,7 @@
           + (error.data || '') + '. <br/>' + (error.statusText || '')
           + ': ' + (error.status || '');
         logger.warning(msg, [toState]);
-        $location.path('/');
+        $location.path('/login');
       }
 
       function updateTitle(event, toState) {

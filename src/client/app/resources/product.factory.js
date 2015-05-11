@@ -6,7 +6,7 @@
 
   /** @ngInject */
   function ProductFactory($resource) {
-    var Product = $resource('/api/products/:id', {id: '@id'}, {
+    var Product = $resource('/api/v1/products/:id', {id: '@id'}, {
       update: {method: 'PUT'}
     });
 
