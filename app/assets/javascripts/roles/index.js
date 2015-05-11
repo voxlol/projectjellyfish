@@ -3,7 +3,7 @@
 
 var RolesModule = angular.module('broker.roles', [])
     .factory('RolesResource', RolesResource)
-    .directive('groupsBox', RolesBoxDirective)
+    .directive('rolesBox', RolesBoxDirective)
     .controller('RolesController', RolesController)
     .config(
     /**@ngInject*/
