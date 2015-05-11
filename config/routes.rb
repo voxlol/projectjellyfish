@@ -137,6 +137,7 @@ Rails.application.routes.draw do
     patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
     resources :groups
+    resources :roles, only: [:index, :create, :update, :destroy]
   end
 
   root 'welcome#index'
