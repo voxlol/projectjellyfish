@@ -32,7 +32,12 @@ sudo yum install ntp
 
 Please install PostgreSQL (9.4+) via [PostgreSQL's directions on their website](https://wiki.postgresql.org/wiki/YUM_Installation)
 
-Note: You will need to install postgresql-server and postgresql-devel and postgresql94-contrib
+Note: You will need to install 
+````
+postgresql94-server
+postgresql94-devel
+postgresql94-contrib
+````
 
 #### Start the PostgreSQL server, and start on boot
 
@@ -64,7 +69,7 @@ template1=# CREATE USER jellyfish WITH PASSWORD 'myPassword';
 ##### Grant SUPERUSER to jellyfish user
 
 ````
-template1=# ALTER USER myuser WITH SUPERUSER;
+template1=# ALTER USER jellyfish WITH SUPERUSER;
 ````
 
 ##### Create the database for jellyfish to use
@@ -78,6 +83,12 @@ template1=# CREATE DATABASE jellyfish_production;
 template1=# GRANT ALL PRIVILEGES ON DATABASE jellyfish_production to jellyfish;
 ````
 
+##### Quit psql
+
+````
+\q
+````
+
 ##### Exit out of the Postgres user
 
 ````
@@ -85,6 +96,10 @@ exit
 ````
 
 ##### Edit /var/lib/pgsql/9.4/data/pg_hba.conf
+
+````
+sudo vi /var/lib/pgsql/9.4/data/pg_hba.conf
+````
 
 Change the following (change 'ident' to 'md5'):
 
@@ -119,7 +134,7 @@ Install rbenv as per the [rbenv install guide](https://github.com/sstephenson/rb
 
 #### Install rbenv-build
 
-Install rbenv-build as per the [rbenv-build install guide](https://github.com/sstephenson/rbenv-build)
+Install ruby-build as per the [ruby-build install guide](https://github.com/sstephenson/ruby-build)
 
 #### Check out the latest code
 
@@ -153,12 +168,13 @@ gem install pg -v '0.17.1' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 
 ````
 cd /home/jellyfish/api
-bundle install --without development:test
+bundle install
 ````
 
-#### Create Enviroment Variables
+#### Create Environment Variables
 
-Setup the environment variables
+Setup the environment variables.  You can use either the .env.sample file OR use "real" environment variables.  It is
+*highly* recommended that you use "real" environment variables in a production environment.
 
 ````
 echo 'export DATABASE_URL=postgres://jellyfish:myPassword@localhost:5432/jellyfish_production' >> ~/.bash_profile
