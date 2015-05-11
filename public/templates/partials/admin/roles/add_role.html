@@ -1,22 +1,22 @@
-<div class="groups-list-page">
-  <section-header name="Add Group">
-    <form name="adminGroupFormCtrl.form" class="form-horizontal group-form" role="form"
-          ng-controller="AdminGroupFormController as adminGroupFormCtrl"
-          ng-init="adminGroupFormCtrl.initForm(adminAddGroupCtrl)"
-          ng-submit="adminGroupFormCtrl.create()"
+<div class="roles-list-page">
+  <section-header name="Add Role">
+    <form name="adminRoleFormCtrl.form" class="form-horizontal role-form" role="form"
+          ng-controller="AdminRoleFormController as adminRoleFormCtrl"
+          ng-init="adminRoleFormCtrl.initForm(adminAddRoleCtrl)"
+          ng-submit="adminRoleFormCtrl.create()"
           novalidate>
       <div class="row">
         <div class="col-sm-6">
-          <a ui-sref="base.authed.admin.groups.list" class="btn btn-link">
+          <a ui-sref="base.authed.admin.roles.list" class="btn btn-link">
             <i class="fa fa-long-arrow-left"></i>
-            Back to Admin Groups
+            Back to Admin Roles
           </a>
         </div>
       </div>
 
-      <div ng-include src="'/templates/partials/admin/groups/_form.html'"></div>
+      <div ng-include src="'/templates/partials/adminRoles/_form.html'"></div>
       <div class="col-sm-6">
-        <button type="submit" class="btn btn-primary" ng-disabled="!adminGroupFormCtrl.canSubmit()">CREATE NEW GROUP
+        <button type="submit" class="btn btn-primary" ng-disabled="!adminRoleFormCtrl.canSubmit()">CREATE NEW ROLE
         </button>
       </div>
     </form>

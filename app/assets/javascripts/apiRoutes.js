@@ -14,6 +14,8 @@ window.apiRoutes = {
 
     "projectGroups":     "/projects/:projectId/groups",
     "projectGroupById":  "/projects/:projectId/groups/:groupId",
+    "projectRoles":      "/projects/:projectId/roles",
+    "projectRoleById":   "/projects/:projectId/roles/:roleId",
     "projectsById":      "/projects/:id",
     "projectQuestions":  "/project_questions/:id",
     "servicesById":      "/services/:id",
@@ -37,5 +39,8 @@ window.apiRoutes = {
 
     "groups":            "/groups",
     "groupsById":        "/groups/:id",
+
+    "roles":             "/roles",
+    "rolesById":         "/roles/:id"
   }
 };

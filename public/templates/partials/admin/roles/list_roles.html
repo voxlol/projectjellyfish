@@ -1,18 +1,18 @@
-<div class="groups-list-page">
+<div class="roles-list-page">
 
-  <section-header name="Groups">
-    <groups-box class="product-box" ng-repeat="group in listGroupsCtrl.groups" group="group">
-      <a type="button" class="btn btn-primary" ui-sref="base.authed.admin.groups.edit({id: group.id})">Edit</a>
-    </groups-box>
+  <section-header name="Roles">
+    <roles-box class="product-box" ng-repeat="role in listRolesCtrl.groups" group="role">
+      <a type="button" class="btn btn-primary" ui-sref="base.authed.admin.roles.edit({id: role.id})">Edit</a>
+    </roles-box>
 
     <div class="add-box">
       <div class="product-box-shadow">
-        <a ui-sref="base.authed.admin.groups.add">
+        <a ui-sref="base.authed.admin.roles.add">
           <div class="fa-stack">
             <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
             <i class="fa fa-fw fa-stack-1x fa-plus"></i>
           </div>
-          <div class="title">Add New Group</div>
+          <div class="title">Add New Role</div>
         </a>
       </div>
     </div>
