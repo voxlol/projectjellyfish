@@ -3,7 +3,7 @@
 
   var config = {
     appErrorPrefix: '[Jellyfish] ',
-    appTitle: 'Jellyfish UX Prototype'
+    appTitle: 'Jellyfish'
   };
 
   angular.module('app.core')

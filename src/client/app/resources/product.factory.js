@@ -5,8 +5,8 @@
     .factory('Product', ProductFactory);
 
   /** @ngInject */
-  function ProductFactory($resource) {
-    var Product = $resource('/api/v1/products/:id', {id: '@id'}, {
+  function ProductFactory($resource, ApiService) {
+    var Product = $resource(ApiService.routeResolve('productsById'), {id: '@id'}, {
       update: {method: 'PUT'}
     });
 
