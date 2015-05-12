@@ -110,7 +110,7 @@
     <div class="project-services" ng-show="project.approval == 'approved'">
       <section-header name="{{'Services (' + project.services.length + ')'}}">
         <product-box class="product-box" ng-repeat="service in project.services"
-                     product="projectCtrl.productFromService(service)">
+                     product="projectCtrl.getServiceWithProduct(service)">
           <a type="button" class="btn btn-primary" ui-sref="base.authed.service({order_id: service.order_id, id: service.id})">View
             More</a>
           <a type="button" class="btn btn-danger"
