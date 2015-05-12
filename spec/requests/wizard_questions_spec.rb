@@ -51,7 +51,7 @@ describe 'WizardQuestions API' do
     it 'creates a wizard question' do
       sign_in_as create :staff, :admin
 
-      post '/api/v1/wizard_questions', wizard_question: { text: 'Test question?' }
+      post '/api/v1/wizard_questions', text: 'Test question?'
 
       last_wizard_question = WizardQuestion.last
       expect(last_wizard_question.text).to eq('Test question?')

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :wizard_questions, only: [:show, :create] do
+    resources :wizard_questions, only: [:show, :create, :index] do
       collection do
         get :first
       end
@@ -163,6 +163,7 @@ Rails.application.routes.draw do
     show
     terribly-sorry-about-that
     users
+    wizard
   ).each do |path|
     get "/#{path}" => 'welcome#index'
     get "/#{path}/*path" => 'welcome#index'

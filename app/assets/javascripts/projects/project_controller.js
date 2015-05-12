@@ -1,10 +1,14 @@
 'use strict';
 
 /**@ngInject*/
-function ProjectController($scope, $interval, $state, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
+function ProjectController($scope, $interval, $state, project, OrderItemsResource, alerts, products, FlashesService, WizardQuestionsResource, currentUser) {
 
   $scope.intervalDelay = 30000;
   $scope.$interval = $interval;
+  WizardQuestionsResource.query()
+    .$promise.then(function(questions) {
+      $scope.wizardPresent = questions.length > 0
+    });
 
   $scope.project = project;
   this.reason = null; // The reason this project has been rejected.

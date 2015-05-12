@@ -127,6 +127,17 @@
             </a>
           </div>
         </div>
+        <div ng-if="wizardPresent" class="add-box">
+          <div class="product-box-shadow">
+            <a ui-sref="base.authed.wizard({projectId: project.id})">
+              <div class="fa-stack">
+                <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
+                <i class="fa fa-fw fa-stack-1x fa-plus"></i>
+              </div>
+              <div class="title">Use Wizard to find services</div>
+            </a>
+          </div>
+        </div>
       </section-header>
     </div>
 

@@ -61,10 +61,11 @@ var ProjectsModule = angular.module('broker.projects', [])
             })
             // Add Service to Project
             .state('base.authed.project.addService', {
-                url: "^/project/:projectId/add-service",
+                url: "^/project/:projectId/add-service?tags",
                 templateUrl: '/templates/partials/projects/add_services.html',
                 controller: 'ProjectServicesController as projectServicesCtrl',
-                resolve: ProjectServicesData
+                resolve: ProjectServicesData,
+                params: { tags: { array: 'true' } },
             });
     }
 );

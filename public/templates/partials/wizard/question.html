@@ -1,0 +1,16 @@
+<h1>{{vm.question.text}}</h1>
+<multiple-choice
+  options="vm.question.wizard_answers"
+  model="vm.answer"
+  action="vm.nextQuestion"
+></multiple-choice>
+<a
+  ng-if="vm.noMoreQuestions"
+  ui-sref="base.authed.project.addService({projectId: vm.projectId, tags: vm.tags})"
+>
+  View filtered products
+</a>
+
+<p>Tags: {{vm.tags}}
+
+<button ng-click="vm.resetWizard()">Reset Wizard</button>
