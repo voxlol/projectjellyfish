@@ -3,11 +3,14 @@
 
 var AdminData = AdminController.resolve;
 
-var AdminModule = angular.module(
-    'broker.admin',
-    ['broker.admin.products', 'broker.admin.projects', 'broker.admin.users', 'broker.admin.groups', 'broker.admin.settings']
-    )
-  .controller('AdminController', AdminController)
+var AdminModule = angular.module( 'broker.admin', [
+   'broker.admin.products',
+   'broker.admin.projects',
+   'broker.admin.users',
+   'broker.admin.groups',
+   'broker.admin.roles',
+   'broker.admin.settings'
+]).controller('AdminController', AdminController)
   .config(function($stateProvider, USER_ROLES) {
     $stateProvider
       .state('base.authed.admin', {
