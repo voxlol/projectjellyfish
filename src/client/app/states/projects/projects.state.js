@@ -39,7 +39,6 @@
     };
   }
 
-
   /* @ngInject */
   function ProjectsController(logger) {
     /* jshint validthis: true */
@@ -50,12 +49,8 @@
 
     activate();
 
-    ////////////////
-
     function activate() {
       logger.info('Activated Project View');
     }
-
-
   }
 })();

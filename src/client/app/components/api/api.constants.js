@@ -42,6 +42,5 @@
         'groups':            '/groups',
         'groupsById':        '/groups/:id'
       }
-    })
-
+    });
 })();

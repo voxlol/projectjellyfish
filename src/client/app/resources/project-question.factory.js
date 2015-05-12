@@ -5,8 +5,8 @@
     .factory('ProjectQuestion', ProjectQuestionFactory);
 
   /** @ngInject */
-  function ProjectQuestionFactory($resource) {
-    var ProjectQuestion = $resource('/api/project_questions/:id', {id: '@id'}, {
+  function ProjectQuestionFactory($resource, ApiService) {
+    var ProjectQuestion = $resource(ApiService.routeResolve('projectQuestions'), {id: '@id'}, {
       update: {method: 'PUT'}
     });
 

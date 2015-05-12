@@ -5,7 +5,7 @@
     .factory('AuthenticationService', AuthenticationServiceFactory);
 
   /** @ngInject */
-  function AuthenticationServiceFactory($http, $q, $state, ApiService) {
+  function AuthenticationServiceFactory($http, $q, $state, ApiService, SessionService) {
     var service = {
       login: login,
       logout: logout,
@@ -33,7 +33,7 @@
       return $http
         .post(ApiService.routeResolve('signIn'), credentials)
         .success(function(data, statusCode) {
-          Session.create(data.email, data.role);
+          SessionService.create(data.email, data.role);
         });
     }
 
@@ -41,14 +41,14 @@
       return $http
         .delete(ApiService.routeResolve('signOut'))
         .success(function() {
-          Session.destroy();
+          SessionService.destroy();
           $state.transitionTo('base.public.login');
         });
     }
 
-     function isAuthenticated() {
-      return !!Session.email;
-    };
+    function isAuthenticated() {
+      return !!SessionService.email;
+    }
 
     function isAuthorized(authorizedRoles) {
       if (!angular.isArray(authorizedRoles)) {
@@ -58,8 +58,8 @@
       if (authorizedRoles.indexOf(USER_ROLES.all) !== -1) {
         return true;
       } else {
-        return (authService.isAuthenticated() && authorizedRoles.indexOf(Session.role) !== -1);
+        return (AuthenticationServiceFactory.isAuthenticated() && authorizedRoles.indexOf(SessionService.role) !== -1);
       }
-    };
+    }
   }
 })();
