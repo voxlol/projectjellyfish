@@ -165,7 +165,6 @@ ActiveRecord::Schema.define(version: 20150512194822) do
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
-    t.integer  "role_id"
   end
 
   create_table "groups_staff", force: :cascade do |t|
@@ -193,6 +192,7 @@ ActiveRecord::Schema.define(version: 20150512194822) do
     t.datetime "updated_at"
     t.integer  "group_id"
     t.integer  "project_id"
+    t.integer  "role_id"
   end
 
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
