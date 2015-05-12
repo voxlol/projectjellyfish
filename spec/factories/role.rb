@@ -3,9 +3,9 @@ FactoryGirl.define do
     name 'Administrator'
     description 'Administratin things'
     permissions(
-      'projects' => %(read write),
-      'approvals' => %(read write),
-      'affiliations' => %(read write)
+      'projects' => %w(read write),
+      'approvals' => %w(read write),
+      'memberships' => %w(read write)
     )
   end
 end
