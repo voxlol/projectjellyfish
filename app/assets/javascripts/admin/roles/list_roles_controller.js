@@ -7,8 +7,8 @@ var ListRolesController = function(roles) {
 
 ListRolesController.resolve = {
   /**@ngInject*/
-  roles: function(GroupsResource) {
-  return GroupsResource.query().$promise;
+  roles: function(RolesResource) {
+  return RolesResource.query().$promise;
   }
 };
 

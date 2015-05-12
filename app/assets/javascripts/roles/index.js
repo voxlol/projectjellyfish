@@ -13,7 +13,7 @@ var RolesModule = angular.module('broker.roles', [])
                 url: '/roles',
                 abstract: true,
                 template: '<div class="page roles-page" ui-view></div>',
-                controller: 'RolesController as rolesCtrl',
+                controller: 'RolesController as rolesCtrl'
             });
     }
 );

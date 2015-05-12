@@ -8,8 +8,8 @@ var AdminAddRoleController = function(role, FlashesService) {
 
 AdminAddRoleController.resolve = {
   /**@ngInject*/
-  role: function(rolesResource) {
-    return new rolesResource();
+  role: function(RolesResource) {
+    return new RolesResource();
   }
 };
 

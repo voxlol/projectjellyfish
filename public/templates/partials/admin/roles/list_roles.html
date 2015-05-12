@@ -1,7 +1,7 @@
 <div class="roles-list-page">
 
   <section-header name="Roles">
-    <roles-box class="product-box" ng-repeat="role in listRolesCtrl.groups" group="role">
+    <roles-box class="product-box" ng-repeat="role in listRolesCtrl.roles" group="role">
       <a type="button" class="btn btn-primary" ui-sref="base.authed.admin.roles.edit({id: role.id})">Edit</a>
     </roles-box>
 
