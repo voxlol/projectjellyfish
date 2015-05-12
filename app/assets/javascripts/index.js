@@ -36,6 +36,7 @@ angular.module("broker", [
   "broker.settings",
   "broker.memberships",
   "broker.wizard",
+  "broker.roles",
   "schemaForm",
   "nvd3",
   "ngDraggable",
