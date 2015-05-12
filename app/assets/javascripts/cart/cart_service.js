@@ -124,7 +124,7 @@ CartService.prototype = {
         this.FlashesService.add({
             timeout: true,
             type: 'error',
-            message: "Cart failed to checkout. Please try again."
+            message: "A Project budget is exceeded, please reallocate resources and try again."
         });
     }, this));
   },

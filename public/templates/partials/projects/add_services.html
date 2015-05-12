@@ -22,7 +22,6 @@
                     allow-view-type-toggle="true"
             />
     <product-box class="product-box" ng-repeat="product in category.products" product="product">
-        {{product}}
         <a type="button" class="btn btn-primary" ui-sref="base.authed.marketplace.show({id: product.id})"
            target="_blank">VIEW
             MORE</a>
