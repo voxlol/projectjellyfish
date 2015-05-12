@@ -12,7 +12,7 @@
   <div class="col-sm-4"></div>
 </div>
 
-<div class="form-group" ng-class="{'has-error': admiRoleFormCtrl.hasError('description')}">
+<div class="form-group" ng-class="{'has-error': adminRoleFormCtrl.hasError('description')}">
     <label class="col-sm-2 control-label" for="description">Role Description:</label>
 
     <div class="col-sm-6 controls">
@@ -27,20 +27,19 @@
 </div>
 
 <div class="form-group">
-    <div class="search-input">
-      <label class="col-sm-2 control-label" for="role_users">Users:</label>
+   <label class="col-sm-2 controls control-label" for="projects">Projects:</label>
+   <input class="checkbox-margin" type="checkbox" name="vehicle" value="read"> Read
+   <input class="checkbox-margin" type="checkbox" name="vehicle" value="write"> Write
+</div>
 
-      <div class="col-sm-6">
-        <ui-select multiple id="users" name="staff_ids" ng-model="adminRoleFormCtrl.role.staff_ids" theme="bootstrap" close-on-select="true" sortable="true" class="col-sm-6 controls" required>
-          <ui-select-match placeholder="Select users...">
-            {{$item.fullName()}} &lt;{{$item.email}}&gt;
-          </ui-select-match>
-          <ui-select-choices repeat="user.id as user in adminRoleFormCtrl.users | propsFilter: {first_name: $select.search, last_name: $select.search, email: $select.search}">
-            <span ng-bind-html="user.fullName() | highlight: $select.search"></span>
-            &lt;<span ng-bind-html="user.email | highlight: $select.search"></span>&gt;
-          </ui-select-choices>
-        </ui-select>
-      </div>
-      <div class="col-sm-4"></div>
-    </div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="approval">Approve:</label>
+    <input class="checkbox-margin" type="checkbox" name="vehicle" value="read"> Read
+    <input class="checkbox-margin" type="checkbox" name="vehicle" value="write"> Write
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="membership">Membership:</label>
+    <input class="checkbox-margin" type="checkbox" name="vehicle" value="read"> Read
+    <input class="checkbox-margin" type="checkbox" name="vehicle" value="write"> Write
 </div>
