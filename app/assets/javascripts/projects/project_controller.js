@@ -1,13 +1,13 @@
 'use strict';
 
 /**@ngInject*/
-function ProjectController($scope, $interval, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
+function ProjectController($scope, $interval, $state, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
 
   $scope.intervalDelay = 30000;
   $scope.$interval = $interval;
 
   $scope.project = project;
-  $scope.reason = null; // The reason this project has been rejected.
+  this.reason = null; // The reason this project has been rejected.
 
   // Filter the alerts to only show them for this project.
   $scope.alerts = _.filter(alerts, function(alert) {
@@ -20,6 +20,21 @@ function ProjectController($scope, $interval, project, OrderItemsResource, alert
   this.FlashesService = FlashesService;
 
   $scope.groups = currentUser.groups;
+
+
+  /**
+   * Project Approval actions
+   */
+  this.approve = function(project) {
+    project.$approve();
+    $state.reload();
+
+  };
+
+  this.reject = function(project,reason) {
+    project.$reject({reason: reason});
+    $state.transitionTo('base.authed.projectHome');
+  };
 
 }
 
