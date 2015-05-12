@@ -27,6 +27,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :wizard_questions, only: [:show, :create] do
+      collection do
+        get :first
+      end
+    end
+
     # User Setting Options Routes
     resources :user_setting_options, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     resources :api_tokens, defaults: { format: :json }

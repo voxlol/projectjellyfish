@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508193045) do
+ActiveRecord::Schema.define(version: 20150512194822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,9 +439,27 @@ ActiveRecord::Schema.define(version: 20150508193045) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  create_table "wizard_answers", force: :cascade do |t|
+    t.integer  "wizard_question_id"
+    t.string   "text"
+    t.string   "tags_to_add",        default: [],              array: true
+    t.string   "tags_to_remove",     default: [],              array: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "wizard_answers", ["wizard_question_id"], name: "index_wizard_answers_on_wizard_question_id", using: :btree
+
+  create_table "wizard_questions", force: :cascade do |t|
+    t.string   "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "api_tokens", "staff"
   add_foreign_key "groups_staff", "groups", on_delete: :cascade
   add_foreign_key "groups_staff", "staff", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
   add_foreign_key "memberships", "projects", on_delete: :cascade
+  add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end
