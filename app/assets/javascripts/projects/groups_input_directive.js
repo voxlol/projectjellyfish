@@ -7,7 +7,7 @@ window.GroupsInput =  function() {
       restrict: 'E',
       templateUrl: '/templates/partials/projects/groups_input.html',
       scope: {
-        project: "=",
+        project: "="
       },
       controller: function($scope, UsersResource, GroupsResource, MembershipsResource) {
         $scope.project.groups = $scope.project.groups || [];

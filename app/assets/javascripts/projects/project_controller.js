@@ -13,23 +13,14 @@ function ProjectController($scope, $interval, project, OrderItemsResource, alert
   $scope.alerts = _.filter(alerts, function(alert) {
     return alert.project_id == $scope.project.id;
   });
-  $scope.products = products;
+  this.products = products;
 
-  $scope.OrderItemsResource = OrderItemsResource;
+  this.OrderItemsResource = OrderItemsResource;
 
-  $scope.FlashesService = FlashesService;
+  this.FlashesService = FlashesService;
 
   $scope.groups = currentUser.groups;
 
-  /**
-   * Links the service with the product.
-   * @param project
-   * @param serviceObject
-   * @returns {*}
-   */
-  $scope.productFromService = function(service) {
-    return ProductsResource.get(service.product_id);
-  }
 }
 
 ProjectController.resolve = {
@@ -48,26 +39,46 @@ ProjectController.resolve = {
     return UsersResource.getCurrentMember(
       {'includes[]': ['groups']}
     ).$promise;
-  },
+  }
 };
 
 ProjectController.prototype = {
+  /**
+   * Links the service with the product.
+   * @param serviceObject
+   * @returns {*}
+   */
+  getServiceWithProduct: function(serviceObject) {
+    var productId = serviceObject.product_id;
 
-  removeServiceFromProject: function(project, serviceIndex) {
-    var self = this
+    var product = _.find(this.products, function(obj) {
+      return obj.id == productId;
+    });
+
+    // Hook on the product details we need to use the product box.
+    serviceObject.img = product.img;
+    serviceObject.name = product.name;
+    serviceObject.description = product.description;
+
+    return serviceObject;
+  },
+
+  removeServiceFromProject: function(project, service) {
+    var self = this,
+      serviceIndex = _.findIndex(project.services, service);
 
     this.OrderItemsResource.delete({id: service.id, order_id: service.order_id}).$promise.then(
       _.bind(function() {
         // Remove it from the existing array.
-        $scope.project.services.splice(serviceIndex, 1);
-        self.FlashesService.add({
-            timeout: true,
-            type: 'success',
-            message: "The service was successfully removed from this project."
+        project.services.splice(serviceIndex, 1);
+        this.FlashesService.add({
+          timeout: true,
+          type: 'success',
+          message: "The service was successfully removed from this project."
         });
       }, this),
       function(error) {
-        self.FlashesService.add({
+        this.FlashesService.add({
           timeout: true,
           type: 'error',
           message: "There was an error removing this service."
