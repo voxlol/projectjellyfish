@@ -61,7 +61,11 @@ describe 'Role API' do
       delete role_path(role)
 
       expect(response).to be_success
+<<<<<<< HEAD
       expect(Role).not_to exist(role.id)
+=======
+      expect(Role).not_to exist(role)
+>>>>>>> Add RolesController
     end
 
     it 'requires an admin' do
