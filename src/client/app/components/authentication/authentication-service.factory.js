@@ -5,7 +5,7 @@
     .factory('AuthenticationService', AuthenticationServiceFactory);
 
   /** @ngInject */
-  function AuthenticationServiceFactory($http, $q, $state, ApiService, SessionService) {
+  function AuthenticationServiceFactory($http, $q, $state, ApiService, SessionService, userRoles) {
     var service = {
       login: login,
       logout: logout,
@@ -42,7 +42,7 @@
         .delete(ApiService.routeResolve('signOut'))
         .success(function() {
           SessionService.destroy();
-          $state.transitionTo('base.public.login');
+          $state.transitionTo('login');
         });
     }
 
@@ -55,7 +55,7 @@
         authorizedRoles = [authorizedRoles];
       }
       // If authorizedRoles contains 'all', then we allow it through.
-      if (authorizedRoles.indexOf(USER_ROLES.all) !== -1) {
+      if (authorizedRoles.indexOf(userRoles.all) !== -1) {
         return true;
       } else {
         return (AuthenticationServiceFactory.isAuthenticated() && authorizedRoles.indexOf(SessionService.role) !== -1);

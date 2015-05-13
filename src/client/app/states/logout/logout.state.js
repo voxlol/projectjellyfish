@@ -30,7 +30,7 @@
     return {
       'logout': {
         type: 'state',
-        state: 'login',
+        state: 'logout',
         label: 'Logout',
         style: 'logout',
         isVisible: isVisible,
@@ -46,14 +46,16 @@
   }
 
   /** @ngInject */
-  function StateController(logger) {
+  function StateController(logger, AuthenticationService) {
     var vm = this;
 
+    vm.AuthService = AuthenticationService;
     vm.title = '';
 
     vm.activate = activate;
 
     activate();
+    vm.AuthService.logout();
 
     function activate() {
       logger.info('You have been logged out.');

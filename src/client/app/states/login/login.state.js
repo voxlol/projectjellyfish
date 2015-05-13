@@ -51,15 +51,15 @@
         // Reset the failed login flag.
         isFailedLogin = false;
 
-        var credentials = {
+        vm.credentials = {
           staff: {
             email: vm.email,
             password: vm.password
           }
         };
 
-        vm.AuthService.login(credentials).success(lodash.bind(function() {
-          vm.$state.transitionTo('base.authed.dashboard');
+        vm.AuthService.login(vm.credentials).success(lodash.bind(function() {
+          vm.$state.transitionTo('dashboard');
         }, vm))
           .error(lodash.bind(function() {
             isFailedLogin = true;

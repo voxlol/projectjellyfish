@@ -25,7 +25,7 @@
         return apiBasePath;
       }
 
-      return apiBasePath + apiRoutes.routes[APP_CONFIG];
+      return apiBasePath + '/v1' + apiRoutes.routes[APP_CONFIG];
     }
   }
 })();
