@@ -7,16 +7,24 @@
   /** @ngInject */
   function appRun(routerHelper, navigationHelper) {
     routerHelper.configureStates(getStates());
+    navigationHelper.navItems(navItems());
+  }
+
+  function navItems() {
+    return {};
   }
 
   function getStates() {
     return {
       'login': {
-        url: '/login',
+        url: '/',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Login',
+        resolve: {
+          ssoUrl: ssoUrl
+        },
         data: {
           layout: 'blank'
         }
@@ -25,13 +33,17 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, AuthenticationService, lodash) {
+  function ssoUrl(AuthenticationService) {
+    return AuthenticationService.ssoInit();
+  }
+
+  /** @ngInject */
+  function StateController($state, logger, AuthenticationService, lodash, ssoUrl) {
     var vm = this;
 
     vm.AuthService = AuthenticationService;
     vm.title = 'Login';
-    vm.$state = $state;
-
+    vm.ssoUrl = ssoUrl;
     vm.activate = activate;
     vm.login = login;
     vm.hasFailedLogin = hasFailedLogin;
@@ -59,7 +71,7 @@
         };
 
         vm.AuthService.login(vm.credentials).success(lodash.bind(function() {
-          vm.$state.transitionTo('dashboard');
+          $state.transitionTo('dashboard');
         }, vm))
           .error(lodash.bind(function() {
             isFailedLogin = true;

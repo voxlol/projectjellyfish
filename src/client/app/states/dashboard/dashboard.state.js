@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'dashboard': {
-        url: '/',
+        url: '/dashboard',
         templateUrl: 'app/states/dashboard/dashboard.html',
         controller: StateController,
         controllerAs: 'vm',

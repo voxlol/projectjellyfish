@@ -10,7 +10,6 @@
       login: login,
       logout: logout,
       isAuthenticated: isAuthenticated,
-      isAuthorized: isAuthorized,
       ssoInit: ssoInit
     };
 
@@ -42,24 +41,11 @@
         .delete(ApiService.routeResolve('signOut'))
         .success(function() {
           SessionService.destroy();
-          $state.transitionTo('login');
         });
     }
 
     function isAuthenticated() {
       return !!SessionService.email;
-    }
-
-    function isAuthorized(authorizedRoles) {
-      if (!angular.isArray(authorizedRoles)) {
-        authorizedRoles = [authorizedRoles];
-      }
-      // If authorizedRoles contains 'all', then we allow it through.
-      if (authorizedRoles.indexOf(userRoles.all) !== -1) {
-        return true;
-      } else {
-        return (AuthenticationServiceFactory.isAuthenticated() && authorizedRoles.indexOf(SessionService.role) !== -1);
-      }
     }
   }
 })();

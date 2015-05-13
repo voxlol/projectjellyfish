@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'logout': {
-        url: '/logout',
+        url: '/',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Logout'
@@ -46,19 +46,17 @@
   }
 
   /** @ngInject */
-  function StateController(logger, AuthenticationService) {
+  function StateController($state, AuthenticationService, logger, lodash) {
     var vm = this;
 
     vm.AuthService = AuthenticationService;
     vm.title = '';
 
-    vm.activate = activate;
-
-    activate();
-    vm.AuthService.logout();
-
-    function activate() {
+    vm.AuthService.logout().success(lodash.bind(function() {
       logger.info('You have been logged out.');
-    }
+      $state.transitionTo('login');
+    }, vm)).error(lodash.bind(function() {
+      logger.info('An error has occured at logout.');
+    }, vm));
   }
 })();
