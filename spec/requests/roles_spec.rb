@@ -61,6 +61,7 @@ describe 'Role API' do
       delete role_path(role)
 
       expect(response).to be_success
+
       expect(Role).not_to exist(role.id)
     end
 
