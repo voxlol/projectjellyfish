@@ -26,6 +26,9 @@ Metrics/AbcSize:
 Style/GlobalVars:
   AllowedVariables: [$evm]
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Rails/HasAndBelongsToMany:
   Enabled: false
 
@@ -37,3 +40,6 @@ Style/AlignParameters:
 
 Style/ClosingParenthesisIndentation:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
