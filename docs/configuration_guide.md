@@ -12,7 +12,7 @@ See the [Setting AWS Credentials](https://github.com/projectjellyfish/api/wiki/S
 
 ####How to Add a Module (& Module Functionality):
 
-See the [Jellyfish Module Setup](https://github.com/projectjellyfish/api/wiki/Jellyfish-Module-Setup) and the optional [Add Module Functionality](https://github.com/projectjellyfish/api/wiki/Add-Module-Functionality) to contribute to the growing number of Modules that Project Jellyfish supports.
+See the [Jellyfish Module Setup](https://github.com/projectjellyfish/api/wiki/Jellyfish-Module-Setup) guide and the optional [Add Module Functionality](https://github.com/projectjellyfish/api/wiki/Add-Module-Functionality) guide to see how you can contribute to the growing number of modules we support.
 
 -----
 
