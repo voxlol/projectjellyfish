@@ -45,13 +45,3 @@ Anything you choose to contribute will better Project Jellyfish - and its docume
 ####Follow our Priority Roadmap:
 
 Interested in learning more about where we are in development? Check out our [Priority Roadmap](https://github.com/projectjellyfish/api/wiki/Priority-Roadmap) for a look at what we've done and where we're going.
-
-
-
-
-
-
-
-
-
-
