@@ -17,7 +17,7 @@ A cloud service management platform is a tool used by administrators to monitor 
 
 **Why Open Source?**
 
-As an open source platform, Project Jellyfish can be customized to fit your cloud’s unique requirements and interact with your increasingly disparate resources. Project Jellyfish also leverages input from a diverse community of individual users and enterprises who understand, first hand, what it takes to successfully manage a cloud environment. Mold, bend, break, and shape Jellyfish to work for YOU.
+As an open source platform, Project Jellyfish can be customized to fit your cloud’s unique requirements and interact with your increasingly disparate resources. Project Jellyfish also leverages input from a diverse community of individual users and enterprises who understand, first hand, what it takes to successfully manage a cloud environment. Mold, bend, break, and shape Jellyfish so that it works with your project.
 
 **What are Blueprints?**
 
@@ -68,7 +68,7 @@ A case is a unique issues that arises. You may contact the help desk an unlimite
 
 **Can I purchase additional case support?**
 
-Yes. You may add on an additional 5 cases for $3,000
+Yes. You may add on an additional 5 cases for $3,000.
 
 **How do I create an issue?**
 
