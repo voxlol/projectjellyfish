@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.project-questions': {
+      'authed.admin.project-questions': {
         url: '/project-questions',
-        redirectTo: 'admin.project-questions.list',
+        redirectTo: 'authed.admin.project-questions.list',
         template: '<ui-view></ui-view>'
       }
     };
@@ -29,7 +29,7 @@
     return {
       'admin.project-questions': {
         type: 'state',
-        state: 'admin.project-questions',
+        state: 'authed.admin.project-questions',
         label: 'Project Questions',
         order: 2
       }

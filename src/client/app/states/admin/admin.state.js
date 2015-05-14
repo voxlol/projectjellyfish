@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'admin': {
+      'authed.admin': {
         abstract: true,
         template: '<ui-view></ui-view>',
         url: '/admin'
@@ -29,20 +29,20 @@
     return {
       'admin': {
         type: 'dropdown',
-        state: 'admin',
+        state: 'authed.admin',
         label: 'Admin',
         style: 'admin',
         order: 4
       },
       'admin.users': {
         type: 'state',
-        state: 'admin.users',
+        state: 'authed.admin.users',
         label: 'Users',
         order: 0
       },
       'admin.settings': {
         type: 'state',
-        state: 'admin.settings',
+        state: 'authed.admin.settings',
         label: 'Settings',
         order: 3
       }

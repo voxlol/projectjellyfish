@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'admin.products': {
+      'authed.admin.products': {
         url: '/products',
         redirectTo: 'admin.products.list',
         template: '<ui-view></ui-view>',
@@ -33,7 +33,7 @@
     return {
       'admin.products': {
         type: 'state',
-        state: 'admin.products',
+        state: 'authed.admin.products',
         label: 'Products',
         order: 1
       }

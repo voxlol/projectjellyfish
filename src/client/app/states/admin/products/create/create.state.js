@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'admin.products.create': {
+      'authed.admin.products.create': {
         url: '/create',
         templateUrl: 'app/states/admin/products/create/create.html',
         controller: StateController,

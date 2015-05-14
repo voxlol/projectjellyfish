@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'logout': {
+      'public.logout': {
         url: '/',
         controller: StateController,
         controllerAs: 'vm',
@@ -30,7 +30,7 @@
     return {
       'logout': {
         type: 'state',
-        state: 'logout',
+        state: 'public.logout',
         label: 'Logout',
         style: 'logout',
         isVisible: isVisible,
@@ -54,7 +54,7 @@
 
     vm.AuthService.logout().success(lodash.bind(function() {
       logger.info('You have been logged out.');
-      $state.transitionTo('login');
+      $state.transitionTo('public.login');
     }, vm)).error(lodash.bind(function() {
       logger.info('An error has occured at logout.');
     }, vm));

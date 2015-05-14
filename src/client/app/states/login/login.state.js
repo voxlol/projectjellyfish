@@ -16,7 +16,7 @@
 
   function getStates() {
     return {
-      'login': {
+      'public.login': {
         url: '/',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,
@@ -71,10 +71,11 @@
         };
 
         vm.AuthService.login(vm.credentials).success(lodash.bind(function() {
-          $state.transitionTo('dashboard');
+          $state.transitionTo('authed.dashboard');
         }, vm))
           .error(lodash.bind(function() {
             isFailedLogin = true;
+            logger.error('Invalid login credentials entered, please renter and try again.');
           }, vm));
       }
     }

@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'projects': {
+      'authed.projects': {
         url: '/projects',
         templateUrl: 'app/states/projects/projects.html',
         controller: ProjectsController,
@@ -31,7 +31,7 @@
     return {
       'projects': {
         type: 'state',
-        state: 'projects',
+        state: 'authed.projects',
         label: 'My Projects',
         style: 'projects',
         order: 1

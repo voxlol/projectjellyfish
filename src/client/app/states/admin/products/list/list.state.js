@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'admin.products.list': {
+      'authed.admin.products.list': {
         url: '', // No url, this state is the index of admin.products
         templateUrl: 'app/states/admin/products/list/list.html',
         controller: StateController,
@@ -49,7 +49,7 @@
     }
 
     function createType(productType) {
-      $state.go('admin.products.create', {productType: productType});
+      $state.go('authed.admin.products.create', {productType: productType});
     }
 
     // Private

@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'dashboard': {
+      'authed.dashboard': {
         url: '/dashboard',
         templateUrl: 'app/states/dashboard/dashboard.html',
         controller: StateController,
@@ -36,7 +36,7 @@
     return {
       'dashboard': {
         type: 'state',
-        state: 'dashboard',
+        state: 'authed.dashboard',
         label: 'Dashboard',
         style: 'dashboard',
         order: 0

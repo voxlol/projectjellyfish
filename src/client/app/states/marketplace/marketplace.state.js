@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'marketplace': {
+      'authed.marketplace': {
         url: '/marketplace',
         templateUrl: 'app/states/marketplace/marketplace.html',
         controller: StateController,
@@ -36,7 +36,7 @@
     return {
       'marketplace': {
         type: 'state',
-        state: 'marketplace',
+        state: 'authed.marketplace',
         label: 'Marketplace',
         style: 'marketplace',
         order: 3

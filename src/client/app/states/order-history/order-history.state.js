@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'order-history': {
+      'authed.order-history': {
         url: '/order-history',
         templateUrl: 'app/states/order-history/order-history.html',
         controller: OrderHistoryController,
@@ -31,7 +31,7 @@
     return {
       'order-history': {
         type: 'state',
-        state: 'order-history',
+        state: 'authed.order-history',
         label: 'Order History',
         style: 'order-history',
         order: 2
