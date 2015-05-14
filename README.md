@@ -14,6 +14,7 @@ Project Jellyfish is an open source broker system offering policy-driven solutio
 * A user-friendly dashboard with configurable modules
 * A product catalog filled by services and products that Admins of your organization chooses, including: IaaS, TaaS, PaaS, and available Staff.
 * The ability for Admins to set access rights, control costs, and allow users to create projects with the defined services offered.
+
 -----
 
 #### Install Guide
