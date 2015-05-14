@@ -4,8 +4,6 @@ Contributor Guide
 We encourage you to contribute to Project Jellyfish! Here are a few ways in which you can help us improve:
 
 
-
-
 ####Create a Module:
 
 See our [Jellyfish Module Setup](https://github.com/projectjellyfish/api/wiki/Jellyfish-Module-Setup) in our [Wiki](https://github.com/projectjellyfish/api/wiki).
