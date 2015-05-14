@@ -75,7 +75,7 @@ Yes. You may add on an additional 5 cases for $3,000
 You may either create an issue online by filling out a simple form with the issue type, priority, level and a description of the issue or call the toll free number to speak to a live agent during business hours.
 
 
-Don’t see your question? Ask it [here](talk.projectjellyfish.org) on our forums.
+Don’t see your question? Ask it [here](https://talk.projectjellyfish.org) on our forums.
 
 
 
