@@ -1,10 +1,10 @@
 ####Contributing to Project Jellyfish
 
------
+
 
 We encourage you to contribute to Project Jellyfish! Here are a few ways in which you can help us improve:
 
------
+
 
 **Create a Module**
 
