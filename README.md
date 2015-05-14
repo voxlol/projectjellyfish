@@ -32,11 +32,11 @@ To see a detailed list of [System Requirements](https://github.com/projectjellyf
 
 Jellyfish is a Ruby on Rails application.  Please choose the appropriate installation guide for your system:
 
-Mac Users: [INSTALL-OSX.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-OSX.md) - Mac OS Installation (generally used for development)
+* Mac Users: [INSTALL-OSX.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-OSX.md) - Mac OS Installation (generally used for development)
 
-Windows Users: [INSTALL-RHEL.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-RHEL.md)  - Red Hat Enterprise Linux / CentOS installation
+* Windows Users: [INSTALL-RHEL.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-RHEL.md)  - Red Hat Enterprise Linux / CentOS installation
 
-Heroku Quick Install: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+* Heroku Quick Install: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 -----
 #### User Guide (Visual)
