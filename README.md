@@ -44,7 +44,7 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 -----
 #### [Contributor Guide](https://github.com/projectjellyfish/api/blob/feature/master/docs/contributor_guide.md)
 -----
-#### [Configuration Guide]((https://github.com/projectjellyfish/api/blob/feature/master/docs/configuration_guide.md)
+#### [Configuration Guide](https://github.com/projectjellyfish/api/blob/feature/master/docs/configuration_guide.md)
 -----
 #### API Reference Guide
 -----
