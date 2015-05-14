@@ -7,15 +7,18 @@ We encourage you to contribute to Project Jellyfish! Here are a few ways in whic
 -----
 
 **Create a Module**
+
 See our [Jellyfish Module Setup](https://github.com/projectjellyfish/api/wiki/Jellyfish-Module-Setup) in our [Wiki](https://github.com/projectjellyfish/api/wiki).
 
 -----
 
 **Report an Issue**
+
 A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses GitHub Issue Tracking to track issues, which are typically bugs and contributions of new code. If you find a bug in Project Jellyfish, we encourage you to start by searching the Github Issues queue to see if a ticket has been generated already. If you don’t spot the issue at hand, please feel free to create a new ticket that we’ll review and prioritize.
 
 In order to interact with Github issues, you’ll first need to create a free GitHub account in order to submit a bug, comment on a bug, and/or create a pull request. From there, your issue should contain a concise title and specific description. If possible, attach screenshots and relevant code to the ticket.
 Since the goal is to fix the ticket swiftly on our (or your) end, submitting a clearly defined issue is the first step.
+
 -----
 
 **Request a Feature Enhancement/ New Feature**
