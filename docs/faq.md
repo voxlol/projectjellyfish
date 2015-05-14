@@ -4,12 +4,14 @@ FAQs
 ####General
 
 **What is Project Jellyfish?**
+
 Project Jellyfish is an open source cloud services broker solution created by Booz Allen Hamilton. Project Jellyfish is a customizable and automated platform where you can provision and manage all your on- and off-premise IaaS, PaaS, and SaaS cloud services from a single pane of glass. This unique solution simplifies and centralizes your growing portfolio of cloud resources and enables you to innovate for the future.
 
-**What is a cloud service broker (CSB)?**
+**What is a *cloud service broker* (CSB)?**
+
 A CSB is your partner in acquiring resources from the cloud. The broker sits between you and your cloud provider, and simplifies the administrative headache of acquiring cloud services. Project Jellyfish is a CSB that instantly delivers resources from your cloud provider using custom automated processes and business rules.
 
-**What is a cloud service management platform?**
+**What is a *cloud service management platform*?**
 A cloud service management platform is a tool used by administrators to monitor and maintain the various aspects of their cloud environment including servers and other instances, billing and chargeback, project resources and funds, etc. Project Jellyfish enables users to provision and manage public and private XaaS resources from a single platform.
 
 **Why Open Source?**
@@ -58,7 +60,7 @@ Yes. You may add on an additional 5 cases for $3,000
 You may either create an issue online by filling out a simple form with the issue type, priority, level and a description of the issue or call the toll free number to speak to a live agent during business hours.
 
 
-Don’t see your question? Ask it <here> on our forums.
+Don’t see your question? Ask it [here](talk.projectjellyfish.org) on our forums.
 
 
 
