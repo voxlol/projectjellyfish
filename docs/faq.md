@@ -21,15 +21,11 @@ As an open source platform, Project Jellyfish can be customized to fit your clou
 
 **What are Blueprints?**
 
-Blueprints are packaged solutions that define how take the core jellyfish product, combine it with different modules (Chef, Puppet, ManageIQ, Sensu, Nagios, advanced security app, etc.), install, and configure them for use to solve specific problems such as advanced brokering, PaaS, or data analytics. A Blueprint could be an install document, or it could be a Chef cookbook that configures everything for you.
+Blueprints are packaged solutions that define how to take the core jellyfish product, combine it with different modules (Chef, Puppet, ManageIQ, Sensu, Nagios, advanced security app, etc.), install, and configure them for use to solve specific problems such as advanced brokering, PaaS, or data analytics. A Blueprint could be an install document, or it could be a Chef cookbook that configures everything for you.
 
 **How do I get Project Jellyfish?**
 
-Project Jellyfish can be downloaded from GitHub. There, you will find documentation and instructions for running Chef Cookbooks for setting up your platform.
-
-**Is there a commercial version available?**
-
-An enterprise version of Jellyfish, along with commercial support, will be available later this year.
+Project Jellyfish can be downloaded from [GitHub](https://github.com/projectjellyfish/api). There, you will find documentation and instructions for running Chef Cookbooks for setting up your platform.
 
 **Which clouds are supported?**
 
@@ -40,7 +36,7 @@ Out of the box, Project Jellyfish supports AWS and VMware instances. Booz Allen 
 
 **How do I purchase Project Jellyfish Support??**
 
-Contact Us and we’ll help walk you through what you need.  You may purchase through a contract or through a corporate credit card.
+[Contact Us](http://www.projectjellyfish.org/requestpreview/) and we’ll help walk you through what you need.  You may purchase through a contract or through a corporate credit card.
 
 **How much is Project Jellyfish Support??**
 
