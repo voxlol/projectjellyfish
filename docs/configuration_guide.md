@@ -4,7 +4,7 @@ Configuration Guide
 The vast majority of configuration guides on this page live in our Project Jellyfish [Wiki](https://github.com/projectjellyfish/api/wiki) page on [Github](https://github.com). For other questions on getting Project Jellyfish up and running, please check out our FAQs, the DIY help area or post a question to the [Jellyfish community](http://talk.projectjellyfish.org/).
 
 
-####Setting AWS Credentials:
+####How to Set an Environment Variable (e.g. AWS Credentials):
 
 See the [Setting AWS Credentials](https://github.com/projectjellyfish/api/wiki/Setting-AWS-Credentials) guide to a how to can include your AWS credentials in Project Jellyfish.
 
