@@ -23,8 +23,9 @@
     }
 
     /** @ngInject */
-    function NavProfileController() {
+    function NavProfileController(SessionService) {
       var vm = this;
+      vm.firstName = SessionService.firstName;
 
       vm.activate = activate;
 

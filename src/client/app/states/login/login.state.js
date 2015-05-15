@@ -49,7 +49,6 @@
     vm.hasFailedLogin = hasFailedLogin;
 
     function activate() {
-      logger.info('Activated Login View');
     }
 
     function hasFailedLogin() {

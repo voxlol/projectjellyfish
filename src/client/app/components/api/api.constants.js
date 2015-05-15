@@ -25,8 +25,8 @@
         'productsById':      '/products/:id',
         'productTypesById':  '/product_types/:id',
 
-        'signIn':            '/staff/sign_in',
-        'signOut':           '/staff/sign_out',
+        'signIn':            '/staff/sign_in.json',
+        'signOut':           '/staff/sign_out.json',
         'ssoInit':           '/saml/init',
 
         'staffOrders':       '/staff/:staff_id/orders/:id',
