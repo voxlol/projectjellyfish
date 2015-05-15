@@ -7,10 +7,10 @@ Project Jellyfish is made up of numerous parts, working in concert to make it as
 
 ####Jellyfish Core:
 
-*The Jellyfish Core, built on the Ruby on Rails framework, combines the API and UX. 
-*The API is a fully scalable REST server that powers the Jellyfish UX and Jellyfish Mobile, and is the work horse of Project Jellyfish.
-*The UX is an Angular/HTML5 application that provides an andvanced interface for both end-users and administrators.
-*For end-users, it acts as a marketplace and self-service portal; for admins, it allows the creation of a catalog of services that they would ike to offer to their end-users.
+* The Jellyfish Core, built on the Ruby on Rails framework, combines the API and UX. 
+* The API is a fully scalable REST server that powers the Jellyfish UX and Jellyfish Mobile, and is the work horse of Project Jellyfish.
+* The UX is an Angular/HTML5 application that provides an andvanced interface for both end-users and administrators.
+* For end-users, it acts as a marketplace and self-service portal; for admins, it allows the creation of a catalog of services that they would ike to offer to their end-users.
 * _Jellyfish API requires Ruby 2.2.x and PostgreSQL 9.4.x_
 
 
