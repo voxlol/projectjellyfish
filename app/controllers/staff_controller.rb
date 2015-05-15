@@ -1,4 +1,5 @@
 class StaffController < ApplicationController
+  skip_before_action :require_user, only: :current_member
   before_action :pre_hook
   after_action :post_hook
 

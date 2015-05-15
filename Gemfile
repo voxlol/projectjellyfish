@@ -30,6 +30,9 @@ gem 'bcrypt', '~> 3.1.7', require: 'bcrypt'
 # Use puma as the app server
 gem 'puma'
 
+# Need the therubyracer
+gem 'therubyracer'
+
 # Use responders
 gem 'responders'
 

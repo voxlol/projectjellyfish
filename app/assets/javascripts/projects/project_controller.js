@@ -1,35 +1,41 @@
 'use strict';
 
 /**@ngInject*/
-function ProjectController($scope, $interval, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
+function ProjectController($scope, $interval, $state, project, OrderItemsResource, alerts, products, FlashesService, currentUser) {
 
   $scope.intervalDelay = 30000;
   $scope.$interval = $interval;
 
   $scope.project = project;
-  $scope.reason = null; // The reason this project has been rejected.
+  this.reason = null; // The reason this project has been rejected.
 
   // Filter the alerts to only show them for this project.
   $scope.alerts = _.filter(alerts, function(alert) {
     return alert.project_id == $scope.project.id;
   });
-  $scope.products = products;
+  this.products = products;
 
-  $scope.OrderItemsResource = OrderItemsResource;
+  this.OrderItemsResource = OrderItemsResource;
 
-  $scope.FlashesService = FlashesService;
+  this.FlashesService = FlashesService;
 
   $scope.groups = currentUser.groups;
 
+
   /**
-   * Links the service with the product.
-   * @param project
-   * @param serviceObject
-   * @returns {*}
+   * Project Approval actions
    */
-  $scope.productFromService = function(service) {
-    return ProductsResource.get(service.product_id);
-  }
+  this.approve = function(project) {
+    project.$approve();
+    $state.reload();
+
+  };
+
+  this.reject = function(project,reason) {
+    project.$reject({reason: reason});
+    $state.transitionTo('base.authed.projectHome');
+  };
+
 }
 
 ProjectController.resolve = {
@@ -37,7 +43,7 @@ ProjectController.resolve = {
   project: function(ProjectsResource, $stateParams) {
     return ProjectsResource.get({
       id: $stateParams.projectId,
-      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups']
+      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;
   },
   /**@ngInject*/
@@ -48,26 +54,46 @@ ProjectController.resolve = {
     return UsersResource.getCurrentMember(
       {'includes[]': ['groups']}
     ).$promise;
-  },
+  }
 };
 
 ProjectController.prototype = {
+  /**
+   * Links the service with the product.
+   * @param serviceObject
+   * @returns {*}
+   */
+  getServiceWithProduct: function(serviceObject) {
+    var productId = serviceObject.product_id;
 
-  removeServiceFromProject: function(project, serviceIndex) {
-    var self = this
+    var product = _.find(this.products, function(obj) {
+      return obj.id == productId;
+    });
+
+    // Hook on the product details we need to use the product box.
+    serviceObject.img = product.img;
+    serviceObject.name = product.name;
+    serviceObject.description = product.description;
+
+    return serviceObject;
+  },
+
+  removeServiceFromProject: function(project, service) {
+    var self = this,
+      serviceIndex = _.findIndex(project.services, service);
 
     this.OrderItemsResource.delete({id: service.id, order_id: service.order_id}).$promise.then(
       _.bind(function() {
         // Remove it from the existing array.
-        $scope.project.services.splice(serviceIndex, 1);
-        self.FlashesService.add({
-            timeout: true,
-            type: 'success',
-            message: "The service was successfully removed from this project."
+        project.services.splice(serviceIndex, 1);
+        this.FlashesService.add({
+          timeout: true,
+          type: 'success',
+          message: "The service was successfully removed from this project."
         });
       }, this),
       function(error) {
-        self.FlashesService.add({
+        this.FlashesService.add({
           timeout: true,
           type: 'error',
           message: "There was an error removing this service."

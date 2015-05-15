@@ -1,8 +1,7 @@
 AllCops:
   Exclude:
     - config/unicorn.rb
-    #- db/**
-    - db/schema.rb
+    - db/**/*
     - vendor/**/*
     - bin/**
     - lib/tasks/sample.rake
@@ -27,7 +26,20 @@ Metrics/AbcSize:
 Style/GlobalVars:
   AllowedVariables: [$evm]
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Rails/HasAndBelongsToMany:
   Enabled: false
+
 GuardClause:
   Enabled: false
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/ClosingParenthesisIndentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes

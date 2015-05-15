@@ -7,7 +7,7 @@ RSpec.describe 'Sessions API' do
 
   describe 'POST create' do
     before :each do
-      @staff_member = create :staff, :admin, email: email, password: password, password_confirmation: password
+      create :staff, :admin, email: email, password: password, password_confirmation: password
     end
 
     it 'creates a session for valid users', :show_in_doc do

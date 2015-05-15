@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   # Docs
   apipie
 
-  scope '/api/v1' do
+  scope '/api/v1', except: [:new, :edit], defaults: { format: :json } do
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
 
     devise_scope :staff do
-      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post], defaults: { format: :html }
     end
 
     resources :saml, only: :index do
@@ -21,34 +21,41 @@ Rails.application.routes.draw do
     end
 
     # Alerts Routes
-    resources :alerts, defaults: { format: :json } do
+    resources :alerts do
       collection do
         post :sensu
       end
     end
 
+    resources :wizard_questions, only: [:show, :create] do
+      collection do
+        get :first
+      end
+    end
+
     # User Setting Options Routes
-    resources :user_setting_options, defaults: { format: :json }
+    resources :user_setting_options, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :api_tokens, defaults: { format: :json }
 
     # Approvals
-    resources :staff, defaults: { format: :json }, only: [:index]
-    resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
+    resources :staff, only: [:index]
+    resources :staff, only: [:show, :create, :update, :destroy] do
       # Staff Orders
       resources :orders, controller: :staff_orders, defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
 
       collection do
-        match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
+        match 'current_member' => 'staff#current_member', via: :get
       end
 
       # Staff Settings (user_settings)
-      resources :settings, controller: :staff_settings, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy]
+      resources :settings, controller: :staff_settings, only: [:index, :show, :create, :update, :destroy]
     end
 
     # Organizations
-    resources :organizations, except: [:edit, :new], defaults: { format: :json }
+    resources :organizations
 
     # Provision Request Response
-    resources :order_items, defaults: { format: :json }, only: [:show, :update, :destroy] do
+    resources :order_items, only: [:show, :update, :destroy] do
       member do
         put :start_service
         put :stop_service
@@ -58,30 +65,30 @@ Rails.application.routes.draw do
     end
 
     # Orders
-    resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
+    resources :orders, defaults: { includes: %w(order_items) } do
       member do
         get :items, defaults: { includes: [] }
       end
     end
 
     # Products
-    resources :products, except: [:edit, :new], defaults: { format: :json } do
+    resources :products do
       member do
         get :answers
       end
     end
 
-    resources :manage_iq_products, defaults: { format: :json }
+    resources :manage_iq_products
 
-    resources :product_types, except: [:edit, :new], defaults: { format: :json }
+    resources :product_types
 
     # Chargebacks
-    resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
+    resources :chargebacks
 
     # Clouds
-    resources :clouds, except: [:edit, :new], defaults: { format: :json }
+    resources :clouds
 
-    resources :bundles, except: [:edit, :new]
+    resources :bundles
 
     # Services (Alias for OrderItem)
     get 'services' => 'services#index', as: :services_index
@@ -92,22 +99,22 @@ Rails.application.routes.draw do
     get 'services/:tag' => 'services#show', as: :services_show
 
     # Project Routes
-    resources :projects, defaults: { format: :json }, except: [:edit, :new]
-    post 'projects/:project_id/groups' => 'affiliations#create', as: :affiliations
-    delete 'projects/:project_id/groups/:group_id' => 'affiliations#destroy', as: :affiliation
-    get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
-    post 'projects/:project_id/staff/:id' => 'project_staff#create', as: :project_staff
-    delete 'projects/:project_id/staff/:id' => 'project_staff#destroy'
-    get 'projects/:project_id/approvals' => 'project_approvals#index', as: :project_approvals
-    post 'projects/:project_id/approve' => 'project_approvals#update', as: :approve_project
-    delete 'projects/:project_id/reject' => 'project_approvals#destroy', as: :reject_project
+    scope 'projects/:project_id' do
+      post 'groups' => 'memberships#create', as: :memberships
+      delete 'groups/:group_id' => 'memberships#destroy', as: :membership
+
+      get 'approvals' => 'project_approvals#index', as: :project_approvals
+      post 'approve' => 'project_approvals#update', as: :approve_project
+      delete 'reject' => 'project_approvals#destroy', as: :reject_project
+    end
+    resources :projects
 
     # ProjectQuestion Routes
-    resources :project_questions, except: [:edit, :new], defaults: { format: :json }
+    resources :project_questions
 
     # Admin Settings
-    resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
-    resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :hid
+    resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
+    resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:show], param: :hid
 
     # Automate Routes
     resources :automate, only: [] do
@@ -132,11 +139,12 @@ Rails.application.routes.draw do
     end
 
     # Content Pages Routes
-    resources :content_pages, only: [:index, :create], defaults: { format: :json }
-    resources :content_pages, only: [:update, :show, :destroy], defaults: { format: :json }, param: :slug
-    patch 'content_pages/revert/:slug', to: 'content_pages#revert', defaults: { format: :json }
+    resources :content_pages, only: [:index, :create]
+    resources :content_pages, only: [:update, :show, :destroy], param: :slug
+    patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
-    resources :groups, defaults: { format: :json }
+    resources :groups
+    resources :roles, only: [:index, :create, :update, :destroy]
   end
 
   root 'welcome#index'

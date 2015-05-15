@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Groups API' do
   describe 'GET show' do
     it 'returns a group', :show_in_doc do
+      sign_in_as create :staff, :admin
       group = create(:group)
 
       get group_path(group, format: :json)
@@ -13,6 +14,7 @@ RSpec.describe 'Groups API' do
 
   describe 'GET index' do
     it 'returns a list of groups' do
+      sign_in_as create :staff, :admin
       groups = create_list(:group, 2)
 
       get groups_path(format: :json)
@@ -23,6 +25,7 @@ RSpec.describe 'Groups API' do
 
   describe 'POST create' do
     it 'creates a group' do
+      sign_in_as create :staff, :admin
       group_attributes = attributes_for(:group)
 
       post groups_path(format: :json), group_attributes
@@ -34,6 +37,7 @@ RSpec.describe 'Groups API' do
 
   describe 'DELETE destroy' do
     it 'deletes a group' do
+      sign_in_as create :staff, :admin
       group = create(:group)
 
       delete group_path(group, format: :json)

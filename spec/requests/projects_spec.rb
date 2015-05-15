@@ -12,10 +12,10 @@ RSpec.describe 'Projects API' do
     before :each do
       @project = create :project
       @project2 = create :project
-      sign_in_as create :staff, :admin
     end
 
     it 'returns a collection of all projects', :show_in_doc  do
+      sign_in_as create :staff, :admin
       create :project_detail, project_id: @project.id
       create :project_detail, project_id: @project2.id
       create(:staff).groups << Group.new(projects: [@project])
@@ -26,23 +26,30 @@ RSpec.describe 'Projects API' do
     end
 
     it 'paginates the projects' do
+      sign_in_as create :staff, :admin
       get '/api/v1/projects', page: 1, per_page: 1
       expect(json.length).to eq(1)
+    end
+
+    it "returns a 401 error if the user isn't logged in" do
+      get '/api/v1/projects'
+      expect(response).to be_unauthorized
     end
   end
 
   describe 'GET show' do
     before :each  do
       @project = create :project
-      sign_in_as create :staff, :admin
     end
 
     it 'retrieves project by id' do
+      sign_in_as create :staff, :admin
       get "/api/v1/projects/#{@project.id}"
       expect(json['name']).to eq(@project.name)
     end
 
     it 'returns an error when the project does not exist' do
+      sign_in_as create :staff, :admin
       get "/api/v1/projects/#{@project.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
@@ -86,20 +93,28 @@ RSpec.describe 'Projects API' do
 
       expect(response).to be_success
     end
+
+    it "returns a 401 error if the user isn't logged in" do
+      project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
+      post '/api/v1/projects', project_data.merge(includes: %w(project_answers))
+      expect(response).to be_unauthorized
+    end
   end
 
   describe 'PUT update' do
     before :each do
       @project = create :project
-      sign_in_as create :staff, :admin
     end
 
     it 'changes existing project' do
+      sign_in_as create :staff, :admin
       put "/api/v1/projects/#{@project.id}", name: 'Updated', budget: 1.99
       expect(response.status).to eq(204)
     end
 
     it 'updates a project record w/ project answers', :show_in_doc do
+      sign_in_as create :staff, :admin
+
       project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
       put "/api/v1/projects/#{@project.id}", project_data
       @project.reload
@@ -107,9 +122,15 @@ RSpec.describe 'Projects API' do
     end
 
     it 'returns an error when the project does not exist' do
+      sign_in_as create :staff, :admin
       put "/api/v1/projects/#{@project.id + 999}", attributes_for(:project)
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+
+    it "returns a 401 error if the user isn't logged in" do
+      put "/api/v1/projects/#{@project.id}", name: 'Updated', budget: 1.99
+      expect(response).to be_unauthorized
     end
   end
 end

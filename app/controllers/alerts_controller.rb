@@ -21,7 +21,6 @@ class AlertsController < ApplicationController
   param :per_page, :number, required: false
 
   def index
-    authorize Alert
     respond_with_params @alerts
   end
 
@@ -144,6 +143,7 @@ class AlertsController < ApplicationController
   end
 
   def load_alerts
+    authorize Alert
     params.slice(:active, :not_status, :sort, :page, :per_page, :includes, :latest)
     query = policy_scope(Alert)
     query = apply_active_or_inactive(query)

@@ -45,7 +45,9 @@ class Staff < ActiveRecord::Base
   has_many :notifications
   has_many :orders
   has_many :projects, through: :memberships
+  has_many :roles, through: :groups
   has_many :user_settings
+  has_many :api_tokens
 
   has_and_belongs_to_many :groups
 

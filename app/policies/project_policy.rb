@@ -3,27 +3,27 @@ class ProjectPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    can?('read')
+  end
+
+  def new?
+    user.admin? || user.groups.any?
+  end
+
+  def destroy?
+    can?('write')
+  end
+
   def create?
     user.admin? || user.groups.any?
   end
 
-  def show?
-    admin_or_related
-  end
-
-  def new?
-    # TODO: Can anyone create a new project
-    true
-  end
-
   def update?
-    admin_or_related
+    can?('write')
   end
 
-  def destroy?
-    admin_or_related
-  end
-
+  # TODO: These should be their own policy/controller
   def approvals?
     true
   end
@@ -36,6 +36,14 @@ class ProjectPolicy < ApplicationPolicy
     user.admin?
   end
 
+  private
+
+  def can?(action)
+    return true if user.admin?
+    object = record || Project
+    Permissions.new(user: user, object: object).allow?(action)
+  end
+
   class Scope < Scope
     def resolve
       if user.admin?
@@ -44,11 +52,5 @@ class ProjectPolicy < ApplicationPolicy
         user.projects
       end
     end
-  end
-
-  private
-
-  def admin_or_related
-    user.admin? || user.projects.exists?(record.id)
   end
 end
