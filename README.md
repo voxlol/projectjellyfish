@@ -1,4 +1,4 @@
-jellyfish
+Project Jellyfish
 =======
 
 [![Code Climate](https://codeclimate.com/repos/551958df69568055c00020f8/badges/b227e3bde5577507002e/gpa.svg)](https://codeclimate.com/repos/551958df69568055c00020f8/feed)
@@ -7,39 +7,57 @@ jellyfish
 
 #### Overview
 
-Project Jellyfish is a broker system.  It allows admins to create a product catalog of any type of service (IaaS,
-TaaS, PaaS, or even Staff) and allows them to be assigned a cost, and then users can create projects and add those
-services to a project.
+Project Jellyfish is an open source broker system offering policy-driven solutions that assist organizations with the management of multi-cloud IT environments.
 
-#### Requirements
+#### Highlights:
 
-Jellyfish has the following requirements
+* A user-friendly dashboard with configurable modules
+* A product catalog filled by services and products that Admins of your organization chooses, including: IaaS, TaaS, PaaS, and available Staff.
+* The ability for Admins to set access rights, control costs, and allow users to create projects with the defined services offered.
+
+-----
+
+#### Install Guide
+
+**Getting Started (Basic Requirements)**
+
+Jellyfish has the following requirements:
 
 * Ruby (Please check .ruby-version for the latest version to use, generally, this is the current version of Ruby)
 * PostgreSQL 9.4+
 * Red Hat Enterprise Linux / CentOS
 
-#### Installation
+To see a detailed list of [System Requirements](https://github.com/projectjellyfish/api/wiki/System-Requirements), please check out our Wiki.
 
-Jellyfish is a Ruby on Rails app, and you can install it as such.  Please see the appropriate installation guide
-for specifics for how to install.
+**How to Install Project Jellyfish**
 
-INSTALL-OSX.md - Mac OS Installation (generally used for development)
+Jellyfish is a Ruby on Rails application.  Please choose the appropriate installation guide for your system:
 
-INSTALL-RHEL.md - Red Hat Enterprise Linux / CentOS installation
+* Mac Users: [INSTALL-OSX.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-OSX.md) - Mac OS Installation (generally used for development)
 
-#### Heroku Quick Install
+* Windows Users: [INSTALL-RHEL.md](https://github.com/projectjellyfish/api/blob/master/INSTALL-RHEL.md)  - Red Hat Enterprise Linux / CentOS installation
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+* Heroku Quick Install: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-#### API Documentation
-
-To access docs on the API, please start rails server (make sure enviroment is either "test" or "development") and 
-navigate to http://your.jellyfish.install.url/documentation
-
+-----
+#### User Guide (Visual)
+-----
+#### Contributor Guide
+-----
+#### Configuration Guide
+-----
+#### API Reference Guide
+-----
+#### FAQs
+-----
+#### List of Modules
+-----
+#### List of Blueprints
+----
+#### Architecture
+----
 #### License
 
 See LICENSE
-
 
 Copyright 2015 Booz Allen Hamilton
