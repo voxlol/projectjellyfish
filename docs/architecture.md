@@ -2,26 +2,16 @@ Architecture
 ============
 
 Project Jellyfish is made up of numerous parts, working in concert to make it as easy to use as possible.
-The two most prominent portions of Project Jellyfish are the Jellyfish API and Jellyfish UX.
-Combined, they make up what we call the "Jellyfish Core".
-Both the Jellyfish API and Jellyfish UX are built on the Ruby on Rails framework.
 
 
 
-####Jellyfish API:
+####Jellyfish Core:
 
-* The Jellyfish API is a Ruby on Rails application that contains the back-end and the UX, or front-end  the work horse of Project Jellyfish.
-* It is a fully scalable REST server that powers the Jellyfish UX and Jellyfish Mobile.
+*The Jellyfish Core, built on the Ruby on Rails framework, combines the API and UX. 
+*The API is a fully scalable REST server that powers the Jellyfish UX and Jellyfish Mobile, and is the work horse of Project Jellyfish.
+*The UX is an Angular/HTML5 application that provides an andvanced interface for both end-users and administrators.
+*For end-users, it acts as a marketplace and self-service portal; for admins, it allows the creation of a catalog of services that they would ike to offer to their end-users.
 * _Jellyfish API requires Ruby 2.2.x and PostgreSQL 9.4.x_
-
-
-
-####Jellyfish UX:
-
-* The Jellyfish UX is an Angular/HTML5 application using NodeJS.
-* It provides an advanced interface for both end-users and admins.
-* For end-users it acts as a marketplace and self-service portal.
-* For admins, it allows the creation of a catalog of services that they would like to offer their end-users.
 
 
 
@@ -41,8 +31,8 @@ Both the Jellyfish API and Jellyfish UX are built on the Ruby on Rails framework
 
 ####Configuration Management:
 
-* In order to help streamline the deployment and management of the data on the servers that Jellyfish runs on, we use configuration tools: Puppet and Chef.
-* Instead of manually managing our infrastructure environment, Puppet and Chef automate that management and enable our team to focus on delivering Project Jellyfish.
+* In order to help streamline the deployment and management of the data on the servers that Jellyfish runs on, we use the configuration tool Chef.
+* Instead of manually managing our infrastructure environment, Chef automates that management and enables our team to focus on delivering Project Jellyfish.
 
 
 
