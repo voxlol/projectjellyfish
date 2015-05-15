@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512194822) do
+ActiveRecord::Schema.define(version: 20150514000758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,30 @@ ActiveRecord::Schema.define(version: 20150512194822) do
 
   add_index "groups_staff", ["group_id"], name: "index_groups_staff_on_group_id", using: :btree
   add_index "groups_staff", ["staff_id"], name: "index_groups_staff_on_staff_id", using: :btree
+
+  create_table "jellyfish_fog_aws_database_products", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "db_instance_class"
+    t.string   "engine"
+    t.string   "allocated_storage"
+    t.string   "storage_type"
+    t.string   "availability"
+  end
+
+  create_table "jellyfish_fog_aws_infrastructure_products", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "instance_size"
+    t.string   "disk_size"
+  end
+
+  create_table "jellyfish_fog_aws_storage_products", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "availability"
+    t.string   "region"
+  end
 
   create_table "logs", force: :cascade do |t|
     t.integer  "staff_id",   null: false
@@ -350,6 +374,27 @@ ActiveRecord::Schema.define(version: 20150512194822) do
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
+  create_table "provision_items", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.integer  "order_item_id"
+    t.uuid     "uuid"
+    t.integer  "vendor_id"
+    t.string   "vendor_name"
+    t.integer  "provision_status"
+    t.string   "status_msg"
+    t.jsonb    "payload_request"
+    t.jsonb    "payload_acknowledgement"
+    t.jsonb    "payload_response"
+  end
+
+  add_index "provision_items", ["order_item_id", "uuid"], name: "index_provision_items_on_order_item_id_and_uuid", using: :btree
+  add_index "provision_items", ["order_item_id"], name: "index_provision_items_on_order_item_id", using: :btree
+  add_index "provision_items", ["payload_acknowledgement"], name: "index_provision_items_on_payload_acknowledgement", using: :gin
+  add_index "provision_items", ["payload_request"], name: "index_provision_items_on_payload_request", using: :gin
+  add_index "provision_items", ["payload_response"], name: "index_provision_items_on_payload_response", using: :gin
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.text   "description"
@@ -461,5 +506,6 @@ ActiveRecord::Schema.define(version: 20150512194822) do
   add_foreign_key "groups_staff", "staff", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
   add_foreign_key "memberships", "projects", on_delete: :cascade
+  add_foreign_key "provision_items", "order_items", on_delete: :cascade
   add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end

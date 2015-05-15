@@ -54,12 +54,9 @@ Rails.application.routes.draw do
     # Organizations
     resources :organizations
 
-    # Provision Request Response
+    # Order Items
     resources :order_items, only: [:show, :update, :destroy] do
       member do
-        put :start_service
-        put :stop_service
-        put :provision_update
         put :retire_service
       end
     end
@@ -77,8 +74,6 @@ Rails.application.routes.draw do
         get :answers
       end
     end
-
-    resources :manage_iq_products
 
     resources :product_types
 

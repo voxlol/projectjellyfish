@@ -38,6 +38,6 @@ class Alert < ActiveRecord::Base
 
   def cache_alert_data
     order_item.update_attributes latest_alert_id: id
-    project.compute_current_status!
+    project.compute_current_status! unless project.nil?
   end
 end
