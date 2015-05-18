@@ -16,7 +16,7 @@
     <label class="col-sm-2 control-label" for="description">Group Description:</label>
 
     <div class="col-sm-6 controls">
-    <textarea id="description" name="description" type="text" ng-model="adminGroupFormCtrl.group.description" ng-change="adminGroupFormCtrl.clearSubmitError('description')" class="form-control"></textarea>
+    <textarea id="description" name="description" type="text" maxlength="58" ng-model="adminGroupFormCtrl.group.description" ng-change="adminGroupFormCtrl.clearSubmitError('description')" class="form-control"></textarea>
 
         <div class="help-block">
             <div class="help-text" ng-show="adminGroupFormCtrl.hasError('description', 'required')">Group Description is Required</div>
