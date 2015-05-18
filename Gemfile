@@ -51,6 +51,7 @@ gem 'custom_configuration'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'jellyfish_fog_aws'
+gem 'jellyfish-manageiq'
 
 # Autoprefixer for CSS classes using Can I Use values.
 gem 'autoprefixer-rails'

@@ -44,7 +44,6 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
   has_many :alerts, inverse_of: :order_item
-  has_many :provision_derivations
   belongs_to :latest_alert, class_name: 'Alert'
 
   # Update the parent Order total
