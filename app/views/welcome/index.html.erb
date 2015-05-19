@@ -3,6 +3,7 @@
   <head>
     <!-- Meta Tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="api-base-path" content="<%= root_url %>api/v1" />
     <title>Dashboard - Jellyfish</title>
 
     <%= stylesheet_link_tag 'application' %>
@@ -15,7 +16,6 @@
   <body>
     <div ui-view></div>
 
-    <script type="application/javascript">window.apiBasePath = "<%= root_url %>api/v1";</script>
     <%= javascript_include_tag 'application' %>
   </body>
 </html>
