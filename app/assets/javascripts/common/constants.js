@@ -13,6 +13,8 @@ angular.module('broker.common.constants', [])
     orgColor: '#0a498a',
     version: '2.0.0'
   })
+  .constant('WIZARD_AUTOSUBMIT',
+      angular.element('meta[name="wizard-autosubmit"]').attr('content'))
   .constant('ROUTES', {
     login: '/login',
     logout: '/logout',
