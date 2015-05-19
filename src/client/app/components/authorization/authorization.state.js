@@ -25,7 +25,7 @@
       // vm.authorizedRoles = next.data.authorizedRoles;
       // if (!AuthorizationService.isAuthorized( vm.authorizedRoles)) {
       // if (AuthorizationService.isAuthenticated()) {
-      //   $state.transitionTo('base.authed.errors.unauthorized');
+      //   $state.transitionTo('base.errors.unauthorized');
       // } else {
       //   $state.transitionTo('errors.sorry');
       // }
@@ -37,14 +37,14 @@
       // If a 401 is encountered during a state change, then kick the user back to the login
       if (401 === error.status) {
         if (AuthorizationService.isAuthenticated()) {
-          $state.transitionTo('public.logout');
-        } else if ('public.login' !== toState.name) {
-          $state.transitionTo('public.login');
+          $state.transitionTo('logout');
+        } else if ('login' !== toState.name) {
+          $state.transitionTo('login');
         }
       } else if (403 === error.status) {
         logger.error('An error has prevent the page from loading. Please try again later.');
-        if ('authed.dashboard' !== fromState.name) {
-          $state.transitionTo('authed.dashboard');
+        if ('dashboard' !== fromState.name) {
+          $state.transitionTo('dashboard');
         }
       } else {
         logger.error('Unhandled State Change Error occurred: ' + (error.statusText || error.message));
@@ -59,7 +59,7 @@
     $rootScope.$on('$stateNotFound', function(event) {
       event.preventDefault();
       // if (AuthorizationService.isAuthenticated()) {
-      //  $state.transitionTo('base.authed.errors.not-found');
+      //  $state.transitionTo('base.errors.not-found');
       // } else {
       //  $state.transitionTo('errors.sorry');
       //     }

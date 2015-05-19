@@ -16,15 +16,15 @@
 
   function getStates() {
     return {
-      'public.login': {
-        url: '/',
+      'login': {
+        url: '/login',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Login',
-        resolve: {
-          ssoUrl: ssoUrl
-        },
+        // resolve: {
+        //    ssoUrl: ssoUrl
+        //  },
         data: {
           layout: 'blank'
         }
@@ -38,17 +38,23 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, AuthenticationService, lodash, ssoUrl) {
+  function StateController($state, logger, AuthenticationService, lodash) {
     var vm = this;
 
     vm.AuthService = AuthenticationService;
     vm.title = 'Login';
-    vm.ssoUrl = ssoUrl;
-    vm.activate = activate;
+    // vm.ssoUrl = ssoUrl;
+
     vm.login = login;
     vm.hasFailedLogin = hasFailedLogin;
 
+    activate();
+
     function activate() {
+      if (AuthenticationService.isAuthenticated()) {
+        // logger.info(SessionService.firstName + ' is already logged in, redirecting you to the dashboard.');
+        $state.transitionTo('dashboard');
+      }
     }
 
     function hasFailedLogin() {
@@ -70,7 +76,7 @@
         };
 
         vm.AuthService.login(vm.credentials).success(lodash.bind(function() {
-          $state.transitionTo('authed.dashboard');
+          $state.transitionTo('dashboard');
         }, vm))
           .error(lodash.bind(function() {
             isFailedLogin = true;

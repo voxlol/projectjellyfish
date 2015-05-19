@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'authed.admin.project-questions.create': {
+      'admin.project-questions.create': {
         url: '/create',
         templateUrl: 'app/states/admin/project-questions/create/create.html',
         controller: StateController,

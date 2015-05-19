@@ -1,1 +1,30 @@
-order history successs
+<content-header short="true">
+  <span class="content-header__title">Order History ({{vm.orders.length}})</span>
+</content-header>
+
+<div ng-if="::vm.orders.length > 0" class="history-list" ng-cloak>
+  <table st-table="vm.orders"class="history-list__table">
+    <thead>
+    <tr>
+      <th class="catalog-category__heading catalog-category__heading--padding"></th>
+      <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="id">ORDER ID</th>
+      <th  class="catalog-category__heading catalog-category__heading--sortable"ng-if="!item_count" st-sort="order_items">ITEMS</th>
+      <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="total">PROJECTED COST (monthly)</th>
+      <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="provision_status">PLACED BY</th>
+      <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="created_at"  st-sort-default="true">REQUEST DATE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="selectRow" ng-repeat="item in vm.orders" ui-sref="base.authed.orders({id: item.id})">
+      <td class="catalog-category__cell catalog-category__cell--padding"></td>
+      <td class="catalog-category__cell catalog-category__cell"><a class="blue-link" ui-sref="base.authed.orders({id: item.id})">{{item.id}}</a>
+      </td>
+      <td class="catalog-category__cell catalog-category__cell">{{item.item_count || item.order_items.length || 0}}</td>
+      <td class="catalog-category__cell catalog-category__cell">{{item.total | currency}}</td>
+      <td class="catalog-category__cell catalog-category__cell">{{item.staff_id}}</td>
+      <td class="catalog-category__cell catalog-category__cell">{{item.created_at | date:'medium' }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

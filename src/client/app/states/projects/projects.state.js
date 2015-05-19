@@ -13,12 +13,15 @@
 
   function getStates() {
     return {
-      'authed.projects': {
+      'projects': {
         url: '/projects',
         templateUrl: 'app/states/projects/projects.html',
         controller: ProjectsController,
         controllerAs: 'vm',
-        title: 'Projects'
+        title: 'Projects',
+        resolve: {
+          Projects: resolveProjects
+        }
       }
     };
   }
@@ -31,7 +34,7 @@
     return {
       'projects': {
         type: 'state',
-        state: 'authed.projects',
+        state: 'projects',
         label: 'My Projects',
         style: 'projects',
         order: 1
@@ -39,13 +42,20 @@
     };
   }
 
+  /** @ngInject */
+  function resolveProjects(Projects) {
+    return Projects.query().$promise;
+  }
+
   /* @ngInject */
-  function ProjectsController(logger) {
+  function ProjectsController(logger, Projects, VIEW_MODES) {
     /* jshint validthis: true */
     var vm = this;
 
+    vm.projects = Projects;
     vm.activate = activate;
     vm.title = 'Projects';
+    vm.viewMode = VIEW_MODES.list;
 
     activate();
 

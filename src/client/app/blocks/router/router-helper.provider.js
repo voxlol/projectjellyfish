@@ -91,7 +91,7 @@
           + (error.data || '') + '. <br/>' + (error.statusText || '')
           + ': ' + (error.status || '');
         logger.warning(msg, [toState]);
-        $location.path('/login');
+        $location.path('/');
       }
 
       function updateTitle(event, toState) {

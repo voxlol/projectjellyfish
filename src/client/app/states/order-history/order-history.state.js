@@ -13,12 +13,15 @@
 
   function getStates() {
     return {
-      'authed.order-history': {
+      'order-history': {
         url: '/order-history',
         templateUrl: 'app/states/order-history/order-history.html',
         controller: OrderHistoryController,
         controllerAs: 'vm',
-        title: 'Order History'
+        title: 'Order History',
+        resolve: {
+          Orders: resolveOrders
+        }
       }
     };
   }
@@ -31,7 +34,7 @@
     return {
       'order-history': {
         type: 'state',
-        state: 'authed.order-history',
+        state: 'order-history',
         label: 'Order History',
         style: 'order-history',
         order: 2
@@ -40,9 +43,15 @@
   }
 
   /** @ngInject */
-  function OrderHistoryController(logger) {
+  function resolveOrders(Orders) {
+    return Orders.query().$promise;
+  }
+
+  /** @ngInject */
+  function OrderHistoryController(logger, Orders) {
     var vm = this;
 
+    vm.orders = Orders;
     vm.title = 'Order History';
 
     activate();

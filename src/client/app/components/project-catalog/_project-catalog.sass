@@ -1,4 +1,4 @@
-+block(history-list)
++block(project-catalog)
   @extend .panel
   border: none
   border-radius: 0
@@ -141,9 +141,18 @@
     width: 100%
     padding: 10px
     margin-bottom: 15px
+    border: 1px solid $app-color-gray
     position: relative
 
     +modifier(approved)
+      background-color: $app-color-green
+
+    +modifier(undecided)
+      background-color: $app-color-light-gray
+
+    +modifier(rejected)
+      background-color: $app-color-pink
+
 
   +element(card-name)
     font-size: 14px

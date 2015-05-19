@@ -13,12 +13,15 @@
 
   function getStates() {
     return {
-      'authed.dashboard': {
+      'dashboard': {
         url: '/dashboard',
         templateUrl: 'app/states/dashboard/dashboard.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Dashboard'
+        title: 'Dashboard',
+        resolve: {
+          Projects: resolveProjects
+        }
       }
     };
   }
@@ -36,7 +39,7 @@
     return {
       'dashboard': {
         type: 'state',
-        state: 'authed.dashboard',
+        state: 'dashboard',
         label: 'Dashboard',
         style: 'dashboard',
         order: 0
@@ -45,11 +48,16 @@
   }
 
   /** @ngInject */
-  function StateController(logger) {
+  function resolveProjects(Projects) {
+    return Projects.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, Projects) {
     var vm = this;
 
     vm.title = 'Dashboard';
-
+    vm.projects = Projects;
     activate();
 
     function activate() {

@@ -1,0 +1,80 @@
+<div ng-if="::vm.project.length > 0" class="project-catalog" ng-cloak>
+  <div ng-switch="vm.viewMode" class="project-catalog__body" collapse="vm.collapsed">
+    <table ng-switch-when="list" st-table="vm.project" class="project-catalog__table">
+      <thead>
+      <tr>
+        <th class="catalog-category__heading catalog-category__heading--padding"></th>
+        <th st-sort="id"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable"
+            st-sort-default="true">
+          Project ID
+        </th>
+        <th st-sort="name"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable">
+          Project
+        </th>
+        <th st-sort="approval"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable">
+          Approval
+        </th>
+        <th st-sort="status"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable">
+          Status
+        </th>
+        <th st-sort="budget"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable">
+          Budget
+        </th>
+        <th st-sort="spent"
+            class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable">
+          Spent
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in vm.project">
+        <td class="catalog-category__cell catalog-category__cell--padding"></td>
+        <td class="project-catalog__cell ">
+          <span>{{ ::row.id }}</span>
+        </td>
+        <td class="project-catalog__cell project-catalog__cell--description">
+          <div ng-if="!row.img" class="project-catalog__image"
+               ng-class="'project-catalog__image--light-blue'">
+          </div>
+          <div ng-if="row.img">
+            <img class="project-catalog__image" ng-src="{{row.img}}" alt="Project Image"/>
+          </div>
+          <span>{{ ::row.name }}</span>
+          <span ng-if="row.description" class="project-catalog__product-description">&mdash; {{ ::row.description }}</span>
+        </td>
+        <td class="project-catalog__cell">
+          <span>{{ ::row.approval }}</span>
+        </td>
+        <td class="project-catalog__cell">
+          <span>{{ ::row.status }}</span>
+        </td>
+        <td class="project-catalog__cell">
+          <span>{{ ::row.budget | currency }}</span>
+        </td>
+        <td class="project-catalog__cell">
+          <span>{{ ::row.spent | currency}}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div ng-switch-when="grid" class="project-catalog__grid">
+      <div class="project-catalog__box" ng-repeat="row in vm.project">
+        <div class="project-catalog__card " ng-class="'project-catalog__card--' + row.approval">
+          <div ng-if="!row.img" class="project-catalog__image project-catalog__image--large"
+               ng-class="'project-catalog__image--light-blue'">
+          </div>
+          <div ng-if="row.img" >
+            <img class="project-catalog__image--large" ng-src="{{row.img}}" alt="Project Image"/>
+          </div>
+          <div class="project-catalog__card-name">{{ ::row.name }}</div>
+          <div class="project-catalog__card-description">{{ ::row.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

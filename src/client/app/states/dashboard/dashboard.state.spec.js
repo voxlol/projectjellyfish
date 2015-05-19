@@ -11,13 +11,13 @@ describe('Dashboard', function() {
     });
 
     it('should map / route to Dashboard View template', function() {
-      expect($state.get('authed.dashboard').templateUrl).to.equal(views.dashboard);
+      expect($state.get('dashboard').templateUrl).to.equal(views.dashboard);
     });
 
     it('should work with $state.go', function() {
-      $state.go('authed.dashboard');
+      $state.go('dashboard');
       $rootScope.$apply();
-      expect($state.is('authed.dashboard'));
+      expect($state.is('dashboard'));
     });
   });
 

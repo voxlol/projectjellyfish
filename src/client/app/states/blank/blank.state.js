@@ -11,7 +11,7 @@
 
   function getStates() {
     return {
-      'authed.blank': {
+      'blank': {
         url: '/blank',
         templateUrl: 'app/states/blank/blank.html',
         controller: BlankController,
