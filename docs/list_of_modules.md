@@ -1,7 +1,6 @@
 List of Modules
 ===============
 
-*	Jellyfish Core
 *	ManageIQ
 *	Audit
 *	SAML Authentication

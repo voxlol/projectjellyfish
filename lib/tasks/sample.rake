@@ -11,6 +11,118 @@ namespace :sample do
 
   desc 'Generates demo data'
   task demo: :environment do
+    wizard = {
+      'Will this be a public or private cloud?' =>
+      [
+        {
+          text: 'Public',
+          tags_to_add: ['public'],
+          tags_to_remove: ['private']
+        },
+        {
+          text: 'Private',
+          tags_to_add: ['private'],
+          tags_to_remove: ['public']
+        }
+      ],
+      'What programming language will be used?' => [
+        {
+          text: 'PHP',
+          tags_to_add: ['PHP','Linux'],
+          tags_to_remove: ['Windows', 'Java', 'Ruby', 'dotNet']
+        },
+        {
+          text: 'Ruby',
+          tags_to_add: ['Linux', 'Ruby', 'dotNet'],
+          tags_to_remove: ['PHP', 'Windows', 'Java', 'dotNet']
+        },
+        {
+          text: 'Java',
+          tags_to_add: ['Linux', 'Windows', 'Java'],
+          tags_to_remove: ['PHP', 'Ruby', 'dotNet']
+        },
+        {
+          text: 'dotNet',
+          tags_to_add: ['dotNet', 'Windows'],
+          tags_to_remove: ['Linux', 'Java', 'Ruby', 'PHP']
+        },
+        {
+          text: 'Perl',
+          tags_to_add: ['Perl', 'Linux'],
+          tags_to_remove: ['Windows']
+        }
+      ],
+      'Does this require FedRAMP certification?' =>
+      [
+        {
+          text: 'Yes',
+          tags_to_add: ['FedRAMP'],
+          tags_to_remove: []
+        },
+        {
+          text: 'No',
+          tags_to_add: [],
+          tags_to_remove: ['FedRamp']
+        }
+      ],
+      'What FISMA Classifaction is needed?' =>
+      [
+        {
+          text: 'Low',
+          tags_to_add: ['FISMAlow', 'FISMAmedium', 'FISMAhigh'],
+          tags_to_remove: ['FISMAhigh', 'NonFISMA']
+        },
+        {
+          text: 'Medium',
+          tags_to_add: ['FISMAmedium', 'FISMAhigh'],
+          tags_to_remove: ['FISMAlow', 'NonFISMA']
+        },
+        {
+          text: 'High',
+          tags_to_add: ['FISMAhigh'],
+          tags_to_remove: ['FISMAlow', 'FISMAmedium', 'NonFISMA']
+        }
+      ],
+      'What is your preferred Cloud Provider?' =>
+      [
+        {
+          text: 'AWS',
+          tags_to_add: ['AWS'],
+          tags_to_remove: ['VMware', 'Azure']
+        },
+        {
+          text: 'VMWare',
+          tags_to_add: ['VMWare'],
+          tags_to_remove: ['AWS', 'Azure']
+        },
+        {
+          text: 'Azure',
+          tags_to_add: ['Azure'],
+          tags_to_remove: ['AWS', 'VMWare']
+        }
+      ],
+      'Will you require high availability' =>
+      [
+        {
+          text: 'Yes',
+          tags_to_add: ['HA'],
+          tags_to_remove: []
+        },
+        {
+          text: 'No',
+          tags_to_add: [],
+          tags_to_remove: ['HA']
+        }
+      ],
+    }
+
+    wizard.each do |question, answers|
+      unless WizardQuestion.find_by(text: question)
+        question = WizardQuestion.create(text: question)
+        question.wizard_answers.create(answers)
+      end
+    end
+
     Staff.create!([
        { id: 4, first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, secret: 'jellyfish-token'},
        { id: 2, first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil, secret: 'jellyfish-token'},

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :wizard_questions, only: [:show, :create] do
+    resources :wizard_questions, only: [:show, :create, :index] do
       collection do
         get :first
       end
@@ -54,12 +54,9 @@ Rails.application.routes.draw do
     # Organizations
     resources :organizations
 
-    # Provision Request Response
+    # Order Items
     resources :order_items, only: [:show, :update, :destroy] do
       member do
-        put :start_service
-        put :stop_service
-        put :provision_update
         put :retire_service
       end
     end
@@ -77,8 +74,6 @@ Rails.application.routes.draw do
         get :answers
       end
     end
-
-    resources :manage_iq_products
 
     resources :product_types
 
@@ -168,6 +163,7 @@ Rails.application.routes.draw do
     show
     terribly-sorry-about-that
     users
+    wizard
   ).each do |path|
     get "/#{path}" => 'welcome#index'
     get "/#{path}/*path" => 'welcome#index'

@@ -23,20 +23,8 @@ class OrderItemPolicy < ApplicationPolicy
     admin_or_related
   end
 
-  def start_service?
-    admin_or_related
-  end
-
-  def stop_service?
-    admin_or_related
-  end
-
   def retire_service?
     admin_or_related
-  end
-
-  def provision_update?
-    user.admin?
   end
 
   private

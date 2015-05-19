@@ -31,9 +31,6 @@ class OrdersController < ApplicationController
     param :project_id, :number, desc: 'Id for Project', required: true
     param :product_id, :number, desc: 'Id for Product', required: true
     param :cloud_id, :number, desc: 'Id for cloud', required: false
-    param :port, :number, required: false
-    param :host, String, required: false
-    param :provision_status, %w(pending active), required: false
   end
   param :staff_id, :number, required: true
   param :total, :real_number, required: false
@@ -66,9 +63,6 @@ class OrdersController < ApplicationController
     param :project_id, :number, desc: 'Id for Project', required: true
     param :product_id, :number, desc: 'Id for Product', required: true
     param :cloud_id, :number, desc: 'Id for cloud', required: false
-    param :port, :number, required: false
-    param :host, String, required: false
-    param :provision_status, %w(pending active), required: false
   end
   param :staff_id, :number, required: true
   param :options, Array, desc: 'Options'
