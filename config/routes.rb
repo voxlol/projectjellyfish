@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :wizard_questions, only: [:show, :create, :index] do
+    resources :wizard_questions do
       collection do
         get :first
       end

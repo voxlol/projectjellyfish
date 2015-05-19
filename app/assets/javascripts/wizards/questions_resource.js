@@ -6,6 +6,10 @@
       return $resource(apiResource('wizardQuestions'), {
         id: '@id',
         'includes[]': ['wizard_answers']
-      });
+      },
+      {
+        'update': {method: 'PUT'}
+      }
+      );
     });
 }());

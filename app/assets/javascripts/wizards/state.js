@@ -29,4 +29,19 @@
     templateUrl: "/templates/partials/wizard/allQuestions.html",
     url: "/project/:projectId/wizard",
   };
+
+  angular.module('broker.wizard')
+    .config(function($stateProvider) {
+      $stateProvider
+        .state('base.authed.admin.wizard', {
+          url: "/wizard",
+          templateUrl: "/templates/partials/wizard/edit.html",
+          controller: "EditWizardController as vm",
+          resolve: {
+            questions: function(WizardQuestionsResource) {
+              return WizardQuestionsResource.query().$promise;
+            }
+          }
+        })
+    });
 }());
