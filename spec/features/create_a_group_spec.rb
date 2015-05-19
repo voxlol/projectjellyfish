@@ -16,6 +16,6 @@ feature 'Group creation' do
     end
     click_on 'CREATE NEW GROUP'
 
-    expect(page).to have_css('.group-title', text: group.name)
+    expect(page).to have_css('.product-title', text: group.name)
   end
 end
