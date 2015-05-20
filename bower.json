@@ -1,9 +1,10 @@
 {
-  "name": "Jellyfish UX Prototype",
+  "name": "Project Jellyfish",
   "version": "0.0.1",
-  "description": "Jellyfish UX Active Prototype",
+  "description": "Project Jellyfish UX",
   "authors": [
-    "Michael Stack"
+    "Michael Stack",
+    "Allen Wight"
   ],
   "license": "MIT",
   "homepage": "https://bitbucket.com/chaoticmoon/bah-ux-prototype",
@@ -34,10 +35,17 @@
     "angular-smart-table": "~2.0.1",
     "angular-messages": "~1.3.15",
     "angular-schema-form": "~0.8.0",
-    "angular-ui-sortable": "~0.13.3"
+    "angular-ui-sortable": "~0.13.3",
+    "d3": "~3.5.5",
+    "nvd3": "~1.7.1",
+    "angular-nvd3": "~0.1.1",
+    "ngDraggable": "~0.1.8",
+    "angular-filter": "~0.5.4"
   },
   "resolutions": {
-    "angular": "1.3.15"
+    "angular": "1.3.15",
+    "d3": "~3.5.5",
+    "nvd3": "~1.7.1"
   },
   "overrides": {
     "jquery-ui": {

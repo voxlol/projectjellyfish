@@ -84,7 +84,7 @@
     display: inline-block
     height: 22px
     width: 22px
-    border: 1px solid $app-color-gray
+    border: 2px solid $app-color-gray
     background-color: $app-color-white
     border-radius: 3px
     position: absolute
@@ -145,14 +145,38 @@
     position: relative
 
     +modifier(approved)
-      background-color: $app-color-green
+      box-shadow: $app-color-dark-green 0 0 10px
+      -moz-box-shadow: $app-color-dark-green 0 0 10px
+      -webkit-box-shadow: $app-color-dark-green 0 0 10px
 
-    +modifier(undecided)
-      background-color: $app-color-light-gray
+    +modifier(approvedok)
+      box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-dark-green, 20%) 0px -15px 5px 0px inset
+      -moz-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-dark-green, 20%) 0px -15px 5px 0px inset
+      -webkit-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-dark-green, 20%) 0px -15px 5px 0px inset
 
-    +modifier(rejected)
-      background-color: $app-color-pink
+    +modifier(approvedcritical)
+      box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-pink, 20%)0px -15px 5px 0px inset
+      -moz-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-pink, 20%)0px -15px 5px 0px inset
+      -webkit-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-pink, 20%)0px -15px 5px 0px inset
 
+    +modifier(approvedwarning)
+      box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-orange, 20%) 0px -15px 5px 0px inset
+      -moz-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-orange, 20%) 0px -15px 5px 0px inset
+      -webkit-box-shadow: $app-color-dark-green 0 0 10px, darken($app-color-orange, 20%) 0px -15px 5px 0px inset
+
+    +modifier(undecidedok)
+      box-shadow: $app-color-gray 0 0 10px
+      -moz-box-shadow: $app-color-gray 0 0 10px
+      -webkit-box-shadow: $app-color-gray 0 0 10px
+
+    +modifier(rejectedok)
+      box-shadow: $app-color-pink 0 0 10px
+      -moz-box-shadow: $app-color-pink 0 0 10px
+      -webkit-box-shadow: $app-color-pink 0 0 10px
+
+  +element(card-name)
+    border: 1px solid $app-color-gray
+    background-color: $app-color-light-gray
 
   +element(card-name)
     font-size: 14px
@@ -168,3 +192,4 @@
     text-overflow: ellipsis
     overflow: hidden
     white-space: nowrap
+    text-transform: uppercase

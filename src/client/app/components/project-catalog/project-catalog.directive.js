@@ -31,11 +31,16 @@
       var vm = this;
 
       vm.activate = activate;
+      // vm.isApproved = isApproved;
 
       function activate() {
         vm.viewMode = vm.viewMode || VIEW_MODES.list;
         vm.collapsed = angular.isDefined(vm.collapsed) ? vm.collapsed : false;
       }
+
+      // function isApproved(status){
+      //  return status === 'approved'? true : false;
+      // }
     }
   }
 })();

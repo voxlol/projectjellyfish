@@ -84,6 +84,7 @@
 
   // Custom Globals
   "globals"       : {         // additional predefined global variables
-    "angular": false
+    "angular": false,
+    "d3": false
   }
 }

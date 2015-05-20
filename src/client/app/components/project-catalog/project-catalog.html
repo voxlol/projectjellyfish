@@ -1,6 +1,6 @@
 <div ng-if="::vm.project.length > 0" class="project-catalog" ng-cloak>
   <div ng-switch="vm.viewMode" class="project-catalog__body" collapse="vm.collapsed">
-    <table ng-switch-when="list" st-table="vm.project" class="project-catalog__table">
+    <table ng-switch-when="list" st-table="vm.project" class="project-catalog__table table-hover">
       <thead>
       <tr>
         <th class="catalog-category__heading catalog-category__heading--padding"></th>
@@ -64,15 +64,17 @@
     </table>
     <div ng-switch-when="grid" class="project-catalog__grid">
       <div class="project-catalog__box" ng-repeat="row in vm.project">
-        <div class="project-catalog__card " ng-class="'project-catalog__card--' + row.approval">
+        <div class="project-catalog__card " ng-class="'project-catalog__card--' + row.approval + row.status">
           <div ng-if="!row.img" class="project-catalog__image project-catalog__image--large"
                ng-class="'project-catalog__image--light-blue'">
           </div>
           <div ng-if="row.img" >
             <img class="project-catalog__image--large" ng-src="{{row.img}}" alt="Project Image"/>
           </div>
-          <div class="project-catalog__card-name">{{ ::row.name }}</div>
-          <div class="project-catalog__card-description">{{ ::row.description }}</div>
+          <!--<div class="project-catalog__card-details">-->
+            <div class="project-catalog__card-name">{{ ::row.name }}</div>
+            <div class="project-catalog__card-description">{{ ::row.approval }} - {{ ::row.status }}</div>
+          <!--</div>-->
         </div>
       </div>
     </div>

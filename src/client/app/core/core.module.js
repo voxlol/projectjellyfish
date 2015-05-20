@@ -19,6 +19,9 @@
 
     // Third party modules
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'nvd3',
+    'ngDraggable',
+    'angular.filter'
   ]);
 })();

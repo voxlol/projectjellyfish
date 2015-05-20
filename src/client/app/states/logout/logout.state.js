@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'logout': {
-        url: '/',
+        url: '/logout',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Logout'

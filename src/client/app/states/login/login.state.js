@@ -17,7 +17,7 @@
   function getStates() {
     return {
       'login': {
-        url: '/login',
+        url: '/',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,
         controllerAs: 'vm',
