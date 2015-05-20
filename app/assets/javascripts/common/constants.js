@@ -14,9 +14,9 @@ angular.module('broker.common.constants', [])
     version: '2.0.0'
   })
   .constant('WIZARD_AUTOSUBMIT',
-      angular.element('meta[name="wizard-autosubmit"]').attr('content'))
+      angular.element('meta[name="wizard-autosubmit"]').attr('content') == 'true')
   .constant('WIZARD_MULTIPAGE',
-      angular.element('meta[name="wizard-multipage"]').attr('content'))
+      angular.element('meta[name="wizard-multipage"]').attr('content') == 'true')
   .constant('ROUTES', {
     login: '/login',
     logout: '/logout',

@@ -24,6 +24,7 @@
 //= require objectpath
 //= require angular-schema-form
 //= require tv4
+//= require wizards
 //= require_tree .
 //= require d3
 //= require nvd3
