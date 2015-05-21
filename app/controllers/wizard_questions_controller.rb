@@ -62,6 +62,6 @@ class WizardQuestionsController < ApplicationController
       params[:wizard_answers_attributes] = params.delete(:wizard_answers)
     end
 
-    params.slice(:id, :text, :wizard_answers_attributes).permit!
+    params.permit(:id, :text, wizard_answers_attributes: [:id, :text, tags_to_add: [], tags_to_remove: []])
   end
 end
