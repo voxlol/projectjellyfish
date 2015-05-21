@@ -19,7 +19,7 @@
       var apiBasePath = APP_CONFIG.apiBasePath || apiRoutes.basePath;
 
       // Remove trailing slash if it exists.
-      apiBasePath = apiBasePath.replace(/\/$/, '');
+      // apiBasePath = apiBasePath.replace(/\/$/, '');
 
       if (lodash.isObject(APP_CONFIG)) {
         return apiBasePath;

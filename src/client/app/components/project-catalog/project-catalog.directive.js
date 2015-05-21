@@ -27,17 +27,20 @@
     }
 
     /** @ngInject */
-    function ProjectCatalogController(VIEW_MODES) {
+    function ProjectCatalogController(VIEW_MODES, $state) {
       var vm = this;
 
       vm.activate = activate;
+      vm.goTo = goTo;
       // vm.isApproved = isApproved;
 
       function activate() {
         vm.viewMode = vm.viewMode || VIEW_MODES.list;
         vm.collapsed = angular.isDefined(vm.collapsed) ? vm.collapsed : false;
       }
-
+      function goTo(id) {
+        $state.go('projects.details', {projectId: id});
+      }
       // function isApproved(status){
       //  return status === 'approved'? true : false;
       // }

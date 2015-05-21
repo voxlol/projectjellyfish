@@ -15,13 +15,8 @@
     return {
       'projects': {
         url: '/projects',
-        templateUrl: 'app/states/projects/projects.html',
-        controller: ProjectsController,
-        controllerAs: 'vm',
-        title: 'Projects',
-        resolve: {
-          Projects: resolveProjects
-        }
+        redirectTo: 'projects.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }
@@ -40,27 +35,5 @@
         order: 1
       }
     };
-  }
-
-  /** @ngInject */
-  function resolveProjects(Projects) {
-    return Projects.query().$promise;
-  }
-
-  /* @ngInject */
-  function ProjectsController(logger, Projects, VIEW_MODES) {
-    /* jshint validthis: true */
-    var vm = this;
-
-    vm.projects = Projects;
-    vm.activate = activate;
-    vm.title = 'Projects';
-    vm.viewMode = VIEW_MODES.list;
-
-    activate();
-
-    function activate() {
-      logger.info('Activated Project View');
-    }
   }
 })();

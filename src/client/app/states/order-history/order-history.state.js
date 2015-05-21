@@ -15,13 +15,7 @@
     return {
       'order-history': {
         url: '/order-history',
-        templateUrl: 'app/states/order-history/order-history.html',
-        controller: OrderHistoryController,
-        controllerAs: 'vm',
-        title: 'Order History',
-        resolve: {
-          Orders: resolveOrders
-        }
+        redirectTo: 'order-history.list'
       }
     };
   }
@@ -40,24 +34,5 @@
         order: 2
       }
     };
-  }
-
-  /** @ngInject */
-  function resolveOrders(Orders) {
-    return Orders.query().$promise;
-  }
-
-  /** @ngInject */
-  function OrderHistoryController(logger, Orders) {
-    var vm = this;
-
-    vm.orders = Orders;
-    vm.title = 'Order History';
-
-    activate();
-
-    function activate() {
-      logger.info('Activated Order History View');
-    }
   }
 })();

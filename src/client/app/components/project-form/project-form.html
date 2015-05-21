@@ -1,0 +1,95 @@
+<form name="vm.form" class="form-horizontal" role="form" novalidate autocomplete="off"
+      ng-submit="vm.onSubmit()"
+      ng-class="{'show-errors': vm.showErrors()}">
+  <content-header short="true">
+    <div>
+      <span class="content-header__title project-form__title">{{ ::vm.title }}</span>
+      <span class="project-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in
+        red</span>
+    </div>
+  </content-header>
+  <div class="project-form__body">
+
+    <div class="project-field">
+      <div class="project-field__aside">
+        <label class="project-field__label">Question</label>
+      </div>
+
+      <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('question')}">
+        <input id="project-name" ng-model="vm.projects.question" name="question" type="text"
+               class="project-field__input" placeholder="" required/>
+
+        <div class="project-field__feedback" ng-messages="vm.form.question.$error">
+          <div ng-message="required">A question is required.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-field">
+      <div class="project-field__aside">
+        <label class="project-field__label">Help Text</label>
+      </div>
+
+      <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('help')}">
+        <input id="project-help" ng-model="vm.projects.help" name="help" type="text"
+               class="project-field__input" placeholder=""/>
+      </div>
+    </div>
+
+    <div class="project-field">
+      <div class="project-field__aside">
+        <label class="project-field__label">Answer</label>
+      </div>
+
+      <div class="project-field__body">
+        <div class="project-field__checkbox">
+          <input id="project-required" ng-model="vm.projects.required" name="required"
+                 type="checkbox"/>
+          <label for="project-required">Required</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-field">
+      <div class="project-field__aside">
+        <label class="project-field__label">Question Type</label>
+      </div>
+      <div class="project-field__body project-field__body--type">
+        <select id="project-type" ng-model="vm.projects.type" name="type"
+                class="project-field__input"
+                confirmation
+                confirmation-trigger="change"
+                confirmation-message="Switching question types will clear the option content. Are you sure you want to switch?"
+                confirmation-ok-text="Yes, Switch It"
+                confirmation-ok-style="danger"
+                confirmation-show-cancel="false"
+                confirmation-on-ok="vm.typeChangeOk()"
+                confirmation-on-cancel="vm.typeChangeCancel()">
+          <option value="yes_no">"Yes or No"</option>
+          <option value="multiple">Multiple Choice</option>
+        </select>
+      </div>
+    </div>
+
+    <project-options options="vm.projects.options"
+                              options-type="vm.projects.type"></project-options>
+
+  </div>
+  <div class="row project-form__buttons">
+    <div class="col-sm-7">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="btn-rounded project-form__submit" ng-disabled="vm.hasErrors()">Save
+        </button>
+        <button type="button" class="btn btn-link project-form__cancel"
+                confirmation
+                confirmation-if="vm.form.$dirty"
+                confirmation-message="You have unsaved changes. Abandon them and leave the page?"
+                confirmation-ok-style="danger"
+                confirmation-ok-text="Yes, Leave"
+                confirmation-on-ok="vm.backToList()"
+                confirmation-show-cancel="false">Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

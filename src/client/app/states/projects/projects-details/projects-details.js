@@ -1,0 +1,64 @@
+(function() {
+  'use strict';
+
+  angular.module('app.states')
+    .run(appRun);
+
+  /** @ngInject */
+  function appRun(routerHelper, navigationHelper) {
+    routerHelper.configureStates(getStates());
+    navigationHelper.navItems(navItems());
+    navigationHelper.sidebarItems(sidebarItems());
+  }
+
+  function getStates() {
+    return {
+      'projects.details': {
+        url: '/:projectId',
+        templateUrl: 'app/states/projects/projects-details/projects-details.html',
+        controller: StateController,
+        controllerAs: 'vm',
+        title: 'Project Details',
+        resolve: {
+          projectDetails: resolveProjects,
+          products: resolveProducts
+        }
+      }
+    };
+  }
+
+  function navItems() {
+    return {};
+  }
+
+  function sidebarItems() {
+    return {};
+  }
+
+  /** @ngInject */
+  function resolveProjects($stateParams, Projects) {
+    return Projects.get({id: $stateParams.projectId}).$promise;
+  }
+
+  /** @ngInject */
+  function resolveProducts(Product) {
+    return Product.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, projectDetails, products) {
+    var vm = this;
+
+    vm.title = 'Project Details';
+    vm.projectDetails = projectDetails;
+    vm.products = products;
+
+    vm.activate = activate;
+
+    activate();
+
+    function activate() {
+      logger.info('Activated Project Details View');
+    }
+  }
+})();

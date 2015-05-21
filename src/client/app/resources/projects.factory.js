@@ -7,7 +7,6 @@
   /** @ngInject */
   function ProjectsFactory($resource, ApiService, lodash) {
     var vm = this;
-
     var Projects = $resource(ApiService.routeResolve('projectsById'), {id: '@id'}, {
       'query': {
         method: 'GET',
