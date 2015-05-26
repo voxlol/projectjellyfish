@@ -1,9 +1,10 @@
 {
-  "name": "bah-ux-prototype",
+  "name": "Project Jellyfish",
   "version": "0.0.1",
-  "description": "BAH UX Prototype",
+  "description": "Project Jellyfish dependencies",
   "authors": [
-    "Michael Stack"
+    "Michael Stack",
+    "Allen Wight"
   ],
   "license": "MIT",
   "scripts": {

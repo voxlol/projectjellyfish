@@ -1,21 +1,12 @@
 <content-header>
   <div class="admin-products-list__body">
-    <span class="content-header__title">All Products</span>
+    <span class="content-header__title">Alerts</span>
   </div>
   <div class="admin-products-list__aside">
     <div>
-      <product-type-show-modal
-        title="Add A Product"
-        message="Select the type of product you will be creating"
-        product-types="vm.productTypes"
-        on-ok="vm.createType(productType)"></product-type-show-modal>
-    </div>
-    <div class="admin-products-list__switch">
-      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
+      <button type="button" class="btn-rounded btn btn-info text-uppercase " ui-sref="admin.alerts.create">
+        <i class="fa fa-plus-circle"></i> Add New Alert
+      </button>
     </div>
   </div>
 </content-header>
-
-<catalog-category ng-repeat="category in vm.catalog" category="category" view-mode="vm.viewMode"
-                  comparable="false" on-product-clicked="vm.productClicked"></catalog-category>
-

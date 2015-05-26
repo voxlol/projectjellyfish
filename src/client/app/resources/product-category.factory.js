@@ -6,7 +6,7 @@
 
   /** @ngInject */
   function ProductCategoryFactory($resource) {
-    var ProductCategory = $resource('/api/product_categories/:id');
+    var ProductCategory = $resource('productTypesById');
 
     return ProductCategory;
   }
