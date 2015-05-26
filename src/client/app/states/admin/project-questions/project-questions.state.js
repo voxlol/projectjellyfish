@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.project-questions',
         label: 'Project Questions',
-        order: 2
+        order: 4
       }
     };
   }

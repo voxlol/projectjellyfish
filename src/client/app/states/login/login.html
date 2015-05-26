@@ -1,59 +1,50 @@
-  <div class="navigation navigation__brand">
-    <a class="navigation__brand">
-      <img src="images/jellyfish_main_logo.png"/>
-    </a>
-  </div>
+<div class="navigation navigation__brand">
+  <a class="navigation__brand">
+    <img src="images/jellyfish_main_logo.png"/>
+  </a>
+</div>
 
 <div class="login__window">
-   <div class="login__title">
+  <div class="login__title">
     LOGIN
   </div>
 
   <form ng-submit="vm.login()">
-    <div class="error" ng-show="vm.hasFailedLogin()">
+    <div class="login__error" ng-show="vm.hasFailedLogin()">
       <i class="fa fa-exclamation-triangle"></i>
       Invalid Email or Password.
     </div>
-    <table class="table-data">
-      <colgroup>
-        <col class="col40">
-        <col>
-      </colgroup>
-      <tbody>
-      <tr ng-show="vm.ssoUrl">
-        <td colspan="2" class="text-center">
-          <!--<a class="btn btn-primary btn-lg" ng-click="vm.login(vm.ssoUrl)">-->
-            <a class="btn btn-primary btn-lg" ng-click="vm.login()">
-            <i class="fa fa-key fa-fw"></i>
-            Log in with Single Sign-On
-          </a>
-          <p>
-            <br/>
-            &mdash; or &mdash;
-            <br/>
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td class="left-text">Email</td>
-        <td class="min-value">
-          <input class="form-control" name="email" type="text" ng-model="vm.email">
-        </td>
-      </tr>
-      <tr>
-        <td class="left-text">Password</td>
-        <td class="min-value">
-          <input class="form-control" name="password" type="password" ng-model="vm.password">
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <input type="submit" value="Login" class="btn btn-primary">
-        </td>
-      </tr>
-      </tbody>
-    </table>
+
+    <div ng-show="vm.ssoUrl">
+      <div class="login__sso">
+        <!--<a class="btn btn-primary btn-lg" ng-click="vm.login(vm.ssoUrl)">-->
+        <a class="btn btn-primary btn-lg" ng-click="vm.login()">
+          <i class="fa fa-key fa-fw"></i>
+          Log in with Single Sign-On
+        </a>
+        <p>
+          <br/>
+          &mdash; or &mdash;
+          <br/>
+        </p>
+      </div>
+    </div>
+    <div>
+      <div class="login__input-title">Email</div>
+      <div class="login__input">
+        <input class="form-control" name="email" type="text" ng-model="vm.email">
+      </div>
+    </div>
+    <div>
+      <div class="login__input-title">Password</div>
+      <div class="login__input">
+        <input class="form-control" name="password" type="password" ng-model="vm.password">
+      </div>
+    </div>
+    <div class="login__submit">
+      <input type="submit" value="Login" class="btn btn-primary">
+    </div>
+
   </form>
 </div>
 <footer></footer>

@@ -16,8 +16,27 @@
     left: 50%
     transform: translate(-50%, -50%)
 
+  +element(error)
+    color: $app-color-pink
+    font-size: 18px
+    +make-lg-column(12)
+
+  +element(sso)
+
+
+  +element(input-title)
+    +make-lg-column(2)
+
+  +element(input)
+    +make-lg-column-offset(2)
+    +make-lg-column(10)
+
   +element(title)
     font-size: 1.4em
     font-weight: bold
     padding-bottom: 20px
     text-transform: uppercase
+
+  +element(submit)
+    +make-lg-column(12)
+    margin: 6px

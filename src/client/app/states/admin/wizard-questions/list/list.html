@@ -1,0 +1,17 @@
+<content-header>
+  <div class="admin-products-list__body">
+    <span class="content-header__title">Wizard Questions</span>
+  </div>
+  <div class="admin-products-list__aside">
+    <div>
+      <product-type-show-modal
+        title="Add A Product"
+        message="Select the type of product you will be creating"
+        product-types="vm.productTypes"
+        on-ok="vm.createType(productType)"></product-type-show-modal>
+    </div>
+    <div class="admin-products-list__switch">
+      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
+    </div>
+  </div>
+</content-header>

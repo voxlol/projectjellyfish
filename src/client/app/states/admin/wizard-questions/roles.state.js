@@ -13,10 +13,10 @@
 
   function getStates() {
     return {
-      'admin': {
-        abstract: true,
-        template: '<ui-view></ui-view>',
-        url: '/admin'
+      'admin.wizard-questions': {
+        url: '/wizard-questions',
+        redirectTo: 'admin.wizard-questions.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }
@@ -27,12 +27,11 @@
 
   function sidebarItems() {
     return {
-      'admin': {
-        type: 'dropdown',
-        state: 'admin',
-        label: 'Admin',
-        style: 'admin',
-        order: 4
+      'admin.alerts': {
+        type: 'state',
+        state: 'admin.wizard-questions',
+        label: 'Wizard Quesitons',
+        order: 6
       }
     };
   }
