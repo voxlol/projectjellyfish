@@ -16,5 +16,5 @@
 #
 
 class WizardAnswerSerializer < ApplicationSerializer
-  attributes :text, :tags_to_add, :tags_to_remove
+  attributes :id, :text, :tags_to_add, :tags_to_remove
 end

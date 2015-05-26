@@ -2,7 +2,6 @@
   'use strict';
 
   angular.module('broker.wizard')
-    /**@ngInject*/
     .controller('WizardQuestionsController', function($stateParams, question, questions) {
       var vm = this;
 
@@ -13,8 +12,8 @@
       vm.tags = [];
 
       function nextQuestion() {
-        vm.tags = _.union(vm.tags, vm.answer.tags_to_add)
-        vm.tags = _.difference(vm.tags, vm.answer.tags_to_remove)
+        vm.tags = _.union(vm.tags, vm.answer.tags_to_add);
+        vm.tags = _.difference(vm.tags, vm.answer.tags_to_remove);
 
         if(vm.question.next_question_id) {
           questions.next(vm.question).then(function(question) {

@@ -30,3 +30,6 @@ deploy:
     secure: "ZDWFn6pTVtqg4DwXu0ge5wkFu8pVJV3c0px0KAXubOr8H0VNa4j1pOocS7JiCOAfsU1GVm1idyvCPS5Dyz5HqnZIqGYKS0TSiK4ezA10a1nb3MTPEiCtAyb6c/wxwPrtQ+7EvbI5oL7bWtXXhWXo7czNMG22+IhsQw3FPEnOxVQ="
   app: jellyfish-core-dev
   run: "rake db:schema:load spec db:seed sample:demo"
+
+env:
+  - WIZARD_AUTOSUBMIT=true WIZARD_MULTIPAGE=true

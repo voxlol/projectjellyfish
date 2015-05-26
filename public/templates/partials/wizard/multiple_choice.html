@@ -10,7 +10,6 @@
   >
     <input
       type="radio"
-      name="answer"
       ng-model="$parent.$parent.model"
       ng-value="option"
     />
@@ -20,6 +19,6 @@
     type="submit"
     value="Submit"
     ng-click="action()"
-    ng-hide="WIZARD_AUTOSUBMIT"
+    ng-hide="WIZARD_AUTOSUBMIT || !WIZARD_MULTIPAGE"
   />
 </div>

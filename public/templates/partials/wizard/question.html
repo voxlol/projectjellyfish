@@ -1,8 +1,8 @@
 <h1>{{vm.question.text}}</h1>
 <multiple-choice
-  options="vm.question.wizard_answers"
-  model="vm.answer"
   action="vm.nextQuestion"
+  model="vm.answer"
+  options="vm.question.wizard_answers"
 ></multiple-choice>
 <a
   ng-if="vm.noMoreQuestions"

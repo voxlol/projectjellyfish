@@ -1,0 +1,15 @@
+<h1>Wizard</h1>
+
+<fieldset ng-repeat="question in vm.questions">
+  <h2>{{question.text}}</h2>
+  <multiple-choice
+    action="angular.noop"
+    model="vm.answers[question.id]"
+    options="question.wizard_answers"
+  ></multiple-choice>
+</fieldset>
+<button
+  ng-click="vm.submitAnswers()"
+>
+  View filtered products
+</button>
