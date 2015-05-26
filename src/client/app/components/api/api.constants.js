@@ -43,7 +43,7 @@
         'groupsById': '/groups/:id',
         'roles': '/roles',
         'rolesById': '/roles/:id',
-        'wizardQuestions': '/wizard_questions/:id'
+        'wizardQuestionsById': '/wizard_questions/:id'
       }
     });
 })();
