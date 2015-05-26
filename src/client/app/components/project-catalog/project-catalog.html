@@ -2,7 +2,7 @@
   <div ng-switch="vm.viewMode" class="project-catalog__body" collapse="vm.collapsed">
     <table ng-switch-when="list" st-table="vm.project" class="project-catalog__table table-hover">
       <thead>
-      <tr ng-click="vm.projectPage(row.id)">
+      <tr>
         <th class="catalog-category__heading catalog-category__heading--padding"></th>
         <th st-sort="id"
             class="project-catalog__heading project-catalog__heading--description project-catalog__heading--sortable"

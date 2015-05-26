@@ -40,7 +40,7 @@
     return Projects.query().$promise;
   }
 
-  /* @ngInject */
+  /** @ngInject */
   function StateController(logger, Projects, VIEW_MODES) {
     /* jshint validthis: true */
     var vm = this;

@@ -4,7 +4,7 @@
   angular.module('app.components')
     .service('SessionService', SessionService);
 
-  /* @ngInject */
+  /** @ngInject */
   function SessionService() {
     var vm = this;
 

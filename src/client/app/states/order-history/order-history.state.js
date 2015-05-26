@@ -15,7 +15,8 @@
     return {
       'order-history': {
         url: '/order-history',
-        redirectTo: 'order-history.list'
+        redirectTo: 'order-history.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }

@@ -42,7 +42,7 @@
   /** @ngInject */
   function StateController($state, logger, Orders) {
     var vm = this;
-    alert('success');
+
     vm.orders = Orders;
     vm.title = 'Order History';
     vm.goTo = goTo;

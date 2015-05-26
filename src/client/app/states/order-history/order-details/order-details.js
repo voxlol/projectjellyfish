@@ -13,12 +13,15 @@
 
   function getStates() {
     return {
-      'orderhistory.details': {
+      'order-history.details': {
         url: '/:id',
         templateUrl: 'app/states/order-history/order-details/order-details.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Order History Details'
+        title: 'Order History Details',
+        resolve: {
+          order: resolveOrder
+        }
       }
     };
   }
@@ -32,10 +35,16 @@
   }
 
   /** @ngInject */
-  function StateController(logger, ProjectQuestion) {
+  function resolveOrder($stateParams, Orders) {
+    return Orders.get({id: $stateParams.id}).$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, order) {
     var vm = this;
 
     vm.title = 'Order History Details';
+    vm.orderDetails = order;
 
     vm.activate = activate;
 
