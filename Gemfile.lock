@@ -267,7 +267,7 @@ GEM
     jbuilder (2.2.16)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jellyfish-fog (0.0.1)
+    jellyfish-fog (0.0.2)
       azure (>= 0.6.0)
       bcrypt
       dotenv-rails
@@ -275,6 +275,7 @@ GEM
       fog-azure
       pg
       rails
+      rbvmomi
     jellyfish-manageiq (0.0.3)
       apipie-rails (~> 0.2.6)
       jellyfish-provisioner
@@ -441,6 +442,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     rake (10.4.2)
+    rbvmomi (1.8.2)
+      builder
+      nokogiri (>= 1.4.1)
+      trollop
     rdoc (4.2.0)
     ref (1.0.5)
     responders (2.1.0)
@@ -525,6 +530,7 @@ GEM
     time_for_a_boolean (0.0.6)
       activerecord
       railties
+    trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
