@@ -144,7 +144,7 @@ namespace :sample do
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
 
     Product.create!([
-      { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
+      { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, tag_list: ['aws', 'small', 'fog'], provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
       { id: 2, name: "AWS Medium", description: "m3.medium EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.080, monthly_price: 0.0, provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
       { id: 3, name: "AWS Large", description: "m3.large EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.13, monthly_price: 0.14, provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
       { id: 5, name: "Medium MySQL", description: "Local MySQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1" },

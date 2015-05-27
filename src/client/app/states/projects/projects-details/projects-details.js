@@ -46,19 +46,31 @@
   }
 
   /** @ngInject */
-  function StateController(logger, projectDetails, products) {
+  function StateController($state, logger, projectDetails, products) {
     var vm = this;
 
     vm.title = 'Project Details';
-    vm.projectDetails = projectDetails;
+    vm.project = projectDetails;
     vm.products = products;
 
     vm.activate = activate;
+    vm.approve = approve;
+    vm.reject = reject;
 
     activate();
 
     function activate() {
       logger.info('Activated Project Details View');
+    }
+
+    function approve(project) {
+      project.$approve();
+      $state.reload();
+    }
+
+    function reject(project, reason) {
+      project.$reject({reason: reason});
+      $state.transitionTo('projects.list');
     }
   }
 })();

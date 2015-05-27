@@ -1,0 +1,45 @@
++block(approval)
+  padding: 10px
+  border-bottom: 1px solid #cbcccd
+  padding-right: 395px
+  position: absolute
+
+  +element(approval-banner)
+
+  +element(pending-banner)
+    background-color: lighten($app-color-orange, 20%)
+  +element(reject-banner)
+    background-color: $app-color-pink
+
+
++block(detail-heading)
+
+  +element(body)
+    padding-right: 395px
+
+  +element(aside)
+    text-align: right
+    height: 90px
+    position: absolute
+    right: 0
+    top: 0
+
+  +element(icon)
+    display: inline-block
+    width: 80px
+    height: 80px
+    position: static
+    background-color: $app-color-white
+    border: 2px solid $app-color-gray
+    border-radius: 3px
+    top: 10px
+    left: 0
+
+
+
+
++block(detail-body)
+  @extend .panel
+
+
+

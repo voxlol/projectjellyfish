@@ -23,13 +23,18 @@
     }
 
     /** @ngInject */
-    function NavProfileController(SessionService) {
+    function NavProfileController(SessionService, Alerts) {
       var vm = this;
-      vm.firstName = SessionService.firstName;
 
+      vm.firstName = SessionService.firstName;
+      vm.alerts = queryAlerts;
       vm.activate = activate;
 
       function activate() {
+      }
+
+      function queryAlerts() {
+        return Alerts.query().$promise;
       }
     }
   }
