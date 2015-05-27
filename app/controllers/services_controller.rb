@@ -121,6 +121,9 @@ class ServicesController < ApplicationController
     # QUERY OUT DESIRED ATTRIBUTES - TODO: FIGURE OUT A BETTER WAY TO DO THIS
     @services = OrderItem.select(
       'order_items.*,
+    order_items.payload_response#>>\'{defaults, ip_address}\' as ip_address,
+    order_items.payload_response#>>\'{defaults, hostname}\' as hostname,
+    order_items.payload_response#>>\'{defaults, total}\' as total,
     projects.name as project_name,
     projects.description as project_description,
     products.name as service_name,
