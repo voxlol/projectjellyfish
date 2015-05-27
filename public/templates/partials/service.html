@@ -1,5 +1,4 @@
 <div class="service-page">
-
   <div class="row">
     <div class="col-sm-6" ng-switch="previousState">
       <a ng-switch-when="base.authed.project.view" ui-sref="base.authed.project.view(previousStateParams)" class="btn btn-info btn-nav">
@@ -72,15 +71,15 @@
           <tbody>
           <tr>
             <td class="blue-texts font15">Pricing</td>
-            <td class="item-texts">{{serviceCtrl.service.total | currency}}</td>
+            <td class="item-texts">{{serviceCtrl.service.payload_response.defaults.total | currency}}</td>
           </tr>
           <tr>
             <td class="blue-texts font15">Hostname</td>
-            <td class="item-texts">{{serviceCtrl.service.hostname}}</td>
+            <td class="item-texts">{{serviceCtrl.service.payload_response.defaults.hostname}}</td>
           </tr>
           <tr>
             <td class="blue-texts font15">IP Address</td>
-            <td class="item-texts">{{serviceCtrl.service.ip_address}}</td>
+            <td class="item-texts">{{serviceCtrl.service.payload_response.defaults.ip_address}}</td>
           </tr>
           </tbody>
         </table>
