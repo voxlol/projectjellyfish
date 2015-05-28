@@ -1,21 +1,53 @@
-
-
-<content-header>
-  <div class="admin-products-list__body">
-    <span class="content-header__title">All Users</span>
+<content-header short="true">
+  <div class="admin-users-list__body">
+    <span class="content-header__title">Users</span>
   </div>
-  <div class="admin-products-list__aside">
-    <div>
-      <button type="button" class="btn-rounded btn btn-info text-uppercase " ui-sref="admin.users.create">
-        <i class="fa fa-plus-circle"></i> Add New User
-      </button>
-    </div>
-    <div class="admin-products-list__switch">
-      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
-    </div>
+  <div class="admin-users-list__aside">
+    <a ui-sref="admin.users.create" class="btn-rounded">Add New User</a>
   </div>
 </content-header>
 
-<user-catalog users="vm.staff" view-mode="vm.viewMode"
-                  comparable="false" on-product-clicked="vm.productClicked"></user-catalog>
-
+<div class="users-table">
+  <table st-table="vm.staff" class="users-table__table table-hover">
+    <thead>
+    <th colspan="2">
+      <input st-search="" class="form-control" placeholder="Filter by name, role, email address" type="text"/>
+    </th>
+    <tr>
+      <th class="users-table__heading catalog-category__heading--padding"></th>
+      <th class="users-table__heading users-table__heading" st-sort="id">Id</th>
+      <th class="users-table__heading users-table__heading--question" st-sort="last_name">First/Last Name</th>
+      <th class="users-table__heading users-table__heading--required" st-sort="email">Email</th>
+      <th class="users-table__heading users-table__heading--actions" st-sort="phone">Phone</th>
+      <th class="users-table__heading users-table__heading--actions" st-sort="role">Role</th>
+      <th class="users-table__heading users-table__heading--actions" st-sort="updated_at">Last Updated</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="users-table__row" ng-repeat="row in vm.staff">
+      <td class="users-table__cell catalog-category__cell--padding"></td>
+      <td class="users-table__cell users-table__cell--order">{{ ::row.id }}</td>
+      <td class="users-table__cell users-table__cell--question">{{ ::row.first_name}}/{{ ::row.last_name}}</td>
+      <td class="users-table__cell users-table__cell--question">{{ ::row.email }}</td>
+      <td class="users-table__cell users-table__cell--question">{{ ::row.phone }}</td>
+      <td class="users-table__cell users-table__cell--question">{{ ::row.role }}</td>
+      <td class="users-table__cell users-table__cell--question">{{ ::row.updated_at | date: 'short'}}</td>
+      <td class="users-table__cell users-table__cell--actions">
+        <a ng-click="vm.goTo(row.id)" class="users-table__action users-table__action--edit">
+          <img src="/images/ic_edit.png" alt="Edit"/>
+        </a>
+        <a href="#" class="users-table__action users-table__action--delete"
+           confirmation
+           confirmation-position="left-center"
+           confirmation-message="Are you sure you want to remove this usert?"
+           confirmation-ok-style="danger"
+           confirmation-ok-text="Yes, Delete It"
+           confirmation-on-ok="vm.deleteAlert($index)"
+           confirmation-show-cancel="false">
+          <img src="/images/ic_deletequestion.png" alt="Delete"/>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

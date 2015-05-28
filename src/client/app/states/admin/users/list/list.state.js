@@ -46,11 +46,32 @@
     vm.title = 'Admin User List';
     vm.staff = staff;
     vm.activate = activate;
+    vm.goTo = goTo;
 
     activate();
 
     function activate() {
       logger.info('Activated Admin User List View');
+    }
+
+    function goTo(id) {
+      $state.go('admin.users.create', {id: id});
+    }
+
+    vm.deleteAlert = deleteAlert;
+
+    function deleteAlert(index) {
+      var alerts = vm.staff[index];
+      alerts.$delete(deleteSuccess, deleteFailure);
+
+      function deleteSuccess() {
+        vm.staff.splice(index, 1);
+        Toasts.toast('Alert deleted.');
+      }
+
+      function deleteFailure() {
+        Toasts.error('Server returned an error while deleting.');
+      }
     }
   }
 })();
