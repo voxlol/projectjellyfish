@@ -1,15 +1,10 @@
-+block(approval-banner)
-  padding: 10px
-  border-bottom: 1px solid #cbcccd
-  padding-right: 395px
-  position: absolute
++block(status-banner)
 
-  +element(pending-banner)
+
+  +element(pending)
     background-color: lighten($app-color-orange, 20%)
-    border: 2px solid $app-color-dark-gray
-    border-radius: 3px
 
-  +element(reject-banner)
+  +element(rejected)
     background-color: $app-color-pink
 
   +element(button)
@@ -39,27 +34,27 @@
 
 
 
-+block(detail-body)
-  @extend .panel
-  border: none
-  border-radius: 0
-
-  +element(header)
-    @extend .panel-heading
-    padding: 20px
-    background-color: $app-color-white
-    border: none
-
-  +element(body)
-    @extend .panel-body
-    padding: 0
-
-
-
-
-
-+block(detail-body)
-  @extend .panel
+//+block(detail-body)
+//  @extend .panel
+//  border: none
+//  border-radius: 0
+//
+//  +element(header)
+//    @extend .panel-heading
+//    padding: 20px
+//    background-color: $app-color-white
+//    border: none
+//
+//  +element(body)
+//    @extend .panel-body
+//    padding: 0
+//
+//
+//
+//
+//
+//+block(detail-body)
+//  @extend .panel
 
 
 

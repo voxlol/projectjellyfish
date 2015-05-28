@@ -10,10 +10,6 @@ describe('Dashboard', function() {
       bard.inject('$location', '$rootScope', '$state', '$templateCache');
     });
 
-    it('should map / route to Dashboard View template', function() {
-      expect($state.get('dashboard').templateUrl).to.equal(views.dashboard);
-    });
-
     it('should work with $state.go', function() {
       $state.go('dashboard');
       $rootScope.$apply();
@@ -39,25 +35,25 @@ describe('Dashboard', function() {
   describe('controller', function() {
     var controller;
 
-    // beforeEach(function() {
-    //  module('app.states', bard.fakeToastr);
-    //  bard.inject('$controller', '$log', '$state', '$rootScope');
-    //  controller = $controller($state.get('dashboard').controller);
-    //  $rootScope.$apply();
-    // });
-    //
-    // it('should be created successfully', function() {
-    //  expect(controller).to.be.defined;
-    // });
-    //
-    // describe('after activate', function() {
-    //  it('should have title of Dashboard', function() {
-    //    expect(controller.title).to.equal('Dashboard');
-    //  });
-    //
-    //  it('should have logged "Activated Dashboard"', function() {
-    //    expect($log.info.logs).to.match(/Activated Dashboard/);
-    //  });
-    // });
+    beforeEach(function() {
+      module('app.states', bard.fakeToastr);
+      bard.inject('$controller', '$log', '$state', '$rootScope');
+      controller = $controller($state.get('dashboard').controller);
+      $rootScope.$apply();
+    });
+
+    it('should be created successfully', function() {
+      expect(controller).to.be.defined;
+    });
+
+    describe('after activate', function() {
+      it('should have title of Dashboard', function() {
+        expect(controller.title).to.equal('Dashboard');
+      });
+
+      it('should have logged "Activated Dashboard"', function() {
+        expect($log.info.logs).to.match(/Activated Dashboard/);
+      });
+    });
   });
 });

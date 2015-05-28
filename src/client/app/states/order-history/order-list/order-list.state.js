@@ -45,16 +45,10 @@
 
     vm.orders = Orders;
     vm.title = 'Order History';
-    vm.goTo = goTo;
-
     activate();
 
     function activate() {
       logger.info('Activated Order History View');
-    }
-
-    function goTo(id) {
-      $state.go('order-history.details', {id: id});
     }
   }
 })();

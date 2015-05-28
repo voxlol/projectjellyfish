@@ -28,16 +28,16 @@
         <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date }}</td>
         <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date }}</td>
         <td class="alerts-table__cell alerts-table__cell--actions">
-          <a href="#" class="alerts-table__action alerts-table__action--edit">
+          <a ng-click="vm.goTo(row.id)" class="alerts-table__action alerts-table__action--edit">
             <img src="/images/ic_edit.png" alt="Edit"/>
           </a>
           <a href="#" class="alerts-table__action alerts-table__action--delete"
              confirmation
              confirmation-position="left-center"
-             confirmation-message="Are you sure you want to delete this question and it's content?"
+             confirmation-message="Are you sure you want to remove this alert and it's content?"
              confirmation-ok-style="danger"
              confirmation-ok-text="Yes, Delete It"
-             confirmation-on-ok="vm.deleteQuestion($index)"
+             confirmation-on-ok="vm.deleteAlert($index)"
              confirmation-show-cancel="false">
             <img src="/images/ic_deletequestion.png" alt="Delete"/>
           </a>

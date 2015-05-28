@@ -12,7 +12,7 @@
         method: 'GET',
         params: {
           'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'cpu', 'hdd', 'ram', 'status', 'monthly_spend']
+            'resources', 'resources_unit', 'status', 'monthly_spend']
         },
         isArray: true
       },
@@ -20,7 +20,7 @@
         method: 'GET',
         params: {
           'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'cpu', 'hdd', 'ram', 'status', 'monthly_spend', 'order_history']
+            'resources', 'resources_unit', 'status', 'monthly_spend', 'order_history']
         }
       },
       'update': {method: 'PUT'},

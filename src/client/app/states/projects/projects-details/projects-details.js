@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -22,7 +22,7 @@
         resolve: {
           projectDetails: resolveProjects,
           products: resolveProducts,
-          alerts: resolveAlerts
+          staff: resolveStaff
         }
       }
     };
@@ -37,13 +37,18 @@
   }
 
   /** @ngInject */
-  function resolveAlerts($stateParams, Alerts) {
-    return Alerts.get({id: $stateParams.projectId}).$promise;
+  function resolveProjects($stateParams, Projects) {
+    return Projects.get({
+      id: $stateParams.projectId,
+      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+    }).$promise;
   }
 
   /** @ngInject */
-  function resolveProjects($stateParams, Projects) {
-    return Projects.get({id: $stateParams.projectId}).$promise;
+  function resolveStaff(Staff) {
+    return Staff.getCurrentMember(
+      {'includes[]': ['groups']}
+    ).$promise;
   }
 
   /** @ngInject */
@@ -52,17 +57,21 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, projectDetails, products, alerts) {
+  function StateController($state, logger, projectDetails, products, lodash) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = projectDetails;
     vm.products = products;
-    vm.alerts = alerts;
 
     vm.activate = activate;
     vm.approve = approve;
     vm.reject = reject;
+
+    // todo: create alert service to poll
+    // vm.alerts = lodash.filter(alerts, function(alert) {
+    //  return alert.project_id == vm.project.project_id;
+    // });
 
     activate();
 

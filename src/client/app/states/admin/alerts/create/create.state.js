@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'admin.alerts.create': {
-        url: '/create',
+        url: '/create/:id',
         templateUrl: 'app/states/admin/alerts/create/create.html',
         controller: StateController,
         controllerAs: 'vm',

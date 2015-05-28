@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'admin.alerts.list': {
-        url: '', // No url, this state is the index of admin.products
+        url: '', // No url, this state is the index of admin.alerts
         templateUrl: 'app/states/admin/alerts/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
@@ -47,23 +47,26 @@
     vm.alerts = alerts;
 
     vm.activate = activate;
-
+    vm.goTo = goTo;
     activate();
 
     function activate() {
       logger.info('Activated Admin Products List View');
     }
 
-    vm.deleteQuestion = deleteQuestion;
+    function goTo(id) {
+      $state.go('admin.alert.create', {id: id});
+    }
 
-    function deleteQuestion(index) {
-      var projectQuestion = vm.projectQuestions[index];
+    vm.deleteAlert = deleteAlert;
 
-      projectQuestion.$delete(deleteSuccess, deleteFailure);
+    function deleteAlert(index) {
+      var alerts = vm.alerts[index];
+      alerts.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
-        vm.projectQuestions.splice(index, 1);
-        Toasts.toast('Project Question deleted.');
+        vm.alerts.splice(index, 1);
+        Toasts.toast('Alert deleted.');
       }
 
       function deleteFailure() {

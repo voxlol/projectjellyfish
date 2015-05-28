@@ -43,7 +43,7 @@ gulp.task('images', task('images'));
  * Build tasks
  */
 gulp.task('inject', ['wiredep', 'sass', 'templatecache'], task('inject'));
-gulp.task('optimize', ['inject', 'test'], task('optimize'));
+gulp.task('optimize', ['inject'], task('optimize'));
 gulp.task('build', ['optimize', 'images', 'fonts'], task('build'));
 gulp.task('build-specs', ['templatecache'], task('buildSpecs'));
 

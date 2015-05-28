@@ -1,36 +1,49 @@
 <div ng-if="vm.project.approval !== 'approved'">
-  <div class="approval-banner">
 
-    <div class="approval-banner__pending-banner" ng-show="vm.project.approval == 'undecided'">
-      <i class="project-approval-icon fa fa-asterisk"></i>
-      <span class="content-header__title">Project is Pending</span>
+  <div ng-show="vm.project.approval == 'undecided'">
+    <widget modifier="danger" class="status-banner__pending">
+      <div transclude-to="body">
+        <i class="fa fa-asterisk"></i>
+        <h3>Project is Pending</h3>
+        <i class="fa fa-asterisk"></i>
 
-
-      <div class="approval-banner__pending-banner__reject">
-        <div class="approval-banner__button">
-          <button type="button" class="btn btn-primary" ng-click="projectCtrl.approve(project)">APPROVE</button>
-        </div>
-        <input type="text" class="form-control approval-banner__input" ng-model="reason"
-               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-               placeholder="Reason for rejection"/>
-
-        <div class="approval-banner__button">
-          <button type="button" class="btn btn-danger" ng-click="projectCtrl.reject(project,reason)"
-                  ng-disabled="!reason">REJECT
-          </button>
+        <div class="approval-banner__pending-banner__reject">
+          <div class='row'>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary" ng-click="vm.approve(vm.project)">APPROVE</button>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" ng-model="reason"
+                     ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+                     placeholder="Reason for rejection"/>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-danger" ng-click="vm.reject(vm.project,reason)"
+                      ng-disabled="!reason">REJECT
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="approval-banner__reject-banner" ng-show="vm.project.approval == 'rejected'">
-      <i class="project-approval-icon fa fa-exclamation"></i>
-      <span class="content-header__title">Project was rejected</span>
+    </widget>
+  </div>
 
-      <p><strong>{{project.finalApproval().staff_name}}:</strong>
-        {{project.finalApproval().reason}}</p>
-    </div>
+  <div ng-show="vm.project.approval == 'rejected'" class="status-banner__rejected">
+    <widget modifier="danger">
+      <div transclude-to="body">
+
+        <i class="fa fa-exclamation"></i>
+
+        <h3>Project was rejected</h3>
+        <i class="fa fa-exclamation"></i>
+
+        <p><strong>{{vm.project.finalApproval().staff_name}}:</strong>
+          {{vm.project.finalApproval().reason}}</p>
+
+      </div>
+    </widget>
   </div>
 </div>
-
 
 <content-header short="true">
   <div class="detail-heading">
@@ -46,97 +59,69 @@
   </div>
 </content-header>
 
-project
-{{vm.project}}
-products
-{{vm.products}}
-alerts
-{{vm.alerts}}
+<!-- Problem Alerts -->
+<widget modifier="primary">
+  <div transclude-to="body">
 
-<div class="detail-body">
-  <!-- Metrics - Status, Budget, CPU, HDD, RAM -->
-  <div class="info-boxes">
-    <div class="info-box col18">
-      <!--<div class="info-box-icon">-->
-        <!--<progress-arc-->
-          <!--size="65"-->
-          <!--stroke="{{projectCtrl.getBudgetData(project).usedColor}}"-->
-          <!--stroke-width="5"-->
-          <!--complete="projectCtrl.getBudgetData(project).usedPercent"-->
-          <!--background="#dedede">-->
-        <!--</progress-arc>-->
-      <!--</div>-->
-      <div class="info-box-data">
-        <div class="info-box-title">
-          Total Project Funds: {{vm.project.budget | currency}}
-        </div>
-        <div class="info-box-text">
-          {{vm.project.spent | currency }} funds used
-        </div>
+
+    <!--<div class="info-box-icon">-->
+    <!--<progress-arc-->
+    <!--size="65"-->
+    <!--stroke="{{projectCtrl.getBudgetData(project).usedColor}}"-->
+    <!--stroke-width="5"-->
+    <!--complete="projectCtrl.getBudgetData(project).usedPercent"-->
+    <!--background="#dedede">-->
+    <!--</progress-arc>-->
+    <!--</div>-->
+    <h3>Total Funds</h3>
+
+
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+           style="min-width: 2em;">
+        0%
       </div>
     </div>
-    <div class="info-box-split"></div>
-    <div class="info-box col18">
-      <!--<div class="info-box-icon">-->
-        <!--<progress-arc-->
-          <!--size="65"-->
-          <!--stroke="{{projectCtrl.getLeftData(project).leftColor}}"-->
-          <!--stroke-width="5"-->
-          <!--complete="projectCtrl.getLeftData(project).leftPercent"-->
-          <!--background="#dedede">-->
-        <!--</progress-arc>-->
-      <!--</div>-->
 
-      <div class="info-box-data">
-        <div class="info-box-title">
-          Monthly Charge: {{projectCtrl.getLeftData(project).monthlySpend | currency}}
-        </div>
-        <div class="info-box-text">
-          {{projectCtrl.getLeftData(project).leftMonths}} Month(s) of Funding Remaining
-        </div>
-      </div>
-    </div>
-    <div class="info-box-split"></div>
+    {{vm.project.budget | currency}}
+
+
+    {{vm.project.spent | currency }} funds used
+    {{ remaining| currency}} funds remaining
+
+    <!--<div class="info-box-icon">-->
+    <!--<progress-arc-->
+    <!--size="65"-->
+    <!--stroke="{{projectCtrl.getLeftData(project).leftColor}}"-->
+    <!--stroke-width="5"-->
+    <!--complete="projectCtrl.getLeftData(project).leftPercent"-->
+    <!--background="#dedede">-->
+    <!--</progress-arc>-->
+    <!--</div>-->
+
+    Monthly Charge: {{projectCtrl.getLeftData(project).monthlySpend | currency}}
+
+    {{projectCtrl.getLeftData(project).leftMonths}} Month(s) of Funding Remaining
   </div>
+</widget>
 
-  <!-- Problem Alerts -->
+<!-- Order History -->
+<widget modifier="primary" ng-if="vm.project.order_history.length > 0" ng-cloak>
+  <div transclude-to="header">Order History ({{vm.project.order_history.length}})</div>
+  <div transclude-to="body">
+    <order-history-catalog orders="vm.project.order_history"></order-history-catalog>
+  </div>
+</widget>
 
-  <section-header name="Project Alerts" ng-show="alerts.length > 0">
-    {{vm.alerts}}
-  </section-header>
 
-  <!-- Order History -->
+<!-- Services -->
 
-  <section-header name="Project Orders" ng-if="vm.project.order_history.length > 0"  ng-cloak>
-      <table st-table="vm.project.order_history" class="history-list__table table-hover">
-        <thead>
-        <tr>
-          <th class="catalog-category__heading catalog-category__heading--padding"></th>
-          <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="id">ORDER ID</th>
-          <th  class="catalog-category__heading catalog-category__heading--sortable"ng-if="!item_count" st-sort="order_items">ITEMS</th>
-          <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="total">PROJECTED COST (monthly)</th>
-          <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="provision_status">PLACED BY</th>
-          <th  class="catalog-category__heading catalog-category__heading--sortable" st-sort="created_at"  st-sort-default="true">REQUEST DATE</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="selectRow" ng-repeat="item in vm.project.order_history" ng-click="vm.goTo(item.id)">
-          <td class="catalog-category__cell catalog-category__cell--padding"></td>
-          <td class="catalog-category__cell catalog-category__cell"><a class="blue-link">{{item.id}}</a>
-          </td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.item_count || item.order_items.length || 0}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.total | currency}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.staff_id}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.created_at | date:'medium' }}</td>
-        </tr>
-        </tbody>
-      </table>
-  </section-header>
 
-  <!-- Services -->
+<div class="project-services" ng-show="vm.project.approval == 'approved'">
+  <widget modifier="primary">
+    <div transclude-to="header">Services ({{vm.project.services.length}})</div>
+    <div transclude-to="body">
 
-  <div class="project-services" ng-show="vm.project.approval == 'approved'">
-    <section-header name="{{'Services (' + vm.project.services.length + ')'}}">
       <product-box class="product-box" ng-repeat="service in vm.project.services"
                    product="projectCtrl.getServiceWithProduct(service)">
         <a type="button" class="btn btn-primary"
@@ -156,42 +141,47 @@ alerts
           </a>
         </div>
       </div>
-    </section-header>
+
+    </div>
+  </widget>
+</div>
+<!-- Project Groups-->
+<widget modifier="primary">
+  <div transclude-to="header">Groups & Membership</div>
+  <div transclude-to="body">
+    membership
+    {{vm.project.memberships}}
+    groups
+    {{vm.project.groups}}
   </div>
+</widget>
 
-  <groups-input groups="groups" project="project"></groups-input>
 
-  <!-- Project Details -->
-
-  <div class="project-details">
-
-    <section-header name="Project Details">
-
-      <div class="table-box">
-        <div class="data-box">
-
-          <table st-table="rowCollection" class="table table-responsive table-striped">
-            <colgroup>
-              <col class="col40">
-              <col>
-            </colgroup>
-            <thead>
-            <tr>
-              <th class="text-left">Detail</th>
-              <th class="text-left">Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="answer in vm.project.project_answers">
-              <td class="blue-texts font15">{{answer.project_question.question}}</td>
-              <td class="item-texts">{{answer.answer}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section-header>
+<!- Project Details -->
+<widget modifier="primary">
+  <div transclude-to="header">Details ({{vm.project.project_answers.length}})</div>
+  <div transclude-to="body">
+    <table st-table="vm.project.project_answers" class="table table-hover">
+      <thead>
+      <tr>
+        <th>Project Question</th>
+        <th>Project Question Answer</th>
+        <th>Project Question Answer Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="answer in vm.project.project_answers">
+        <td>{{answer.project_question.question}}
+          <span ng-if="answer.project_question.help_text">({{answer.project_question.help_text}})</span>
+        </td>
+        <td>{{answer.answer}}</td>
+        <td>{{answer.created_at | date: 'short'}}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+</widget>
+
 
 </div>
-</div>
+

@@ -1,84 +1,47 @@
-{{vm.orderDetails}}
-
-
-<div class="order-page">
-
-  <div class="row">
-    <div class="col-sm-6" ng-switch="previousState">
-      <a ng-switch-when="base.authed.project.view" ui-sref="base.authed.project.view(previousStateParams)"
-         class="btn btn-info btn-nav">
-        <i class="fa fa-caret-left"></i>
-        Back to Project
-      </a>
-      <a ng-switch-default ui-sref="base.authed.users.orders" class="btn btn-info btn-nav">
-        <i class="fa fa-caret-left"></i>
-        Back to User Orders
-      </a>
-    </div>
+<content-header short="true">
+  <div class="detail-heading">
+    <span class="content-header__title">{{vm.project.name}}</span>
   </div>
+</content-header>
 
-  <section-header name="Order Detail">
-    <div class="table-box data-box">
-      <table class="table-condensed">
+<widget modifier="primary">
+  <div transclude-to="body">
+    <div ng-if="::vm.orderDetails.order_items.length > 0" class="history-list" ng-cloak>
+      <table st-table="vm.orderDetails.order_items" class="history-list__table table-hover">
+        <thead>
+        <th colspan="2"><input st-search="" class="form-control" placeholder="Filter by Product, Project or Status"
+                               type="text"/></th>
+        <tr>
+          <th class="catalog-category__heading catalog-category__heading--padding"></th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="id">ORDER ITEM ID</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="order_items">PRODUCTS</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="total">PROJECT</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="provision_status">STATUS</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="setup_price">SETUP PRICE</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="monthly_price">MONTHLY PRICE</th>
+          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="hourly_price">HOURLY PRICE</th>
+          </th>
+        </tr>
+        </thead>
         <tbody>
-        <tr>
-          <td class="list-box blue-texts font15">Order ID</td>
-          <td class="item-texts">{{ordersCtrl.order.id}}</td>
-        </tr>
-        <tr>
-          <td class="list-box blue-texts font15">Ordered By</td>
-          <td class="item-texts">{{ordersCtrl.order.staff.fullName()}}</td>
-        </tr>
-        <tr>
-          <td class="list-box blue-texts font15">Projected Total (monthly)</td>
-          <td class="item-texts">{{ordersCtrl.order.total | currency}}</td>
-        </tr>
-        <tr>
-          <td class="list-box blue-texts font15">Order Date</td>
-          <td class="item-texts">{{ordersCtrl.order.created_at | date:'medium'}}</td>
+        <tr class="selectRow" ng-repeat="item in vm.orderDetails.order_items">
+          <td class="catalog-category__cell catalog-category__cell--padding"></td>
+          <td class="catalog-category__cell catalog-category__cell">
+            <a class="blue-link"><a ui-sref="marketplace">{{item.id}}</a></a>
+          </td>
+          <td class="catalog-category__cell catalog-category__cell">
+            <a ui-sref="marketplace">{{item.product.name}}</a>
+          </td>
+          <td class="catalog-category__cell catalog-category__cell">
+            <a ui-sref="project.details({id: item.project_id})">{{item.project.name}}</a>
+          </td>
+          <td class="catalog-category__cell catalog-category__cell">{{item.provision_status}}</td>
+          <td class="catalog-category__cell catalog-category__cell">{{item.setup_price}}</td>
+          <td class="catalog-category__cell catalog-category__cell">{{item.monthly_price}}</td>
+          <td class="catalog-category__cell catalog-category__cell">{{item.hourly_price}}</td>
         </tr>
         </tbody>
       </table>
     </div>
-  </section-header>
-
-  <hr>
-  <!--<section-header name=" Items">-->
-
-  <div class="table-box data-box">
-    <table st-table="ordersCtrl.order.order_items" class="table table-striped table-hover">
-      <thead>
-      <th colspan="1"><input st-search="" class="form-control" placeholder="Filter by Product, Project or Status"
-                             type="text"/></th>
-      <tr class="selectRow">
-        <th st-sort="id">Order Item ID</th>
-        <th st-sort="product.name">Products</th>
-        <th st-sort="project.name">Project</th>
-        <th st-sort="provision_status">Status</th>
-      </tr>
-      <tr>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="item in ordersCtrl.order.order_items">
-        <td class="blue-texts font15"><a class="blue-link"
-                                         ui-sref="base.authed.marketplace.show({id: item.product_id})">{{item.id}}</a>
-        </td>
-        <td class="item-texts"><a class="blue-link"
-                                  ui-sref="base.authed.marketplace.show({id: item.product_id})">{{item.product.name}}</a>
-        </td>
-        <td class="item-texts"><a class="blue-link"
-                                  ui-sref="base.authed.project.view({projectId: item.project_id})">{{item.project.name}}</a>
-        </td>
-        <td class="item-texts">{{item.provision_status | uppercase}}</td>
-        <!--<td class="item-texts" ui-sref="base.authed.service({order_id: ordersCtrl.order.id, id: item.id})">-->
-        <!--Service-->
-        <!--</td>-->
-      </tr>
-      </tbody>
-    </table>
-
   </div>
-
-  <!--</section-header>-->
-</div>
+</widget>
