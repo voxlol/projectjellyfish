@@ -74,6 +74,8 @@ Rails.application.routes.draw do
         get :answers
       end
     end
+    post '/products/:product_id/tags' => 'tags#create', as: :product_tags
+    delete '/products/:product_id/tags' => 'tags#destroy'
 
     resources :product_types
 
@@ -95,8 +97,9 @@ Rails.application.routes.draw do
 
     # Project Routes
     scope 'projects/:project_id' do
-      post 'groups' => 'memberships#create', as: :memberships
       delete 'groups/:group_id' => 'memberships#destroy', as: :membership
+      post 'groups' => 'memberships#create', as: :memberships
+      put 'groups/:group_id' => 'memberships#update'
 
       get 'approvals' => 'project_approvals#index', as: :project_approvals
       post 'approve' => 'project_approvals#update', as: :approve_project
@@ -139,7 +142,10 @@ Rails.application.routes.draw do
     patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
     resources :groups
+    post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
+    delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
     resources :roles, only: [:index, :create, :update, :destroy]
+    resources :tags, only: [:index]
   end
 
   root 'welcome#index'
