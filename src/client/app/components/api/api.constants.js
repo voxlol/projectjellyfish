@@ -9,8 +9,7 @@
         'settingsByHid': '/settings/:hid',
         'cloudsById': '/clouds/:id',
 
-        'alerts': '/alerts',
-        'alertsById': '/alerts/:id',
+        'alerts': '/alerts/:id',
 
         'orders': '/orders/:id',
         'orderItems': '/order_items/:id',

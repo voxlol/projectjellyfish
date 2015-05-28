@@ -35,12 +35,12 @@
   }
 
   /** @ngInject */
-  function resolveAlerts($stateParams, Alerts) {
+  function resolveAlerts(Alerts) {
     return Alerts.query().$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, $q, $state, alerts) {
+  function StateController(logger, $q, $state, alerts, Toasts) {
     var vm = this;
 
     vm.title = 'Admin Products List';
@@ -52,6 +52,23 @@
 
     function activate() {
       logger.info('Activated Admin Products List View');
+    }
+
+    vm.deleteQuestion = deleteQuestion;
+
+    function deleteQuestion(index) {
+      var projectQuestion = vm.projectQuestions[index];
+
+      projectQuestion.$delete(deleteSuccess, deleteFailure);
+
+      function deleteSuccess() {
+        vm.projectQuestions.splice(index, 1);
+        Toasts.toast('Project Question deleted.');
+      }
+
+      function deleteFailure() {
+        Toasts.error('Server returned an error while deleting.');
+      }
     }
   }
 })();

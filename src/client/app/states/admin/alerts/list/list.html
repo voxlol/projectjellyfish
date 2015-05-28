@@ -1,12 +1,49 @@
-<content-header>
-  <div class="admin-products-list__body">
+<content-header short="true">
+  <div class="admin-alerts-list__body">
     <span class="content-header__title">Alerts</span>
   </div>
-  <div class="admin-products-list__aside">
-    <div>
-      <button type="button" class="btn-rounded btn btn-info text-uppercase " ui-sref="admin.alerts.create">
-        <i class="fa fa-plus-circle"></i> Add New Alert
-      </button>
-    </div>
+  <div class="admin-alerts-list__aside">
+    <a ui-sref="admin.alerts.create" class="btn-rounded">Add New Alert</a>
   </div>
 </content-header>
+<div class="row">
+  <div class="col-sm-12">
+    <table st-table="vm.alerts" class="alerts-table">
+      <thead>
+      <tr>
+        <th class="alerts-table__heading alerts-table__heading" st-sort="id">Alert Id</th>
+        <th class="alerts-table__heading alerts-table__heading--question" st-sort="project_id">Project</th>
+        <th class="alerts-table__heading alerts-table__heading--required" st-sort="status">Status</th>
+        <th class="alerts-table__heading alerts-table__heading--actions" st-sort="message">Message</th>
+        <th class="alerts-table__heading alerts-table__heading--actions" st-sort="start_date">Start Date</th>
+        <th class="alerts-table__heading alerts-table__heading--actions" st-sort="end_date">End Date</th>
+      </tr>
+      </thead>
+      <tbody ng-model="vm.projectQuestions">
+      <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
+        <td class="alerts-table__cell alerts-table__cell--order">{{ ::row.id }}</td>
+        <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.project_id }}</td>
+        <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
+        <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
+        <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date }}</td>
+        <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date }}</td>
+        <td class="alerts-table__cell alerts-table__cell--actions">
+          <a href="#" class="alerts-table__action alerts-table__action--edit">
+            <img src="/images/ic_edit.png" alt="Edit"/>
+          </a>
+          <a href="#" class="alerts-table__action alerts-table__action--delete"
+             confirmation
+             confirmation-position="left-center"
+             confirmation-message="Are you sure you want to delete this question and it's content?"
+             confirmation-ok-style="danger"
+             confirmation-ok-text="Yes, Delete It"
+             confirmation-on-ok="vm.deleteQuestion($index)"
+             confirmation-show-cancel="false">
+            <img src="/images/ic_deletequestion.png" alt="Delete"/>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

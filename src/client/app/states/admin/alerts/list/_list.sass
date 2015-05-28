@@ -1,4 +1,4 @@
-+block(admin-products-list)
++block(admin-alerts-list)
 
   +element(body)
     padding-right: 395px
@@ -10,6 +10,57 @@
     right: 0
     top: 0
 
-  +element(switch)
-    margin: 10px 0
-    float: right
++block(alerts-table)
+  @extend .table-striped
+  width: 100%
+  background-color: $app-color-white
+  border: 1px solid $app-color-gray
+
+  +element(row)
+    width: 100%
+    background-color: $app-color-white
+
+  +element(heading)
+    height: 44px
+    font-size: 12px
+    font-weight: bold
+    text-transform: uppercase
+    color: $app-color-gray
+
+    +modifier(order)
+      text-align: center
+
+  +element(cell)
+    min-height: 44px
+    font-size: 14px
+    border: none
+    padding: 10px 10px 10px 0
+    vertical-align: top
+    position: relative
+
+    +modifier(order)
+      color: $app-color-gray
+      font-weight: bold
+      width: 96px
+      text-align: center
+
+    +modifier(question)
+      color: $app-color-dark-gray
+      padding-right: 16px
+
+    +modifier(required)
+      width: 158px
+      padding-left: 26px
+
+    +modifier(actions)
+      width: 196px
+
+  +element(action)
+    margin-right: 30px
+
+    &:last-child
+      margin-right: 0
+
+  +element(placeholder)
+    background-color: $app-color-blue !important
+    height: 64px

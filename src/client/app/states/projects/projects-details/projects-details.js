@@ -21,7 +21,8 @@
         title: 'Project Details',
         resolve: {
           projectDetails: resolveProjects,
-          products: resolveProducts
+          products: resolveProducts,
+          alerts: resolveAlerts
         }
       }
     };
@@ -36,6 +37,11 @@
   }
 
   /** @ngInject */
+  function resolveAlerts($stateParams, Alerts) {
+    return Alerts.get({id: $stateParams.projectId}).$promise;
+  }
+
+  /** @ngInject */
   function resolveProjects($stateParams, Projects) {
     return Projects.get({id: $stateParams.projectId}).$promise;
   }
@@ -46,12 +52,13 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, projectDetails, products) {
+  function StateController($state, logger, projectDetails, products, alerts) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = projectDetails;
     vm.products = products;
+    vm.alerts = alerts;
 
     vm.activate = activate;
     vm.approve = approve;
