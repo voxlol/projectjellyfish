@@ -13,15 +13,12 @@ function ProjectQuestionForm() {
     controller: ['$scope', function($scope) {
 
       $scope.addOption = function() {
+        $scope.projectQuestion.options = $scope.projectQuestion.options || [];
         $scope.projectQuestion.options.push('');
       };
 
-      $scope.removeOption = function() {
-        if ($scope.projectQuestion.options.length != 1) {
-            $scope.projectQuestion.options.pop('');
-        } else if ($scope.projectQuestion.options.length == 1) {
-            $scope.projectQuestion.options = [''];
-        }
+      $scope.removeOption = function(index) {
+        $scope.projectQuestion.options.splice(index, 1);
       };
 
       $scope.$watch('projectQuestion.field_type', function(newType, lastType) {

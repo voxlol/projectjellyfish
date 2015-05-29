@@ -11,7 +11,6 @@
       templateUrl: '/templates/partials/forms/input_wrap.html',
       scope: {
         errorPresent: "=",
-        errorText: "@",
         for: "@",
         label: "@",
       },

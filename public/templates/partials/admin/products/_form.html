@@ -1,4 +1,4 @@
-<input-wrap for="productName" label="Name" errorPresent="productForm.hasError('productName', 'required')" errorText="A name is required for all products">
+<input-wrap for="productName" label="Name" errorPresent="productForm.hasError('productName')">
   <input
     class="form-control"
     id="productName"
@@ -7,6 +7,9 @@
     required="true"
     type="text"
   />
+  <div class="help-block" ng-show="productForm.hasError('productName', 'required')">
+    <span class="help-text">A name is required for all products</span>
+  </div>
 </input-wrap>
 
 <input-wrap for="productDescription" label="Description" required=true>
@@ -30,7 +33,7 @@
   ></select>
 </input-wrap>
 
-<input-wrap for="productImg" label="Icon" errorText="An icon is required for all products" errorPresent="productForm.hasError('productImg', 'required')">
+<input-wrap for="productImg" label="Icon" errorPresent="productForm.hasError('productImg')">
   <ui-select id="productImg" name="productImg" ng-model="productForm.product.img" theme="selectize" required>
     <ui-select-match>
       <img ng-src="/images/assets/{{productForm.product.img}}"/>
@@ -39,6 +42,9 @@
       <img ng-src="/images/assets/{{image}}" />
     </ui-select-choices>
   </ui-select>
+  <div class="help-block" ng-show="productForm.hasError('productImg', 'required')">
+    <span class="help-text">An icon is required for all products</span>
+  </div>
 </input-wrap>
 
 <input-wrap for="productActive" label="Active?">
@@ -46,7 +52,7 @@
   <div class="help-text">Only active products are displayed in the marketplace.</div>
 </input-wrap>
 
-<input-wrap for="{{price.id}}" label="{{price.name}}" ng-repeat="price in productForm.prices" >
+<input-wrap for="{{price.id}}" label="{{price.name}}" ng-repeat="price in productForm.prices" errorPresent="productForm.hasError(price.id)">
   <input
     id="{{price.id}}"
     name="{{price.id}}"
@@ -63,7 +69,7 @@
   </div>
 </input-wrap>
 
-<section-header name="{{productForm.product.product_type}} Properties" type="subheader"ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
+<section-header name="{{productForm.product.product_type}} Properties" type="subheader" ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
   <div
     ng-form
     sf-form="productForm.schemaForm"
