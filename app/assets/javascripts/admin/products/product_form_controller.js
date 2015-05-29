@@ -11,7 +11,11 @@ function ProductFormController($scope, $state,
   this.product = null;
   this.formSubmitted = false;
   $scope.prodsByName = ProductTypesResource.query();
-
+  this.prices = [
+    { id: "productSetupPrice", name: "Setup Price", field: ["setup_price"] },
+    { id: "productMonthlyPrice", name: "Monthly Price", field: ["monthly_price"] },
+    { id: "productHourlyPrice", name: "Hourly Price", field: ["hourly_price"] },
+  ]
 
   $scope.$watchCollection('productForm.product.product_type',
     function(productTypeSelected) {
