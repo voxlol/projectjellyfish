@@ -40,5 +40,9 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 * Heroku Quick Install: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 -----
+#### License
 
+See [LICENSE](https://github.com/projectjellyfish/api/blob/master/LICENSE).
+
+-----
 Copyright 2015 Booz Allen Hamilton
