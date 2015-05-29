@@ -5,9 +5,9 @@
     .factory('WizardQuestion', WizardQuestionFactory);
 
   /** @ngInject */
-  function WizardQuestionFactory($resource, ApiService, lodash) {
+  function WizardQuestionFactory($resource, lodash) {
     var vm = this;
-    var WizardQuestion = $resource(ApiService.routeResolve('wizardQuestionsById'), {
+    var WizardQuestion = $resource('/api/v1/wizard_questions', {
       id: '@id',
       'includes[]': ['wizard_answers']
     }, {

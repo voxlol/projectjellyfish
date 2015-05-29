@@ -5,8 +5,8 @@
     .factory('Alerts', AlertsFactory);
 
   /** @ngInject */
-  function AlertsFactory($resource, ApiService) {
-    var Alerts = $resource(ApiService.routeResolve('alerts'), {id: '@id'}, {});
+  function AlertsFactory($resource) {
+    var Alerts = $resource('/api/v1/alerts/:id' , {id: '@id'}, {});
 
     return Alerts;
   }

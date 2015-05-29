@@ -5,8 +5,8 @@
     .factory('ProductType', ProductTypeFactory);
 
   /** @ngInject */
-  function ProductTypeFactory($resource, ApiService) {
-    var ProductType = $resource(ApiService.routeResolve('productTypesById'));
+  function ProductTypeFactory($resource) {
+    var ProductType = $resource('/api/v1/product_types/:id');
 
     return ProductType;
   }

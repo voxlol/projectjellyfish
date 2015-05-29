@@ -5,9 +5,9 @@
     .factory('Projects', ProjectsFactory);
 
   /** @ngInject */
-  function ProjectsFactory($resource, ApiService, lodash) {
+  function ProjectsFactory($resource, lodash) {
     var vm = this;
-    var Projects = $resource(ApiService.routeResolve('projectsById'), {id: '@id'}, {
+    var Projects = $resource('/api/v1/projects/:id', {id: '@id'}, {
       'query': {
         method: 'GET',
         params: {
@@ -25,17 +25,17 @@
       },
       'update': {method: 'PUT'},
       'approve': {
-        url: ApiService.routeResolve('projectsById') + '/approve',
+        url: '/api/v1/projects/:id/approve',
         method: 'POST',
         params: {'includes[]': ['approvals', 'approvers']}
       },
       'reject': {
-        url: ApiService.routeResolve('projectsById') + '/reject',
+        url: '/api/v1/projects/:id/reject',
         method: 'DELETE',
         params: {'includes[]': ['approvals', 'approvers']}
       },
       'approvals': {
-        url: ApiService.routeResolve('projectsById') + '/approvals',
+        url: '/api/v1/projects/:id/approvals',
         method: 'GET',
         isArray: true
       }

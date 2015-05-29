@@ -5,15 +5,16 @@
     .factory('OrderItems', OrderItemsFactory);
 
   /** @ngInject */
-  function OrderItemsFactory($resource, ApiService) {
-    var OrderItems = $resource(ApiService.routeResolve('orderItems'), {id: '@id'}, {
+  function OrderItemsFactory($resource) {
+    var OrderItems = $resource('/api/v1/order_items/:id', {id: '@id'}, {
+
       startService: {
         method: 'PUT',
-        url: ApiService.routeResolve('orderItems') + '/start_service'
+        url:  '/api/v1/order_items/:id/start_service'
       },
       stopService: {
         method: 'PUT',
-        url: ApiService.routeResolve('orderItems') + '/stop_service'
+        url: '/api/v1/order_items/:id/stop_service'
       }
     });
 

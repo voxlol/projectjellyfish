@@ -5,13 +5,13 @@
     .factory('Staff', StaffFactory);
 
   /** @ngInject */
-  function StaffFactory($resource, ApiService) {
-    var Staff = $resource(ApiService.routeResolve('staffById'), {id: '@id'}, {
+  function StaffFactory($resource) {
+    var Staff = $resource('/api/v1/staff/:id', {id: '@id'}, {
       // Get Current
       getCurrentMember: {
         method: 'GET',
         isArray: false,
-        url: ApiService.routeResolve('currentMember')
+        url: '/api/v1/staff/current_member'
       },
       // Get Single
       get: {
