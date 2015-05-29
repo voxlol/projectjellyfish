@@ -40,22 +40,7 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 * Heroku Quick Install: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 -----
-#### User Guide (Visual)
------
-#### Contributor Guide
------
-#### Configuration Guide
------
-#### API Reference Guide
------
-#### FAQs
------
-#### List of Modules
------
-#### List of Blueprints
-----
-#### Architecture
-----
+
 #### License
 
 See LICENSE
