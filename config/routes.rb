@@ -74,6 +74,8 @@ Rails.application.routes.draw do
         get :answers
       end
     end
+    post '/products/:product_id/tags' => 'tags#create', as: :product_tags
+    delete '/products/:product_id/tags' => 'tags#destroy'
 
     resources :product_types
 
@@ -140,7 +142,10 @@ Rails.application.routes.draw do
     patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
     resources :groups
+    post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
+    delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
     resources :roles, only: [:index, :create, :update, :destroy]
+    resources :tags, only: [:index]
   end
 
   root 'welcome#index'
