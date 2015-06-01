@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'marketplace': {
-        url: '/marketplace',
+        url: '/marketplace?tags',
         templateUrl: 'app/states/marketplace/marketplace.html',
         controller: StateController,
         controllerAs: 'vm',
@@ -45,13 +45,12 @@
   }
 
   /** @ngInject */
-  function StateController(logger, $q, VIEW_MODES, CatalogService, Tag, Compare, TAG_QUERY_LIMIT) {
+  function StateController(logger, $q, VIEW_MODES, CatalogService, Tag, Compare, TAG_QUERY_LIMIT, $stateParams) {
     var vm = this;
 
     var COMPARE_LIMIT = 4;
 
     vm.title = 'Marketplace';
-
     vm.tags = [];
     vm.viewMode = VIEW_MODES.list;
 
@@ -66,6 +65,10 @@
       updateCatalog();
       Compare.clear();
       Compare.limit = COMPARE_LIMIT;
+
+      if($stateParams.tags) {
+        vm.tags =  $stateParams.tags;
+      }
     }
 
     function updateCatalog() {

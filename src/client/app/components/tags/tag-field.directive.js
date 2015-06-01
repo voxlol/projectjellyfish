@@ -278,6 +278,7 @@
         vm.tagList = new TagList(vm.options, vm.events, vm.onTagAdding, vm.onTagRemoving);
         vm.tagList.tags = vm.tags;
         vm.mode = angular.isDefined(vm.mode) ? vm.mode : 'field';
+        vm.tags = vm.tags || [];
       }
 
       function removeTag(index) {

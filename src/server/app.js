@@ -12,10 +12,15 @@ var request = require('request');
 
 var environment = process.env.NODE_ENV;
 
-app.use('/api/v1', function(req, res) {
-  var url = 'http://localhost:3000/api/v1' + req.url;
-  req.pipe(request(url)).pipe(res);
-});
+var proxy = require('express-http-proxy');
+
+var app = require('express')();
+
+app.use('/api/v1', proxy('localhost:3000', {
+  forwardPath: function(req, res) {
+    return '/api/v1/' + require('url').parse(req.url).path;
+  }
+}));
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
