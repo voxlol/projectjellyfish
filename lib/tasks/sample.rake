@@ -28,7 +28,7 @@ namespace :sample do
         'What programming language will be used?' => [
             {
                 text: 'PHP',
-                tags_to_add: ['PHP','Linux'],
+                tags_to_add: ['PHP', 'Linux'],
                 tags_to_remove: ['Windows', 'Java', 'Ruby', 'dotNet']
             },
             {
@@ -144,23 +144,23 @@ namespace :sample do
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
 
     Product.create!([
-      { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, tag_list: ['aws', 'small', 'fog'], provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
-      { id: 2, name: "AWS Medium", description: "m3.medium EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.080, monthly_price: 0.0, provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
-      { id: 3, name: "AWS Large", description: "m3.large EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.13, monthly_price: 0.14, provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
-      { id: 5, name: "Medium MySQL", description: "Local MySQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1" },
-      { id: 6, name: "Medium PostgreSQL", description: "Local PostgreSQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "2.99", hourly_price: "0.004", monthly_price: "0.25" },
-      { id: 7, name: "Large PostgreSQL", description: "Local PostgreSQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "3.99", hourly_price: "0.009", monthly_price: "0.5" },
-      { id: 8, name: "Medium Aurora", description: "Medium Aurora", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "4.99", hourly_price: "0.015", monthly_price: "0.95" },
-      { id: 9, name: "Large SQL Server", description: "Large SQL Server", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "", setup_price: "5.99", hourly_price: "0.025", monthly_price: "1.29" },
-      { id: 11, name: "West Coast Storage", description: "Normal, Northern California", active: true, img: "products/aws_s3.png", deleted_at: nil, product_type: "", setup_price: "0.99", hourly_price: "0.001", monthly_price: "0.05" },
-      { id: 4, name: "Small MySQL", description: "Small MySQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "", setup_price: "1.0", hourly_price: "1.0", monthly_price: "1.0" },
-      { id: 16, name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", active: true, img: "products/php.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
-      { id: 17, name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", active: true, img: "products/php.png", deleted_at: nil, product_type: "", setup_price: "20.0", hourly_price: "20.0", monthly_price: "20.0" },
-      { id: 18, name: "Rails Stack", description: "Ruby on Rails Stack", active: true, img: "products/rails.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "3.0", monthly_price: "5.0" },
-      { id: 19, name: "MEAN Stack", description: "MongoDB, ExpressJS, AngularJS, NodeJS.", active: true, img: "products/mean.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
-      { id: 20, name: "Sr. Java Developer", description: "", active: true, img: "products/woman.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
-      { id: 21, name: "Sr. System Administrator", description: "Sr. System Administrator", active: true, img: "products/woman.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
-      { id: 22, name: "Project Manager", description: "Project Manager", active: true, img: "products/man.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
+      { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, tag_list: ['aws', 'aws fog infrastructure', 'ec2', 'small', 'fog'], provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
+      { id: 2, name: "AWS Medium", description: "m3.medium EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.080, monthly_price: 0.0, tag_list: ['aws', 'aws fog infrastructure', 'ec2', 'medium', 'fog'], provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
+      { id: 3, name: "AWS Large", description: "m3.large EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.13, monthly_price: 0.14, tag_list: ['aws', 'aws fog infrastructure', 'ec2', 'large', 'fog'], provisioning_answers: '{"instance_size":"t1.micro","disk_size":"20"}'},
+      { id: 5, name: "Medium MySQL", description: "Local MySQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1", tag_list: ['mysql', 'database', 'medium', 'aws', 'rds']},
+      { id: 6, name: "Medium PostgreSQL", description: "Local PostgreSQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "2.99", hourly_price: "0.004", monthly_price: "0.25", tag_list: ['databases', 'medium', 'postgresql']},
+      { id: 7, name: "Large PostgreSQL", description: "Local PostgreSQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "3.99", hourly_price: "0.009", monthly_price: "0.5", tag_list: ['databases', 'large', 'postgresql']},
+      { id: 8, name: "Medium Aurora", description: "Medium Aurora", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "4.99", hourly_price: "0.015", monthly_price: "0.95", tag_list: ['medium', 'databases', 'aurora']},
+      { id: 9, name: "Large SQL Server", description: "Large SQL Server", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "5.99", hourly_price: "0.025", monthly_price: "1.29", tag_list: ['large', 'databases', 'sql']},
+      { id: 11, name: "West Coast Storage", description: "Normal, Northern California", active: true, img: "products/aws_s3.png", deleted_at: nil, product_type: "Databases", setup_price: "0.99", hourly_price: "0.001", monthly_price: "0.05", tag_list: ['west coast', 'databases', 'storage', 'normal']},
+      { id: 4, name: "Small MySQL", description: "Small MySQL", active: true, img: "products/aws_rds.png", deleted_at: nil, product_type: "Databases", setup_price: "1.0", hourly_price: "1.0", monthly_price: "1.0", tag_list: ['small', 'mysql', 'databases']},
+      { id: 16, name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", active: true, img: "products/php.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", tag_list: ['php', 'lamp', 'linux', 'apache', 'platforms', 'mysql']},
+      { id: 17, name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", active: true, img: "products/php.png", deleted_at: nil, product_type: "Platforms", setup_price: "20.0", hourly_price: "20.0", monthly_price: "20.0", tag_list: ['php', 'lamp', 'linux', 'apache', 'platforms', 'mysql']},
+      { id: 18, name: "Rails Stack", description: "Ruby on Rails Stack", active: true, img: "products/rails.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "3.0", monthly_price: "5.0", tag_list: ['ruby', 'rails', 'platforms']},
+      { id: 19, name: "MEAN Stack", description: "MongoDB, ExpressJS, AngularJS, NodeJS.", active: true, img: "products/mean.png", deleted_at: nil, product_type: "Platforms", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", tag_list: ['angularjs', 'expressjs', 'nodejs', 'mongodb', 'mean', 'platforms']},
+      { id: 20, name: "Sr. Java Developer", description: "", active: true, img: "products/woman.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", },
+      { id: 21, name: "Sr. System Administrator", description: "Sr. System Administrator", active: true, img: "products/woman.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", tag_list: ['staff', 'system administrator', 'senior'] },
+      { id: 22, name: "Project Manager", description: "Project Manager", active: true, img: "products/man.png", deleted_at: nil, product_type: "Staff", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", tag_list: ['staff', 'project manager'] },
       { id: 23, name: "JIRA Project", description: "A project in corporate JIRA instance.", active: true, img: "products/jira.png", deleted_at: nil, product_type: "Applications", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
       { id: 24, name: "Confluence Project", description: "Confluence Project", active: true, img: "products/confluence.png", deleted_at: nil, product_type: "Applications", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
       { id: 25, name: "Bugzilla Instance", description: "Bugzilla Instance", active: true, img: "products/bugzilla.png", deleted_at: nil, product_type: "Applications", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0" },
@@ -194,8 +194,8 @@ namespace :sample do
       { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 5000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "images/icon-mobile-orange.png", deleted_at: nil, spent: 2000.0, status: 0, approval: 1},
       { id: 3, name: "Blog", description: "Project description", cc: "--CC--", budget: 10000, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "images/128x128-wordpress.png", deleted_at: nil, spent: 4135.03, status: 0, approval: 1},
       { id: 4, name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 1000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "images//cloud-checkmark-128.png", deleted_at: nil, spent: 0.0, status: 0, approval: 1},
-      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0},
-      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0}
+      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 35000.0, status: 0, approval: 0},
+      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 9000.0, status: 0, approval: 0}
     ])
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
 
