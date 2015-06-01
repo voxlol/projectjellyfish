@@ -4,6 +4,7 @@
     <widget modifier="danger" class="status-banner__pending">
       <div transclude-to="body">
         <i class="fa fa-asterisk"></i>
+
         <h3>Project is Pending</h3>
         <i class="fa fa-asterisk"></i>
 
@@ -47,7 +48,7 @@
 
 <content-header short="true">
   <div class="detail-heading">
-    <img class="detail-heading__icon" ng-src="{{vm.project.img}}"
+    <img ng-if="vm.project.img" class="detail-heading__icon" ng-src="{{vm.project.img}}"
          fallback-image="images/no_image.png"/>
     <span class="content-header__title">{{vm.project.name}}</span>
   </div>
@@ -62,46 +63,52 @@
 <!-- Problem Alerts -->
 <widget modifier="primary">
   <div transclude-to="body">
+    <div class="summary">
+      <div class="row">
+        <div class="col-xs-6">
+          <h3>Total Budget: <span class="summary__accent-value">{{::vm.project.budget | currency}}</span><br></h3>
 
+          <h3>Budget Utilization </h3>
+          <progressbar animate="false" max="100" value="vm.bUtilization" type="{{vm.bUtilizationType}}">
+            <b>{{::vm.bUtilization}}%</b>
+          </progressbar>
+          <div class="row">
+            <div class="col-xs-12">
+              <span class="summary__accent-value">{{::vm.project.spent | currency }} </span> funds used <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <span class="summary__accent-value">{{ ::vm.bRemaining | currency}}</span> funds remaining <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <span class="summary__accent-value">{{ vm.project.monthly_spend | currency }}</span> funds used
+              monthly<br>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.bTimeRemaining }}</a> projected months of remaining</div>
+            </div>
+            <div class="col-xs-6">
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.order_history.length }}</a> total orders</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.services.length }}</a> active services</div>
+            </div>
+            <div class="col-sm-6">
 
-    <!--<div class="info-box-icon">-->
-    <!--<progress-arc-->
-    <!--size="65"-->
-    <!--stroke="{{projectCtrl.getBudgetData(project).usedColor}}"-->
-    <!--stroke-width="5"-->
-    <!--complete="projectCtrl.getBudgetData(project).usedPercent"-->
-    <!--background="#dedede">-->
-    <!--</progress-arc>-->
-    <!--</div>-->
-    <h3>Total Funds</h3>
-
-
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-           style="min-width: 2em;">
-        0%
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    {{vm.project.budget | currency}}
-
-
-    {{vm.project.spent | currency }} funds used
-    {{ remaining| currency}} funds remaining
-
-    <!--<div class="info-box-icon">-->
-    <!--<progress-arc-->
-    <!--size="65"-->
-    <!--stroke="{{projectCtrl.getLeftData(project).leftColor}}"-->
-    <!--stroke-width="5"-->
-    <!--complete="projectCtrl.getLeftData(project).leftPercent"-->
-    <!--background="#dedede">-->
-    <!--</progress-arc>-->
-    <!--</div>-->
-
-    Monthly Charge: {{projectCtrl.getLeftData(project).monthlySpend | currency}}
-
-    {{projectCtrl.getLeftData(project).leftMonths}} Month(s) of Funding Remaining
   </div>
 </widget>
 

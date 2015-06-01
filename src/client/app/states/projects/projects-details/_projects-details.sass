@@ -31,8 +31,36 @@
     border-radius: 3px
     top: 10px
     left: 0
+    margin-bottom: 4px
+
++block(summary)
+
+  +element(accent-value)
+    font-size: 26px
+    font-weight: normal
+    color: $app-color-blue
+    text-transform: uppercase
+    line-height: 1
+
+  +element(icon-bin)
+    margin: 20px 0px 40px 60px
+    text-transform: uppercase
 
 
+  +element(accent-icon)
+    $alert-radius: 70px
+    height: $alert-radius
+    width: $alert-radius
+    line-height: $alert-radius
+    text-align: center
+    border-radius: 50%
+    background-color: $app-color-blue
+    position: absolute
+    left: 0px
+    bottom: 14px
+    font-weight: bold
+    font-size: 40px
+    color: $app-color-white
 
 //+block(detail-body)
 //  @extend .panel

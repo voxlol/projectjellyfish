@@ -68,6 +68,10 @@
     vm.approve = approve;
     vm.reject = reject;
 
+    vm.bRemaining = vm.project.budget - vm.project.spent;
+    vm.bUtilization = Math.round((vm.project.spent / vm.project.budget)*100, -1);
+    vm.bTimeRemaining =  vm.project.monthly_spend? Math.round(vm.bRemaining / vm.project.monthly_spend):0;
+
     // todo: create alert service to poll
     // vm.alerts = lodash.filter(alerts, function(alert) {
     //  return alert.project_id == vm.project.project_id;
@@ -76,6 +80,14 @@
     activate();
 
     function activate() {
+      if(vm.bUtilization <= 60){
+        vm.bUtilizationType = "success"
+      }else if(vm.bUtilization > 60 && vm.bUtilization <= 80 ) {
+        vm.bUtilizationType = "warning"
+      }else if(vm.bUtilization > 80 ) {
+        vm.bUtilizationType = "danger"
+    }
+
       logger.info('Activated Project Details View');
     }
 
@@ -84,9 +96,13 @@
       $state.reload();
     }
 
-    function reject(project, reason) {
-      project.$reject({reason: reason});
-      $state.transitionTo('projects.list');
-    }
+
+
+
+  function reject(project, reason) {
+    project.$reject({reason: reason});
+    $state.transitionTo('projects.list');
   }
-})();
+}
+})
+();
