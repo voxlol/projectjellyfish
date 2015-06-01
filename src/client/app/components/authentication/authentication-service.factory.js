@@ -29,8 +29,6 @@
     }
 
     function login(credentials) {
-      console.log(credentials);
-
       return $http.post(ApiService.routeResolve('signIn'), credentials)
         .success(function(data) {
           SessionService.create(data.id, data.first_name, data.last_name, data.email, data.role, data.updated_at);

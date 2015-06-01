@@ -13,10 +13,6 @@
 
     // Authorzation and Authentication when switching Pages.
     $rootScope.$on('$stateChangeStart', function(toState, toParams) {
-      console.log(toState);
-      // console.log(toParams.data.authorizedRoles);
-      console.log(SessionService.role);
-
       // If an unauthenticated user attempts to navigate within app, return them to login
       // if (!AuthenticationService.isAuthenticated()) {
       //  logger.error('Improper authentication, redirecting to login page.');

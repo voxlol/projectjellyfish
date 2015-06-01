@@ -15,6 +15,10 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 before_script:
   - bundle exec rake db:create
+  - npm install -g npm@latest
+  - npm install -g gulp
+  - npm install
+  - gulp build
 
 notifications:
   slack:

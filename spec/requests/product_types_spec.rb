@@ -7,7 +7,7 @@ RSpec.describe 'Projects API' do
 
       get '/api/v1/product_types'
 
-      expect(json).to eq ProductType.all.values
+      expect(json).to eq ProductType.schemas
     end
   end
 end

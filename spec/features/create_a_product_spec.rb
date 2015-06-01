@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Product creation' do
   scenario 'staff creates a product', :js do
+    pending
     staff = create(:staff, :admin)
     new_product_attributes = {
       'name' => 'Product Jellyfish',

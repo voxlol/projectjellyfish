@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Project creation' do
   scenario 'staff creates a project', :js do
+    pending
     group = create(:group)
     staff = create(:staff, :admin, groups: [group])
     login_as(staff)

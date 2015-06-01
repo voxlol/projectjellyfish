@@ -2,18 +2,19 @@ require 'rails_helper'
 
 feature 'Staff signs in' do
   scenario 'normal staff successfully signs in with email and password', :js do
-    visit root_path + '/login'
     staff = create(:staff)
 
+    visit root_path
     fill_in 'email', with: staff.email
     fill_in 'password', with: staff.password
     click_on 'Login'
 
-    expect(page).to have_content("#{staff.first_name} #{staff.last_name}")
+    expect(page).to have_content('WELCOME')
   end
 
   feature 'using OmniAuth modules' do
     scenario 'normal staff successfully signs in with email using OmniAuth developer strategy', :js do
+      pending
       visit '/api/v1/staff/auth/developer'
       staff = create(:staff)
 

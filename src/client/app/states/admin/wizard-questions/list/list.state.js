@@ -20,6 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin Wizard Quesiton List',
         resolve: {
+          /** @ngInject */
           questions: function(WizardQuestion) {
             return WizardQuestion.query().$promise;
           }
