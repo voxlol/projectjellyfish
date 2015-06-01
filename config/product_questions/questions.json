@@ -101,31 +101,5 @@
         "type": "object",
         "title": "Staff",
         "description": "Staff Solutions"
-    },
-    "VMWare": {
-        "type": "object",
-        "title": "VMware VM",
-        "description": "VMware VMs",
-        "required": ["ram_size", "disk_size", "cpu_count"],
-        "properties": {
-            "ram_size": {
-                "title": "RAM size in GB",
-                "type": "integer",
-                "default": 4
-            },
-            "disk_size": {
-                "title": "Disk Size in GB",
-                "type": "integer",
-                "default": 40
-            },
-            "cpu_count": {
-                "title": "CPU",
-                "type": "string",
-                "default": "1",
-                "enum": [
-                    "1", "2", "4", "6", "8"
-                ]
-            }
-        }
     }
 }

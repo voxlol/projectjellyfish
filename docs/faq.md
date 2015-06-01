@@ -1,4 +1,4 @@
-FAQs
+FAQ
 =====
 
 ####General
