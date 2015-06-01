@@ -1,16 +1,9 @@
-<input-wrap for="productName" label="Name" errorPresent="productForm.hasError('productName')">
-  <input
-    class="form-control"
-    id="productName"
-    name="productName"
-    ng-model="productForm.product.name"
-    required="true"
-    type="text"
-  />
-  <div class="help-block" ng-show="productForm.hasError('productName', 'required')">
+<broker-input name="name" label="Name" errorPresent="productForm.hasError('name')"
+    model="productForm.product" required="true" >
+  <div class="help-block" ng-show="productForm.hasError('name', 'required')">
     <span class="help-text">A name is required for all products</span>
   </div>
-</input-wrap>
+</broker-input>
 
 <input-wrap for="productDescription" label="Description" required=true>
   <textarea
@@ -47,10 +40,9 @@
   </div>
 </input-wrap>
 
-<input-wrap for="productActive" label="Active?">
-  <input id="productActive" name="productActive" type="checkbox" ng-model="productForm.product.active" class="form-control" />
+<broker-input name="active" label="Active?" type="checkbox" model="productForm.product">
   <div class="help-text">Only active products are displayed in the marketplace.</div>
-</input-wrap>
+</broker-input>
 
 <input-wrap for="{{price.id}}" label="{{price.name}}" ng-repeat="price in productForm.prices" errorPresent="productForm.hasError(price.id)">
   <input

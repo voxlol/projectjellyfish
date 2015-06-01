@@ -1,11 +1,6 @@
 <form class="form-horizontal padded horizontal-spanning" role="form" name="projectForm" novalidate>
-  <input-wrap errorPresent="projectForm.name.$invalid && projectForm.name.$dirty" for="name" label="Name">
-    <input name="name" ng-model='project.name' class="form-control" id="name" placeholder="Project Name" required>
-  </input-wrap>
-
-  <input-wrap errorPresent="projectForm.img.$invalid && projectForm.img.$dirty" for="img" label="Icon">
-    <input name="img" ng-model='project.img' class="form-control" id="img" placeholder="Full address (with http://) to icon image" required>
-  </input-wrap>
+  <broker-input label="Name" name="name" placeholder="Project Name" model="project" required="true"></broker-input>
+  <broker-input label="Icon" name="img" placeholder="Full address (with http://) to icon image" model="project" required="false"></broker-input>
 
   <input-wrap errorPresent="projectForm.budget.$invalid && projectForm.budget.$dirty" for="budget" label="Budget">
     <input name="budget" type="text" class="form-control" id="budget" ng-model='project.budget' ng-currency>

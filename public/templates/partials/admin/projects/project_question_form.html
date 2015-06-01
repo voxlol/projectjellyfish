@@ -1,22 +1,14 @@
 <form class="form-horizontal" role="form" name="projectQuestionForm">
-  <input-wrap for="question" label="Question">
-    <input class="form-control" id="question" name="question"
-      ng-model='projectQuestion.question' placeholder="Enter question here" required>
-  </input-wrap>
+  <broker-input name="question" label="Question"
+    model='projectQuestion' placeholder="Enter question here" required="true"></broker-input>
 
-  <input-wrap for="helpText" label="Help Text">
-    <input class="form-control" id="helpText" name="helpText"
-      ng-model='projectQuestion.help_text' placeholder="Enter help text" required>
-  </input-wrap>
+  <broker-input name="help_text" label="Help Text"
+    model='projectQuestion' placeholder="Enter help text" required="true"></broker-input>
 
-  <input-wrap for="loadOrder" label="Load Order">
-    <input type="number" class="form-control" id="loadOrder" name="loadOrder"
-      ng-model='projectQuestion.load_order' placeholder="Enter order number" required>
-  </input-wrap>
+  <broker-input name="load_order" label="Load Order" type="number"
+    model='projectQuestion' placeholder="Enter order number" required="true"></broker-input>
 
-  <input-wrap for="required" label="Required">
-    <input class="form-control" type="checkbox" ng-model='projectQuestion.required'>
-  </input-wrap>
+  <broker-input for="required" label="Required" type="checkbox" model='projectQuestion'></broker-input>
 
   <input-wrap for="fieldType" label="Field Type">
     <select name="fieldType" class="form-control" ng-model='projectQuestion.field_type' required>
@@ -27,14 +19,16 @@
     </select>
   </input-wrap>
 
-  <input-wrap label="Option {{$index + 1}}" ng-repeat="option in projectQuestion.options track by $index">
-    <input ng-model='projectQuestion.options[$index]' class="form-control" placeholder="Enter option">
+  <broker-input label="Option {{$index + 1}}" ng-repeat="option in projectQuestion.options track by $index"
+  name='options[{{$index}}]' placeholder="Enter option" model="projectQuestion"
+  >
     <a type="button" ng-click="removeOption($index)"><i class="fa fa-lg fa-times"></i></a>
-  </input-wrap>
+  </broker-input>
 
   <br />
 
-  <a type="button" class="btn btn-default btn-option" ng-click="addOption()">+ Add Option</a>
+  <a type="button" class="btn btn-default btn-option" ng-click="addOption()"
+    ng-if="projectQuestion.field_type === 'select_option'">+ Add Option</a>
 
   <br />
 
