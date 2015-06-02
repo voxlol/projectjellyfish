@@ -10,7 +10,8 @@ class TagsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def create
     product = Product.find(params[:product_id])
-    product.tag_list.add(params[:tag_list])
+    product_type = Product.product_type.name.parameterize.underscore.downcase.to_sym
+    product.set_tag_list_on(product_type, params[:tag_list])
     product.save!
     head :ok
   end

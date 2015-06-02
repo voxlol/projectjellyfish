@@ -77,7 +77,11 @@ Rails.application.routes.draw do
     post '/products/:product_id/tags' => 'tags#create', as: :product_tags
     delete '/products/:product_id/tags' => 'tags#destroy'
 
-    resources :product_types
+    resources :product_types do
+      collection do
+        get :categories
+      end
+    end
 
     # Chargebacks
     resources :chargebacks
