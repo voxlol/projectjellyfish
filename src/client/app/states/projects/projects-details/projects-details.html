@@ -3,15 +3,15 @@
   <div ng-show="vm.project.approval == 'undecided'">
     <widget modifier="danger" class="status-banner__pending">
       <div transclude-to="body">
-        <i class="fa fa-asterisk"></i>
-
-        <h3>Project is Pending</h3>
-        <i class="fa fa-asterisk"></i>
+        <h3 class="status-banner__title"><i class="fa fa-asterisk"></i>Project Pending, Requires <span
+          class="status-banner__title-approval">Approval</span> or <span class="status-banner__title-rejection">Rejection</span>
+          <i class="fa fa-asterisk"></i></h3>
 
         <div class="approval-banner__pending-banner__reject">
           <div class='row'>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" ng-click="vm.approve(vm.project)">APPROVE</button>
+              <button type="button" class="btn btn-primary pull-right" ng-click="vm.approve(vm.project)">APPROVE
+              </button>
             </div>
             <div class="col-sm-8">
               <input type="text" class="form-control" ng-model="reason"
@@ -19,7 +19,7 @@
                      placeholder="Reason for rejection"/>
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-danger" ng-click="vm.reject(vm.project,reason)"
+              <button type="button" class="btn btn-danger pull-left" ng-click="vm.reject(vm.project,reason)"
                       ng-disabled="!reason">REJECT
               </button>
             </div>
@@ -32,15 +32,11 @@
   <div ng-show="vm.project.approval == 'rejected'" class="status-banner__rejected">
     <widget modifier="danger">
       <div transclude-to="body">
-
         <i class="fa fa-exclamation"></i>
-
         <h3>Project was rejected</h3>
         <i class="fa fa-exclamation"></i>
-
         <p><strong>{{vm.project.finalApproval().staff_name}}:</strong>
           {{vm.project.finalApproval().reason}}</p>
-
       </div>
     </widget>
   </div>
@@ -92,15 +88,21 @@
         <div class="col-xs-6">
           <div class="row">
             <div class="col-xs-6">
-              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.bTimeRemaining }}</a> projected months of remaining</div>
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.bTimeRemaining }}</a> projected
+                months of remaining
+              </div>
             </div>
             <div class="col-xs-6">
-              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.order_history.length }}</a> total orders</div>
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.order_history.length }}</a>
+                total orders
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.services.length }}</a> active services</div>
+              <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.services.length }}</a> active
+                services
+              </div>
             </div>
             <div class="col-sm-6">
 
@@ -120,46 +122,12 @@
   </div>
 </widget>
 
-
 <!-- Services -->
-
-
 <div class="project-services" ng-show="vm.project.approval == 'approved'">
   <widget modifier="primary">
     <div transclude-to="header">Services ({{vm.project.services.length}})</div>
     <div transclude-to="body">
-
-      <product-box class="product-box" ng-repeat="service in vm.project.services"
-                   product="projectCtrl.getServiceWithProduct(service)">
-        <a type="button" class="btn btn-primary"
-           ui-sref="base.authed.service({order_id: service.order_id, id: service.id})">View
-          More</a>
-        <a type="button" class="btn btn-danger"
-           ng-click="projectCtrl.removeServiceFromProject(project, service)">Remove</a>
-      </product-box>
-      <div class="add-box">
-        <div class="product-box-shadow">
-          <a ui-sref="base.authed.project.addService({projectId: project.id})">
-            <div class="fa-stack">
-              <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
-              <i class="fa fa-fw fa-stack-1x fa-plus"></i>
-            </div>
-            <div class="title">Add Service</div>
-          </a>
-        </div>
-      </div>
-      <div class="add-box">
-        <div class="product-box-shadow">
-          <a ui-sref="wizard({projectId: vm.project.id})">
-            <div class="fa-stack">
-              <i class="fa fa-fw fa-stack-2x fa-circle-thin"></i>
-              <i class="fa fa-fw fa-stack-1x fa-plus"></i>
-            </div>
-            <div class="title">Run Wizard</div>
-          </a>
-        </div>
-      </div>
-    </section-header>
+      <service-catalog service="vm.project.services" products="vm.products" viewMode="vm.viewMode"></service-catalog>
     </div>
   </widget>
 </div>
@@ -173,7 +141,6 @@
     {{vm.project.groups}}
   </div>
 </widget>
-
 
 <!- Project Details -->
 <widget modifier="primary">
@@ -200,6 +167,4 @@
   </div>
 </widget>
 
-
-</div>
 

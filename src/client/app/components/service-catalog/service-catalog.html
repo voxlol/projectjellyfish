@@ -1,0 +1,72 @@
+<div ng-if="::vm.service.length == 0">
+  <h4>Presently no services are associated with this project.</h4>
+</div>
+<div ng-if="::vm.service.length > 0" class="service-catalog" ng-cloak>
+  <div class="service-catalog__switch ">
+    <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
+  </div>
+  <div ng-switch="vm.viewMode" class="service-catalog__body" collapse="vm.collapsed">
+    <table ng-switch-when="list" st-table="vm.service" class="service-catalog__table table-hover">
+      <thead>
+      <tr>
+        <th class="service-catalog__heading service-catalog__heading--padding"></th>
+        <th st-sort="id"
+            class="service-catalog__heading service-catalog__heading--description service-catalog__heading--sortable"
+            st-sort-default="true">
+          Service ID
+        </th>
+        <th st-sort="name"
+            class="service-catalog__heading service-catalog__heading--description service-catalog__heading--sortable">
+          Product Name
+        </th>
+        <th st-sort="provision_status"
+            class="service-catalog__heading service-catalog__heading--description service-catalog__heading--sortable">
+          Provision Status
+        </th>
+        <th st-sort="created_at"
+            class="service-catalog__heading service-catalog__heading--description service-catalog__heading--sortable">
+          Created
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in vm.service" ng-click="vm.goTo(row.id) ">
+        <td class="service-catalog__cell service-catalog__cell--padding"></td>
+        <td class="service-catalog__cell">
+          <span>{{ ::row.id }}</span>
+        </td>
+        <td class="service-catalog__cell service-catalog__cell--description">
+          <div ng-if="!row.img" class="service-catalog__image"
+               ng-class="'service-catalog__image--light-blue'">
+          </div>
+          <div ng-if="row.img">
+            <img class="service-catalog__image" ng-src="images/assets/{{row.img}}" alt="Project Image"/>
+          </div>
+          <span>{{ ::row.name }}</span>
+          <span ng-if="row.description" class="service-catalog__product-description">&mdash; {{ ::row.description }}</span>
+        </td>
+        <td class="service-catalog__cell">
+          <span>{{ ::row.provision_status }}</span>
+        </td>
+        <td class="service-catalog__cell">
+          <span>{{ ::row.created_at | date:'short' }}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div ng-switch-when="grid" class="service-catalog__grid">
+      <div class="service-catalog__box" ng-repeat="row in vm.service" >
+        <div class="service-catalog__card "  ng-click="vm.goTo(row.id)">
+          <div ng-if="!row.img" class="service-catalog__image service-catalog__image--large"
+               ng-class="'service-catalog__image--light-blue'">
+          </div>
+          <div ng-if="row.img" >
+            <img class="service-catalog__image--large" ng-src="images/assets/{{row.img}}" alt="Project Image"/>
+          </div>
+            <div class="service-catalog__card-name">{{ ::row.name }}</div>
+            <div class="service-catalog__card-description">{{ ::row.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

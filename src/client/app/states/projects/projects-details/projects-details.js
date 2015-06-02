@@ -57,12 +57,13 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, projectDetails, products, lodash) {
+  function StateController($state, logger, projectDetails, products, lodash, VIEW_MODES) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = projectDetails;
     vm.products = products;
+    vm.viewMode = vm.viewMode || VIEW_MODES.list;
 
     vm.activate = activate;
     vm.approve = approve;
@@ -87,7 +88,6 @@
       }else if(vm.bUtilization > 80 ) {
         vm.bUtilizationType = "danger"
     }
-
       logger.info('Activated Project Details View');
     }
 
