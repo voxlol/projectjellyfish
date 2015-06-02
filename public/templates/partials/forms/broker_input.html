@@ -1,0 +1,6 @@
+<input-wrap errorPresent="errorPresent" for="{{name}}" label="{{label}}">
+<input type="{{type||'text'}}" name="{{name}}" ng-model="model[name]"
+  class="form-control" id="{{name}}" placeholder="{{placeholder}}"
+  ng-required="{{required}}" />
+  <ng-transclude></ng-transclude>
+</input-wrap>

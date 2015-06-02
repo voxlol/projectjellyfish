@@ -1,14 +1,16 @@
 <section-header name="Groups">
-  <div angucomplete-alt
-    id="group_search"
-    placeholder="Search groups"
-    selected-object="addGroupToProject"
-    local-data="unaddedGroups"
-    search-fields="name"
-    title-field="name"
-    clear-selected="true"
-    minlength="0"
-  />
+  <input-wrap label="Search Groups" for="group_search_value">
+    <div angucomplete-alt
+      id="group_search"
+      selected-object="addGroupToProject"
+      local-data="unaddedGroups"
+      search-fields="name"
+      title-field="name"
+      clear-selected="true"
+      input-class="form-control"
+      minlength="0"
+    />
+  </input-wrap>
 
   <ul id="groups-list">
     <li ng-attr-id="{{'group-' + group.id}}" class="group" ng-repeat="group in project.groups">

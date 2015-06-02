@@ -13,6 +13,7 @@ angular.module("broker", [
   "ngCookies",
   "ng-currency",
   "angular-progress-arc",
+  "broker.forms",
   "broker.common",
   "broker.base",
   "broker.errors",

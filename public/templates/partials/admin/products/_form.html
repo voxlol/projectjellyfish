@@ -1,168 +1,72 @@
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productName')}">
-    <label class="col-sm-2 control-label" for="productName">Name:</label>
+<broker-input name="name" label="Name" errorPresent="productForm.hasError('name')"
+    model="productForm.product" required="true" >
+  <div class="help-block" ng-show="productForm.hasError('name', 'required')">
+    <span class="help-text">A name is required for all products</span>
+  </div>
+</broker-input>
 
-    <div class="col-sm-6 control-input">
-        <input id="productName" name="productName" type="text" ng-model="productForm.product.name" class="form-control"
-               required/>
+<input-wrap for="productDescription" label="Description" required=true>
+  <textarea
+    id="productDescription"
+    name="productDescription"
+    ng-model="productForm.product.description"
+    class="form-control"
+    rows="3"
+  />
+</input-wrap>
 
-        <div class="help-block">
-            <div class="help-text" ng-show="productForm.hasError('productName', 'required')">A name is required for all
-                products
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4"></div>
-</div>
+<input-wrap errorPresent="productForm.hasError('productType')" label="Product Type" for="productType">
+  <select
+    class="form-control"
+    id="productType"
+    name="productType"
+    ng-model="productForm.product.product_type"
+    ng-options="type for type in productsAdminCtrl.categoryNames"
+    required
+  ></select>
+</input-wrap>
 
-<div class="form-group">
-    <label class="col-sm-2 control-label" for="productDescription">Description:</label>
+<input-wrap for="productImg" label="Icon" errorPresent="productForm.hasError('productImg')">
+  <ui-select id="productImg" name="productImg" ng-model="productForm.product.img" theme="selectize" required>
+    <ui-select-match>
+      <img ng-src="/images/assets/{{productForm.product.img}}"/>
+    </ui-select-match>
+    <ui-select-choices repeat="image in productsAdminCtrl.productImages">
+      <img ng-src="/images/assets/{{image}}" />
+    </ui-select-choices>
+  </ui-select>
+  <div class="help-block" ng-show="productForm.hasError('productImg', 'required')">
+    <span class="help-text">An icon is required for all products</span>
+  </div>
+</input-wrap>
 
-    <div class="col-sm-6 control-input">
-    <textarea id="productDescription" name="productDescription" ng-model="productForm.product.description"
-              class="form-control" rows="3"></textarea>
+<broker-input name="active" label="Active?" type="checkbox" model="productForm.product">
+  <div class="help-text">Only active products are displayed in the marketplace.</div>
+</broker-input>
 
-        <div class="help-block">
-            <div class="help-text" ng-show=""></div>
-        </div>
-    </div>
-    <div class="col-sm-4"></div>
-</div>
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productType')}">
-    <label class="col-sm-2 control-label">Product Type:</label>
+<input-wrap for="{{price.id}}" label="{{price.name}}" ng-repeat="price in productForm.prices" errorPresent="productForm.hasError(price.id)">
+  <input
+    id="{{price.id}}"
+    name="{{price.id}}"
+    type="text"
+    ng-pattern="/\d+[\.\d{0,4}]?/"
+    ng-model="productForm.product[price.field]"
+    class="form-control"
+    placeholder="Values have precision to four decimal places"
+    required
+  />
+  <div class="help-block">
+    <div class="help-text" ng-show="productForm.hasError(price.id, 'required')">A {{price.name}} is required for all products</div>
+    <div class="help-text" ng-show="productForm.hasError(price.id, 'pattern')">Numeric values only. 999999.9999</div>
+  </div>
+</input-wrap>
 
-    <div class="col-sm-6 control-input">
-        <select id="productType" ng-options="type for type in productsAdminCtrl.categoryNames"
-                name="productType"
-                ng-model="productForm.product.product_type"
-                class="form-control" required></select>
-
-        <div class="col-sm-4"></div>
-        <div class="help-block">
-            <div class="help-text" ng-show=""></div>
-        </div>
-    </div>
-</div>
-
-
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productImg')}">
-    <label class="col-sm-2 control-label">Icon:</label>
-
-    <div class="col-sm-6 control-input">
-        <ui-select id="productImg" name="productImg" ng-model="productForm.product.img" theme="selectize" required>
-            <ui-select-match>
-                <img ng-src="/images/assets/{{productForm.product.img}}"/>
-            </ui-select-match>
-            <ui-select-choices repeat="image in productsAdminCtrl.productImages">
-                <img ng-src="/images/assets/{{image}}"/>
-            </ui-select-choices>
-        </ui-select>
-
-        <div class="help-block">
-            <div class="help-text" ng-show="productForm.hasError('productImg', 'required')">An icon is required for all
-                products
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4"></div>
-</div>
-
-<div class="form-group">
-    <label class="col-sm-2 control-label" for="productActive">Active?:</label>
-
-    <div class="col-sm-6 control-input">
-        <input id="productActive" name="productActive" type="checkbox" ng-model="productForm.product.active"
-               class="form-control"/>
-
-        <div class="help-block">
-            <div class="help-text" ng-show=""></div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="help-block">
-            <div class="help-text">Only active products are displayed in the marketplace.</div>
-        </div>
-    </div>
-</div>
-
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productSetupPrice')}">
-    <label class="col-sm-2 control-label" for="productSetupPrice">Setup Price:</label>
-
-    <div class="col-sm-6 control-input">
-        <input id="productSetupPrice" name="productSetupPrice" type="text" ng-pattern="/\d+\.\d{0,4}/"
-               ng-model="productForm.product.setup_price" class="form-control" required/>
-
-        <div class="help-block">
-            <div class="help-text" ng-show="productForm.hasError('productSetupPrice', 'required')">A setup price
-                is required for all products
-            </div>
-            <div class="help-text" ng-show="productForm.hasError('productSetupPrice', 'pattern')">Numeric values only.
-                999999.9999
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="help-block">
-            <div class="help-text">Values have precision to four decimal places</div>
-        </div>
-    </div>
-</div>
-
-<div class="form-group"
-     ng-class="{'has-error': productForm.hasError('productMonthlyPrice'),'has-success': productForm.hasSuccess('productMonthlyPrice') }">
-    <label class="col-sm-2 control-label" for="productMonthlyPrice">Monthly Price:</label>
-
-    <div class="col-sm-6 control-input">
-        <input id="productMonthlyPrice" name="productMonthlyPrice" type="text" ng-pattern="/\d+\.\d{0,4}/"
-               ng-model="productForm.product.monthly_price" class="form-control" required/>
-
-        <div class="help-block">
-            <div class="help-text" ng-show="productForm.hasError('productMonthlyPrice', 'required')">A monthly price
-                is required for all products
-            </div>
-            <div class="help-text" ng-show="productForm.hasError('productMonthlyPrice', 'pattern')">Numeric values only.
-                999999.9999
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="help-block">
-            <div class="help-text">Values have precision to four decimal places</div>
-        </div>
-    </div>
-</div>
-
-<div class="form-group" ng-class="{'has-error': productForm.hasError('productHourlyPrice')}">
-    <label class="col-sm-2 control-label" for="productHourlyPrice">Hourly Price:</label>
-
-    <div class="col-sm-6 control-input">
-        <input id="productHourlyPrice" name="productHourlyPrice" type="text" ng-pattern="/\d+\.\d{0,4}/"
-               ng-model="productForm.product.hourly_price" class="form-control" required/>
-
-        <div class="help-block">
-            <div class="help-text" ng-show="productForm.hasError('productHourlyPrice', 'required')">An hourly price
-                is required for all products
-            </div>
-            <div class="help-text" ng-show="productForm.hasError('productHourlyPrice', 'pattern')">Numeric values only.
-                999999.9999
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="help-block">
-            <div class="help-text">Values have precision to four decimal places</div>
-        </div>
-    </div>
-
-</div>
-
-<div class="col-lg-12" ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
-    <section-header name="{{productForm.product.product_type}} Properties" type="subheader"></section-header>
-
-        <div sf-model="productForm.product.provisioning_answers"
-              ng-form
-              sf-schema="productsAdminCtrl.categoriesByName[productForm.product.product_type]"
-              sf-form="productForm.schemaForm"
-              sf-options="{tv4Validation:false}"
-                ></div>
-
-</div>
+<section-header name="{{productForm.product.product_type}} Properties" type="subheader" ng-if="productsAdminCtrl.categoriesByName[productForm.product.product_type].properties">
+  <div
+    ng-form
+    sf-form="productForm.schemaForm"
+    sf-model="productForm.product.provisioning_answers"
+    sf-options="{tv4Validation:false}"
+    sf-schema="productsAdminCtrl.categoriesByName[productForm.product.product_type]"
+  ></div>
+</section-header>
