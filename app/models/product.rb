@@ -25,19 +25,11 @@ class Product < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  before_create :tag_contexts
-
   store_accessor :options
-  attr_accessor :taggable_tags
 
   has_many :chargebacks
 
   delegate :provisioner, to: :product_type
-
-  def tag_contexts
-    context = product_type.name.parameterize.underscore.downcase.to_sym
-    set_tag_list_on(context, taggable_tags) unless taggable_tags.nil?
-  end
 
   def product_type
     ProductType.new(self[:product_type])

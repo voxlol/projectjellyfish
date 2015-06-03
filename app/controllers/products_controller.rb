@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
   param :setup_price, PRODUCT_PRICE_REGEX, desc: 'Initial Setup Fee'
-  param :taggable_tags, Array, desc: 'Array of Strings'
+  param :tag_list, Array, desc: 'Array of Strings'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -82,7 +82,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params
-      .permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price, :product_type, :taggable_tags)
+      .permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price, :product_type, :tag_list)
       .merge(params.slice(:provisioning_answers))
   end
 
