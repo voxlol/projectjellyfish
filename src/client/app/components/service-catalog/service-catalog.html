@@ -8,6 +8,9 @@
   <div ng-switch="vm.viewMode" class="service-catalog__body" collapse="vm.collapsed">
     <table ng-switch-when="list" st-table="vm.service" class="service-catalog__table table-hover">
       <thead>
+      <th colspan="2">
+        <input st-search="" class="form-control users-table__filter-input" placeholder="Filter by name, status, created" type="text"/>
+      </th>
       <tr>
         <th class="service-catalog__heading service-catalog__heading--padding"></th>
         <th st-sort="id"

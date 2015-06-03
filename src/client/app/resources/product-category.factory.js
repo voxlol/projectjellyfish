@@ -6,10 +6,8 @@
 
   /** @ngInject */
   function ProductCategoryFactory($resource, ApiService) {
-    // var ProductCategory = $resource(ApiService.routeResolve('productsById'), {id: '@id'}, {});
+     var ProductCategory = $resource(ApiService.routeResolve('productCategories'), {id: '@id'}, {});
 
-    return [{id: 1, name: 'Databases', tags: ['database', 'relational', 'nosql', 'sql']},
-      {id: 2, name: 'Infrastructure', tags: ['server', 'compute', 'storage', 'files']},
-      {id: 3, name: 'Platform', tags: ['api', 'server', 'application']}];
+    return ProductCategory;
   }
 })();
