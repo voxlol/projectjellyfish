@@ -36,7 +36,7 @@ class Product < ActiveRecord::Base
 
   def tag_contexts
     context = product_type.name.parameterize.underscore.downcase.to_sym
-    self.set_tag_list_on(context, taggable_tags) unless taggable_tags.nil?
+    set_tag_list_on(context, taggable_tags) unless taggable_tags.nil?
   end
 
   def product_type
