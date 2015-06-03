@@ -13,16 +13,24 @@ class ProductType
     Rails.configuration.x.product_types
   end
 
+  def self.schemas
+    names.map { |n| ProductType.new(n).schema }
+  end
+
   def self.names
     all.keys
   end
 
   def schema
-    all.to_h[name]
+    all.to_h[name].merge(tags: tags)
   end
 
   def products
     Product.where(product_type: name)
+  end
+
+  def tags
+    products.map(&:tag_list).flatten
   end
 
   def ==(other)

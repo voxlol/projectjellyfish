@@ -2,7 +2,7 @@ class ProductTypesController < ApplicationController
   api :GET, '/product_types', 'Returns a collection of product_types'
 
   def index
-    respond_with_params ProductType.all.values
+    respond_with_params ProductType.schemas
   end
 
   api :GET, '/product_types/:id', 'Shows product_type with :id'
