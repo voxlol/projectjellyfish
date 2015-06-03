@@ -145,7 +145,7 @@
   },
   "safeContextKeyword": ["self", "vm"],
   "validateIndentation": 2,
-  "validateLineBreaks": "LF",
+  "validateLineBreaks": "CRLF",
   "validateParameterSeparator": ", ",
   "validateQuoteMarks": {
     "mark": "'",
