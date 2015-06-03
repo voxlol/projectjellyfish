@@ -24,7 +24,6 @@
 
         'productsById': '/products/:id',
         'productTypesById': '/product_types/:id',
-        'productCategories': '/product_types/categories',
         'signIn': '/staff/sign_in',
         'signOut': '/staff/sign_out',
         'ssoInit': '/saml/init',

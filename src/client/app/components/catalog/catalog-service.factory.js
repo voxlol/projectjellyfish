@@ -5,7 +5,7 @@
     .factory('CatalogService', CatalogServiceFactory);
 
   /** @ngInject */
-  function CatalogServiceFactory($q, ProductCategory, Product, lodash) {
+  function CatalogServiceFactory($q, ProductType, Product, lodash) {
     var service = {
       getCatalog: getCatalog
     };
@@ -18,7 +18,7 @@
       var deferred = $q.defer();
 
       $q.all([
-        ProductCategory.query().$promise,
+        ProductType.query().$promise,
         Product.query({'tags[]': tags}).$promise
       ]).then(buildProductLists);
 
@@ -27,7 +27,8 @@
       function buildProductLists(results) {
         categories = results[0];
         products = results[1];
-
+        console.log(categories);
+        console.log(products);
         categories.forEach(filterProductsForCategory);
         deferred.resolve(categories);
       }
@@ -36,7 +37,7 @@
         category.products = lodash.filter(products, checkTags);
 
         function checkTags(item) {
-          return lodash.intersection(category.tags, item.tags).length > 0;
+          return lodash.intersection(category.tags, item.tag_list).length > 0;
         }
       }
     }
