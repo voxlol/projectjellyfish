@@ -21,15 +21,10 @@
 #  index_products_on_deleted_at  (deleted_at)
 #
 
- class ProductSerializer < ApplicationSerializer
-
+class ProductSerializer < ApplicationSerializer
   attributes :id, :name, :description, :active, :img, :created_at, :updated_at, :deleted_at, :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type, :tag_list
 
   def product_type
     object.product_type.name
-  end
-
-  def tag_list
-    object.tag_list_on(object.product_type.name.parameterize.underscore.downcase.to_sym)
   end
 end
