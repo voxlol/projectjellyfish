@@ -1,10 +1,9 @@
 class TagsController < ApplicationController
   api :GET, '/tags', 'List tags with tagging_count'
-  param :page, :number
-  param :per_page, :number
+  param :limit, :number
 
   def index
-    respond_with_params ActsAsTaggableOn::Tag.all.paginate(page: params[:page], per_page: params[:per_page])
+    respond_with_params ActsAsTaggableOn::Tag.all.limit(params[:limit])
   end
 
   api :POST, '/products/:product_id/tags', 'Add tags to product'
