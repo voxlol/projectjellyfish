@@ -23,7 +23,7 @@
           /** @ngInject */
           questions: function(WizardQuestion) {
             return WizardQuestion.query().$promise;
-          },
+          }
         },
         template: '<ui-view></ui-view>'
       }

@@ -27,6 +27,7 @@
         method: 'PUT'
       }
     });
+
     return Staff;
   }
 })();

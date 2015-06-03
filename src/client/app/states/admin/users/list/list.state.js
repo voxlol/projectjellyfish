@@ -40,7 +40,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, $q, $state, staff) {
+  function StateController(logger, $q, $state, staff, Toasts) {
     var vm = this;
 
     vm.title = 'Admin User List';

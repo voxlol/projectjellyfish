@@ -87,9 +87,10 @@
 
       activate();
 
-      function activate(){
+      function activate() {
         return GroupedTags.getGroupedTags().then(function(data) {
           vm.tags = data;
+
           return vm.tags;
         });
       }

@@ -25,7 +25,6 @@
 
     function link(scope, element, attrs, vm, transclude) {
       vm.activate();
-      vm.service;
     }
 
     /** @ngInject */
@@ -39,22 +38,21 @@
       function activate() {
         vm.viewMode = vm.viewMode || VIEW_MODES.list;
         vm.collapsed = angular.isDefined(vm.collapsed) ? vm.collapsed : false;
-        angular.forEach(vm.service, function(each){
-          each = vm.getServiceWithProduct(each);
-        })
+        angular.forEach(vm.service, vm.getServiceWithProduct);
       }
       function goTo(id) {
         // $state.go('projects.details', {projectId: id});
       }
 
-      function getServiceWithProduct (serviceObject) {
+      function getServiceWithProduct(serviceObject) {
         vm.productId = serviceObject.product_id;
         vm.product = lodash.find(vm.products, function(obj) {
-          return obj.id == vm.productId;
+          return obj.id === vm.productId;
         });
         serviceObject.img = vm.product.img;
         serviceObject.name = vm.product.name;
         serviceObject.description = vm.product.description;
+
         return serviceObject;
       }
     }

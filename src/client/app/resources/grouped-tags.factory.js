@@ -4,10 +4,8 @@
   angular.module('app.resources')
     .factory('GroupedTags', GroupedTagsFactory);
 
-
   /* @ngInject */
   function GroupedTagsFactory($q, Tag) {
-
     return {
       getGroupedTags: getGroupedTags
     };
@@ -17,11 +15,11 @@
 
       $q.all([
         Tag.query().$promise
-      ]).then(getGroupedTags);
+      ]).then(processGroupedTags);
 
       return deferred.promise;
 
-      function getGroupedTags(results){
+      function processGroupedTags(results) {
         var taglist = results[0];
         var list = {};
         var re = /[A-Z]/;
