@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Add group to project', js: true do
   scenario 'specify group access to a project by giving it a role' do
+    pending
     project = create(:project)
     role = create(:role)
     staff = create(:staff, :admin)

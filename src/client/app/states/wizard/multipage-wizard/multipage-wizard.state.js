@@ -19,6 +19,7 @@
     };
   }
 
+  /** @ngInject */
   function StateController($stateParams, question, questions, WizardQuestion, Projects, lodash, $state) {
     var vm = this;
 

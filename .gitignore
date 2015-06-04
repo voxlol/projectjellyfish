@@ -73,6 +73,9 @@ node_modules
 .sass-cache
 *.css.map
 
+/public/index.html
+/public/js
+/public/styles
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm

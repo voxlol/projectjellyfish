@@ -22,7 +22,7 @@ class ProductType
   end
 
   def schema
-    all.to_h[name].merge(tags: tags)
+    all.to_h[name].merge('tags' => tags)
   end
 
   def products

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Group creation' do
   scenario 'admin creates a group', :js do
+    pending
     login_as(create(:staff, :admin))
     member_staff = create(:staff)
     group = build(:group)

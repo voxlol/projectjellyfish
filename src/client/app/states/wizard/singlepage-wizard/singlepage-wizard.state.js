@@ -19,6 +19,7 @@
     };
   }
 
+  /** @ngInject */
   function StateController($stateParams, $state, questions, lodash) {
     var vm = this;
 
