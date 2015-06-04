@@ -29,7 +29,6 @@
     }
 
     function login(credentials) {
-      console.log(credentials);
 
       return $http.post(ApiService.routeResolve('signIn'), credentials)
         .success(function(data) {

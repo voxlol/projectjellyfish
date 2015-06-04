@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.components')
@@ -27,7 +27,7 @@
         'signIn': '/staff/sign_in',
         'signOut': '/staff/sign_out',
         'ssoInit': '/saml/init',
-
+        'tags': '/tags',
         'staffOrders': '/staff/:staff_id/orders/:id',
         'staffById': '/staff/:id',
         'staffSearch': '/staff?query=',

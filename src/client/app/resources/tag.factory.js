@@ -5,14 +5,8 @@
     .factory('Tag', TagFactory);
 
   /** @ngInject */
-  function TagFactory($resource) {
-    var Tag = $resource('/api/tags/:id', {}, {
-      grouped: {
-        url: '/api/tags/grouped',
-        method: 'GET',
-        isArray: false
-      }
-    });
+  function TagFactory($resource, ApiService) {
+    var Tag = $resource(ApiService.routeResolve('tags'), {id: '@id'}, {});
 
     return Tag;
   }

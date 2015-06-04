@@ -27,8 +27,6 @@
       function buildProductLists(results) {
         categories = results[0];
         products = results[1];
-        console.log(categories);
-        console.log(products);
         categories.forEach(filterProductsForCategory);
         deferred.resolve(categories);
       }
