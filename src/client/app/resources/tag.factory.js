@@ -5,8 +5,42 @@
     .factory('Tag', TagFactory);
 
   /** @ngInject */
-  function TagFactory($resource, ApiService) {
-    var Tag = $resource(ApiService.routeResolve('tags'), {id: '@id'}, {});
+  function TagFactory($resource) {
+    var Tag = $resource('/api/tags/:id');
+
+    // Instead of making an api call we'll call query and group the tags ourselves.
+    Tag.grouped = grouped;
+
+    function grouped() {
+      return Tag.query().then(groupTags);
+
+      function groupTags(tags) {
+        var list = {};
+        var re = /[A-Z]/;
+
+        tags.forEach(processTag);
+
+        return list;
+
+        function processTag(tag) {
+          var firstChar = tag.name.substring(0, 1).toUpperCase();
+
+          if (!re.test(firstChar)) {
+            firstChar = '#';
+          }
+
+          if (angular.isUndefined(list[firstChar])) {
+            list[firstChar] = [];
+          }
+
+          // Trim the data to only the data points we care about.
+          list[firstChar].push({
+            name: tag.name,
+            count: tag.count
+          });
+        }
+      }
+    }
 
     return Tag;
   }

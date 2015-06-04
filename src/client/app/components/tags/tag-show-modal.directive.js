@@ -27,7 +27,7 @@
     }
 
     /** @ngInject */
-    function TagShowModalController($modal) {
+    function TagShowModalController(Tag, $modal) {
       var vm = this;
 
       var modalOptions = {};
@@ -45,6 +45,7 @@
           resolve: {
             tagList: resolveTagList,
             tagCommands: resolveTagCommands,
+            tags: resolveTags,
             mode: resolveMode
           },
           windowTemplateUrl: 'app/components/tags/tag-modal-window.html'
@@ -71,28 +72,24 @@
         };
       }
 
+      function resolveTags() {
+        return Tag.grouped().$promise;
+      }
+
       function resolveMode() {
         return vm.mode;
       }
     }
 
     /** @ngInject */
-    function TagModalController(tagList, tagCommands, GroupedTags, mode) {
+    function TagModalController(tagList, tagCommands, tags, mode) {
       var vm = this;
-      vm.tags = [];
+
       vm.tagList = tagList;
       vm.addTag = tagCommands.add;
       vm.removeTag = tagCommands.remove;
       vm.clearTags = tagCommands.clear;
-
-      activate();
-
-      function activate(){
-        return GroupedTags.getGroupedTags().then(function(data) {
-          vm.tags = data;
-          return vm.tags;
-        });
-      }
+      vm.tags = tags;
 
       vm.shortcuts = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
 
