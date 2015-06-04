@@ -5,7 +5,7 @@
     .factory('AuthenticationService', AuthenticationServiceFactory);
 
   /** @ngInject */
-  function AuthenticationServiceFactory($http, $q, $state, ApiService, SessionService, userRoles) {
+  function AuthenticationServiceFactory($http, $q, $state, SessionService, userRoles) {
     var service = {
       login: login,
       logout: logout,
@@ -18,7 +18,7 @@
     function ssoInit() {
       var deferred = $q.defer();
 
-      $http.get(ApiService.routeResolve('ssoInit'))
+      $http.get('/api/v1/saml/init')
         .success(function(response) {
           deferred.resolve(response.url);
         }).error(function() {
@@ -29,8 +29,7 @@
     }
 
     function login(credentials) {
- 
-      return $http.post(ApiService.routeResolve('signIn'), credentials)
+      return $http.post('/api/v1/staff/sign_in', credentials)
         .success(function(data) {
           SessionService.create(data.id, data.first_name, data.last_name, data.email, data.role, data.updated_at);
         });
@@ -38,7 +37,7 @@
 
     function logout() {
       return $http
-        .delete(ApiService.routeResolve('signOut'))
+        .delete('/api/v1/staff/sign_out')
         .success(function() {
           SessionService.destroy();
         });

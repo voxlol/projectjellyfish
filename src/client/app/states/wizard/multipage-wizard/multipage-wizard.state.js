@@ -14,7 +14,7 @@
       'wizard.multipage': {
         controller: StateController,
         controllerAs: 'vm',
-        templateUrl: 'app/states/wizard/multipage-wizard/multipage-wizard.html',
+        templateUrl: 'app/states/wizard/multipage-wizard/multipage-wizard.html'
       }
     };
   }
@@ -34,7 +34,7 @@
       vm.tags = lodash.union(vm.tags, vm.answer.tags_to_add);
       vm.tags = lodash.difference(vm.tags, vm.answer.tags_to_remove);
 
-      if(vm.question.next_question_id) {
+      if (vm.question.next_question_id) {
         vm.question.next().then(function(question) {
           vm.question = question;
         });
@@ -46,7 +46,7 @@
       }
     }
 
-    function moreQuestions(){
+    function moreQuestions() {
       return vm.question.next_question_id;
     }
 

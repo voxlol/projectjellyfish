@@ -5,8 +5,8 @@
     .factory('ServicesOrderProfilesCount', ServicesOrderProfilesCountFactory);
 
   /** @ngInject */
-  function ServicesOrderProfilesCountFactory($resource, ApiService) {
-    var ServicesOrderProfilesCount = $resource(ApiService.routeResolve('serviceOrderProfiles'), {});
+  function ServicesOrderProfilesCountFactory($resource) {
+    var ServicesOrderProfilesCount = $resource('/api/v1/services/order_profiles', {});
 
     return ServicesOrderProfilesCount;
   }

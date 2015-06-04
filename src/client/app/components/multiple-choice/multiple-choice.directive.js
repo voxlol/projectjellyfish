@@ -14,9 +14,9 @@
         action: '&?',
         actionText: '=',
         model: '=',
-        options: '=',
+        options: '='
       },
-      templateUrl: 'app/components/multiple-choice/multiple-choice.html',
+      templateUrl: 'app/components/multiple-choice/multiple-choice.html'
     };
   }
 
@@ -32,9 +32,9 @@
   }
 
   function link(scope) {
-    if(scope.vm.autoSubmit && scope.vm.multiPage) {
-      scope.$watch('model', function(newValue){
-        if(newValue) {
+    if (scope.vm.autoSubmit && scope.vm.multiPage) {
+      scope.$watch('model', function(newValue) {
+        if (newValue) {
           scope.action();
         }
       });

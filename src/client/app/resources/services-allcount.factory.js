@@ -5,8 +5,8 @@
     .factory('ServicesAllCount', ServicesAllCountFactory);
 
   /** @ngInject */
-  function ServicesAllCountFactory($resource, ApiService) {
-    var ServicesAllCount = $resource(ApiService.routeResolve('serviceAll'), {});
+  function ServicesAllCountFactory($resource) {
+    var ServicesAllCount = $resource('/api/v1/services/all_count', {});
 
     return ServicesAllCount;
   }

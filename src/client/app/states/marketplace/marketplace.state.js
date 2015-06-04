@@ -66,7 +66,7 @@
       Compare.clear();
       Compare.limit = COMPARE_LIMIT;
 
-      if($stateParams.tags) {
+      if ($stateParams.tags) {
         vm.tags =  $stateParams.tags;
       }
     }

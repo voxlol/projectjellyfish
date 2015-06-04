@@ -5,8 +5,8 @@
     .factory('ServicesProjectCount', ServicesProjectCountFactory);
 
   /** @ngInject */
-  function ServicesProjectCountFactory($resource, ApiService) {
-    var ServicesProjectCount = $resource(ApiService.routeResolve('serviceProject'), {});
+  function ServicesProjectCountFactory($resource) {
+    var ServicesProjectCount = $resource('/api/v1/services/project_count', {});
 
     return ServicesProjectCount;
   }

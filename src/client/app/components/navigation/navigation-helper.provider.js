@@ -51,7 +51,7 @@
 
         // Get all items
         if (null === data || angular.isUndefined(data)) {
-          return fetch(lodash.sortBy(lodash.filter(config.items[root], filterVisible), 'order'));
+          return getItem(lodash.sortBy(lodash.filter(config.items[root], filterVisible), 'order'));
         }
 
         // Get single item by path
@@ -68,7 +68,7 @@
           config.items[root].push(new NavigationItem(path, options));
         }
 
-        function fetch(scope) {
+        function getItem(scope) {
           var items = getChildren({path: ''});
 
           function getChildren(item) {

@@ -5,8 +5,8 @@
     .factory('Orders', OrdersFactory);
 
   /** @ngInject */
-  function OrdersFactory($resource, ApiService) {
-    var Orders = $resource(ApiService.routeResolve('orders'), {id: '@id'}, {});
+  function OrdersFactory($resource) {
+    var Orders = $resource('/api/v1/orders/:id', {id: '@id'}, {});
 
     return Orders;
   }

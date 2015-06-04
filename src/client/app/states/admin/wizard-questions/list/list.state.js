@@ -45,30 +45,37 @@
     vm.question = new WizardQuestion({wizard_answers: [{}]});
     vm.createQuestion = createQuestion;
     vm.addAnswer = addAnswer;
+    vm.deleteQuestion = deleteQuestion;
 
     lodash.each(questions, addAnswer);
 
     function createQuestion() {
       vm.question.wizard_answers = formatAnswers(vm.question.wizard_answers);
-      vm.question.$save(function(question){
-        vm.question.id = question.id;
-        vm.questions.push(vm.question);
-        vm.question = new WizardQuestion({wizard_answers: [{}]});
-      });
+      vm.question.$save(buildQuestion);
     }
 
-    vm.deleteQuestion = function(question) {
-      question.$delete(function(question){
-        vm.questions = lodash.without(vm.questions, question);
-      });
-    };
+    function buildQuestion(question) {
+      vm.question.id = question.id;
+      vm.questions.push(vm.question);
+      vm.question = new WizardQuestion({wizard_answers: [{}]});
+    }
+
+    function deleteQuestion(question) {
+      question.$delete(removeQuestion);
+    }
+
+    function removeQuestion(question) {
+      vm.questions = lodash.without(vm.questions, question);
+    }
 
     function addAnswer(question) {
       question.wizard_answers.push({});
     }
 
     vm.deleteAnswer = function(question, answer) {
+      // jscs:disable disallowDanglingUnderscores
       answer._destroy = true;
+      // jscs:enable
     };
 
     vm.saveQuestion = function(question) {
@@ -76,18 +83,20 @@
       question.$update();
     };
 
-    function formatAnswers(answers){
-      return lodash.map(answers, function(answer) {
-        if(typeof answer.tags_to_add === 'string') {
-          answer.tags_to_add = answer.tags_to_add.split(',');
-        }
+    function formatAnswers(answers) {
+      return lodash.map(answers, splitTags);
+    }
 
-        if(typeof answer.tags_to_remove === 'string') {
-          answer.tags_to_remove = answer.tags_to_remove.split(',');
-        }
+    function splitTags(answer) {
+      if (typeof answer.tags_to_add === 'string') {
+        answer.tags_to_add = answer.tags_to_add.split(',');
+      }
 
-        return answer;
-      });
+      if (typeof answer.tags_to_remove === 'string') {
+        answer.tags_to_remove = answer.tags_to_remove.split(',');
+      }
+
+      return answer;
     }
   }
 })();

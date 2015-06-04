@@ -25,8 +25,9 @@ notifications:
     secure: "htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec="
 
 script:
-- bundle exec rspec
+- gulp vet
 - bundle exec rubocop
+- bundle exec rspec
 
 deploy:
   provider: heroku
