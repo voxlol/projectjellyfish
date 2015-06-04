@@ -73,7 +73,7 @@
       }
 
       function resolveTags() {
-        return Tag.grouped().$promise;
+        return Tag.grouped();
       }
 
       function resolveMode() {

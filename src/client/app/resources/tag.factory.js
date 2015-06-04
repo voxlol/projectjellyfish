@@ -6,13 +6,13 @@
 
   /** @ngInject */
   function TagFactory($resource) {
-    var Tag = $resource('/api/tags/:id');
+    var Tag = $resource('/api/v1/tags/:id', {id: '@id'}, {});
 
     // Instead of making an api call we'll call query and group the tags ourselves.
-    Tag.grouped = grouped;
+    Tag.prototype.grouped = grouped;
 
     function grouped() {
-      return Tag.query().then(groupTags);
+      return Tag.query().$promise.then(groupTags);
 
       function groupTags(tags) {
         var list = {};
@@ -34,10 +34,11 @@
           }
 
           // Trim the data to only the data points we care about.
-          list[firstChar].push({
+          list[firstChar].push(new Tag({
+            id: tag.id,
             name: tag.name,
             count: tag.count
-          });
+          }));
         }
       }
     }
@@ -45,3 +46,5 @@
     return Tag;
   }
 })();
+
+
