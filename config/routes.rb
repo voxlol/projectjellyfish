@@ -174,4 +174,6 @@ Rails.application.routes.draw do
     get "/#{path}" => 'welcome#index'
     get "/#{path}/*path" => 'welcome#index'
   end
+
+  match '*path', to: 'welcome#index', via: :all
 end
