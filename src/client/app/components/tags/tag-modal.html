@@ -39,7 +39,7 @@
             <button type="button" class="tag-modal__tag"
                     ng-click="vm.addTag(tag)" ng-disabled="vm.tagUnavailable(tag)">
               {{ ::tag.name }}
-              <span class="tag-modal__tag-results" ng-if="!vm.tagInUse(tag.name)">({{ ::tag.results }})</span>
+              <span class="tag-modal__tag-results" ng-if="!vm.tagInUse(tag.name)">{{ ::tag.results }}</span>
               <i class="tag-modal__tag-results fa fa-check" ng-if="vm.tagInUse(tag.name)"></i>
             </button>
           </li>

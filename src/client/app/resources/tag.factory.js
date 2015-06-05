@@ -9,7 +9,7 @@
     var Tag = $resource('/api/v1/tags/:id', {id: '@id'}, {});
 
     // Instead of making an api call we'll call query and group the tags ourselves.
-    Tag.prototype.grouped = grouped;
+    Tag.grouped = grouped;
 
     function grouped() {
       return Tag.query().$promise.then(groupTags);
