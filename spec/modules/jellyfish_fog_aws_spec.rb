@@ -6,7 +6,7 @@ describe Jellyfish::Fog::AWS do
 
     Jellyfish::Fog::AWS::Storage.new(order_item).provision
 
-    expect(order_item.provision_status).to eq('ok')
+    expect(order_item.provision_status).to eq(:ok)
   end
 
   def order_item
