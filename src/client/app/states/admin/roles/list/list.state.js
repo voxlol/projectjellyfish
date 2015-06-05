@@ -18,7 +18,10 @@
         templateUrl: 'app/states/admin/roles/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Role List'
+        title: 'Admin Roles List',
+        resolve: {
+          roles: resolveRoles
+        }
       }
     };
   }
@@ -32,33 +35,42 @@
   }
 
   /** @ngInject */
-  function StateController(logger, VIEW_MODES, $q, CatalogService, $state) {
+  function resolveRoles($stateParams, Roles) {
+    return Roles.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, $q, $state, roles, Toasts) {
     var vm = this;
 
-    vm.title = 'Admin Products List';
-    vm.viewMode = VIEW_MODES.list;
-
+    vm.title = 'Admin Roles List';
+    vm.roles = roles;
     vm.activate = activate;
-    vm.createType = createType;
+    vm.goTo = goTo;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin Products List View');
-      updateCatalog();
+      logger.info('Activated Admin Role List View');
     }
 
-    function createType(productType) {
-      $state.go('admin.products.create', {productType: productType});
+    function goTo(id) {
+      $state.go('admin.roles.create', {id: id});
     }
 
-    // Private
+    vm.deleteRole = deleteRole;
 
-    function updateCatalog() {
-      $q.when(CatalogService.getCatalog([])).then(handleResults);
+    function deleteRole(index) {
+      var roles = vm.role[index];
+      roles.$delete(deleteSuccess, deleteFailure);
 
-      function handleResults(results) {
-        vm.catalog = results;
+      function deleteSuccess() {
+        vm.roles.splice(index, 1);
+        Toasts.toast('Role deleted.');
+      }
+
+      function deleteFailure() {
+        Toasts.error('Server returned an error while deleting.');
       }
     }
   }

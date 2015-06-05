@@ -11,6 +11,7 @@
     <table st-table="vm.alerts" class="alerts-table">
       <thead>
       <tr>
+        <th class="alerts-table__heading alerts-table__heading--padding"></th>
         <th class="alerts-table__heading alerts-table__heading" st-sort="id">Alert Id</th>
         <th class="alerts-table__heading alerts-table__heading--question" st-sort="project_id">Project</th>
         <th class="alerts-table__heading alerts-table__heading--required" st-sort="status">Status</th>
@@ -21,6 +22,7 @@
       </thead>
       <tbody ng-model="vm.projectQuestions">
       <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
+        <td class="alerts-table__cell alerts-table__cell--padding"></td>
         <td class="alerts-table__cell alerts-table__cell--order">{{ ::row.id }}</td>
         <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.project_id }}</td>
         <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
