@@ -37,8 +37,12 @@
         </td>
         <td ng-if="::!vm.comparable" class="catalog-category__cell catalog-category__cell--padding"></td>
         <td class="catalog-category__cell catalog-category__cell--description">
-          <div class="catalog-category__image"
-               ng-class="'catalog-category__image--' + row.color"></div>
+          <div ng-if="row.img">
+            <img class="catalog-category__image" ng-src="images/assets/{{row.img}}" />
+          </div>
+          <div ng-if="!row.img">
+            <img class="catalog-category__image" ng-src="jelly_alone.png" />
+          </div>
           <span class="catalog-category__product-name">{{ row.name }}</span>
           &mdash;
           <span class="catalog-category__product-description">{{ row.description }}</span>
@@ -53,8 +57,12 @@
       <div class="catalog-category__box" ng-repeat="row in ::vm.category.products track by row.id"
            ng-class="::{'catalog-category__box--trim': !vm.comparable}">
         <div class="catalog-category__card">
-          <div class="catalog-category__image catalog-category__image--large"
-               ng-class="::'catalog-category__image--' + row.color"></div>
+          <div ng-if="row.img">
+            <img class="catalog-category__image catalog-category__image--large" ng-src="images/assets/{{row.img}}" alt="Product Image"/>
+          </div>
+          <div ng-if="!row.img">
+            <img class="catalog-category__image" ng-src="jelly_alone.png" alt="Product Image"/>
+          </div>
           <div class="catalog-category__card-name">{{ ::row.name }}</div>
           <div class="catalog-category__card-description">{{ ::row.description }}</div>
         </div>
