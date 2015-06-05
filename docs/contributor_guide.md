@@ -1,6 +1,12 @@
 Contributor Guide
 ===================
 
+Our resources:
+* [Github](https://github.com/projectjellyfish/api) - Development and issue tracking
+* [Huboard](https://huboard.com/projectjellyfish/) - Sprint Planning and ticket assignment (linked to GitHub issues)
+* [Forum](http://talk.projectjellyfish.org) - Portal for communication within the Jellyfish community
+* [Our website](http://www.projectjellyfish.org/) - General information
+
 We encourage you to contribute to Project Jellyfish! Here are a few ways in which you can help us improve:
 
 
@@ -14,7 +20,7 @@ See our [Jellyfish Module Setup](https://github.com/projectjellyfish/api/wiki/Je
 
 A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses GitHub Issue Tracking to track issues, which are typically bugs and contributions of new code. If you find a bug in Project Jellyfish, we encourage you to start by searching the Github Issues queue to see if a ticket has been generated already. If you don’t spot the issue at hand, please feel free to create a new ticket that we’ll review and prioritize.
 
-In order to interact with Github issues, you’ll first need to create a free GitHub account in order to submit a bug, comment on a bug, and/or create a pull request. From there, your issue should contain a concise title and specific description. If possible, attach screenshots and relevant code to the ticket.
+In order to interact with GitHub issues, you’ll first need to create a free GitHub account in order to submit a bug, comment on a bug, and/or create a pull request. From there, your issue should contain a concise title and specific description. If possible, attach screenshots and relevant code to the ticket.
 Since the goal is to fix the ticket swiftly on our (or your) end, submitting a clearly defined issue is the first step.
 
 

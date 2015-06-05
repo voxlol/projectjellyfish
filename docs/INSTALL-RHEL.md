@@ -32,7 +32,7 @@ sudo yum install ntp
 
 Please install PostgreSQL (9.4+) via [PostgreSQL's directions on their website](https://wiki.postgresql.org/wiki/YUM_Installation)
 
-Note: You will need to install 
+Note: You will need to install
 ````
 postgresql94-server
 postgresql94-devel
