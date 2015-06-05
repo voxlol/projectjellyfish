@@ -58,15 +58,15 @@
       $state.go('admin.users.create', {id: id});
     }
 
-    vm.deleteAlert = deleteAlert;
+    vm.deleteUser = deleteUser;
 
-    function deleteAlert(index) {
-      var alerts = vm.staff[index];
-      alerts.$delete(deleteSuccess, deleteFailure);
+    function deleteUser(index) {
+      var users = vm.staff[index];
+      users.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
         vm.staff.splice(index, 1);
-        Toasts.toast('Alert deleted.');
+        Toasts.toast('User deleted.');
       }
 
       function deleteFailure() {

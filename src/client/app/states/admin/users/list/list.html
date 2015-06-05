@@ -14,7 +14,7 @@
       <input st-search="" class="form-control users-table__filter-input" placeholder="Filter by name, role, email" type="text"/>
     </th>
     <tr>
-      <th class="users-table__heading catalog-category__heading--padding"></th>
+      <th class="users-table__heading users-table__heading--padding"></th>
       <th class="users-table__heading users-table__heading" st-sort="id">Id</th>
       <th class="users-table__heading users-table__heading--question" st-sort="last_name">First/Last Name</th>
       <th class="users-table__heading users-table__heading--required" st-sort="email">Email</th>
@@ -25,7 +25,7 @@
     </thead>
     <tbody>
     <tr class="users-table__row" ng-repeat="row in vm.staff">
-      <td class="users-table__cell catalog-category__cell--padding"></td>
+      <td class="users-table__cell users-table__cell--padding"></td>
       <td class="users-table__cell users-table__cell--order">{{ ::row.id }}</td>
       <td class="users-table__cell users-table__cell--question">{{ ::row.first_name}}/{{ ::row.last_name}}</td>
       <td class="users-table__cell users-table__cell--question">{{ ::row.email }}</td>
@@ -42,7 +42,7 @@
            confirmation-message="Are you sure you want to remove this usert?"
            confirmation-ok-style="danger"
            confirmation-ok-text="Yes, Delete It"
-           confirmation-on-ok="vm.deleteAlert($index)"
+           confirmation-on-ok="vm.deleteUser($index)"
            confirmation-show-cancel="false">
           <img src="/images/ic_deletequestion.png" alt="Delete"/>
         </a>

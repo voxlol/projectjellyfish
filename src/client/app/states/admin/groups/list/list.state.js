@@ -18,7 +18,10 @@
         templateUrl: 'app/states/admin/groups/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Group List'
+        title: 'Admin Groups List',
+        resolve: {
+          groups: resolveGroups
+        }
       }
     };
   }
@@ -32,33 +35,42 @@
   }
 
   /** @ngInject */
-  function StateController(logger, VIEW_MODES, $q, CatalogService, $state) {
+  function resolveGroups($stateParams, Groups) {
+    return Groups.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, $q, $state, groups, Toasts) {
     var vm = this;
 
-    vm.title = 'Admin Products List';
-    vm.viewMode = VIEW_MODES.list;
-
+    vm.title = 'Admin Groups List';
+    vm.groups = groups;
     vm.activate = activate;
-    vm.createType = createType;
+    vm.goTo = goTo;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin Products List View');
-      updateCatalog();
+      logger.info('Activated Admin Groups List View');
     }
 
-    function createType(productType) {
-      $state.go('admin.products.create', {productType: productType});
+    function goTo(id) {
+      $state.go('admin.groups.create', {id: id});
     }
 
-    // Private
+    vm.deleteGroup = deleteGroup;
 
-    function updateCatalog() {
-      $q.when(CatalogService.getCatalog([])).then(handleResults);
+    function deleteGroup(index) {
+      var gropu = vm.groups[index];
+      group.$delete(deleteSuccess, deleteFailure);
 
-      function handleResults(results) {
-        vm.catalog = results;
+      function deleteSuccess() {
+        vm.groups.splice(index, 1);
+        Toasts.toast('Group deleted.');
+      }
+
+      function deleteFailure() {
+        Toasts.error('Server returned an error while deleting.');
       }
     }
   }
