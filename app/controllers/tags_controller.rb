@@ -1,9 +1,10 @@
 class TagsController < ApplicationController
   api :GET, '/tags', 'List tags with tagging_count'
   param :limit, :number
+  param :q, String
 
   def index
-    respond_with_params ActsAsTaggableOn::Tag.all.limit(params[:limit])
+    respond_with_params ActsAsTaggableOn::Tag.all.limit(params[:limit]).where(name: params[:q])
   end
 
   api :POST, '/products/:product_id/tags', 'Add tags to product'
