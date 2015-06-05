@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   param :q, String
 
   def index
-    respond_with_params ActsAsTaggableOn::Tag.all.limit(params[:limit]).where(['name LIKE ?', "#{params[:q]}%"])
+    respond_with_params ActsAsTaggableOn::Tag.all.limit(params[:limit]).where(['name ~~* ?', "#{params[:q]}%"])
   end
 
   api :POST, '/products/:product_id/tags', 'Add tags to product'
