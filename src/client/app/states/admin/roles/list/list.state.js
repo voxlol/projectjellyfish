@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveRoles($stateParams, Roles) {
-    return Roles.query().$promise;
+  function resolveRoles($stateParams, Role) {
+    return Role.query().$promise;
   }
 
   /** @ngInject */

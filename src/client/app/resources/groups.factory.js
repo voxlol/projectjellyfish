@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.resources')
-    .factory('Groups', GroupsFactory);
+    .factory('Group', GroupsFactory);
 
   /** @ngInject */
   function GroupsFactory($resource) {

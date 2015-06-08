@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveGroups($stateParams, Groups) {
-    return Groups.query().$promise;
+  function resolveGroups($stateParams, Group) {
+    return Group.query().$promise;
   }
 
   /** @ngInject */

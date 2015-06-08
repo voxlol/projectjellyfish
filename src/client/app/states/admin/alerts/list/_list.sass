@@ -9,58 +9,75 @@
     position: absolute
     right: 0
     top: 0
-
 +block(alerts-table)
-  @extend .table-striped
-  width: 100%
-  background-color: $app-color-white
-  border: 1px solid $app-color-gray
+  @extend .panel
+  border: none
+  border-radius: 0
 
-  +element(row)
-    width: 100%
+  +element(filter-input)
+    margin: 10px
+
+  +element(header)
+    @extend .panel-heading
+    padding: 20px
     background-color: $app-color-white
+    border: nones
+
+  +element(body)
+    @extend .panel-body
+    padding: 0
+
+  +element(footer)
+    @extend .panel-footer
+
+  +element(title)
+    font-size: 22px
+    font-weight: normal
+    color: $app-color-blue
+    text-transform: uppercase
+    line-height: 1
+
+  +element(collapse-icon)
+    @extend .pull-right
+
+  +element(table)
+    @extend .table-striped
+    width: 100%
 
   +element(heading)
     height: 44px
-    font-size: 12px
     font-weight: bold
     text-transform: uppercase
     color: $app-color-gray
 
-    +modifier(order)
+    +modifier(compare)
       text-align: center
+
+    +modifier(sortable)
+      color: $app-color-blue
+      cursor: pointer
+
+      &.st-sort-ascent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f077"
+        padding-left: 4px
+
+      &.st-sort-descent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f078"
+        padding-left: 4px
 
   +element(cell)
     min-height: 44px
-    font-size: 14px
     border: none
     padding: 10px 10px 10px 0
     vertical-align: top
     position: relative
 
-    +modifier(order)
-      color: $app-color-gray
-      font-weight: bold
-      width: 96px
-      text-align: center
+    +modifier(padding)
+      width: 20px
 
-    +modifier(question)
-      color: $app-color-dark-gray
-      padding-right: 16px
+    +modifier(description)
+      padding-left: 32px
+      padding-right: 20px
 
-    +modifier(required)
-      width: 158px
-      padding-left: 26px
-
-    +modifier(actions)
-      width: 196px
-
-  +element(action)
-    margin-right: 30px
-
-    &:last-child
-      margin-right: 0
-
-  +element(placeholder)
-    background-color: $app-color-blue !important
-    height: 64px

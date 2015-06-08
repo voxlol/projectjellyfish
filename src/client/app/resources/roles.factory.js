@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.resources')
-    .factory('Roles', RolesFactory);
+    .factory('Role', RolesFactory);
 
   /** @ngInject */
   function RolesFactory($resource) {
