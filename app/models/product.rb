@@ -36,6 +36,6 @@ class Product < ActiveRecord::Base
   end
 
   def tags
-    self.tag_list
+    tag_list
   end
 end
