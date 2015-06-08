@@ -5,7 +5,7 @@ RSpec.describe 'Products API' do
 
   describe 'GET index' do
     before(:each) do
-      create(:product)
+      @product = create(:product)
       sign_in_as create :staff
       @products = Product.all
     end
@@ -18,6 +18,25 @@ RSpec.describe 'Products API' do
     it 'paginates the products' do
       get '/api/v1/products', page: 1, per_page: 1
       expect(json.length).to eq(1)
+    end
+
+    it 'verifies tags can be viewed from products' do
+      test_tag = 'foobar'
+
+      # VERIFY PRODUCT HAS NO TAGS
+      expect(@product.tag_list.count).to eq(0)
+
+      # ADD TEST TAG TO PRODUCT
+      post "/api/v1/products/#{@product.id}/tags", tag_list: [test_tag], product_id: @product.id
+
+      # VERIFY TAG WAS SAVED - (REQUERY PRODUCT B/C IT IS OUT OF SYNC WITH DB NOW)
+      @product = Product.where(id: @product.id).first
+      expect(@product.tag_list.count).to eq(1)
+      expect(@product.tag_list).to include(test_tag)
+
+      # VERIFY TAG IS RETURNED FROM PRODUCTS ENDPOINT WITH METHODS URL PARAMETER SPECIFIED
+      get "/api/v1/products/#{@product.id}", methods: ['tags']
+      expect(json['tags']).to include(test_tag)
     end
   end
 

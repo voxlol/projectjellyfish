@@ -34,4 +34,8 @@ class Product < ActiveRecord::Base
   def product_type
     ProductType.new(self[:product_type])
   end
+
+  def tags
+    tag_list
+  end
 end
