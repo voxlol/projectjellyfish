@@ -41,7 +41,7 @@
         angular.forEach(vm.service, vm.getServiceWithProduct);
       }
       function goTo(id) {
-        // $state.go('projects.details', {projectId: id});
+         //$state.go('services.details', {serviceId: id});
       }
 
       function getServiceWithProduct(serviceObject) {

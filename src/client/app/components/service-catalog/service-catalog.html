@@ -59,7 +59,7 @@
     </table>
     <div ng-switch-when="grid" class="service-catalog__grid">
       <div class="service-catalog__box" ng-repeat="row in vm.service" >
-        <div class="service-catalog__card "  ng-click="vm.goTo(row.id)">
+        <div class="service-catalog__card "  ng-class="'service-catalog__card--'  + row.provision_status"  ng-click="vm.goTo(row.id)">
           <div ng-if="!row.img" class="service-catalog__image service-catalog__image--large"
                ng-class="'service-catalog__image--light-blue'">
           </div>

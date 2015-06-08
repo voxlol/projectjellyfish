@@ -39,7 +39,7 @@
         state: 'marketplace',
         label: 'Marketplace',
         style: 'marketplace',
-        order: 3
+        order: 4
       }
     };
   }

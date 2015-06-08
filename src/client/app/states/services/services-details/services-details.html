@@ -1,0 +1,20 @@
+<content-header short="true">
+  <div class="detail-heading">
+    <img ng-if="vm.service.img" class="detail-heading__icon" ng-src="{{vm.service.img}}"
+         fallback-image="images/no_image.png"/>
+    <span class="content-header__title">{{vm.service.name}}</span>
+  </div>
+  <div class="detail-heading__aside">
+    <a ui-sref="services.create({projectId: vm.project.id})"
+       class="btn-rounded">
+      <i class="fa fa-plus-pencil"></i> Edit Service
+    </a>
+  </div>
+</content-header>
+
+
+<widget modifier="primary">
+  <div transclude-to="body">
+    {{vm.service}}
+  </div>
+</widget>

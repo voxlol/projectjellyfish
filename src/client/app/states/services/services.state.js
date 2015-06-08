@@ -13,10 +13,10 @@
 
   function getStates() {
     return {
-      'admin': {
-        abstract: true,
-        template: '<ui-view></ui-view>',
-        url: '/admin'
+      'services': {
+        url: '/services',
+        redirectTo: 'services.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }
@@ -27,12 +27,12 @@
 
   function sidebarItems() {
     return {
-      'admin': {
-        type: 'dropdown',
-        state: 'admin',
-        label: 'Admin',
-        style: 'admin',
-        order: 5
+      'services': {
+        type: 'state',
+        state: 'services',
+        label: 'Services',
+        style: 'services',
+        order: 3
       }
     };
   }

@@ -30,7 +30,7 @@
       'projects': {
         type: 'state',
         state: 'projects',
-        label: 'My Projects',
+        label: 'Projects',
         style: 'projects',
         order: 1
       }

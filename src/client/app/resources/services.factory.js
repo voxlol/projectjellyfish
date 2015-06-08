@@ -2,12 +2,12 @@
   'use strict';
 
   angular.module('app.resources')
-    .factory('Services', ServicesFactory);
+    .factory('Service', ServicesFactory);
 
   /** @ngInject */
   function ServicesFactory($resource) {
-    var Services = $resource('/api/v1/services', {});
+    var Service = $resource('/api/v1/services', {});
 
-    return Services;
+    return Service;
   }
 })();

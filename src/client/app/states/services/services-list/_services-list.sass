@@ -1,3 +1,29 @@
++block(service-category)
+
+  +element(body)
+    padding-right: 395px
+
+  +element(aside)
+    margin-left: 40px
+    padding-left: 40px
+    text-align: right
+    height: 90px
+    position: absolute
+    right: 0
+    top: 0
+
+    &:before
+      content: ""
+      border-right: 1px solid $app-color-gray
+      width: 0
+      height: 40px
+      position: absolute
+      left: 0
+
+  +element(switch)
+    margin: 10px 0
+    float: right
+
 +block(service-catalog)
   @extend .panel
   border: none
@@ -63,10 +89,6 @@
     vertical-align: top
     position: relative
 
-    +modifier(compare)
-      text-align: center
-      width: 116px
-
     +modifier(padding)
       width: 20px
 
@@ -74,14 +96,6 @@
       padding-left: 32px
       padding-right: 20px
 
-    +modifier(setup)
-      width: 136px
-
-    +modifier(monthly)
-      width: 136px
-
-    +modifier(hourly)
-      width: 136px
 
   +element(image)
     display: inline-block
