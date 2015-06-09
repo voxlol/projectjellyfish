@@ -1,13 +1,8 @@
-
-## How to install on Mac OS X Mavericks (for Development)
-
-This guide will walk you through how to install and run Jellyfish-API on a Mac.  Generally, this would be for
-development, however you can run it in production as well.  This will setup the app to run on port 5000, if you want
-it to run on a different port, you will need to use Apache or Nginx (this doc will not cover that).
+This guide will walk you through how to install and run Jellyfish-API on **Mac OS X Mavericks (for Development)**.  Generally, this guide would be used for development purposes, but you can run it in production as well.  This will set up the app to run on port 5000. If you want it to run on a different port, you will need to use Apache or Nginx (this doc will not cover that).
 
 #### Install Command Line Tools
 
-Install the Mac command line tools:
+First, you'll want to install the Mac command line tools:
 
 ````
 xcode-select --install
