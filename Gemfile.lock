@@ -147,14 +147,13 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.8)
-    ffi (1.9.8-x64-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.30.0)
+    fog (1.31.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.4)
+      fog-core (~> 1.30)
       fog-ecloud
       fog-google (>= 0.0.2)
       fog-json
@@ -269,7 +268,7 @@ GEM
     jbuilder (2.2.16)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jellyfish-fog (0.0.4)
+    jellyfish-fog (0.0.5)
       azure (>= 0.6.0)
       bcrypt
       dotenv-rails
@@ -288,9 +287,10 @@ GEM
       rufus-scheduler
       virtus
     jellyfish-provisioner (0.1.0)
-    json (1.8.2)
+    json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
+    libv8 (3.16.14.7)
     license_finder (2.0.4)
       bundler
       httparty
@@ -314,8 +314,6 @@ GEM
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    nokogiri (1.6.6.2-x64-mingw32)
-      mini_portile (~> 0.6.0)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
@@ -327,8 +325,7 @@ GEM
       activerecord (~> 4.0)
     parser (2.2.2.3)
       ast (>= 1.1, < 3.0)
-    pg (0.18)
-    pg (0.18-x64-mingw32)
+    pg (0.17.1)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -343,14 +340,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry (0.10.1-x64-mingw32)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-      win32console (~> 1.3)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (2.11.1)
+    puma (2.11.3)
       rack (>= 1.1, < 2.0)
     pundit (1.0.0)
       activesupport (>= 3.0.0)
@@ -369,6 +361,68 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.1)
       sprockets-rails
+    rails-assets-angucomplete-alt (0.0.39)
+      rails-assets-angular (>= 1.2.0)
+    rails-assets-angular (1.3.15)
+    rails-assets-angular-animate (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-bootstrap (0.13.0)
+      rails-assets-angular (>= 1.3.0)
+    rails-assets-angular-cookies (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-filter (0.5.4)
+      rails-assets-angular
+    rails-assets-angular-gravatar (0.3.1)
+      rails-assets-angular (>= 1.0.0, < 1.4.0)
+    rails-assets-angular-loading-bar (0.7.1)
+      rails-assets-angular (>= 1.2.9, < 2)
+    rails-assets-angular-nvd3 (0.1.1)
+      rails-assets-angular (~> 1.0)
+      rails-assets-d3 (~> 3.3.13)
+      rails-assets-nvd3 (~> 1.1.15.beta)
+    rails-assets-angular-progress-arc (1.0.0)
+      rails-assets-angular (>= 1.2.19)
+    rails-assets-angular-resource (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-sanitize (1.3.15)
+      rails-assets-angular (= 1.3.15)
+    rails-assets-angular-schema-form (0.8.1)
+      rails-assets-angular (>= 1.2)
+      rails-assets-angular-sanitize (>= 1.2)
+      rails-assets-objectpath (~> 1.1.0)
+      rails-assets-tv4 (~> 1.0.15)
+    rails-assets-angular-smart-table (2.0.3)
+      rails-assets-angular
+    rails-assets-angular-ui-router (0.2.15)
+      rails-assets-angular (>= 1.0.8)
+    rails-assets-angular-ui-select (0.11.2)
+      rails-assets-angular (>= 1.2.18)
+    rails-assets-bootstrap (3.3.4)
+      rails-assets-jquery (>= 1.9.1)
+    rails-assets-bootstrap-sass (3.3.4)
+      rails-assets-jquery (>= 1.9.0)
+    rails-assets-bootstrap3-datetimepicker (4.7.14)
+      rails-assets-jquery (>= 1.8.3)
+      rails-assets-moment (>= 2.8.0)
+    rails-assets-d3 (3.3.13)
+    rails-assets-es5-shim (4.1.1)
+    rails-assets-jquery (2.1.4)
+    rails-assets-lodash (3.9.0)
+    rails-assets-microplugin (0.0.3)
+    rails-assets-moment (2.10.3)
+    rails-assets-ng-currency (0.8.6)
+      rails-assets-angular (~> 1.3.4)
+    rails-assets-ngDraggable (0.1.8)
+      rails-assets-angular
+    rails-assets-nvd3 (1.1.15.beta)
+      rails-assets-d3 (~> 3.3.13)
+    rails-assets-objectpath (1.1.0)
+    rails-assets-selectize (0.12.1)
+      rails-assets-jquery (>= 1.7.0)
+      rails-assets-microplugin (~> 0.0.0)
+      rails-assets-sifter (~> 0.4.0)
+    rails-assets-sifter (0.4.1)
+    rails-assets-tv4 (1.0.17)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -394,14 +448,10 @@ GEM
       nokogiri (>= 1.4.1)
       trollop
     rdoc (4.2.0)
+    ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
-    rest-client (1.8.0-x64-mingw32)
-      ffi (~> 1.9)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -464,7 +514,7 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.3.6)
-    sprockets (3.1.0)
+    sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.1)
       actionpack (>= 3.0)
@@ -472,6 +522,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
     systemu (2.6.5)
     terminal-table (1.4.5)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -481,16 +534,13 @@ GEM
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2015.4)
-      tzinfo (>= 1.0.0)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
-    unf_ext (0.0.7.1-x64-mingw32)
-    uuid (2.3.7)
+    uuid (2.3.8)
       macaddr (~> 1.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -509,14 +559,12 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     will_paginate (3.0.7)
-    win32console (1.3.2)
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
-  x64-mingw32
 
 DEPENDENCIES
   active_model_serializers (~> 0.8.0)
@@ -548,7 +596,7 @@ DEPENDENCIES
   omniauth
   paper_trail
   paranoia
-  pg (~> 0.18.1)
+  pg (~> 0.17.1)
   pg_search (~> 0.7.8)
   poltergeist
   pry-rails
@@ -556,6 +604,34 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (= 4.2.1)
+  rails-assets-angucomplete-alt!
+  rails-assets-angular (>= 1.3.15)!
+  rails-assets-angular-animate!
+  rails-assets-angular-bootstrap!
+  rails-assets-angular-cookies!
+  rails-assets-angular-filter!
+  rails-assets-angular-gravatar!
+  rails-assets-angular-loading-bar!
+  rails-assets-angular-nvd3!
+  rails-assets-angular-progress-arc!
+  rails-assets-angular-resource!
+  rails-assets-angular-sanitize!
+  rails-assets-angular-schema-form (= 0.8.1)!
+  rails-assets-angular-smart-table!
+  rails-assets-angular-ui-router!
+  rails-assets-angular-ui-select!
+  rails-assets-bootstrap!
+  rails-assets-bootstrap-sass!
+  rails-assets-bootstrap3-datetimepicker!
+  rails-assets-es5-shim!
+  rails-assets-jquery!
+  rails-assets-lodash!
+  rails-assets-microplugin!
+  rails-assets-ng-currency!
+  rails-assets-ngDraggable!
+  rails-assets-objectpath!
+  rails-assets-selectize!
+  rails-assets-tv4!
   rails_12factor
   rake
   responders
@@ -571,8 +647,8 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   spring
+  therubyracer
   time_for_a_boolean
-  tzinfo-data
   uglifier
   virtus
   web-console (~> 2.0.0)

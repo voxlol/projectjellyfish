@@ -6,9 +6,11 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
+  PRODUCT_METHODS = %w(tags)
   PRODUCT_PRICE_REGEX = /\d{1,6}(\.\d{0,4})?/
 
   api :GET, '/products', 'Returns a collection of products'
+  param :methods, Array, in: PRODUCT_METHODS
   param :page, :number
   param :per_page, :number
   param :active, :bool
@@ -39,6 +41,7 @@ class ProductsController < ApplicationController
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
+  param :methods, Array, in: PRODUCT_METHODS
   param :id, :number, required: true
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
