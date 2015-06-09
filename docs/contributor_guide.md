@@ -2,6 +2,7 @@ Contributor Guide
 ===================
 
 Our resources:
+
 * [Github](https://github.com/projectjellyfish/api) - Development and issue tracking
 
 * [Trello](https://trello.com/projectjellyfish) - Sprint planning
