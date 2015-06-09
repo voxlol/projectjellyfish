@@ -1,6 +1,5 @@
-## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish on a fresh Red Hat Enterprise Linux (or similar,
+This guide will walk you through how to install and run Jellyfish on a fresh **Red Hat Enterprise Linux** (or similar,
 like CentOS) installation for a production environment.
 
 #### Update System
@@ -138,7 +137,7 @@ Install rbenv as per the [rbenv install guide](https://github.com/sstephenson/rb
 
 Install ruby-build as per the [ruby-build install guide](https://github.com/sstephenson/ruby-build)
 
-#### Check Out Latest Code
+#### Check out Latest Code
 
 ````
 cd /home/jellyfish
