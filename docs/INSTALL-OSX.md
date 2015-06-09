@@ -5,13 +5,15 @@ This guide will walk you through how to install and run Jellyfish-API on a Mac. 
 development, however you can run it in production as well.  This will setup the app to run on port 5000, if you want
 it to run on a different port, you will need to use Apache or Nginx (this doc will not cover that).
 
-**Install the Mac command line tools:**
+#### Install Command Line Tools
+
+Install the Mac command line tools:
 
 ````
 xcode-select --install
 ````
 
-**Install thoughtbot Laptop Tools**
+#### Install thoughtbot Laptop Tools
 
 This will install pretty much everything that is needed by Jellyfish (including rbenv, PostgreSQL, etc.)
 
@@ -22,7 +24,7 @@ curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/ma
 sh mac 2>&1 | tee ~/laptop.log
 ````
 
-**Get thoughtbot dotFiles**
+#### Get thoughtbot dotFiles
 
 ````
 cd ~
@@ -30,14 +32,15 @@ git clone git://github.com/thoughtbot/dotfiles.git
 env RCRC=$HOME/dotfiles/rcrc rcup
 ````
 
-**Clone the Repo**
+#### Clone the Repo
 
 ````
 git clone https://github.com/projectjellyfish/api.git
 ````
 
-**Add this data to ./.env**
+#### Add Data to Environment
 
+Add this data to ./.env file.
 You will need to create this file yourself (it is already in the .gitignore),
 the dotEnv gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
 you can simply create ENVIRONMENT vars yourself.
@@ -46,7 +49,7 @@ you can simply create ENVIRONMENT vars yourself.
 DATABASE_URL=postgres://YOUR_LOCAL_USERNAME:@localhost:5432/jellyfish_development
 ````
 
-**Create the database**
+#### Create the Database
 
 Running this CLI command will create the database for you in PostgreSQL
 
@@ -55,7 +58,7 @@ createdb jellyfish_development
 ````
 
 
-**Populate the database**
+#### Populate the Database
 
 Run the following rake commands.  You only need to run "rake sample:demo" if
 you are wanting, sample data (useful for development).  Please note that this
@@ -68,13 +71,13 @@ rake db:seed
 rake sample:demo
 ````
 
-**Start the server (development mode)**
+#### Start Server (Development mode)
 
 ````
 rails s
 ````
 
-**Upkeep Rake Tasks**
+#### Upkeep Rake Tasks
 
 The following rake commands need to be executed to maintain Jellyfish.
 
