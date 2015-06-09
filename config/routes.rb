@@ -175,5 +175,7 @@ Rails.application.routes.draw do
     get "/#{path}/*path" => 'welcome#index'
   end
 
-  match '*path', to: 'welcome#index', via: :all
+  if Rails.env.production?
+    match '*path', to: 'welcome#index', via: :all
+  end
 end

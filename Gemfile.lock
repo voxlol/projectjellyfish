@@ -596,7 +596,7 @@ DEPENDENCIES
   omniauth
   paper_trail
   paranoia
-  pg (~> 0.17.1)
+  pg (~> 0.18)
   pg_search (~> 0.7.8)
   poltergeist
   pry-rails
