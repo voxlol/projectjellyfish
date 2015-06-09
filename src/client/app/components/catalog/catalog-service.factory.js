@@ -35,7 +35,7 @@
         category.products = lodash.filter(products, checkTags);
 
         function checkTags(item) {
-          return lodash.intersection(category.tags, item.tag_list).length > 0;
+          return lodash.intersection(category.tags, item.tags).length > 0;
         }
       }
     }
