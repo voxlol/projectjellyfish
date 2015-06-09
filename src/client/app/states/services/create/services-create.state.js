@@ -5,16 +5,18 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
     return {
       'services.create': {
-        url: '/create',
+        url: '/',
+        params: {
+          projectId: null,
+          serviceId: null
+        },
         templateUrl: 'app/states/services/create/services-create.html',
         controller: StateController,
         controllerAs: 'vm',
@@ -23,19 +25,13 @@
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
-  function StateController(logger) {
+  function StateController($stateParams, logger) {
     var vm = this;
 
     vm.title = 'Service Create';
+    vm.projectId = $stateParams.projectId;
+    vm.serviceId = $stateParams.serviceId;
 
     vm.activate = activate;
 

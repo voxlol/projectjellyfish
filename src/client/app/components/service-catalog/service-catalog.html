@@ -30,15 +30,18 @@
             class="service-catalog__heading service-catalog__heading--description service-catalog__heading--sortable">
           Created
         </th>
+        <th class="service-catalog__heading service-catalog__heading--description">
+          Action
+        </th>
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="row in vm.service" ng-click="vm.goTo(row.id) ">
+      <tr ng-repeat="row in vm.service">
         <td class="service-catalog__cell service-catalog__cell--padding"></td>
-        <td class="service-catalog__cell">
+        <td class="service-catalog__cell" ng-click="vm.goTo(row.id)">
           <span>{{ ::row.id }}</span>
         </td>
-        <td class="service-catalog__cell service-catalog__cell--description">
+        <td class="service-catalog__cell service-catalog__cell--description" ng-click="vm.goTo(row.id)">
           <div ng-if="!row.img" class="service-catalog__image"
                ng-class="'service-catalog__image--light-blue'">
           </div>
@@ -48,11 +51,26 @@
           <span>{{ ::row.name }}</span>
           <span ng-if="row.description" class="service-catalog__product-description">&mdash; {{ ::row.description }}</span>
         </td>
-        <td class="service-catalog__cell">
+        <td class="service-catalog__cell" ng-click="vm.goTo(row.id)">
           <span>{{ ::row.provision_status }}</span>
         </td>
-        <td class="service-catalog__cell">
+        <td class="service-catalog__cell" ng-click="vm.goTo(row.id)">
           <span>{{ ::row.created_at | date:'short' }}</span>
+        </td>
+        <td class="service-catalog__cell service-catalog__cell--actions">
+          <a ng-click="vm.goTo(row.id, row.order_id)" class="service-catalog__action">
+            <img src="/images/ic_edit.png" alt="Edit"/>
+          </a>
+          <a href="#" class="users-table__action users-table__action--delete"
+             confirmation
+             confirmation-position="left-center"
+             confirmation-message="Are you sure you want to remove this service?"
+             confirmation-ok-style="danger"
+             confirmation-ok-text="Yes, Delete It"
+             confirmation-on-ok="vm.deleteService(row.id, row.project_id )"
+             confirmation-show-cancel="false">
+            <img src="/images/ic_deletequestion.png" alt="Delete"/>
+          </a>
         </td>
       </tr>
       </tbody>

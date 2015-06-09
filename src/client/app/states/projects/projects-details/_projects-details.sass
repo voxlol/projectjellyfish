@@ -20,6 +20,13 @@
   +element(input)
 
 
++block(title-button)
+
+  +element(aside)
+    text-align: right
+    right: 0
+    margin: -7px 4px 0px 0px
+
 +block(detail-heading)
 
   +element(aside)
@@ -70,4 +77,84 @@
     font-weight: bold
     font-size: 40px
     color: $app-color-white
+
+
++block(alerts-table)
+  @extend .panel
+  border: none
+  border-radius: 0
+
+  +element(filter-input)
+    margin: 10px
+
+  +element(header)
+    @extend .panel-heading
+    padding: 20px
+    background-color: $app-color-white
+    border: none
+
+  +element(body)
+    @extend .panel-body
+    padding: 0
+
+  +element(footer)
+    @extend .panel-footer
+
+  +element(title)
+    font-size: 22px
+    font-weight: normal
+    color: $app-color-blue
+    text-transform: uppercase
+    line-height: 1
+
+  +element(collapse-icon)
+    @extend .pull-right
+
+  +element(table)
+    @extend .table-striped
+    width: 100%
+
+  +element(heading)
+    height: 44px
+    font-weight: bold
+    text-transform: uppercase
+    color: $app-color-gray
+
+    +modifier(compare)
+      text-align: center
+
+    +modifier(sortable)
+      color: $app-color-blue
+      cursor: pointer
+
+      &.st-sort-ascent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f077"
+        padding-left: 4px
+
+      &.st-sort-descent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f078"
+        padding-left: 4px
+
+  +element(cell)
+    min-height: 44px
+    border: none
+    padding: 10px 10px 10px 0
+    vertical-align: top
+    position: relative
+
+    +modifier(padding)
+      width: 20px
+
+    +modifier(actions)
+      width: 196px
+
+  +element(action)
+    margin-right: 30px
+
+    &:last-child
+      margin-right: 0
+
+
 

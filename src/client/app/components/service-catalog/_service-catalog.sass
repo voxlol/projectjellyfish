@@ -56,32 +56,25 @@
         content: "\f078"
         padding-left: 4px
 
-  +element(cell)
-    min-height: 44px
-    border: none
-    padding: 10px 10px 10px 0
-    vertical-align: top
-    position: relative
+    +element(cell)
+      min-height: 44px
+      font-size: 14px
+      border: none
+      padding: 10px 10px 10px 0
+      vertical-align: top
+      position: relative
 
-    +modifier(compare)
-      text-align: center
-      width: 116px
+    +modifier(actions)
+      width: 196px
 
     +modifier(padding)
       width: 20px
 
-    +modifier(description)
-      padding-left: 32px
-      padding-right: 20px
+  +element(action)
+    margin-right: 30px
 
-    +modifier(setup)
-      width: 136px
-
-    +modifier(monthly)
-      width: 136px
-
-    +modifier(hourly)
-      width: 136px
+    &:last-child
+      margin-right: 0
 
   +element(image)
     display: inline-block

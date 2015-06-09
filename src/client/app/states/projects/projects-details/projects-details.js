@@ -20,6 +20,7 @@
         controllerAs: 'vm',
         title: 'Project Details',
         resolve: {
+          alerts: resolveAlerts,
           projectDetails: resolveProjects,
           products: resolveProducts,
           staff: resolveStaff
@@ -34,6 +35,11 @@
 
   function sidebarItems() {
     return {};
+  }
+
+  /** @ngInject */
+  function resolveAlerts(Alerts) {
+    return Alerts.query().$promise;
   }
 
   /** @ngInject */
@@ -57,12 +63,14 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, projectDetails, products, lodash, VIEW_MODES) {
+  function StateController($state, logger, projectDetails, products, alerts, VIEW_MODES) {
     var vm = this;
 
+    vm.alerts = alerts;
     vm.title = 'Project Details';
     vm.project = projectDetails;
     vm.products = products;
+
     vm.viewMode = vm.viewMode || VIEW_MODES.list;
 
     vm.activate = activate;

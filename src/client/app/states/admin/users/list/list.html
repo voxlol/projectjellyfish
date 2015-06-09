@@ -15,12 +15,13 @@
     </th>
     <tr>
       <th class="users-table__heading users-table__heading--padding"></th>
-      <th class="users-table__heading users-table__heading" st-sort="id">Id</th>
-      <th class="users-table__heading users-table__heading--question" st-sort="last_name">First/Last Name</th>
-      <th class="users-table__heading users-table__heading--required" st-sort="email">Email</th>
-      <th class="users-table__heading users-table__heading--actions" st-sort="phone">Phone</th>
-      <th class="users-table__heading users-table__heading--actions" st-sort="role">Role</th>
-      <th class="users-table__heading users-table__heading--actions" st-sort="updated_at">Last Updated</th>
+      <th class="users-table__heading " st-sort="id">Id</th>
+      <th class="users-table__heading " st-sort="last_name">First/Last Name</th>
+      <th class="users-table__heading " st-sort="email">Email</th>
+      <th class="users-table__heading " st-sort="phone">Phone</th>
+      <th class="users-table__heading " st-sort="role">Role</th>
+      <th class="users-table__heading " st-sort="updated_at">Last Updated</th>
+      <th class="users-table__heading ">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -39,7 +40,7 @@
         <a href="#" class="users-table__action users-table__action--delete"
            confirmation
            confirmation-position="left-center"
-           confirmation-message="Are you sure you want to remove this usert?"
+           confirmation-message="Are you sure you want to remove this user?"
            confirmation-ok-style="danger"
            confirmation-ok-text="Yes, Delete It"
            confirmation-on-ok="vm.deleteUser($index)"

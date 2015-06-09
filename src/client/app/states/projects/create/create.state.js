@@ -14,7 +14,10 @@
   function getStates() {
     return {
       'projects.create': {
-        url: '/create',
+        url: '/',
+        params: {
+          projectId: null,
+        },
         templateUrl: 'app/states/projects/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
@@ -32,9 +35,10 @@
   }
 
   /** @ngInject */
-  function StateController(logger, ProjectQuestion) {
+  function StateController(logger, ProjectQuestion, $stateParams) {
     var vm = this;
 
+    vm.projectId = $stateParams.projectId
     vm.title = 'Project Create';
 
     vm.activate = activate;

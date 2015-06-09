@@ -69,10 +69,34 @@
 
   +element(cell)
     min-height: 44px
+    font-size: 14px
     border: none
     padding: 10px 10px 10px 0
     vertical-align: top
     position: relative
+
+    +modifier(order)
+      color: $app-color-gray
+      font-weight: bold
+      width: 96px
+      text-align: center
+
+    +modifier(question)
+      color: $app-color-dark-gray
+      padding-right: 16px
+
+    +modifier(required)
+      width: 158px
+      padding-left: 26px
+
+    +modifier(actions)
+      width: 196px
+
+  +element(action)
+    margin-right: 30px
+
+    &:last-child
+      margin-right: 0
 
     +modifier(padding)
       width: 20px

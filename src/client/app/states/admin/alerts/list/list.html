@@ -21,9 +21,10 @@
             <th class="alerts-table__heading alerts-table__heading--actions" st-sort="message">Message</th>
             <th class="alerts-table__heading alerts-table__heading--actions" st-sort="start_date">Start Date</th>
             <th class="alerts-table__heading alerts-table__heading--actions" st-sort="end_date">End Date</th>
+            <th class="alerts-table__heading alerts-table__heading--actions">Actions</th>
         </tr>
         </thead>
-        <tbody ng-model="vm.projectQuestions">
+        <tbody>
         <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
             <td class="alerts-table__cell alerts-table__cell--padding"></td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.id }}</td>
@@ -50,5 +51,4 @@
         </tr>
         </tbody>
     </table>
-
 </div>
