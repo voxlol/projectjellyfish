@@ -34,7 +34,7 @@ A feature is anything that adds new behavior to Project Jellyfish. Since we welc
 
 
 
-####Resolve Existing Issues & Contributing to Docs
+####Resolve Existing Issues/ Contribute to Docs
 
 Take your involvement with Project Jellyfish a step further by assisting us. We welcome your help in fixing bugs, submitting new features, creating new modules and writing docs to guide new users through the process and keep the API reference guide up-to-date.
 Anything you choose to contribute will better Project Jellyfish - and its documentation – and is appreciated by the entire community!
