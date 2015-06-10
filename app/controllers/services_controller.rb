@@ -19,13 +19,6 @@ class ServicesController < ApplicationController
     render json: @order_item, each_serializer: ServiceSerializer
   end
 
-  # api :GET, '/services/:tag', 'Returns services with :tag'
-  # def show
-  #   authorize Service.new
-  #   load_tagged_services
-  #   render json: @services, each_serializer: ServiceSerializer
-  # end
-
   api :GET, '/services/all_count', 'Returns a count of services across all projects'
   def all_count
     authorize Service.new
