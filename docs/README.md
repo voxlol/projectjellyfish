@@ -1,10 +1,6 @@
 Project Jellyfish
 =======
 
-[![Code Climate](https://codeclimate.com/repos/551958df69568055c00020f8/badges/b227e3bde5577507002e/gpa.svg)](https://codeclimate.com/repos/551958df69568055c00020f8/feed)
-[![Test Coverage](https://codeclimate.com/repos/551958df69568055c00020f8/badges/b227e3bde5577507002e/coverage.svg)](https://codeclimate.com/repos/551958df69568055c00020f8/feed)
-[![Build Status](https://travis-ci.org/projectjellyfish/api.svg?branch=master)](https://travis-ci.org/projectjellyfish/api)
-
 #### Overview
 
 Project Jellyfish is an open source broker system offering policy-driven solutions that assist organizations with the management of multi-cloud IT environments.

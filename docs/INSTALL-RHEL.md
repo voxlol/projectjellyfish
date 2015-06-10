@@ -1,17 +1,16 @@
-## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish on a fresh Red Hat Enterprise Linux (or similar,
+This guide will walk you through how to install and run Jellyfish on a fresh **Red Hat Enterprise Linux** (or similar,
 like CentOS) installation for a production environment.
 
-#### Update system
+#### Update System
 
-Update your system (optional, but always a good idea)
+Update your system (optional, but always a good idea).
 
 ```
 sudo yum update
 ```
 
-#### Create jellyfish user
+#### Create a Jellyfish User
 
 ````
 sudo useradd jellyfish
@@ -28,7 +27,7 @@ sudo yum install sqlite-devel libffi-devel openssl-devel
 sudo yum install ntp
 ````
 
-#### Install PostgreSQL server
+#### Install PostgreSQL Server
 
 Please install PostgreSQL (9.4+) via [PostgreSQL's directions on their website](https://wiki.postgresql.org/wiki/YUM_Installation)
 
@@ -39,7 +38,9 @@ postgresql94-devel
 postgresql94-contrib
 ````
 
-#### Start the PostgreSQL server, and start on boot
+#### Start PostgreSQL Server
+
+Start the server, and start on boot.
 
 ````
 sudo service postgresql-9.4 initdb
@@ -47,7 +48,7 @@ sudo service postgresql-9.4 start
 sudo chkconfig postgresql-9.4 on
 ````
 
-#### Configure PostgreSQL server
+#### Configure PostgreSQL Server
 
 This section covers how to get PostgreSQL setup.
 
@@ -123,7 +124,7 @@ sudo service postgresql-9.4 restart
 ````
 
 
-#### Change to the jellyfish system users
+#### Change to Jellyfish System Users
 ````
 sudo su - jellyfish
 ````
@@ -136,16 +137,16 @@ Install rbenv as per the [rbenv install guide](https://github.com/sstephenson/rb
 
 Install ruby-build as per the [ruby-build install guide](https://github.com/sstephenson/ruby-build)
 
-#### Check out the latest code
+#### Check out Latest Code
 
 ````
 cd /home/jellyfish
 git clone https://github.com/projectjellyfish/api.git
 ````
 
-#### Install Ruby, and set that as the global version
+#### Install Ruby
 
-Please install the version of Ruby that is indicated in .ruby-version in the Jellyfish code
+Please install the version of Ruby that is indicated in .ruby-version in the Jellyfish code, and set that as the global version
 
 ````
 rbenv install "$(cat /home/jellyfish/api/.ruby-version)"
@@ -164,7 +165,9 @@ gem install bundler
 gem install pg -v '0.17.1' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 ```
 
-#### Install any gems needed
+#### Install gems
+
+Install any gems that are needed.
 
 ````
 cd /home/jellyfish/api
@@ -181,7 +184,7 @@ echo 'export DATABASE_URL=postgres://jellyfish:myPassword@localhost:5432/jellyfi
 echo 'export export RAILS_ENV=test' >> ~/.bash_profile
 ````
 
-#### Populate the database
+#### Populate the Database
 
 Run the following rake commands.  You only need to run "rake sample:demo" if
 you are wanting, sample data (useful for development).  Please note that this
@@ -194,7 +197,7 @@ rake db:seed
 rake sample:demo
 ````
 
-#### Start the server (for production)
+#### Start Server (Production)
 
 ````
 rails s
@@ -218,7 +221,7 @@ sudo vi /etc/nginx/conf.d/jellyfish-api.conf
 ````
 
 
-##### File (update the my_app_url.com)
+##### File (Update the my_app_url.com)
 ````
 upstream myapp_puma {
   server unix:///tmp/myapp_puma.sock;
@@ -263,7 +266,7 @@ cd /home/jellyfish/api
 bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock
 ````
 
-####Upkeep Rake Tasks
+#### Upkeep Rake Tasks
 
 The following rake commands need to be executed to maintain Jellyfish Core.
 
