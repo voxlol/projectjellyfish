@@ -15,7 +15,7 @@
     return {
       'projects.details': {
         url: '/:projectId',
-        templateUrl: 'app/states/projects/projects-details/projects-details.html',
+        templateUrl: 'app/states/projects/details/details.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Project Details',

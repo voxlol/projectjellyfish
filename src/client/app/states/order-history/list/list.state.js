@@ -13,14 +13,14 @@
 
   function getStates() {
     return {
-      'order-history.details': {
-        url: '/:id',
-        templateUrl: 'app/states/order-history/order-details/order-details.html',
+      'order-history.list': {
+        url: '', // No url, this state is the index of order-history
+        templateUrl: 'app/states/order-history/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Order History Details',
+        title: 'Order History',
         resolve: {
-          order: resolveOrder
+          Orders: resolveOrders
         }
       }
     };
@@ -35,23 +35,20 @@
   }
 
   /** @ngInject */
-  function resolveOrder($stateParams, Orders) {
-    return Orders.get({id: $stateParams.id}).$promise;
+  function resolveOrders(Orders) {
+    return Orders.query().$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, order) {
+  function StateController($state, logger, Orders) {
     var vm = this;
 
-    vm.title = 'Order History Details';
-    vm.orderDetails = order;
-
-    vm.activate = activate;
-
+    vm.orders = Orders;
+    vm.title = 'Order History';
     activate();
 
     function activate() {
-      logger.info('Activated Order History Details View');
+      logger.info('Activated Order History View');
     }
   }
 })();

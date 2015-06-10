@@ -17,7 +17,7 @@
           projectId: null,
           serviceId: null
         },
-        templateUrl: 'app/states/services/create/services-create.html',
+        templateUrl: 'app/states/services/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Service Create'

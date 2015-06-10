@@ -15,12 +15,16 @@
     return {
       'services.details': {
         url: '/:serviceId',
-        templateUrl: 'app/states/services/services-details/services-details.html',
+        templateUrl: 'app/states/services/details/details.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Service Details',
         resolve: {
           resolveService: resolveService
+        },
+        params: {
+          serviceId: null,
+          orderId: null
         }
       }
     };
@@ -36,9 +40,8 @@
 
   /** @ngInject */
   function resolveService($stateParams, Service) {
-    return Service.get({id: $stateParams.serviceId}).$promise;
+    return Service.query({id: $stateParams.serviceId, order_id: $stateParams.orderId}).$promise;
   }
-
 
   /** @ngInject */
   function StateController($state, logger, resolveService, VIEW_MODES) {

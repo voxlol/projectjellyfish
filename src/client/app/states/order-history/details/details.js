@@ -13,14 +13,14 @@
 
   function getStates() {
     return {
-      'projects.list': {
-        url: '', // No url, this state is the index of projects
-        templateUrl: 'app/states/projects/projects-list/projects-list.html',
+      'order-history.details': {
+        url: '/:id',
+        templateUrl: 'app/states/order-history/details/details.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Projects',
+        title: 'Order History Details',
         resolve: {
-          Projects: resolveProjects
+          order: resolveOrder
         }
       }
     };
@@ -31,29 +31,27 @@
   }
 
   function sidebarItems() {
-    return {
-    };
+    return {};
   }
 
   /** @ngInject */
-  function resolveProjects(Projects) {
-    return Projects.query().$promise;
+  function resolveOrder($stateParams, Orders) {
+    return Orders.get({id: $stateParams.id}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, Projects, VIEW_MODES) {
-    /* jshint validthis: true */
+  function StateController(logger, order) {
     var vm = this;
 
-    vm.projects = Projects;
+    vm.title = 'Order History Details';
+    vm.orderDetails = order;
+
     vm.activate = activate;
-    vm.title = 'Projects';
-    vm.viewMode = VIEW_MODES.list;
 
     activate();
 
     function activate() {
-      logger.info('Activated Project View');
+      logger.info('Activated Order History Details View');
     }
   }
 })();

@@ -15,7 +15,7 @@
     return {
       'services.list': {
         url: '', // No url, this state is the index of projects
-        templateUrl: 'app/states/services/services-list/services-list.html',
+        templateUrl: 'app/states/services/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Services',
@@ -79,8 +79,8 @@
       return serviceObject;
     }
 
-    function goTo(id) {
-       //$state.go('services.details', {serviceId: id});
+    function goTo(serviceId, orderId) {
+       $state.go('services.details', {serviceId: serviceId, orderId: orderId});
     }
   }
 })();
