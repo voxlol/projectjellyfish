@@ -19,9 +19,6 @@ class ProductsController < ApplicationController
   def index
     authorize Product
     respond_with_params @products
-    # authorize_and_normalize(Project.new)
-    # projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
-    # respond_with_params projects
   end
 
   api :POST, '/products', 'Creates product'
