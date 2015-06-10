@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -34,12 +34,14 @@
     return {};
   }
 
+
   /** @ngInject */
-  function StateController(logger, ProjectQuestion, $stateParams) {
+  function StateController($q, logger, ProjectQuestion, $stateParams, Projects) {
     var vm = this;
 
     vm.projectId = $stateParams.projectId
-    vm.title = 'Project Create';
+
+
 
     vm.activate = activate;
 
@@ -47,20 +49,40 @@
 
     function activate() {
       logger.info('Activated Project Question Create View');
-      // initProjectQuestion();
-      // initOptions();
+      resolveProjects();
+      resolveProjectQuestions();
+      //initProjectQuestion();
+      //initOptions();
     }
 
-    function initOptions() {
-      vm.projectQuestion.options.length = 0;
-      vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-      vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-    }
+    //function initOptions() {
+    //  vm.projectQuestion.options.length = 0;
+    //  vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
+    //  vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
+    //}
 
     // Private
 
-    function initProjectQuestion() {
-      vm.projectQuestion = angular.extend(new ProjectQuestion(), ProjectQuestion.defaults);
+    //function initProjectQuestion() {
+    //  vm.projectQuestion = angular.extend(new ProjectQuestion(), ProjectQuestion.defaults);
+    //}
+
+    function resolveProjectQuestions(){
+      ProjectQuestion.query().$promise.then(function(result){
+        vm.projectQuestions = result;
+      })
+    }
+
+    function resolveProjects() {
+      if( vm.projectId){
+        Projects.get({
+        id: $stateParams.projectId,
+        'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      }).$promise.then(function (result) {
+          vm.project = result;
+        })}else{
+        vm.project = {};
+      }
     }
   }
 })();

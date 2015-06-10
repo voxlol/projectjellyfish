@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.components')
@@ -9,8 +9,8 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        title: '@?',
-        projects: '='
+        project: '=',
+        projectQuestions: '='
       },
       link: link,
       templateUrl: 'app/components/project-form/project-form.html',
@@ -26,32 +26,33 @@
     }
 
     /** @ngInject */
-    function ProjectFormController($state, Tag, Projects, Toasts, TAG_QUERY_LIMIT) {
+    function ProjectFormController($scope, $state, Toasts, logger) {
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'projects';
+      var home = 'projects.list';
 
       vm.activate = activate;
       vm.backToList = backToList;
-      vm.queryTags = queryTags;
       vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
       vm.onSubmit = onSubmit;
-      vm.typeChangeOk = typeChangeOk;
-      vm.typeChangeCancel = typeChangeCancel;
+      vm.openStart = openStart;
+      vm.openEnd = openEnd;
 
       function activate() {
-        vm.title = vm.title || 'Add A Project';
+
+        if (vm.project.name !== undefined) {
+          vm.title = "Edit " + vm.project.name;
+        } else {
+          vm.title = 'Create Project';
+        }
       }
 
       function backToList() {
         $state.go(home);
       }
 
-      function queryTags(query) {
-        return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
-      }
 
       function showErrors() {
         return showValidationMessages;
@@ -67,15 +68,17 @@
 
       function onSubmit() {
         showValidationMessages = true;
+        // This is so errors can be displayed for 'untouched' angular-schema-form fields
+        $scope.$broadcast('schemaFormValidate');
 
         if (vm.form.$valid) {
-          vm.projects.$save(saveSuccess, saveFailure);
+          vm.project.$save(saveSuccess, saveFailure);
         }
 
         return false;
 
         function saveSuccess() {
-          Toasts.toast('Project Question saved.');
+          Toasts.toast(vm.project.name + ' saved.');
           $state.go(home);
         }
 
@@ -84,15 +87,19 @@
         }
       }
 
-      function typeChangeOk() {
-        vm.projects.options.length = 0;
-        vm.projects.options.push(angular.extend({}, Projects.optionDefaults));
-        vm.projects.options.push(angular.extend({}, Projects.optionDefaults));
-      }
 
-      function typeChangeCancel() {
-        vm.projects.type = 'multiple' === vm.projects.type ? 'yes_no' : 'multiple';
-      }
+      function openStart($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        vm.openedStart = true;
+      };
+      function openEnd($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        vm.openedEnd = true;
+      };
     }
   }
 })();
