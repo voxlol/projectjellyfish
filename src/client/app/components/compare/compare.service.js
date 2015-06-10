@@ -11,7 +11,6 @@
     var MAX_COMPARES = 4;
 
     self.items = [];
-    self.limit = MAX_COMPARES;
 
     self.add = add;
     self.remove = remove;
@@ -54,8 +53,7 @@
     }
 
     function isValid(product) {
-      return self.items.length < self.limit
-        && !inList(product);
+      return self.items.length < MAX_COMPARES && !inList(product);
     }
 
     function showModal() {
