@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   include Pagination
   include AssociationResolution
   include QueryBuilder
+  include TagsList
 
   # Add Token Authentication
   include TokenAuthentication
