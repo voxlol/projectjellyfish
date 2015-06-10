@@ -35,7 +35,7 @@ RSpec.describe 'Products API' do
       expect(@product.tag_list).to include(test_tag)
 
       # VERIFY TAG IS RETURNED FROM PRODUCTS ENDPOINT WITH METHODS URL PARAMETER SPECIFIED
-      get "/api/v1/products/#{@product.id}", methods: ['tags']
+      get "/api/v1/products/#{@product.id}", tags: [test_tag]
       expect(json['tags']).to include(test_tag)
     end
   end
