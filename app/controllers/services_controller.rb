@@ -1,12 +1,30 @@
 class ServicesController < ApplicationController
   after_action :verify_authorized
 
+  before_action :load_order_item, only: [:show]
+
   api :GET, '/services', 'Returns a collection of services'
   def index
     authorize Service.new
     load_services_via_sql
     render json: @services, each_serializer: ServiceSerializer
   end
+
+  api :GET, '/services/:id', 'Returns a service'
+  param :id, :number, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show
+    authorize @order_item
+    render json: @order_item, each_serializer: ServiceSerializer
+  end
+
+  # api :GET, '/services/:tag', 'Returns services with :tag'
+  # def show
+  #   authorize Service.new
+  #   load_tagged_services
+  #   render json: @services, each_serializer: ServiceSerializer
+  # end
 
   api :GET, '/services/all_count', 'Returns a count of services across all projects'
   def all_count
@@ -70,13 +88,6 @@ class ServicesController < ApplicationController
     render json: service_rollup
   end
 
-  api :GET, '/services/:tag', 'Returns services with :tag'
-  def show
-    authorize Service.new
-    load_tagged_services
-    render json: @services, each_serializer: ServiceSerializer
-  end
-
   api :GET, '/services/order_profiles', 'Lists project orders with start date and order item count'
   def order_profiles
     authorize Service.new
@@ -91,6 +102,10 @@ class ServicesController < ApplicationController
   end
 
   private
+
+  def load_order_item
+    @order_item = OrderItem.find params.require(:id)
+  end
 
   def load_services_via_policy
     @services = policy_scope(Service)

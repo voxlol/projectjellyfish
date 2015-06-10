@@ -3,6 +3,10 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    admin_or_related
+  end
+
   def all_count?
     true
   end
@@ -19,8 +23,8 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
-  def show?
-    true
+  def admin_or_related
+    user.admin? || user.project_ids.include?(record.project_id)
   end
 
   class Scope < Scope
