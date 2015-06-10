@@ -16,6 +16,7 @@ module TagsList
   end
 
   def query_with_tags_list(query)
+    return query if params[:tags].nil?
     query.tagged_with(@tag_params)
   end
 end
