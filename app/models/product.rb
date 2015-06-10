@@ -31,8 +31,6 @@ class Product < ActiveRecord::Base
 
   delegate :provisioner, to: :product_type
 
-  # scope :archived, -> { where.not(archived: nil) }
-
   def product_type
     ProductType.new(self[:product_type])
   end
