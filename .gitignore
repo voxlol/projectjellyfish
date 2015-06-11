@@ -126,3 +126,8 @@ crashlytics-build.properties
 
 # Temp build directory
 .tmp
+
+public/js/app-*
+public/js/lib-*
+public/styles/app-*
+public/styles/lib-*
