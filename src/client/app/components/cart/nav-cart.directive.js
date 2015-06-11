@@ -23,12 +23,18 @@
     }
 
     /** @ngInject */
-    function NavCartController() {
+    function NavCartController(CartService) {
       var vm = this;
 
       vm.activate = activate;
 
+      vm.showModal = showModal;
+
       function activate() {
+      }
+
+      function showModal() {
+        CartService.showModal();
       }
     }
   }

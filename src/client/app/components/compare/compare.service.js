@@ -56,28 +56,33 @@
       return self.items.length < MAX_COMPARES && !inList(product);
     }
 
-    function showModal() {
+    function showModal(project) {
       var modalOptions = {
         templateUrl: 'app/components/compare/compare-modal.html',
         controller: CompareModalController,
         controllerAs: 'vm',
         resolve: {
-          productList: resolveItems
+          productList: resolveItems,
+          project: resolveProject
         },
         windowTemplateUrl: 'app/components/compare/compare-modal-window.html'
       };
       var modal = $modal.open(modalOptions);
 
       modal.result.then();
-    }
 
-    function resolveItems() {
-      return self.items;
+      function resolveItems() {
+        return self.items;
+      }
+
+      function resolveProject() {
+        return project;
+      }
     }
   }
 
   /** @ngInject */
-  function CompareModalController(lodash, productList) {
+  function CompareModalController(lodash, productList, project) {
     var vm = this;
 
     vm.products = productList;
@@ -125,6 +130,10 @@
 
       function appendProperty(property) {
         vm.rowData.push(data.properties[property]);
+      }
+
+      function isPurchasable() {
+        return angular.isDefined(project);
       }
     }
   }
