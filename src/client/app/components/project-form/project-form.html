@@ -1,95 +1,180 @@
 <form name="vm.form" class="form-horizontal" role="form" novalidate autocomplete="off"
       ng-submit="vm.onSubmit()"
       ng-class="{'show-errors': vm.showErrors()}">
-  <content-header short="true">
-    <div>
-      <span class="content-header__title project-form__title">{{ ::vm.title }}</span>
-      <span class="project-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in
-        red</span>
-    </div>
-  </content-header>
-  <div class="project-form__body">
-
-    <div class="project-field">
-      <div class="project-field__aside">
-        <label class="project-field__label">Question</label>
-      </div>
-
-      <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('question')}">
-        <input id="project-name" ng-model="vm.projects.question" name="question" type="text"
-               class="project-field__input" placeholder="" required/>
-
-        <div class="project-field__feedback" ng-messages="vm.form.question.$error">
-          <div ng-message="required">A question is required.</div>
+    <content-header short="true">
+        <div>
+            <span class="content-header__title project-form__title">{{ vm.title }}</span>
+            <span class="project-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
         </div>
-      </div>
-    </div>
+    </content-header>
+    <div class="row">
+        <div class="project-form__body">
 
-    <div class="project-field">
-      <div class="project-field__aside">
-        <label class="project-field__label">Help Text</label>
-      </div>
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">Name</label>
+                </div>
 
-      <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('help')}">
-        <input id="project-help" ng-model="vm.projects.help" name="help" type="text"
-               class="project-field__input" placeholder=""/>
-      </div>
-    </div>
+                <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('name')}">
+                    <input id="project-name" ng-model="vm.project.name" name="name" type="text"
+                           class="project-field__input"
+                           placeholder="" required/>
 
-    <div class="project-field">
-      <div class="project-field__aside">
-        <label class="project-field__label">Answer</label>
-      </div>
+                    <div class="project-field__feedback" ng-messages="vm.form.name.$error">
+                        <div ng-message="required">A project name is required.</div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="project-field__body">
-        <div class="project-field__checkbox">
-          <input id="project-required" ng-model="vm.projects.required" name="required"
-                 type="checkbox"/>
-          <label for="project-required">Required</label>
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">Budget</label>
+                </div>
+
+                <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('budget')}">
+                    <input id="project-setup-price" ng-model="vm.project.budget" name="budget" type="text"
+                           class="project-field__input" placeholder="" required ng-pattern="/^\d{1,7}(?:\.\d{0,4})?$/"/>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.budget.$error">
+                        <div ng-message="required">A budget is required.</div>
+                        <div ng-message="pattern">Enter a value between 0.0001 and 9999999.9999</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">Start Date</label>
+                </div>
+
+                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('startDate')}">
+                           <span class="input-group-btn ">
+                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openStart($event)"><i
+                        class="fa fa-calendar"></i></button>
+              </span>
+                    <input ng-click="vm.openStart($event)"
+                           class="project-field__input"
+                           name="startDate"
+                           datepicker-popup="{{vm.format}}"
+                           ng-model="vm.project.start_date"
+                           is-open="vm.openedStart"
+                           max-date="vm.project.end_date"
+                           max-date="'2015-06-22'"
+                           datepicker-options="vm.dateOptions"
+                           ng-required="true" close-text="Close"/>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.startDate.$error">
+                        <div ng-message="required">A start date is required.</div>
+                        <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">End Date</label>
+                </div>
+
+                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('endDate')}">
+                              <span class="input-group-btn">
+                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openEnd($event)"><i
+                        class="fa fa-calendar"></i></button>
+              </span>
+                    <input ng-click="vm.openEnd($event)"
+                           class="project-field__input"
+                           name="endDate"
+                           datepicker-popup="{{vm.format}}"
+                           ng-model="vm.project.end_date"
+                           is-open="vm.openedEnd"
+                           min-date="vm.project.start_date"
+                           datepicker-options="vm.dateOptions"
+                           ng-required="true" close-text="Close"/>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.endDate.$error">
+                        <div ng-message="required">A end date is required.</div>
+                        <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-field" ng-repeat="answer in vm.project.project_answers">
+                <div class="project-field__aside">
+                    <label for="{{answer.project_question.id}}" class="project-field__label">{{answer.project_question.question}}</label>
+                </div>
+                <span ng-switch on="answer.project_question.field_type">
+                  <span ng-switch-when="check_box">
+                      <div class="project-field__body"
+                           ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
+                          <input class="project-field__input" type="checkbox" name="{{answer.project_question_name}}"
+                                 ng-model='answer.answer'
+                                 id="{{answer.project_question.id}}" ng-true-value="'true'" ng-false-value="'false'">
+                      </div>
+                  </span>
+                  <span ng-switch-when="date">
+                    <div class="input-group project-field__body"
+                         ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
+                         <span class="input-group-btn">
+                                <button type="button" class="btn btn-default project-field__input"
+                                        ng-click="vm.openAnswerDate($event, $index)"><i
+                                        class="fa fa-calendar"></i></button>
+                         </span>
+                        <input name="{{answer.project_question_name}}" ng-click="vm.openAnswerDate($event, $index)"
+                               ng-model='answer.answer' class="project-field__input" id="{{answer.project_question.id}}"
+                               placeholder="{{answer.project_question.help_text}}"
+                               name="{{answer.project_question_name}}"
+                               ng-required="{{answer.project_question.required}}" datepicker-popup="{{vm.format}}"
+                               is-open="vm.answerDateOpened[$index]" datepicker-options="vm.dateOptions"
+                               close-text="Close">
+                    </div>
+                  </span>
+                  <span ng-switch-when="text">
+                       <div class="input-group project-field__body"
+                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
+                           <input name="{{answer.project_question_name}}" ng-model='answer.answer'
+                                  class="project-field__input"
+                                  id="{{answer.project_question.id}}"
+                                  placeholder="{{answer.project_question.help_text}}"
+                                  ng-required="{{answer.project_question.required}}">
+                       </div>
+                  </span>
+                  <span ng-switch-when="select_option">
+                       <div class="input-group project-field__body"
+                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
+                           <select name="{{answer.project_question_name}}" class="project-field__input"
+                                   ng-model="answer.answer"
+                                   ng-options="option for option in answer.project_question.options"
+                                   ng-required="{{answer.project_question.required}}">
+                               <option value="">Please select an option.</option>
+                           </select>
+                       </div>
+                  </span>
+                </span>
+            </div>
         </div>
-      </div>
+        <div class="project-form__aside">
+            <div class="project-form-image__container">
+                <div class="project-form-image"></div>
+                <button type="button" class="btn-rounded">Choose Image</button>
+            </div>
+        </div>
     </div>
-
-    <div class="project-field">
-      <div class="project-field__aside">
-        <label class="project-field__label">Question Type</label>
-      </div>
-      <div class="project-field__body project-field__body--type">
-        <select id="project-type" ng-model="vm.projects.type" name="type"
-                class="project-field__input"
-                confirmation
-                confirmation-trigger="change"
-                confirmation-message="Switching question types will clear the option content. Are you sure you want to switch?"
-                confirmation-ok-text="Yes, Switch It"
-                confirmation-ok-style="danger"
-                confirmation-show-cancel="false"
-                confirmation-on-ok="vm.typeChangeOk()"
-                confirmation-on-cancel="vm.typeChangeCancel()">
-          <option value="yes_no">"Yes or No"</option>
-          <option value="multiple">Multiple Choice</option>
-        </select>
-      </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn-rounded project-form__submit" ng-disabled="vm.hasErrors()">Save
+                </button>
+                <button type="button" class="btn btn-link project-form__cancel"
+                        confirmation
+                        confirmation-if="vm.form.$dirty"
+                        confirmation-message="You have unsaved changes. Abandon them and leave the page?"
+                        confirmation-ok-style="danger"
+                        confirmation-ok-text="Yes, Leave"
+                        confirmation-on-ok="vm.backToList()"
+                        confirmation-show-cancel="false">Cancel
+                </button>
+            </div>
+        </div>
     </div>
-
-    <project-options options="vm.projects.options"
-                              options-type="vm.projects.type"></project-options>
-
-  </div>
-  <div class="row project-form__buttons">
-    <div class="col-sm-7">
-      <div class="col-sm-offset-3 col-sm-9">
-        <button type="submit" class="btn-rounded project-form__submit" ng-disabled="vm.hasErrors()">Save
-        </button>
-        <button type="button" class="btn btn-link project-form__cancel"
-                confirmation
-                confirmation-if="vm.form.$dirty"
-                confirmation-message="You have unsaved changes. Abandon them and leave the page?"
-                confirmation-ok-style="danger"
-                confirmation-ok-text="Yes, Leave"
-                confirmation-on-ok="vm.backToList()"
-                confirmation-show-cancel="false">Cancel
-        </button>
-      </div>
-    </div>
-  </div>
 </form>

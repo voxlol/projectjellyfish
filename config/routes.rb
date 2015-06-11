@@ -93,7 +93,7 @@ Rails.application.routes.draw do
     get 'services/count' => 'services#count', as: :services_count
     get 'services/all_count' => 'services#all_count', as: :services_all_count
     get 'services/project_count' => 'services#project_count', as: :services_project_count
-    get 'services/:tag' => 'services#show', as: :services_show
+    get 'services/:id' => 'services#show', as: :services_show
 
     # Project Routes
     scope 'projects/:project_id' do

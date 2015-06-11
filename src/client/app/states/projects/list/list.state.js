@@ -36,8 +36,8 @@
   }
 
   /** @ngInject */
-  function resolveProjects(Projects) {
-    return Projects.query().$promise;
+  function resolveProjects(Project) {
+    return Project.query().$promise;
   }
 
   /** @ngInject */

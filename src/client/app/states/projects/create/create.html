@@ -1,7 +1,1 @@
-<content-header short="true">
-    <div class="admin-users-list__body">
-        <span class="content-header__title"  ng-if="vm.projectId">Edit Project {{ ::vm.projectId }}</span>
-        <span class="content-header__title"  ng-if="!vm.projectId">Create Project</span>
-    </div>
-</content-header>
-
+<project-form project="vm.project" title="{{vm.title}}" editing="{{vm.editing}}"></project-form>

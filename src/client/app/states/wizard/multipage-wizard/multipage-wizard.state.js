@@ -20,7 +20,7 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, question, questions, WizardQuestion, Projects, lodash, $state) {
+  function StateController($stateParams, question, questions, WizardQuestion, Project, lodash, $state) {
     var vm = this;
 
     vm.nextQuestion = nextQuestion;

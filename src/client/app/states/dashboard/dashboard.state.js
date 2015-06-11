@@ -45,7 +45,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, lodash, Projects, ServicesAllCount, ServicesProjectCount,
+  function StateController(logger, lodash, Project, ServicesAllCount, ServicesProjectCount,
                            ServicesOrderProfilesCount) {
     var vm = this;
 
