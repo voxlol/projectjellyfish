@@ -31,9 +31,6 @@ gem 'bcrypt', '~> 3.1.7', require: 'bcrypt'
 # Use puma as the app server
 gem 'puma'
 
-# Need the therubyracer
-# gem 'therubyracer'
-
 # Use responders
 gem 'responders'
 
@@ -47,15 +44,8 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-gem 'custom_configuration'
-
-gem 'bootstrap-sass'
-gem 'sass-rails'
 gem 'jellyfish-fog'
 gem 'jellyfish-manageiq'
-
-# Autoprefixer for CSS classes using Can I Use values.
-gem 'autoprefixer-rails'
 
 # Tests
 group :development, :test do
@@ -93,9 +83,6 @@ gem 'paranoia'
 gem 'rest-client'
 gem 'virtus'
 
-# CORS
-gem 'rack-cors'
-
 # CRONTAB SCHEDULER
 gem 'rufus-scheduler'
 
@@ -113,7 +100,6 @@ gem 'friendly_id'
 gem 'paper_trail'
 
 gem 'sass'
-gem 'uglifier'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -121,10 +107,6 @@ end
 
 # Add Tags
 gem 'acts-as-taggable-on'
-
-# Add Dependencies
-source 'http://rails-assets.org' do
-end
 
 # TO ENCODE DECIMALS AS JSON NUMBERS
 gem 'activesupport-json_encoder'

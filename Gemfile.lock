@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/onelogin/ruby-saml.git
-  revision: 996cbecf06991dfbfabee5c4e7c6d1023533b690
+  revision: 4a7e495a4644c3cbe4b30eba6c5aba0d9754d4ea
   specs:
     ruby-saml (0.9.2)
       nokogiri (>= 1.5.10)
@@ -8,7 +8,6 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: http://rails-assets.org/
   specs:
     CFPropertyList (2.3.1)
     actionmailer (4.2.1)
@@ -53,7 +52,7 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.3.8)
-    annotate (2.6.8)
+    annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
     apipie-rails (0.2.6)
@@ -62,9 +61,6 @@ GEM
     ast (2.0.0)
     astrolabe (1.3.0)
       parser (>= 2.2.0.pre.3, < 3.0)
-    autoprefixer-rails (5.1.11)
-      execjs
-      json
     awesome_print (1.6.1)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -77,12 +73,8 @@ GEM
       systemu (~> 2.6)
       uuid (~> 2.0)
     bcrypt (3.1.10)
-    bcrypt (3.1.10-x64-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.4.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
     brakeman (3.0.3)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -110,8 +102,6 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    custom_configuration (0.0.2)
-      railties (> 3.0)
     daemons (1.2.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
@@ -122,7 +112,7 @@ GEM
       delayed_job (>= 3.0, < 4.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.4.1)
+    devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -139,7 +129,6 @@ GEM
     equalizer (0.0.11)
     erubis (2.7.0)
     excon (0.45.3)
-    execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -195,7 +184,7 @@ GEM
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.1.1)
+    fog-ecloud (0.1.3)
       fog-core
       fog-xml
     fog-google (0.0.5)
@@ -211,7 +200,7 @@ GEM
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
-    fog-profitbricks (0.0.2)
+    fog-profitbricks (0.0.3)
       fog-core
       fog-xml
       nokogiri
@@ -254,7 +243,7 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
-    hashie (3.4.1)
+    hashie (3.4.2)
     highline (1.6.21)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -290,7 +279,6 @@ GEM
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
-    libv8 (3.16.14.7)
     license_finder (2.0.4)
       bundler
       httparty
@@ -306,7 +294,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
-    multi_json (1.11.0)
+    multi_json (1.11.1)
     multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -323,9 +311,9 @@ GEM
       activesupport (>= 3.0, < 5.0)
     paranoia (2.1.2)
       activerecord (~> 4.0)
-    parser (2.2.2.3)
+    parser (2.2.2.5)
       ast (>= 1.1, < 3.0)
-    pg (0.17.1)
+    pg (0.18.2)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -344,10 +332,9 @@ GEM
       pry (>= 0.9.10)
     puma (2.11.3)
       rack (>= 1.1, < 2.0)
-    pundit (1.0.0)
+    pundit (1.0.1)
       activesupport (>= 3.0.0)
     rack (1.6.1)
-    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -361,68 +348,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.1)
       sprockets-rails
-    rails-assets-angucomplete-alt (0.0.39)
-      rails-assets-angular (>= 1.2.0)
-    rails-assets-angular (1.3.15)
-    rails-assets-angular-animate (1.3.15)
-      rails-assets-angular (= 1.3.15)
-    rails-assets-angular-bootstrap (0.13.0)
-      rails-assets-angular (>= 1.3.0)
-    rails-assets-angular-cookies (1.3.15)
-      rails-assets-angular (= 1.3.15)
-    rails-assets-angular-filter (0.5.4)
-      rails-assets-angular
-    rails-assets-angular-gravatar (0.3.1)
-      rails-assets-angular (>= 1.0.0, < 1.4.0)
-    rails-assets-angular-loading-bar (0.7.1)
-      rails-assets-angular (>= 1.2.9, < 2)
-    rails-assets-angular-nvd3 (0.1.1)
-      rails-assets-angular (~> 1.0)
-      rails-assets-d3 (~> 3.3.13)
-      rails-assets-nvd3 (~> 1.1.15.beta)
-    rails-assets-angular-progress-arc (1.0.0)
-      rails-assets-angular (>= 1.2.19)
-    rails-assets-angular-resource (1.3.15)
-      rails-assets-angular (= 1.3.15)
-    rails-assets-angular-sanitize (1.3.15)
-      rails-assets-angular (= 1.3.15)
-    rails-assets-angular-schema-form (0.8.1)
-      rails-assets-angular (>= 1.2)
-      rails-assets-angular-sanitize (>= 1.2)
-      rails-assets-objectpath (~> 1.1.0)
-      rails-assets-tv4 (~> 1.0.15)
-    rails-assets-angular-smart-table (2.0.3)
-      rails-assets-angular
-    rails-assets-angular-ui-router (0.2.15)
-      rails-assets-angular (>= 1.0.8)
-    rails-assets-angular-ui-select (0.11.2)
-      rails-assets-angular (>= 1.2.18)
-    rails-assets-bootstrap (3.3.4)
-      rails-assets-jquery (>= 1.9.1)
-    rails-assets-bootstrap-sass (3.3.4)
-      rails-assets-jquery (>= 1.9.0)
-    rails-assets-bootstrap3-datetimepicker (4.7.14)
-      rails-assets-jquery (>= 1.8.3)
-      rails-assets-moment (>= 2.8.0)
-    rails-assets-d3 (3.3.13)
-    rails-assets-es5-shim (4.1.1)
-    rails-assets-jquery (2.1.4)
-    rails-assets-lodash (3.9.0)
-    rails-assets-microplugin (0.0.3)
-    rails-assets-moment (2.10.3)
-    rails-assets-ng-currency (0.8.6)
-      rails-assets-angular (~> 1.3.4)
-    rails-assets-ngDraggable (0.1.8)
-      rails-assets-angular
-    rails-assets-nvd3 (1.1.15.beta)
-      rails-assets-d3 (~> 3.3.13)
-    rails-assets-objectpath (1.1.0)
-    rails-assets-selectize (0.12.1)
-      rails-assets-jquery (>= 1.7.0)
-      rails-assets-microplugin (~> 0.0.0)
-      rails-assets-sifter (~> 0.4.0)
-    rails-assets-sifter (0.4.1)
-    rails-assets-tv4 (1.0.17)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -448,7 +373,6 @@ GEM
       nokogiri (>= 1.4.1)
       trollop
     rdoc (4.2.0)
-    ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -463,7 +387,7 @@ GEM
     rspec-mocks (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
-    rspec-rails (3.2.1)
+    rspec-rails (3.2.3)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
@@ -472,9 +396,9 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    rubocop (0.31.0)
+    rubocop (0.32.0)
       astrolabe (~> 1.3)
-      parser (>= 2.2.2.1, < 3.0)
+      parser (>= 2.2.2.5, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
@@ -485,26 +409,20 @@ GEM
     ruby_parser (3.6.6)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
-    rufus-scheduler (3.1.1)
-    sass (3.4.13)
-    sass-rails (5.0.3)
-      railties (>= 4.0.0, < 5.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (~> 1.1)
+    rufus-scheduler (3.1.2)
+    sass (3.4.14)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     seed_dump (3.2.2)
       activerecord (~> 4)
       activesupport (~> 4)
-    selenium-webdriver (2.45.0)
+    selenium-webdriver (2.46.2)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sexp_processor (4.5.1)
+    sexp_processor (4.6.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     simplecov (0.10.0)
@@ -522,21 +440,15 @@ GEM
       sprockets (>= 2.8, < 4.0)
     systemu (2.6.5)
     terminal-table (1.4.5)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (1.4.1)
+    tilt (2.0.1)
     time_for_a_boolean (0.0.6)
       activerecord
       railties
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.1)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
@@ -572,14 +484,11 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate
   apipie-rails (~> 0.2.6)
-  autoprefixer-rails
   awesome_print
   bcrypt (~> 3.1.7)
-  bootstrap-sass
   brakeman
   capybara-angular (= 0.1.0)
   codeclimate-test-reporter
-  custom_configuration
   daemons
   database_cleaner (~> 1.3.0)
   delayed_job_active_record
@@ -602,36 +511,7 @@ DEPENDENCIES
   pry-rails
   puma
   pundit
-  rack-cors
   rails (= 4.2.1)
-  rails-assets-angucomplete-alt!
-  rails-assets-angular (>= 1.3.15)!
-  rails-assets-angular-animate!
-  rails-assets-angular-bootstrap!
-  rails-assets-angular-cookies!
-  rails-assets-angular-filter!
-  rails-assets-angular-gravatar!
-  rails-assets-angular-loading-bar!
-  rails-assets-angular-nvd3!
-  rails-assets-angular-progress-arc!
-  rails-assets-angular-resource!
-  rails-assets-angular-sanitize!
-  rails-assets-angular-schema-form (= 0.8.1)!
-  rails-assets-angular-smart-table!
-  rails-assets-angular-ui-router!
-  rails-assets-angular-ui-select!
-  rails-assets-bootstrap!
-  rails-assets-bootstrap-sass!
-  rails-assets-bootstrap3-datetimepicker!
-  rails-assets-es5-shim!
-  rails-assets-jquery!
-  rails-assets-lodash!
-  rails-assets-microplugin!
-  rails-assets-ng-currency!
-  rails-assets-ngDraggable!
-  rails-assets-objectpath!
-  rails-assets-selectize!
-  rails-assets-tv4!
   rails_12factor
   rake
   responders
@@ -641,15 +521,16 @@ DEPENDENCIES
   ruby-saml!
   rufus-scheduler
   sass
-  sass-rails
   sdoc (~> 0.4.0)
   seed_dump
   selenium-webdriver
   shoulda-matchers
   spring
-  therubyracer
   time_for_a_boolean
-  uglifier
+  tzinfo-data
   virtus
   web-console (~> 2.0.0)
   will_paginate (~> 3.0.7)
+
+BUNDLED WITH
+   1.10.3

@@ -30,14 +30,5 @@ module JellyfishCore
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_record.raise_in_transactional_callbacks = true
-
-    unless ENV['CORS_ALLOW_ORIGIN'].nil?
-      config.middleware.insert_before 'Warden::Manager', 'Rack::Cors' do
-        allow do
-          origins(*ENV['CORS_ALLOW_ORIGIN'].split(','))
-          resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options, :head]
-        end
-      end
-    end
   end
 end
