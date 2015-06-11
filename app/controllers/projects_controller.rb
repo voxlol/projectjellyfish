@@ -37,8 +37,8 @@ class ProjectsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    build_empty_answers_to_questions(project)
     authorize_and_normalize(project)
+    build_empty_answers_to_questions(project) if project.project_answers.empty?
     respond_with_params project
   end
 
