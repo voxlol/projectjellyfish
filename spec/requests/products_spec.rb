@@ -82,13 +82,16 @@ RSpec.describe 'Products API' do
       product_attributes = attributes_for(
         :product,
         'provisioning_answers[foo]' => 'bar',
-        'provisioning_answers[baz]' => 'bat'
+        'provisioning_answers[baz]' => 'bat',
+        'provisioning_answers[DBInstanceClass]' => 'db.m3.medium',
+        'provisioning_answers[AllocatedStorage]' => '40',
+        'provisioning_answers[Engine]' => 'mysql'
       )
 
       post products_path, product_attributes
 
       expect(response).to be_success
-      expect(Product.last.provisioning_answers).to eq 'foo' => 'bar', 'baz' => 'bat'
+      expect(Product.last.provisioning_answers).to eq 'foo' => 'bar', 'baz' => 'bat', 'DBInstanceClass' => 'db.m3.medium', 'AllocatedStorage' => '40', 'Engine' => 'mysql'
     end
   end
 end
