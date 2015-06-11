@@ -71,7 +71,7 @@
       }
 
       function onSubmit() {
-        showValidationMessages = false;
+        showValidationMessages = true;
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
