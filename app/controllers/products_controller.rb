@@ -35,15 +35,15 @@ class ProductsController < ApplicationController
   def create
     product = Product.new(product_params)
 
-    missing_parameters = []
-
     required_attributes = Rails.application.config.x.product_types.to_a.assoc(product.product_type.name)[1]['required']
 
-    required_attributes.each do |k|
-      missing_parameters.push(k) if product_params['provisioning_answers'][k].blank?
+    if !required_attributes.blank?
+      missing_parameters = required_attributes.collect do |k|
+        k if product_params['provisioning_answers'][k].blank?
+      end
     end
 
-    fail ActionController::ParameterMissing, missing_parameters unless missing_parameters.empty?
+    fail ActionController::ParameterMissing, missing_parameters unless missing_parameters.nil?
 
     authorize product
     product.save!
