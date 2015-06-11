@@ -2,19 +2,15 @@
 'use strict';
 
 var express = require('express');
+var proxy = require('express-http-proxy');
 var app = express();
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
-var request = require('request');
 
 var environment = process.env.NODE_ENV;
-
-var proxy = require('express-http-proxy');
-
-var app = require('express')();
 
 app.use('/api/v1', proxy('localhost:3000', {
   forwardPath: function(req, res) {
