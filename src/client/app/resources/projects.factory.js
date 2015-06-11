@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.resources')
-    .factory('Projects', ProjectsFactory);
+    .factory('Project', ProjectsFactory);
 
   /** @ngInject */
   function ProjectsFactory($resource, lodash) {

@@ -43,8 +43,8 @@
   }
 
   /** @ngInject */
-  function resolveProjects($stateParams, Projects) {
-    return Projects.get({
+  function resolveProjects($stateParams, Project) {
+    return Project.get({
       id: $stateParams.projectId,
       'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;

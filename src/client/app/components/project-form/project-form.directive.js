@@ -10,7 +10,8 @@
       restrict: 'AE',
       scope: {
         project: '=',
-        projectQuestions: '='
+        title: '@?',
+        editing: '@?'
       },
       link: link,
       templateUrl: 'app/components/project-form/project-form.html',
@@ -26,33 +27,36 @@
     }
 
     /** @ngInject */
-    function ProjectFormController($scope, $state, Toasts, logger) {
+    function ProjectFormController($scope, $state, Toasts, logger, Project, lodash) {
       var vm = this;
 
       var showValidationMessages = false;
       var home = 'projects.list';
+      vm.format = 'yyyy-MM-dd';
+      vm.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 0,
+        showWeeks: false
+      };
 
       vm.activate = activate;
+      activate();
+
       vm.backToList = backToList;
       vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
       vm.onSubmit = onSubmit;
       vm.openStart = openStart;
       vm.openEnd = openEnd;
+      vm.openAnswerDate = openAnswerDate;
 
       function activate() {
 
-        if (vm.project.name !== undefined) {
-          vm.title = "Edit " + vm.project.name;
-        } else {
-          vm.title = 'Create Project';
-        }
       }
 
       function backToList() {
         $state.go(home);
       }
-
 
       function showErrors() {
         return showValidationMessages;
@@ -67,18 +71,42 @@
       }
 
       function onSubmit() {
-        showValidationMessages = true;
+        showValidationMessages = false;
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
-
         if (vm.form.$valid) {
-          vm.project.$save(saveSuccess, saveFailure);
+          // If editing update rather than save
+          if (vm.editing == "true") {
+            vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
+              'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
+              'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
+            if ((typeof vm.project.project_answers !== "undefined") && (vm.project.project_answers.length > 0)) {
+              vm.filteredProject.project_answers = lodash.reduce(vm.project.project_answers,
+                function(pas, pa) {
+                  pas.push(lodash.omit(pa, 'project_id', 'created_at', 'updated_at',
+                    'project_question'));
+                  return pas;
+                }, []);
+            }
+
+            for (var prop in vm.filteredProject){
+              if (vm.filteredProject[prop] === null){
+                delete vm.filteredProject[prop];
+              }
+            }
+
+            Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure)
+
+            return false;
+          } else {
+            Project.save(vm.project).$promise.then(saveSuccess, saveFailure)
+
+            return false;
+          }
         }
 
-        return false;
-
         function saveSuccess() {
-          Toasts.toast(vm.project.name + ' saved.');
+          Toasts.toast(vm.project.name + ' saved to projects.');
           $state.go(home);
         }
 
@@ -87,18 +115,25 @@
         }
       }
 
-
       function openStart($event) {
         $event.preventDefault();
         $event.stopPropagation();
-
         vm.openedStart = true;
       };
+
       function openEnd($event) {
         $event.preventDefault();
         $event.stopPropagation();
-
         vm.openedEnd = true;
+      };
+
+      function openAnswerDate($event, index) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        vm.startDateOpened = false;
+        vm.endDateOpened = false;
+        vm.answerDateOpened = [];
+        vm.answerDateOpened[index] = true;
       };
     }
   }
