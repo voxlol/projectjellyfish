@@ -28,5 +28,4 @@ RSpec.configure do |config|
   end
 
   Capybara.javascript_driver = :poltergeist
-  Apipie.record('examples')
 end
