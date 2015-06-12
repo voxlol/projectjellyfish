@@ -25,11 +25,13 @@
     /** @ngInject */
     function NavProfileController(SessionService) {
       var vm = this;
-      vm.firstName = SessionService.firstName;
+
+      vm.alerts = [];
 
       vm.activate = activate;
 
       function activate() {
+        vm.name = SessionService.fullName();
       }
     }
   }
