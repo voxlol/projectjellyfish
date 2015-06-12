@@ -171,7 +171,8 @@ module.exports = (function() {
   config.fonts = {
     src: [
       src + 'client/assets/fonts/**/*.*',
-      bower + 'font-awesome/fonts/**/*.*'
+      bower + 'font-awesome/fonts/**/*.*',
+      bower + 'bootstrap-sass-official/assets/fonts/**/*.*'
     ],
     build: build + 'fonts'
   };

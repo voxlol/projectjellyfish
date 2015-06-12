@@ -79,8 +79,8 @@
       return serviceObject;
     }
 
-    function goTo(serviceId, orderId) {
-       $state.go('services.details', {serviceId: serviceId, orderId: orderId});
+    function goTo(serviceId, productId) {
+       $state.go('services.details', {serviceId: serviceId, productId: productId});
     }
   }
 })();

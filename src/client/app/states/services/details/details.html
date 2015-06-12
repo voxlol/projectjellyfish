@@ -1,20 +1,156 @@
 <content-header short="true">
-  <div class="detail-heading">
-    <img ng-if="vm.service.img" class="detail-heading__icon" ng-src="{{vm.service.img}}"
-         fallback-image="images/no_image.png"/>
-    <span class="content-header__title">{{vm.service.name}}</span>
-  </div>
-  <div class="detail-heading__aside">
-    <a ui-sref="services.create({projectId: vm.project.id})"
-       class="btn-rounded">
-      <i class="fa fa-plus-pencil"></i> Edit Service
-    </a>
-  </div>
+    <div class="detail-heading">
+        <img ng-if="vm.product.img" class="detail-heading__icon" ng-src="images/assets/{{vm.product.img}}"
+             fallback-image="images/no_image.png"/>
+        <span class="content-header__title">{{vm.product.name}}</span>
+        <b>ON</b> {{vm.project.name}}
+    </div>
+    <div class="detail-heading__aside">
+        <a ui-sref="services.create({serviceId: vm.service.id})"
+           class="btn-rounded">
+            <i class="fa fa-plus-pencil"></i> Edit This Service
+        </a>
+    </div>
 </content-header>
 
-
 <widget modifier="primary">
-  <div transclude-to="body">
-    {{vm.service}}
-  </div>
+    <div transclude-to="body">
+
+        <widget modifier="danger" ng-if="vm.service.latest_alert_id">
+            <div transclude-to="header">SERVICE {{vm.alert.status}}</div>
+            <div transclude-to="body">
+                <table class="table-condensed service-details">
+                    <tbody>
+                    <tr>
+                        <td class="service-details__title ">Alert Id</td>
+                        <td class="item-texts">{{vm.alert.id}}</td>
+                    </tr>
+                    <tr>
+                        <td class="service-details__title ">Created By</td>
+                        <td class="item-texts">{{vm.alert.staff_id}}</td>
+                    </tr>
+                    <tr ng-if="vm.alert.message">
+                        <td class="service-details__title ">Alert Message</td>
+                        <td class="item-texts">{{vm.alert.message}}</td>
+                    </tr>
+                    <tr ng-if="vm.alert.start_date">
+                        <td class="service-details__title ">Start Date</td>
+                        <td class="item-texts">{{vm.alert.start_date}}</td>
+                    </tr>
+                    <tr ng-if="vm.alert.end_date">
+                        <td class="service-details__title ">End Date</td>
+                        <td class="item-texts">{{vm.alert.End_date}}</td>
+                    </tr>
+                    <tr>
+                        <td class="service-details__title ">Created</td>
+                        <td class="item-texts">{{vm.alert.created_at}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </widget>
+        <h2>Details</h2>
+        <table class="table-condensed service-details">
+            <tbody>
+            <tr>
+                <td class="service-details__title ">Service ID</td>
+                <td class="item-texts">{{vm.service.id}}</td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Order Id</td>
+                <td class="item-texts">{{vm.service.order_id}}</td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Project Id / Name</td>
+                <td class="item-texts">{{vm.service.project_id}} / {{vm.project.name}}</td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Service Tags</td>
+                <td class="item-texts"><span ng-repeat="tag in vm.product.tags"><i>{{tag}}&nbsp</i></span></td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Service Description</td>
+                <td class="item-texts">
+                    <span ng-if="vm.product.description">{{vm.product.description}}</span>
+                    <span ng-if="!vm.product.description">No description avalible.</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Service Created</td>
+                <td class="item-texts">{{vm.service.created_at | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Service Updated</td>
+                <td class="item-texts">{{vm.service.updated_at | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Provision Status</td>
+                <td class="item-texts">
+                    <span ng-if="vm.service.provision_status">{{vm.service.provision_status | uppercase}}</span>
+                    <span ng-if="!vm.service.provision_status">No status message at this time.</span></td>
+            </tr>
+            <tr>
+                <td class="service-details__title ">Status Message</td>
+                <td class="item-texts">
+                    <span ng-if="vm.service.status_msg">{{vm.service.status_msg}}</span>
+                    <span ng-if="!vm.service.status_msg">No status message at this time.</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>Pricing</h2>
+
+        <div class="service-list">
+            <table st-table="vm.service" class="service-list__table table-hover">
+                <thead>
+                <tr>
+                    <th class="catalog-category__heading catalog-category__heading--padding"></th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">SETUP</th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">HOURLY</th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">MONTHLY</th>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="selectRow">
+                    <td class="catalog-category__cell catalog-category__cell--padding"></td>
+                    <td class="catalog-category__cell catalog-category__cell">{{vm.service.setup_price | currency}}</td>
+                    <td class="catalog-category__cell catalog-category__cell">{{vm.service.monthly_price | currency}}</td>
+                    <td class="catalog-category__cell catalog-category__cell">{{vm.service.hourly_price | currency}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>Payload Defaults</h2>
+
+        <div class="service-list">
+            <table st-table="vm.service" class="service-list__table table-hover">
+                <thead>
+                <tr>
+                    <th class="catalog-category__heading catalog-category__heading--padding"></th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">TOTAL</th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">HOSTNAME</th>
+                    <th class="catalog-category__heading catalog-category__heading--sortable">IP</th>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="selectRow">
+                    <td class="catalog-category__cell catalog-category__cell--padding"></td>
+                    <td class="catalog-category__cell catalog-category__cell">
+                        {{vm.service.payload_response.defaults.total}}
+                    </td>
+                    <td class="catalog-category__cell catalog-category__cell">
+                        {{vm.service.payload_response.defaults.hostname}}
+                    </td>
+                    <td class="catalog-category__cell catalog-category__cell">
+                        {{vm.service.payload_response.defaults.it_address}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </widget>
+
