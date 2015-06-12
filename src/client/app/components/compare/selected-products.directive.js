@@ -23,7 +23,7 @@
     }
 
     /** @ngInject */
-    function SelectedProductsController(Compare) {
+    function SelectedProductsController(Compare, MAX_COMPARES) {
       var vm = this;
 
       vm.activate = activate;
@@ -32,7 +32,7 @@
       vm.disabled = disabled;
 
       function activate() {
-        buildIndexes(Compare.limit);
+        buildIndexes(MAX_COMPARES);
         vm.products = Compare.items;
       }
 

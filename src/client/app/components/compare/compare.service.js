@@ -5,10 +5,8 @@
     .service('Compare', CompareService);
 
   /** @ngInject */
-  function CompareService($modal, lodash) {
+  function CompareService($modal, lodash, MAX_COMPARES) {
     var self = this;
-
-    var MAX_COMPARES = 4;
 
     self.items = [];
 
