@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Order History',
         resolve: {
-          Orders: resolveOrders
+          orders: resolveOrders
         }
       }
     };
@@ -40,10 +40,10 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, Orders) {
+  function StateController($state, logger, orders) {
     var vm = this;
 
-    vm.orders = Orders;
+    vm.orders = orders;
     vm.title = 'Order History';
     activate();
 
