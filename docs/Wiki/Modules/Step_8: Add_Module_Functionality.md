@@ -1,3 +1,5 @@
+# Step 8: Add Module Functionality
+
 This is a continuation of [Jellyfish Module Setup](http://projectjellyfish.readthedocs.org/en/latest/Wiki/Modules/jellyfish_module_setup/) (Steps 1 through 7).
 
 ### Step 8: Add Module Functionality (Optional)

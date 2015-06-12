@@ -1,3 +1,5 @@
+# Jellyfish Module Setup (Steps 1-7)
+
 This guide explains how to create a module that can be used with [Project Jellyfish](https://github.com/projectjellyfish/api).
 A continuation of this guide teaches you how to [Add Module Functionality](http://projectjellyfish.readthedocs.org/en/latest/Wiki/Modules/add_module_functionality/) (Step 8).
 
