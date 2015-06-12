@@ -16,13 +16,13 @@
 
     return service;
 
-    function create(id, firstName, lastName, email, role, updatedAt) {
-      service.id = id;
-      service.firstName = firstName;
-      service.lastName = lastName;
-      service.email = email;
-      service.role = role;
-      service.updatedAt = updatedAt;
+    function create(data) {
+      service.id = data.id;
+      service.firstName = data.first_name;
+      service.lastName = data.last_name;
+      service.email = data.email;
+      service.role = data.role;
+      service.updatedAt = data.updated_at;
     }
 
     function destroy() {

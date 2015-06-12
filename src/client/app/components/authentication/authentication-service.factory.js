@@ -47,7 +47,7 @@
         .success(loginSuccess);
 
       function loginSuccess(data) {
-        SessionService.create(data.id, data.first_name, data.last_name, data.email, data.role, data.updated_at);
+        SessionService.create(data);
       }
     }
 
