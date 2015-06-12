@@ -5,7 +5,7 @@
     .factory('AuthenticationService', AuthenticationServiceFactory);
 
   /** @ngInject */
-  function AuthenticationServiceFactory($http, $q, $state, SessionService, userRoles) {
+  function AuthenticationServiceFactory($http, $q, $state, SessionService) {
     var service = {
       login: login,
       logout: logout,
@@ -18,29 +18,47 @@
     function ssoInit() {
       var deferred = $q.defer();
 
-      $http.get('/api/v1/saml/init')
-        .success(function(response) {
-          deferred.resolve(response.url);
-        }).error(function() {
-          deferred.resolve(false);
-        });
+      $http
+        .get('/api/v1/saml/init')
+        .success(samlSuccess)
+        .error(samlError);
 
       return deferred.promise;
+
+      function samlSuccess(response) {
+        deferred.resolve(response.url);
+      }
+
+      function samlError() {
+        deferred.resolve(false);
+      }
     }
 
-    function login(credentials) {
-      return $http.post('/api/v1/staff/sign_in', credentials)
-        .success(function(data) {
-          SessionService.create(data.id, data.first_name, data.last_name, data.email, data.role, data.updated_at);
-        });
+    function login(email, password) {
+      var credentials = {
+        staff: {
+          email: email,
+          password: password
+        }
+      };
+
+      return $http
+        .post('/api/v1/staff/sign_in', credentials)
+        .success(loginSuccess);
+
+      function loginSuccess(data) {
+        SessionService.create(data.id, data.first_name, data.last_name, data.email, data.role, data.updated_at);
+      }
     }
 
     function logout() {
       return $http
         .delete('/api/v1/staff/sign_out')
-        .success(function() {
-          SessionService.destroy();
-        });
+        .success(logoutSuccess);
+
+      function logoutSuccess() {
+        SessionService.destroy();
+      }
     }
 
     function isAuthenticated() {

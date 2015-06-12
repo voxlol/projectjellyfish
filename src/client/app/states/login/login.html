@@ -5,46 +5,47 @@
 </div>
 
 <div class="login__window">
-  <div class="login__title">
-    LOGIN
-  </div>
+  <login-form></login-form>
+  <!--<div class="login__title">-->
+    <!--LOGIN-->
+  <!--</div>-->
 
-  <form ng-submit="vm.login()">
-    <div class="login__error" ng-show="vm.hasFailedLogin()">
-      <i class="fa fa-exclamation-triangle"></i>
-      Invalid Email or Password.
-    </div>
+  <!--<form ng-submit="vm.login()">-->
+    <!--<div class="login__error" ng-show="vm.hasFailedLogin()">-->
+      <!--<i class="fa fa-exclamation-triangle"></i>-->
+      <!--Invalid Email or Password.-->
+    <!--</div>-->
 
-    <div ng-show="vm.ssoUrl">
-      <div class="login__sso">
-        <!--<a class="btn btn-primary btn-lg" ng-click="vm.login(vm.ssoUrl)">-->
-        <a class="btn btn-primary btn-lg" ng-click="vm.login()">
-          <i class="fa fa-key fa-fw"></i>
-          Log in with Single Sign-On
-        </a>
-        <p>
-          <br/>
-          &mdash; or &mdash;
-          <br/>
-        </p>
-      </div>
-    </div>
-    <div>
-      <div class="login__input-title">Email</div>
-      <div class="login__input">
-        <input class="form-control" name="email" type="text" ng-model="vm.email">
-      </div>
-    </div>
-    <div>
-      <div class="login__input-title">Password</div>
-      <div class="login__input">
-        <input class="form-control" name="password" type="password" ng-model="vm.password">
-      </div>
-    </div>
-    <div class="login__submit">
-      <input type="submit" value="Login" class="btn btn-primary">
-    </div>
+    <!--<div ng-show="vm.ssoUrl">-->
+      <!--<div class="login__sso">-->
+        <!--&lt;!&ndash;<a class="btn btn-primary btn-lg" ng-click="vm.login(vm.ssoUrl)">&ndash;&gt;-->
+        <!--<a class="btn btn-primary btn-lg" ng-click="vm.login()">-->
+          <!--<i class="fa fa-key fa-fw"></i>-->
+          <!--Log in with Single Sign-On-->
+        <!--</a>-->
+        <!--<p>-->
+          <!--<br/>-->
+          <!--&mdash; or &mdash;-->
+          <!--<br/>-->
+        <!--</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div>-->
+      <!--<div class="login__input-title">Email</div>-->
+      <!--<div class="login__input">-->
+        <!--<input class="form-control" name="email" type="text" ng-model="vm.email">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div>-->
+      <!--<div class="login__input-title">Password</div>-->
+      <!--<div class="login__input">-->
+        <!--<input class="form-control" name="password" type="password" ng-model="vm.password">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="login__submit">-->
+      <!--<input type="submit" value="Login" class="btn btn-primary">-->
+    <!--</div>-->
 
-  </form>
+  <!--</form>-->
 </div>
 <footer></footer>
