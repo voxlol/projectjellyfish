@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveAlerts(Alerts) {
-    return Alerts.query().$promise;
+  function resolveAlerts(Alert) {
+    return Alert.query().$promise;
   }
 
   /** @ngInject */
@@ -55,7 +55,7 @@
     }
 
     function goTo(id) {
-      $state.go('admin.alert.create', {id: id});
+      $state.go('admin.alerts.create', {alertId: id});
     }
 
     vm.deleteAlert = deleteAlert;

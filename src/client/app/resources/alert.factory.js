@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.resources')
-    .factory('Alerts', AlertsFactory);
+    .factory('Alert', AlertsFactory);
 
   /** @ngInject */
   function AlertsFactory($resource) {
