@@ -84,12 +84,12 @@
         });
 
         vm.events
-          .on('tag-added', lodash.flow(vm.onTagAdded, returnTrueIfUndefined))
+          .on('tag-added', lodash.flow(vm.onTagAdded || angular.noop, returnTrueIfUndefined))
           .on('tag-added', clearNewTag)
-          .on('invalid-tag', lodash.flow(vm.onInvalidTag, returnTrueIfUndefined))
+          .on('invalid-tag', lodash.flow(vm.onInvalidTag || angular.noop, returnTrueIfUndefined))
           .on('invalid-tag', setInvalid)
-          .on('tag-removed', lodash.flow(vm.onTagRemoved, returnTrueIfUndefined))
-          .on('tags-cleared', lodash.flow(vm.onTagsCleared, returnTrueIfUndefined))
+          .on('tag-removed', lodash.flow(vm.onTagRemoved || angular.noop, returnTrueIfUndefined))
+          .on('tags-cleared', lodash.flow(vm.onTagsCleared || angular.noop, returnTrueIfUndefined))
           .on('tag-added tag-removed', setDirty)
           .on('input-change', changed)
           .on('input-focus', focused)
@@ -273,8 +273,8 @@
 
       function activate(api) {
         angular.extend(vm, api);
-        vm.onTagAdding = lodash.flow(vm.onTagAdding, returnTrueIfUndefined);
-        vm.onTagRemoving = lodash.flow(vm.onTagRemoving, returnTrueIfUndefined);
+        vm.onTagAdding = lodash.flow(vm.onTagAdding || angular.noop, returnTrueIfUndefined);
+        vm.onTagRemoving = lodash.flow(vm.onTagRemoving || angular.noop, returnTrueIfUndefined);
         vm.tagList = new TagList(vm.options, vm.events, vm.onTagAdding, vm.onTagRemoving);
         vm.tagList.tags = vm.tags;
         vm.mode = angular.isDefined(vm.mode) ? vm.mode : 'field';
