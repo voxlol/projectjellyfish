@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Projects',
         resolve: {
-          Projects: resolveProjects
+          projects: resolveProjects
         }
       }
     };
@@ -31,8 +31,7 @@
   }
 
   function sidebarItems() {
-    return {
-    };
+    return {};
   }
 
   /** @ngInject */
@@ -41,14 +40,12 @@
   }
 
   /** @ngInject */
-  function StateController(logger, Projects, VIEW_MODES) {
-    /* jshint validthis: true */
+  function StateController(logger, projects) {
     var vm = this;
 
-    vm.projects = Projects;
+    vm.projects = projects;
     vm.activate = activate;
     vm.title = 'Projects';
-    vm.viewMode = VIEW_MODES.list;
 
     activate();
 

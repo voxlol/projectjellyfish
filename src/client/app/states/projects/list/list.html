@@ -1,19 +1,68 @@
-<content-header>
-  <div class="project-category__body">
-    <span class="content-header__title">Projects ({{vm.projects.length}})</span>
+<content-header short="true">
+  <div class="projects-list__body">
+    <span class="content-header__title">Projects</span>
   </div>
-  <div class="project-category__aside">
+  <div class="projects-list__aside">
     <div>
-      <button type="button" class="btn-rounded" ui-sref="projects.create">
-        Add New Project
-      </button>
-    </div>
-    <div class="project-category__switch">
-      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
+      <button type="button" class="btn-rounded" ui-sref="projects.create">Add New Project</button>
     </div>
   </div>
 </content-header>
-<project-catalog project="vm.projects" view-mode="vm.viewMode"></project-catalog>
+<div class="row">
+  <div class="col-sm-12">
+    <table st-table="vm.projects" class="projects-table">
+      <thead>
+      <tr>
+        <th class="projects-table__heading catalog-category__heading--padding"></th>
+        <th st-sort="name"
+            class="projects-table__heading projects-table__heading--name projects-table__heading--sortable">
+          Project
+        </th>
+        <th st-sort="approval"
+            class="projects-table__heading projects-table__heading--approval projects-table__heading--sortable">
+          Approved
+        </th>
+        <th st-sort="status"
+            class="projects-table__heading projects-table__heading--status projects-table__heading--sortable">
+          Status
+        </th>
+        <th st-sort="budget"
+            class="projects-table__heading projects-table__heading--budget projects-table__heading--sortable">
+          Budget
+        </th>
+        <th st-sort="spent"
+            class="projects-table__heading projects-table__heading--spent projects-table__heading--sortable">
+          Spent
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in vm.projects track by row.id" class="projects-table__row">
+        <td class="projects-table__cell projects-table__cell--padding"></td>
+        <td class="projects-table__cell projects-table__cell--description">
+          <div ng-if="::!row.img" class="projects-table__image projects-table__image--light-blue"></div>
+          <div ng-if="::row.img"><img class="projects-table__image" ng-src="{{ ::row.img }}"/></div>
+          <a ui-sref="projects.details({projectId: row.id})">{{ ::row.name }}</a>
+          <span ng-if="::row.description" class="projects-table__product-description">
+            &mdash; {{ ::row.description }}
+          </span>
+        </td>
+        <td class="projects-table__cell projects-table__cell--approval">
+          <img ng-if="::'approved' === row.approval" class="projects-table__approved"
+               src="/images/ic_required.png"
+               alt="Approved" title="Project is approved"/>
+        </td>
+        <td class="projects-table__cell projects-table__cell--status"
+            ng-class="::'projects-table__status--' + row.status">
+          {{ ::row.status }}
+        </td>
+        <td class="projects-table__cell projects-table__cell--budget">{{ ::row.budget | currency }}</td>
+        <td class="projects-table__cell projects-table__cell--spent">{{ ::row.spent | currency }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 
 
