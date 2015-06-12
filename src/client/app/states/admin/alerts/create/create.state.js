@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -14,14 +14,11 @@
   function getStates() {
     return {
       'admin.alerts.create': {
-        url: '/create/:id',
+        url: '/create/:alertId',
         templateUrl: 'app/states/admin/alerts/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Alerts Create',
-        params: {
-          productType: null
-        }
+        title: 'Admin Alerts Create'
       }
     };
   }
@@ -35,29 +32,29 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, Product, productTypes) {
+  function StateController($stateParams, logger, Alert) {
     var vm = this;
 
-    vm.title = 'Admin Products Create';
+    vm.title = 'Admin Alerts Create';
+    vm.alertId = $stateParams.alertId;
     vm.activate = activate;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin Products Create View');
-      vm.productType = null !== $stateParams.productType ? $stateParams.productType : productTypes[0];
-      initProduct();
+      logger.info('Activated Admin Alerts Create View');
+      if (vm.alertId) {
+        resolveAlert();
+        vm.editing = true;
+      } else {
+        vm.editing = false;
+      }
     }
 
-    // Private
-
-    function initProduct() {
-      vm.product = angular.extend(new Product(), Product.defaults);
-      angular.forEach(vm.productType.schema.properties, initProperty);
-
-      function initProperty(property, key) {
-        vm.product.properties[key] = angular.isDefined(property.default) ? property.default : null;
-      }
+    function resolveAlert() {
+      Alert.get({id: vm.alertId}).$promise.then(function (result) {
+        vm.alertObj = result;
+      })
     }
   }
 })();

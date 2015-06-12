@@ -40,7 +40,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, service, Alerts,Project, VIEW_MODES, $stateParams, Product) {
+  function StateController(logger, service, Alert, Project, VIEW_MODES, $stateParams, Product) {
     var vm = this;
 
     vm.title = 'Service Details';
@@ -80,7 +80,7 @@
     }
 
     function resolveAlerts(){
-      Alerts.get({id: vm.service.latest_alert_id}).$promise.then(function(result){
+      Alert.get({id: vm.service.latest_alert_id}).$promise.then(function(result){
         vm.alert = result;
       })
     }

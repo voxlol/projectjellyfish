@@ -38,8 +38,8 @@
   }
 
   /** @ngInject */
-  function resolveAlerts(Alerts) {
-    return Alerts.query().$promise;
+  function resolveAlerts(Alert) {
+    return Alert.query().$promise;
   }
 
   /** @ngInject */

@@ -1,0 +1,127 @@
+<form name="vm.form" class="form-horizontal" role="form" novalidate autocomplete="off"
+      ng-submit="vm.onSubmit()"
+      ng-class="{'show-errors': vm.showErrors()}">
+    <content-header short="true">
+        <div>
+            <span class="content-header__title project-form__title" ng-if="!vm.editing">Create Alert</span>
+            <span class="content-header__title project-form__title" ng-if="vm.editing">Edit Alert: {{vm.alertObj.id}}</span>
+            <span class="project-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
+        </div>
+    </content-header>
+    <div class="row">
+        <div class="project-form__body">
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">Name</label>
+                </div>
+
+                <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('status')}">
+                    <select id="project-name"
+                            ng-model="vm.alertObj.status"
+                            name="status"
+                            ng-options="status.type for status in vm.statusOptions as status.type"
+                            class="project-field__input--select"
+                            placeholder="" required></select>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.status.$error">
+                        <div ng-message="required">A project name is required.</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="product-field">
+                <div class="product-field__aside">
+                    <label class="product-field__label">Message</label>
+                </div>
+
+                <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
+          <textarea id="product-description" ng-model="vm.alertObj.message" name="message"
+                    class="product-field__input field__input--textarea" rows="3" required></textarea>
+
+                    <div class="product-field__feedback" ng-messages="vm.form.message.$error">
+                        <div ng-message="required">A product description is required.</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">Start Date</label>
+                </div>
+
+                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('startDate')}">
+                           <span class="input-group-btn ">
+                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openStart($event)"><i
+                        class="fa fa-calendar"></i></button>
+              </span>
+                    <input ng-click="vm.openStart($event)"
+                           class="project-field__input"
+                           name="startDate"
+                           datepicker-popup="{{vm.format}}"
+                           ng-model="vm.alertObj.start_date"
+                           is-open="vm.openedStart"
+                           max-date="vm.project.end_date"
+                           max-date="'2015-06-22'"
+                           datepicker-options="vm.dateOptions"
+                           ng-required="true" close-text="Close"/>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.startDate.$error">
+                        <div ng-message="required">A start date is required.</div>
+                        <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-field">
+                <div class="project-field__aside">
+                    <label class="project-field__label">End Date</label>
+                </div>
+
+                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('endDate')}">
+                              <span class="input-group-btn">
+                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openEnd($event)"><i
+                        class="fa fa-calendar"></i></button>
+              </span>
+                    <input ng-click="vm.openEnd($event)"
+                           class="project-field__input"
+                           name="endDate"
+                           datepicker-popup="{{vm.format}}"
+                           ng-model="vm.alertObj.end_date"
+                           is-open="vm.openedEnd"
+                           min-date="vm.project.start_date"
+                           datepicker-options="vm.dateOptions"
+                           ng-required="true" close-text="Close"/>
+
+                    <div class="project-field__feedback" ng-messages="vm.form.endDate.$error">
+                        <div ng-message="required">A end date is required.</div>
+                        <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn-rounded project-form__submit" ng-disabled="vm.hasErrors()">Save
+                </button>
+                <button type="button" class="btn btn-link project-form__cancel"
+                        confirmation
+                        confirmation-if="vm.form.$dirty"
+                        confirmation-message="You have unsaved changes. Abandon them and leave the page?"
+                        confirmation-ok-style="danger"
+                        confirmation-ok-text="Yes, Leave"
+                        confirmation-on-ok="vm.backToList()"
+                        confirmation-show-cancel="false">Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<pre>{{vm.alertObj}}</pre>
+
+<pre>{{vm.editing}}</pre>
