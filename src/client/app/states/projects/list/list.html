@@ -1,16 +1,16 @@
 <content-header>
   <div class="project-category__body">
     <span class="content-header__title">Projects ({{vm.projects.length}})</span>
-    </div>
+  </div>
   <div class="project-category__aside">
-      <div>
-        <button type="button" class="btn-rounded btn btn-info text-uppercase " ui-sref="projects.create">
-          <i class="fa fa-plus-circle"></i> Add New Project
-        </button>
-      </div>
-      <div class="project-category__switch ">
-        <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
-      </div>
+    <div>
+      <button type="button" class="btn-rounded" ui-sref="projects.create">
+        Add New Project
+      </button>
+    </div>
+    <div class="project-category__switch">
+      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
+    </div>
   </div>
 </content-header>
 <project-catalog project="vm.projects" view-mode="vm.viewMode"></project-catalog>
