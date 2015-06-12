@@ -30,7 +30,7 @@
 
   <div class="sidebar" role="navigation">
     <div class="sidebar__filler"></div>
-    <div collapse="vm.sidebarCollapsed">
+    <div class="sidebar__wrapper" collapse="vm.sidebarCollapsed">
       <ul class="sidebar__nav">
         <li ng-if="vm.sidebarSearch.visible" class="sidebar__item sidebar__item--search">
           <form class="sidebar__form" ng-submit="vm.sidebarSearch.onSubmit()">
