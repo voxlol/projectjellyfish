@@ -47,6 +47,7 @@
         resolveAlert();
         vm.editing = true;
       } else {
+        vm.alertObj = {};
         vm.editing = false;
       }
     }
