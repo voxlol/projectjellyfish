@@ -1,25 +1,33 @@
 class ServicesController < ApplicationController
+  ORDER_ITEM_INCLUDES = %w(product project order latest_alert)
+
   after_action :verify_authorized
 
-  before_action :load_order_item, only: [:show]
+  #before_action :load_order_item, only: [:show]
 
   api :GET, '/services', 'Returns a collection of services'
+  param :includes, Array, in: ORDER_ITEM_INCLUDES
+
   def index
     authorize Service.new
-    load_services_via_sql
-    render json: @services, each_serializer: ServiceSerializer
+    # TODO: These next two lines are a step in the right direction but it still needs clean up.
+    load_projects
+    @order_items = query_with OrderItem.where(project_id: @projects.pluck(:id)), :includes
+    respond_with_params @order_items
   end
 
   api :GET, '/services/:id', 'Returns a service'
   param :id, :number, required: true
+  param :includes, Array, in: ORDER_ITEM_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    authorize @order_item
-    render json: @order_item, each_serializer: ServiceSerializer
+    authorize order_item
+    respond_with_params order_item
   end
 
   api :GET, '/services/all_count', 'Returns a count of services across all projects'
+
   def all_count
     authorize Service.new
     load_services_via_sql
@@ -31,13 +39,14 @@ class ServicesController < ApplicationController
     # NORMALIZE COUNTS INTO DATA POINTS
     data_points = []
     overall_rollup.each do |k, v|
-      data_point = { key: k, value: v }
+      data_point = {key: k, value: v}
       data_points << data_point
     end
     render json: data_points
   end
 
   api :GET, '/services/project_count', 'Returns a count of services grouped by project'
+
   def project_count
     authorize Service.new
     load_services_via_sql
@@ -47,15 +56,15 @@ class ServicesController < ApplicationController
     @services.each do |p|
       service_key = p.service_name
       project_key = p.project_name
-      all_projects[project_key] = { x: project_key, y: 0 } if all_projects[project_key].nil?
-      service_keys[service_key] = { projects: {} } if service_keys[service_key].nil?
+      all_projects[project_key] = {x: project_key, y: 0} if all_projects[project_key].nil?
+      service_keys[service_key] = {projects: {}} if service_keys[service_key].nil?
       service_keys[service_key][:projects][project_key] = 0 if service_keys[service_key][:projects][project_key].nil?
       service_keys[service_key][:projects][project_key] += 1
     end
     # NORMALIZE COUNTS INTO DATA POINTS
     data_points = []
     service_keys.each do |service_key, service_projects|
-      data_point = { key: service_key, values: [] }
+      data_point = {key: service_key, values: []}
       all_projects.each do |project_key, project_hash|
         value = project_hash.clone
         value[:y] = service_projects[:projects][project_key] unless service_projects[:projects][project_key].nil?
@@ -67,6 +76,7 @@ class ServicesController < ApplicationController
   end
 
   api :GET, '/services/count', 'Returns a count of independent services across projects'
+
   def count
     authorize Service.new
     load_services_via_sql
@@ -82,19 +92,24 @@ class ServicesController < ApplicationController
   end
 
   api :GET, '/services/order_profiles', 'Lists project orders with start date and order item count'
+
   def order_profiles
     authorize Service.new
     load_project_orders_via_sql
     project_orders = {}
     @project_orders.each do |p|
       project_key = p.project_name
-      project_orders[project_key] = { key: project_key, values: [] } unless project_orders.key? project_key
+      project_orders[project_key] = {key: project_key, values: []} unless project_orders.key? project_key
       project_orders[project_key][:values] << [p.order_created_at.to_i, p.order_item_count]
     end
     render json: project_orders.values
   end
 
   private
+
+  def order_item
+    @_order_item ||= OrderItem.find params[:id]
+  end
 
   def load_order_item
     @order_item = OrderItem.find params.require(:id)

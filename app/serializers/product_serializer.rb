@@ -22,7 +22,10 @@
 #
 
 class ProductSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :active, :img, :created_at, :updated_at, :deleted_at, :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type, :tags
+  attributes :id, :name, :description, :active, :img, :created_at, :updated_at, :deleted_at,
+             :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type
+
+  has_many :tags
 
   def product_type
     object.product_type.name

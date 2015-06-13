@@ -20,8 +20,7 @@
         controllerAs: 'vm',
         title: 'Services',
         resolve: {
-          service: resolveService,
-          products: resolveProducts
+          services: resolveServices
         }
       }
     };
@@ -37,46 +36,46 @@
   }
 
   /** @ngInject */
-  function resolveService(Service) {
-    return Service.query().$promise;
+  function resolveServices(Service) {
+    return Service.query({'includes[]': ['product', 'project', 'latest_alert']}).$promise;
   }
 
-  /** @ngInject */
-  function resolveProducts(Product) {
-    return Product.query().$promise;
-  }
+  ///** @ngInject */
+  //function resolveProducts(Product) {
+  //  return Product.query().$promise;
+  //}
 
   /** @ngInject */
-  function StateController(logger, service, VIEW_MODES, products, lodash, $state) {
+  function StateController(logger, services, lodash, $state) {
     /* jshint validthis: true */
     var vm = this;
 
-    vm.services = service;
-    vm.products = products;
+    vm.services = services;
 
     vm.activate = activate;
     vm.title = 'Services';
     vm.goTo = goTo;
-    vm.getServiceWithProduct = getServiceWithProduct;
-    vm.viewMode = VIEW_MODES.list;
 
     activate();
 
     function activate() {
       logger.info('Activated Service View');
-      angular.forEach(vm.services, vm.getServiceWithProduct);
+
+      vm.projects = lodash.map(lodash.groupBy(services, 'project_id'), buildProjectHash);
+      console.log(vm.projects)
     }
 
-    function getServiceWithProduct(serviceObject) {
-      vm.productId = serviceObject.product_id;
-      vm.product = lodash.find(vm.products, function(obj) {
-        return obj.id === vm.productId;
-      });
-      serviceObject.img = vm.product.img;
-      serviceObject.name = vm.product.name;
-      serviceObject.description = vm.product.description;
+    function buildProjectHash(value) {
+      return {
+        project: value[0].project,
+        services: lodash.map(value, appendProperties)
+      };
 
-      return serviceObject;
+      // Useful for making properties available for sorting
+      function appendProperties(service) {
+        service.product_name = service.product.name;
+        return service;
+      }
     }
 
     function goTo(serviceId, productId) {
