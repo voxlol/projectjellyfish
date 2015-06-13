@@ -52,9 +52,8 @@
                src="/images/ic_required.png"
                alt="Approved" title="Project is approved"/>
         </td>
-        <td class="projects-table__cell projects-table__cell--status"
-            ng-class="::'projects-table__status--' + row.status">
-          {{ ::row.status }}
+        <td class="projects-table__cell projects-table__cell--status">
+          <status text="{{ ::row.status }}"></status>
         </td>
         <td class="projects-table__cell projects-table__cell--budget">{{ ::row.budget | currency }}</td>
         <td class="projects-table__cell projects-table__cell--spent">{{ ::row.spent | currency }}</td>

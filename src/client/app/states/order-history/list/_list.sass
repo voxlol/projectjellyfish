@@ -12,10 +12,6 @@
     right: 0
     top: 0
 
-//+element(switch)
-//  margin: 10px 0
-//  float: right
-
 +block(orders-table)
   @extend .table-striped
   width: 100%
@@ -60,10 +56,6 @@
     vertical-align: top
     position: relative
 
-    +modifier(compare)
-      text-align: center
-      width: 116px
-
     +modifier(padding)
       width: 20px
 
@@ -101,15 +93,3 @@
 
     +modifier(light-blue)
       background-color: lighten($app-color-blue, 20%)
-
-  +element(status)
-    font-weight: bold
-
-    +modifier(ok)
-      color: $app-color-green
-
-    +modifier(critical)
-      color: $app-color-pink
-
-    +modifier(warning)
-      color: $app-color-orange
