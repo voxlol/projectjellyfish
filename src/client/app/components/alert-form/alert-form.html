@@ -4,7 +4,7 @@
     <content-header short="true">
         <div>
             <span class="content-header__title project-form__title" ng-if="!vm.editing">Create Alert</span>
-            <span class="content-header__title project-form__title" ng-if="vm.editing">Edit Alert: {{vm.alertObj.id}}</span>
+            <span class="content-header__title project-form__title" ng-if="vm.editing">Edit Alert: {{vm.alertToEdit.id}}</span>
             <span class="project-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
         </div>
     </content-header>
@@ -18,9 +18,9 @@
 
                 <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('status')}">
                     <select id="project-name"
-                            ng-model="vm.alertObj.status"
+                            ng-model="vm.alertToEdit.status"
                             name="status"
-                            ng-options="status.type for status in vm.statusOptions as status.type"
+                            ng-options="status.type for status in vm.statusOptions"
                             class="project-field__input--select"
                             placeholder="" required></select>
 
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
-          <textarea id="product-description" ng-model="vm.alertObj.message" name="message"
+          <textarea id="product-description" ng-model="vm.alertToEdit.message" name="message"
                     class="product-field__input field__input--textarea" rows="3" required></textarea>
 
                     <div class="product-field__feedback" ng-messages="vm.form.message.$error">
@@ -61,7 +61,7 @@
                            class="project-field__input"
                            name="startDate"
                            datepicker-popup="{{vm.format}}"
-                           ng-model="vm.alertObj.start_date"
+                           ng-model="vm.alertToEdit.start_date"
                            is-open="vm.openedStart"
                            max-date="vm.project.end_date"
                            max-date="'2015-06-22'"
@@ -89,7 +89,7 @@
                            class="project-field__input"
                            name="endDate"
                            datepicker-popup="{{vm.format}}"
-                           ng-model="vm.alertObj.end_date"
+                           ng-model="vm.alertToEdit.end_date"
                            is-open="vm.openedEnd"
                            min-date="vm.project.start_date"
                            datepicker-options="vm.dateOptions"
@@ -122,6 +122,6 @@
     </div>
 </form>
 
-<pre>{{vm.alertObj}}</pre>
+<pre>{{vm.alertToEdit}}</pre>
 
 <pre>{{vm.editing}}</pre>

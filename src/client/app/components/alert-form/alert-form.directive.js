@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        alertObj: '=?',
+        alertToEdit: '=?',
         editing: '=?'
       },
       link: link,
