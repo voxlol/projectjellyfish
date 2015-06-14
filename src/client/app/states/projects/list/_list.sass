@@ -12,10 +12,6 @@
     right: 0
     top: 0
 
-  //+element(switch)
-  //  margin: 10px 0
-  //  float: right
-
 +block(projects-table)
   @extend .table-striped
   width: 100%
@@ -68,7 +64,6 @@
       width: 20px
 
     +modifier(description)
-      padding-left: 32px
       padding-right: 20px
 
     +modifier(approval)
@@ -87,17 +82,3 @@
 
     +modifier(spent)
       width: 136px
-
-  +element(image)
-    display: inline-block
-    height: 22px
-    width: 22px
-    border: 2px solid $app-color-gray
-    background-color: $app-color-white
-    border-radius: 3px
-    position: absolute
-    top: 10px
-    left: 0
-
-    +modifier(light-blue)
-      background-color: lighten($app-color-blue, 20%)

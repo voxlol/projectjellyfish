@@ -62,7 +62,6 @@
       logger.info('Activated Service View');
 
       vm.projects = lodash.map(lodash.groupBy(services, 'project_id'), buildProjectHash);
-      console.log(vm.projects)
     }
 
     function buildProjectHash(value) {
@@ -71,7 +70,7 @@
         services: lodash.map(value, appendProperties)
       };
 
-      // Useful for making properties available for sorting
+      // Useful for making properties available on the service for sorting purposes
       function appendProperties(service) {
         service.product_name = service.product.name;
         return service;

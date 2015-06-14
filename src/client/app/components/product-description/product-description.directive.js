@@ -2,19 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('status', StatusDirective);
+    .directive('productDescription', ProductDescriptionDirective);
 
   /** @ngInject */
-  function StatusDirective() {
+  function ProductDescriptionDirective() {
     var directive = {
-      restrict: 'E',
-      transclude: true,
+      restrict: 'AE',
       scope: {
-        type: '@?'
+        product: '='
       },
       link: link,
-      template: '<span class="status" ng-class="::\'status--\' + vm._type" ng-transclude></span>',
-      controller: StatusController,
+      templateUrl: 'app/components/product-description/product-description.html',
+      controller: ProductDescriptionController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,13 +25,12 @@
     }
 
     /** @ngInject */
-    function StatusController(lodash) {
+    function ProductDescriptionController() {
       var vm = this;
 
       vm.activate = activate;
 
       function activate() {
-        vm._type = angular.isDefined(vm.type) ? lodash.trim(vm.type.toLowerCase()) : 'warning';
       }
     }
   }

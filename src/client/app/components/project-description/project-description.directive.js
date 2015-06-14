@@ -2,19 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('status', StatusDirective);
+    .directive('projectDescription', ProjectDescriptionDirective);
 
   /** @ngInject */
-  function StatusDirective() {
+  function ProjectDescriptionDirective() {
     var directive = {
-      restrict: 'E',
-      transclude: true,
+      restrict: 'AE',
       scope: {
-        type: '@?'
+        project: '='
       },
       link: link,
-      template: '<span class="status" ng-class="::\'status--\' + vm._type" ng-transclude></span>',
-      controller: StatusController,
+      templateUrl: 'app/components/project-description/project-description.html',
+      controller: ProjectDescriptionController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,13 +25,12 @@
     }
 
     /** @ngInject */
-    function StatusController(lodash) {
+    function ProjectDescriptionController() {
       var vm = this;
 
       vm.activate = activate;
 
       function activate() {
-        vm._type = angular.isDefined(vm.type) ? lodash.trim(vm.type.toLowerCase()) : 'warning';
       }
     }
   }

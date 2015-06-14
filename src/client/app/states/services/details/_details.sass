@@ -1,4 +1,4 @@
-+block(detail-heading)
++block(service-details-heading)
 
   +element(aside)
     text-align: right
@@ -19,14 +19,53 @@
     left: 0
     margin-bottom: 4px
 
-
 +block(service-details)
-  +element(title)
-    font-size: 14px
+
+  +element(row)
+    +make-row(15)
+    min-height: 44px
+
+  +element(label)
+    +make-sm-column(3)
+    min-height: 44px
+    padding: 10px 10px 10px 0
+    color: $app-color-gray
+
+  +element(detail)
+    +make-sm-column(9)
+    min-height: 44px
+    padding: 10px 10px 10px 0
+    color: $app-color-dark-gray
+
+
++block(service-pricing)
+  @extend .table-striped
+  width: 100%
+  background-color: $app-color-white
+
+  +element(heading)
+    height: 44px
     font-weight: bold
-    color: $app-color-blue
     text-transform: uppercase
-    line-height: 1
+    color: $app-color-gray
+
+  +element(cell)
+    height: 44px
+    font-size: 14px
+    border: none
+    padding: 10px 10px 10px 0
+    vertical-align: top
+    position: relative
+
+    +modifier(padding)
+      width: 20px
+
+  //+element(title)
+  //  font-size: 14px
+  //  font-weight: bold
+  //  color: $app-color-blue
+  //  text-transform: uppercase
+  //  line-height: 1
 
 +block(service-list)
   @extend .panel

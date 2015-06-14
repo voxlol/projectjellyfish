@@ -6,7 +6,7 @@
   </div>
 </content-header>
 
-<region ng-repeat="data in vm.projects track by data.project.id" title="{{ ::data.project.name }}">
+<region ng-repeat="data in vm.projects track by data.project.id">
   <table st-table="data.services" class="services-table">
     <thead>
     <tr>
@@ -37,126 +37,15 @@
         <a ui-sref="services.details({serviceId: row.id})">{{ ::row.id }}</a>
       </td>
       <td class="services-table__cell services-table__cell--description">
-        <div ng-if="!row.product.img" class="services-table__image services-table__image--light-blue"></div>
-        <div ng-if="row.product.img">
-          <img class="services-table__image" ng-src="images/assets/{{row.product.img}}" alt="Service Image"/>
-        </div>
-        <span>{{ ::row.product.name }}</span>
-          <span ng-if="row.product.description" class="services-table__product-description">
-            &mdash; {{ ::row.product.description }}
-          </span>
+        <product-description product="row.product"></product-description>
       </td>
       <td class="services-table__cell services-table__cell--status">
-        <status text="{{ ::row.provision_status }}"></status>
+        <status type="{{ ::row.provision_status }}">{{ ::row.provision_status }}</status>
       </td>
       <td class="services-table__cell services-table__cell--alert">
-        <status text="{{ ::row.latest_alert.status }}"></status>
+        <status type="{{ ::row.latest_alert.status }}">{{ ::row.latest_alert.status }}</status>
       </td>
     </tr>
     </tbody>
   </table>
 </region>
-
-<!--<div ng-if="::vm.services.length == 0">-->
-<!--<h4>Presently no services are associated with this project.</h4>-->
-<!--</div>-->
-<!--<div ng-if="::vm.services.length > 0" class="services-table" ng-cloak>-->
-<!--<div ng-switch="vm.viewMode" class="services-table__body" collapse="vm.collapsed">-->
-<!--<table ng-switch-when="list" st-table="vm.services" class="services-table__table table-hover">-->
-<!--<thead>-->
-<!--<th colspan="4">-->
-<!--<input st-search="" class="form-control users-table__filter-input"-->
-<!--placeholder="Filter by id, name, status, created" type="text"/>-->
-<!--</th>-->
-<!--<tr>-->
-<!--<th class="services-table__heading services-table__heading&#45;&#45;padding"></th>-->
-<!--<th st-sort="id"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable"-->
-<!--st-sort-default="true">-->
-<!--Service ID-->
-<!--</th>-->
-<!--<th st-sort="id"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable"-->
-<!--st-sort-default="true">-->
-<!--Service Name-->
-<!--</th>-->
-<!--<th st-sort="project_id"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable"-->
-<!--st-sort-default="true">-->
-<!--Project ID-->
-<!--</th>-->
-<!--<th st-sort="project_id"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable"-->
-<!--st-sort-default="true">-->
-<!--Project Name-->
-<!--</th>-->
-<!--<th st-sort="name"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable">-->
-<!--Product Name-->
-<!--</th>-->
-<!--<th st-sort="provision_status"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable">-->
-<!--Provision Status-->
-<!--</th>-->
-<!--<th st-sort="created_at"-->
-<!--class="services-table__heading services-table__heading&#45;&#45;description services-table__heading&#45;&#45;sortable">-->
-<!--Alert ID-->
-<!--</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr ng-repeat="row in vm.services" ng-click="vm.goTo(row.id) ">-->
-<!--<td class="services-table__cell services-table__cell&#45;&#45;padding"></td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.id }}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.service_name}}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.project_id }}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.project_name}}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell services-table__cell&#45;&#45;description">-->
-<!--<div ng-if="!row.img" class="services-table__image"-->
-<!--ng-class="'services-table__image&#45;&#45;light-blue'">-->
-<!--</div>-->
-<!--<div ng-if="row.img">-->
-<!--<img class="services-table__image" ng-src="images/assets/{{row.img}}" alt="Service Image"/>-->
-<!--</div>-->
-<!--<span>{{ ::row.name }}</span>-->
-<!--<span ng-if="row.description" class="services-table__product-description">&mdash;-->
-<!--{{ ::row.description }}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.provision_status }}</span>-->
-<!--</td>-->
-<!--<td class="services-table__cell">-->
-<!--<span>{{ ::row.latest_alert_id }}</span>-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--<div ng-switch-when="grid" class="services-table__grid">-->
-<!--<div class="services-table__box" ng-repeat="row in vm.services">-->
-<!--<div class="services-table__card " ng-class="'services-table__card&#45;&#45;'  + row.provision_status"-->
-<!--ng-click="vm.goTo(row.id)">-->
-<!--<div ng-if="!row.img" class="services-table__image services-table__image&#45;&#45;large"-->
-<!--ng-class="'services-table__image&#45;&#45;light-blue'">-->
-<!--</div>-->
-<!--<div ng-if="row.img">-->
-<!--<img class="services-table__image&#45;&#45;large" ng-src="images/assets/{{row.img}}" alt="Project Image"/>-->
-<!--</div>-->
-<!--<div class="services-table__card-name">{{ ::row.name }}</div>-->
-<!--<div class="services-table__card-description">{{ ::row.description }}</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-
-

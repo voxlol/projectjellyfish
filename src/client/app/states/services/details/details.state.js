@@ -36,53 +36,38 @@
 
   /** @ngInject */
   function resolveService(Service, $stateParams) {
-    return Service.get({id: $stateParams.serviceId}).$promise;
+    return Service.get({id: $stateParams.serviceId, 'includes[]': ['product', 'project', 'latest_alert']}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, service, Alert, Project, VIEW_MODES, $stateParams, Product) {
+  function StateController(logger, service, $stateParams) {
     var vm = this;
 
     vm.title = 'Service Details';
 
-    vm.viewMode = vm.viewMode || VIEW_MODES.list;
     vm.serviceId = $stateParams.serviceId;
     vm.service = service;
+
     vm.activate = activate;
+    vm.toAlertType = toAlertType;
 
     activate();
 
     function activate() {
       logger.info('Activated Service Details View');
-      resolveProject();
-      resolveProduct();
-      if(vm.service.latest_alert_id){
-        resolveAlerts();
+    }
+
+    function toAlertType(type) {
+      switch (type.toLowerCase()) {
+        case 'critical':
+          return 'danger';
+        case 'warning':
+          return 'warning';
+        case 'ok':
+          return 'success';
+        default:
+          return 'info';
       }
-    }
-
-    function resolveProject(){
-      Project.get({id: vm.service.project_id}).$promise.then(function(result){
-        vm.project = result;
-      })
-    }
-
-    function resolveProduct(){
-     Product.get({id: vm.service.product_id}).$promise.then(function(result){
-       vm.product = result;
-     })
-    }
-
-    function resolveProduct(){
-      Product.get({id: vm.service.product_id}).$promise.then(function(result){
-        vm.product = result;
-      })
-    }
-
-    function resolveAlerts(){
-      Alert.get({id: vm.service.latest_alert_id}).$promise.then(function(result){
-        vm.alert = result;
-      })
     }
   }
 })
