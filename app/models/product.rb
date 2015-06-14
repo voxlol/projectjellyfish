@@ -15,6 +15,7 @@
 #  monthly_price        :decimal(10, 4)   default(0.0)
 #  provisioning_answers :jsonb
 #  product_type         :string
+#  cached_tag_list      :string
 #
 # Indexes
 #
@@ -33,9 +34,5 @@ class Product < ActiveRecord::Base
 
   def product_type
     ProductType.new(self[:product_type])
-  end
-
-  def tags
-    tag_list
   end
 end
