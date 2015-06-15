@@ -30,5 +30,8 @@ module JellyfishCore
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Disable the assets pipeline; 100% external with Gulp
+    config.assets.enabled = false
   end
 end
