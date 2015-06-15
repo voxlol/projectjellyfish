@@ -34,7 +34,7 @@
       <td class="users-table__cell users-table__cell--question">{{ ::row.role }}</td>
       <td class="users-table__cell users-table__cell--question">{{ ::row.updated_at | date: 'short'}}</td>
       <td class="users-table__cell users-table__cell--actions">
-        <a ng-click="vm.goTo(row.id)" class="users-table__action users-table__action--edit">
+        <a ui-sref="admin.users.create({id: row.id})" class="users-table__action users-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
         <a href="#" class="users-table__action users-table__action--delete"

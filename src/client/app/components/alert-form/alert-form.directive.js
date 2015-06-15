@@ -36,7 +36,7 @@
       vm.showValidationMessages = false;
       vm.home = 'admin.alerts.list';
       vm.format = 'yyyy-MM-dd';
-      vm.filteredProject = lodash.omit(vm.alertToEdit, 'created_at', 'updated_at', 'deleted_at');
+      vm.filteredAlert = lodash.omit(vm.alertToEdit, 'created_at', 'updated_at', 'deleted_at');
       vm.dateOptions = {
         formatYear: 'yy',
         startingDay: 0,
@@ -87,11 +87,11 @@
         if (vm.form.$valid) {
           if (vm.editing) {
             for (var prop in vm.alertToEdit) {
-              if (vm.filteredProject[prop] === null) {
-                delete vm.filteredProject[prop];
+              if (vm.filteredAlert[prop] === null) {
+                delete vm.filteredAlert[prop];
               }
             }
-            Alert.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
+            Alert.update(vm.filteredAlert).$promise.then(saveSuccess, saveFailure);
 
             return false;
           } else {

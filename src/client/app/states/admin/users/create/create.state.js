@@ -14,13 +14,13 @@
   function getStates() {
     return {
       'admin.users.create': {
-        url: '/create',
+        url: '/create/:id',
         templateUrl: 'app/states/admin/users/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Admin User Create',
-        params: {
-          productType: null
+        resolve: {
+          userToEdit: resolveUser
         }
       }
     };
@@ -35,29 +35,27 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, Product, productTypes) {
+  function resolveUser(Staff, $stateParams){
+    if ($stateParams.id) {
+      return Staff.get({id: $stateParams.id}).$promise;
+    } else {
+      return {};
+    }
+  }
+
+  /** @ngInject */
+  function StateController($stateParams, logger, userToEdit ) {
     var vm = this;
 
-    vm.title = 'Admin Products Create';
+    vm.title = 'Admin User Create';
     vm.activate = activate;
+    vm.editing = $stateParams.id ? true : false;
+    vm.userToEdit = userToEdit;
 
     activate();
 
     function activate() {
       logger.info('Activated Admin Products Create View');
-      vm.productType = null !== $stateParams.productType ? $stateParams.productType : productTypes[0];
-      initProduct();
-    }
-
-    // Private
-
-    function initProduct() {
-      vm.product = angular.extend(new Product(), Product.defaults);
-      angular.forEach(vm.productType.schema.properties, initProperty);
-
-      function initProperty(property, key) {
-        vm.product.properties[key] = angular.isDefined(property.default) ? property.default : null;
-      }
     }
   }
 })();

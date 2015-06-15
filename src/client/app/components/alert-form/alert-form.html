@@ -20,7 +20,7 @@
                     <select id="project-name"
                             name="status"
                             ng-model="vm.alertToEdit.status"
-                            class="alert-field__input--select"
+                            class="alert-field__input"
                             required>
                         <option value="OK">OK</option>
                         <option value="WARNING">WARNING</option>
@@ -33,16 +33,16 @@
                 </div>
             </div>
 
-            <div class="product-field">
-                <div class="product-field__aside">
-                    <label class="product-field__label">Message</label>
+            <div class="alert-field">
+                <div class="alert-field__aside">
+                    <label class="alert-field__label">Message</label>
                 </div>
 
-                <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
-          <textarea id="product-description" ng-model="vm.alertToEdit.message" name="message"
-                    class="product-field__input field__input--textarea" rows="3" required></textarea>
+                <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
+          <textarea id="alert-description" ng-model="vm.alertToEdit.message" name="message"
+                    class="alert-field__input field__input--textarea" rows="3" required></textarea>
 
-                    <div class="product-field__feedback" ng-messages="vm.form.message.$error">
+                    <div class="alert-field__feedback" ng-messages="vm.form.message.$error">
                         <div ng-message="required">An alert message is required.</div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                            datepicker-popup="{{vm.format}}"
                            ng-model="vm.alertToEdit.start_date"
                            is-open="vm.openedStart"
-                           max-date="vm.project.end_date"
+                           max-date="vm.alertToEdit.end_date"
                            max-date="'2015-06-22'"
                            datepicker-options="vm.dateOptions"
                            ng-required="true" close-text="Close"/>

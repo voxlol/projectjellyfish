@@ -50,7 +50,7 @@
   }
 
   /** @ngInject */
-  function StateController($scope, $state, logger, alertToEdit, $stateParams, staff) {
+  function StateController(logger, alertToEdit, $stateParams, staff) {
     var vm = this;
 
     vm.title = 'Admin Alerts Create';
