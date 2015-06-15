@@ -5,7 +5,7 @@ feature 'Stack wizard' do
     staff = create(:staff, :admin)
     login_as(staff)
 
-    visit '/admin/wizard'
+    visit '/admin/wizard-questions'
 
     fill_in 'Question', with: 'What programming language will be used?'
     fill_in 'Answer', with: 'PHP'
@@ -14,12 +14,11 @@ feature 'Stack wizard' do
 
     find('a', text: 'Save Question and Add Another').click
 
-    visit '/admin/wizard'
-    id = WizardQuestion.last.id
+    visit '/admin/wizard-questions'
 
-    expect(page.find("#question_#{id}").value).to eq 'What programming language will be used?'
-    expect(page.find("#question_#{id}_answer_0").value).to eq 'PHP'
-    expect(page.find("#question_#{id}_answer_0_tags_to_add").value).to eq 'PHP'
-    expect(page.find("#question_#{id}_answer_0_tags_to_remove").value).to eq 'Ruby'
+    expect(page.find('#question_0').value).to eq 'What programming language will be used?'
+    expect(page.find('#answer_0').value).to eq 'PHP'
+    expect(page.find('#tags_to_add_0').value).to eq 'PHP'
+    expect(page.find('#tags_to_remove_0').value).to eq 'Ruby'
   end
 end

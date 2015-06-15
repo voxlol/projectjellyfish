@@ -6,8 +6,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18'
 gem 'pg_search', '~> 0.7.8'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Pagination
 gem 'will_paginate', '~> 3.0.7'
@@ -30,9 +31,6 @@ gem 'bcrypt', '~> 3.1.7', require: 'bcrypt'
 # Use puma as the app server
 gem 'puma'
 
-# Need the therubyracer
-gem 'therubyracer'
-
 # Use responders
 gem 'responders'
 
@@ -46,15 +44,8 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-gem 'custom_configuration'
-
-gem 'bootstrap-sass'
-gem 'sass-rails'
 gem 'jellyfish-fog'
 gem 'jellyfish-manageiq'
-
-# Autoprefixer for CSS classes using Can I Use values.
-gem 'autoprefixer-rails'
 
 # Tests
 group :development, :test do
@@ -92,9 +83,6 @@ gem 'paranoia'
 gem 'rest-client'
 gem 'virtus'
 
-# CORS
-gem 'rack-cors'
-
 # CRONTAB SCHEDULER
 gem 'rufus-scheduler'
 
@@ -112,7 +100,6 @@ gem 'friendly_id'
 gem 'paper_trail'
 
 gem 'sass'
-gem 'uglifier'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -120,38 +107,6 @@ end
 
 # Add Tags
 gem 'acts-as-taggable-on'
-
-# Add Dependencies
-source 'http://rails-assets.org' do
-  gem 'rails-assets-angular', '>= 1.3.15'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-angucomplete-alt'
-  gem 'rails-assets-angular-animate'
-  gem 'rails-assets-angular-bootstrap'
-  gem 'rails-assets-angular-cookies'
-  gem 'rails-assets-angular-gravatar'
-  gem 'rails-assets-angular-loading-bar'
-  gem 'rails-assets-angular-progress-arc'
-  gem 'rails-assets-angular-resource'
-  gem 'rails-assets-angular-sanitize'
-  gem 'rails-assets-angular-schema-form', '0.8.1'
-  gem 'rails-assets-angular-smart-table'
-  gem 'rails-assets-angular-ui-router'
-  gem 'rails-assets-angular-ui-select'
-  gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-lodash'
-  gem 'rails-assets-ng-currency'
-  gem 'rails-assets-microplugin'
-  gem 'rails-assets-selectize'
-  gem 'rails-assets-bootstrap'
-  gem 'rails-assets-bootstrap3-datetimepicker'
-  gem 'rails-assets-objectpath'
-  gem 'rails-assets-tv4'
-  gem 'rails-assets-angular-nvd3'
-  gem 'rails-assets-ngDraggable'
-  gem 'rails-assets-angular-filter'
-  gem 'rails-assets-es5-shim'
-end
 
 # TO ENCODE DECIMALS AS JSON NUMBERS
 gem 'activesupport-json_encoder'

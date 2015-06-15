@@ -15,6 +15,7 @@
 #  monthly_price        :decimal(10, 4)   default(0.0)
 #  provisioning_answers :jsonb
 #  product_type         :string
+#  cached_tag_list      :string
 #
 # Indexes
 #
@@ -22,7 +23,10 @@
 #
 
 class ProductSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :active, :img, :created_at, :updated_at, :deleted_at, :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type, :tags
+  attributes :id, :name, :description, :active, :img, :created_at,
+             :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type,
+             :updated_at, :deleted_at
+  attribute :tag_list, key: :tags
 
   def product_type
     object.product_type.name

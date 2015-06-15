@@ -1,3 +1,11 @@
+#
+# If you're using this file !!STOP!! and start using OrderItemSerializer
+#
 class ServiceSerializer < ApplicationSerializer
-  attributes :id, :project_id, :product_id, :provision_status, :latest_alert_id, :project_name, :project_description, :service_name, :service_description
+  attributes :id, :product_id, :project_id, :provision_status, :latest_alert_id
+
+  has_one :order
+  has_one :product
+  has_one :project
+  has_one :latest_alert
 end

@@ -1,0 +1,59 @@
+{
+  "name": "Project Jellyfish",
+  "version": "0.0.1",
+  "description": "Project Jellyfish UX",
+  "authors": [
+    "Michael Stack",
+    "Allen Wight"
+  ],
+  "license": "MIT",
+  "homepage": "https://bitbucket.com/chaoticmoon/bah-ux-prototype",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "sinon": "http://sinonjs.org/releases/sinon-1.14.1.js",
+    "bardjs": "~0.1.0"
+  },
+  "dependencies": {
+    "lodash": "~3.7.0",
+    "moment": "~2.10.0",
+    "jquery": "~2.1.0",
+    "toastr": "~2.1.1",
+    "font-awesome": "~4.3.0",
+    "bootstrap-sass-official": "~3.3.0",
+    "d3": "~3.5.5",
+    "angular": "~1.3.0",
+    "angular-resource": "~1.3.0",
+    "angular-mocks": "~1.3.0",
+    "angular-animate": "~1.3.0",
+    "angular-sanitize": "~1.3.0",
+    "angular-messages": "~1.3.0",
+    "angular-ui-router": "~0.2.0",
+    "angular-bootstrap": "~0.13.0",
+    "nganimate.css": "~3.2.0",
+    "angular-smart-table": "~2.0.1",
+    "angular-schema-form": "~0.8.0",
+    "angular-ui-sortable": "~0.13.3",
+    "nvd3": "~1.7.1",
+    "angular-nvd3": "~0.1.1",
+    "ngDraggable": "~0.1.8",
+    "angular-filter": "~0.5.4"
+  },
+  "resolutions": {
+    "d3": "~3.5.5",
+    "nvd3": "~1.7.1"
+  },
+  "overrides": {
+    "jquery-ui": {
+      "main": [
+        "ui/core.js",
+        "ui/widget.js",
+        "ui/mouse.js",
+        "ui/sortable.js"
+      ]
+    }
+  }
+}

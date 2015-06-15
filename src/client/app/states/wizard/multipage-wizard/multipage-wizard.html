@@ -1,0 +1,8 @@
+<h1 class="text-center">{{vm.question.text}}</h1>
+<multiple-choice
+  action="vm.nextQuestion()"
+  action-text="vm.moreQuestions() ? 'Next Question' : 'View filtered products'"
+  model="vm.answer"
+  options="vm.question.wizard_answers"
+></multiple-choice>
+<button ng-click="vm.resetWizard()" class="btn btn-danger">Reset Wizard</button>

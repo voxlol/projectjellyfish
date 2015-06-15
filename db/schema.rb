@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512194822) do
+ActiveRecord::Schema.define(version: 20150614040624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(version: 20150512194822) do
     t.decimal  "monthly_price",                    precision: 10, scale: 4, default: 0.0
     t.jsonb    "provisioning_answers"
     t.string   "product_type"
+    t.string   "cached_tag_list"
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
