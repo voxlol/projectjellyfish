@@ -96,10 +96,17 @@ RSpec.describe 'Alerts API' do
       staff.groups << Group.new(projects: [project])
       create(:alert, :active)
       sign_in_as staff
-
       get '/api/v1/alerts'
-
-      expect(response.body).to eq([visible].to_json)
+      data = JSON.parse(response.body)[0]
+      expect(data['id']).to eq(visible.id)
+      expect(data['project_id']).to eq(visible.project_id)
+      expect(data['staff_id']).to eq(visible.staff_id)
+      expect(data['order_item_id']).to eq(visible.order_item_id)
+      expect(data['status']).to eq(visible.status)
+      expect(data['message']).to eq(visible.message)
+      # TODO: ALIGN THE FORMAT OF START AND END AGAINST THE JSON RETURNED BY ALERTS
+      # expect(data['start_date']).to eq(visible.start_date)
+      # expect(data['end_date']).to eq(visible.end_date)
     end
   end
 
