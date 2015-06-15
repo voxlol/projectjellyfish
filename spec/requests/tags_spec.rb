@@ -21,7 +21,7 @@ describe 'Tags api' do
       post product_tags_path(product), tag_list: %w(this that)
 
       expect(response).to be_success
-      expect(product.reload.tag_list).to eq %w(that this)
+      expect(product.reload.tag_list).to eq %w(this that)
     end
   end
 

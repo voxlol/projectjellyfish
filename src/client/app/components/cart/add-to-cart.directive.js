@@ -11,10 +11,11 @@
       scope: {
         project: '=',
         product: '=',
-        text: '@?'
+        text: '@?',
+        short: '=?'
       },
       link: link,
-      template: '<button type="button" class="btn-rounded" ng-click="vm.add()">{{ vm.title() }}</button>',
+      templateUrl: 'app/components/cart/add-to-cart.html',
       controller: AddToCartController,
       controllerAs: 'vm',
       bindToController: true
@@ -38,6 +39,7 @@
 
       function activate() {
         vm.text = angular.isDefined(vm.text) ? vm.text : 'Add To Cart';
+        vm.short = angular.isDefined(vm.short) ? vm.short : false;
       }
 
       function add() {
