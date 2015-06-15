@@ -13,7 +13,7 @@
         type: '@?'
       },
       link: link,
-      template: '<span class="status" ng-class="::\'status--\' + vm.modifier" ng-transclude></span>',
+      template: '<span class="status" ng-class="\'status--\' + vm.modifier" ng-transclude></span>',
       controller: StatusController,
       controllerAs: 'vm',
       bindToController: true
@@ -32,7 +32,7 @@
       vm.activate = activate;
 
       function activate() {
-        vm.modifer = angular.isDefined(vm.type) ? lodash.trim(vm.type.toLowerCase()) : 'warning';
+        vm.modifier = angular.isDefined(vm.type) ? lodash.trim(vm.type.toLowerCase()) : 'warning';
       }
     }
   }
