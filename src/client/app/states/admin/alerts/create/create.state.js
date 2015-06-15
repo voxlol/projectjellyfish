@@ -37,17 +37,18 @@
 
   /** @ngInject */
   function resolveAlert($stateParams, Alert) {
-    if($stateParams.id){
+    if ($stateParams.id) {
       return Alert.get({id: $stateParams.id}).$promise;
-    }else{
+    } else {
       return {};
     }
   }
 
   /** @ngInject */
   function resolveStaff(Staff) {
-      return Staff.getCurrentMember().$promise;
+    return Staff.getCurrentMember().$promise;
   }
+
   /** @ngInject */
   function StateController($scope, $state, logger, alertToEdit, $stateParams, Alert, Toasts, staff, lodash) {
     var vm = this;
@@ -55,13 +56,9 @@
     vm.title = 'Admin Alerts Create';
     vm.alertToEdit = alertToEdit;
     vm.activate = activate;
-    vm.editing = $stateParams.id? true:false;
+    vm.editing = $stateParams.id ? true : false;
 
     activate();
-
-    function activate() {
-      logger.info('Activated Admin Alerts Create View');
-    }
 
     var showValidationMessages = false;
     var home = 'admin.alerts.list';
@@ -85,13 +82,14 @@
     vm.openAnswerDate = openAnswerDate;
 
     function activate() {
-      if(vm.editing){
+      if (vm.editing) {
         vm.alertToEdit.staff_id = String(vm.alertToEdit.staff_id);
-      }else{
+      } else {
         vm.alertToEdit.project_id = '0';
         vm.alertToEdit.order_item_id = '0';
         vm.alertToEdit.staff_id = String(staff.id);
       }
+      logger.info('Activated Admin Alerts Create View');
     }
 
     function backToList() {
@@ -115,18 +113,17 @@
       // This is so errors can be displayed for 'untouched' angular-schema-form fields
       $scope.$broadcast('schemaFormValidate');
       if (vm.form.$valid) {
-        if(vm.editing){
-
-          for (var prop in vm.alertToEdit){
-            if (vm.filteredProject[prop] === null){
+        if (vm.editing) {
+          for (var prop in vm.alertToEdit) {
+            if (vm.filteredProject[prop] === null) {
               delete vm.filteredProject[prop];
             }
           }
-          Alert.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure)
+          Alert.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
 
           return false;
         } else {
-          Alert.save(vm.alertToEdit).$promise.then(saveSuccess, saveFailure)
+          Alert.save(vm.alertToEdit).$promise.then(saveSuccess, saveFailure);
 
           return false;
         }
@@ -146,13 +143,13 @@
       $event.preventDefault();
       $event.stopPropagation();
       vm.openedStart = true;
-    };
+    }
 
     function openEnd($event) {
       $event.preventDefault();
       $event.stopPropagation();
       vm.openedEnd = true;
-    };
+    }
 
     function openAnswerDate($event, index) {
       $event.preventDefault();
@@ -161,6 +158,6 @@
       vm.endDateOpened = false;
       vm.answerDateOpened = [];
       vm.answerDateOpened[index] = true;
-    };
+    }
   }
 })();
