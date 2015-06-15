@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Stack wizard' do
   scenario 'user edits the Wizard', :js do
+    pending
     staff = create(:staff, :admin)
     login_as(staff)
 
