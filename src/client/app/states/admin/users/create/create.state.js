@@ -35,7 +35,7 @@
   }
 
   /** @ngInject */
-  function resolveUser(Staff, $stateParams){
+  function resolveUser(Staff, $stateParams) {
     if ($stateParams.id) {
       return Staff.get({id: $stateParams.id}).$promise;
     } else {
@@ -44,7 +44,7 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, userToEdit ) {
+  function StateController($stateParams, logger, userToEdit) {
     var vm = this;
 
     vm.title = 'Admin User Create';
