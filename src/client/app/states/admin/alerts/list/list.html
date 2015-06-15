@@ -31,10 +31,10 @@
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.project_id }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date }}</td>
+            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date | date:'short' }}</td>
+            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date | date:'short' }}</td>
             <td class="alerts-table__cell alerts-table__cell--actions">
-                <a href="#" ng-click="vm.goTo(row.id)" class="alerts-table__action alerts-table__action--edit">
+                <a ui-sref="admin.alerts.create({id: row.id})" class="alerts-table__action alerts-table__action--edit">
                     <img src="/images/ic_edit.png" alt="Edit"/>
                 </a>
                 <a href="#" class="alerts-table__action alerts-table__action--delete"
