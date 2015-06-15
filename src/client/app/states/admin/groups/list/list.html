@@ -32,7 +32,7 @@
       <td class="groups-table__cell groups-table__cell--question">{{ ::row.description }}</td>
       <td class="groups-table__cell groups-table__cell--question">{{ ::row.update_at | date:"short"}}</td>
       <td class="groups-table__cell groups-table__cell--actions">
-        <a ng-click="vm.goTo(row.id)" class="groups-table__action groups-table__action--edit">
+        <a ui-sref="admin.groups.create({id: row.id})" class="groups-table__action groups-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
         <a href="#" class="groups-table__action groups-table__action--delete"

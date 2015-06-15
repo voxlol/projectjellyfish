@@ -19,8 +19,8 @@
         controller: StateController,
         controllerAs: 'vm',
         title: 'Admin Groups Create',
-        params: {
-          productType: null
+        resolve: {
+          groupToEdit: resolveGroup
         }
       }
     };
@@ -35,29 +35,29 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, Product, productTypes) {
+  function resolveGroup(Group, $stateParams){
+    if ($stateParams.id) {
+      return Group.get({id: $stateParams.id}).$promise;
+    } else {
+      return {};
+    }
+  }
+
+  /** @ngInject */
+  function StateController($stateParams, logger, groupToEdit) {
     var vm = this;
 
-    vm.title = 'Admin Products Create';
+    vm.title = 'Admin Group Create';
     vm.activate = activate;
+    vm.groupToEdit = groupToEdit;
+    vm.editing = $stateParams.id ? true : false;
 
     activate();
 
     function activate() {
       logger.info('Activated Admin Products Create View');
-      vm.productType = null !== $stateParams.productType ? $stateParams.productType : productTypes[0];
-      initProduct();
+
     }
 
-    // Private
-
-    function initProduct() {
-      vm.product = angular.extend(new Product(), Product.defaults);
-      angular.forEach(vm.productType.schema.properties, initProperty);
-
-      function initProperty(property, key) {
-        vm.product.properties[key] = angular.isDefined(property.default) ? property.default : null;
-      }
-    }
   }
 })();
