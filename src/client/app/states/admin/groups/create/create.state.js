@@ -35,7 +35,7 @@
   }
 
   /** @ngInject */
-  function resolveGroup(Group, $stateParams){
+  function resolveGroup(Group, $stateParams) {
     if ($stateParams.id) {
       return Group.get({id: $stateParams.id}).$promise;
     } else {
@@ -56,8 +56,6 @@
 
     function activate() {
       logger.info('Activated Admin Products Create View');
-
     }
-
   }
 })();

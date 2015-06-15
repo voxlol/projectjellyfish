@@ -35,7 +35,7 @@
   }
 
   /** @ngInject */
-  function resolveUser(Staff, $stateParams){
+  function resolveUser(Staff, $stateParams) {
     if ($stateParams.id) {
       return Staff.get({id: $stateParams.id}).$promise;
     } else {
