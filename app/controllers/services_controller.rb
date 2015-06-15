@@ -3,8 +3,6 @@ class ServicesController < ApplicationController
 
   after_action :verify_authorized
 
-  #before_action :load_order_item, only: [:show]
-
   api :GET, '/services', 'Returns a collection of services'
   param :includes, Array, in: ORDER_ITEM_INCLUDES
 
@@ -39,7 +37,7 @@ class ServicesController < ApplicationController
     # NORMALIZE COUNTS INTO DATA POINTS
     data_points = []
     overall_rollup.each do |k, v|
-      data_point = {key: k, value: v}
+      data_point = { key: k, value: v }
       data_points << data_point
     end
     render json: data_points
@@ -56,15 +54,15 @@ class ServicesController < ApplicationController
     @services.each do |p|
       service_key = p.service_name
       project_key = p.project_name
-      all_projects[project_key] = {x: project_key, y: 0} if all_projects[project_key].nil?
-      service_keys[service_key] = {projects: {}} if service_keys[service_key].nil?
+      all_projects[project_key] = { x: project_key, y: 0 } if all_projects[project_key].nil?
+      service_keys[service_key] = { projects: {} } if service_keys[service_key].nil?
       service_keys[service_key][:projects][project_key] = 0 if service_keys[service_key][:projects][project_key].nil?
       service_keys[service_key][:projects][project_key] += 1
     end
     # NORMALIZE COUNTS INTO DATA POINTS
     data_points = []
     service_keys.each do |service_key, service_projects|
-      data_point = {key: service_key, values: []}
+      data_point = { key: service_key, values: [] }
       all_projects.each do |project_key, project_hash|
         value = project_hash.clone
         value[:y] = service_projects[:projects][project_key] unless service_projects[:projects][project_key].nil?
@@ -99,7 +97,7 @@ class ServicesController < ApplicationController
     project_orders = {}
     @project_orders.each do |p|
       project_key = p.project_name
-      project_orders[project_key] = {key: project_key, values: []} unless project_orders.key? project_key
+      project_orders[project_key] = { key: project_key, values: [] } unless project_orders.key? project_key
       project_orders[project_key][:values] << [p.order_created_at.to_i, p.order_item_count]
     end
     render json: project_orders.values
