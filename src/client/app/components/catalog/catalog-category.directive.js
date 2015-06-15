@@ -12,7 +12,8 @@
         category: '=',
         viewMode: '=?',
         collapsed: '=?',
-        comparable: '=?'
+        comparable: '=?',
+        project: '=?'
       },
       link: link,
       templateUrl: 'app/components/catalog/catalog-category.html',

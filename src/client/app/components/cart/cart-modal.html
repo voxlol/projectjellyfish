@@ -24,7 +24,9 @@
     <tbody>
     <tr ng-repeat="line in item.products track by line.product.id">
       <td class="cart-table__cell cart-table__cell--quantity">{{ line.quantity }}</td>
-      <td class="cart-table__cell cart-table__cell--product">{{ ::line.product.title }}</td>
+      <td class="cart-table__cell cart-table__cell--product">
+        <product-description product="line.product"></product-description>
+      </td>
       <td class="cart-table__cell cart-table__cell--price">{{ line.price | currency }}</td>
       <td class="cart-table__cell cart-table__cell--actions">
         <a class="cart-table__action" href="#" title="Remove">
@@ -36,7 +38,8 @@
     <tfoot>
     <tr>
       <td colspan="3" class="cart-table__footer cart-table__footer--total text-right">
-        <a href="#">Demo Project</a>Total: &nbsp;{{ item.total | currency }}
+        <a ui-sref="projects.details({projectId : item.project.id})">{{ ::item.project.name }}</a>
+        Total: &nbsp;{{ item.total | currency }}
       </td>
     </tr>
     </tfoot>

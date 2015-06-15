@@ -21,7 +21,7 @@
     function add(project, product, quantity) {
       quantity = isNaN(quantity) ? 1 : quantity;
 
-      if (!!service.items[project.id]) {
+      if (angular.isUndefined(service.items[project.id])) {
         service.items[project.id] = {
           project: project,
           products: {},
@@ -29,15 +29,15 @@
         };
       }
 
-      if (!!service.items[project.id].products[product.id]) {
-        service.items[project.id][product.id] = {
+      if (angular.isUndefined(service.items[project.id].products[product.id])) {
+        service.items[project.id].products[product.id] = {
           product: product,
           quantity: 0,
           price: 0
         };
       }
 
-      service.items[project.id].products[product.id].quantity += 1;
+      service.items[project.id].products[product.id].quantity += quantity;
       totalUpProject(project);
     }
 
@@ -102,7 +102,7 @@
         line.price = (parseFloat(line.product.monthly_price))
           + ((parseFloat(line.product.hourly_price)) * 750)
           * line.quantity;
-        project.total += line.price;
+        service.items[project.id].total += line.price;
       }
     }
   }

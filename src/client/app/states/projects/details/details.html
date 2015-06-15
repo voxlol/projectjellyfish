@@ -101,11 +101,11 @@
 <region ng-if="::vm.project.isApproved()" heading="Services">
   <div class="project-details__service-buttons">
     <button type="button" class="btn-rounded project-details__service-button"
-            ui-sref="services.create({projectId: vm.project.id})">
+            ui-sref="wizard({projectId: vm.project.id})">
       Open Services Wizard
     </button>
     <button type="button" class="btn-rounded project-details__service-button"
-            ui-sref="wizard({projectId: vm.project.id})">
+            ui-sref="projects.services({projectId: vm.project.id})">
       Add Services
     </button>
   </div>
@@ -115,13 +115,13 @@
 <!-- Project Groups-->
 <!-- TODO: Revisit and refactor when the api works -->
 <!--<widget modifier="primary">-->
-  <!--<div transclude-to="header">Groups & Membership</div>-->
-  <!--<div transclude-to="body">-->
-    <!--membership-->
-    <!--{{vm.project.memberships}}-->
-    <!--groups-->
-    <!--{{vm.project.groups}}-->
-  <!--</div>-->
+<!--<div transclude-to="header">Groups & Membership</div>-->
+<!--<div transclude-to="body">-->
+<!--membership-->
+<!--{{vm.project.memberships}}-->
+<!--groups-->
+<!--{{vm.project.groups}}-->
+<!--</div>-->
 <!--</widget>-->
 
 <!- Project Answers -->
