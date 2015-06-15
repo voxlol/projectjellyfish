@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -39,9 +39,9 @@
       };
 
       vm.statusOptions = [
-        {type:'OK'},
-        {type:'WARINING'},
-        {type:'CRITICAL'}
+        {type: 'OK'},
+        {type: 'WARINING'},
+        {type: 'CRITICAL'}
       ];
 
       vm.activate = activate;
@@ -56,7 +56,6 @@
       vm.openAnswerDate = openAnswerDate;
 
       function activate() {
-
       }
 
       function backToList() {
@@ -80,7 +79,6 @@
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
 
-
         function saveSuccess() {
           Toasts.toast('Alert saved.');
           $state.go(home);
@@ -95,13 +93,13 @@
         $event.preventDefault();
         $event.stopPropagation();
         vm.openedStart = true;
-      };
+      }
 
       function openEnd($event) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.openedEnd = true;
-      };
+      }
 
       function openAnswerDate($event, index) {
         $event.preventDefault();
@@ -110,7 +108,7 @@
         vm.endDateOpened = false;
         vm.answerDateOpened = [];
         vm.answerDateOpened[index] = true;
-      };
+      }
     }
   }
 })();

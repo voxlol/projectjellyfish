@@ -25,12 +25,11 @@
 
   /** @ngInject */
   function resolveQuestion(WizardQuestion) {
-    return WizardQuestion.query({ id: 'first' }).$promise;
+    return WizardQuestion.query({id: 'first'}).$promise;
   }
 
   /** @ngInject */
   function resolveQuestions(WizardQuestion) {
     return WizardQuestion.query().$promise;
   }
-
 })();

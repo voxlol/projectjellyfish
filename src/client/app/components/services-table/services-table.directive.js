@@ -2,18 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('productDescription', ProductDescriptionDirective);
+    .directive('servicesTable', ServicesTableDirective);
 
   /** @ngInject */
-  function ProductDescriptionDirective() {
+  function ServicesTableDirective() {
     var directive = {
       restrict: 'AE',
       scope: {
-        product: '='
+        services: '='
       },
       link: link,
-      templateUrl: 'app/components/product-description/product-description.html',
-      controller: ProductDescriptionController,
+      templateUrl: 'app/components/services-table/services-table.html',
+      controller: ServicesTableController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -25,7 +25,7 @@
     }
 
     /** @ngInject */
-    function ProductDescriptionController() {
+    function ServicesTableController() {
       var vm = this;
 
       vm.activate = activate;

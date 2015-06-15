@@ -31,19 +31,13 @@
   }
 
   function sidebarItems() {
-    return {
-    };
+    return {};
   }
 
   /** @ngInject */
   function resolveServices(Service) {
     return Service.query({'includes[]': ['product', 'project', 'latest_alert']}).$promise;
   }
-
-  ///** @ngInject */
-  //function resolveProducts(Product) {
-  //  return Product.query().$promise;
-  //}
 
   /** @ngInject */
   function StateController(logger, services, lodash, $state) {
@@ -73,12 +67,13 @@
       // Useful for making properties available on the service for sorting purposes
       function appendProperties(service) {
         service.product_name = service.product.name;
+
         return service;
       }
     }
 
     function goTo(serviceId, productId) {
-       $state.go('services.details', {serviceId: serviceId, productId: productId});
+      $state.go('services.details', {serviceId: serviceId, productId: productId});
     }
   }
 })();

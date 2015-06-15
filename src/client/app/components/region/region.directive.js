@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -10,7 +10,7 @@
       restrict: 'AE',
       transclude: true,
       scope: {
-        title: '@',
+        heading: '@',
         collapsed: '=?'
       },
       link: link,

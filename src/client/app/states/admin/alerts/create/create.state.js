@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -53,9 +53,9 @@
     }
 
     function resolveAlert() {
-      Alert.get({id: vm.alertId}).$promise.then(function (result) {
+      Alert.get({id: vm.alertId}).$promise.then(function(result) {
         vm.alertObj = result;
-      })
+      });
     }
   }
 })();

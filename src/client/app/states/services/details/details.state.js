@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -23,7 +23,7 @@
           service: resolveService
         }
       }
-    }
+    };
   }
 
   function navItems() {
@@ -70,5 +70,4 @@
       }
     }
   }
-})
-();
+})();

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -16,7 +16,7 @@
       'projects.create': {
         url: '/',
         params: {
-          projectId: null,
+          projectId: null
         },
         templateUrl: 'app/states/projects/create/create.html',
         controller: StateController,
@@ -34,12 +34,11 @@
     return {};
   }
 
-
   /** @ngInject */
   function StateController(logger, ProjectQuestion, $stateParams, Project, lodash) {
     var vm = this;
 
-    vm.projectId = $stateParams.projectId
+    vm.projectId = $stateParams.projectId;
     vm.activate = activate;
 
     activate();
@@ -50,41 +49,41 @@
     }
 
     function resolveProjects() {
-      if( vm.projectId){
+      if (vm.projectId) {
         Project.get({
-        id: $stateParams.projectId,
-        'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
-      }).$promise.then(function (result) {
+          id: $stateParams.projectId,
+          'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+        }).$promise.then(function(result) {
             vm.project = result;
-            vm.title = "Edit " + result.name;
+            vm.title = 'Edit ' + result.name;
             vm.editing = true;
-          })}else{
+          });
+      } else {
         vm.project = {};
-        vm.title = "Create Project";
+        vm.title = 'Create Project';
         vm.editing = false;
         vm.project.project_answers = [];
         resolveProjectQuestions();
       }
     }
 
-    function resolveProjectQuestions(){
-      ProjectQuestion.query().$promise.then(function(result){
+    function resolveProjectQuestions() {
+      ProjectQuestion.query().$promise.then(function(result) {
         vm.projectQuestions = result;
 
-          lodash.each(vm.projectQuestions, function (question) {
-            vm.existingAnswer = lodash.find(vm.project.project_answers, function (answer) {
-              return answer.project_question_id === question.id;
+        lodash.each(vm.projectQuestions, function(question) {
+          vm.existingAnswer = lodash.find(vm.project.project_answers, function(answer) {
+            return answer.project_question_id === question.id;
+          });
+          if (vm.existingAnswer === undefined) {
+            vm.project.project_answers.push({
+              project_question_id: question.id,
+              project_question: question,
+              project_question_name: 'project_question_' + question.id
             });
-            if (vm.existingAnswer === undefined) {
-              vm.project.project_answers.push({
-                project_question_id: question.id,
-                project_question: question,
-                project_question_name: 'project_question_' + question.id
-              });
-            }
-          })
-
-      })
+          }
+        });
+      });
     }
   }
 })();

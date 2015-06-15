@@ -70,7 +70,6 @@
           Toasts.error('Invalid login credentials entered, please renter and try again.');
         }
       }
-
     }
   }
 })();

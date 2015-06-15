@@ -9,52 +9,50 @@
   </div>
 </content-header>
 
-<region title="Details">
-  <div class="col-sm-12">
-    <alert ng-if="::vm.service.latest_alert_id" type="{{ ::vm.toAlertType(vm.service.latest_alert.status) }}">
-      <strong>{{ ::vm.service.latest_alert.status }}</strong>
-      &mdash;
-      {{ ::vm.service.latest_alert.message }}
-    </alert>
+<details-table title="Details">
+  <alert ng-if="::vm.service.latest_alert_id" type="{{ ::vm.toAlertType(vm.service.latest_alert.status) }}">
+    <strong>{{ ::vm.service.latest_alert.status }}</strong>
+    &mdash;
+    {{ ::vm.service.latest_alert.message }}
+  </alert>
 
-    <div class="service-details__row">
-      <div class="service-details__label">Project</div>
-      <div class="service-details__detail">
-        <project-description project="vm.service.project"></project-description>
-      </div>
-    </div>
-
-    <div class="service-details__row">
-      <div class="service-details__label">Product</div>
-      <div class="service-details__detail">
-        <product-description product="vm.service.product"></product-description>
-      </div>
-    </div>
-
-    <div class="service-details__row">
-      <div class="service-details__label">Service Status</div>
-      <div class="service-details__detail">
-        <status type="{{ ::vm.service.provision_status }}">
-          <strong>{{ ::vm.service.provision_status.toUpperCase() }}</strong>
-          &mdash;
-          {{ ::vm.service.status_msg || 'No status message is available at this time.' }}
-        </status>
-      </div>
-    </div>
-
-    <div class="service-details__row">
-      <div class="service-details__label">Creation Date</div>
-      <div class="service-details__detail">{{ ::vm.service.created_at | date:'medium' }}</div>
-    </div>
-
-    <div class="service-details__row">
-      <div class="service-details__label">Last Updated</div>
-      <div class="service-details__detail">{{ ::vm.service.updated_at | date:'medium' }}</div>
+  <div class="details-table__row">
+    <div class="details-table__label">Project</div>
+    <div class="details-table__detail">
+      <project-description project="vm.service.project"></project-description>
     </div>
   </div>
-</region>
 
-<region title="Pricing">
+  <div class="details-table__row">
+    <div class="details-table__label">Product</div>
+    <div class="details-table__detail">
+      <product-description product="vm.service.product"></product-description>
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Service Status</div>
+    <div class="details-table__detail">
+      <status type="{{ ::vm.service.provision_status }}">
+        <strong>{{ ::vm.service.provision_status.toUpperCase() }}</strong>
+        &mdash;
+        {{ ::vm.service.status_msg || 'No status message is available at this time.' }}
+      </status>
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Creation Date</div>
+    <div class="details-table__detail">{{ ::vm.service.created_at | date:'medium' }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Last Updated</div>
+    <div class="details-table__detail">{{ ::vm.service.updated_at | date:'medium' }}</div>
+  </div>
+</details-table>
+
+<region heading="Pricing">
   <table class="service-pricing">
     <thead>
     <tr>

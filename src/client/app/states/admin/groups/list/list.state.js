@@ -61,7 +61,7 @@
     vm.deleteGroup = deleteGroup;
 
     function deleteGroup(index) {
-      var gropu = vm.groups[index];
+      var group = vm.groups[index];
       group.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {

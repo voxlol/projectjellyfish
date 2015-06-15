@@ -1,234 +1,130 @@
-<div ng-if="vm.project.approval !== 'approved'">
+<content-header>
+  <div class="content-header__body">
+    <img ng-if="::vm.project.img" class="project-details__icon" ng-src="images/assets/{{vm.project.img}}"/>
 
-    <div ng-show="vm.project.approval == 'undecided'">
-        <widget modifier="danger" class="status-banner__pending">
-            <div transclude-to="body">
-                <h3 class="status-banner__title"><i class="fa fa-asterisk"></i>Project Pending, Requires <span
-                        class="status-banner__title-approval">Approval</span> or <span
-                        class="status-banner__title-rejection">Rejection</span>
-                    <i class="fa fa-asterisk"></i></h3>
-
-                <div class="approval-banner__pending-banner__reject">
-                    <div class='row'>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary pull-right" ng-click="vm.approve(vm.project)">
-                                APPROVE
-                            </button>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="reason"
-                                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                                   placeholder="Reason for rejection"/>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-danger pull-left"
-                                    ng-click="vm.reject(vm.project,reason)"
-                                    ng-disabled="!reason">REJECT
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </widget>
-    </div>
-
-    <div ng-show="vm.project.approval == 'rejected'" class="status-banner__rejected">
-        <widget modifier="danger">
-            <div transclude-to="body">
-                <i class="fa fa-exclamation"></i>
-
-                <h3>Project was rejected</h3>
-                <i class="fa fa-exclamation"></i>
-
-                <p><strong>{{vm.project.finalApproval().staff_name}}:</strong>
-                    {{vm.project.finalApproval().reason}}</p>
-            </div>
-        </widget>
-    </div>
-</div>
-
-<content-header short="true">
-    <div class="detail-heading">
-        <img ng-if="vm.project.img" class="detail-heading__icon" ng-src="{{vm.project.img}}"
-             fallback-image="images/no_image.png"/>
-        <span class="content-header__title">{{vm.project.name}}</span>
-    </div>
-    <div class="detail-heading__aside" ng-show="vm.project.approval == 'approved'">
-        <a ui-sref="projects.create({projectId: vm.project.id})"
-           class="btn-rounded">
-            <i class="fa fa-plus-pencil"></i> Edit Project
-        </a>
-    </div>
+    <div ng-if="::!vm.project.img" class="project-details__icon project-details__icon--missing"></div>
+    <span class="content-header__title">{{ ::vm.project.name }}</span>
+  </div>
+  <div ng-if="::'approved' === vm.project.approval" class="content-header__aside">
+    <a ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
+  </div>
 </content-header>
 
-<!-- Project Summary -->
-<widget modifier="primary">
-    <div transclude-to="body">
-        <div class="summary">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h3>Total Budget: <span class="summary__accent-value">{{::vm.project.budget | currency}}</span><br>
-                    </h3>
-                    <h3>Budget Utilization </h3>
-                    <progressbar animate="false" max="100" value="vm.bUtilization" type="{{vm.bUtilizationType}}">
-                        <b>{{::vm.bUtilization}}%</b>
-                    </progressbar>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <span class="summary__accent-value">{{::vm.project.spent | currency }} </span> funds used
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <span class="summary__accent-value">{{ ::vm.bRemaining | currency}}</span> funds remaining
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <span class="summary__accent-value">{{ vm.project.monthly_spend | currency }}</span> funds
-                            used
-                            monthly<br>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.bTimeRemaining }}</a>
-                                projected
-                                months of remaining funds
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="summary__icon-bin"><a class="summary__accent-icon">{{
-                                vm.project.order_history.length }}</a>
-                                total orders
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="summary__icon-bin"><a class="summary__accent-icon">{{ vm.project.services.length
-                                }}</a> active
-                                services
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
+<project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<details-table>
+  <div class="details-table__row">
+    <div class="details-table__label">Description</div>
+    <div class="details-table__detail">{{ ::vm.project.description }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Status</div>
+    <div class="details-table__detail">
+      <status type="{{ ::vm.project.status }}">{{ ::vm.project.status }}</status>
     </div>
-</widget>
+  </div>
 
-<!-- Project Alerts-->
-<widget modifier="danger" ng-if="vm.project.problem_count">
-    <div transclude-to="header">Alerts ({{vm.project.problem_count}})</div>
-    <div transclude-to="body">
-        <div class="alerts-table">
-            <table st-table="vm.alerts" class="alerts-table__table table-hover">
-                <thead>
-                <th colspan="3">
-                    <input st-search="" class="form-control alerts-table__filter-input"
-                           placeholder="Filter by project, status, message" type="text"/>
-                </th>
-                <tr>
-                    <th class="alerts-table__heading alerts-table__heading--padding"></th>
-                    <th class="alerts-table__heading alerts-table__heading" st-sort="id">Alert Id</th>
-                    <th class="alerts-table__heading alerts-table__heading--required" st-sort="status">Status</th>
-                    <th class="alerts-table__heading alerts-table__heading--actions" st-sort="message">Message</th>
-                    <th class="alerts-table__heading alerts-table__heading--actions" st-sort="start_date">Start Date</th>
-                    <th class="alerts-table__heading alerts-table__heading--actions" st-sort="end_date">End Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="alerts-table__row" ng-repeat="row in vm.alerts" ng-if="row.project_id == vm.project.id">
-                    <td class="alerts-table__cell alerts-table__cell--padding"></td>
-                    <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.id }}</td>
-                    <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
-                    <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
-                    <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date }}</td>
-                    <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date }}</td>
+  <div class="details-table__row">
+    <div class="details-table__label">Account</div>
+    <div class="details-table__detail">{{ ::vm.project.account_number }}</div>
+  </div>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
+  <div class="details-table__row">
+    <div class="details-table__label">Schedule</div>
+    <div class="details-table__detail">
+      {{ ::vm.project.start_date | date:'short' }} &mdash; {{ ::vm.project.end_date | date:'short' }}
     </div>
-</widget>
+  </div>
 
-<!-- Order History -->
-<widget modifier="primary" ng-if="vm.project.order_history.length > 0" ng-cloak>
-    <div transclude-to="header">Order History ({{vm.project.order_history.length}})</div>
-    <div transclude-to="body">
-        <order-history-catalog orders="vm.project.order_history"></order-history-catalog>
+  <div class="details-table__row">
+    <div class="details-table__label">Months</div>
+    <div class="details-table__detail">{{ ::vm.project.scheduleRemaining() }} months remaining</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Creation Date</div>
+    <div class="details-table__detail">{{ ::vm.project.created_at | date:'medium' }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Last Updated</div>
+    <div class="details-table__detail">{{ ::vm.project.updated_at | date:'medium' }}</div>
+  </div>
+</details-table>
+
+<details-table heading="Budget">
+  <alert ng-if="::0 >= vm.project.budgetRemainder()" type="danger">
+    <strong>Budget Exceeded</strong> &mdash; The project budget has been exceeded!
+  </alert>
+
+  <alert ng-if="::vm.project.monthly_spend && vm.project.scheduleRemaining() > vm.project.monthsRemaining()"
+         type="danger">
+    <strong>Budget Overrun</strong>
+    &mdash; The monthly spend is projected to exceed the budget based on the number of months remaining.
+  </alert>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Budget</div>
+    <div class="details-table__detail">{{ ::vm.project.budget | currency }}</div>
+  </div>
+  <div class="details-table__row">
+    <div class="details-table__label">Available</div>
+    <div class="details-table__detail">
+      <progressbar animate="false" value="::vm.project.budgetRemainder()"
+                   type="{{ ::vm.project.budgetUtilizationStatus() }}"
+                   title="{{ ::vm.project.spent | currency }} of {{ ::vm.project.budget | currency }} spent"
+                   class="details-table__progressbar">
+        <span class="project-details__budget-util">{{ ::vm.project.budgetRemainder() }}%</span>
+      </progressbar>
     </div>
-</widget>
+  </div>
+  <div class="details-table__row">
+    <div class="details-table__label">Monthly Spend</div>
+    <div class="details-table__detail">{{ ::vm.project.monthly_spend | currency }}</div>
+  </div>
+  <div class="details-table__row">
+    <div class="details-table__label">Projection</div>
+    <div class="details-table__detail">{{ ::vm.project.monthsRemaining() }} months of remaining funds</div>
+  </div>
+</details-table>
+
+<region heading="Alerts">
+  <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
+</region>
+
+<region heading="Order History">
+  <orders-table orders="vm.project.order_history"></orders-table>
+</region>
 
 <!-- Services -->
-<div class="project-services" ng-show="vm.project.approval == 'approved'">
-    <widget modifier="primary">
-        <div transclude-to="header">Services ({{vm.project.services.length}})
-
-            <button ui-sref="services.create({projectId: vm.project.id})"
-                    class="btn-bordered btn-bordered--gray btn-bordered--short title-button__aside pull-right">
-                <i class="fa fa-plus"></i> Add Service
-            </button>
-
-            <button ui-sref="wizard({projectId: vm.project.id})"
-                    class="btn-bordered btn-bordered--gray btn-bordered--short title-button__aside pull-right">
-                <i class="fa fa-search"></i> Use Service Wizard
-            </button>
-
-        </div>
-        <div transclude-to="body">
-
-
-            <service-catalog service="vm.project.services" products="vm.products"
-                             viewMode="vm.viewMode"></service-catalog>
-        </div>
-    </widget>
-</div>
+<region ng-if="::vm.project.isApproved()" heading="Services">
+  <div class="project-details__service-buttons">
+    <button type="button" class="btn-rounded project-details__service-button"
+            ui-sref="services.create({projectId: vm.project.id})">
+      Open Services Wizard
+    </button>
+    <button type="button" class="btn-rounded project-details__service-button"
+            ui-sref="wizard({projectId: vm.project.id})">
+      Add Services
+    </button>
+  </div>
+  <services-table services="vm.project.services"></services-table>
+</region>
 
 <!-- Project Groups-->
-<widget modifier="primary">
-    <div transclude-to="header">Groups & Membership</div>
-    <div transclude-to="body">
-        membership
-        {{vm.project.memberships}}
-        groups
-        {{vm.project.groups}}
-    </div>
-</widget>
+<!-- TODO: Revisit and refactor when the api works -->
+<!--<widget modifier="primary">-->
+  <!--<div transclude-to="header">Groups & Membership</div>-->
+  <!--<div transclude-to="body">-->
+    <!--membership-->
+    <!--{{vm.project.memberships}}-->
+    <!--groups-->
+    <!--{{vm.project.groups}}-->
+  <!--</div>-->
+<!--</widget>-->
 
-<!- Project Details -->
-<widget modifier="primary">
-    <div transclude-to="header">Details ({{vm.project.project_answers.length}})</div>
-    <div transclude-to="body">
-        <table st-table="vm.project.project_answers" class="table table-hover">
-            <thead>
-            <tr>
-                <th>Project Question</th>
-                <th>Project Question Answer</th>
-                <th>Project Question Answer Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="answer in vm.project.project_answers">
-                <td>{{answer.project_question.question}}
-                    <span ng-if="answer.project_question.help_text">({{answer.project_question.help_text}})</span>
-                </td>
-                <td>{{answer.answer}}</td>
-                <td>{{answer.created_at | date: 'short'}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</widget>
-
-
+<!- Project Answers -->
+<region heading="Project Specifications">
+  <project-answers-table answers="vm.project.project_answers"></project-answers-table>
+</region>

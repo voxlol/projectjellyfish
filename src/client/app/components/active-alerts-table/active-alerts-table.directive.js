@@ -2,18 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('productDescription', ProductDescriptionDirective);
+    .directive('activeAlertsTable', ActiveAlertsTableDirective);
 
   /** @ngInject */
-  function ProductDescriptionDirective() {
+  function ActiveAlertsTableDirective() {
     var directive = {
       restrict: 'AE',
       scope: {
-        product: '='
+        alerts: '='
       },
       link: link,
-      templateUrl: 'app/components/product-description/product-description.html',
-      controller: ProductDescriptionController,
+      templateUrl: 'app/components/active-alerts-table/active-alerts-table.html',
+      controller: ActiveAlertsTableController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -25,7 +25,7 @@
     }
 
     /** @ngInject */
-    function ProductDescriptionController() {
+    function ActiveAlertsTableController() {
       var vm = this;
 
       vm.activate = activate;

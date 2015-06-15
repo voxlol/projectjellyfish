@@ -20,7 +20,6 @@
         controllerAs: 'vm',
         title: 'Project Details',
         resolve: {
-          alerts: resolveAlerts,
           projectDetails: resolveProjects,
           products: resolveProducts,
           staff: resolveStaff
@@ -46,7 +45,7 @@
   function resolveProjects($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;
   }
 
@@ -63,10 +62,9 @@
   }
 
   /** @ngInject */
-  function StateController($state, logger, projectDetails, products, alerts, VIEW_MODES) {
+  function StateController($state, lodash, logger, projectDetails, products, VIEW_MODES) {
     var vm = this;
 
-    vm.alerts = alerts;
     vm.title = 'Project Details';
     vm.project = projectDetails;
     vm.products = products;
@@ -77,10 +75,6 @@
     vm.approve = approve;
     vm.reject = reject;
 
-    vm.bRemaining = vm.project.budget - vm.project.spent;
-    vm.bUtilization = Math.round((vm.project.spent / vm.project.budget) * 100, -1);
-    vm.bTimeRemaining =  vm.project.monthly_spend ? Math.round(vm.bRemaining / vm.project.monthly_spend) : 0;
-
     // todo: create alert service to poll
     // vm.alerts = lodash.filter(alerts, function(alert) {
     //  return alert.project_id == vm.project.project_id;
@@ -89,25 +83,31 @@
     activate();
 
     function activate() {
-      if (vm.bUtilization <= 60) {
-        vm.bUtilizationType = 'success';
-      } else if (vm.bUtilization > 60 && vm.bUtilization <= 80 ) {
-        vm.bUtilizationType = 'warning';
-      } else if (vm.bUtilization > 80 ) {
-        vm.bUtilizationType = 'danger';
-      }
-
+      // Temporary! Merge products onto services
+      tempMergeProductsOntoServices();
       logger.info('Activated Project Details View');
     }
 
-    function approve(project) {
-      project.$approve();
+    function approve() {
       $state.reload();
     }
 
-    function reject(project, reason) {
-      project.$reject({reason: reason});
+    function reject() {
       $state.transitionTo('projects.list');
+    }
+
+    // Private
+
+    function tempMergeProductsOntoServices() {
+      angular.forEach(vm.project.services, mergeOnProduct);
+
+      function mergeOnProduct(service) {
+        service.product = lodash.find(products, findProduct);
+
+        function findProduct(product) {
+          return product.id === service.product_id;
+        }
+      }
     }
   }
 })

@@ -2,18 +2,19 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('productDescription', ProductDescriptionDirective);
+    .directive('detailsTable', DetailsTableDirective);
 
   /** @ngInject */
-  function ProductDescriptionDirective() {
+  function DetailsTableDirective() {
     var directive = {
       restrict: 'AE',
+      transclude: true,
       scope: {
-        product: '='
+        heading: '@?'
       },
       link: link,
-      templateUrl: 'app/components/product-description/product-description.html',
-      controller: ProductDescriptionController,
+      templateUrl: 'app/components/details-table/details-table.html',
+      controller: DetailsTableController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -25,12 +26,13 @@
     }
 
     /** @ngInject */
-    function ProductDescriptionController() {
+    function DetailsTableController() {
       var vm = this;
 
       vm.activate = activate;
 
       function activate() {
+        vm.heading = angular.isDefined(vm.heading) ? vm.heading : 'Details';
       }
     }
   }

@@ -1,0 +1,25 @@
++block(project-approval)
+  border: 1px solid $app-color-gray
+  background-color: $app-color-white
+  padding: 20px
+  margin-bottom: 20px
+
+  +element(heading)
+    font-size: 22px
+    font-weight: bold
+    text-align: center
+    padding: 10px
+
+    +modifier(approval)
+      color: $app-color-blue
+
+    +modifier(rejection)
+      color: $app-color-pink
+
+  +element(approve)
+    min-width: 80px
+    width: 100%
+
+  +element(reject)
+    min-width: 80px
+    width: 100%

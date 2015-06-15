@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -51,7 +51,6 @@
       vm.openAnswerDate = openAnswerDate;
 
       function activate() {
-
       }
 
       function backToList() {
@@ -76,30 +75,31 @@
         $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
           // If editing update rather than save
-          if (vm.editing == "true") {
+          if ('true' === vm.editing) {
             vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
               'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
               'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
-            if ((typeof vm.project.project_answers !== "undefined") && (vm.project.project_answers.length > 0)) {
+            if (angular.isDefined(vm.project.project_answers) && (vm.project.project_answers.length > 0)) {
               vm.filteredProject.project_answers = lodash.reduce(vm.project.project_answers,
                 function(pas, pa) {
                   pas.push(lodash.omit(pa, 'project_id', 'created_at', 'updated_at',
                     'project_question'));
+
                   return pas;
                 }, []);
             }
 
-            for (var prop in vm.filteredProject){
-              if (vm.filteredProject[prop] === null){
+            for (var prop in vm.filteredProject) {
+              if (vm.filteredProject[prop] === null) {
                 delete vm.filteredProject[prop];
               }
             }
 
-            Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure)
+            Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
 
             return false;
           } else {
-            Project.save(vm.project).$promise.then(saveSuccess, saveFailure)
+            Project.save(vm.project).$promise.then(saveSuccess, saveFailure);
 
             return false;
           }
@@ -119,13 +119,13 @@
         $event.preventDefault();
         $event.stopPropagation();
         vm.openedStart = true;
-      };
+      }
 
       function openEnd($event) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.openedEnd = true;
-      };
+      }
 
       function openAnswerDate($event, index) {
         $event.preventDefault();
@@ -134,7 +134,7 @@
         vm.endDateOpened = false;
         vm.answerDateOpened = [];
         vm.answerDateOpened[index] = true;
-      };
+      }
     }
   }
 })();
