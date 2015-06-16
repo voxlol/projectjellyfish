@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   api :GET, '/orders', 'Returns a collection of orders'
   param :page, :number, required: false
   param :per_page, :number, required: false
-  param :includes, Array, required: false, in: %w(order_items)
+  param :includes, Array, required: false, in: %w(order_items staff)
 
   def index
     authorize Order
@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   api :GET, '/orders/:id', 'Shows order with :id'
-  param :includes, Array, required: false, in: %w(order_items)
+  param :includes, Array, required: false, in: %w(order_items staff)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -91,7 +91,7 @@ class OrdersController < ApplicationController
   param :id, :number, required: true
   param :page, :number, required: false
   param :per_page, :number, required: false
-  param :includes, Array, required: false, in: %w(product latest_alert)
+  param :includes, Array, required: false, in: %w(project product latest_alert)
 
   def items
     authorize @order
