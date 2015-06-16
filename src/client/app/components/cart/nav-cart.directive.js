@@ -27,7 +27,7 @@
       var vm = this;
 
       vm.activate = activate;
-
+      vm.itemCount = itemCount;
       vm.showModal = showModal;
 
       function activate() {
@@ -35,6 +35,10 @@
 
       function showModal() {
         CartService.showModal();
+      }
+
+      function itemCount() {
+        return CartService.itemCount;
       }
     }
   }

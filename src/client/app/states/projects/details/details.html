@@ -12,6 +12,10 @@
 
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
+<region ng-if="::vm.project.alerts" heading="Alerts">
+  <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
+</region>
+
 <details-table>
   <div class="details-table__row">
     <div class="details-table__label">Description</div>
@@ -88,10 +92,6 @@
     <div class="details-table__detail">{{ ::vm.project.monthsRemaining() }} months of remaining funds</div>
   </div>
 </details-table>
-
-<region heading="Alerts">
-  <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
-</region>
 
 <region heading="Order History">
   <orders-table orders="vm.project.order_history"></orders-table>
