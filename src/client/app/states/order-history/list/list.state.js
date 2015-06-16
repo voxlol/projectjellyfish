@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveOrders(Orders) {
-    return Orders.query().$promise;
+  function resolveOrders(Order) {
+    return Order.query().$promise;
   }
 
   /** @ngInject */

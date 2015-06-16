@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveOrder($stateParams, Orders) {
-    return Orders.get({id: $stateParams.id}).$promise;
+  function resolveOrder($stateParams, Order) {
+    return Order.get({id: $stateParams.id}).$promise;
   }
 
   /** @ngInject */
