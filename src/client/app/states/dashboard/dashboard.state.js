@@ -44,7 +44,6 @@
     };
   }
 
-
   /** @ngInject */
   function StateController(Dashboard) {
     var vm = this;
