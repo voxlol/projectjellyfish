@@ -4,67 +4,28 @@
   </div>
 </content-header>
 
-<widget modifier="primary">
-  <div transclude-to="body">
-    <table class="table-condensed order-details">
-      <tbody>
-      <tr>
-        <td class="order-details__title ">Order ID</td>
-        <td class="item-texts">{{vm.orderDetails.id}}</td>
-      </tr>
-      <tr>
-        <td class="order-details__title ">Ordered By</td>
-        <td class="item-texts">{{vm.orderDetails.staff.fullName()}}</td>
-      </tr>
-      <tr>
-        <td class="order-details__title ">Projected Total<br>(monthly)</td>
-        <td class="item-texts">{{vm.orderDetails.total | currency}}</td>
-      </tr>
-      <tr>
-        <td class="order-details__title ">Order Date</td>
-        <td class="item-texts">{{vm.orderDetails.created_at | date:'medium'}}</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <hr>
-
-    <div ng-if="::vm.orderDetails.order_items.length > 0" class="history-list" ng-cloak>
-      <table st-table="vm.orderDetails.order_items" class="history-list__table table-hover">
-        <thead>
-        <th colspan="2"><input st-search="" class="form-control" placeholder="Filter by Product, Project or Status"
-                               type="text"/></th>
-        <tr>
-          <th class="catalog-category__heading catalog-category__heading--padding"></th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="id">ORDER ITEM ID</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="order_items">PRODUCTS</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="total">PROJECT</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="provision_status">STATUS</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="setup_price">SETUP PRICE</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="monthly_price">MONTHLY PRICE</th>
-          <th class="catalog-category__heading catalog-category__heading--sortable" st-sort="hourly_price">HOURLY PRICE</th>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="selectRow" ng-repeat="item in vm.orderDetails.order_items">
-          <td class="catalog-category__cell catalog-category__cell--padding"></td>
-          <td class="catalog-category__cell catalog-category__cell">
-            <a class="blue-link"><a ui-sref="marketplace">{{item.id}}</a></a>
-          </td>
-          <td class="catalog-category__cell catalog-category__cell">
-            <a ui-sref="marketplace">{{item.product.name}}</a>
-          </td>
-          <td class="catalog-category__cell catalog-category__cell">
-            <a ui-sref="project.details({id: item.project_id})">{{item.project.name}}</a>
-          </td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.provision_status}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.setup_price}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.monthly_price}}</td>
-          <td class="catalog-category__cell catalog-category__cell">{{item.hourly_price}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+<details-table>
+  <div class="details-table__row">
+    <div class="details-table__label">Order Id</div>
+    <div class="details-table__detail">{{ ::vm.order.id }}</div>
   </div>
-</widget>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Ordered On</div>
+    <div class="details-table__detail">{{ ::vm.order.created_at | date:'medium' }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Ordered By</div>
+    <div class="details-table__detail">{{ ::vm.order.staff.full_name }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Projected Total</div>
+    <div class="details-table__detail">{{ ::vm.order.total | currency }} (monthly)</div>
+  </div>
+</details-table>
+
+<region heading="Items">
+  <order-items-table order-items="vm.orderItems"></order-items-table>
+</region>

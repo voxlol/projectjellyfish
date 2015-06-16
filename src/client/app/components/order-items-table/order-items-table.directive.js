@@ -2,16 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('navCart', NavCartDirective);
+    .directive('orderItemsTable', OrderItemsTableDirective);
 
   /** @ngInject */
-  function NavCartDirective() {
+  function OrderItemsTableDirective() {
     var directive = {
       restrict: 'AE',
-      scope: {},
+      scope: {
+        orderItems: '='
+      },
       link: link,
-      templateUrl: 'app/components/cart/nav-cart.html',
-      controller: NavCartController,
+      templateUrl: 'app/components/order-items-table/order-items-table.html',
+      controller: OrderItemsTableController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -23,22 +25,12 @@
     }
 
     /** @ngInject */
-    function NavCartController(CartService) {
+    function OrderItemsTableController() {
       var vm = this;
 
       vm.activate = activate;
-      vm.itemCount = itemCount;
-      vm.showModal = showModal;
 
       function activate() {
-      }
-
-      function showModal() {
-        CartService.showModal();
-      }
-
-      function itemCount() {
-        return CartService.itemCount;
       }
     }
   }

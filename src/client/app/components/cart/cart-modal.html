@@ -38,8 +38,9 @@
     <tfoot>
     <tr>
       <td colspan="3" class="cart-table__footer cart-table__footer--total text-right">
+        Total for
         <a ui-sref="projects.details({projectId : item.project.id})">{{ ::item.project.name }}</a>
-        Total: &nbsp;{{ item.total | currency }}
+        : &nbsp;{{ item.total | currency }}
       </td>
     </tr>
     </tfoot>

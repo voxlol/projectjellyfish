@@ -20,7 +20,8 @@
         controllerAs: 'vm',
         title: 'Order History Details',
         resolve: {
-          order: resolveOrder
+          order: resolveOrder,
+          orderItems: resolveOrderItems
         }
       }
     };
@@ -36,15 +37,27 @@
 
   /** @ngInject */
   function resolveOrder($stateParams, Order) {
-    return Order.get({id: $stateParams.id}).$promise;
+    return Order.get({
+      id: $stateParams.id,
+      'includes[]': ['staff']
+    }).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, order) {
+  function resolveOrderItems($stateParams, Order) {
+    return Order.items({
+      id: $stateParams.id,
+      'includes[]': ['project', 'product', 'latest_alert']
+    }).$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, order, orderItems) {
     var vm = this;
 
     vm.title = 'Order History Details';
-    vm.orderDetails = order;
+    vm.order = order;
+    vm.orderItems = orderItems;
 
     vm.activate = activate;
 

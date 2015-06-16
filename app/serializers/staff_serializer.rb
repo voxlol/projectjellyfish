@@ -31,7 +31,8 @@
 #
 
 class StaffSerializer < ApplicationSerializer
-  attributes :id, :first_name, :last_name, :email, :phone, :role, :created_at, :updated_at, :api_token
+  attributes :first_name, :last_name, :full_name
+  attributes :id, :email, :phone, :role, :created_at, :updated_at, :authentication_token
 
   has_many :orders
   has_many :user_settings
@@ -39,4 +40,12 @@ class StaffSerializer < ApplicationSerializer
   has_many :projects
   has_many :groups
   has_one :cart
+
+  def full_name
+    [object.first_name, object.last_name].join(' ').strip
+  end
+
+  def include_authentication_token?
+    object == current_user
+  end
 end
