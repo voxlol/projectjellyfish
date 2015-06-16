@@ -244,9 +244,15 @@ namespace :sample do
     ])
     OrderItem.connection.execute("ALTER SEQUENCE order_items_id_seq RESTART #{OrderItem.all.order('id DESC').first.id + 1}")
 
+    Organization.create!([
+      { id: 1, name: "jellyfish", description: "jellyfish super group", img: nil}
+    ])
+    Organization.connection.execute("ALTER SEQUENCE organizations_id_seq RESTART #{Organization.all.order('id DESC').first.id + 1}")
+
     Alert.create!([
-      { id: 2, project_id: 2, staff_id: 0, order_item_id: 3, status: "WARNING", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil},
-      { id: 1, project_id: 3, staff_id: 0, order_item_id: 6, status: "CRITICAL", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil}
+      { id: 1, project_id: 0, staff_id: 0, order_item_id: 0, status: "WARNING", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization},
+      { id: 2, project_id: 3, staff_id: 0, order_item_id: 0, status: "CRITICAL", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project},
+      { id: 3, project_id: 2, staff_id: 0, order_item_id: 3, status: "WARNING", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 
