@@ -105,6 +105,7 @@ Rails.application.routes.draw do
       post 'approve' => 'project_approvals#update', as: :approve_project
       delete 'reject' => 'project_approvals#destroy', as: :reject_project
     end
+
     resources :projects
 
     # ProjectQuestion Routes
