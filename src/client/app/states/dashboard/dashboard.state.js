@@ -49,8 +49,6 @@
     var vm = this;
 
     vm.title = 'Dashboard';
-
-
     vm.onDropComplete = onDropComplete;
 
     // need to refactor this whole mess
