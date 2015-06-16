@@ -13,7 +13,8 @@ RSpec.describe 'Staff Orders API' do
 
     it 'returns an order for the staff member', :show_in_doc do
       get "/api/v1/staff/#{Staff.all.first.id}/orders/#{@order.id}"
-      expect(response.body).to eq(@order.to_json(include: %w(order_items)))
+      @order.reload
+      expect(response.body).to eq(OrderSerializer.new(@order, include: { order_items: {} }).to_json)
     end
 
     it 'returns an error when the order does not exist' do
@@ -38,7 +39,7 @@ RSpec.describe 'Staff Orders API' do
 
     it 'returns orders', :show_in_doc do
       get "/api/v1/staff/#{Staff.all.first.id}/orders"
-      expect(response.body).to eq(@orders.to_json(include: %w(order_items)))
+      expect(response.body).to eq(@orders.map { |o| OrderSerializer.new(o, include: { order_items: {} }) }.to_json)
     end
 
     it 'returns an error when the staff member does not exist' do
