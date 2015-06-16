@@ -57,14 +57,12 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, logger, project, products, VIEW_MODES, orders) {
+  function StateController($state, lodash, logger, project, products, VIEW_MODES) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = project;
     vm.products = products;
-
-    console.log(orders);
 
     vm.viewMode = vm.viewMode || VIEW_MODES.list;
 
