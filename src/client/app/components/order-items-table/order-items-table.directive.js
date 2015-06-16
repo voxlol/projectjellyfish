@@ -31,7 +31,6 @@
       vm.activate = activate;
 
       function activate() {
-
       }
     }
   }
