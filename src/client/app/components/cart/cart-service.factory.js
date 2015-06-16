@@ -5,7 +5,7 @@
     .factory('CartService', CartServiceFactory);
 
   /** @ngInject */
-  function CartServiceFactory($modal) {
+  function CartServiceFactory(SessionService, Order, Toasts, $modal, lodash) {
     var service = {
       items: {},
       add: add,
@@ -39,6 +39,7 @@
 
       service.items[project.id].products[product.id].quantity += quantity;
       totalUpProject(project);
+      Toasts.toast(product.name + ' has been add to your cart.');
     }
 
     function remove(project, product) {
@@ -53,10 +54,10 @@
 
         if (0 === Object.keys(service.items[project.id].products).length) {
           delete service.items[project.id];
-        } else {
-          totalUpProject(project);
         }
       }
+
+      totalUpProject(project);
     }
 
     function quantity(project, product) {
@@ -87,6 +88,36 @@
       modal.result.then(handleCheckout);
 
       function handleCheckout() {
+        var order = {
+          staff_id: SessionService.id,
+          order_items: lodash.flatten(lodash.map(service.items, eachProject))
+        };
+
+        Order.save(order, saveSuccess, saveError);
+
+        function eachProject(item) {
+          return lodash.flatten(lodash.map(item.products, eachProduct));
+
+          function eachProduct(row) {
+            return lodash.times(row.quantity, asOrderItem);
+
+            function asOrderItem() {
+              return {
+                project_id: item.project.id,
+                product_id: row.product.id
+              };
+            }
+          }
+        }
+
+        function saveSuccess() {
+          clear();
+          Toasts.success('Order accepted.');
+        }
+
+        function saveError() {
+          Toasts.error('Could not place order at this time.');
+        }
       }
     }
 
@@ -95,6 +126,10 @@
     }
 
     function totalUpProject(project) {
+      if (angular.isUndefined(service.items[project.id])) {
+        return;
+      }
+
       service.items[project.id].total = 0;
       angular.forEach(service.items[project.id].products, computeProductTotal);
 
@@ -102,6 +137,7 @@
         line.price = (parseFloat(line.product.monthly_price))
           + ((parseFloat(line.product.hourly_price)) * 750)
           * line.quantity;
+
         service.items[project.id].total += line.price;
       }
     }

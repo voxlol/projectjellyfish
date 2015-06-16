@@ -29,7 +29,7 @@
       </td>
       <td class="cart-table__cell cart-table__cell--price">{{ line.price | currency }}</td>
       <td class="cart-table__cell cart-table__cell--actions">
-        <a class="cart-table__action" href="#" title="Remove">
+        <a class="cart-table__action" href="#" title="Remove" ng-click="vm.remove(item.project, line.product)">
           <img src="/images/ic_deletequestion.png" alt="Remove"/>
         </a>
       </td>
@@ -44,7 +44,7 @@
     </tr>
     </tfoot>
   </table>
-  <p ng-if="::vm.isEmpty()" class="cart-modal__empty">Your cart is empty.</p>
+  <p ng-if="vm.isEmpty()" class="cart-modal__empty">Your cart is empty.</p>
 </div>
 <div class="cart-modal__footer">
   <button type="button" class="btn-rounded btn-rounded--gray cart-modal__cancel" ng-click="$dismiss()">
