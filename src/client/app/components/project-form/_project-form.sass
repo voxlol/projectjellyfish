@@ -56,6 +56,12 @@
   +element(input)
     @extend .field__input
 
+  +element(group-input)
+    +modifier(input)
+      @extend .field__group-input--input
+    +modifier(button)
+      @extend .field__group-input--button
+
   +element(checkbox)
     @extend .field__checkbox
 

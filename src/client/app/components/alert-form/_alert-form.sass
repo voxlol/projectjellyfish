@@ -63,6 +63,13 @@
   +element(feedback)
     @extend .field__feedback
 
+  +element(group-input)
+    +modifier(input)
+      @extend .field__group-input--input
+    +modifier(button)
+      @extend .field__group-input--button
+
+
 +block(alert-form-image)
   display: block
   height: 250px
