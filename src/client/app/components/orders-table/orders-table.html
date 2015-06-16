@@ -7,7 +7,7 @@
     <th class="orders-table__heading orders-table__heading--sortable" st-sort="total">
       Projected Cost (monthly)
     </th>
-    <th class="orders-table__heading orders-table__heading--sortable" st-sort="provision_status">
+    <th ng-if="::vm.orders[0].staff" class="orders-table__heading orders-table__heading--sortable" st-sort="staff_id">
       Placed By
     </th>
     <th class="orders-table__heading orders-table__heading--sortable" st-sort="created_at" st-sort-default="true">
@@ -23,7 +23,7 @@
     </td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.order_items.length || 0 }}</td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.total | currency }}</td>
-    <td class="orders-table__cell orders-table__cell">{{ ::item.staff_id }}</td>
+    <td ng-if="item.staff" class="orders-table__cell orders-table__cell">{{ ::item.staff.full_name }}</td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.created_at | date:'medium' }}</td>
   </tr>
   </tbody>

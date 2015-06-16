@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveOrders(Order) {
-    return Order.query().$promise;
+    return Order.query({'includes[]': ['staff', 'order_items']}).$promise;
   }
 
   /** @ngInject */

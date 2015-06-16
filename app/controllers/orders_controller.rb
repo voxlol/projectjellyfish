@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   api :GET, '/orders', 'Returns a collection of orders'
   param :page, :number, required: false
   param :per_page, :number, required: false
-  param :includes, Array, required: false, in: %w(order_items)
+  param :includes, Array, required: false, in: %w(order_items staff)
 
   def index
     authorize Order

@@ -62,9 +62,9 @@ Rails.application.routes.draw do
     end
 
     # Orders
-    resources :orders, defaults: { includes: %w(order_items) } do
+    resources :orders do
       member do
-        get :items, defaults: { includes: [] }
+        get :items
       end
     end
 
