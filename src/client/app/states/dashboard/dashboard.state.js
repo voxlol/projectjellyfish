@@ -47,8 +47,9 @@
       }
     };
   }
+
   /** @ngInject */
-  function resolveCharts(){
+  function resolveCharts() {
     return [{
       options: {
         title: {
@@ -1214,7 +1215,6 @@
     ];
   }
 
-
   /** @ngInject */
   function StateController(chartCollection) {
     var vm = this;
@@ -1222,7 +1222,7 @@
     vm.title = 'Dashboard';
     vm.onDropComplete = onDropComplete;
     vm.chartCollection = chartCollection;
-    
+
     // need to refactor this whole mess
     activate();
     function activate() {
