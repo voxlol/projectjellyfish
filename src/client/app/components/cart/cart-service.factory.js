@@ -8,6 +8,7 @@
   function CartServiceFactory(SessionService, Order, Toasts, $modal, lodash) {
     var service = {
       items: {},
+      itemCount: 0,
       add: add,
       remove: remove,
       quantity: quantity,
@@ -38,6 +39,8 @@
       }
 
       service.items[project.id].products[product.id].quantity += quantity;
+      service.itemCount += quantity;
+
       totalUpProject(project);
       Toasts.toast(product.name + ' has been add to your cart.');
     }
@@ -48,6 +51,7 @@
       }
 
       service.items[project.id].products[product.id].quantity -= 1;
+      service.itemCount -= 1;
 
       if (0 === service.items[project.id].products[product.id].quantity) {
         delete service.items[project.id].products[product.id];
