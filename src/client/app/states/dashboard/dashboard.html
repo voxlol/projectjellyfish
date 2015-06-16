@@ -1,15 +1,15 @@
-<!--<div class='chartboard'>-->
-  <!--<div ng-repeat='charts in vm.chartCollection | groupBy:2'>-->
-    <!--<div class='chartboard&#45;&#45;layout' ng-repeat='chart in charts'>-->
-      <!--<div class='chartboard__chart' ng-drag='true' ng-drop='true' ng-drop-success='vm.onDropComplete($index, $data, $event)'-->
-           <!--ng-drag-data='chart'>-->
-        <!--<nvd3 ng-if='chart.options.chart.type !== "bulletChart"' options='chart.options'-->
-              <!--data='chart.data'></nvd3>-->
-        <!--<div ng-if='chart.options.chart.type == "bulletChart"'>-->
-          <!--<div class='title h4' style='text-align: center;'>Budget Posture by Project</div>-->
-          <!--<nvd3 ng-repeat='budgetChartData in vm.budgetCharts' options='chart.options' data='budgetChartData'></nvd3>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
+<div class='chartboard'>
+  <div ng-repeat='charts in vm.chartCollection | groupBy:2'>
+    <div class='chartboard--layout' ng-repeat='chart in charts'>
+      <div class='chartboard__chart' ng-drag='true' ng-drop='true' ng-drop-success='vm.onDropComplete($index, $data, $event)'
+           ng-drag-data='chart'>
+        <nvd3 ng-if='chart.options.chart.type !== "bulletChart"' options='chart.options'
+              data='chart.data'></nvd3>
+        <div ng-if='chart.options.chart.type == "bulletChart"'>
+          <div class='title h4' style='text-align: center;'>Budget Posture by Project</div>
+          <nvd3 ng-repeat='budgetChartData in vm.budgetCharts' options='chart.options' data='budgetChartData'></nvd3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,7 +18,11 @@
         templateUrl: 'app/states/dashboard/dashboard.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Dashboard'
+        title: 'Dashboard',
+        resolve: {
+          chartCollection: resolveCharts
+        }
+
       }
     };
   }
@@ -45,29 +49,8 @@
   }
 
   /** @ngInject */
-  function StateController(logger, lodash, Project, ServicesAllCount, ServicesProjectCount,
-                           ServicesOrderProfilesCount) {
-    var vm = this;
-
-    vm.title = 'Dashboard';
-    vm.budgetCharts = [];
-
-    vm.onDropComplete = onDropComplete;
-
-    // need to refactor the way these are called, done in a pinch to work, ideall break this whole controller out
-
-    activate();
-    function activate() {
-    }
-
-    function onDropComplete(index, obj) {
-      vm.secondObj = vm.chartCollection[index];
-      vm.secondIndex = vm.chartCollection.indexOf(obj);
-      vm.chartCollection[index] = obj;
-      vm.chartCollection[vm.secondIndex] = vm.secondObj;
-    }
-
-    vm.chartCollection = [{
+  function resolveCharts() {
+    return [{
       options: {
         title: {
           enable: true,
@@ -1230,5 +1213,26 @@
       ]
     }
     ];
+  }
+
+  /** @ngInject */
+  function StateController(chartCollection) {
+    var vm = this;
+
+    vm.title = 'Dashboard';
+    vm.onDropComplete = onDropComplete;
+    vm.chartCollection = chartCollection;
+
+    // need to refactor this whole mess
+    activate();
+    function activate() {
+    }
+
+    function onDropComplete(index, obj) {
+      vm.secondObj = vm.chartCollection[index];
+      vm.secondIndex = vm.chartCollection.indexOf(obj);
+      vm.chartCollection[index] = obj;
+      vm.chartCollection[vm.secondIndex] = vm.secondObj;
+    }
   }
 })();
