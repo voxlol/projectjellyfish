@@ -17,4 +17,5 @@
 
 class Organization < ActiveRecord::Base
   acts_as_paranoid
+  has_many :alerts, as: :alertable
 end

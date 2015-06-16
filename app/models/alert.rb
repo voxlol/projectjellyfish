@@ -23,8 +23,10 @@
 class Alert < ActiveRecord::Base
   acts_as_taggable
 
-  belongs_to :order_item, inverse_of: :alerts
-  belongs_to :project
+  belongs_to :order_item
+  belongs_to :alertable, polymorphic: true
+  # belongs_to :order_item, inverse_of: :alerts
+  # belongs_to :project
 
   scope :active, -> { where('(alerts.start_date <= NOW() OR alerts.start_date IS NULL) AND (alerts.end_date >= NOW() OR alerts.end_date IS NULL)') }
   scope :inactive, -> { where('end_date < NOW() OR start_date > NOW()') }
@@ -34,10 +36,10 @@ class Alert < ActiveRecord::Base
   scope :oldest_first, -> { order(:updated_at) }
   scope :project_order, -> { order(:project_id) }
 
-  after_commit :cache_alert_data, on: [:create, :update]
+  # after_commit :cache_alert_data, on: [:create, :update]
 
-  def cache_alert_data
-    order_item.update_attributes latest_alert_id: id
-    project.compute_current_status! unless project.nil?
-  end
+  # def cache_alert_data
+  #   order_item.update_attributes latest_alert_id: id
+  #   project.compute_current_status! unless project.nil?
+  # end
 end
