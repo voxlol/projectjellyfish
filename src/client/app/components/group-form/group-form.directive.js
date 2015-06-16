@@ -9,8 +9,8 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        groupToEdit: '=?',
-        editing: '=?'
+        group: '=?',
+        heading: '@'
       },
       link: link,
       templateUrl: 'app/components/group-form/group-form.html',
@@ -35,7 +35,7 @@
       vm.showValidationMessages = false;
       vm.home = 'admin.groups.list';
       vm.format = 'yyyy-MM-dd';
-      vm.filteredProject = lodash.omit(vm.groupToEdit, 'created_at', 'updated_at', 'deleted_at');
+      vm.filteredProject = lodash.omit(vm.group, 'created_at', 'updated_at', 'deleted_at');
       vm.backToList = backToList;
       vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
@@ -62,11 +62,16 @@
 
       function onSubmit() {
         vm.showValidationMessages = true;
-        // This is so errors can be displayed for 'untouched' angular-schema-form fields
-        $scope.$broadcast('schemaFormValidate');
+
         if (vm.form.$valid) {
+          if (vm.group.id) {
+            // Update
+          } else {
+            // Create
+          }
+
           if (vm.editing) {
-            for (var prop in vm.groupToEdit) {
+            for (var prop in vm.group) {
               if (vm.filteredProject[prop] === null) {
                 delete vm.filteredProject[prop];
               }
@@ -75,7 +80,7 @@
 
             return false;
           } else {
-            Staff.save(vm.groupToEdit).$promise.then(saveSuccess, saveFailure);
+            Staff.save(vm.group).$promise.then(saveSuccess, saveFailure);
 
             return false;
           }

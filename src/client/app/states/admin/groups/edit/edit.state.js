@@ -13,13 +13,14 @@
 
   function getStates() {
     return {
-      'admin.groups.create': {
-        url: '/create',
-        templateUrl: 'app/states/admin/groups/create/create.html',
+      'admin.groups.edit': {
+        url: '/edit/:groupId',
+        templateUrl: 'app/states/admin/groups/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Groups Create',
+        title: 'Edit Group',
         resolve: {
+          group: resolveGroup,
           staff: resolveStaff
         }
       }
@@ -35,15 +36,21 @@
   }
 
   /** @ngInject */
+  function resolveGroup(Group, $stateParams) {
+    return Group.get({id: $stateParams.groupId}).$promise;
+  }
+
+  /** @ngInject */
   function resolveStaff(Staff) {
     return Staff.query().$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, Group, staff) {
+  function StateController(logger, group, staff) {
     var vm = this;
 
-    vm.title = 'Admin Group Create';
+    vm.title = 'Edit Group';
+    vm.group = group;
     vm.staffs = staff;
 
     vm.activate = activate;
@@ -51,14 +58,7 @@
     activate();
 
     function activate() {
-      initGroup();
-      logger.info('Activated Admin Products Create View');
-    }
-
-    // Private
-
-    function initGroup() {
-      vm.group = angular.extend(new Group(), Group.defaults);
+      logger.info('Activated Edit Group View');
     }
   }
 })();
