@@ -39,7 +39,6 @@ class Staff < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  has_many :alerts
   has_many :authentications
   has_many :memberships, through: :groups
   has_many :notifications
