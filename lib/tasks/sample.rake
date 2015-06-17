@@ -200,13 +200,13 @@ namespace :sample do
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
 
     ProjectQuestion.create!([
-      { id: 1, question: "Project Description", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
-      { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
-      { id: 3, question: "Maintenance Day", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 3},
-      { id: 4, question: "Performed Maintenance", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 0},
-      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"], field_type: 1},
-      { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Yes", "No"], field_type: 1},
-      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Low", "Medium", "High"], field_type: 1},
+      { id: 1, question: "Project Description", help_text: "", required: true, deleted_at: nil, load_order: 2, options: [], field_type: 2},
+      { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, load_order: 3, options: [], field_type: 2},
+      { id: 3, question: "Maintenance Day", help_text: "", required: true, deleted_at: nil, load_order: 4, options: [], field_type: 3},
+      { id: 4, question: "Performed Maintenance", help_text: "", required: true, deleted_at: nil, load_order: 5, options: [], field_type: 0},
+      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, load_order: 6, options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"], field_type: 1},
+      { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, load_order: 7, options: ["Yes", "No"], field_type: 1},
+      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, load_order: 8, options: ["Low", "Medium", "High"], field_type: 1},
       { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, field_type: 2}
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")

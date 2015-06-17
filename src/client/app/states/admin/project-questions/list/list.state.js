@@ -97,7 +97,7 @@
     function sortableUpdate(event, ui) {
       var projectQuestion = angular.element(ui.item).scope().row;
 
-      // Update fires before the mode is updated; Stop won't tell us if we actualyl moved anything
+      // Update fires before the mode is updated; Stop won't tell us if we actually moved anything
       // So wait a moment and let things settle then perform the update
       $timeout(savePosition);
 
