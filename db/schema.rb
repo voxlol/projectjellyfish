@@ -11,29 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617163959) do
+ActiveRecord::Schema.define(version: 20150617173454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "alerts", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "staff_id"
     t.string   "status",         limit: 20
     t.text     "message"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_item_id"
     t.integer  "alertable_id"
     t.string   "alertable_type"
   end
 
   add_index "alerts", ["alertable_id"], name: "index_alerts_on_alertable_id", using: :btree
   add_index "alerts", ["end_date"], name: "index_alerts_on_end_date", using: :btree
-  add_index "alerts", ["order_item_id"], name: "index_order_item_id", using: :btree
   add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
 
   create_table "api_tokens", force: :cascade do |t|
