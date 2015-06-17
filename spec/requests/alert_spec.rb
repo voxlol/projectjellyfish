@@ -116,15 +116,14 @@ RSpec.describe 'Alerts API' do
     it 'creates a new staff alert', :show_in_doc do
       alert = nil
       staff = create(
-          :staff,
-          alerts: [
-              alert = create(:alert, :warning),
-              alert2 = create(:alert, :critical),
-              alert3 = create(:alert, :unknown)
-          ]
+        :staff,
+        alerts: [
+          alert = create(:alert, :warning),
+          alert2 = create(:alert, :critical),
+          alert3 = create(:alert, :unknown)
+        ]
       )
       get "/api/v1/staff/#{staff.id}", include: [:alerts]
-      binding.pry
       expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
       expect(json['alerts'].find { |v| v['id'] == alert2.id }.to_json).to eq(alert2.to_json)
       expect(json['alerts'].find { |v| v['id'] == alert3.id }.to_json).to eq(alert3.to_json)
@@ -133,12 +132,12 @@ RSpec.describe 'Alerts API' do
     it 'creates a new organization alert', :show_in_doc do
       alert = nil
       organization = create(
-          :organization,
-          alerts: [
-              alert = create(:alert, :warning),
-              alert2 = create(:alert, :critical),
-              alert3 = create(:alert, :unknown)
-          ]
+        :organization,
+        alerts: [
+          alert = create(:alert, :warning),
+          alert2 = create(:alert, :critical),
+          alert3 = create(:alert, :unknown)
+        ]
       )
       get "/api/v1/organizations/#{organization.id}", includes: [:alerts]
       expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
