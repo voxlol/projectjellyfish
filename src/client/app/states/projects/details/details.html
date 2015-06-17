@@ -6,7 +6,7 @@
     <span class="content-header__title">{{ ::vm.project.name }}</span>
   </div>
   <div ng-if="::'approved' === vm.project.approval" class="content-header__aside">
-    <a ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
+    <a ui-sref="projects.create({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
   </div>
 </content-header>
 

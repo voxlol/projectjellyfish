@@ -49,22 +49,24 @@
                     <label class="project-field__label">Start Date</label>
                 </div>
 
-                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('startDate')}">
-                           <span class="input-group-btn ">
-                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openStart($event)"><i
+                <div class="project-field__body" ng-class="{'has-error': vm.hasErrors('startDate')}">
+                    <div class="input-group">
+                    <span class="input-group-btn ">
+                <button type="button" class="btn btn-default project-field__group-input--button"
+                        ng-click="vm.openStart($event)"><i
                         class="fa fa-calendar"></i></button>
               </span>
-                    <input ng-click="vm.openStart($event)"
-                           class="project-field__input"
-                           name="startDate"
-                           datepicker-popup="{{vm.format}}"
-                           ng-model="vm.project.start_date"
-                           is-open="vm.openedStart"
-                           max-date="vm.project.end_date"
-                           max-date="'2015-06-22'"
-                           datepicker-options="vm.dateOptions"
-                           ng-required="true" close-text="Close"/>
-
+                        <input ng-click="vm.openStart($event)"
+                               class="project-field__group-input--input"
+                               name="startDate"
+                               datepicker-popup="{{vm.format}}"
+                               ng-model="vm.project.start_date"
+                               is-open="vm.openedStart"
+                               max-date="vm.project.end_date"
+                               max-date="'2015-06-22'"
+                               datepicker-options="vm.dateOptions"
+                               ng-required="true" close-text="Close"/>
+                    </div>
                     <div class="project-field__feedback" ng-messages="vm.form.startDate.$error">
                         <div ng-message="required">A start date is required.</div>
                         <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
@@ -77,21 +79,23 @@
                     <label class="project-field__label">End Date</label>
                 </div>
 
-                <div class="project-field__body input-group" ng-class="{'has-error': vm.hasErrors('endDate')}">
+                <div class="project-field__body " ng-class="{'has-error': vm.hasErrors('endDate')}">
+                    <div class="input-group">
                               <span class="input-group-btn">
-                <button type="button" class="btn btn-default project-field__input" ng-click="vm.openEnd($event)"><i
+                <button type="button" class="btn btn-default project-field__group-input--button"
+                        ng-click="vm.openEnd($event)"><i
                         class="fa fa-calendar"></i></button>
               </span>
-                    <input ng-click="vm.openEnd($event)"
-                           class="project-field__input"
-                           name="endDate"
-                           datepicker-popup="{{vm.format}}"
-                           ng-model="vm.project.end_date"
-                           is-open="vm.openedEnd"
-                           min-date="vm.project.start_date"
-                           datepicker-options="vm.dateOptions"
-                           ng-required="true" close-text="Close"/>
-
+                        <input ng-click="vm.openEnd($event)"
+                               class="project-field__group-input--input"
+                               name="endDate"
+                               datepicker-popup="{{vm.format}}"
+                               ng-model="vm.project.end_date"
+                               is-open="vm.openedEnd"
+                               min-date="vm.project.start_date"
+                               datepicker-options="vm.dateOptions"
+                               ng-required="true" close-text="Close"/>
+                    </div>
                     <div class="project-field__feedback" ng-messages="vm.form.endDate.$error">
                         <div ng-message="required">A end date is required.</div>
                         <div ng-message="pattern">Enter a value of the format yyyy/MM/dd</div>
@@ -107,30 +111,33 @@
                   <span ng-switch-when="check_box">
                       <div class="project-field__body"
                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                          <input class="project-field__input" type="checkbox" name="{{answer.project_question_name}}"
+                          <input class="project-field__checkbox" type="checkbox" name="{{answer.project_question_name}}"
                                  ng-model='answer.answer'
                                  id="{{answer.project_question.id}}" ng-true-value="'true'" ng-false-value="'false'">
                       </div>
                   </span>
                   <span ng-switch-when="date">
-                    <div class="input-group project-field__body"
+                    <div class="project-field__body"
                          ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <span class="input-group-btn">
-                                <button type="button" class="btn btn-default project-field__input"
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-default project-field__group-input--button"
                                         ng-click="vm.openAnswerDate($event, $index)"><i
                                         class="fa fa-calendar"></i></button>
                          </span>
                         <input name="{{answer.project_question_name}}" ng-click="vm.openAnswerDate($event, $index)"
-                               ng-model='answer.answer' class="project-field__input" id="{{answer.project_question.id}}"
+                               ng-model='answer.answer' class="project-field__group-input--input"
+                               id="{{answer.project_question.id}}"
                                placeholder="{{answer.project_question.help_text}}"
                                name="{{answer.project_question_name}}"
                                ng-required="{{answer.project_question.required}}" datepicker-popup="{{vm.format}}"
                                is-open="vm.answerDateOpened[$index]" datepicker-options="vm.dateOptions"
                                close-text="Close">
+                            </div>
                     </div>
                   </span>
                   <span ng-switch-when="text">
-                       <div class="input-group project-field__body"
+                       <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                            <input name="{{answer.project_question_name}}" ng-model='answer.answer'
                                   class="project-field__input"
@@ -140,7 +147,7 @@
                        </div>
                   </span>
                   <span ng-switch-when="select_option">
-                       <div class="input-group project-field__body"
+                       <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                            <select name="{{answer.project_question_name}}" class="project-field__input"
                                    ng-model="answer.answer"
