@@ -110,62 +110,42 @@ RSpec.describe 'Alerts API' do
   end
 
   describe 'POST create' do
-  #   before :each do
-  #     sign_in_as create :staff, :admin
-  #   end
-  #
-  #   it 'creates a new alert', :show_in_doc do
-  #     alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
-  #     post '/api/v1/alerts', alert_data
-  #     expect(json['message']).to eq(alert_data[:message])
-  #   end
-  #
-  #   it 'verifies creation of a new sensu alert', :show_in_doc do
-  #     alert_data = { host: 'foo.bar.com', port: '5000', service: 'postgresql', status: 'OK', message: 'This is a test' }
-  #     post '/api/v1/alerts/sensu', alert_data
-  #     expect(json['message']).to eq(alert_data[:message])
-  #   end
-  #
-  #   it 'verifies update alert on duplicate insert', :show_in_doc do
-  #     alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
-  #     post '/api/v1/alerts', alert_data
-  #     original_id = json['id']
-  #     expect(json['message']).to eq(alert_data[:message])
-  #     alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
-  #     post '/api/v1/alerts', alert_data
-  #     expect(json['id']).to eq(original_id)
-  #   end
-  #
-  #   it 'returns an error if the alert data is missing' do
-  #     post '/api/v1/alerts'
-  #     expect(response.status).to eq(422)
-  #     expect(json).to eq('error' => 'param is missing or the value is empty: project_id')
-  #   end
-  #
-  #   it 'verifies alerts are only created for a new service status and updated otherwise.', :show_in_doc do
-  #     # TIMESTAMP: N
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
-  #     post '/api/v1/alerts', alert_data
-  #     # TIMESTAMP: N + 1
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
-  #     post '/api/v1/alerts', alert_data
-  #     # TIMESTAMP: N + 2
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'CRITICAL', message: 'FIX ME!' }
-  #     post '/api/v1/alerts', alert_data
-  #     # TIMESTAMP: N + 3
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'CRITICAL', message: 'STILL BROKEN!' }
-  #     post '/api/v1/alerts', alert_data
-  #     # TIMESTAMP: N + 4
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
-  #     post '/api/v1/alerts', alert_data
-  #     # TIMESTAMP: N + 5
-  #     alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'WARNING', message: 'REVIEW LOGS.' }
-  #     post '/api/v1/alerts', alert_data
-  #     # VERIFY CREATE/UPDATE LOGIC IS WORKING
-  #     get '/api/v1/alerts'
-  #     json = JSON.parse(response.body)
-  #     expect(json.length).to eq(4)
-  #   end
+    before :each do
+      sign_in_as create :staff, :admin
+    end
+
+    it 'creates a new project alert', :show_in_doc do
+      alert = nil
+      project = create(
+          :project,
+          alerts: [
+              alert = create(:alert, :warning),
+              alert2 = create(:alert, :critical),
+              alert3 = create(:alert, :unknown)
+          ]
+      )
+      get "/api/v1/projects/#{project.id}", includes: [ :alerts ]
+      expect(json['alerts'].select { |v| v['id'] == alert.id }.first.to_json).to eq(alert.to_json)
+    end
+
+    it 'creates a new order item alert', :show_in_doc do
+      alert = nil
+      service = nil
+      project = create(
+          :project,
+          services:[
+              service = create(:order_item,
+                               alerts:[
+                                   alert = create(:alert, :critical),
+                                   alert2 = create(:alert, :critical),
+                                   alert3 = create(:alert, :critical)
+                               ]
+              )
+          ]
+      )
+      get "/api/v1/order_items/#{service.id}", include: [ :alerts ]
+      expect( json['alerts'].select { |v| v['id'] == alert.id }.first.to_json).to eq(alert.to_json)
+    end
   end
 
   describe 'PUT update' do
