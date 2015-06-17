@@ -23,7 +23,6 @@
 class Alert < ActiveRecord::Base
   acts_as_taggable
 
-  belongs_to :order_item
   belongs_to :alertable, polymorphic: true
 
   scope :active, -> { where('(alerts.start_date <= NOW() OR alerts.start_date IS NULL) AND (alerts.end_date >= NOW() OR alerts.end_date IS NULL)') }
