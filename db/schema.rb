@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616161043) do
+ActiveRecord::Schema.define(version: 20150617163959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,7 +229,6 @@ ActiveRecord::Schema.define(version: 20150616161043) do
     t.jsonb    "payload_request"
     t.jsonb    "payload_acknowledgement"
     t.jsonb    "payload_response"
-    t.integer  "latest_alert_id"
     t.string   "status_msg"
   end
 
