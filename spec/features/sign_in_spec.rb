@@ -22,7 +22,7 @@ feature 'Staff signs in' do
       click_button 'Sign In'
 
       # I'm not sure why this takes so long, but it fixes the error "timeout while waiting for angular"
-      # Capybara.default_wait_time = 10
+      Capybara.default_wait_time = 10
 
       expect(page).to have_content("#{staff.first_name} #{staff.last_name}")
     end

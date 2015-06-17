@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="/bower_components/nganimate.css/animate.css" />
-  <link rel="stylesheet" href="/bower_components/nvd3/build/nv.d3.css" />
+  <link rel="stylesheet" href="/bower_components/nvd3/src/nv.d3.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -68,7 +68,7 @@
   <script src="/bower_components/jquery-ui/ui/mouse.js"></script>
   <script src="/bower_components/jquery-ui/ui/sortable.js"></script>
   <script src="/bower_components/angular-ui-sortable/sortable.js"></script>
-  <script src="/bower_components/nvd3/build/nv.d3.js"></script>
+  <script src="/bower_components/nvd3/nv.d3.js"></script>
   <script src="/bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
   <script src="/bower_components/ngDraggable/ngDraggable.js"></script>
   <script src="/bower_components/angular-filter/dist/angular-filter.js"></script>
@@ -123,6 +123,7 @@
   <script src="/src/client/app/components/details-table/details-table.directive.js"></script>
   <script src="/src/client/app/components/footer/footer.directive.js"></script>
   <script src="/src/client/app/components/group-form/group-form.directive.js"></script>
+  <script src="/src/client/app/components/groups-table/groups-table.directive.js"></script>
   <script src="/src/client/app/components/login-form/login-form.directive.js"></script>
   <script src="/src/client/app/components/multiple-choice/multiple-choice.directive.js"></script>
   <script src="/src/client/app/components/navigation/nav-item.directive.js"></script>
@@ -167,7 +168,8 @@
   <script src="/src/client/app/core/config.js"></script>
   <script src="/src/client/app/core/constants.js"></script>
   <script src="/src/client/app/resources/alert.factory.js"></script>
-  <script src="/src/client/app/resources/groups.factory.js"></script>
+  <script src="/src/client/app/resources/dashboard.factory.js"></script>
+  <script src="/src/client/app/resources/group.factory.js"></script>
   <script src="/src/client/app/resources/order-item.factory.js"></script>
   <script src="/src/client/app/resources/order.factory.js"></script>
   <script src="/src/client/app/resources/product-type.factory.js"></script>
@@ -188,6 +190,7 @@
   <script src="/src/client/app/states/admin/alerts/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/alerts/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/groups/create/create.state.js"></script>
+  <script src="/src/client/app/states/admin/groups/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/groups/groups.state.js"></script>
   <script src="/src/client/app/states/admin/groups/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/products/create/create.state.js"></script>
