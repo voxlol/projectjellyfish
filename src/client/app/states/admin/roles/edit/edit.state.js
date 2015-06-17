@@ -13,14 +13,14 @@
 
   function getStates() {
     return {
-      'admin.groups.edit': {
-        url: '/edit/:groupId',
-        templateUrl: 'app/states/admin/groups/edit/edit.html',
+      'admin.roles.edit': {
+        url: '/edit/:roleId',
+        templateUrl: 'app/states/admin/roules/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Edit Group',
+        title: 'Edit Role',
         resolve: {
-          group: resolveGroup,
+          role: resolveRole,
           staff: resolveStaff
         }
       }
@@ -36,8 +36,8 @@
   }
 
   /** @ngInject */
-  function resolveGroup(Group, $stateParams) {
-    return Group.get({id: $stateParams.groupId}).$promise;
+  function resolveRole(Role, $stateParams) {
+    return Role.get({id: $stateParams.roleId}).$promise;
   }
 
   /** @ngInject */
@@ -46,11 +46,11 @@
   }
 
   /** @ngInject */
-  function StateController(logger, group, staff) {
+  function StateController(logger, role, staff) {
     var vm = this;
 
-    vm.title = 'Edit Group';
-    vm.group = group;
+    vm.title = 'Edit Role';
+    vm.role = role;
     vm.staff = staff;
 
     vm.activate = activate;
@@ -58,7 +58,7 @@
     activate();
 
     function activate() {
-      logger.info('Activated Edit Group View');
+      logger.info('Activated Edit Role View');
     }
   }
 })();

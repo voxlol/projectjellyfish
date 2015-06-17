@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'admin.groups.create': {
+      'admin.roles.create': {
         url: '/create',
-        templateUrl: 'app/states/admin/groups/create/create.html',
+        templateUrl: 'app/states/admin/roles/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Groups Create',
+        title: 'Admin Roles Create',
         resolve: {
           staff: resolveStaff
         }
@@ -40,10 +40,10 @@
   }
 
   /** @ngInject */
-  function StateController(logger, Group, staff) {
+  function StateController(logger, Role, staff) {
     var vm = this;
 
-    vm.title = 'Admin Group Create';
+    vm.title = 'Admin Role Create';
     vm.staff = staff;
 
     vm.activate = activate;
@@ -51,14 +51,14 @@
     activate();
 
     function activate() {
-      initGroup();
+      initRole();
       logger.info('Activated Admin Products Create View');
     }
 
     // Private
 
-    function initGroup() {
-      vm.group = Group.new();
+    function initRole() {
+      vm.role = Role.new();
     }
   }
 })();
