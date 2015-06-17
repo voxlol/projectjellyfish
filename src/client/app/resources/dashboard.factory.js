@@ -37,47 +37,47 @@
           plotBands: [{
             from: 0,
             to: 30,
-            color: 'rgba(68, 170, 213, 0.1)',
+            color: 'rgba(0, 255, 255, 0.3)',
             label: {
               text: 'Low Burn',
               style: {
-                color: '#1DC58E'
+                color: '#000000'
               }
             }
           }, {
             from: 30,
             to: 60,
-            color: 'rgba(0, 0, 0, 0)',
+            color: 'rgba(29, 197, 142, 0.3)',
             label: {
               text: 'Normal Burn',
               style: {
-                color: '#1DC58E'
+                color: '#000000'
               }
             }
           }, {
             from: 60,
             to: 90,
-            color: 'rgba(68, 170, 213, 0.1)',
+            color: 'rgba(255, 255, 0, 0.3)',
             label: {
               text: 'Medium Burn',
               style: {
-                color: '#F88954'
+                color: '#000000'
               }
             }
           }, {
             from: 90,
             to: 100,
-            color: 'rgba(0, 0, 0, 0)',
+            color: 'rgba(248, 137, 84, 0.6)',
             label: {
               text: 'High Burn',
               style: {
-                color: '#F13B54'
+                color: '#000000'
               }
             }
           }, {
             from: 100,
             to: 150,
-            color: 'rgba(68, 170, 213, 0.1)',
+            color: 'rgba(241, 59, 84, 0.3)',
             label: {
               text: 'Unsustainable Burn',
               style: {
