@@ -25,6 +25,12 @@
       load_order: 0
     };
 
+    ProjectQuestion.new = newProjectQuestion;
+
+    function newProjectQuestion() {
+      return new ProjectQuestion(angular.copy(ProjectQuestion.defaults));
+    }
+
     return ProjectQuestion;
   }
 })();
