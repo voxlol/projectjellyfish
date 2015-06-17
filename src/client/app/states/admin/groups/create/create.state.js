@@ -44,7 +44,7 @@
     var vm = this;
 
     vm.title = 'Admin Group Create';
-    vm.staffs = staff;
+    vm.staff = staff;
 
     vm.activate = activate;
 
@@ -58,7 +58,7 @@
     // Private
 
     function initGroup() {
-      vm.group = angular.extend(new Group(), Group.defaults);
+      vm.group = Group.new();
     }
   }
 })();

@@ -42,9 +42,9 @@
     activate();
 
     function activate() {
-      logger.info('Activated Project Question Create View');
       initProjectQuestion();
       initOptions();
+      logger.info('Activated Project Question Create View');
     }
 
     function initOptions() {
@@ -56,7 +56,7 @@
     // Private
 
     function initProjectQuestion() {
-      vm.projectQuestion = angular.extend(new ProjectQuestion(), ProjectQuestion.defaults);
+      vm.projectQuestion = ProjectQuestion.new();
     }
   }
 })();

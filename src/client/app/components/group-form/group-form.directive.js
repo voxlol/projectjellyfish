@@ -9,7 +9,8 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        group: '=?',
+        group: '=',
+        staff: '=',
         heading: '@'
       },
       link: link,
@@ -32,16 +33,21 @@
       vm.activate = activate;
       activate();
 
-      vm.showValidationMessages = false;
       vm.home = 'admin.groups.list';
+      vm.showValidationMessages = false;
+
       vm.format = 'yyyy-MM-dd';
-      vm.filteredProject = lodash.omit(vm.group, 'created_at', 'updated_at', 'deleted_at');
+
+      vm.addMember = addMember;
+      vm.removeMember = removeMember;
+
       vm.backToList = backToList;
       vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
       vm.onSubmit = onSubmit;
 
       function activate() {
+        initMembers();
       }
 
       function backToList() {
@@ -65,24 +71,9 @@
 
         if (vm.form.$valid) {
           if (vm.group.id) {
-            // Update
+            vm.group.$update(saveSuccess, saveFailure);
           } else {
-            // Create
-          }
-
-          if (vm.editing) {
-            for (var prop in vm.group) {
-              if (vm.filteredProject[prop] === null) {
-                delete vm.filteredProject[prop];
-              }
-            }
-            Staff.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
-
-            return false;
-          } else {
-            Staff.save(vm.group).$promise.then(saveSuccess, saveFailure);
-
-            return false;
+            vm.group.$save(saveSuccess, saveFailure);
           }
         }
 
@@ -94,6 +85,36 @@
         function saveFailure() {
           Toasts.error('Server returned an error while saving.');
         }
+      }
+
+      function addMember(staffId) {
+        var staff = lodash.find(vm.staff, {id: staffId});
+
+        if (!staff) {
+          return;
+        }
+
+        if (!lodash.find(vm.members, {id: staffId})) {
+          vm.members.push(staff);
+        }
+
+        if (-1 === vm.group.staff_ids.indexOf(staffId)) {
+          vm.group.staff_ids.push(staffId);
+        }
+
+        vm.selectedStaff = null;
+      }
+
+      function removeMember(staffId) {
+        lodash.remove(vm.members, {id: staffId});
+        lodash.pull(vm.group.staff_ids, staffId);
+      }
+
+      // Private
+
+      function initMembers() {
+        vm.members = [];
+        angular.forEach(vm.group.staff_ids, addMember);
       }
     }
   }

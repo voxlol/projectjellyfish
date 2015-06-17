@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveGroups($stateParams, Group) {
-    return Group.query().$promise;
+    return Group.query({'includes[]': ['staff']}).$promise;
   }
 
   /** @ngInject */

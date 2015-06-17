@@ -1,49 +1,12 @@
 <content-header short="true">
-  <div class="admin-groups-list__body">
+  <div class="content-header__body">
     <span class="content-header__title">Groups</span>
   </div>
-  <div class="admin-groups-list__aside">
+  <div class="content-header__aside">
     <a ui-sref="admin.groups.create" class="btn-rounded">Add A Group</a>
   </div>
 </content-header>
 
-<div ng-if="!vm.groups.length">
-  <h4>No groups presently exist. Add one!</h4>
-</div>
-<div ng-if="vm.groups.length" class="groups-table">
-  <table st-table="vm.groups" class="groups-table__table table-hover">
-    <thead>
-    <tr>
-      <th class="groups-table__heading groups-table__heading--padding"></th>
-      <th class="groups-table__heading groups-table__heading" st-sort="id">Id</th>
-      <th class="groups-table__heading groups-table__heading--name" st-sort="name">Name</th>
-      <th class="groups-table__heading groups-table__heading--description" st-sort="description">Description</th>
-      <th class="groups-table__heading groups-table__heading--updated" st-sort="updated_at">Last Updated</th>
-      <th class="groups-table__heading groups-table__heading--actions" st-sort="updated_at">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="groups-table__row" ng-repeat="row in vm.groups track by row.id">
-      <td class="groups-table__cell groups-table__cell--padding"></td>
-      <td class="groups-table__cell groups-table__cell--name">{{ ::row.name}}</td>
-      <td class="groups-table__cell groups-table__cell--description">{{ ::row.description }}</td>
-      <td class="groups-table__cell groups-table__cell--updated">{{ ::row.update_at | date:"short"}}</td>
-      <td class="groups-table__cell groups-table__cell--actions">
-        <a ui-sref="admin.groups.edit({groupId: row.id})" class="groups-table__action groups-table__action--edit">
-          <img src="/images/ic_edit.png" alt="Edit"/>
-        </a>
-        <a href="#" class="groups-table__action groups-table__action--delete"
-           confirmation
-           confirmation-position="left-center"
-           confirmation-message="Are you sure you want to remove this group?"
-           confirmation-ok-style="danger"
-           confirmation-ok-text="Yes, Delete It"
-           confirmation-on-ok="vm.deleteGroup($index)"
-           confirmation-show-cancel="false">
-          <img src="/images/ic_deletequestion.png" alt="Delete"/>
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div class="admin-groups-list__border">
+  <groups-table groups="vm.groups"></groups-table>
 </div>

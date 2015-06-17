@@ -51,7 +51,7 @@
 
     vm.title = 'Edit Group';
     vm.group = group;
-    vm.staffs = staff;
+    vm.staff = staff;
 
     vm.activate = activate;
 

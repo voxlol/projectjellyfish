@@ -42,19 +42,30 @@
 
       <div class="group-field">
         <div class="group-field__aside">
-          <label class="group-field__label">Add Users</label>
+          <label class="group-field__label">Add User</label>
         </div>
-        <div class="group-field__body" ng-class="{'has-error': vm.hasErrors('staffIds')}">
-          <select id="group-role" name="staffIds" ng-model="vm.group.staff_ids" class="group-field__input"
-                  ng-options="staff in vm.staffs track by staff.id" required>
+        <div class="group-field__body">
+          <select id="group-role" name="staff" ng-model="vm.selectedStaff" class="group-field__input"
+                  ng-options="staff as staff.full_name for staff in vm.staff track by staff.id"
+                  ng-change="vm.addMember(vm.selectedStaff.id)">
           </select>
-
-          <div class="group-field__feedback" ng-messages="vm.form.role.$error">
-            <div ng-message="required">At least one user must be a member.</div>
-          </div>
         </div>
       </div>
 
+      <div class="group-field">
+        <div class="group-field__aside">
+          <label class="group-field__label">Members</label>
+        </div>
+        <div class="group-field__body">
+
+          <div class="group-field__member" ng-repeat="staff in vm.members track by staff.id">
+            {{ ::staff.full_name }}
+            <a href="#" ng-click="vm.removeMember(staff.id)" class="group-field__member-remove" title="Remove Member">
+              <img src="/images/ic_deletequestion.png" alt="Remove Member"/>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -75,5 +86,3 @@
     </div>
   </div>
 </form>
-
-<pre>{{vm.group | json}}</pre>
