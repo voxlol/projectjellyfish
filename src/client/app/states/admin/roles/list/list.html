@@ -37,7 +37,7 @@
         <span ng-repeat="permission in row.permissions">{{permission}}, </span>
       </td>
       <td class="roles-table__cell roles-table__cell--actions">
-        <a ng-click="vm.goTo(row.id)" class="roles-table__action roles-table__action--edit">
+        <a ui-sref="admin.roles.edit({roleId: row.id})" class="roles-table__action roles-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
         <a href="#" class="roles-table__action roles-table__action--delete"

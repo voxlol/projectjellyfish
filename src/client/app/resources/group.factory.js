@@ -16,7 +16,7 @@
     Group.defaults = {
       name: '',
       description: '',
-      staff_ids: []
+      permissions: []
     };
 
     Group.new = newGroup;

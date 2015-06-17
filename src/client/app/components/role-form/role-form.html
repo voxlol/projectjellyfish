@@ -42,30 +42,74 @@
 
       <div class="role-field">
         <div class="role-field__aside">
-          <label class="role-field__label">Add User</label>
+          <label class="role-field__label">Approvals</label>
         </div>
         <div class="role-field__body">
-          <select id="role-role" name="staff" ng-model="vm.selectedStaff" class="role-field__input"
-                  ng-options="staff as staff.full_name for staff in vm.staff track by staff.id"
-                  ng-change="vm.addMember(vm.selectedStaff.id)">
-          </select>
+          <input id="approvals-read"
+                 name="approvals-read"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.approvals[0]"
+                 ng-true-value="'read'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Read
+          <input id="approvals-write"
+                 name="approvals-write"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.approvals[1]"
+                 ng-true-value="'write'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Write
+
         </div>
       </div>
 
       <div class="role-field">
         <div class="role-field__aside">
-          <label class="role-field__label">Members</label>
+          <label class="role-field__label">Memberships</label>
         </div>
         <div class="role-field__body">
+          <input id="memberships-read"
+                 name="memberships-read"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.memberships[0]"
+                 ng-true-value="'read'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Read
+          <input id="memberships-write"
+                 name="memberships-write"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.memberships[1]"
+                 ng-true-value="'write'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Write
 
-          <div class="role-field__member" ng-repeat="staff in vm.members track by staff.id">
-            {{ ::staff.full_name }}
-            <a href="#" ng-click="vm.removeMember(staff.id)" class="role-field__member-remove" title="Remove Member">
-              <img src="/images/ic_deletequestion.png" alt="Remove Member"/>
-            </a>
-          </div>
         </div>
       </div>
+
+      <div class="role-field">
+        <div class="role-field__aside">
+          <label class="role-field__label">Projects</label>
+        </div>
+        <div class="role-field__body">
+          <input id="project-read"
+                 name="project-read"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.projects[0]"
+                 ng-true-value="'read'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Read
+          <input id="project-write"
+                 name="project-write"
+                 type="checkbox"
+                 ng-model="vm.role.permissions.projects[1]"
+                 ng-true-value="'write'"
+                 ng-false-value="undefined"
+                 class="role-field__checkbox" />Write
+
+        </div>
+      </div>
+
+      <pre>{{vm.role | json}}</pre>
     </div>
   </div>
   <div class="row">

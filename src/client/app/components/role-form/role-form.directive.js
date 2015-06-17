@@ -14,7 +14,7 @@
         heading: '@'
       },
       link: link,
-      templateUrl: 'app/components/role-form/Role-form.html',
+      templateUrl: 'app/components/role-form/role-form.html',
       controller: RoleFormController,
       controllerAs: 'vm',
       bindToController: true
