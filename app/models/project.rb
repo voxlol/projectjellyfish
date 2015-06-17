@@ -40,7 +40,6 @@ class Project < ActiveRecord::Base
   has_many :staff, through: :groups
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
   has_many :alerts, as: :alertable
-  # has_many :latest_alerts, through: :services, class_name: 'Alert'
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
   has_one :project_detail
@@ -67,11 +66,12 @@ class Project < ActiveRecord::Base
   end
 
   def compute_current_status!
-    if latest_alerts.any?
-      update(status: highest_priority_latest_alert.status.downcase)
-    else
-      update(status: 'unknown')
-    end
+    # TODO: REIMPLEMENT THIS WITHOUT LATEST ALERT CODE
+    # if latest_alerts.any?
+    #   update(status: highest_priority_latest_alert.status.downcase)
+    # else
+    #   update(status: 'unknown')
+    # end
   end
 
   def domain
@@ -95,7 +95,8 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    @problem_count ||= latest_alerts.not_status(:OK).count
+    # TODO: REIMPLEMENT SANS LATEST ALERT CODE
+    # @problem_count ||= latest_alerts.not_status(:OK).count
   end
 
   def account_number
@@ -124,7 +125,8 @@ class Project < ActiveRecord::Base
 
   private
 
-  def highest_priority_latest_alert
-    latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
-  end
+  # def highest_priority_latest_alert
+  #   # TODO: REIMPLEMENT SANS LATEST ALERT
+  #   # latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
+  # end
 end
