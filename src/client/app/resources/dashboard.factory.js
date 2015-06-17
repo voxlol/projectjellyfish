@@ -8,1166 +8,305 @@
   function DashboardFactory() {
     return [{
       options: {
-        title: {
-          enable: true,
-          text: 'Daily Cost Analysis',
-          class: 'h4',
-          css: {width: 'nullpx', textAlign: 'center'}
-        },
         chart: {
-          type: 'multiBarChart',
-          height: 350,
-          margin: {
-            top: 20,
-            right: 20,
-            bottom: 60,
-            left: 80
+          type: 'spline'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Hourly Burn Analysis'
+        },
+        subtitle: {
+          text: 'A snapshot of the last 24 hours.'
+        },
+        xAxis: {
+          type: 'datetime',
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        yAxis: {
+          title: {
+            text: '% Budget Utilization'
           },
-          clipEdge: true,
-          staggerLabels: true,
-          transitionDuration: 500,
-          stacked: true,
-          xAxis: {
-            axisLabel: 'Date',
-            showMaxMin: false,
-            axisLabelDistance: 2,
-            tickFormat: function(d) {
-              return d3.time.format('%x')(new Date(d));
+          min: 0,
+          minorGridLineWidth: 0,
+          gridLineWidth: 0,
+          alternateGridColor: null,
+          plotBands: [{
+            from: 0,
+            to: 30,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+              text: 'Low Burn',
+              style: {
+                color: '#1DC58E'
+              }
             }
-          },
-          yAxis: {
-            axisLabel: 'Cost ($ USD)',
-            axisLabelDistance: 10,
-            tickFormat: function(d) {
-              return d3.format(',.1f')(d);
+          }, {
+            from: 30,
+            to: 60,
+            color: 'rgba(0, 0, 0, 0)',
+            label: {
+              text: 'Normal Burn',
+              style: {
+                color: '#1DC58E'
+              }
             }
-          },
-          tooltips: true,
-          tooltipContent: function(key, x, y) {
-            return '<h3>' + key + '</h3>' +
-              '<p>$' + y + ' on ' + x + '</p>';
+          }, {
+            from: 60,
+            to: 90,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+              text: 'Medium Burn',
+              style: {
+                color: '#F88954'
+              }
+            }
+          }, {
+            from: 90,
+            to: 100,
+            color: 'rgba(0, 0, 0, 0)',
+            label: {
+              text: 'High Burn',
+              style: {
+                color: '#F13B54'
+              }
+            }
+          }, {
+            from: 100,
+            to: 150,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+              text: 'Unsustainable Burn',
+              style: {
+                color: '#000000'
+              }
+            }
+          }]
+        },
+        tooltip: {
+          valueSuffix: ' %'
+        },
+        plotOptions: {
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 4
+              }
+            },
+            marker: {
+              enabled: false
+            },
+            pointInterval: 3600000, // one hour
+            pointStart: Date.UTC(2015, 5, 18, 0, 0, 0)
           }
         }
-      }, data: [{
-        key: 'Project Jellyfish',
-        values: [{
-          x: 1430366400000,
-          y: 12258.05,
-          y0: 0,
-          series: 0,
-          size: 12258.05,
-          y1: 12258.05
-        }, {
-          x: 1430452500000,
-          y: 14100.6,
-          y0: 0,
-          series: 0,
-          size: 14100.6,
-          y1: 14100.6
-        }, {
-          x: 1430538600000,
-          y: 10356.28,
-          y0: 0,
-          series: 0,
-          size: 10356.28,
-          y1: 10356.28
-        }, {
-          x: 1430624700000,
-          y: 12215.92,
-          y0: 0,
-          series: 0,
-          size: 12215.92,
-          y1: 12215.92
-        }, {
-          x: 1430710800000,
-          y: 12358.6,
-          y0: 0,
-          series: 0,
-          size: 12358.6,
-          y1: 12358.6
-        }, {
-          x: 1430796900000,
-          y: 16229.81,
-          y0: 0,
-          series: 0,
-          size: 16229.81,
-          y1: 16229.81
-        }, {
-          x: 1430883000000,
-          y: 12847.03,
-          y0: 0,
-          series: 0,
-          size: 12847.03,
-          y1: 12847.03
-        }, {
-          x: 1430969100000,
-          y: 10907.96,
-          y0: 0,
-          series: 0,
-          size: 10907.96,
-          y1: 10907.96
-        }, {
-          x: 1431055200000,
-          y: 15130.12,
-          y0: 0,
-          series: 0,
-          size: 15130.12,
-          y1: 15130.12
-        }, {
-          x: 1431141300000,
-          y: 12370.09,
-          y0: 0,
-          series: 0,
-          size: 12370.09,
-          y1: 12370.09
-        }, {
-          x: 1431227400000,
-          y: 13941.91,
-          y0: 0,
-          series: 0,
-          size: 13941.91,
-          y1: 13941.91
-        }, {
-          x: 1431313500000,
-          y: 9503.14,
-          y0: 0,
-          series: 0,
-          size: 9503.14,
-          y1: 9503.14
-        }, {
-          x: 1431399600000,
-          y: 9424.73,
-          y0: 0,
-          series: 0,
-          size: 9424.73,
-          y1: 9424.73
-        }, {
-          x: 1431485700000,
-          y: 16404.26,
-          y0: 0,
-          series: 0,
-          size: 16404.26,
-          y1: 16404.26
-        }, {
-          x: 1431571800000,
-          y: 9803.69,
-          y0: 0,
-          series: 0,
-          size: 9803.69,
-          y1: 9803.69
-        }, {
-          x: 1431657900000,
-          y: 15260.46,
-          y0: 0,
-          series: 0,
-          size: 15260.46,
-          y1: 15260.46
-        }, {
-          x: 1431744000000,
-          y: 16171.12,
-          y0: 0,
-          series: 0,
-          size: 16171.12,
-          y1: 16171.12
-        }, {
-          x: 1431830100000,
-          y: 14188.93,
-          y0: 0,
-          series: 0,
-          size: 14188.93,
-          y1: 14188.93
-        }, {
-          x: 1431916200000,
-          y: 18863.12,
-          y0: 0,
-          series: 0,
-          size: 18863.12,
-          y1: 18863.12
-        }, {
-          x: 1432002300000,
-          y: 18131.37,
-          y0: 0,
-          series: 0,
-          size: 18131.37,
-          y1: 18131.37
-        }, {
-          x: 1432088400000,
-          y: 26329.31,
-          y0: 0,
-          series: 0,
-          size: 26329.31,
-          y1: 26329.31
-        }, {
-          x: 1432174500000,
-          y: 32493.16,
-          y0: 0,
-          series: 0,
-          size: 32493.16,
-          y1: 32493.16
-        }, {
-          x: 1432260600000,
-          y: 25001.84,
-          y0: 0,
-          series: 0,
-          size: 25001.84,
-          y1: 25001.84
-        }, {
-          x: 1432346700000,
-          y: 22427.1,
-          y0: 0,
-          series: 0,
-          size: 22427.1,
-          y1: 22427.1
-        }, {
-          x: 1432432800000,
-          y: 11979.55,
-          y0: 0,
-          series: 0,
-          size: 11979.55,
-          y1: 11979.55
-        }, {
-          x: 1432518900000,
-          y: 14960.5,
-          y0: 0,
-          series: 0,
-          size: 14960.5,
-          y1: 14960.5
-        }, {
-          x: 1432605000000,
-          y: 16412.98,
-          y0: 0,
-          series: 0,
-          size: 16412.98,
-          y1: 16412.98
-        }, {
-          x: 1432691100000,
-          y: 17731.44,
-          y0: 0,
-          series: 0,
-          size: 17731.44,
-          y1: 17731.44
-        }, {
-          x: 1432777200000,
-          y: 14748.99,
-          y0: 0,
-          series: 0,
-          size: 14748.99,
-          y1: 14748.99
-        }, {
-          x: 1432863300000,
-          y: 11231.39,
-          y0: 0,
-          series: 0,
-          size: 11231.39,
-          y1: 11231.39
-        }, {
-          x: 1432949400000,
-          y: 17376.76,
-          y0: 0,
-          series: 0,
-          size: 17376.76,
-          y1: 17376.76
-        }]
+      },
+      series: [{
+        name: 'Project Jellyfish',
+        data: [40.3, 50.1, 40.3, 50.2, 50.4, 40.7, 30.5, 40.1, 50.6, 70.4, 60.9, 70.1,
+          70.9, 70.9, 70.5, 60.7, 70.7, 70.7, 70.4, 70.0, 70.1, 50.8, 50.9, 70.4, 80.1],
+        color: '#F88954'
+
       }, {
-        key: 'Cloud Exchange',
-        values: [{
-          x: 1430366400000,
-          y: 20095.37,
-          y0: 12258.05,
-          series: 1,
-          size: 20095.37,
-          y1: 32353.42
-        }, {
-          x: 1430452500000,
-          y: 11613.29,
-          y0: 14100.6,
-          series: 1,
-          size: 11613.29,
-          y1: 25713.89
-        }, {
-          x: 1430538600000,
-          y: 12823,
-          y0: 10356.28,
-          series: 1,
-          size: 12823,
-          y1: 23179.28
-        }, {
-          x: 1430624700000,
-          y: 13650.81,
-          y0: 12215.92,
-          series: 1,
-          size: 13650.81,
-          y1: 25866.73
-        }, {
-          x: 1430710800000,
-          y: 15500.36,
-          y0: 12358.6,
-          series: 1,
-          size: 15500.36,
-          y1: 27858.96
-        }, {
-          x: 1430796900000,
-          y: 12812.62,
-          y0: 16229.81,
-          series: 1,
-          size: 12812.62,
-          y1: 29042.43
-        }, {
-          x: 1430883000000,
-          y: 11296.6,
-          y0: 12847.03,
-          series: 1,
-          size: 11296.6,
-          y1: 24143.63
-        }, {
-          x: 1430969100000,
-          y: 11714.33,
-          y0: 10907.96,
-          series: 1,
-          size: 11714.33,
-          y1: 22622.29
-        }, {
-          x: 1431055200000,
-          y: 13754.22,
-          y0: 15130.12,
-          series: 1,
-          size: 13754.22,
-          y1: 28884.34
-        }, {
-          x: 1431141300000,
-          y: 26858.89,
-          y0: 12370.09,
-          series: 1,
-          size: 26858.89,
-          y1: 39228.979999999996
-        }, {
-          x: 1431227400000,
-          y: 37398.96,
-          y0: 13941.91,
-          series: 1,
-          size: 37398.96,
-          y1: 51340.869999999995
-        }, {
-          x: 1431313500000,
-          y: 26193.27,
-          y0: 9503.14,
-          series: 1,
-          size: 26193.27,
-          y1: 35696.41
-        }, {
-          x: 1431399600000,
-          y: 15376.01,
-          y0: 9424.73,
-          series: 1,
-          size: 15376.01,
-          y1: 24800.739999999998
-        }, {
-          x: 1431485700000,
-          y: 16787.7,
-          y0: 16404.26,
-          series: 1,
-          size: 16787.7,
-          y1: 33191.96
-        }, {
-          x: 1431571800000,
-          y: 16704.21,
-          y0: 9803.69,
-          series: 1,
-          size: 16704.21,
-          y1: 26507.9
-        }, {
-          x: 1431657900000,
-          y: 17178.08,
-          y0: 15260.46,
-          series: 1,
-          size: 17178.08,
-          y1: 32438.54
-        }, {
-          x: 1431744000000,
-          y: 11716.15,
-          y0: 16171.12,
-          series: 1,
-          size: 11716.15,
-          y1: 27887.27
-        }, {
-          x: 1431830100000,
-          y: 11825.22,
-          y0: 14188.93,
-          series: 1,
-          size: 11825.22,
-          y1: 26014.15
-        }, {
-          x: 1431916200000,
-          y: 17071.13,
-          y0: 18863.12,
-          series: 1,
-          size: 17071.13,
-          y1: 35934.25
-        }, {
-          x: 1432002300000,
-          y: 10651.25,
-          y0: 18131.37,
-          series: 1,
-          size: 10651.25,
-          y1: 28782.62
-        }, {
-          x: 1432088400000,
-          y: 16590.76,
-          y0: 26329.31,
-          series: 1,
-          size: 16590.76,
-          y1: 42920.07
-        }, {
-          x: 1432174500000,
-          y: 13952.16,
-          y0: 32493.16,
-          series: 1,
-          size: 13952.16,
-          y1: 46445.32
-        }, {
-          x: 1432260600000,
-          y: 11530.75,
-          y0: 25001.84,
-          series: 1,
-          size: 11530.75,
-          y1: 36532.59
-        }, {
-          x: 1432346700000,
-          y: 16036.43,
-          y0: 22427.1,
-          series: 1,
-          size: 16036.43,
-          y1: 38463.53
-        }, {
-          x: 1432432800000,
-          y: 9068.72,
-          y0: 11979.55,
-          series: 1,
-          size: 9068.72,
-          y1: 21048.269999999997
-        }, {
-          x: 1432518900000,
-          y: 14633.72,
-          y0: 14960.5,
-          series: 1,
-          size: 14633.72,
-          y1: 29594.22
-        }, {
-          x: 1432605000000,
-          y: 13307.04,
-          y0: 16412.98,
-          series: 1,
-          size: 13307.04,
-          y1: 29720.02
-        }, {
-          x: 1432691100000,
-          y: 14989.44,
-          y0: 17731.44,
-          series: 1,
-          size: 14989.44,
-          y1: 32720.879999999997
-        }, {
-          x: 1432777200000,
-          y: 17557.75,
-          y0: 14748.99,
-          series: 1,
-          size: 17557.75,
-          y1: 32306.739999999998
-        }, {
-          x: 1432863300000,
-          y: 10944.17,
-          y0: 11231.39,
-          series: 1,
-          size: 10944.17,
-          y1: 22175.559999999998
-        }, {
-          x: 1432949400000,
-          y: 14957.24,
-          y0: 17376.76,
-          series: 1,
-          size: 14957.24,
-          y1: 32334
-        }]
-      }, {
-        key: 'Blog',
-        values: [{
-          x: 1430366400000,
-          y: 11418.43,
-          y0: 32353.42,
-          series: 2,
-          size: 11418.43,
-          y1: 43771.85
-        }, {
-          x: 1430452500000,
-          y: 14339.26,
-          y0: 25713.89,
-          series: 2,
-          size: 14339.26,
-          y1: 40053.15
-        }, {
-          x: 1430538600000,
-          y: 9484.78,
-          y0: 23179.28,
-          series: 2,
-          size: 9484.78,
-          y1: 32664.059999999998
-        }, {
-          x: 1430624700000,
-          y: 15891.26,
-          y0: 25866.73,
-          series: 2,
-          size: 15891.26,
-          y1: 41757.99
-        }, {
-          x: 1430710800000,
-          y: 9895.74,
-          y0: 27858.96,
-          series: 2,
-          size: 9895.74,
-          y1: 37754.7
-        }, {
-          x: 1430796900000,
-          y: 12615.36,
-          y0: 29042.43,
-          series: 2,
-          size: 12615.36,
-          y1: 41657.79
-        }, {
-          x: 1430883000000,
-          y: 12878.17,
-          y0: 24143.63,
-          series: 2,
-          size: 12878.17,
-          y1: 37021.8
-        }, {
-          x: 1430969100000,
-          y: 9870.84,
-          y0: 22622.29,
-          series: 2,
-          size: 9870.84,
-          y1: 32493.13
-        }, {
-          x: 1431055200000,
-          y: 10719.78,
-          y0: 28884.34,
-          series: 2,
-          size: 10719.78,
-          y1: 39604.12
-        }, {
-          x: 1431141300000,
-          y: 10688.14,
-          y0: 39228.979999999996,
-          series: 2,
-          size: 10688.14,
-          y1: 49917.119999999995
-        }, {
-          x: 1431227400000,
-          y: 15038.91,
-          y0: 51340.869999999995,
-          series: 2,
-          size: 15038.91,
-          y1: 66379.78
-        }, {
-          x: 1431313500000,
-          y: 13106.14,
-          y0: 35696.41,
-          series: 2,
-          size: 13106.14,
-          y1: 48802.55
-        }, {
-          x: 1431399600000,
-          y: 15599.85,
-          y0: 24800.739999999998,
-          series: 2,
-          size: 15599.85,
-          y1: 40400.59
-        }, {
-          x: 1431485700000,
-          y: 15305.64,
-          y0: 33191.96,
-          series: 2,
-          size: 15305.64,
-          y1: 48497.6
-        }, {
-          x: 1431571800000,
-          y: 9636.09,
-          y0: 26507.9,
-          series: 2,
-          size: 9636.09,
-          y1: 36143.990000000005
-        }, {
-          x: 1431657900000,
-          y: 15192.49,
-          y0: 32438.54,
-          series: 2,
-          size: 15192.49,
-          y1: 47631.03
-        }, {
-          x: 1431744000000,
-          y: 9166.61,
-          y0: 27887.27,
-          series: 2,
-          size: 9166.61,
-          y1: 37053.880000000005
-        }, {
-          x: 1431830100000,
-          y: 13216.31,
-          y0: 26014.15,
-          series: 2,
-          size: 13216.31,
-          y1: 39230.46
-        }, {
-          x: 1431916200000,
-          y: 9519.54,
-          y0: 35934.25,
-          series: 2,
-          size: 9519.54,
-          y1: 45453.79
-        }, {
-          x: 1432002300000,
-          y: 9715.1,
-          y0: 28782.62,
-          series: 2,
-          size: 9715.1,
-          y1: 38497.72
-        }, {
-          x: 1432088400000,
-          y: 13254.82,
-          y0: 42920.07,
-          series: 2,
-          size: 13254.82,
-          y1: 56174.89
-        }, {
-          x: 1432174500000,
-          y: 12390.55,
-          y0: 46445.32,
-          series: 2,
-          size: 12390.55,
-          y1: 58835.869999999995
-        }, {
-          x: 1432260600000,
-          y: 12624.26,
-          y0: 36532.59,
-          series: 2,
-          size: 12624.26,
-          y1: 49156.85
-        }, {
-          x: 1432346700000,
-          y: 14714.53,
-          y0: 38463.53,
-          series: 2,
-          size: 14714.53,
-          y1: 53178.06
-        }, {
-          x: 1432432800000,
-          y: 12607.47,
-          y0: 21048.269999999997,
-          series: 2,
-          size: 12607.47,
-          y1: 33655.74
-        }, {
-          x: 1432518900000,
-          y: 9106.57,
-          y0: 29594.22,
-          series: 2,
-          size: 9106.57,
-          y1: 38700.79
-        }, {
-          x: 1432605000000,
-          y: 14918.49,
-          y0: 29720.02,
-          series: 2,
-          size: 14918.49,
-          y1: 44638.51
-        }, {
-          x: 1432691100000,
-          y: 11707.08,
-          y0: 32720.879999999997,
-          series: 2,
-          size: 11707.08,
-          y1: 44427.96
-        }, {
-          x: 1432777200000,
-          y: 17454.86,
-          y0: 32306.739999999998,
-          series: 2,
-          size: 17454.86,
-          y1: 49761.6
-        }, {
-          x: 1432863300000,
-          y: 10995.06,
-          y0: 22175.559999999998,
-          series: 2,
-          size: 10995.06,
-          y1: 33170.619999999995
-        }, {
-          x: 1432949400000,
-          y: 14742.56,
-          y0: 32334,
-          series: 2,
-          size: 14742.56,
-          y1: 47076.56
-        }]
-      }]
-    }, {
-      options: {
-        title: {
-          enable: true,
-          text: 'Hourly Cost Analysis',
-          class: 'h4',
-          css: {width: 'nullpx', textAlign: 'center'}
-        },
-        chart: {
-          type: 'lineChart',
-          height: 350,
-          margin: {
-            top: 20,
-            right: 20,
-            bottom: 60,
-            left: 100
+        name: 'Cloud Exchange',
+        data: [0.0, 0.0, 20.0, 119, 45.0, 58.0, 68.0, 11.0, 2.1, 0.0, 0.3, 0.0,
+          0.0, 0.4, 0.0, 10.1, 0.0, 0.0, 0.0, 0.0, 0.0, 90.0, 100.0, 0.0, 20.2],
+        color: '#1DC58E'
+      },
+        {
+          name: 'Blog',
+          data: [10.0, 30.0, 0.0, 2, 5, 0.0, 3, 2, 5, 1, 0.3, 0.0,
+            0.0, 0.4, 0.0, 20.1, 0.0, 0.0, 80.0, 0.0, 10.0, 30.0, 20.0, 120.0, 110],
+          color: '#3397DB'
+        }],
+      navigation: {
+        menuItemStyle: {
+          fontSize: '10px'
+        }
+      }
+    },
+      {
+        options: {
+          chart: {
+            type: 'column'
           },
-          useInteractiveGuideline: true,
-          transitionDuration: 500,
+          title: {
+            text: 'Monthly Cost Analysis'
+          },
           xAxis: {
-            axisLabel: '24 Hours',
-            tickFormat: function(d) {
-              return d3.format(',f')(d) + '00';
-            }
+            categories: [
+              'Jan',
+              'Feb',
+              'Mar',
+              'Apr',
+              'May',
+              'Jun',
+              'Jul',
+              'Aug',
+              'Sep',
+              'Oct',
+              'Nov',
+              'Dec'
+            ],
+            crosshair: true
           },
           yAxis: {
-            axisLabel: 'Cost ($USD)',
-            tickFormat: function(d) {
-              return d3.format(',.2f')(d);
-            },
-            rotateYLabel: true
+            lineWidth: 1,
+            tickWidth: 1,
+            title: {
+              align: 'high',
+              offset: 0,
+              text: 'Cost ($1000 USD)',
+              rotation: 0,
+              y: -10
+            }
+          },
+          tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+          },
+          credits: {
+            enabled: false
           }
-        }
-      }, data: [
-        {
-          key: 'Projects Total',
-          values: [{x: 1, y: 525.46, series: 3},
-            {x: 2, y: 723.23, series: 3},
-            {
-              x: 3,
-              y: 1262.29,
-              series: 3
-            }, {x: 4, y: 1917.29, series: 3},
-            {x: 5, y: 2228.8900000000003, series: 3},
-            {
-              x: 6,
-              y: 2221.76,
-              series: 3
-            }, {x: 7, y: 2026.8, series: 3},
-            {x: 8, y: 1972.23, series: 3}, {
-              x: 9,
-              y: 1333.77,
-              series: 3
-            }, {x: 10, y: 921.3100000000001, series: 3},
-            {x: 11, y: 633.71, series: 3},
-            {
-              x: 12,
-              y: 476.09000000000003,
-              series: 3
-            }, {x: 13, y: 425.66, series: 3},
-            {x: 14, y: 434.1, series: 3}, {
-              x: 15,
-              y: 391.57,
-              series: 3
-            }, {x: 16, y: 454.18999999999994, series: 3},
-            {x: 17, y: 451.22, series: 3},
-            {
-              x: 18,
-              y: 906.01,
-              series: 3
-            }, {x: 19, y: 1734.42, series: 3},
-            {x: 20, y: 3134.19, series: 3}, {
-              x: 21,
-              y: 3997.1099999999997,
-              series: 3
-            }, {x: 22, y: 3429.96, series: 3},
-            {x: 23, y: 1941.26, series: 3}, {
-              x: 24,
-              y: 910.67,
-              series: 3
-            }]
         },
-        {
-          key: 'Project Jellyfish',
-          values: [
-            {
-              x: 1,
-              y: 160.41,
-              series: 0
-            },
-            {
-              x: 2,
-              y: 110.26,
-              series: 0
-            },
-            {
-              x: 3,
-              y: 106.05,
-              series: 0
-            },
-            {
-              x: 4,
-              y: 160.38,
-              series: 0
-            },
-            {
-              x: 5,
-              y: 163.91,
-              series: 0
-            },
-            {
-              x: 6,
-              y: 123.21,
-              series: 0
-            },
-            {
-              x: 7,
-              y: 104.8,
-              series: 0
-            },
-            {
-              x: 8,
-              y: 197.47,
-              series: 0
-            },
-            {
-              x: 9,
-              y: 153.76,
-              series: 0
-            },
-            {
-              x: 10,
-              y: 116.7,
-              series: 0
-            },
-            {
-              x: 11,
-              y: 185.07,
-              series: 0
-            },
-            {
-              x: 12,
-              y: 129.25,
-              series: 0
-            },
-            {
-              x: 13,
-              y: 142.8,
-              series: 0
-            },
-            {
-              x: 14,
-              y: 111.45,
-              series: 0
-            },
-            {
-              x: 15,
-              y: 144.19,
-              series: 0
-            },
-            {
-              x: 16,
-              y: 155.12,
-              series: 0
-            },
-            {
-              x: 17,
-              y: 242.24,
-              series: 0
-            },
-            {
-              x: 18,
-              y: 595.17,
-              series: 0
-            },
-            {
-              x: 19,
-              y: 1485.6,
-              series: 0
-            },
-            {
-              x: 20,
-              y: 2859.21,
-              series: 0
-            },
-            {
-              x: 21,
-              y: 3757.29,
-              series: 0
-            },
-            {
-              x: 22,
-              y: 3071.19,
-              series: 0
-            },
-            {
-              x: 23,
-              y: 1648.3,
-              series: 0
-            },
-            {
-              x: 24,
-              y: 586.85,
-              series: 0
-            }
-          ]
+        series: [{
+          name: 'Project Jellyfish',
+          data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+          color: '#F88954'
+
+        }, {
+          name: 'Blog',
+          data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+        }, {
+          name: 'Cloud Exchange',
+          data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2],
+          color: '#1DC58E'
+
+        }]
+      },
+      {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false
         },
-        {
-          key: 'Cloud File Exchange',
-          values: [
-            {
-              x: 1,
-              y: 162.21,
-              series: 1
-            },
-            {
-              x: 2,
-              y: 371.98,
-              series: 1
-            },
-            {
-              x: 3,
-              y: 809.97,
-              series: 1
-            },
-            {
-              x: 4,
-              y: 1160.43,
-              series: 1
-            },
-            {
-              x: 5,
-              y: 947.59,
-              series: 1
-            },
-            {
-              x: 6,
-              y: 561.06,
-              series: 1
-            },
-            {
-              x: 7,
-              y: 225.39,
-              series: 1
-            },
-            {
-              x: 8,
-              y: 157.14,
-              series: 1
-            },
-            {
-              x: 9,
-              y: 158.44,
-              series: 1
-            },
-            {
-              x: 10,
-              y: 169.42,
-              series: 1
-            },
-            {
-              x: 11,
-              y: 148.85,
-              series: 1
-            },
-            {
-              x: 12,
-              y: 190.49,
-              series: 1
-            },
-            {
-              x: 13,
-              y: 143.41,
-              series: 1
-            },
-            {
-              x: 14,
-              y: 140.19,
-              series: 1
-            },
-            {
-              x: 15,
-              y: 109.83,
-              series: 1
-            },
-            {
-              x: 16,
-              y: 194.66,
-              series: 1
-            },
-            {
-              x: 17,
-              y: 106.55,
-              series: 1
-            },
-            {
-              x: 18,
-              y: 174.27,
-              series: 1
-            },
-            {
-              x: 19,
-              y: 129.67,
-              series: 1
-            },
-            {
-              x: 20,
-              y: 170.21,
-              series: 1
-            },
-            {
-              x: 21,
-              y: 111.06,
-              series: 1
-            },
-            {
-              x: 22,
-              y: 182.21,
-              series: 1
-            },
-            {
-              x: 23,
-              y: 118.43,
-              series: 1
-            },
-            {
-              x: 24,
-              y: 189.92,
-              series: 1
-            }
-          ]
+        title: {
+          text: 'Active Service Types by Overall % '
         },
-        {
-          key: 'Blog',
-          values: [
-            {
-              x: 1,
-              y: 202.84,
-              series: 2
-            },
-            {
-              x: 2,
-              y: 240.99,
-              series: 2
-            },
-            {
-              x: 3,
-              y: 346.27,
-              series: 2
-            },
-            {
-              x: 4,
-              y: 596.48,
-              series: 2
-            },
-            {
-              x: 5,
-              y: 1117.39,
-              series: 2
-            },
-            {
-              x: 6,
-              y: 1537.49,
-              series: 2
-            },
-            {
-              x: 7,
-              y: 1696.61,
-              series: 2
-            },
-            {
-              x: 8,
-              y: 1617.62,
-              series: 2
-            },
-            {
-              x: 9,
-              y: 1021.57,
-              series: 2
-            },
-            {
-              x: 10,
-              y: 635.19,
-              series: 2
-            },
-            {
-              x: 11,
-              y: 299.79,
-              series: 2
-            },
-            {
-              x: 12,
-              y: 156.35,
-              series: 2
-            },
-            {
-              x: 13,
-              y: 139.45,
-              series: 2
-            },
-            {
-              x: 14,
-              y: 182.46,
-              series: 2
-            },
-            {
-              x: 15,
-              y: 137.55,
-              series: 2
-            },
-            {
-              x: 16,
-              y: 104.41,
-              series: 2
-            },
-            {
-              x: 17,
-              y: 102.43,
-              series: 2
-            },
-            {
-              x: 18,
-              y: 136.57,
-              series: 2
-            },
-            {
-              x: 19,
-              y: 119.15,
-              series: 2
-            },
-            {
-              x: 20,
-              y: 104.77,
-              series: 2
-            },
-            {
-              x: 21,
-              y: 128.76,
-              series: 2
-            },
-            {
-              x: 22,
-              y: 176.56,
-              series: 2
-            },
-            {
-              x: 23,
-              y: 174.53,
-              series: 2
-            },
-            {
-              x: 24,
-              y: 133.9,
-              series: 2
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+              style: {
+                color: 'black'
+              }
             }
+          }
+        },
+        series: [{
+          type: 'pie',
+          name: 'Active Service Percentages',
+          data: [
+            ['MS Exchange Server', 45.0],
+            ['Rails Stack', 26.8],
+            {
+              name: 'LampStack',
+              y: 12.8,
+              sliced: true,
+              selected: true
+            },
+            ['Small MySQL', 8.5],
+            ['S3 Storage', 6.2],
+            ['Large PostgreSQL', 0.7]
           ]
-        }
-      ]
-    }
+        }]
+      },
+      {
+        options: {
+          chart: {
+            type: 'column',
+            options3d: {
+              enabled: true,
+              alpha: 15,
+              beta: 15,
+              viewDistance: 25,
+              depth: 40
+            },
+            marginTop: 80,
+            marginRight: 40
+          },
+
+          title: {
+            text: 'Total Services by Project'
+          },
+
+          xAxis: {
+            categories: ['Blog', 'Project Jellyfish', 'Cloud Exchange']
+          },
+
+          yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+              text: 'Number of Services'
+            }
+          },
+
+          tooltip: {
+            headerFormat: '<b>{point.key}</b><br>',
+            pointFormat: '<span style="color:{series.color}">\u25CF</span> ' +
+            '{series.name}: {point.y} / {point.stackTotal}'
+          },
+
+          plotOptions: {
+            column: {
+              stacking: 'normal',
+              depth: 40
+            }
+          }
+        },
+
+        series: [{
+          name: 'MS Exchange Server',
+          data: [4, 4, 2]
+        }, {
+          name: 'Rails Stack',
+          data: [3, 2, 4]
+        }, {
+          name: 'LampStack',
+          data: [3, 0, 1]
+        }, {
+          name: 'Small MySQL',
+          data: [1, 1, 1]
+        }, {
+          name: 'S3 Storage',
+          data: [2, 0, 1]
+        }, {
+          name: 'Large PostgreSQL',
+          data: [1, 0, 0]
+        }]
+      }
     ];
   }
 })();
