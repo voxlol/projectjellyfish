@@ -123,8 +123,7 @@ class Project < ActiveRecord::Base
     '2 GB'
   end
 
-  private
-
+  # private
   # def highest_priority_latest_alert
   #   # TODO: REIMPLEMENT SANS LATEST ALERT
   #   # latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
