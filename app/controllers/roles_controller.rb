@@ -12,6 +12,14 @@ class RolesController < ApplicationController
     respond_with_params roles
   end
 
+  api :GET, '/roles/:id', 'Returns roles with :id'
+  param :id, :number, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show
+    respond_with Role.find(params[:id])
+  end
+
   api :POST, '/roles', 'Create a role'
   document_params required: true
   def create

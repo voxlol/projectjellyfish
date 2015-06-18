@@ -15,13 +15,12 @@
     return {
       'admin.roles.edit': {
         url: '/edit/:roleId',
-        templateUrl: 'app/states/admin/roules/edit/edit.html',
+        templateUrl: 'app/states/admin/roles/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Edit Role',
+        title: 'Admin Edit Role',
         resolve: {
-          role: resolveRole,
-          staff: resolveStaff
+          role: resolveRole
         }
       }
     };
@@ -41,17 +40,11 @@
   }
 
   /** @ngInject */
-  function resolveStaff(Staff) {
-    return Staff.query().$promise;
-  }
-
-  /** @ngInject */
-  function StateController(logger, role, staff) {
+  function StateController(logger, role) {
     var vm = this;
 
     vm.title = 'Edit Role';
     vm.role = role;
-    vm.staff = staff;
 
     vm.activate = activate;
 

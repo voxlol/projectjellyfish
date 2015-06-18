@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveStaff(Staff) {
-    return Staff.query().$promise;
+    return Staff.get().$promise;
   }
 
   /** @ngInject */
