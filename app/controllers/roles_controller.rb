@@ -48,7 +48,7 @@ class RolesController < ApplicationController
     params.require(:name)
     params.require(:description)
     params.require(:permissions)
-    params.permit(:name, :description, permissions: { projects: [], approvals: [], memberships: []})
+    params.permit(:name, :description, permissions: { projects: [], approvals: [], memberships: [] })
   end
 
   def role
