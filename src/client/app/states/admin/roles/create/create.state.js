@@ -18,10 +18,7 @@
         templateUrl: 'app/states/admin/roles/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Roles Create',
-        resolve: {
-          staff: resolveStaff
-        }
+        title: 'Admin Roles Create'
       }
     };
   }
@@ -34,17 +31,12 @@
     return {};
   }
 
-  /** @ngInject */
-  function resolveStaff(Staff) {
-    return Staff.get().$promise;
-  }
 
   /** @ngInject */
-  function StateController(logger, Role, staff) {
+  function StateController(logger, Role) {
     var vm = this;
 
     vm.title = 'Admin Role Create';
-    vm.staff = staff;
 
     vm.activate = activate;
 
