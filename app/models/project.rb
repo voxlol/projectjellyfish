@@ -66,12 +66,11 @@ class Project < ActiveRecord::Base
   end
 
   def compute_current_status!
-    # TODO: REIMPLEMENT THIS WITHOUT LATEST ALERT CODE
-    # if latest_alerts.any?
-    #   update(status: highest_priority_latest_alert.status.downcase)
-    # else
-    #   update(status: 'unknown')
-    # end
+    if latest_alerts.any?
+      update(status: highest_priority_latest_alert.status.downcase)
+    else
+      update(status: 'unknown')
+    end
   end
 
   def domain
@@ -124,8 +123,12 @@ class Project < ActiveRecord::Base
   end
 
   # private
-  # def highest_priority_latest_alert
-  #   # TODO: REIMPLEMENT SANS LATEST ALERT
-  #   # latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
-  # end
+
+  def latest_alerts
+    services.map{ |s| s.alerts.where(id: s.alerts.group('category').select('max(id) as latest_alert_id')) }.flatten
+  end
+
+  def highest_priority_latest_alert
+    latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
+  end
 end
