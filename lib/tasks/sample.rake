@@ -252,8 +252,13 @@ namespace :sample do
     Alert.create!([
       { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
       { id: 2, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
-      { id: 3, status: "warning", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 4, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
+      { id: 3, status: "warning", message: "Medium PostgreSQL is at 85% capcity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 4, status: "critical", message: "Medium PostgreSQL is at 95% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 5, status: "ok", message: "Medium PostgreSQL is at 35% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 6, status: "warning", message: "Medium PostgreSQL license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 7, status: "critical", message: "Medium PostgreSQL license expires in 1 day.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 8, status: "ok", message: "Medium PostgreSQL liscense license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 9, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 
