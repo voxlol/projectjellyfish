@@ -57,6 +57,27 @@ describe 'Project.compute_current_status!' do
   end
 end
 
+describe 'Project.problem_count' do
+  it 'returns count of non-ok latest alerts for a project' do
+    project = create(
+      :project,
+      services: [
+        create(:order_item,
+          alerts: [
+            create(:alert, status: :ok),
+            create(:alert, status: :critical)
+          ]),
+        create(:order_item,
+          alerts: [
+            create(:alert, status: :warning),
+            create(:alert, status: :ok)
+          ])
+      ]
+    )
+    expect(project.problem_count).to eq(1)
+  end
+end
+
 describe 'Project.monthly_spend' do
   it 'returns total monthly spend' do
     project = create(:project)

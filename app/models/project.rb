@@ -94,8 +94,7 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    # TODO: REIMPLEMENT SANS LATEST ALERT CODE
-    # @problem_count ||= latest_alerts.not_status(:OK).count
+    @problem_count ||= latest_alerts.count { |a| a unless a.status == 'ok' }
   end
 
   def account_number
