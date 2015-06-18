@@ -7,7 +7,7 @@ class RolesController < ApplicationController
 
   api :GET, '/roles', 'Returns all roles'
   def index
-    respond_with_params roles
+    respond_with_params load_roles
   end
 
   api :GET, '/roles/:id', 'Returns roles with :id'
@@ -15,7 +15,7 @@ class RolesController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    respond_with_params role
+    respond_with_params load_role
   end
 
   api :POST, '/roles', 'Create a role'
@@ -30,12 +30,12 @@ class RolesController < ApplicationController
   document_params
 
   def update
-    respond_with_params role.update!(role_params)
+    respond_with_params load_role.update!(role_params)
   end
 
   api :DELETE, '/roles/:id', 'Destroy a role'
   def destroy
-    respond_with_params role.destroy
+    respond_with_params load_role.destroy
   end
 
   private
@@ -44,11 +44,11 @@ class RolesController < ApplicationController
     params.permit(:name, :description, :permissions)
   end
 
-  def role
-    @role = Role.find(params.require(params[:id])).tap { |r| authorize(r) }
+  def load_role
+    @role = Role.find(params.require(:id)).tap { |r| authorize(r) }
   end
 
-  def roles
+  def load_roles
     authorize Role
     @roles = Role.all
   end
