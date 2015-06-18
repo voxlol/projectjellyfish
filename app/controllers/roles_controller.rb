@@ -1,8 +1,12 @@
 class RolesController < ApplicationController
   def self.document_params(required: false)
-    param :name, String, desc: 'Name of the role', required: required
+    param :name, String, desc: 'Name of the role'
     param :description, String, desc: 'Description of the role', required: required
-    param :permissions, Hash, desc: %(Hash of permissions allowed, such as { projects: ["read", "write"] }. Valid keys: #{Role::PERMISSIONS}.), required: required
+    param :permissions, Hash, desc: %(Hash of permissions allowed, such as { projects: ["read", "write"] }. Valid keys: #{Role::PERMISSIONS}.), required: required do
+      param :projects, Array, required: required, allow_nil: true
+      param :approvals, Array, required: required, allow_nil: true
+      param :memberships, Array, required: required, allow_nil: true
+    end
   end
 
   api :GET, '/roles', 'Returns all roles'
@@ -41,7 +45,10 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.permit(:name, :description, :permissions)
+    params.require(:name)
+    params.require(:description)
+    params.require(:permissions)
+    params.permit(:name, :description, permissions: { projects: [], approvals: [], memberships: []})
   end
 
   def role
