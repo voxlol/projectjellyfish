@@ -257,8 +257,9 @@ namespace :sample do
       { id: 5, status: "ok", message: "Medium PostgreSQL is at 35% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
       { id: 6, status: "warning", message: "Medium PostgreSQL license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
       { id: 7, status: "critical", message: "Medium PostgreSQL license expires in 1 day.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 8, status: "ok", message: "Medium PostgreSQL liscense license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 9, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
+      { id: 8, status: "ok", message: "Medium PostgreSQL license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 9, status: "warning", message: "RHEL 6 license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 2, alertable_type: OrderItem, category: 'license'},
+      { id: 10, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 
