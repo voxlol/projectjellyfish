@@ -30,82 +30,60 @@ RSpec.describe 'Alerts API' do
     end
   end
 
-  describe 'GET show (as Admin)' do
-    #   before :each  do
-    #     @active_alert = create :alert, :active, status: 'OK'
-    #     create :alert, :inactive, status: 'OK'
-    #     create :alert, :active, status: 'OK'
-    #     create :alert, :active, status: 'WARNING'
-    #     create :alert, :active, status: 'CRITICAL'
-    #     create :alert, :inactive, status: 'OK'
-    #     create :alert, :inactive, status: 'WARNING'
-    #     create :alert, :inactive, status: 'CRITICAL'
-    #     sign_in_as create :staff, :admin
-    #   end
-    #
-    #   it 'retrieves alert by id', :show_in_doc do
-    #     get "/api/v1/alerts/#{@active_alert.id}"
-    #     expect(json['id']).to eq(@active_alert.id)
-    #   end
-    #
-    #   it 'shows all alerts', :show_in_doc do
-    #     get '/api/v1/alerts'
-    #     expect(json.length).to eq(8)
-    #   end
-    #
-    #   it 'shows all active alerts', :show_in_doc do
-    #     get '/api/v1/alerts', active: true
-    #     expect(json.length).to eq(4)
-    #   end
-    #
-    #   it 'shows all inactive alerts', :show_in_doc do
-    #     get '/api/v1/alerts', active: false
-    #     expect(json.length).to eq(4)
-    #   end
-    #
-    #   it 'shows all non-OK alerts', :show_in_doc do
-    #     get '/api/v1/alerts', not_status: ['OK']
-    #     expect(json.length).to eq(4)
-    #   end
-    #
-    #   it 'shows all alerts sorted by oldest_first', :show_in_doc do
-    #     get '/api/v1/alerts', sort: ['oldest_first']
-    #     expect(json.length).to eq(8)
-    #     expect(Time.zone.parse(json[0]['updated_at']).to_s).to eq(@active_alert.updated_at.to_s)
-    #   end
-    #
-    #   it 'shows all active non-OK alerts', :show_in_doc do
-    #     get '/api/v1/alerts', active: true, not_status: ['OK']
-    #     expect(json.length).to eq(2)
-    #   end
-    #
-    #   it 'returns an error when the alert does not exist' do
-    #     get "/api/v1/alerts/#{@active_alert.id + 999}"
-    #     expect(response.status).to eq(404)
-    #     expect(json).to eq('error' => 'Not found.')
-    #   end
-    # end
-    #
-    # describe 'GET show (as Staff)' do
-    #   it 'verifies show alerts, scoped to the user', :show_in_doc do
-    #     project = create(:project)
-    #     visible = create(:alert, :active, project: project)
-    #     staff = create(:staff, alerts: [visible])
-    #     staff.groups << Group.new(projects: [project])
-    #     create(:alert, :active)
-    #     sign_in_as staff
-    #     get '/api/v1/alerts'
-    #     data = JSON.parse(response.body)[0]
-    #     expect(data['id']).to eq(visible.id)
-    #     expect(data['project_id']).to eq(visible.project_id)
-    #     expect(data['staff_id']).to eq(visible.staff_id)
-    #     expect(data['order_item_id']).to eq(visible.order_item_id)
-    #     expect(data['status']).to eq(visible.status)
-    #     expect(data['message']).to eq(visible.message)
-    #     # TODO: ALIGN THE FORMAT OF START AND END AGAINST THE JSON RETURNED BY ALERTS
-    #     # expect(data['start_date']).to eq(visible.start_date)
-    #     # expect(data['end_date']).to eq(visible.end_date)
-    #   end
+  describe 'GET show' do
+    before :each  do
+      @active_alert = create :alert, :active, status: 'ok'
+      create :alert, :inactive, status: 'ok'
+      create :alert, :active, status: 'ok'
+      create :alert, :active, status: 'warning'
+      create :alert, :active, status: 'critical'
+      create :alert, :inactive, status: 'ok'
+      create :alert, :inactive, status: 'warning'
+      create :alert, :inactive, status: 'critical'
+      sign_in_as create :staff, :admin
+    end
+
+    it 'retrieves alert by id', :show_in_doc do
+      get "/api/v1/alerts/#{@active_alert.id}"
+      expect(json['id']).to eq(@active_alert.id)
+    end
+
+    it 'shows all alerts', :show_in_doc do
+      get '/api/v1/alerts'
+      expect(json.length).to eq(8)
+    end
+
+    it 'shows all active alerts', :show_in_doc do
+      get '/api/v1/alerts', active: true
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all inactive alerts', :show_in_doc do
+      get '/api/v1/alerts', active: false
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all non-OK alerts', :show_in_doc do
+      get '/api/v1/alerts', not_status: ['ok']
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all active non-OK alerts', :show_in_doc do
+      get '/api/v1/alerts', active: true, not_status: ['ok']
+      expect(json.length).to eq(2)
+    end
+
+    it 'shows all alerts sorted by oldest_first', :show_in_doc do
+      get '/api/v1/alerts', sort: ['oldest_first']
+      expect(json.length).to eq(8)
+      expect(Time.zone.parse(json[0]['updated_at']).to_s).to eq(@active_alert.updated_at.to_s)
+    end
+
+    it 'returns an error when the alert does not exist' do
+      get "/api/v1/alerts/#{@active_alert.id + 999}"
+      expect(response.status).to eq(404)
+      expect(json).to eq('error' => 'Not found.')
+    end
   end
 
   describe 'POST create' do
@@ -184,27 +162,24 @@ RSpec.describe 'Alerts API' do
   end
 
   describe 'PUT update' do
-    #   before :each do
-    #     @alert = create :alert
-    #     sign_in_as create :staff, :admin
-    #   end
-    #
-    #   it 'changes existing alert message', :show_in_doc do
-    #     params = {}
-    #     params[:project_id] = @alert.project_id
-    #     params[:staff_id] = @alert.staff_id
-    #     params[:order_item_id] = @alert.order_item_id
-    #     params[:status] = @alert.status
-    #     params[:message] = 'Updated'
-    #     put "/api/v1/alerts/#{@alert.id}", params
-    #     expect(response.status).to eq(204)
-    #   end
-    #
-    #   it 'returns an error when the setting does not exist' do
-    #     put "/api/v1/alerts/#{@alert.id + 999}", message: 'Updated'
-    #     expect(response.status).to eq(404)
-    #     expect(json).to eq('error' => 'Not found.')
-    #   end
+    before :each do
+      @alert = create :alert
+      sign_in_as create :staff, :admin
+    end
+
+    it 'changes existing alert message', :show_in_doc do
+      params = {}
+      params[:status] = @alert.status
+      params[:message] = 'Updated'
+      put "/api/v1/alerts/#{@alert.id}", params
+      expect(response.status).to eq(204)
+    end
+
+    it 'returns an error when the setting does not exist' do
+      put "/api/v1/alerts/#{@alert.id + 999}", message: 'Updated'
+      expect(response.status).to eq(404)
+      expect(json).to eq('error' => 'Not found.')
+    end
   end
 
   describe 'DELETE destroy' do
