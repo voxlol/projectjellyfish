@@ -10,7 +10,6 @@ class AlertsController < ApplicationController
 
   def index
     authorize Alert.new
-    alerts = query_with policy_scope(Alert), :pagination
     respond_with_params alerts
   end
 
@@ -25,8 +24,8 @@ class AlertsController < ApplicationController
 
   api :POST, '/alerts', 'Creates a new alert'
   # TODO: POLYMORPHIC ALERTS COULD HAVE MULTIPLE KINDS OF PARENT IDS, HOW TO PASS AND HANDLE THOSE IN URL PARAMS?
-  param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
-  param :message, String, required: true, desc: 'The message content of the new alert.'
+  param :status, String, required: false, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
+  param :message, String, required: false, desc: 'The message content of the new alert.'
   param :category, String, required: false, desc: 'The category this alert is grouped under.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
@@ -39,7 +38,7 @@ class AlertsController < ApplicationController
   end
 
   api :PUT, '/alerts/:id', 'Updates alert with given :id'
-  param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
+  param :status, String, required: false, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: false, desc: 'The message content to update alert with.'
   param :category, String, required: false, desc: 'The category this alert is grouped under.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
@@ -63,6 +62,32 @@ class AlertsController < ApplicationController
 
   def alert
     @_alert ||= Alert.find(params[:id])
+  end
+
+  def alerts
+    query = policy_scope(Alert)
+    query = apply_active_or_inactive(query)
+    query = apply_not_status(query)
+    @_alerts = query_with query.where(nil), :includes, :pagination
+  end
+
+  def apply_active_or_inactive(query)
+    if params[:active].present?
+      query = params[:active] == 'true' ? query.active : query.inactive
+    end
+    if params[:inactive].present?
+      query = params[:inactive] == 'true' ? query.inactive : query.active
+    end
+    query
+  end
+
+  def apply_not_status(query)
+    if params[:not_status].present?
+      (%w(ok warning critical pending unknown) & params[:not_status]).each do |status|
+        query = query.not_status(status)
+      end
+    end
+    query
   end
 
   def alert_params
