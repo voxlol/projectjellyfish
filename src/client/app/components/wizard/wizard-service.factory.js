@@ -5,7 +5,7 @@
     .factory('WizardService', WizardServiceFactory);
 
   /** @ngInject */
-  function WizardServiceFactory($modal, lodash) {
+  function WizardServiceFactory($modal, WizardQuestion) {
     var service = {
       showModal: showModal
     };
@@ -26,8 +26,7 @@
 
       return modal.result;
 
-      /** @ngInject */
-      function resolveQuestions(WizardQuestion) {
+      function resolveQuestions() {
         return WizardQuestion.query().$promise;
       }
     }
