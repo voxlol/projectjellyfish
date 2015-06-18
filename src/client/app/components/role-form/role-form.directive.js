@@ -61,7 +61,6 @@
 
       function onSubmit() {
         vm.showValidationMessages = true;
-        console.log(vm.role);
         if (vm.form.$valid) {
           if (vm.role.id) {
             vm.role.$update(saveSuccess, saveFailure);
