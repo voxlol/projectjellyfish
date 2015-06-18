@@ -82,7 +82,7 @@
     }
 
     /** @ngInject */
-    function TagModalController(tagList, tagCommands, tags, mode) {
+    function TagModalController(tagList, tagCommands, tags, mode, $location, $timeout) {
       var vm = this;
 
       vm.tagList = tagList;
@@ -91,14 +91,15 @@
       vm.clearTags = tagCommands.clear;
       vm.tags = tags;
 
-      vm.shortcuts = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+      vm.shortcuts = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
       vm.tagsExistForLetter = tagsExistForLetter;
       vm.tagInUse = tagInUse;
       vm.tagUnavailable = tagUnavailable;
+      vm.gotoHash = gotoHash;
 
       function tagsExistForLetter(letter) {
-        return !angular.isUndefined(vm.tags[letter]);
+        return angular.isDefined(vm.tags[letter]);
       }
 
       function tagInUse(tag) {
@@ -111,6 +112,15 @@
         } else {
           return tagInUse(tag.name);
         }
+      }
+
+      // Remove the hash fragment from the URL which can cause the $digest to infinitely loop
+      // TODO: Use a method that doesn't alter $location
+      function gotoHash(letter) {
+        $location.hash(letter);
+        $timeout(function() {
+          $location.hash('');
+        });
       }
     }
   }

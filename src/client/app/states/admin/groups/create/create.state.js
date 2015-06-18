@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin Groups Create',
         resolve: {
-          groupToEdit: resolveGroup
+          staff: resolveStaff
         }
       }
     };
@@ -35,27 +35,30 @@
   }
 
   /** @ngInject */
-  function resolveGroup(Group, $stateParams) {
-    if ($stateParams.id) {
-      return Group.get({id: $stateParams.id}).$promise;
-    } else {
-      return {};
-    }
+  function resolveStaff(Staff) {
+    return Staff.query().$promise;
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, groupToEdit) {
+  function StateController(logger, Group, staff) {
     var vm = this;
 
     vm.title = 'Admin Group Create';
+    vm.staff = staff;
+
     vm.activate = activate;
-    vm.groupToEdit = groupToEdit;
-    vm.editing = $stateParams.id ? true : false;
 
     activate();
 
     function activate() {
+      initGroup();
       logger.info('Activated Admin Products Create View');
+    }
+
+    // Private
+
+    function initGroup() {
+      vm.group = Group.new();
     }
   }
 })();

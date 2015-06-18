@@ -41,7 +41,7 @@
       var hotkeys = [KEYS.enter, KEYS.tab, KEYS.escape, KEYS.up, KEYS.down];
 
       DirectiveOptions.load(vm, attrs, {
-        debounceDelay: [Number, 150]
+        debounceDelay: [Number, 275]
       });
 
       vm.activate(tagField);

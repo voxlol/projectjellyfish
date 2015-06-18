@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        title: '@?',
+        heading: '@?',
         projectQuestion: '='
       },
       link: link,
@@ -42,7 +42,7 @@
       vm.typeChangeCancel = typeChangeCancel;
 
       function activate() {
-        vm.title = vm.title || 'Add A Project Question';
+        vm.heading = vm.heading || 'Add A Project Question';
       }
 
       function backToList() {
@@ -69,7 +69,11 @@
         showValidationMessages = true;
 
         if (vm.form.$valid) {
-          vm.projectQuestion.$save(saveSuccess, saveFailure);
+          if (vm.projectQuestion.id) {
+            vm.projectQuestion.$update(saveSuccess, saveFailure);
+          } else {
+            vm.projectQuestion.$save(saveSuccess, saveFailure);
+          }
         }
 
         return false;

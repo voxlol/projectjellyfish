@@ -20,8 +20,8 @@
     // Third party modules
     'ui.router',
     'ui.bootstrap',
-    'nvd3',
     'ngDraggable',
-    'angular.filter'
+    'angular.filter',
+    'highcharts-ng'
   ]);
 })();

@@ -8,8 +8,6 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
   <link rel="shortcut icon" href="/favicon.ico"/>
   <link rel="icon" href="/favicon.ico"/>
-  <meta name="wizard-multipage" content="true" />
-  <meta name="wizard-autosubmit" content="true" />
   <base href="/">
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -21,7 +19,6 @@
   <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="/bower_components/nganimate.css/animate.css" />
-  <link rel="stylesheet" href="/bower_components/nvd3/build/nv.d3.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -49,7 +46,6 @@
   <script src="/bower_components/moment/moment.js"></script>
   <script src="/bower_components/toastr/toastr.js"></script>
   <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-  <script src="/bower_components/d3/d3.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-resource/angular-resource.js"></script>
   <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
@@ -68,10 +64,11 @@
   <script src="/bower_components/jquery-ui/ui/mouse.js"></script>
   <script src="/bower_components/jquery-ui/ui/sortable.js"></script>
   <script src="/bower_components/angular-ui-sortable/sortable.js"></script>
-  <script src="/bower_components/nvd3/build/nv.d3.js"></script>
-  <script src="/bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
   <script src="/bower_components/ngDraggable/ngDraggable.js"></script>
   <script src="/bower_components/angular-filter/dist/angular-filter.js"></script>
+  <script src="/bower_components/highcharts/highcharts.js"></script>
+  <script src="/bower_components/highcharts/highcharts-3d.js"></script>
+  <script src="/bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -123,6 +120,7 @@
   <script src="/src/client/app/components/details-table/details-table.directive.js"></script>
   <script src="/src/client/app/components/footer/footer.directive.js"></script>
   <script src="/src/client/app/components/group-form/group-form.directive.js"></script>
+  <script src="/src/client/app/components/groups-table/groups-table.directive.js"></script>
   <script src="/src/client/app/components/login-form/login-form.directive.js"></script>
   <script src="/src/client/app/components/multiple-choice/multiple-choice.directive.js"></script>
   <script src="/src/client/app/components/navigation/nav-item.directive.js"></script>
@@ -163,11 +161,16 @@
   <script src="/src/client/app/components/view-mode-switch/view-mode-switch.directive.js"></script>
   <script src="/src/client/app/components/view-mode-switch/view-modes.constant.js"></script>
   <script src="/src/client/app/components/widget/widget.directive.js"></script>
-  <script src="/src/client/app/components/wizard/constants.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-form.directive.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-option.directive.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-options.directive.js"></script>
+  <script src="/src/client/app/components/wizard-questions-table/wizard-questions-table.directive.js"></script>
+  <script src="/src/client/app/components/wizard/wizard-service.factory.js"></script>
   <script src="/src/client/app/core/config.js"></script>
   <script src="/src/client/app/core/constants.js"></script>
   <script src="/src/client/app/resources/alert.factory.js"></script>
-  <script src="/src/client/app/resources/groups.factory.js"></script>
+  <script src="/src/client/app/resources/dashboard.factory.js"></script>
+  <script src="/src/client/app/resources/group.factory.js"></script>
   <script src="/src/client/app/resources/order-item.factory.js"></script>
   <script src="/src/client/app/resources/order.factory.js"></script>
   <script src="/src/client/app/resources/product-type.factory.js"></script>
@@ -188,6 +191,7 @@
   <script src="/src/client/app/states/admin/alerts/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/alerts/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/groups/create/create.state.js"></script>
+  <script src="/src/client/app/states/admin/groups/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/groups/groups.state.js"></script>
   <script src="/src/client/app/states/admin/groups/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/products/create/create.state.js"></script>
@@ -202,6 +206,8 @@
   <script src="/src/client/app/states/admin/users/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/users/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/users/users.state.js"></script>
+  <script src="/src/client/app/states/admin/wizard-questions/create/create.state.js"></script>
+  <script src="/src/client/app/states/admin/wizard-questions/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/wizard-questions/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/wizard-questions/wizard-questions.state.js"></script>
   <script src="/src/client/app/states/blank/blank.state.js"></script>
@@ -221,9 +227,6 @@
   <script src="/src/client/app/states/services/details/details.state.js"></script>
   <script src="/src/client/app/states/services/list/list.state.js"></script>
   <script src="/src/client/app/states/services/services.state.js"></script>
-  <script src="/src/client/app/states/wizard/multipage-wizard/multipage-wizard.state.js"></script>
-  <script src="/src/client/app/states/wizard/singlepage-wizard/singlepage-wizard.state.js"></script>
-  <script src="/src/client/app/states/wizard/wizard.state.js"></script>
   <!-- endinject -->
 
   <!-- inject:templates:js -->

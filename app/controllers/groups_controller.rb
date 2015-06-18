@@ -1,4 +1,24 @@
 class GroupsController < ApplicationController
+  api :GET, '/groups', 'Returns a collection of groups'
+  param :includes, Array, in: %w(staff)
+  param :page, :number
+  param :per_page, :number
+
+  def index
+    authorize Group
+    respond_with_params groups
+  end
+
+  api :GET, '/groups/:id', 'Shows group with :id'
+  param :id, :number, required: true
+  param :includes, Array, in: %w(staff)
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show
+    authorize group
+    respond_with_params group
+  end
+
   api :POST, '/groups', 'Creates group'
   param :name, String, desc: 'Group Name', required: true
   param :description, String, desc: 'Group Description'
@@ -6,23 +26,8 @@ class GroupsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    group = Group.create!(group_params)
-    respond_with_params(group)
-  end
-
-  api :GET, '/groups', 'Returns a collection of groups'
-
-  def index
-    groups = Group.all
-    respond_with_params groups
-  end
-
-  api :GET, '/groups/:id', 'Shows group with :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def show
-    group = Group.find(params[:id])
+    group = Group.create! group_params
+    authorize group
     respond_with_params group
   end
 
@@ -35,9 +40,9 @@ class GroupsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    group = Group.find(params[:id])
-    group.update!(group_params)
-    respond_with_params(group)
+    authorize group
+    group.update! group_params
+    respond_with_params group
   end
 
   api :DELETE, '/groups/:id', 'Deletes group with :id'
@@ -45,14 +50,22 @@ class GroupsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    group = Group.find(params[:id])
+    authorize group
     group.destroy
-    respond_with_params(group)
+    respond_with_params group
   end
 
   private
 
   def group_params
     params.permit!.slice(:name, :description, :staff_ids)
+  end
+
+  def group
+    @_group ||= (query_with Group.where(id: params.require(:id)), :includes).try :first
+  end
+
+  def groups
+    @_groups ||= query_with Group.all, :includes, :pagination
   end
 end
