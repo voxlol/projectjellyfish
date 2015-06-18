@@ -2,19 +2,19 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('projectQuestionForm', ProjectQuestionFormDirective);
+    .directive('wizardQuestionForm', WizardQuestionFormDirective);
 
   /** @ngInject */
-  function ProjectQuestionFormDirective() {
+  function WizardQuestionFormDirective() {
     var directive = {
       restrict: 'AE',
       scope: {
         heading: '@?',
-        projectQuestion: '='
+        question: '='
       },
       link: link,
-      templateUrl: 'app/components/project-question-form/project-question-form.html',
-      controller: ProjectQuestionFormController,
+      templateUrl: 'app/components/wizard-question-form/wizard-question-form.html',
+      controller: WizardQuestionFormController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,11 +26,11 @@
     }
 
     /** @ngInject */
-    function ProjectQuestionFormController($state, Tag, ProjectQuestion, Toasts, TAG_QUERY_LIMIT) {
+    function WizardQuestionFormController($state, Tag, WizardQuestion, Toasts, TAG_QUERY_LIMIT) {
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'admin.project-questions';
+      var home = 'admin.wizard-questions';
 
       vm.activate = activate;
       vm.backToList = backToList;
@@ -42,7 +42,7 @@
       vm.typeChangeCancel = typeChangeCancel;
 
       function activate() {
-        vm.heading = vm.heading || 'Add A Project Question';
+        vm.heading = vm.heading || 'Add A Wizard Question';
       }
 
       function backToList() {
@@ -69,17 +69,15 @@
         showValidationMessages = true;
 
         if (vm.form.$valid) {
-          if (vm.projectQuestion.id) {
-            vm.projectQuestion.$update(saveSuccess, saveFailure);
+          if (vm.question.id) {
+            vm.question.$update(saveSuccess, saveFailure);
           } else {
-            vm.projectQuestion.$save(saveSuccess, saveFailure);
+            vm.question.$save(saveSuccess, saveFailure);
           }
         }
 
-        return false;
-
         function saveSuccess() {
-          Toasts.toast('Project Question saved.');
+          Toasts.toast('Wizard Question saved.');
           $state.go(home);
         }
 
@@ -89,13 +87,13 @@
       }
 
       function typeChangeOk() {
-        vm.projectQuestion.options.length = 0;
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
+        vm.question.options.length = 0;
+        vm.question.options.push(angular.extend({}, WizardQuestion.optionDefaults));
+        vm.question.options.push(angular.extend({}, WizardQuestion.optionDefaults));
       }
 
       function typeChangeCancel() {
-        vm.projectQuestion.type = 'multiple' === vm.projectQuestion.type ? 'yes_no' : 'multiple';
+        vm.question.type = 'multiple' === vm.question.type ? 'yes_no' : 'multiple';
       }
     }
   }

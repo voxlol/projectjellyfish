@@ -62,7 +62,7 @@ class GroupsController < ApplicationController
   end
 
   def group
-    @_group ||= query_with Group.find(params[:id]), :includes
+    @_group ||= (query_with Group.where(id: params.require(:id)), :includes).try :first
   end
 
   def groups

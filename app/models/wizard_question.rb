@@ -10,6 +10,7 @@
 
 class WizardQuestion < ActiveRecord::Base
   has_many :wizard_answers
+
   accepts_nested_attributes_for :wizard_answers, reject_if: :all_blank, allow_destroy: true
 
   def next_question_id

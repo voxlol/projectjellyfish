@@ -8,7 +8,7 @@
 <div class="tag-modal__body">
   <div class="tag-modal__active-tags">
     <ul class="tag-modal__active-list">
-      <li class="tag-modal__active-item" ng-repeat="tag in vm.tagList.tags">
+      <li class="tag-modal__active-item" ng-repeat="tag in vm.tagList.tags track by tag">
         <tag-item text="tag" selected="tag === vm.tagList.selected" on-remove="vm.removeTag($index)"></tag-item>
       </li>
     </ul>
@@ -21,9 +21,9 @@
   <div class="tag-modal__shortcuts">
     <div class="tag-modal__shortcut-title">All Filters</div>
     <div class="tag-modal__shortcut-list">
-      <span class="tag-modal__shortcut-item" ng-repeat="letter in ::vm.shortcuts">
+      <span class="tag-modal__shortcut-item" ng-repeat="letter in ::vm.shortcuts track by letter">
         <a class="tag-modal__shortcut-item--link" ng-if="vm.tagsExistForLetter(letter)"
-           ng-href="#{{ ::letter }}">{{ ::letter }}</a>
+           ng-click="vm.gotoHash(letter)">{{ ::letter }}</a>
         <span class="tag-modal__shortcut-item--text" ng-if="!vm.tagsExistForLetter(letter)">{{
           ::letter }}</span>
       </span>
@@ -32,7 +32,7 @@
 
   <div class="tag-modal__letters">
     <div class="tag-modal__letters-list">
-      <div class="tag-modal__letters-item" ng-repeat="(letter, tags) in ::vm.tags">
+      <div class="tag-modal__letters-item" ng-repeat="(letter, tags) in ::vm.tags track by letter">
         <a bind-attrs="{name: letter}" class="tag-modal__letter">{{ ::letter }}</a>
         <ul class="tag-modal__list">
           <li class="tag-modal__item" ng-repeat="tag in ::tags track by tag.id">

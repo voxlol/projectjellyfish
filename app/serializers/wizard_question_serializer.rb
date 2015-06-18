@@ -9,6 +9,7 @@
 #
 
 class WizardQuestionSerializer < ApplicationSerializer
-  attributes :id, :text, :next_question_id
+  attributes :id, :text
+
   has_many :wizard_answers
 end
