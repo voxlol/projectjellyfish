@@ -30,20 +30,20 @@ describe Project do
 end
 
 describe 'Project.compute_current_status!' do
-  it "sets project status to highest priority service alert status" do
+  it 'sets project status to highest priority service alert status' do
     project = create(
       :project,
       services: [
         create(:order_item,
-               alerts: [
-                   create(:alert, status: :ok),
-                   high_priority_alert = create(:alert, status: :critical)
-               ]),
+          alerts: [
+            create(:alert, status: :ok),
+            high_priority_alert = create(:alert, status: :critical)
+          ]),
         create(:order_item,
-               alerts: [
-                   create(:alert, status: :warning),
-                   create(:alert, status: :warning)
-               ])
+          alerts: [
+            create(:alert, status: :warning),
+            create(:alert, status: :warning)
+          ])
       ]
     )
     project.compute_current_status!

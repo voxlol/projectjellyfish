@@ -125,7 +125,7 @@ class Project < ActiveRecord::Base
   # private
 
   def latest_alerts
-    services.map{ |s| s.alerts.where(id: s.alerts.group('category').select('max(id) as latest_alert_id')) }.flatten
+    services.map { |s| s.alerts.where(id: s.alerts.group('category').select('max(id) as latest_alert_id')) }.flatten
   end
 
   def highest_priority_latest_alert
