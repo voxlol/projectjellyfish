@@ -26,6 +26,7 @@ class AlertsController < ApplicationController
   api :POST, '/alerts', 'Creates a new alert'
   param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'The message content of the new alert.'
+  param :category, String, required: false, desc: 'The category this alert is grouped under.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -37,8 +38,9 @@ class AlertsController < ApplicationController
   end
 
   api :PUT, '/alerts/:id', 'Updates alert with given :id'
-  param :status, String, required: false, desc: 'The message content to update alert with.'
+  param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: false, desc: 'The message content to update alert with.'
+  param :category, String, required: false, desc: 'The category this alert is grouped under.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
 

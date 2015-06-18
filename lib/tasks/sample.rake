@@ -250,10 +250,10 @@ namespace :sample do
     Organization.connection.execute("ALTER SEQUENCE organizations_id_seq RESTART #{Organization.all.order('id DESC').first.id + 1}")
 
     Alert.create!([
-      { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization},
-      { id: 2, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project},
-      { id: 3, status: "warning", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem},
-      { id: 4, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff}
+      { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 2, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      { id: 3, status: "warning", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 4, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 
