@@ -24,6 +24,7 @@ class AlertsController < ApplicationController
   end
 
   api :POST, '/alerts', 'Creates a new alert'
+  # TODO: POLYMORPHIC ALERTS COULD HAVE MULTIPLE KINDS OF PARENT IDS, HOW TO PASS AND HANDLE THOSE IN URL PARAMS?
   param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'The message content of the new alert.'
   param :category, String, required: false, desc: 'The category this alert is grouped under.'
