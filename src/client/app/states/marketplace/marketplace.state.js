@@ -45,7 +45,8 @@
   }
 
   /** @ngInject */
-  function StateController(logger, $q, VIEW_MODES, CatalogService, Tag, Compare, TAG_QUERY_LIMIT, $stateParams) {
+  function StateController(logger, $q, VIEW_MODES, CatalogService, Tag,
+                           Compare, TAG_QUERY_LIMIT, $stateParams, WizardService) {
     var vm = this;
 
     vm.title = 'Marketplace';
@@ -55,6 +56,7 @@
     vm.activate = activate;
     vm.updateCatalog = updateCatalog;
     vm.queryTags = queryTags;
+    vm.openWizard = openWizard;
 
     activate();
 
@@ -64,7 +66,7 @@
       Compare.clear();
 
       if ($stateParams.tags) {
-        vm.tags =  $stateParams.tags;
+        vm.tags = $stateParams.tags;
       }
     }
 
@@ -78,6 +80,15 @@
 
     function queryTags(query) {
       return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
+    }
+
+    function openWizard() {
+      WizardService.showModal().then(updateTags);
+
+      function updateTags(tags) {
+        vm.tags.length = 0;
+        Array.prototype.push.apply(vm.tags, tags);
+      }
     }
   }
 })();

@@ -1,9 +1,11 @@
 class WizardQuestionsController < ApplicationController
   api :GET, '/wizard_questions', 'List all wizard questions with answers'
   param :includes, Array, in: ['wizard_answers']
+  param :page, :number
+  param :per_page, :number
 
   def index
-    respond_with_params WizardQuestion.order(:id)
+    respond_with_params wizard_questions
   end
 
   api :GET, '/wizard_questions/first', 'Return first question'
@@ -20,7 +22,7 @@ class WizardQuestionsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    respond_with_params WizardQuestion.find(params[:id])
+    respond_with_params wizard_question
   end
 
   api :POST, '/wizard_questions', 'Create a wizard question'
@@ -63,5 +65,13 @@ class WizardQuestionsController < ApplicationController
     end
 
     params.permit(:id, :text, wizard_answers_attributes: [:id, :_destroy, :text, tags_to_add: [], tags_to_remove: []])
+  end
+
+  def wizard_questions
+    @_questions ||= query_with WizardQuestion.order(:id), :includes, :pagination
+  end
+
+  def wizard_question
+    @_question ||= (query_with WizardQuestion.where(id: params.require(:id)), :includes).try :first
   end
 end
