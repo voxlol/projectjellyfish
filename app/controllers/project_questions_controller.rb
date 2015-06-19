@@ -23,7 +23,7 @@ class ProjectQuestionsController < ApplicationController
   param :question, String, desc: 'Question'
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
   param :help_text, String, desc: 'Help Text'
-  param :load_order, :number, desc: 'Load order'
+  param :position, :number, desc: 'Load order'
   param :options, Array, desc: 'Options'
   param :required, :bool, desc: 'Required?'
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -38,7 +38,7 @@ class ProjectQuestionsController < ApplicationController
   param :question, String, desc: 'Question'
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
   param :help_text, String, desc: 'Help Text'
-  param :load_order, :number, desc: 'Load order'
+  param :position, :number, desc: 'Load order'
   param :options, Array, desc: 'Options', allow_nil: true
   param :required, :bool, desc: 'Required', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -56,10 +56,16 @@ class ProjectQuestionsController < ApplicationController
     respond_with project_question
   end
 
+  def sort
+    params[:project_questions].each_with_index do |id, index|
+      ProjectQuestion.update_all({position: index + 1}, {id: id})
+    end
+  end
+
   private
 
   def project_question_params
-    params.permit(:question, :field_type, :help_text, :required, :load_order, options: [])
+    params.permit(:question, :field_type, :help_text, :required, :position, options: [])
   end
 
   def project_question
@@ -70,7 +76,7 @@ class ProjectQuestionsController < ApplicationController
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
     @project_questions ||= begin
       authorize ProjectQuestion
-      query_with ProjectQuestion.all.order(:load_order), :includes, :pagination
+      query_with ProjectQuestion.all.order(:position), :includes, :pagination
     end
   end
 end

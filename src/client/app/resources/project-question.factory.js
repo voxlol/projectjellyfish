@@ -22,7 +22,7 @@
       option: '',
       include: [],
       exclude: [],
-      load_order: 0
+      position: 0
     };
 
     ProjectQuestion.new = newProjectQuestion;

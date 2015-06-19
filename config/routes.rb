@@ -109,10 +109,12 @@ Rails.application.routes.draw do
     resources :projects
 
     # ProjectQuestion Routes
-    resources :project_questions
+    resources :project_questions do
+      collection { put :sort }
+    end
 
     # Admin Settings
-    resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
+    resources :settingszx, defaults: { includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
     resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:show], param: :hid
 
     # Automate Routes

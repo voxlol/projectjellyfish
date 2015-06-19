@@ -108,5 +108,8 @@ end
 # Add Tags
 gem 'acts-as-taggable-on'
 
+# Sortable Items
+gem 'acts_as_list'
+
 # TO ENCODE DECIMALS AS JSON NUMBERS
 gem 'activesupport-json_encoder'

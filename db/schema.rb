@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614040624) do
+ActiveRecord::Schema.define(version: 20150618232255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,7 +323,7 @@ ActiveRecord::Schema.define(version: 20150614040624) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "load_order"
+    t.integer  "position"
     t.jsonb    "options"
     t.integer  "field_type",             default: 0
   end
@@ -376,11 +376,14 @@ ActiveRecord::Schema.define(version: 20150614040624) do
     t.integer  "role",                               default: 0
     t.datetime "deleted_at"
     t.string   "authentication_token"
+    t.boolean  "otp_enabled"
+    t.string   "otp_secret"
   end
 
   add_index "staff", ["authentication_token"], name: "index_staff_on_authentication_token", unique: true, using: :btree
   add_index "staff", ["deleted_at"], name: "index_staff_on_deleted_at", using: :btree
   add_index "staff", ["email"], name: "index_staff_on_email", unique: true, using: :btree
+  add_index "staff", ["otp_secret"], name: "index_staff_on_otp_secret", unique: true, using: :btree
   add_index "staff", ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|

@@ -5,7 +5,7 @@ FactoryGirl.define do
     help_text 'helping'
     options %w(one tow three)
     required true
-    load_order 0
+    position 0
 
     trait :optional do
       required false
@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     trait :required_text do
       field_type :text
-      load_order 1
+      position 1
       options %w()
     end
   end
