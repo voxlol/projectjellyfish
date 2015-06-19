@@ -45,9 +45,6 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:name)
-    params.require(:description)
-    params.require(:permissions)
     params.permit(:name, :description, permissions: { projects: [], approvals: [], memberships: [] })
   end
 
