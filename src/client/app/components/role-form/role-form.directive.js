@@ -41,6 +41,13 @@
       vm.onSubmit = onSubmit;
 
       function activate() {
+        //required to build permissions list
+        vm.permissions={approvals:{}, projects: {}, memberships: {}};
+        lodash.each(vm.role.permissions, function(value, key){
+          lodash.each(value, function(item){
+            vm.permissions[key][item] = item;
+          })
+        })
       }
 
       function backToList() {
@@ -55,12 +62,23 @@
         if (angular.isUndefined(field)) {
           return vm.showValidationMessages && vm.form.$invalid;
         }
-
         return vm.showValidationMessages && vm.form[field].$invalid;
       }
 
       function onSubmit() {
         vm.showValidationMessages = true;
+
+        //to parse permissions in proper form, undefined throws validation errors
+        lodash.each(vm.permissions, function (value, key) {
+          vm.temp = [];
+          lodash.each(value, function (item) {
+            if (item !== null ) {
+              vm.temp.push(item);
+            }
+          })
+          vm.role.permissions[key]= vm.temp;
+        })
+
         if (vm.form.$valid) {
           if (vm.role.id) {
             vm.role.$update(saveSuccess, saveFailure);

@@ -16,7 +16,7 @@
     Role.defaults = {
       name: '',
       description: '',
-      permissions: {approvals:[], projects: [], memberships: []}
+      permissions: {approvals:{}, projects: {}, memberships: {}}
     };
 
     Role.new = newRole;

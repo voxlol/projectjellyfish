@@ -49,21 +49,19 @@
             <input id="approvals-read"
                    name="approvals-read"
                    type="checkbox"
-                   ng-model="vm.role.permissions.approvals[0]"
+                   ng-model="vm.permissions.approvals['read']"
                    ng-true-value="'read'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
+                   ng-false-value="null"
+                   class="role-field__checkbox"/>
           </label>
           <label> Write
             <input id="approvals-write"
                    name="approvals-write"
                    type="checkbox"
-                   ng-model="vm.role.permissions.approvals[1]"
+                   ng-model="vm.permissions.approvals['write']"
                    ng-true-value="'write'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
+                   ng-false-value="null"
+                   class="role-field__checkbox"/>
           </label>
 
         </div>
@@ -75,24 +73,22 @@
         </div>
         <div class="role-field__body--checkbox">
           <label> Read
-            <input id="memberships-read"
-                   name="memberships-read"
-                   type="checkbox"
-                   ng-model="vm.role.permissions.memberships[0]"
-                   ng-true-value="'read'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
-          </label>
+          <input id="memberships-read"
+                 name="memberships-read"
+                 type="checkbox"
+                 ng-model="vm.permissions.memberships['read']"
+                 ng-true-value="'read'"
+                 ng-false-value="null"
+                 class="role-field__checkbox"/>
+            </label>
           <label> Write
             <input id="memberships-write"
                    name="memberships-write"
                    type="checkbox"
-                   ng-model="vm.role.permissions.memberships[1]"
+                   ng-model="vm.permissions.memberships['write']"
                    ng-true-value="'write'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
+                   ng-false-value="null"
+                   class="role-field__checkbox"/>
           </label>
         </div>
       </div>
@@ -103,25 +99,23 @@
         </div>
         <div class="role-field__body--checkbox">
           <label> Read
-            <input id="project-read"
-                   name="project-read"
-                   type="checkbox"
-                   ng-model="vm.role.permissions.projects[0]"
-                   ng-true-value="'read'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
-          </label>
+          <input id="project-read"
+                 name="project-read"
+                 type="checkbox"
+                 ng-model="vm.permissions.projects['read']"
+                 ng-true-value="'read'"
+                 ng-false-value="null"
+                 class="role-field__checkbox"/>
+            </label>
           <label> Write
-            <input id="project-write"
-                   name="project-write"
-                   type="checkbox"
-                   ng-model="vm.role.permissions.projects[1]"
-                   ng-true-value="'write'"
-                   ng-false-value="undefined"
-                   class="role-field__checkbox"
-                   required="false"/>
-          </label>
+          <input id="project-write"
+                 name="project-write"
+                 type="checkbox"
+                 ng-model="vm.permissions.projects['write']"
+                 ng-true-value="'write'"
+                 ng-false-value="null"
+                 class="role-field__checkbox"/>
+            </label>
         </div>
       </div>
     </div>
