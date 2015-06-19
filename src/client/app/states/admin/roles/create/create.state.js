@@ -31,7 +31,6 @@
     return {};
   }
 
-
   /** @ngInject */
   function StateController(logger, Role) {
     var vm = this;
