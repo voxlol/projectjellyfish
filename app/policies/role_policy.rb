@@ -3,7 +3,7 @@ class RolePolicy < ApplicationPolicy
     true
   end
 
- def show?
+  def show?
     true
   end
 
