@@ -68,6 +68,10 @@ class OrderItem < ActiveRecord::Base
     product.provisioning_answers
   end
 
+  def latest_alerts
+    alerts.latest
+  end
+
   private
 
   def validate_product_id

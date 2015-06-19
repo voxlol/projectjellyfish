@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   PROJECT_INCLUDES = %w(alerts approvals approvers memberships groups project_answers project_detail services staff)
-  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users latest_service_alerts)
+  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users latest_alerts latest_service_alerts)
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook

@@ -66,6 +66,10 @@ class Staff < ActiveRecord::Base
 
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
 
+  def latest_alerts
+    alerts.latest
+  end
+
   def self.find_by_auth(auth_hash)
     auth_match = Authentications.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'].to_s)
 

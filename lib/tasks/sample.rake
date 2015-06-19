@@ -250,16 +250,21 @@ namespace :sample do
     Organization.connection.execute("ALTER SEQUENCE organizations_id_seq RESTART #{Organization.all.order('id DESC').first.id + 1}")
 
     Alert.create!([
-      { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
-      { id: 2, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
-      { id: 3, status: "warning", message: "Medium PostgreSQL is at 85% capcity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 4, status: "critical", message: "Medium PostgreSQL is at 95% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 5, status: "ok", message: "Medium PostgreSQL is at 35% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 6, status: "warning", message: "Medium PostgreSQL license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 7, status: "critical", message: "Medium PostgreSQL license expires in 1 day.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 8, status: "ok", message: "Medium PostgreSQL license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 9, status: "warning", message: "RHEL 6 license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 2, alertable_type: OrderItem, category: 'license'},
-      { id: 10, status: "warning", message: "User has not completed training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
+      { id: 1, status: "warning", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 2, status: "critical", message: "The sytstem will undergo maintenance in 1 day.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 3, status: "ok", message: "The sytstem will undergo maintenance in 360 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 4, status: "ok", message: "Blog has 6 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      { id: 5, status: "warning", message: "Blog has 3 months of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      { id: 6, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      { id: 7, status: "warning", message: "Medium PostgreSQL is at 85% capcity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 8, status: "critical", message: "Medium PostgreSQL is at 95% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 9, status: "ok", message: "Medium PostgreSQL is at 35% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
+      { id: 10, status: "warning", message: "Medium PostgreSQL license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 11, status: "critical", message: "Medium PostgreSQL license expires in 1 day.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 12, status: "ok", message: "Medium PostgreSQL license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
+      { id: 13, status: "warning", message: "RHEL 6 license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 2, alertable_type: OrderItem, category: 'license'},
+      { id: 14, status: "ok", message: "User has 2 months to complete training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'},
+      { id: 15, status: "warning", message: "User has 1 week to complete training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 
