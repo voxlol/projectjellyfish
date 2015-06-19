@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function RoleFormController($scope, $state, Toasts, lodash) {
+    function RoleFormController($scope, $state, Toasts, lodash, Role) {
       var vm = this;
 
       vm.activate = activate;
@@ -41,19 +41,18 @@
       vm.onSubmit = onSubmit;
 
       function activate() {
-        // required to build permissions list
-        vm.permissions = {approvals: {}, projects: {}, memberships: {}};
-        lodash.each(vm.role.permissions, function(value, key) {
-          lodash.each(value, function(item) {
-            vm.permissions[key][item] = item;
-          });
-        });
+        initPermissions();
       }
 
       function backToList() {
         $state.go(vm.home);
+
       }
 
+
+      function initPermissions() {
+        vm.permissions = Role.new().permissions;
+      }
       function showErrors() {
         return vm.showValidationMessages;
       }
@@ -68,17 +67,6 @@
 
       function onSubmit() {
         vm.showValidationMessages = true;
-
-        // to parse permissions in proper form, undefined throws validation errors
-        lodash.each(vm.permissions, function(value, key) {
-          vm.temp = [];
-          lodash.each(value, function(item) {
-            if (item !== null) {
-              vm.temp.push(item);
-            }
-          });
-          vm.role.permissions[key] = vm.temp;
-        });
 
         if (vm.form.$valid) {
           if (vm.role.id) {

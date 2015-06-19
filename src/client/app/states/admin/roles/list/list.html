@@ -7,37 +7,27 @@
   </div>
 </content-header>
 
-<div ng-if="!vm.role.length">
+<div ng-if="!vm.roles.length">
   <h4>No roles presently exist. Add a new one!</h4>
 </div>
-<div class="roles-table" ng-if="vm.role.length">
+<div class="roles-table" ng-if="vm.roles.length">
   <table st-table="vm.roles" class="roles-table__table table-hover">
     <thead>
-    <th colspan="4">
-      <input st-search=""
-             class="form-control roles-table__filter-input"
-             placeholder="Filter by name, description, permissions"
-             type="text"/>
-    </th>
     <tr>
       <th class="roles-table__heading roles-table__heading--padding"></th>
       <th class="roles-table__heading roles-table__heading" st-sort="id">Id</th>
-      <th class="roles-table__heading roles-table__heading--question" st-sort="name">Name</th>
-      <th class="roles-table__heading roles-table__heading--required" st-sort="description">Description</th>
+      <th class="roles-table__heading roles-table__heading" st-sort="name">Name</th>
+      <th class="roles-table__heading roles-table__heading" st-sort="description">Description</th>
       <th class="roles-table__heading roles-table__heading--actions" st-sort="permissions">Permissions</th>
     </tr>
     </thead>
     <tbody>
-    <tr class="roles-table__row" ng-repeat="row in vm.role">
+    <tr class="roles-table__row" ng-repeat="row in vm.roles">
       <td class="roles-table__cell roles-table__cell--padding"></td>
-      <td class="roles-table__cell roles-table__cell--order">{{ ::row.id }}</td>
-      <td class="roles-table__cell roles-table__cell--question">{{ ::row.name}}</td>
-      <td class="roles-table__cell roles-table__cell--question">{{ ::row.description }}</td>
-      <td class="roles-table__cell roles-table__cell--question">
-        <span ng-repeat="(category, permissions) in row.permissions" ng-if="permissions"><b>{{ ::category}}</b>:
-          <span ng-repeat="permission in permissions">{{ ::permission}} &nbsp</span></br>
-          </span>
-      </td>
+      <td class="roles-table__cell roles-table__cell">{{ ::row.id }}</td>
+      <td class="roles-table__cell roles-table__cell">{{ ::row.name}}</td>
+      <td class="roles-table__cell roles-table__cell">{{ ::row.description }}</td>
+      <td class="roles-table__cell roles-table__cell" ng-bind-html="vm.permissionList(row.permissions)"></td>
       <td class="roles-table__cell roles-table__cell--actions">
         <a ui-sref="admin.roles.edit({roleId: row.id})" class="roles-table__action roles-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>

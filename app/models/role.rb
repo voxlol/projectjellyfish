@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   end
 
   def all_valid_values
-    unless permissions.values.all? { |perms| perms & %w(read write ) == perms }
+    unless permissions.values.all? { |perms| perms & %w(read write) == perms }
       errors.add(:permissions, 'can only include "read" and "write" values for each key.')
     end
   end

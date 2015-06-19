@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   def self.document_params(required: false)
-    param :name, String, desc: 'Name of the role'
+    param :name, String, desc: 'Name of the role', required: required
     param :description, String, desc: 'Description of the role', required: required
     param :permissions, Hash, desc: %(Hash of permissions allowed, such as { projects: ["read", "write"] }. Valid keys: #{Role::PERMISSIONS}.), required: required do
       param :projects, Array, required: required, allow_nil: true

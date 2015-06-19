@@ -39,87 +39,35 @@
         </div>
       </div>
 
-
-      <div class="role-field">
+      <div class="role-field" ng-repeat="(permission,value) in vm.permissions">
         <div class="role-field__aside">
-          <label class="role-field__label">Approvals</label>
+          <label class="role-field__label">{{permission}}</label>
         </div>
         <div class="role-field__body--checkbox">
           <label>Read
             <input id="approvals-read"
                    name="approvals-read"
                    type="checkbox"
-                   ng-model="vm.permissions.approvals['read']"
-                   ng-true-value="'read'"
+                   ng-model="vm.role.permissions[permission]"
+                   ng-true-value="['read']"
                    ng-false-value="null"
                    class="role-field__checkbox"/>
           </label>
-          <label> Write
+          <label> Read/Write
             <input id="approvals-write"
                    name="approvals-write"
                    type="checkbox"
-                   ng-model="vm.permissions.approvals['write']"
-                   ng-true-value="'write'"
+                   ng-model="vm.role.permissions[permission]"
+                   ng-true-value="['read', 'write']"
                    ng-false-value="null"
                    class="role-field__checkbox"/>
           </label>
-
-        </div>
-      </div>
-
-      <div class="role-field">
-        <div class="role-field__aside">
-          <label class="role-field__label">Memberships</label>
-        </div>
-        <div class="role-field__body--checkbox">
-          <label> Read
-          <input id="memberships-read"
-                 name="memberships-read"
-                 type="checkbox"
-                 ng-model="vm.permissions.memberships['read']"
-                 ng-true-value="'read'"
-                 ng-false-value="null"
-                 class="role-field__checkbox"/>
-            </label>
-          <label> Write
-            <input id="memberships-write"
-                   name="memberships-write"
-                   type="checkbox"
-                   ng-model="vm.permissions.memberships['write']"
-                   ng-true-value="'write'"
-                   ng-false-value="null"
-                   class="role-field__checkbox"/>
-          </label>
-        </div>
-      </div>
-
-      <div class="role-field">
-        <div class="role-field__aside">
-          <label class="role-field__label">Projects</label>
-        </div>
-        <div class="role-field__body--checkbox">
-          <label> Read
-          <input id="project-read"
-                 name="project-read"
-                 type="checkbox"
-                 ng-model="vm.permissions.projects['read']"
-                 ng-true-value="'read'"
-                 ng-false-value="null"
-                 class="role-field__checkbox"/>
-            </label>
-          <label> Write
-          <input id="project-write"
-                 name="project-write"
-                 type="checkbox"
-                 ng-model="vm.permissions.projects['write']"
-                 ng-true-value="'write'"
-                 ng-false-value="null"
-                 class="role-field__checkbox"/>
-            </label>
         </div>
       </div>
     </div>
   </div>
+
+
   <div class="row">
     <div class="col-sm-7">
       <div class="col-sm-offset-3 col-sm-9">
