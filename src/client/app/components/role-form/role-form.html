@@ -52,7 +52,8 @@
                    ng-model="vm.role.permissions.approvals[0]"
                    ng-true-value="'read'"
                    ng-false-value="undefined"
-                   class="role-field__checkbox"/>
+                   class="role-field__checkbox"
+                   required="false"/>
           </label>
           <label> Write
             <input id="approvals-write"
@@ -61,7 +62,8 @@
                    ng-model="vm.role.permissions.approvals[1]"
                    ng-true-value="'write'"
                    ng-false-value="undefined"
-                   class="role-field__checkbox"/>
+                   class="role-field__checkbox"
+                   required="false"/>
           </label>
 
         </div>
@@ -73,14 +75,15 @@
         </div>
         <div class="role-field__body--checkbox">
           <label> Read
-          <input id="memberships-read"
-                 name="memberships-read"
-                 type="checkbox"
-                 ng-model="vm.role.permissions.memberships[0]"
-                 ng-true-value="'read'"
-                 ng-false-value="undefined"
-                 class="role-field__checkbox"/>
-            </label>
+            <input id="memberships-read"
+                   name="memberships-read"
+                   type="checkbox"
+                   ng-model="vm.role.permissions.memberships[0]"
+                   ng-true-value="'read'"
+                   ng-false-value="undefined"
+                   class="role-field__checkbox"
+                   required="false"/>
+          </label>
           <label> Write
             <input id="memberships-write"
                    name="memberships-write"
@@ -88,7 +91,8 @@
                    ng-model="vm.role.permissions.memberships[1]"
                    ng-true-value="'write'"
                    ng-false-value="undefined"
-                   class="role-field__checkbox"/>
+                   class="role-field__checkbox"
+                   required="false"/>
           </label>
         </div>
       </div>
@@ -99,27 +103,27 @@
         </div>
         <div class="role-field__body--checkbox">
           <label> Read
-          <input id="project-read"
-                 name="project-read"
-                 type="checkbox"
-                 ng-model="vm.role.permissions.projects[0]"
-                 ng-true-value="'read'"
-                 ng-false-value="undefined"
-                 class="role-field__checkbox"/>
-            </label>
+            <input id="project-read"
+                   name="project-read"
+                   type="checkbox"
+                   ng-model="vm.role.permissions.projects[0]"
+                   ng-true-value="'read'"
+                   ng-false-value="undefined"
+                   class="role-field__checkbox"
+                   required="false"/>
+          </label>
           <label> Write
-          <input id="project-write"
-                 name="project-write"
-                 type="checkbox"
-                 ng-model="vm.role.permissions.projects[1]"
-                 ng-true-value="'write'"
-                 ng-false-value="undefined"
-                 class="role-field__checkbox"/>
-            </label>
+            <input id="project-write"
+                   name="project-write"
+                   type="checkbox"
+                   ng-model="vm.role.permissions.projects[1]"
+                   ng-true-value="'write'"
+                   ng-false-value="undefined"
+                   class="role-field__checkbox"
+                   required="false"/>
+          </label>
         </div>
       </div>
-
-      <pre>{{vm.role | json}}</pre>
     </div>
   </div>
   <div class="row">

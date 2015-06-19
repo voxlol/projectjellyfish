@@ -34,7 +34,7 @@
       <td class="roles-table__cell roles-table__cell--question">{{ ::row.name}}</td>
       <td class="roles-table__cell roles-table__cell--question">{{ ::row.description }}</td>
       <td class="roles-table__cell roles-table__cell--question">
-        <span ng-repeat="permission in row.permissions">{{permission}}, </span>
+        <span ng-repeat="(category, permission) in row.permissions" ng-if="category">{{category}}{{permission}}: </span>
       </td>
       <td class="roles-table__cell roles-table__cell--actions">
         <a ui-sref="admin.roles.edit({roleId: row.id})" class="roles-table__action roles-table__action--edit">
