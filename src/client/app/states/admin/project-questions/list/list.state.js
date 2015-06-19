@@ -97,7 +97,9 @@
 
     function sortableStop(event, ui) {
       var projectQuestion = angular.element(ui.item).scope().row;
-      var sortableList = ui.item.parent().children().map(function(row){  return vm.projectQuestions[row].id; }).toArray();
+      var sortableList = ui.item.parent().children().map(function(row) {
+        return vm.projectQuestions[row].id;
+      }).toArray();
 
       projectQuestion.position = sortableList;
       projectQuestion.$sort(updateSuccess, updateFailure);
