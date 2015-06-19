@@ -197,6 +197,12 @@ rake db:seed
 rake sample:demo
 ````
 
+#### Build the Application
+
+````
+npm install
+````
+
 #### Start Server (Production)
 
 ````
