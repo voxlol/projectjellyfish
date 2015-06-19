@@ -126,7 +126,7 @@ class Project < ActiveRecord::Base
   end
 
   def latest_service_alerts
-    services.map { |s| s.latest_alerts }.flatten
+    services.map(&:latest_alerts).flatten
   end
 
   def highest_priority_latest_alert
