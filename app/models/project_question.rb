@@ -9,7 +9,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  deleted_at :datetime
-#  position  :integer
+#  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
 #

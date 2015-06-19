@@ -56,10 +56,16 @@ class ProjectQuestionsController < ApplicationController
     respond_with project_question
   end
 
+  api :PUT, '/project_questions/sort', 'Sorts all project_questions'
+  param :position, Array, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
   def sort
-    params[:project_questions].each_with_index do |id, index|
-      ProjectQuestion.update_all({position: index + 1}, {id: id})
+    params[:position].each_with_index do |id, index|
+      ProjectQuestion.where(id: id).update_all(position: index + 1)
     end
+
+    respond_with project_questions
   end
 
   private

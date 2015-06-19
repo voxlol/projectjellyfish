@@ -23,6 +23,10 @@ class ProjectQuestionPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def sort?
+    user.admin?
+  end
+
   class Scope < Scope
     def resolve
       scope
