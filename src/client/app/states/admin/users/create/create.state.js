@@ -55,7 +55,7 @@
     activate();
 
     function activate() {
-      logger.info('Activated Admin Products Create View');
+      logger.info('Activated Admin User Modification');
     }
   }
 })();
