@@ -67,11 +67,13 @@
         Toasts.error('Server returned an error while deleting.');
       }
     }
-    function permissionList(input){
-      var temp= []
-      lodash.each(input, function(value,key){
-         temp.push("<b>",lodash.capitalize(key),"</b>:",value.join(' '),"<br>")
+
+    function permissionList(input) {
+      var temp = [];
+      lodash.each(input, function(value, key) {
+        temp.push('<b>', lodash.capitalize(key), '</b>:', value.join(' '), '<br>');
       });
+
       return temp.join(' ');
     }
   }

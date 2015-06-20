@@ -46,9 +46,7 @@
 
       function backToList() {
         $state.go(vm.home);
-
       }
-
 
       function initPermissions() {
         vm.permissions = Role.new().permissions;
