@@ -13,6 +13,7 @@
         viewMode: '=?',
         collapsed: '=?',
         comparable: '=?',
+        linkTo: '@?',
         project: '=?'
       },
       link: link,

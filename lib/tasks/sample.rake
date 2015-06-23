@@ -143,6 +143,12 @@ namespace :sample do
     ])
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
 
+    ProductCategory.create!([
+      { name: 'Servers', description: 'Servers', tag_list: %w(server vps linux windows) },
+      { name: 'Databases', description: 'Databases', tag_list: %w(database mysql postgresql sql nosql) },
+      { name: 'Applications', description: 'Applications', tag_list: %w(lamp mean) }
+    ])
+
     Product.create!([
       { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, tag_list: ['aws', 'infrastructure', 'aws fog infrastructure', 'ec2', 'small', 'fog'], provisioning_answers: '{"flavor_id":"t1.micro","disk_size":"20"}'},
       { id: 2, name: "AWS Medium", description: "m3.medium EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.080, monthly_price: 0.0, tag_list: ['aws', 'infrastructure', 'aws fog infrastructure', 'ec2', 'medium', 'fog'], provisioning_answers: '{"flavor_id":"t1.micro","disk_size":"20"}'},

@@ -23,9 +23,9 @@
 #
 
 class ProductSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :active, :img, :created_at
-  attributes :setup_price, :hourly_price, :monthly_price, :provisioning_answers, :product_type
-  attributes :updated_at, :deleted_at
+  attributes :id, :name, :description, :active, :img, :product_type
+  attributes :setup_price, :hourly_price, :monthly_price, :provisioning_answers
+  attributes :created_at, :updated_at, :deleted_at
 
   attribute :tag_list, key: :tags
 

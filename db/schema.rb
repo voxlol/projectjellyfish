@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614040624) do
+ActiveRecord::Schema.define(version: 20150619150009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,16 @@ ActiveRecord::Schema.define(version: 20150614040624) do
   end
 
   add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "img"
+    t.string   "cached_tag_list"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "product_types", force: :cascade do |t|
     t.string   "name"
