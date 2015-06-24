@@ -19,15 +19,20 @@ class RolesController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    respond_with_params role
+    respond_with role
   end
 
   api :POST, '/roles', 'Create a role'
   document_params required: true
 
   def create
-    authorize Role
-    respond_with Role.create role_params
+    role = Role.new role_params
+    authorize role
+    respond_with_params role.save
+  end
+  def create
+    authorize ContentPage
+    respond_with ContentPage.create content_page_params
   end
 
   api :PUT, '/roles/:id', 'Update a role'

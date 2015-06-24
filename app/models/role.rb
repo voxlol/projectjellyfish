@@ -14,8 +14,6 @@ class Role < ActiveRecord::Base
   has_many :memberships
   has_many :projects, through: :memberships
 
-  serialize :permissions, HashSerializer
-
   store_accessor :permissions, :projects, :approvals, :memberships
 
   validate :permissions_format_is_correct, if: :permissions
