@@ -4,9 +4,14 @@
   padding: 20px
   margin-bottom: 20px
 
+  +element(body)
+    +make-row()
+
   +element(heading)
     font-size: 22px
-    font-weight: bold
+    font-weight: normal
+    color: $app-color-dark-gray
+    text-transform: uppercase
     text-align: center
     padding: 10px
 
@@ -16,10 +21,14 @@
     +modifier(rejection)
       color: $app-color-pink
 
+  +element(input)
+    +make-sm-column(8)
+
+  +element(button)
+    +make-sm-column(2)
+
   +element(approve)
-    min-width: 80px
-    width: 100%
+
 
   +element(reject)
-    min-width: 80px
-    width: 100%
+
