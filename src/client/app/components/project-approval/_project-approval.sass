@@ -24,14 +24,27 @@
   +element(input)
     +make-sm-column(8)
 
+    +modifier(input)
+      width: 100%
+      min-width: 100px
+
   +element(button)
     +make-sm-column(2)
 
+    +modifier(input)
+      width: 100%
+      min-width: 100px
+
   +element(rejection-message)
-    font-size: 16px
     font-weight: normal
     text-align: center
     text-transform: uppercase
 
     +modifier(response)
       color: $app-color-pink
+
+  +element(list)
+    +make-row()
+    
+    +modifier(dl-horizontal)
+      +make-sm-column(12)

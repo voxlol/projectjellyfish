@@ -1,26 +1,32 @@
 <div ng-if="::'approved' !== vm.project.approval" class="project-approval">
   <div ng-if="::'undecided' === vm.project.approval">
     <div class="project-approval__heading">
-           Project Pending, Requires
+      Project Pending, Requires
       <span class="project-approval__heading--approval">Approval</span>
       or
       <span class="project-approval__heading--rejection">Rejection</span>
     </div>
     <div class="project-approval__body">
-          <button type="button"
-                  class="btn-rounded project-approval__button"
-                  ng-click="vm.approve()">
-            Approve
-          </button>
-          <input type="text" class="field__input project-approval__input" ng-model="vm.message"
-                 ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                 placeholder="Reason for rejection"/>
-          <button ng-disabled="vm.message == ''"
-                  type="button"
-                  class="btn-rounded btn-rounded--danger project-approval__button"
-                  ng-click="vm.reject()">
-            Reject
-          </button>
+      <div class="project-approval__button">
+        <button type="button"
+                class="btn-rounded project-approval__button--input"
+                ng-click="vm.approve()">
+          Approve
+        </button>
+      </div>
+      <div class="project-approval__input">
+        <input type="text" class="field__input project-approval__input--input" ng-model="vm.message"
+               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+               placeholder="Reason for rejection"/>
+      </div>
+      <div class=" project-approval__button">
+        <button ng-disabled="vm.message == ''"
+                type="button"
+                class="btn-rounded btn-rounded--danger project-approval__button--input"
+                ng-click="vm.reject()">
+          Reject
+        </button>
+      </div>
     </div>
   </div>
 
@@ -28,12 +34,13 @@
     <div class="project-approval__heading">
       Project was <strong>rejected</strong>
     </div>
-    <div class="project-approval__rejection-message">
-      by:
-      <span class="project-approval__rejection-message--response">{{ ::vm.project.finalApproval().staff_name }}</span>
-      </br>
-      reason:
-      <span class="project-approval__rejection-message--response">{{ ::vm.project.finalApproval().reason }}</span>
+    <div class=" project-approval__list">
+      <dl class="dl-horizontal" project-approval__list--dl-horizontal>
+        <dt class="project-approval__rejection-message">by:</dt>
+        <dd class="project-approval__rejection-message--response">{{ ::vm.project.finalApproval().staff_name }}</dd>
+        <dt class="project-approval__rejection-message">reason:</dt>
+        <dd class="project-approval__rejection-message--response">{{ ::vm.project.finalApproval().reason }}</dd>
+      </dl>
     </div>
   </div>
 </div>

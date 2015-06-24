@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'projects.create': {
-        url: '/create:projectId',
+        url: '/create/:projectId',
         params: {
           projectId: null
         },
