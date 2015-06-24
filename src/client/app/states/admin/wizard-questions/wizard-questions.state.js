@@ -30,7 +30,7 @@
       'admin.alerts': {
         type: 'state',
         state: 'admin.wizard-questions',
-        label: 'Wizard Quesitons',
+        label: 'Wizard Questions',
         order: 6
       }
     };

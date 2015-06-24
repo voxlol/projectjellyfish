@@ -14,16 +14,11 @@ describe 'WizardQuestions API' do
         :wizard_question,
         text: 'What programming language will be used?',
         wizard_answers: [answer]
-        )
-      next_question = create(:wizard_question)
+      )
 
       get "/api/v1/wizard_questions/#{question.id}", includes: %w(wizard_answers)
 
-      expect(json).to include({
-        text: 'What programming language will be used?',
-        next_question_id: next_question.id
-      }.deep_stringify_keys
-      )
+      expect(json).to include({ text: 'What programming language will be used?' }.deep_stringify_keys)
     end
   end
 
@@ -68,21 +63,26 @@ describe 'WizardQuestions API' do
       sign_in_as create :staff, :admin
       wizard_question = create(:wizard_question)
 
-      put "/api/v1/wizard_questions/#{wizard_question.id}",
+      data = {
         text: 'Updated question?',
         wizard_answers: [
           text: 'test',
           tags_to_remove: %w(tag1 tag2),
           tags_to_add: %w(tag1 tag2)
         ]
+      }
 
-      last_wizard_question = WizardQuestion.last
-      expect(last_wizard_question.text).to eq('Updated question?')
-      expect(last_wizard_question.wizard_answers.last.attributes).to include({
+      include_data = {
         text: 'test',
         tags_to_remove: %w(tag1 tag2),
         tags_to_add: %w(tag1 tag2)
-      }.stringify_keys)
+      }
+
+      put "/api/v1/wizard_questions/#{wizard_question.id}", data
+
+      last_wizard_question = WizardQuestion.last
+      expect(last_wizard_question.text).to eq('Updated question?')
+      expect(last_wizard_question.wizard_answers.last.attributes).to include(include_data.stringify_keys)
     end
   end
 

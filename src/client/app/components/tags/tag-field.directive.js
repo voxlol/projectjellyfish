@@ -259,7 +259,6 @@
 
       vm.newTag = '';
       vm.placeholder = '';
-      vm.tags = [];
       vm.events = PubSub.events();
       vm.tagList = null;
       vm.hasFocus = false;
@@ -273,12 +272,12 @@
 
       function activate(api) {
         angular.extend(vm, api);
+        vm.tags = vm.tags || [];
         vm.onTagAdding = lodash.flow(vm.onTagAdding || angular.noop, returnTrueIfUndefined);
         vm.onTagRemoving = lodash.flow(vm.onTagRemoving || angular.noop, returnTrueIfUndefined);
         vm.tagList = new TagList(vm.options, vm.events, vm.onTagAdding, vm.onTagRemoving);
         vm.tagList.tags = vm.tags;
         vm.mode = angular.isDefined(vm.mode) ? vm.mode : 'field';
-        vm.tags = vm.tags || [];
       }
 
       function removeTag(index) {

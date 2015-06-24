@@ -8,8 +8,6 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
   <link rel="shortcut icon" href="/favicon.ico"/>
   <link rel="icon" href="/favicon.ico"/>
-  <meta name="wizard-multipage" content="true" />
-  <meta name="wizard-autosubmit" content="true" />
   <base href="/">
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -164,7 +162,11 @@
   <script src="/src/client/app/components/view-mode-switch/view-mode-switch.directive.js"></script>
   <script src="/src/client/app/components/view-mode-switch/view-modes.constant.js"></script>
   <script src="/src/client/app/components/widget/widget.directive.js"></script>
-  <script src="/src/client/app/components/wizard/constants.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-form.directive.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-option.directive.js"></script>
+  <script src="/src/client/app/components/wizard-question-form/wizard-question-options.directive.js"></script>
+  <script src="/src/client/app/components/wizard-questions-table/wizard-questions-table.directive.js"></script>
+  <script src="/src/client/app/components/wizard/wizard-service.factory.js"></script>
   <script src="/src/client/app/core/config.js"></script>
   <script src="/src/client/app/core/constants.js"></script>
   <script src="/src/client/app/resources/alert.factory.js"></script>
@@ -206,6 +208,8 @@
   <script src="/src/client/app/states/admin/users/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/users/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/users/users.state.js"></script>
+  <script src="/src/client/app/states/admin/wizard-questions/create/create.state.js"></script>
+  <script src="/src/client/app/states/admin/wizard-questions/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/wizard-questions/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/wizard-questions/wizard-questions.state.js"></script>
   <script src="/src/client/app/states/blank/blank.state.js"></script>
@@ -225,9 +229,6 @@
   <script src="/src/client/app/states/services/details/details.state.js"></script>
   <script src="/src/client/app/states/services/list/list.state.js"></script>
   <script src="/src/client/app/states/services/services.state.js"></script>
-  <script src="/src/client/app/states/wizard/multipage-wizard/multipage-wizard.state.js"></script>
-  <script src="/src/client/app/states/wizard/singlepage-wizard/singlepage-wizard.state.js"></script>
-  <script src="/src/client/app/states/wizard/wizard.state.js"></script>
   <!-- endinject -->
 
   <!-- inject:templates:js -->

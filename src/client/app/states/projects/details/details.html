@@ -101,10 +101,6 @@
 <region ng-if="::vm.project.isApproved()" heading="Services">
   <div class="project-details__service-buttons">
     <button type="button" class="btn-rounded project-details__service-button"
-            ui-sref="wizard({projectId: vm.project.id})">
-      Open Services Wizard
-    </button>
-    <button type="button" class="btn-rounded project-details__service-button"
             ui-sref="projects.services({projectId: vm.project.id})">
       Add Services
     </button>
