@@ -15,7 +15,6 @@
     <thead>
     <tr>
       <th class="roles-table__heading roles-table__heading--padding"></th>
-      <th class="roles-table__heading roles-table__heading--sortable" st-sort="id">Id</th>
       <th class="roles-table__heading roles-table__heading--sortable" st-sort="name">Name</th>
       <th class="roles-table__heading roles-table__heading--sortable" st-sort="description">Description</th>
       <th class="roles-table__heading roles-table__heading--actions" st-sort="permissions">Permissions</th>
@@ -24,10 +23,9 @@
     <tbody>
     <tr class="roles-table__row" ng-repeat="row in vm.roles">
       <td class="roles-table__cell roles-table__cell--padding"></td>
-      <td class="roles-table__cell roles-table__cell">{{ ::row.id }}</td>
-      <td class="roles-table__cell roles-table__cell">{{ ::row.name}}</td>
-      <td class="roles-table__cell roles-table__cell">{{ ::row.description }}</td>
-      <td class="roles-table__cell roles-table__cell" ng-bind-html="vm.permissionsList(row.permissions)"></td>
+      <td class="roles-table__cell roles-table__cell--name">{{ ::row.name}}</td>
+      <td class="roles-table__cell roles-table__cell--description">{{ ::row.description }}</td>
+      <td class="roles-table__cell roles-table__cell--permissions" ng-bind-html="vm.permissionsList(row.permissions)"></td>
       <td class="roles-table__cell roles-table__cell--actions">
         <a ui-sref="admin.roles.edit({roleId: row.id})" class="roles-table__action roles-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>
