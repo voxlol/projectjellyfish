@@ -47,7 +47,7 @@
     vm.roles = roles;
     vm.activate = activate;
     vm.deleteRole = deleteRole;
-    vm.permissionList = permissionList;
+    vm.permissionsList = permissionsList;
     activate();
 
     function activate() {
@@ -68,13 +68,12 @@
       }
     }
 
-    function permissionList(input) {
-      var temp = [];
-      lodash.each(input, function(value, key) {
-        temp.push('<b>', lodash.capitalize(key), '</b>:', value.join(' '), '<br>');
-      });
+    function permissionsList(list) {
+      return lodash.flatten(lodash.map(list, formatPermissions)).join('');
 
-      return temp.join(' ');
+      function formatPermissions(value, key) {
+        return ['<strong>', key, '</strong>: ', value.join(' '), '<br>'];
+      }
     }
   }
 })();
