@@ -27,8 +27,11 @@
   +element(button)
     +make-sm-column(2)
 
-  +element(approve)
+  +element(rejection-message)
+    font-size: 16px
+    font-weight: normal
+    text-align: center
+    text-transform: uppercase
 
-
-  +element(reject)
-
+    +modifier(response)
+      color: $app-color-pink
