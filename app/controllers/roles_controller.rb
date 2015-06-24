@@ -30,10 +30,6 @@ class RolesController < ApplicationController
     authorize role
     respond_with_params role.save
   end
-  def create
-    authorize ContentPage
-    respond_with ContentPage.create content_page_params
-  end
 
   api :PUT, '/roles/:id', 'Update a role'
   document_params
