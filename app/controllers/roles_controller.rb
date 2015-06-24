@@ -28,7 +28,8 @@ class RolesController < ApplicationController
   def create
     role = Role.new role_params
     authorize role
-    respond_with_params role.save
+    role.save
+    respond_with role
   end
 
   api :PUT, '/roles/:id', 'Update a role'
