@@ -1,0 +1,27 @@
+<div class="add-group-modal__header">
+  <button type="button" class="add-group-modal__close" ng-click="$dismiss()" aria-label="Close">
+    <i class="fa fa-close" aria-hidden="true"></i>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="add-group-modal__title">Select a Group to Add</div>
+</div>
+<div class="add-group-modal__body">
+  <!--<div class="group-field">-->
+    <!--<div class="group-field__aside">-->
+      <!--<label class="group-field__label">Add User</label>-->
+    <!--</div>-->
+    <!--<div class="group-field__body">-->
+      <select id="group-role" name="group" ng-model="vm.group" class="group-field__input"
+              ng-options="group as group.name for group in vm.groups track by group.id">
+      </select>
+
+    <!--</div>-->
+  <!--</div>-->
+
+</div>
+<div class="add-group-modal__footer">
+  <button type="button" class="btn-rounded add-group-modal__ok" ng-click="$close(vm.group)">Add Group</button>
+
+  <button type="button" class="btn-rounded btn-rounded--gray add-group-modal__ok" ng-click="$dismiss()">Cancel</button>
+</div>
+

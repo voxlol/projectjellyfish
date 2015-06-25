@@ -100,7 +100,7 @@
 <!-- Services -->
 <region ng-if="::vm.project.isApproved()" heading="Services">
   <div class="project-details__service-buttons">
-    <button type="button" class="btn-rounded project-details__service-button"
+    <button type="button" class="btn-rounded btn-rounded--short project-details__service-button"
             ui-sref="projects.services({projectId: vm.project.id})">
       Add Services
     </button>
@@ -113,10 +113,14 @@
 
 <region ng-if="::vm.project.isApproved()" heading="Groups & Membership">
   <div class="project-details__service-buttons">
-    <button type="button" class="btn-rounded project-details__service-button">
+    <button type="button"
+            class="btn-rounded btn-rounded--short btn-rounded--capitalize project-details__service-button"
+            ng-click="vm.openAddGroup()">
       Add Group
     </button>
   </div>
+
+  <pre>{{vm.project.groups |json}}</pre>
   <project-groups-table groups="vm.project.groups"></project-groups-table>
 </region>
 
