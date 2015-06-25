@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -113,15 +113,21 @@
 
       function updateGroups(group) {
         vm.groupToAdd = group;
-        console.log(vm.groupToAdd)
-
-        if(vm.project.groups === undefined){
-          Array.prototype.push.apply(vm.project.group, vm.groupToAdd);
-          vm.project.$update(saveSuccess, saveFailure);
-        }else if (lodash.result(lodash.find(vm.project.groups, {'id': vm.groupToAdd.id}), 'id')) {
-          Toasts.error('Group already associated with project.')
+        if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
+          Toasts.error('Group already associated with this project.')
         } else {
+          vm.project.groups.push(vm.groupToAdd);
 
+          vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
+            'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
+            'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
+
+          for (var prop in vm.filteredProject) {
+            if (vm.filteredProject[prop] === null) {
+              delete vm.filteredProject[prop];
+            }
+          }
+          vm.filteredProject.$update(saveSuccess, saveFailure);
         }
       }
 

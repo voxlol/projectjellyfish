@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        groups: '='
+        project: '='
       },
       link: link,
       templateUrl: 'app/components/project-groups-table/project-groups-table.html',
@@ -25,7 +25,7 @@
     }
 
     /** @ngInject */
-    function ProjectGroupsTableController(lodash, Group, Toasts) {
+    function ProjectGroupsTableController(lodash, Project, Toasts) {
       var vm = this;
 
       vm.activate = activate;
@@ -35,14 +35,14 @@
       }
 
       function deleteGroup(index) {
-        var group = vm.groups[index];
+        var project = vm.project.groups[index];
 
-        if (!group) {
+        if (!project) {
           return;
         }
 
-        lodash.remove(vm.groups, {id: group.id});
-        group.$delete(deleteSuccess, deleteError);
+        lodash.remove(vm.project.groups, {id: project.id});
+        project.$delete(deleteSuccess, deleteError);
 
         function deleteSuccess() {
           Toasts.toast('Group deleted.');
@@ -50,7 +50,7 @@
 
         function deleteError() {
           Toasts.error('Could not delete group. Try again later.');
-          vm.groups.splice(index, 0, group);
+          vm.projects.groups.splice(index, 0, group);
         }
       }
     }

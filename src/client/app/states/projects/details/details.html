@@ -108,9 +108,7 @@
   <services-table services="vm.project.services"></services-table>
 </region>
 
-<!-- Project Groups-->
-<!-- TODO: Revisit and refactor when the api works -->
-
+<!-- Groups-->
 <region ng-if="::vm.project.isApproved()" heading="Groups & Membership">
   <div class="project-details__service-buttons">
     <button type="button"
@@ -119,9 +117,7 @@
       Add Group
     </button>
   </div>
-
-  <pre>{{vm.project.groups |json}}</pre>
-  <project-groups-table groups="vm.project.groups"></project-groups-table>
+  <project-groups-table project="vm.project"></project-groups-table>
 </region>
 
 <!- Project Answers -->
