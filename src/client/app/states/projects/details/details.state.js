@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -72,12 +72,6 @@
     vm.reject = reject;
     vm.groupToAdd = {};
 
-
-    // todo: create alert service to poll
-    // vm.alerts = lodash.filter(alerts, function(alert) {
-    //  return alert.project_id == vm.project.project_id;
-    // });
-
     activate();
 
     function activate() {
@@ -114,7 +108,7 @@
       function updateGroups(group) {
         vm.groupToAdd = group;
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
-          Toasts.error('Group already associated with this project.')
+          Toasts.error('Group already associated with this project.');
         } else {
           vm.project.groups.push(vm.groupToAdd);
 

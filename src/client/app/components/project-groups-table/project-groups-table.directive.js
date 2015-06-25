@@ -50,7 +50,7 @@
 
         function deleteError() {
           Toasts.error('Could not delete group. Try again later.');
-          vm.projects.groups.splice(index, 0, group);
+          vm.project.groups.splice(index, 0, project);
         }
       }
     }
