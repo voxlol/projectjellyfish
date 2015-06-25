@@ -6,7 +6,7 @@
 
   /** @ngInject */
   function GroupFactory($resource) {
-    var Group = $resource('/api/v1/groups/:id' , {id: '@id'}, {
+    var Group = $resource('/api/v1/groups/:id', {id: '@id'}, {
       update: {
         method: 'PUT',
         isArray: false

@@ -13,7 +13,5 @@
 #
 
 class ProductCategorySerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :img, :created_at, :updated_at, :deleted_at
-
-  attribute :tag_list, key: :tags
+  attributes :id, :name, :description, :img, :tag_list, :created_at, :updated_at, :deleted_at
 end

@@ -13,7 +13,6 @@
 #
 
 FactoryGirl.define do
-
   TAGS = %w(foo bar foobar fizz buzz fizzbuzz doo dad doodad wid get widget)
 
   factory :product_category do
@@ -24,7 +23,6 @@ FactoryGirl.define do
       "Product Category description #{n}"
     end
     img 'product.png'
-    tag_list { TAGS.sample rand 0..(TAGS.length/2)}
+    tag_list { TAGS.sample rand 0..(TAGS.length / 2) }
   end
-
 end

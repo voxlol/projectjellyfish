@@ -6,7 +6,24 @@
 
   /** @ngInject */
   function ProductCategoryFactory($resource) {
-    var ProductCategory = $resource('/api/v1/product_categories/:id');
+    var ProductCategory = $resource('/api/v1/product_categories/:id', {id: '@id'}, {
+      update: {
+        method: 'PUT',
+        isArray: false
+      }
+    });
+
+    ProductCategory.defaults = {
+      name: '',
+      description: '',
+      tag_list: []
+    };
+
+    ProductCategory.new = newProductCategory;
+
+    function newProductCategory() {
+      return new ProductCategory(angular.copy(ProductCategory.defaults));
+    }
 
     return ProductCategory;
   }

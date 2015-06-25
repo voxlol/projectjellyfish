@@ -151,5 +151,7 @@ Rails.application.routes.draw do
     resources :tags, only: [:index]
   end
 
+  root 'welcome#index'
+
   match '*path' => 'welcome#index', via: :all
 end
