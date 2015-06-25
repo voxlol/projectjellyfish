@@ -110,15 +110,15 @@
 
 <!-- Project Groups-->
 <!-- TODO: Revisit and refactor when the api works -->
-<!--<widget modifier="primary">-->
-<!--<div transclude-to="header">Groups & Membership</div>-->
-<!--<div transclude-to="body">-->
-<!--membership-->
-<!--{{vm.project.memberships}}-->
-<!--groups-->
-<!--{{vm.project.groups}}-->
-<!--</div>-->
-<!--</widget>-->
+
+<region ng-if="::vm.project.isApproved()" heading="Groups & Membership">
+  <div class="project-details__service-buttons">
+    <button type="button" class="btn-rounded project-details__service-button">
+      Add Group
+    </button>
+  </div>
+  <project-groups-table groups="vm.project.groups"></project-groups-table>
+</region>
 
 <!- Project Answers -->
 <region heading="Project Specifications">
