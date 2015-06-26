@@ -13,11 +13,11 @@
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
 <region ng-if="::vm.project.alerts" heading="Alerts"
-        ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+        >
   <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
 </region>
 
-<details-table ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+<details-table >
   <div class="details-table__row">
     <div class="details-table__label">Description</div>
     <div class="details-table__detail">{{ ::vm.project.description }}</div>
@@ -58,7 +58,7 @@
   </div>
 </details-table>
 
-<details-table heading="Budget" ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+<details-table heading="Budget" >
   <alert ng-if="::0 >= vm.project.budgetRemainder()" type="danger">
     <strong>Budget Exceeded</strong> &mdash; The project budget has been exceeded!
   </alert>
@@ -94,13 +94,13 @@
   </div>
 </details-table>
 
-<region heading="Order History" ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+<region heading="Order History" >
   <orders-table orders="vm.project.order_history"></orders-table>
 </region>
 
 <!-- Services -->
 <region ng-if="::vm.project.isApproved()" heading="Services"
-        ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+        >
   <div class="project-details__service-buttons">
     <button type="button" class="btn-rounded project-details__service-button"
             ui-sref="projects.services({projectId: vm.project.id})">
@@ -123,6 +123,6 @@
 <!--</widget>-->
 
 <!- Project Answers -->
-<region heading="Project Specifications" ng-class="{'project-details__project-rejected': vm.project.approval =='rejected'}">
+<region heading="Project Specifications" >
   <project-answers-table answers="vm.project.project_answers"></project-answers-table>
 </region>
