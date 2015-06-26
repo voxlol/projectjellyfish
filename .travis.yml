@@ -41,6 +41,3 @@ deploy:
   app: jellyfish-core-dev
   run: "rake db:schema:load spec db:seed sample:demo"
   skip_cleanup: true
-
-env:
-  - WIZARD_AUTOSUBMIT=true WIZARD_MULTIPAGE=true
