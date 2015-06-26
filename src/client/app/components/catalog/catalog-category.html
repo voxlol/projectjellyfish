@@ -1,4 +1,4 @@
-<div ng-if="::vm.category.products.length > 0" class="catalog-category" ng-cloak>
+<div ng-if="::vm.category.products.length > 0" class="catalog-category">
   <div class="catalog-category__header">
     <span class="catalog-category__title">{{ ::vm.category.title }}</span>
     <a href="#" title="Collapse">
@@ -38,13 +38,13 @@
         </td>
         <td ng-if="::!vm.comparable" class="catalog-category__cell catalog-category__cell--padding"></td>
         <td class="catalog-category__cell catalog-category__cell--description">
-          <product-description product="row"></product-description>
+          <product-description product="::row" link-to="{{ ::vm.linkTo }}"></product-description>
         </td>
-        <td class="catalog-category__cell catalog-category__cell--setup">{{ row.setup_price }}</td>
-        <td class="catalog-category__cell catalog-category__cell--monthly">{{ row.monthly_price }}</td>
-        <td class="catalog-category__cell catalog-category__cell--hourly">{{ row.hourly_price }}</td>
+        <td class="catalog-category__cell catalog-category__cell--setup">{{ ::row.setup_price }}</td>
+        <td class="catalog-category__cell catalog-category__cell--monthly">{{ ::row.monthly_price }}</td>
+        <td class="catalog-category__cell catalog-category__cell--hourly">{{ ::row.hourly_price }}</td>
         <td ng-if="::vm.project" class="catalog-category__cell catalog-category__cell--cart">
-          <add-to-cart product="row" project="vm.project" short="true" text="Add"></add-to-cart>
+          <add-to-cart product="::row" project="::vm.project" short="::true" text="Add"></add-to-cart>
         </td>
       </tr>
       </tbody>

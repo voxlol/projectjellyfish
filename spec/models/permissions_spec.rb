@@ -18,12 +18,10 @@ describe Permissions do
   end
 
   it 'throws an exception if object does not have a table_name' do
-    expect { Permissions.new(user: build_stubbed(:staff), object: 'no table name') }
-      .to raise_error
+    expect { Permissions.new(user: build_stubbed(:staff), object: 'no table name') }.to raise_error(ArgumentError)
   end
 
   it 'throws an exception if object does not have a project' do
-    expect { Permissions.new(user: build_stubbed(:staff), object: build_stubbed(:staff)) }
-      .to raise_error
+    expect { Permissions.new(user: build_stubbed(:staff), object: build_stubbed(:staff)) }.to raise_error(ArgumentError)
   end
 end

@@ -9,7 +9,8 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        product: '='
+        product: '=',
+        linkTo: '@?'
       },
       link: link,
       templateUrl: 'app/components/product-description/product-description.html',
@@ -25,12 +26,18 @@
     }
 
     /** @ngInject */
-    function ProductDescriptionController() {
+    function ProductDescriptionController($state) {
       var vm = this;
 
       vm.activate = activate;
+      vm.clicked = clicked;
 
       function activate() {
+        vm.linkTo = vm.linkTo || 'products.details';
+      }
+
+      function clicked() {
+        $state.go(vm.linkTo, {productId: vm.product.id});
       }
     }
   }

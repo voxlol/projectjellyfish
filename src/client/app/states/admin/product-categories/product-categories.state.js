@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.wizard-questions': {
-        url: '/wizard-questions',
-        redirectTo: 'admin.wizard-questions.list',
+      'admin.product-categories': {
+        url: '/product-categories',
+        redirectTo: 'admin.product-categories.list',
         template: '<ui-view></ui-view>'
       }
     };
@@ -27,11 +27,11 @@
 
   function sidebarItems() {
     return {
-      'admin.alerts': {
+      'admin.product-categories': {
         type: 'state',
-        state: 'admin.wizard-questions',
-        label: 'Wizard Questions',
-        order: 8
+        state: 'admin.product-categories',
+        label: 'Product Categories',
+        order: 3
       }
     };
   }

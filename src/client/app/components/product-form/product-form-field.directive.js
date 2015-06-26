@@ -5,7 +5,7 @@
     .directive('productFormField', ProductFormFieldDirective);
 
   /** @ngInject */
-  function ProductFormFieldDirective($timeout) {
+  function ProductFormFieldDirective() {
     var directive = {
       restrict: 'AE',
       require: '^productForm',

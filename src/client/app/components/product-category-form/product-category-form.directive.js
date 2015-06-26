@@ -2,20 +2,19 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('productForm', ProductFormDirective);
+    .directive('productCategoryForm', ProductCategoryFormDirective);
 
   /** @ngInject */
-  function ProductFormDirective() {
+  function ProductCategoryFormDirective() {
     var directive = {
       restrict: 'AE',
       scope: {
         heading: '@?',
-        product: '=',
-        productType: '='
+        productCategory: '='
       },
       link: link,
-      templateUrl: 'app/components/product-form/product-form.html',
-      controller: ProductFormController,
+      templateUrl: 'app/components/product-category-form/product-category-form.html',
+      controller: ProductCategoryFormController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -27,13 +26,14 @@
     }
 
     /** @ngInject */
-    function ProductFormController($scope, $state, Tag, Toasts, TAG_QUERY_LIMIT) {
+    function ProductCategoryFormController($state, Tag, TAG_QUERY_LIMIT, Toasts) {
       var vm = this;
 
       var showValidationMessages = false;
       var home = 'admin.products';
 
       vm.activate = activate;
+      vm.queryTags = queryTags;
       vm.backToList = backToList;
       vm.queryTags = queryTags;
       vm.showErrors = showErrors;
@@ -41,15 +41,15 @@
       vm.onSubmit = onSubmit;
 
       function activate() {
-        vm.heading = vm.heading || 'Add A Product';
-      }
-
-      function backToList() {
-        $state.go(home);
+        vm.heading = vm.heading || 'Add A Product Category';
       }
 
       function queryTags(query) {
         return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
+      }
+
+      function backToList() {
+        $state.go(home);
       }
 
       function showErrors() {
@@ -66,21 +66,18 @@
 
       function onSubmit() {
         showValidationMessages = true;
-        // This is so errors can be displayed for 'untouched' angular-schema-form fields
-        $scope.$broadcast('schemaFormValidate');
-
         if (vm.form.$valid) {
-          if (vm.product.id) {
-            vm.product.$update(saveSuccess, saveFailure);
+          if (vm.productCategory.id) {
+            vm.productCategory.$update(saveSuccess, saveFailure);
           } else {
-            vm.product.$save(saveSuccess, saveFailure);
+            vm.productCategory.$save(saveSuccess, saveFailure);
           }
         }
 
         return false;
 
         function saveSuccess() {
-          Toasts.toast(vm.product.name + ' saved to products.');
+          Toasts.toast(vm.productCategory.name + ' product category has been saved.');
           $state.go(home);
         }
 
