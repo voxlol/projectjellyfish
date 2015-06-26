@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'projects.create': {
-        url: '/',
+        url: '/create/:projectId',
         params: {
           projectId: null
         },
@@ -44,7 +44,7 @@
     activate();
 
     function activate() {
-      logger.info('Activated Project Question Create View');
+      logger.info('Activated Project Create View');
       resolveProjects();
     }
 
