@@ -3733,7 +3733,7 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "id&question=Question%3F&help_text=helping&required=true&created_at&updated_at&deleted_at&load_order=0&options[]=one&options[]=tow&options[]=three&field_type=select_option",
+      "request_data": "id&question=Question%3F&help_text=helping&required=true&created_at&updated_at&deleted_at&position=0&options[]=one&options[]=tow&options[]=three&field_type=select_option",
       "response_data": {
         "id": 1,
         "question": "Question?",
@@ -3742,7 +3742,7 @@
         "created_at": "2015-06-03T18:24:38.149Z",
         "updated_at": "2015-06-03T18:24:38.149Z",
         "deleted_at": null,
-        "load_order": 0,
+        "position": 0,
         "options": [
           "one",
           "tow",
@@ -3803,7 +3803,7 @@
           "created_at": "2015-06-03T18:24:38.282Z",
           "updated_at": "2015-06-03T18:24:38.282Z",
           "deleted_at": null,
-          "load_order": 1,
+          "position": 1,
           "options": [
 
           ],
@@ -3817,7 +3817,7 @@
           "created_at": "2015-06-03T18:24:38.277Z",
           "updated_at": "2015-06-03T18:24:38.277Z",
           "deleted_at": null,
-          "load_order": 0,
+          "position": 0,
           "options": [
             "one",
             "tow",
@@ -3847,7 +3847,7 @@
           "created_at": "2015-06-03T18:24:38.338Z",
           "updated_at": "2015-06-03T18:24:38.338Z",
           "deleted_at": null,
-          "load_order": 1,
+          "position": 1,
           "options": [
 
           ],
@@ -3876,7 +3876,7 @@
         "created_at": "2015-06-03T18:24:38.383Z",
         "updated_at": "2015-06-03T18:24:38.383Z",
         "deleted_at": null,
-        "load_order": 0,
+        "position": 0,
         "options": [
           "one",
           "tow",

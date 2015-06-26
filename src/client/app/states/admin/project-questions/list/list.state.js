@@ -45,6 +45,7 @@
 
     vm.title = 'Project Questions';
     vm.projectQuestions = projectQuestions;
+    vm.currentSort = [];
     vm.sortableOptions = {
       axis: 'y',
       cursor: 'move',
@@ -52,7 +53,7 @@
       helper: sortableHelper,
       opacity: 0.9,
       placeholder: 'project-questions-table__placeholder',
-      update: sortableUpdate
+      stop: sortableStop
     };
 
     vm.activate = activate;
@@ -94,24 +95,21 @@
       }
     }
 
-    function sortableUpdate(event, ui) {
+    function sortableStop(event, ui) {
       var projectQuestion = angular.element(ui.item).scope().row;
+      var sortableList = ui.item.parent().children().map(function(row) {
+        return vm.projectQuestions[row].id;
+      }).toArray();
 
-      // Update fires before the mode is updated; Stop won't tell us if we actualyl moved anything
-      // So wait a moment and let things settle then perform the update
-      $timeout(savePosition);
+      projectQuestion.position = sortableList;
+      projectQuestion.$sort(updateSuccess, updateFailure);
 
-      function savePosition() {
-        projectQuestion.load_order = ui.item.index();
-        projectQuestion.$update(updateSuccess, updateFailure);
+      function updateSuccess() {
+        Toasts.toast('Project Question order saved.');
+      }
 
-        function updateSuccess() {
-          Toasts.toast('Project Question order saved.');
-        }
-
-        function updateFailure() {
-          Toasts.error('Server returned an error while saving.');
-        }
+      function updateFailure() {
+        Toasts.error('Server returned an error while saving.');
       }
     }
   }

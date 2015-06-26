@@ -333,7 +333,7 @@ ActiveRecord::Schema.define(version: 20150619150009) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "load_order"
+    t.integer  "position"
     t.jsonb    "options"
     t.integer  "field_type",             default: 0
   end

@@ -45,7 +45,7 @@
 
       function activate(api) {
         angular.extend(vm, api);
-        vm.option.load_order = vm.index;
+        vm.option.position = vm.index;
       }
 
       function queryTags(query) {
