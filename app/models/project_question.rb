@@ -9,7 +9,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  deleted_at :datetime
-#  load_order :integer
+#  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
 #
@@ -20,8 +20,9 @@
 
 class ProjectQuestion < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_list
 
-  scope :ordered, -> { order('load_order') }
+  scope :ordered, -> { order('position') }
 
   has_many :project_answers, dependent: :destroy
 

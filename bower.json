@@ -6,7 +6,7 @@
     "Michael Stack",
     "Allen Wight"
   ],
-  "license": "MIT",
+  "license": "Apache 2.0",
   "homepage": "https://bitbucket.com/chaoticmoon/bah-ux-prototype",
   "ignore": [
     "**/.*",
