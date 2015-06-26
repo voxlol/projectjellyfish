@@ -1,5 +1,6 @@
 class ProductCategoriesController < ApplicationController
   api :GET, '/product_categories', 'Returns all product categories'
+
   def index
     respond_with product_categories
   end
@@ -15,7 +16,6 @@ class ProductCategoriesController < ApplicationController
   api :POST, '/product_categories', 'Creates a product category'
   param :name, String, desc: 'Product Category Name', required: true
   param :description, String, desc: 'Product Category Description', required: true
-  param :img, String, desc: 'Product Category Image'
   param :tag_list, Array, desc: 'Product Category Tags', required: true
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -25,11 +25,10 @@ class ProductCategoriesController < ApplicationController
     respond_with @product_category
   end
 
-  api :POST, '/product_categories', 'Creates a product category'
+  api :PUT, '/product_categories', 'Creates a product category'
   param :name, String, desc: 'Product Category Name'
   param :description, String, desc: 'Product Category Description'
-  param :img, String, desc: 'Product Category Image'
-  param :tag_list, Array, desc: 'Product Category Tags'
+  param :tag_list, Array, desc: 'Product Category Tags', required: true
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
@@ -52,7 +51,7 @@ class ProductCategoriesController < ApplicationController
   end
 
   def product_category
-    @_product_category = ProductCategory.find(params[:id]).tap {|pc| authorize pc }
+    @_product_category = ProductCategory.find(params[:id]).tap { |pc| authorize pc }
   end
 
   def product_categories

@@ -72,6 +72,6 @@ class WizardQuestionsController < ApplicationController
   end
 
   def wizard_question
-    @_question ||= (query_with WizardQuestion.where(id: params.require(:id)), :includes).try :first
+    @_question ||= (query_with WizardQuestion.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
   end
 end
