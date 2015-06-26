@@ -100,7 +100,7 @@ class ProductsController < ApplicationController
   end
 
   def load_product
-    @product = (query_with Product.where(id: params.require(:id)), :includes).try :first
+    @product = (query_with Product.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
   end
 
   def load_products

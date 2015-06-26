@@ -149,9 +149,11 @@ Rails.application.routes.draw do
     resources :groups
     post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
     delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
-    resources :roles, only: [:index, :create, :update, :destroy]
+    resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
   end
+
+  root 'welcome#index'
 
   match '*path' => 'welcome#index', via: :all
 end

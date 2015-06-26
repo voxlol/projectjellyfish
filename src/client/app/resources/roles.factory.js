@@ -6,8 +6,25 @@
 
   /** @ngInject */
   function RolesFactory($resource) {
-    var Roles = $resource('/api/v1/roles/:id' , {id: '@id'}, {});
+    var Role = $resource('/api/v1/roles/:id', {id: '@id'}, {
+      update: {
+        method: 'PUT',
+        isArray: false
+      }
+    });
 
-    return Roles;
+    Role.defaults = {
+      name: '',
+      description: '',
+      permissions: {approvals: [], projects: [], memberships: []}
+    };
+
+    Role.new = newRole;
+
+    function newRole() {
+      return new Role(angular.copy(Role.defaults));
+    }
+
+    return Role;
   }
 })();

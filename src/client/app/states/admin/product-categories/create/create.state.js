@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'admin.roles.create': {
+      'admin.product-categories.create': {
         url: '/create',
-        templateUrl: 'app/states/admin/roles/create/create.html',
+        templateUrl: 'app/states/admin/product-categories/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Roles Create'
+        title: 'Create Product Category'
       }
     };
   }
@@ -32,24 +32,24 @@
   }
 
   /** @ngInject */
-  function StateController(logger, Role) {
+  function StateController(logger, ProductCategory) {
     var vm = this;
 
-    vm.title = 'Admin Role Create';
+    vm.title = 'Create Product Category';
 
     vm.activate = activate;
 
     activate();
 
     function activate() {
-      initRole();
-      logger.info('Activated Admin Products Create View');
+      initProductCategory();
+      logger.info('Activated Create Product Category View');
     }
 
     // Private
 
-    function initRole() {
-      vm.role = Role.new();
+    function initProductCategory() {
+      vm.productCategory = ProductCategory.new();
     }
   }
 })();
