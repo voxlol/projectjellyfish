@@ -12,8 +12,7 @@
 
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
-<region ng-if="::vm.project.alerts" heading="Alerts"
-        >
+<region ng-if="::vm.project.alerts" heading="Alerts">
   <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
 </region>
 
@@ -58,7 +57,7 @@
   </div>
 </details-table>
 
-<details-table heading="Budget" >
+<details-table heading="Budget">
   <alert ng-if="::0 >= vm.project.budgetRemainder()" type="danger">
     <strong>Budget Exceeded</strong> &mdash; The project budget has been exceeded!
   </alert>
@@ -94,13 +93,12 @@
   </div>
 </details-table>
 
-<region heading="Order History" >
+<region heading="Order History">
   <orders-table orders="vm.project.order_history"></orders-table>
 </region>
 
 <!-- Services -->
-<region ng-if="::vm.project.isApproved()" heading="Services"
-        >
+<region ng-if="::vm.project.isApproved()" heading="Services">
   <div class="project-details__service-buttons">
     <button type="button" class="btn-rounded project-details__service-button"
             ui-sref="projects.services({projectId: vm.project.id})">
@@ -123,6 +121,6 @@
 <!--</widget>-->
 
 <!-- Project Answers -->
-<region heading="Project Specifications" >
+<region heading="Project Specifications">
   <project-answers-table answers="vm.project.project_answers"></project-answers-table>
 </region>
