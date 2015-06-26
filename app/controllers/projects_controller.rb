@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   def self.document_project_params(required: false)
     param :approved, String
-    param :budget, :real_number, required: required
+    param :budget, :decimal, precision: 12, scale: 2, required: required
     param :cc, String
     param :description, String
     param :end_date, String
