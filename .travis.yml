@@ -1,7 +1,7 @@
 language: ruby
 cache:
-  bundler:
   directories:
+    - vendor/bundle
     - node_modules
     - bower_components
 
