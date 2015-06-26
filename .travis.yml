@@ -23,7 +23,6 @@ before_script:
   - npm install -g npm@latest
   - npm install -g gulp
   - npm install
-  - gulp build
 
 notifications:
   slack:
