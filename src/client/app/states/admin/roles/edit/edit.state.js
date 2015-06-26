@@ -13,12 +13,15 @@
 
   function getStates() {
     return {
-      'admin.roles.create': {
-        url: '/create',
-        templateUrl: 'app/states/admin/roles/create/create.html',
+      'admin.roles.edit': {
+        url: '/edit/:roleId',
+        templateUrl: 'app/states/admin/roles/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Roles Create'
+        title: 'Admin Edit Role',
+        resolve: {
+          role: resolveRole
+        }
       }
     };
   }
@@ -32,24 +35,23 @@
   }
 
   /** @ngInject */
-  function StateController(logger, Role) {
+  function resolveRole(Role, $stateParams) {
+    return Role.get({id: $stateParams.roleId}).$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, role) {
     var vm = this;
 
-    vm.title = 'Admin Role Create';
+    vm.title = 'Edit Role';
+    vm.role = role;
 
     vm.activate = activate;
 
     activate();
 
     function activate() {
-      initRole();
-      logger.info('Activated Admin Products Create View');
-    }
-
-    // Private
-
-    function initRole() {
-      vm.role = Role.new();
+      logger.info('Activated Edit Role View');
     }
   }
 })();
