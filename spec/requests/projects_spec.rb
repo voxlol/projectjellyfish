@@ -6,7 +6,7 @@ RSpec.describe 'Projects API' do
   let(:question) { 'Why did the chicken cross the road?' }
   let(:answer) { 'To get to the other side.' }
   let(:project_name) { 'To get to the other side.' }
-  let(:question_model) { create :project_question, question: question, load_order: 0 }
+  let(:question_model) { create :project_question, question: question, position: 0 }
 
   describe 'GET index' do
     before :each do
