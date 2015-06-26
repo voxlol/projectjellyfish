@@ -6,8 +6,16 @@
 
   /** @ngInject */
   function ProjectQuestionFactory($resource) {
-    var ProjectQuestion = $resource('/api/v1/project_questions/:id', {id: '@id'}, {
-      update: {method: 'PUT'}
+    var ProjectQuestion = $resource('/api/v1/project_questions', {}, {
+      'update': {
+        method: 'PUT',
+        url: '/api/v1/project_questions/:id',
+        params: { id: '@id' }
+      },
+      'sort': {
+        method: 'PUT',
+        url: '/api/v1/project_questions/sort'
+      }
     });
 
     ProjectQuestion.defaults = {
@@ -22,7 +30,7 @@
       option: '',
       include: [],
       exclude: [],
-      load_order: 0
+      position: 0
     };
 
     ProjectQuestion.new = newProjectQuestion;
