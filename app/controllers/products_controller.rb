@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
-  PRODUCT_METHODS = %w(tags)
+  PRODUCT_METHODS = %w(product_type)
   PRODUCT_PRICE_REGEX = /\d{1,6}(\.\d{0,4})?/
 
   api :GET, '/products', 'Returns a collection of products'
@@ -19,6 +19,17 @@ class ProductsController < ApplicationController
   def index
     authorize Product
     respond_with_params @products
+  end
+
+  api :GET, '/products/:id', 'Shows product with :id'
+  param :id, :number, required: true
+  param :includes, Array, in: %w(chargebacks)
+  param :methods, Array, in: PRODUCT_METHODS
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show
+    authorize @product
+    respond_with_params @product
   end
 
   api :POST, '/products', 'Creates product'
@@ -70,16 +81,6 @@ class ProductsController < ApplicationController
     respond_with @product
   end
 
-  api :GET, '/products/:id', 'Shows product with :id'
-  param :id, :number, required: true
-  param :includes, Array, in: %w(chargebacks)
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def show
-    authorize @product
-    respond_with_params @product
-  end
-
   api :DELETE, '/products/:id', 'Deletes product with :id'
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -99,7 +100,7 @@ class ProductsController < ApplicationController
   end
 
   def load_product
-    @product = Product.find(params.require(:id))
+    @product = (query_with Product.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
   end
 
   def load_products

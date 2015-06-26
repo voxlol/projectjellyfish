@@ -8,7 +8,8 @@
 
   angular.module('app.core')
     .value('config', config)
-    .config(configure);
+    .config(configure)
+    .run(init);
 
   /** @ngInject */
   function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, $compileProvider) {
@@ -16,6 +17,11 @@
     routerHelperProvider.configure({docTitle: config.appTitle + ': '});
 
     $logProvider.debugEnabled(true);
-    $compileProvider.debugInfoEnabled(true);
+    $compileProvider.debugInfoEnabled(false);
+  }
+
+  /** @ngInject */
+  function init(logger) {
+    logger.showToasts = false;
   }
 })();

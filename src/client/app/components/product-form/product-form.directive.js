@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        title: '@?',
+        heading: '@?',
         product: '=',
         productType: '='
       },
@@ -41,7 +41,7 @@
       vm.onSubmit = onSubmit;
 
       function activate() {
-        vm.title = vm.title || 'Add A Product';
+        vm.heading = vm.heading || 'Add A Product';
       }
 
       function backToList() {
@@ -70,7 +70,11 @@
         $scope.$broadcast('schemaFormValidate');
 
         if (vm.form.$valid) {
-          vm.product.$save(saveSuccess, saveFailure);
+          if (vm.product.id) {
+            vm.product.$update(saveSuccess, saveFailure);
+          } else {
+            vm.product.$save(saveSuccess, saveFailure);
+          }
         }
 
         return false;
