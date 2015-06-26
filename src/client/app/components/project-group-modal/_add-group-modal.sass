@@ -35,16 +35,12 @@
     right: 30px
     transform: translateY(-50%)
 
+  +element(select)
+    @extend .form-control
+
   +element(body)
     @extend .modal-body
     background-color: $app-color-light-gray-2
-
-  +element(question)
-    font-size: 22px
-    text-align: center
-    padding: 10px 0 20px 0
-
-  +element(answers)
 
   +element(button)
     display: block

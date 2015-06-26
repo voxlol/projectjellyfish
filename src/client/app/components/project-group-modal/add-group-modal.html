@@ -6,21 +6,14 @@
   <div class="add-group-modal__title">Select a Group to Add</div>
 </div>
 <div class="add-group-modal__body">
-  <!--<div class="group-field">-->
-    <!--<div class="group-field__aside">-->
-      <!--<label class="group-field__label">Add User</label>-->
-    <!--</div>-->
-    <!--<div class="group-field__body">-->
-      <select id="group-role" name="group" ng-model="vm.group" class="group-field__input"
-              ng-options="group as group.name for group in vm.groups track by group.id">
-      </select>
-
-    <!--</div>-->
-  <!--</div>-->
-
+  <select id="group-role" name="group" ng-model="vm.group" class="add-group-modal__select"
+          ng-options="group as group.name for group in vm.groups track by group.id">
+  </select>
 </div>
 <div class="add-group-modal__footer">
-  <button type="button" class="btn-rounded add-group-modal__ok" ng-click="$close(vm.group)">Add Group</button>
+  <button ng-disabled="vm.group === ''" type="button" class="btn-rounded add-group-modal__ok"
+          ng-click="$close(vm.group)">Add Group
+  </button>
 
   <button type="button" class="btn-rounded btn-rounded--gray add-group-modal__ok" ng-click="$dismiss()">Cancel</button>
 </div>

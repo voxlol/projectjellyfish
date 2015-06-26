@@ -37,6 +37,7 @@
     var vm = this;
 
     vm.groups = groups;
+    vm.group = '';
 
     activate();
 
