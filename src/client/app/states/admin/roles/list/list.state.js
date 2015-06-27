@@ -35,33 +35,27 @@
   }
 
   /** @ngInject */
-  function resolveRoles($stateParams, Role) {
+  function resolveRoles(Role) {
     return Role.query().$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, $q, $state, roles, Toasts) {
+  function StateController(logger, $state, roles, Toasts, lodash) {
     var vm = this;
 
     vm.title = 'Admin Roles List';
     vm.roles = roles;
     vm.activate = activate;
-    vm.goTo = goTo;
-
+    vm.deleteRole = deleteRole;
+    vm.permissionsList = permissionsList;
     activate();
 
     function activate() {
       logger.info('Activated Admin Role List View');
     }
 
-    function goTo(id) {
-      $state.go('admin.roles.create', {id: id});
-    }
-
-    vm.deleteRole = deleteRole;
-
     function deleteRole(index) {
-      var roles = vm.role[index];
+      var roles = vm.roles[index];
       roles.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
@@ -71,6 +65,14 @@
 
       function deleteFailure() {
         Toasts.error('Server returned an error while deleting.');
+      }
+    }
+
+    function permissionsList(list) {
+      return lodash.flatten(lodash.map(list, formatPermissions)).join('');
+
+      function formatPermissions(value, key) {
+        return ['<strong>', key, '</strong>: ', value.join(' '), '<br>'];
       }
     }
   }

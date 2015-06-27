@@ -6,8 +6,7 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
-  PRODUCT_METHODS = %w(tags)
-  PRODUCT_PRICE_REGEX = /\d{1,6}(\.\d{0,4})?/
+  PRODUCT_METHODS = %w(product_type)
 
   api :GET, '/products', 'Returns a collection of products'
   param :methods, Array, in: PRODUCT_METHODS
@@ -21,15 +20,26 @@ class ProductsController < ApplicationController
     respond_with_params @products
   end
 
+  api :GET, '/products/:id', 'Shows product with :id'
+  param :id, :number, required: true
+  param :includes, Array, in: %w(chargebacks)
+  param :methods, Array, in: PRODUCT_METHODS
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show
+    authorize @product
+    respond_with_params @product
+  end
+
   api :POST, '/products', 'Creates product'
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
-  param :hourly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Hour'
-  param :monthly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Month'
+  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
+  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
   param :name, String, desc: 'Product Name', required: true
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, PRODUCT_PRICE_REGEX, desc: 'Initial Setup Fee'
+  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
   param :tag_list, Array, desc: 'Array of Strings'
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -54,12 +64,12 @@ class ProductsController < ApplicationController
   param :id, :number, required: true
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
-  param :hourly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Hour'
-  param :monthly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Month'
+  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
+  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
   param :name, String, desc: 'Product Name', required: true
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, PRODUCT_PRICE_REGEX, desc: 'Initial Setup Fee'
+  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
   param :tag_list, Array, desc: 'Array of Strings'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -68,16 +78,6 @@ class ProductsController < ApplicationController
     authorize @product
     @product.update_attributes(product_params)
     respond_with @product
-  end
-
-  api :GET, '/products/:id', 'Shows product with :id'
-  param :id, :number, required: true
-  param :includes, Array, in: %w(chargebacks)
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def show
-    authorize @product
-    respond_with_params @product
   end
 
   api :DELETE, '/products/:id', 'Deletes product with :id'
@@ -99,7 +99,7 @@ class ProductsController < ApplicationController
   end
 
   def load_product
-    @product = Product.find(params.require(:id))
+    @product = (query_with Product.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
   end
 
   def load_products

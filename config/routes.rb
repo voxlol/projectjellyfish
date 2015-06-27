@@ -79,6 +79,8 @@ Rails.application.routes.draw do
 
     resources :product_types
 
+    resources :product_categories
+
     # Chargebacks
     resources :chargebacks
 
@@ -109,7 +111,9 @@ Rails.application.routes.draw do
     resources :projects
 
     # ProjectQuestion Routes
-    resources :project_questions
+    resources :project_questions do
+      collection { put :sort }
+    end
 
     # Admin Settings
     resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
@@ -145,38 +149,11 @@ Rails.application.routes.draw do
     resources :groups
     post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
     delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
-    resources :roles, only: [:index, :create, :update, :destroy]
+    resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
   end
 
   root 'welcome#index'
 
-  # Forward all angular paths to angular app so that directly visiting a url or
-  # refreshing the page works as expected
-  %w(
-    401-unauthorized
-    404-not-found
-    admin
-    cart
-    dashboard
-    list
-    login
-    logout
-    marketplace
-    order
-    orders
-    project
-    server-unreachable
-    show
-    terribly-sorry-about-that
-    users
-    wizard
-  ).each do |path|
-    get "/#{path}" => 'welcome#index'
-    get "/#{path}/*path" => 'welcome#index'
-  end
-
-  if Rails.env.production?
-    match '*path', to: 'welcome#index', via: :all
-  end
+  match '*path' => 'welcome#index', via: :all
 end

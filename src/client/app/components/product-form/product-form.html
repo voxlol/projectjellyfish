@@ -3,7 +3,7 @@
       ng-class="{'show-errors': vm.showErrors()}">
   <content-header short="true">
     <div>
-      <span class="content-header__title product-form__title">{{ ::vm.title }}</span>
+      <span class="content-header__title product-form__title">{{ ::vm.heading }}</span>
       <span class="product-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
     </div>
     <div class="product-form__product-type">
@@ -64,11 +64,11 @@
 
         <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('setupPrice')}">
           <input id="product-setup-price" ng-model="vm.product.setup_price" name="setupPrice" type="text"
-                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,7}(?:\.\d{0,4})?$/"/>
+                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,6}(?:\.\d{1,4})?$/"/>
 
           <div class="product-field__feedback" ng-messages="vm.form.setupPrice.$error">
             <div ng-message="required">A setup price is required.</div>
-            <div ng-message="pattern">Enter a value between 0.0001 and 9999999.9999</div>
+            <div ng-message="pattern">Enter a value between 0.0001 and 999999.9999</div>
           </div>
         </div>
       </div>
@@ -80,11 +80,11 @@
 
         <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('monthlyPrice')}">
           <input id="product-monthly-price" ng-model="vm.product.monthly_price" name="monthlyPrice" type="text"
-                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,7}(?:\.\d{0,4})?$/"/>
+                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,6}(?:\.\d{1,4})?$/"/>
 
           <div class="product-field__feedback" ng-messages="vm.form.monthlyPrice.$error">
             <div ng-message="required">A monthly price is required.</div>
-            <div ng-message="pattern">Enter a value between 0.0001 and 9999999.9999</div>
+            <div ng-message="pattern">Enter a value between 0.0001 and 999999.9999</div>
           </div>
         </div>
       </div>
@@ -96,18 +96,18 @@
 
         <div class="product-field__body" ng-class="{'has-error': vm.hasErrors('hourlyPrice')}">
           <input id="product-hourly-price" ng-model="vm.product.hourly_price" name="hourlyPrice" type="text"
-                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,7}(?:\.\d{0,4})?$/"/>
+                 class="product-field__input" placeholder="" required ng-pattern="/^\d{1,6}(?:\.\d{1,4})?$/"/>
 
           <div class="product-field__feedback" ng-messages="vm.form.hourlyPrice.$error">
             <div ng-message="required">An hourly price is required.</div>
-            <div ng-message="pattern">Enter a value between 0.0001 and 9999999.9999</div>
+            <div ng-message="pattern">Enter a value between 0.0001 and 999999.9999</div>
           </div>
         </div>
       </div>
 
-      <div sf-use-decorator="product-form-decorator" sf-schema="vm.productType.schema"
-           sf-form="vm.productType.definition"
-           sf-model="vm.product.properties"></div>
+      <div sf-use-decorator="product-form-decorator" sf-model="vm.product.properties"
+           sf-schema="vm.productType.schema"
+           sf-form="vm.productType.definition"></div>
 
       <div class="product-field">
         <div class="product-field__aside">

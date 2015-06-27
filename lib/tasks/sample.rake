@@ -143,6 +143,12 @@ namespace :sample do
     ])
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
 
+    ProductCategory.create!([
+      { name: 'Servers', description: 'Servers', tag_list: %w(server vps linux windows) },
+      { name: 'Databases', description: 'Databases', tag_list: %w(database mysql postgresql sql nosql) },
+      { name: 'Applications', description: 'Applications', tag_list: %w(lamp mean) }
+    ])
+
     Product.create!([
       { id: 1, name: "AWS Small", description: "t2.small EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.026, monthly_price: 0.0, tag_list: ['aws', 'infrastructure', 'aws fog infrastructure', 'ec2', 'small', 'fog'], provisioning_answers: '{"flavor_id":"t1.micro","disk_size":"20"}'},
       { id: 2, name: "AWS Medium", description: "m3.medium EC2", active: true, img: "products/aws_ec2.png", deleted_at: nil, product_type: "AWS Fog Infrastructure", setup_price: 0.0, hourly_price: 0.080, monthly_price: 0.0, tag_list: ['aws', 'infrastructure', 'aws fog infrastructure', 'ec2', 'medium', 'fog'], provisioning_answers: '{"flavor_id":"t1.micro","disk_size":"20"}'},
@@ -200,14 +206,14 @@ namespace :sample do
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
 
     ProjectQuestion.create!([
-      { id: 1, question: "Project Description", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
-      { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
-      { id: 3, question: "Maintenance Day", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 3},
-      { id: 4, question: "Performed Maintenance", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 0},
-      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"], field_type: 1},
-      { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Yes", "No"], field_type: 1},
-      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Low", "Medium", "High"], field_type: 1},
-      { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, field_type: 2}
+      { id: 1, question: "Project Description", help_text: "", required: true, deleted_at: nil, position: 2, options: [], field_type: 2},
+      { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, position: 3, options: [], field_type: 2},
+      { id: 3, question: "Maintenance Day", help_text: "", required: true, deleted_at: nil, position: 4, options: [], field_type: 3},
+      { id: 4, question: "Performed Maintenance", help_text: "", required: true, deleted_at: nil, position: 5, options: [], field_type: 0},
+      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, position: 6, options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"], field_type: 1},
+      { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, position: 7, options: ["Yes", "No"], field_type: 1},
+      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, position: 8, options: ["Low", "Medium", "High"], field_type: 1},
+      { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, position: 1, field_type: 2}
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")
 
