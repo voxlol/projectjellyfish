@@ -40,7 +40,7 @@
   function resolveProjects($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'group_ids', 'project_answers']
+      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;
   }
 
@@ -106,12 +106,12 @@
       AddGroup.showModal().then(updateGroups);
 
       function updateGroups(group) {
-        vm.groupToAdd = group.id;
-        console.log(lodash.findIndex(vm.project.groups, vm.groupToAdd));
-
-        if (lodash.findIndex(vm.project.groups, vm.groupToAdd) !== -1 ) {
+        vm.groupToAdd = group;
+        if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
+          vm.project.group_ids = [];
+          lodash
           vm.project.group_ids.push(vm.groupToAdd);
           //
           //vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
