@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.components')
@@ -25,7 +25,7 @@
     }
 
     /** @ngInject */
-    function ProjectGroupsTableController(lodash, Project, Toasts) {
+    function ProjectGroupsTableController(lodash, Toasts) {
       var vm = this;
 
       vm.activate = activate;
@@ -33,24 +33,25 @@
 
       function activate() {
       }
-
+      
       function deleteGroup(index) {
-        var project = vm.project.groups[index];
+        var groupId = vm.project.groups[index].id;
 
-        if (!project) {
-          return;
-        }
+        lodash.remove(vm.project.group_ids, removeGroupId);
 
-        lodash.remove(vm.project.groups, {id: project.id});
-        project.$delete(deleteSuccess, deleteError);
+        function removeGroupId(n){
+          return n == groupId;
+        };
+
+        vm.project.$update(deleteSuccess, deleteError);
 
         function deleteSuccess() {
-          Toasts.toast('Group deleted.');
+          vm.project.groups = lodash.reject(vm.project.groups, {'id': groupId});
+          Toasts.toast('Group Removed Project.');
         }
 
         function deleteError() {
-          Toasts.error('Could not delete group. Try again later.');
-          vm.project.groups.splice(index, 0, project);
+          Toasts.error('Could not remove group. Try again later.');
         }
       }
     }

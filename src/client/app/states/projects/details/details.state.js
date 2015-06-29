@@ -77,6 +77,7 @@
     function activate() {
       // Temporary! Merge products onto services
       tempMergeProductsOntoServices();
+      vm.project.group_ids = lodash.pluck(vm.project.groups, 'id');
       logger.info('Activated Project Details View');
     }
 
@@ -110,26 +111,16 @@
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
-          vm.project.group_ids = [];
-          lodash
-          vm.project.group_ids.push(vm.groupToAdd);
-          //
-          //vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
-          //  'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
-          //  'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
-          //
-          //for (var prop in vm.filteredProject) {
-          //  if (vm.filteredProject[prop] === null) {
-          //    delete vm.filteredProject[prop];
-          //  }
-          //}
+
+          vm.project.groups.push(vm.groupToAdd);
+
           vm.project.$update(saveSuccess, saveFailure);
         }
       }
 
       function saveSuccess() {
         Toasts.toast('Project Groups Updated.');
-        $state.go(project.details, {id: $stateParams.projectId});
+        vm.project.group_ids.push(vm.groupToAdd.id);
       }
 
       function saveFailure() {
