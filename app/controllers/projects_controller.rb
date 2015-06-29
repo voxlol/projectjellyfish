@@ -62,7 +62,8 @@ class ProjectsController < ApplicationController
 
   def update
     authorize project
-    project.update project_params
+    group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
+    project.update project_params.merge(group_ids: group_ids)
     respond_with_params project
   end
 
