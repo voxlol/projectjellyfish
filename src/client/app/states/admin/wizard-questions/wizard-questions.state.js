@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.wizard-questions',
         label: 'Wizard Questions',
-        order: 6
+        order: 8
       }
     };
   }

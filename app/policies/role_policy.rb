@@ -3,6 +3,10 @@ class RolePolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def create?
     user.admin?
   end
@@ -13,5 +17,11 @@ class RolePolicy < ApplicationPolicy
 
   def destroy?
     user.admin?
+  end
+
+  class Scope < Scope
+    def resolve
+      scope
+    end
   end
 end

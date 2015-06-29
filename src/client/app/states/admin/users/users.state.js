@@ -27,11 +27,11 @@
 
   function sidebarItems() {
     return {
-      'admin.alerts': {
+      'admin.users': {
         type: 'state',
         state: 'admin.users',
         label: 'Users',
-        order: 6
+        order: 7
       }
     };
   }
