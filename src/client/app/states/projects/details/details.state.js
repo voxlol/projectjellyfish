@@ -111,15 +111,13 @@
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
-
           vm.project.groups.push(vm.groupToAdd);
-
           vm.project.$update(saveSuccess, saveFailure);
         }
       }
 
       function saveSuccess() {
-        Toasts.toast('Project Groups Updated.');
+        Toasts.toast('Group successfully added.');
         vm.project.group_ids.push(vm.groupToAdd.id);
       }
 

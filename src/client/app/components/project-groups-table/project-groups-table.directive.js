@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -33,21 +33,21 @@
 
       function activate() {
       }
-      
+
       function deleteGroup(index) {
         var groupId = vm.project.groups[index].id;
 
         lodash.remove(vm.project.group_ids, removeGroupId);
 
-        function removeGroupId(n){
-          return n == groupId;
-        };
+        function removeGroupId(n) {
+          return n === groupId;
+        }
 
         vm.project.$update(deleteSuccess, deleteError);
 
         function deleteSuccess() {
           vm.project.groups = lodash.reject(vm.project.groups, {'id': groupId});
-          Toasts.toast('Group Removed Project.');
+          Toasts.toast('Group successfully removed.');
         }
 
         function deleteError() {
