@@ -40,7 +40,7 @@
   function resolveProjects($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'group_ids', 'project_answers']
     }).$promise;
   }
 
@@ -106,22 +106,24 @@
       AddGroup.showModal().then(updateGroups);
 
       function updateGroups(group) {
-        vm.groupToAdd = group;
-        if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
+        vm.groupToAdd = group.id;
+        console.log(lodash.findIndex(vm.project.groups, vm.groupToAdd));
+
+        if (lodash.findIndex(vm.project.groups, vm.groupToAdd) !== -1 ) {
           Toasts.error('Group already associated with this project.');
         } else {
-          vm.project.groups.push(vm.groupToAdd);
-
-          vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
-            'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
-            'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
-
-          for (var prop in vm.filteredProject) {
-            if (vm.filteredProject[prop] === null) {
-              delete vm.filteredProject[prop];
-            }
-          }
-          vm.filteredProject.$update(saveSuccess, saveFailure);
+          vm.project.group_ids.push(vm.groupToAdd);
+          //
+          //vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
+          //  'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
+          //  'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
+          //
+          //for (var prop in vm.filteredProject) {
+          //  if (vm.filteredProject[prop] === null) {
+          //    delete vm.filteredProject[prop];
+          //  }
+          //}
+          vm.project.$update(saveSuccess, saveFailure);
         }
       }
 
