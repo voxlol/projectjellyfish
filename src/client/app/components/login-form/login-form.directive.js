@@ -67,7 +67,7 @@
         }
 
         function loginError() {
-          Toasts.error('Invalid login credentials entered, please renter and try again.');
+          Toasts.error('Invalid login credentials entered, please reenter and try again.');
         }
       }
     }
