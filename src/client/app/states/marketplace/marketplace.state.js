@@ -61,13 +61,13 @@
     activate();
 
     function activate() {
-      logger.info('Activated Marketplace View');
       updateCatalog();
       Compare.clear();
 
       if ($stateParams.tags) {
         vm.tags = $stateParams.tags;
       }
+      logger.info('Activated Marketplace View');
     }
 
     function updateCatalog() {

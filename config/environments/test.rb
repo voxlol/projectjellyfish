@@ -42,4 +42,6 @@ Rails.application.configure do
 
   # OmniAuth testing
   config.middleware.use OmniAuth::Strategies::Developer, path_prefix: '/api/v1/staff/auth'
+
+  config.colorize_logging = false
 end

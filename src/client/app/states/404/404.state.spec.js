@@ -1,12 +1,15 @@
 /* jshint -W117, -W030 */
 describe('404', function() {
+  beforeEach(function() {
+    bard.asyncModule('app.states');
+  });
+
   describe('route', function() {
     var views = {
       four0four: 'app/states/404/404.html'
     };
 
     beforeEach(function() {
-      module('app.states');
       bard.inject('$location', '$rootScope', '$state', '$templateCache');
     });
 

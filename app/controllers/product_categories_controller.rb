@@ -20,7 +20,7 @@ class ProductCategoriesController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    @product_category = ProductCategory.create! product_category_params
+    @product_category = ProductCategory.create product_category_params
     authorize @product_category
     respond_with @product_category
   end
