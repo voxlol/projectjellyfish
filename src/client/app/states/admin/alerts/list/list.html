@@ -7,32 +7,30 @@
     </div>
 </content-header>
 <div class="alerts-table">
-    <table st-table="vm.alerts" class="alerts-table__table table-hover">
+    <table st-table="vm.alerts" class="alerts-table table-hover">
         <thead>
-        <th colspan="4">
-            <input st-search="" class="form-control alerts-table__filter-input"
-                   placeholder="Filter by project, status, message" type="text"/>
-        </th>
         <tr>
             <th class="alerts-table__heading alerts-table__heading--padding"></th>
-            <th class="alerts-table__heading alerts-table__heading" st-sort="id">Alert Id</th>
-            <th class="alerts-table__heading alerts-table__heading--question" st-sort="project_id">Project</th>
-            <th class="alerts-table__heading alerts-table__heading--required" st-sort="status">Status</th>
-            <th class="alerts-table__heading alerts-table__heading--actions" st-sort="message">Message</th>
-            <th class="alerts-table__heading alerts-table__heading--actions" st-sort="start_date">Start Date</th>
-            <th class="alerts-table__heading alerts-table__heading--actions" st-sort="end_date">End Date</th>
+            <th class="alerts-table__heading alerts-table__heading--sortable" st-sort="alert-id">Alert Id</th>
+            <th class="alerts-table__heading alerts-table__heading--sortable" st-sort="project_id">Project</th>
+            <th class="alerts-table__heading alerts-table__heading--status" st-sort="status">Status</th>
+            <th class="alerts-table__heading" st-sort="message">Message</th>
+            <th class="alerts-table__heading alerts-table__heading--sortable" st-sort="start_date">Start Date</th>
+            <th class="alerts-table__heading alerts-table__heading--sortable" st-sort="end_date">End Date</th>
             <th class="alerts-table__heading alerts-table__heading--actions">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
             <td class="alerts-table__cell alerts-table__cell--padding"></td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.id }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.project_id }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date | date:'short' }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date | date:'short' }}</td>
+            <td class="alerts-table__cell alerts-table__cell--alert-id">{{ ::row.id }}</td>
+            <td class="alerts-table__cell alerts-table__cell--project-id">{{ ::row.project_id }}</td>
+            <td class="alerts-table__cell alerts-table__cell--status">
+              <status type="{{ ::row.status }}">{{ ::row.status }}</status>
+            </td>
+            <td class="alerts-table__cell alerts-table__cell--message">{{ ::row.message }}</td>
+            <td class="alerts-table__cell alerts-table__cell--start-date">{{ ::row.start_date | date:'short' }}</td>
+            <td class="alerts-table__cell alerts-table__cell--end-date">{{ ::row.end_date | date:'short' }}</td>
             <td class="alerts-table__cell alerts-table__cell--actions">
                 <a ui-sref="admin.alerts.create({id: row.id})" class="alerts-table__action alerts-table__action--edit">
                     <img src="/images/ic_edit.png" alt="Edit"/>
