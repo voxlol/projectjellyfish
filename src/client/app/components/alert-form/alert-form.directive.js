@@ -55,11 +55,12 @@
       vm.openAnswerDate = openAnswerDate;
 
       function activate() {
+        // ONLY SUPPORT POSTING TO SINGLE ORG FOR NOW
+        vm.alertToEdit.alertable_type = 'Organization';
+        vm.alertToEdit.alertable_id = '1';
         if (vm.editing) {
           vm.alertToEdit.staff_id = String(vm.alertToEdit.staff_id);
         } else {
-          vm.alertToEdit.project_id = '0';
-          vm.alertToEdit.order_item_id = '0';
           vm.alertToEdit.staff_id = String(vm.staffId);
         }
       }
