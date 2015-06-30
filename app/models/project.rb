@@ -39,8 +39,7 @@ class Project < ActiveRecord::Base
   has_many :groups, through: :memberships
   has_many :staff, through: :groups
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
-  has_many :alerts
-  has_many :latest_alerts, through: :services, class_name: 'Alert'
+  has_many :alerts, as: :alertable
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
   has_one :project_detail
@@ -67,7 +66,7 @@ class Project < ActiveRecord::Base
   end
 
   def compute_current_status!
-    if latest_alerts.any?
+    if latest_service_alerts.any?
       update(status: highest_priority_latest_alert.status.downcase)
     else
       update(status: 'unknown')
@@ -95,7 +94,7 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    @problem_count ||= latest_alerts.not_status(:OK).count
+    @problem_count ||= latest_service_alerts.count { |a| a unless a.status == 'ok' }
   end
 
   def account_number
@@ -122,9 +121,15 @@ class Project < ActiveRecord::Base
     '2 GB'
   end
 
-  private
+  def latest_alerts
+    alerts.latest
+  end
+
+  def latest_service_alerts
+    services.map(&:latest_alerts).flatten
+  end
 
   def highest_priority_latest_alert
-    latest_alerts.max_by { |alert| STATES[alert.status.downcase] }
+    latest_service_alerts.max_by { |alert| STATES[alert.status.downcase] }
   end
 end

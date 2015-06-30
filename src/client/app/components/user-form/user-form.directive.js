@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('userForm', AlertFormDirective);
+    .directive('userForm', UserFormDirective);
 
   /** @ngInject */
-  function AlertFormDirective() {
+  function UserFormDirective() {
     var directive = {
       restrict: 'AE',
       scope: {
@@ -14,7 +14,7 @@
       },
       link: link,
       templateUrl: 'app/components/user-form/user-form.html',
-      controller: AlertFormController,
+      controller: UserFormController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function AlertFormController($scope, $state, Toasts, Staff, lodash) {
+    function UserFormController($scope, $state, Toasts, Staff, lodash) {
       var vm = this;
 
       vm.activate = activate;
@@ -82,7 +82,7 @@
         }
 
         function saveSuccess() {
-          Toasts.toast('Alert saved.');
+          Toasts.toast('User saved.');
           $state.go(vm.home);
         }
 

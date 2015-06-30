@@ -18,19 +18,19 @@ ActiveRecord::Schema.define(version: 20150619150009) do
   enable_extension "uuid-ossp"
 
   create_table "alerts", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "staff_id"
-    t.string   "status",        limit: 20
+    t.string   "status",         limit: 20
     t.text     "message"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_item_id"
+    t.integer  "alertable_id"
+    t.string   "alertable_type"
+    t.string   "category"
   end
 
+  add_index "alerts", ["alertable_id"], name: "index_alerts_on_alertable_id", using: :btree
   add_index "alerts", ["end_date"], name: "index_alerts_on_end_date", using: :btree
-  add_index "alerts", ["order_item_id"], name: "index_order_item_id", using: :btree
   add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
 
   create_table "api_tokens", force: :cascade do |t|
@@ -226,7 +226,6 @@ ActiveRecord::Schema.define(version: 20150619150009) do
     t.jsonb    "payload_request"
     t.jsonb    "payload_acknowledgement"
     t.jsonb    "payload_response"
-    t.integer  "latest_alert_id"
     t.string   "status_msg"
   end
 

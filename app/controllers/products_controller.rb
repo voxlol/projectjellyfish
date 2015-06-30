@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   PRODUCT_METHODS = %w(product_type)
-  PRODUCT_PRICE_REGEX = /\d{1,6}(\.\d{0,4})?/
 
   api :GET, '/products', 'Returns a collection of products'
   param :methods, Array, in: PRODUCT_METHODS
@@ -35,12 +34,12 @@ class ProductsController < ApplicationController
   api :POST, '/products', 'Creates product'
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
-  param :hourly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Hour'
-  param :monthly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Month'
+  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
+  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
   param :name, String, desc: 'Product Name', required: true
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, PRODUCT_PRICE_REGEX, desc: 'Initial Setup Fee'
+  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
   param :tag_list, Array, desc: 'Array of Strings'
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -65,12 +64,12 @@ class ProductsController < ApplicationController
   param :id, :number, required: true
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
-  param :hourly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Hour'
-  param :monthly_price, PRODUCT_PRICE_REGEX, desc: 'Cost per Month'
+  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
+  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
   param :name, String, desc: 'Product Name', required: true
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, PRODUCT_PRICE_REGEX, desc: 'Initial Setup Fee'
+  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
   param :tag_list, Array, desc: 'Array of Strings'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing

@@ -43,8 +43,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
   belongs_to :cloud
   belongs_to :project
-  has_many :alerts, inverse_of: :order_item
-  belongs_to :latest_alert, class_name: 'Alert'
+  has_many :alerts, as: :alertable
 
   # Update the parent Order total
   after_create :update_order_total
@@ -67,6 +66,10 @@ class OrderItem < ActiveRecord::Base
 
   def answers
     product.provisioning_answers
+  end
+
+  def latest_alerts
+    alerts.latest
   end
 
   private

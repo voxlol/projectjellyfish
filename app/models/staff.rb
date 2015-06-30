@@ -39,7 +39,7 @@ class Staff < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  has_many :alerts
+  has_many :alerts, as: :alertable
   has_many :authentications
   has_many :memberships, through: :groups
   has_many :notifications
@@ -65,6 +65,10 @@ class Staff < ActiveRecord::Base
   attr_accessor :api_token
 
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
+
+  def latest_alerts
+    alerts.latest
+  end
 
   def self.find_by_auth(auth_hash)
     auth_match = Authentications.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'].to_s)

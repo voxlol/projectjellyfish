@@ -1,42 +1,48 @@
-<div ng-if="::'approved' !== vm.project.approval" class="project-approval">
-  <div ng-if="::'undecided' === vm.project.approval">
-    <div class="project-approval__heading">
-      <i class="fa fa-asterisk"></i>
-      Project Pending, Requires
-      <span class="project-approval__heading--approval">Approval</span>
-      or
-      <span class="project-approval__heading--rejection">Rejection</span>
-      <i class="fa fa-asterisk"></i>
-    </div>
-    <div class="project-approval__body">
-      <div class="row">
-        <div class="col-sm-2">
-          <button type="button" class="btn-rounded project-approval__approve" ng-click="vm.approve()">Approve</button>
+<div ng-if="::'approved' !== vm.project.approval">
+  <div ng-if="::'undecided' === vm.project.approval" class="project-approval">
+      <div class="project-approval__heading">
+        Project Pending, Requires
+        <span class="project-approval__heading--approval">Approval</span>
+        or
+        <span class="project-approval__heading--rejection">Rejection</span>
+      </div>
+      <div class="project-approval__body">
+        <div class="project-approval__button">
+          <button type="button"
+                  class="btn-rounded project-approval__button--input"
+                  ng-click="vm.approve()">
+            Approve
+          </button>
         </div>
-        <div class="col-sm-8">
-          <input type="text" class="field__input" ng.model="vm.message"
+        <div class="project-approval__input">
+          <input type="text" class="field__input project-approval__input--input" ng-model="vm.message"
                  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
                  placeholder="Reason for rejection"/>
         </div>
-        <div class="col-sm-2">
-          <button type="button" class="btn-rounded btn-rounded--danger project-approval__reject"
+        <div class=" project-approval__button">
+          <button ng-disabled="vm.message == ''"
+                  type="button"
+                  class="btn-rounded btn-rounded--danger project-approval__button--input"
                   ng-click="vm.reject()">
             Reject
           </button>
         </div>
       </div>
-    </div>
   </div>
-
-  <div ng-if="::'rejected' === vm.project.approval">
-    <div class="project-approval__heading">
-      <i class="fa fa-exclamation"></i>
-      Project was rejected
-      <i class="fa fa-exclamation"></i>
+</div>
+<div ng-if="::'rejected' === vm.project.approval">
+  <details-table heading="Project was rejected ">
+    <div class="details-table__row">
+      <div class="details-table__label">by</div>
+      <div class="details-table__detail project-approval__rejection-message--response">
+        {{ ::vm.project.finalApproval().staff_name }}
+      </div>
     </div>
-    <div class="project-approval__body">
-      <strong>{{ ::vm.project.finalApproval().staff_name }}:</strong>
-      {{ ::vm.project.finalApproval().reason }}
+    <div class="details-table__row">
+      <div class="details-table__label">reason</div>
+      <div class="details-table__detail project-approval__rejection-message--response">
+        {{ ::vm.project.finalApproval().reason }}
+      </div>
     </div>
-  </div>
+  </details-table>
 </div>

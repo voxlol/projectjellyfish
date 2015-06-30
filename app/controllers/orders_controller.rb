@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
     param :cloud_id, :number, desc: 'Id for cloud', required: false
   end
   param :staff_id, :number, required: true
-  param :total, :real_number, required: false
+  param :total, :decimal, required: false
   param :options, Array, desc: 'Options'
   param :bundle_id, :number, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -66,7 +66,7 @@ class OrdersController < ApplicationController
   end
   param :staff_id, :number, required: true
   param :options, Array, desc: 'Options'
-  param :total, :real_number, required: false
+  param :total, :decimal, required: false
   param :bundle_id, :number, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing

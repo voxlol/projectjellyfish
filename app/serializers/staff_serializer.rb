@@ -32,7 +32,7 @@
 
 class StaffSerializer < ApplicationSerializer
   attributes :first_name, :last_name, :full_name
-  attributes :id, :email, :phone, :role, :created_at, :updated_at, :authentication_token
+  attributes :id, :email, :phone, :role, :alerts, :created_at, :updated_at, :authentication_token
 
   has_many :orders
   has_many :user_settings

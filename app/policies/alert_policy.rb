@@ -1,5 +1,10 @@
 class AlertPolicy < ApplicationPolicy
+  # TODO: MAKE THIS POLICY REFLECT THE DIFFERENT WAYS AN ALERT CAN BE ASSOCIATED WITH OTHER ENTITIES IN THE SYSTEM
   def index?
+    true
+  end
+
+  def show?
     true
   end
 
@@ -7,55 +12,22 @@ class AlertPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def sensu?
-    admin_or_system
-  end
-
-  def show?
-    admin_or_system
-  end
-
-  def show_all?
-    admin_or_system
-  end
-
-  def show_active?
-    admin_or_system
-  end
-
-  def show_inactive?
-    admin_or_system
-  end
-
-  def new?
-    admin_or_system
-  end
-
   def update?
-    admin_or_system
+    user.admin?
   end
 
   def destroy?
-    admin_or_system
+    user.admin?
   end
 
   class Scope < Scope
     def resolve
       if user.admin?
-        scope
+        scope.all
       else
+        # TODO: MAKE ALERTS A USER CREATED AND ALERTS ASSIGNED TO A USER TWO SCOPES?
         user.alerts
       end
     end
-  end
-
-  private
-
-  def admin_or_system
-    user.admin? || system_generated
-  end
-
-  def system_generated
-    false # TODO: BUILD OUT SYSTEM GENERATED ALERTS LOGIC
   end
 end
