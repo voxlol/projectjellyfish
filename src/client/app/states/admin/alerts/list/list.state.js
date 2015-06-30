@@ -36,11 +36,11 @@
 
   /** @ngInject */
   function resolveAlerts(Alert) {
-    return Alert.query().$promise;
+    return Alert.query({latest: 'true'}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, $q, $state, alerts, Toasts) {
+  function StateController(lodash, logger, $q, $state, alerts, Toasts) {
     var vm = this;
 
     vm.title = 'Admin Products List';

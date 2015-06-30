@@ -68,7 +68,15 @@ class AlertsController < ApplicationController
     query = policy_scope(Alert)
     query = apply_active_or_inactive(query)
     query = apply_not_status(query)
+    query = apply_latest(query)
     @_alerts = query_with query.where(nil), :includes, :pagination
+  end
+
+  def apply_latest(query)
+    if params[:latest].present?
+      query = params[:latest] == 'true' ? query.latest : query
+    end
+    query
   end
 
   def apply_active_or_inactive(query)
