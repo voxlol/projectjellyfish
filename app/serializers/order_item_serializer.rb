@@ -33,10 +33,12 @@
 #
 
 class OrderItemSerializer < ApplicationSerializer
-  attributes :id, :product_id, :project_id, :service_id, :provision_status, :alerts
+  attributes :id, :product_id, :project_id, :service_id, :provision_status
   attributes :uuid, :setup_price, :monthly_price, :hourly_price, :status_msg, :created_at, :updated_at
 
   has_one :order
   has_one :product
   has_one :project
+  has_many :alerts
+  has_many :latest_alerts
 end

@@ -47,7 +47,7 @@
   function resolveOrderItems($stateParams, Order) {
     return Order.items({
       id: $stateParams.id,
-      'includes[]': ['project', 'product', 'latest_alert']
+      'includes[]': ['project', 'product']
     }).$promise;
   }
 

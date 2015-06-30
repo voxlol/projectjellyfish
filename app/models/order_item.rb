@@ -43,6 +43,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
   has_many :alerts, as: :alertable
+  has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
 
   # Update the parent Order total
   after_create :update_order_total
