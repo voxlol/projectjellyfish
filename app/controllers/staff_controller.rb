@@ -7,10 +7,10 @@ class StaffController < ApplicationController
     param :email, String
     param :first_name, String
     param :last_name, String
+    param :role, String
     param :password, String
     param :password_confirmation, String
-    param :role, String
-    error code: 422, desc: MissingRecordDetection::Messages.not_found
+    error code: 422, desc: ParameterValidation::Messages.missing
   end
 
   api :GET, '/staff', 'Returns a collection of staff'
@@ -49,9 +49,8 @@ class StaffController < ApplicationController
   document_staff_params
 
   def create
-    staff = Staff.new staff_params
+    staff = Staff.create staff_params
     authorize staff
-    staff.save
     respond_with staff
   end
 

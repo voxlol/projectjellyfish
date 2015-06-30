@@ -45,7 +45,7 @@
   }
 
   /** @ngInject */
-  function StateController(Dashboard) {
+  function StateController(Dashboard, logger) {
     var vm = this;
 
     vm.title = 'Dashboard';
@@ -54,6 +54,7 @@
     activate();
     function activate() {
       vm.chartCollection = Dashboard;
+      logger.info('Activated Dashboard View');
     }
 
     function onDropComplete(index, obj) {

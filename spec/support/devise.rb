@@ -1,14 +1,15 @@
 module DeviseRequestHelper
   def sign_in_as(staff)
-    post_via_redirect staff_session_path, 'staff[email]' => staff.email, 'staff[password]' => staff.password
+    rest_sign_in staff.email, staff.password
   end
 
   def sign_in_with(email, password)
-    post_via_redirect staff_session_path, 'staff[email]' => email, 'staff[password]' => password
+    rest_sign_in email, password
   end
 
+  # Assume logins are via JSON
   def rest_sign_in(email, password)
-    post '/api/v1/staff/sign_in', staff: { email: email, password: password }
+    post '/api/v1/staff/sign_in.json', staff: { email: email, password: password }
   end
 end
 

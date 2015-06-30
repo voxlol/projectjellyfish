@@ -19,6 +19,6 @@ describe 'ApiToken#create' do
   it 'sets the token to a randomly generated string' do
     api_token = create(:api_token)
 
-    expect(api_token.token.length).to eq(16)
+    expect(api_token.token.length).to eq(32)
   end
 end

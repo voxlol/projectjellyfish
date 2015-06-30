@@ -12,6 +12,7 @@ module ParameterValidation
   included do
     rescue_from ActionController::ParameterMissing, with: :param_error
     rescue_from Apipie::ParamInvalid, with: :param_error
+    rescue_from Apipie::ParamMissing, with: :param_error
   end
 
   module ClassMethods

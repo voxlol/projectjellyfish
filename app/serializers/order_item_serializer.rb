@@ -20,7 +20,6 @@
 #  payload_request         :jsonb
 #  payload_acknowledgement :jsonb
 #  payload_response        :jsonb
-#  latest_alert_id         :integer
 #  status_msg              :string
 #
 # Indexes

@@ -67,8 +67,9 @@ context 'Project Approvals API' do
       project = create :project
       sign_in_as create :staff, :admin
 
-      expect { delete "/api/v1/projects/#{project.id}/reject" }
-        .to raise_error(Apipie::ParamMissing)
+      delete "/api/v1/projects/#{project.id}/reject"
+      expect(response.status).to eq(422)
+      expect(json).to eq('error' => 'Missing parameter reason')
     end
 
     it 'returns an error for users' do

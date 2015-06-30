@@ -45,6 +45,7 @@ class ProjectsController < ApplicationController
   api :POST, '/projects', 'Creates projects'
   document_project_params(required: true)
   param :start_date, String
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     authorize Project

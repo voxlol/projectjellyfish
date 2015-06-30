@@ -22,9 +22,6 @@ class ApplicationController < ActionController::Base
   include QueryBuilder
   include TagsList
 
-  # Add Token Authentication
-  include TokenAuthentication
-
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?, only: [:create, :acs]
   before_action :require_user
