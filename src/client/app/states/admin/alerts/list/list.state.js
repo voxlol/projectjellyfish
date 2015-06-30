@@ -60,12 +60,12 @@
 
     vm.deleteAlert = deleteAlert;
 
-    function deleteAlert(index) {
-      var alerts = vm.alerts[index];
-      alerts.$delete(deleteSuccess, deleteFailure);
+    function deleteAlert(alert) {
+
+      alert.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
-        vm.alerts.splice(index, 1);
+        lodash.remove(vm.alerts, {id: alert.id});
         Toasts.toast('Alert deleted.');
       }
 
