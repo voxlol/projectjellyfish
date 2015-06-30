@@ -99,6 +99,6 @@ class AlertsController < ApplicationController
   end
 
   def alert_params
-    @_alert_params ||= params.permit(:status, :message, :category, :start_date, :end_date, :alertable_type, :alertable_id)
+    @_alert_params ||= params.permit(:id, :status, :message, :category, :start_date, :end_date, :alertable_type, :alertable_id)
   end
 end
