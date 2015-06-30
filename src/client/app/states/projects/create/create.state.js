@@ -49,22 +49,9 @@
     }
 
     function resolveProjects() {
-      if (vm.projectId) {
-        Project.get({
-          id: $stateParams.projectId,
-          'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
-        }).$promise.then(function(result) {
-            vm.project = result;
-            vm.title = 'Edit ' + result.name;
-            vm.editing = true;
-          });
-      } else {
-        vm.project = {};
-        vm.title = 'Create Project';
-        vm.editing = false;
-        vm.project.project_answers = [];
-        resolveProjectQuestions();
-      }
+      vm.project = {};
+      vm.project.project_answers = [];
+      resolveProjectQuestions();
     }
 
     function resolveProjectQuestions() {
