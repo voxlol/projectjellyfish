@@ -57,7 +57,7 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, logger, project, products, VIEW_MODES) {
+  function StateController($state, lodash, logger, project, products, VIEW_MODES, AddGroup, Toasts, $stateParams) {
     var vm = this;
 
     vm.title = 'Project Details';
@@ -67,19 +67,17 @@
     vm.viewMode = vm.viewMode || VIEW_MODES.list;
 
     vm.activate = activate;
+    vm.openAddGroup = openAddGroup;
     vm.approve = approve;
     vm.reject = reject;
-
-    // todo: create alert service to poll
-    // vm.alerts = lodash.filter(alerts, function(alert) {
-    //  return alert.project_id == vm.project.project_id;
-    // });
+    vm.groupToAdd = {};
 
     activate();
 
     function activate() {
       // Temporary! Merge products onto services
       tempMergeProductsOntoServices();
+      vm.project.group_ids = lodash.pluck(vm.project.groups, 'id');
       logger.info('Activated Project Details View');
     }
 
@@ -102,6 +100,29 @@
         function findProduct(product) {
           return product.id === service.product_id;
         }
+      }
+    }
+
+    function openAddGroup() {
+      AddGroup.showModal().then(updateGroups);
+
+      function updateGroups(group) {
+        vm.groupToAdd = group;
+        if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
+          Toasts.error('Group already associated with this project.');
+        } else {
+          vm.project.groups.push(vm.groupToAdd);
+          vm.project.$update(saveSuccess, saveFailure);
+        }
+      }
+
+      function saveSuccess() {
+        Toasts.toast('Group successfully added.');
+        vm.project.group_ids.push(vm.groupToAdd.id);
+      }
+
+      function saveFailure() {
+        Toasts.error('Server returned an error while updating.');
       }
     }
   }
