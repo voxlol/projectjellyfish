@@ -5,7 +5,7 @@ Authorization Token Usage
 
 * Sign-in at POST api/v1/staff/sign_in.json with the following payload
 ````
-{staff: {email: "...", password: "..."} }
+{st{staff: {email: "...", password: "..."} }
 ````
 * Grab and keep the api_token from the response
 * Add an 'Authorization' header with the value of Jellyfish {api_token} or Add a url parameter of access_token={api_token}
