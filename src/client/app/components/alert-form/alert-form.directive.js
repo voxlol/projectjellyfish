@@ -55,14 +55,6 @@
       vm.openAnswerDate = openAnswerDate;
 
       function activate() {
-        // ONLY SUPPORT POSTING TO SINGLE ORG FOR NOW
-        vm.alertToEdit.alertable_type = 'Organization';
-        vm.alertToEdit.alertable_id = '1';
-        if (vm.editing) {
-          vm.alertToEdit.staff_id = String(vm.alertToEdit.staff_id);
-        } else {
-          vm.alertToEdit.staff_id = String(vm.staffId);
-        }
       }
 
       function backToList() {
