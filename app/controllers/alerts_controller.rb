@@ -108,6 +108,6 @@ class AlertsController < ApplicationController
 
   def alert_params
     @_alert_params ||= params.permit(:id, :status, :message, :category, :start_date, :end_date)
-    @_alert_params = @_alert_params.merge({ alertable_type: Organization, alertable_id: 1}) if request.path == '/api/v1/alerts'
+    @_alert_params = @_alert_params.merge(alertable_type: Organization, alertable_id: 1) if request.path == '/api/v1/alerts'
   end
 end
