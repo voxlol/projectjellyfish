@@ -69,7 +69,15 @@ class AlertsController < ApplicationController
     query = apply_active_or_inactive(query)
     query = apply_not_status(query)
     query = apply_latest(query)
+    query = apply_alertable_type(query)
     @_alerts = query_with query.where(nil), :includes, :pagination
+  end
+
+  def apply_alertable_type(query)
+    if params[:alertable_type].present?
+      query = query.alertable_type(params[:alertable_type])
+    end
+    query
   end
 
   def apply_latest(query)
@@ -99,6 +107,6 @@ class AlertsController < ApplicationController
   end
 
   def alert_params
-    @_alert_params ||= params.permit(:id, :status, :message, :category, :start_date, :end_date, :alertable_type, :alertable_id)
+    @_alert_params ||= params.permit(:id, :status, :message, :category, :start_date, :end_date)
   end
 end
