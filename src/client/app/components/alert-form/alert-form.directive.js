@@ -11,6 +11,7 @@
       scope: {
         alertToEdit: '=?',
         editing: '=?',
+        heading: '@?',
         staffId: '@?'
       },
       link: link,
