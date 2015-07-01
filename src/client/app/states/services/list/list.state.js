@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveServices(Service) {
-    return Service.query({'includes[]': ['product', 'project', 'latest_alert']}).$promise;
+    return Service.query({'includes[]': ['product', 'project']}).$promise;
   }
 
   /** @ngInject */

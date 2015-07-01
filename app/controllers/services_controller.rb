@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  ORDER_ITEM_INCLUDES = %w(product project order latest_alert)
+  ORDER_ITEM_INCLUDES = %w(product project order latest_alerts)
 
   after_action :verify_authorized
 
