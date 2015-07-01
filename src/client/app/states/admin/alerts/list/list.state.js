@@ -61,7 +61,6 @@
     vm.deleteAlert = deleteAlert;
 
     function deleteAlert(alert) {
-
       alert.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
