@@ -29,6 +29,7 @@ class Alert < ActiveRecord::Base
   scope :inactive, -> { where('end_date < NOW() OR start_date > NOW()') }
   scope :latest, -> { where(id: group('category').select('max(id) as latest_alert_id')) }
   scope :not_status, ->(status) { where('alerts.status != ?', status) }
+  scope :alertable_type, ->(alertable_type) { where('alertable_type = ?', alertable_type) }
   scope :newest_first, -> { order('updated_at DESC') }
   scope :oldest_first, -> { order(:updated_at) }
 

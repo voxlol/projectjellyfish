@@ -55,13 +55,6 @@
       vm.openAnswerDate = openAnswerDate;
 
       function activate() {
-        if (vm.editing) {
-          vm.alertToEdit.staff_id = String(vm.alertToEdit.staff_id);
-        } else {
-          vm.alertToEdit.project_id = '0';
-          vm.alertToEdit.order_item_id = '0';
-          vm.alertToEdit.staff_id = String(vm.staffId);
-        }
       }
 
       function backToList() {
