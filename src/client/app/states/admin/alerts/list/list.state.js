@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveAlerts(Alert) {
-    return Alert.query({latest: 'true'}).$promise;
+    return Alert.query({latest: 'true', alertable_type: 'Organization'}).$promise;
   }
 
   /** @ngInject */
