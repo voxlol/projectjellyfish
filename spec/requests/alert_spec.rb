@@ -131,9 +131,9 @@ RSpec.describe 'Alerts API' do
         ]
       )
       get "/api/v1/projects/#{project.id}", includes: [:alerts]
-      expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert2.id }.to_json).to eq(alert2.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert3.id }.to_json).to eq(alert3.to_json)
+      [alert, alert2, alert3].each do |al|
+        expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
+      end
     end
 
     it 'creates a new order item alert', :show_in_doc do
