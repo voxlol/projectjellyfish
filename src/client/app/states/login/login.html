@@ -5,13 +5,15 @@
 </div>
 
 <div class="login__window">
-  <div class="well">
-  <div>
-    <span class="login__title">message of the day</span>
+  <div ng-if="vm.motd">
+    <div class="well">
+      <div>
+        <span class="login__title">message of the day</span>
+      </div>
+      {{vm.motd}}
+    </div>
+    <hr>
   </div>
- {{vm.motd}}
-  </div>
-  <hr>
   <login-form></login-form>
 </div>
 <footer></footer>
