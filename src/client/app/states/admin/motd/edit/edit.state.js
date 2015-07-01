@@ -53,6 +53,7 @@
       logger.info('Activated Edit Message of the Day View');
     }
 
-    function backToDash(){};
+    function backToDash() {
+    };
   }
 })();
