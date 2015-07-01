@@ -21,6 +21,7 @@
 #
 
 class AlertSerializer < ApplicationSerializer
-  attributes :id, :status, :message, :category
+  attributes :id, :status, :message
   attributes :start_date, :end_date, :created_at, :updated_at
+  attributes :alertable_id, :alertable_type, :category
 end
