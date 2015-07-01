@@ -11,6 +11,7 @@
       scope: {
         alertToEdit: '=?',
         editing: '=?',
+        heading: '@?',
         staffId: '@?'
       },
       link: link,
@@ -36,7 +37,7 @@
       vm.showValidationMessages = false;
       vm.home = 'admin.alerts.list';
       vm.format = 'yyyy-MM-dd';
-      vm.filteredAlert = lodash.omit(vm.alertToEdit, 'created_at', 'updated_at', 'deleted_at');
+      vm.alert = vm.alertToEdit;
       vm.dateOptions = {
         formatYear: 'yy',
         startingDay: 0,
@@ -78,17 +79,19 @@
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
-          if (vm.editing) {
+          // If editing update rather than save
+          if (vm.alert.id) {
             for (var prop in vm.alertToEdit) {
-              if (vm.filteredAlert[prop] === null) {
-                delete vm.filteredAlert[prop];
+              if (vm.alert[prop] === null) {
+                delete vm.alert[prop];
               }
             }
-            Alert.update(vm.filteredAlert).$promise.then(saveSuccess, saveFailure);
+
+            Alert.update(vm.alert).$promise.then(saveSuccess, saveFailure);
 
             return false;
           } else {
-            Alert.save(vm.alertToEdit).$promise.then(saveSuccess, saveFailure);
+            Alert.save(vm.alert).$promise.then(saveSuccess, saveFailure);
 
             return false;
           }

@@ -32,7 +32,7 @@
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date | date:'short' }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date | date:'short' }}</td>
             <td class="alerts-table__cell alerts-table__cell--actions">
-                <a ui-sref="admin.alerts.create({id: row.id})" class="alerts-table__action alerts-table__action--edit">
+                <a ui-sref="admin.alerts.edit({id: row.id})" class="alerts-table__action alerts-table__action--edit">
                     <img src="/images/ic_edit.png" alt="Edit"/>
                 </a>
                 <a href="#" class="alerts-table__action alerts-table__action--delete"
