@@ -36,11 +36,11 @@
 
   /** @ngInject */
   function resolveAlerts(Alert) {
-    return Alert.query().$promise;
+    return Alert.query({latest: 'true', alertable_type: 'Organization'}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, $q, $state, alerts, Toasts) {
+  function StateController(lodash, logger, $q, $state, alerts, Toasts) {
     var vm = this;
 
     vm.title = 'Admin Products List';
@@ -60,12 +60,11 @@
 
     vm.deleteAlert = deleteAlert;
 
-    function deleteAlert(index) {
-      var alerts = vm.alerts[index];
-      alerts.$delete(deleteSuccess, deleteFailure);
+    function deleteAlert(alert) {
+      alert.$delete(deleteSuccess, deleteFailure);
 
       function deleteSuccess() {
-        vm.alerts.splice(index, 1);
+        lodash.remove(vm.alerts, {id: alert.id});
         Toasts.toast('Alert deleted.');
       }
 

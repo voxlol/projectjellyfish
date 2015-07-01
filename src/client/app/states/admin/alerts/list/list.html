@@ -1,9 +1,9 @@
 <content-header short="true">
     <div class="admin-alerts-list__body">
-        <span class="content-header__title">Alerts</span>
+        <span class="content-header__title">Organization Alerts</span>
     </div>
     <div class="admin-alerts-list__aside">
-        <a ui-sref="admin.alerts.create" class="btn-rounded">Add New Alert</a>
+        <a ui-sref="admin.alerts.create" class="btn-rounded">Add New Organization Alert</a>
     </div>
 </content-header>
 <div class="alerts-table">
@@ -15,8 +15,7 @@
         </th>
         <tr>
             <th class="alerts-table__heading alerts-table__heading--padding"></th>
-            <th class="alerts-table__heading alerts-table__heading" st-sort="id">Alert Id</th>
-            <th class="alerts-table__heading alerts-table__heading--question" st-sort="project_id">Project</th>
+            <th class="alerts-table__heading alerts-table__heading" st-sort="id">Category</th>
             <th class="alerts-table__heading alerts-table__heading--required" st-sort="status">Status</th>
             <th class="alerts-table__heading alerts-table__heading--actions" st-sort="message">Message</th>
             <th class="alerts-table__heading alerts-table__heading--actions" st-sort="start_date">Start Date</th>
@@ -27,8 +26,7 @@
         <tbody>
         <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
             <td class="alerts-table__cell alerts-table__cell--padding"></td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.id }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.project_id }}</td>
+            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.category }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date | date:'short' }}</td>
@@ -43,7 +41,7 @@
                    confirmation-message="Are you sure you want to remove this alert and it's content?"
                    confirmation-ok-style="danger"
                    confirmation-ok-text="Yes, Delete It"
-                   confirmation-on-ok="vm.deleteAlert($index)"
+                   confirmation-on-ok="vm.deleteAlert(row)"
                    confirmation-show-cancel="false">
                     <img src="/images/ic_deletequestion.png" alt="Delete"/>
                 </a>

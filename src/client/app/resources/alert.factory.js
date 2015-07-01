@@ -8,16 +8,9 @@
   function AlertsFactory($resource) {
     var Alerts = $resource('/api/v1/alerts/:id' , {id: '@id'}, {
       // Get single
-      get: {
-        method: 'GET',
-        isArray: false
-      },
-      query: {
-        isArray: true,
-        method: 'GET'
-      },
       'update': {
-        method: 'PUT'
+        method: 'PUT',
+        isArray: false
       }
     });
 
