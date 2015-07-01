@@ -34,7 +34,7 @@
     var vm = this;
 
     vm.title = 'Login';
-
+    vm.motd = "This is a sample message of the day."
     activate();
 
     function activate() {

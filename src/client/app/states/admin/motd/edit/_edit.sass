@@ -15,8 +15,6 @@
     +make-sm-column(5)
     padding-left: 45px
 
-  +element(title)
-
   +element(motd-type)
     text-transform: uppercase
 
@@ -31,6 +29,9 @@
     text-transform: uppercase
 
   +element(submit)
+    min-width: 150px
+
+  +element(delete)
     min-width: 150px
 
   +element(cancel)
@@ -56,6 +57,9 @@
   +element(input)
     @extend .field__input
     margin-right: 10px !important
+
+  +element(textarea)
+    @extend .field__input--textarea
 
   +element(feedback)
     @extend .field__feedback
