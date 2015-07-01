@@ -34,7 +34,9 @@
     var vm = this;
 
     vm.title = 'Login';
-    vm.motd = 'This is a sample message of the day.'
+    vm.motd = 'Jellyfish or jellies are the major non-polyp form of individuals of the phylum Cnidaria. ' +
+      'They are typified as free-swimming marine animals consisting of a gelatinous umbrella-shaped bell ' +
+      'and trailing tentacles.'
     activate();
 
     function activate() {
