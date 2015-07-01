@@ -7,14 +7,14 @@ class StaffController < ApplicationController
     param :email, String
     param :first_name, String
     param :last_name, String
+    param :role, String
     param :password, String
     param :password_confirmation, String
-    param :role, String
-    error code: 422, desc: MissingRecordDetection::Messages.not_found
+    error code: 422, desc: ParameterValidation::Messages.missing
   end
 
   api :GET, '/staff', 'Returns a collection of staff'
-  param :includes, Array, in: %w(user_settings projects)
+  param :includes, Array, in: %w(user_settings projects alerts)
   param :methods, Array, in: %w(allowed)
   param :page, :number
   param :per_page, :number
@@ -26,7 +26,7 @@ class StaffController < ApplicationController
 
   api :GET, '/staff/:id', 'Shows staff member with :id'
   param :id, :number, required: true
-  param :includes, Array, in: %w(user_settings projects)
+  param :includes, Array, in: %w(user_settings projects alerts)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -34,7 +34,7 @@ class StaffController < ApplicationController
   end
 
   api :GET, '/staff/current_member', 'Shows logged in member'
-  param :includes, Array, in: %w(user_settings projects notifications cart groups)
+  param :includes, Array, in: %w(user_settings projects notifications cart groups alerts)
   error code: 401, desc: 'User is not signed in.'
 
   def current_member
@@ -49,9 +49,8 @@ class StaffController < ApplicationController
   document_staff_params
 
   def create
-    staff = Staff.new staff_params
+    staff = Staff.create staff_params
     authorize staff
-    staff.save
     respond_with staff
   end
 

@@ -20,11 +20,9 @@
 #  last_sign_in_ip        :inet
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
-#  authentication_token   :string
 #
 # Indexes
 #
-#  index_staff_on_authentication_token  (authentication_token) UNIQUE
 #  index_staff_on_deleted_at            (deleted_at)
 #  index_staff_on_email                 (email) UNIQUE
 #  index_staff_on_reset_password_token  (reset_password_token) UNIQUE
@@ -32,8 +30,9 @@
 
 class StaffSerializer < ApplicationSerializer
   attributes :first_name, :last_name, :full_name
-  attributes :id, :email, :phone, :role, :created_at, :updated_at, :authentication_token
+  attributes :id, :email, :phone, :role, :created_at, :updated_at, :api_token
 
+  has_many :alerts
   has_many :orders
   has_many :user_settings
   has_many :notifications
@@ -45,7 +44,7 @@ class StaffSerializer < ApplicationSerializer
     [object.first_name, object.last_name].join(' ').strip
   end
 
-  def include_authentication_token?
+  def include_api_token?
     object == current_user
   end
 end

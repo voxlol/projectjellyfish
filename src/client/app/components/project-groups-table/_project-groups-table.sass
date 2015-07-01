@@ -3,18 +3,25 @@
   width: 100%
   background-color: $app-color-white
 
-  +element(row)
-    width: 100%
-    background-color: $app-color-white
-
   +element(heading)
     height: 44px
     font-weight: bold
     text-transform: uppercase
     color: $app-color-gray
 
-    +modifier(members)
-      text-align: center
+    +modifier(sortable)
+      color: $app-color-blue
+      cursor: pointer
+
+      &.st-sort-ascent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f077"
+        padding-left: 4px
+
+      &.st-sort-descent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f078"
+        padding-left: 4px
 
   +element(cell)
     height: 44px
@@ -27,17 +34,18 @@
     +modifier(padding)
       width: 20px
 
-    +modifier(name)
-      width: 160px
+    +modifier(description)
+      padding-right: 20px
 
-    +modifier(members)
+    +modifier(name)
       width: 136px
-      font-weight: bold
       padding-right: 0
       text-align: center
 
-    +modifier(actions)
+    +modifier(members)
       width: 136px
+      padding-right: 0
+      text-align: center
 
   +element(action)
     margin-right: 20px

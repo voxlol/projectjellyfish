@@ -30,7 +30,7 @@ class ProductType
   end
 
   def tags
-    products.map(&:tag_list).flatten
+    products.map(&:tag_list).flatten.uniq
   end
 
   def ==(other)

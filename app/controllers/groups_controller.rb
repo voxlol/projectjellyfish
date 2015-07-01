@@ -26,7 +26,7 @@ class GroupsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    group = Group.create! group_params
+    group = Group.create group_params
     authorize group
     respond_with_params group
   end

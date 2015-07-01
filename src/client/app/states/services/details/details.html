@@ -9,11 +9,10 @@
   </div>
 </content-header>
 
-<details-table title="Details">
-  <alert ng-if="::vm.service.latest_alert_id" type="{{ ::vm.toAlertType(vm.service.latest_alert.status) }}">
-    <strong>{{ ::vm.service.latest_alert.status }}</strong>
-    &mdash;
-    {{ ::vm.service.latest_alert.message }}
+<details-table heading="Details">
+  <alert ng-repeat="latest_alert in vm.service.latest_alerts track by latest_alert.id"
+         type="{{ ::vm.toAlertType(latest_alert.status) }}">
+    <strong>{{ ::latest_alert.status }}</strong> &mdash; {{ ::latest_alert.message }}
   </alert>
 
   <div class="details-table__row">

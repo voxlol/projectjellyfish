@@ -10,8 +10,7 @@
       restrict: 'AE',
       scope: {
         project: '=',
-        title: '@?',
-        editing: '@?'
+        heading: '@?'
       },
       link: link,
       templateUrl: 'app/components/project-form/project-form.html',
@@ -75,7 +74,7 @@
         $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
           // If editing update rather than save
-          if ('true' === vm.editing) {
+          if (vm.project.id) {
             vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
               'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
               'order_history', 'cc', 'staff_id', 'approved', 'project_answers');

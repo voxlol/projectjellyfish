@@ -20,11 +20,9 @@
 #  last_sign_in_ip        :inet
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
-#  authentication_token   :string
 #
 # Indexes
 #
-#  index_staff_on_authentication_token  (authentication_token) UNIQUE
 #  index_staff_on_deleted_at            (deleted_at)
 #  index_staff_on_email                 (email) UNIQUE
 #  index_staff_on_reset_password_token  (reset_password_token) UNIQUE

@@ -20,7 +20,6 @@
 #  payload_request         :jsonb
 #  payload_acknowledgement :jsonb
 #  payload_response        :jsonb
-#  latest_alert_id         :integer
 #  status_msg              :string
 #
 # Indexes
@@ -34,11 +33,12 @@
 #
 
 class OrderItemSerializer < ApplicationSerializer
-  attributes :id, :product_id, :project_id, :service_id, :provision_status, :latest_alert_id
+  attributes :id, :product_id, :project_id, :service_id, :provision_status
   attributes :uuid, :setup_price, :monthly_price, :hourly_price, :status_msg, :created_at, :updated_at
 
   has_one :order
   has_one :product
   has_one :project
-  has_one :latest_alert
+  has_many :alerts
+  has_many :latest_alerts
 end

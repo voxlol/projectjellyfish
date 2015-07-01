@@ -13,14 +13,14 @@
 
   function getStates() {
     return {
-      'admin.users.create': {
-        url: '/create/:id',
-        templateUrl: 'app/states/admin/users/create/create.html',
+      'projects.edit': {
+        url: '/edit/:projectId',
+        templateUrl: 'app/states/projects/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin User Create',
+        title: 'Project Edit Role',
         resolve: {
-          userToEdit: resolveUser
+          project: resolveProject
         }
       }
     };
@@ -35,27 +35,26 @@
   }
 
   /** @ngInject */
-  function resolveUser(Staff, $stateParams) {
-    if ($stateParams.id) {
-      return Staff.get({id: $stateParams.id}).$promise;
-    } else {
-      return {};
-    }
+  function resolveProject(Project, $stateParams) {
+    return Project.get({
+      id: $stateParams.projectId,
+      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+    }).$promise;
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, userToEdit) {
+  function StateController(logger, project) {
     var vm = this;
 
-    vm.title = 'Admin User Create';
+    vm.title = 'Project Role';
+    vm.project = project;
+
     vm.activate = activate;
-    vm.editing = $stateParams.id ? true : false;
-    vm.userToEdit = userToEdit;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin User Modification');
+      logger.info('Activated Edit Project View');
     }
   }
 })();

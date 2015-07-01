@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
-  PROJECT_INCLUDES = %w(alerts approvals approvers latest_alerts memberships groups project_answers project_detail services staff)
-  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
+  PROJECT_INCLUDES = %w(alerts approvals approvers memberships groups project_answers project_detail services staff)
+  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users latest_alerts latest_service_alerts)
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook
 
   def self.document_project_params(required: false)
     param :approved, String
-    param :budget, :real_number, required: required
+    param :budget, :decimal, precision: 12, scale: 2, required: required
     param :cc, String
     param :description, String
     param :end_date, String
@@ -45,6 +45,7 @@ class ProjectsController < ApplicationController
   api :POST, '/projects', 'Creates projects'
   document_project_params(required: true)
   param :start_date, String
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     authorize Project

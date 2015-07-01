@@ -20,18 +20,15 @@
 #  last_sign_in_ip        :inet
 #  role                   :integer          default(0)
 #  deleted_at             :datetime
-#  authentication_token   :string
 #
 # Indexes
 #
-#  index_staff_on_authentication_token  (authentication_token) UNIQUE
 #  index_staff_on_deleted_at            (deleted_at)
 #  index_staff_on_email                 (email) UNIQUE
 #  index_staff_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
 class Staff < ActiveRecord::Base
-  include TokenAuthenticable
   include PgSearch
 
   self.table_name = :staff
@@ -39,7 +36,7 @@ class Staff < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  has_many :alerts
+  has_many :alerts, as: :alertable
   has_many :authentications
   has_many :memberships, through: :groups
   has_many :notifications
@@ -58,13 +55,17 @@ class Staff < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, :registerable
   # Enabling others may require migrations to be made and run
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :trackable, :validatable
 
   enum role: [:user, :admin]
 
   attr_accessor :api_token
 
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
+
+  def latest_alerts
+    alerts.latest
+  end
 
   def self.find_by_auth(auth_hash)
     auth_match = Authentications.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'].to_s)
@@ -76,7 +77,6 @@ class Staff < ActiveRecord::Base
     end
 
     if staff
-      staff.ensure_authentication_token
       Authentications.create staff_id: staff.id, provider: auth_hash['provider'], uid: auth_hash['uid'].to_s
     end
 

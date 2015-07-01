@@ -2,25 +2,25 @@
 #
 # Table name: alerts
 #
-#  id            :integer          not null, primary key
-#  project_id    :integer
-#  staff_id      :integer
-#  status        :string(20)
-#  message       :text
-#  start_date    :datetime
-#  end_date      :datetime
-#  created_at    :datetime
-#  updated_at    :datetime
-#  order_item_id :integer
+#  id             :integer          not null, primary key
+#  status         :string(20)
+#  message        :text
+#  start_date     :datetime
+#  end_date       :datetime
+#  created_at     :datetime
+#  updated_at     :datetime
+#  alertable_id   :integer
+#  alertable_type :string
+#  category       :string
 #
 # Indexes
 #
-#  index_alerts_on_end_date    (end_date)
-#  index_alerts_on_start_date  (start_date)
-#  index_order_item_id         (order_item_id)
+#  index_alerts_on_alertable_id  (alertable_id)
+#  index_alerts_on_end_date      (end_date)
+#  index_alerts_on_start_date    (start_date)
 #
 
 class AlertSerializer < ApplicationSerializer
-  attributes :id, :project_id, :staff_id, :order_item_id, :status, :message
+  attributes :id, :status, :message, :category
   attributes :start_date, :end_date, :created_at, :updated_at
 end
