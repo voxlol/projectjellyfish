@@ -18,7 +18,7 @@ class MotdController < ApplicationController
   end
 
   api :POST, '/motd', 'Create a MOTD'
-  document_params required: true
+  document_params
 
   def create
     motd = Motd.new motd_params
