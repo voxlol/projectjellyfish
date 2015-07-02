@@ -9,6 +9,9 @@
     text-transform: uppercase
     color: $app-color-gray
 
+    +modifier(name)
+      text-align: center
+
     +modifier(sortable)
       color: $app-color-blue
       cursor: pointer
@@ -39,7 +42,6 @@
 
     +modifier(name)
       width: 136px
-      padding-right: 0
       text-align: center
 
     +modifier(members)
