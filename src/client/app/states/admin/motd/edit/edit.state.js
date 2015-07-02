@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -35,8 +35,8 @@
   }
 
   /** @ngInject */
-  function resolveMotd() {
-    return;
+  function resolveMotd(Motd) {
+    return Motd.get().$promise;
   }
 
   /** @ngInject */
@@ -45,6 +45,10 @@
 
     vm.title = 'Edit the Message of the Day';
     vm.backToDash = backToDash;
+    vm.showValidationMessages = false;
+    vm.showErrors = showErrors;
+    vm.hasErrors = hasErrors;
+    vm.onSubmit = onSubmit;
     vm.activate = activate;
 
     activate();
@@ -54,6 +58,43 @@
     }
 
     function backToDash() {
+      $state.go('dashboard');
+    }
+
+    function activate() {
+    }
+
+    function showErrors() {
+      return vm.showValidationMessages;
+    }
+
+    function hasErrors(field) {
+      if (angular.isUndefined(field)) {
+        return vm.showValidationMessages && vm.form.$invalid;
+      }
+
+      return vm.showValidationMessages && vm.form[field].$invalid;
+    }
+
+    function onSubmit() {
+      vm.showValidationMessages = true;
+
+      if (vm.form.$valid) {
+        if (vm.motd.id) {
+          vm.motd.$update(saveSuccess, saveFailure);
+        } else {
+          vm.motd.$save(saveSuccess, saveFailure);
+        }
+      }
+
+      function saveSuccess() {
+        Toasts.toast('Group saved.');
+        $state.go(vm.home);
+      }
+
+      function saveFailure() {
+        Toasts.error('Server returned an error while saving.');
+      }
     }
   }
 })();

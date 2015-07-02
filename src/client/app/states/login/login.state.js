@@ -30,16 +30,23 @@
   }
 
   /** @ngInject */
-  function StateController() {
+
+  /** @ngInject */
+  function StateController(Motd) {
     var vm = this;
 
     vm.title = 'Login';
-    vm.motd = 'Jellyfish or jellies are the major non-polyp form of individuals of the phylum Cnidaria. ' +
-      'They are typified as free-swimming marine animals consisting of a gelatinous umbrella-shaped bell ' +
-      'and trailing tentacles.';
+    vm.resolveMotd = resolveMotd;
     activate();
 
     function activate() {
+      vm.resolveMotd();
+    }
+
+    function resolveMotd() {
+      Motd.query().$promise.then(function(result) {
+        vm.motd = result;
+      });
     }
   }
 })();
