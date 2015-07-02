@@ -1,40 +1,36 @@
 class MotdController < ApplicationController
+  before_action :pre_hook
+  after_action :verify_authorized
+  after_action :post_hook
+
   def self.document_params
     param :message, String, desc: 'The message to of the day', required: true
-    param :staff_id, :number, required: true
   end
 
-  api :GET, '/motd', 'Returns the all MOTDs'
+  api :GET, '/motd', 'Returns the MOTDs'
   def index
-    respond_with_params motds
+    respond_with_params motd
   end
 
-  api :GET, '/motd/:id', 'Returns MOTD with :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def show
-    respond_with motd
-  end
-
-  api :POST, '/motd', 'Create a MOTD'
-  document_params required: true
+  api :POST, '/motd', 'Create the MOTD'
+  document_params
 
   def create
-    motd = Motd.new motd_params
+    motd = Motd.first_or_initialize motd_params
     authorize motd
     motd.save
     respond_with motd
   end
 
-  api :PUT, '/motd/:id', 'Update a MOTD'
+  api :PUT, '/motd', 'Update the MOTD'
   document_params
 
   def update
     respond_with_params motd.update_attributes motd_params
   end
 
-  api :DELETE, '/motd/:id', 'Destroy a MOTD'
+  api :DELETE, '/motd', 'Destroy the MOTD'
+
   def destroy
     respond_with_params motd.destroy
   end
@@ -42,15 +38,10 @@ class MotdController < ApplicationController
   private
 
   def motd_params
-    params.permit(:message, :staff_id)
+    params.permit(:message).merge(staff_id: current_user.id)
   end
 
   def motd
-    @motd = Motd.find(params.require(:id)).tap { |r| authorize(r) }
-  end
-
-  def motds
-    authorize Motd
-    @motds = Motd.all
+    @motd = Motd.first_or_initialize.tap { |r| authorize(r) }
   end
 end
