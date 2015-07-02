@@ -15,6 +15,13 @@ class MotdController < ApplicationController
   api :POST, '/motd', 'Create the MOTD'
   document_params
 
+  def show
+    respond_with motd
+  end
+
+  api :POST, '/motd', 'Create a MOTD'
+  document_params
+
   def create
     motd = Motd.first_or_initialize motd_params
     authorize motd
