@@ -92,7 +92,6 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'creates a new staff alert', :show_in_doc do
-      alert = nil
       staff = create(
         :staff,
         alerts: [
@@ -101,14 +100,13 @@ RSpec.describe 'Alerts API' do
           alert3 = create(:alert, :unknown)
         ]
       )
-      get "/api/v1/staff/#{staff.id}", include: [:alerts]
-      expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert2.id }.to_json).to eq(alert2.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert3.id }.to_json).to eq(alert3.to_json)
+      get "/api/v1/staff/#{staff.id}", includes: [:alerts]
+      [alert, alert2, alert3].each do |al|
+        expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
+      end
     end
 
     it 'creates a new organization alert', :show_in_doc do
-      alert = nil
       organization = create(
         :organization,
         alerts: [
@@ -124,7 +122,6 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'creates a new project alert', :show_in_doc do
-      alert = nil
       project = create(
         :project,
         alerts: [
@@ -134,13 +131,12 @@ RSpec.describe 'Alerts API' do
         ]
       )
       get "/api/v1/projects/#{project.id}", includes: [:alerts]
-      expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert2.id }.to_json).to eq(alert2.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert3.id }.to_json).to eq(alert3.to_json)
+      [alert, alert2, alert3].each do |al|
+        expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
+      end
     end
 
     it 'creates a new order item alert', :show_in_doc do
-      alert = nil
       create(
         :project,
         services: [
@@ -153,10 +149,10 @@ RSpec.describe 'Alerts API' do
           )
         ]
       )
-      get "/api/v1/order_items/#{service.id}", include: [:alerts]
-      expect(json['alerts'].find { |v| v['id'] == alert.id }.to_json).to eq(alert.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert2.id }.to_json).to eq(alert2.to_json)
-      expect(json['alerts'].find { |v| v['id'] == alert3.id }.to_json).to eq(alert3.to_json)
+      get "/api/v1/order_items/#{service.id}", includes: [:alerts]
+      [alert, alert2, alert3].each do |al|
+        expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
+      end
       expect(json['id']).to eq(service.id)
     end
   end

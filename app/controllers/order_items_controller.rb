@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
   before_action :load_order_item, only: [:show, :destroy, :update]
 
   api :GET, '/order_items/:id', 'Shows order item with :id'
-  param :includes, Array, required: false, in: %w(product)
+  param :includes, Array, required: false, in: %w(alerts product)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 

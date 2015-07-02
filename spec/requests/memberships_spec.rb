@@ -9,7 +9,7 @@ RSpec.describe 'Memberships API' do
       group = create(:group)
       project = create(:project)
 
-      post memberships_path(project, group_id: group.id)
+      post project_memberships_path(project, group_id: group.id)
 
       project.reload
       expect(response).to be_successful
@@ -23,7 +23,7 @@ RSpec.describe 'Memberships API' do
       group = create(:group)
       project = create(:project, groups: [group])
 
-      delete membership_path(project_id: project, group_id: group)
+      delete project_membership_path(project_id: project, group_id: group)
 
       project.reload
       expect(response).to be_successful
@@ -35,7 +35,7 @@ RSpec.describe 'Memberships API' do
       group = create(:group)
       project = create(:project)
 
-      delete membership_path(project_id: project, group_id: group)
+      delete project_membership_path(project_id: project, group_id: group)
 
       expect(response).to be_not_found
     end
