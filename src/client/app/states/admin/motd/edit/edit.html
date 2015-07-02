@@ -12,11 +12,11 @@
       <div class="motd-form__body">
         <div class="motd-field">
           <div class="motd-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
-          <textarea id="motd" ng-model="vm.motd.description" name="mesage"
+          <textarea id="motd" ng-model="vm.motd.message" name="message"
                     class="motd-field__input field__textarea" rows="4"
                     placeholder="Add a new message of the day." required></textarea>
             <div class="motd-field__feedback" ng-messages="vm.form.message.$error">
-              <div ng-message="required">This field is requred.</div>
+              <div ng-message="required">This field is required.</div>
             </div>
           </div>
         </div>
@@ -28,14 +28,16 @@
         <div class="col-sm-offset-3 col-sm-9">
           <button type="submit" class="btn-rounded motd-form__submit" ng-disabled="vm.hasErrors()">Save
           </button>
-          <button type="submit" class="btn btn-danger motd-form__delete"
+          <button type="button"
+                  class="btn btn-danger motd-form__delete"
                   confirmation
                   confirmation-ok-style="danger"
                   confirmation-ok-text="Clear the message of the day."
-                  confirmation-on-ok="vm.backToList()"
+                  confirmation-on-ok="vm.onDelete()"
                   confirmation-show-cancel="false">Delete
           </button>
-          <button type="button" class="btn btn-link motd-form__cancel"
+          <button type="button"
+                  class="btn btn-link motd-form__cancel"
                   confirmation
                   confirmation-if="vm.form.$dirty"
                   confirmation-message="You have unsaved changes. Abandon them and leave the page?"

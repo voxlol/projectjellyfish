@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -40,7 +40,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, motd) {
+  function StateController($state, logger, motd, Toasts, lodash, Motd) {
     var vm = this;
 
     vm.title = 'Edit the Message of the Day';
@@ -49,7 +49,10 @@
     vm.showErrors = showErrors;
     vm.hasErrors = hasErrors;
     vm.onSubmit = onSubmit;
+    vm.onDelete = onDelete;
     vm.activate = activate;
+    vm.home = 'dashboard';
+    vm.motd = motd;
 
     activate();
 
@@ -58,10 +61,7 @@
     }
 
     function backToDash() {
-      $state.go('dashboard');
-    }
-
-    function activate() {
+      $state.go(vm.home);
     }
 
     function showErrors() {
@@ -81,14 +81,29 @@
 
       if (vm.form.$valid) {
         if (vm.motd.id) {
-          vm.motd.$update(saveSuccess, saveFailure);
+          vm.filteredMotd = lodash.omit(vm.motd, 'created_at', 'updated_at', 'deleted_at', 'staff_id', 'id');
+          Motd.update(vm.filteredMotd).$promise.then(saveSuccess, saveFailure);
         } else {
           vm.motd.$save(saveSuccess, saveFailure);
         }
       }
 
       function saveSuccess() {
-        Toasts.toast('Group saved.');
+        Toasts.toast('Message of the Day updated.');
+        $state.go(vm.home);
+      }
+
+      function saveFailure() {
+        Toasts.error('Server returned an error while saving.');
+      }
+    }
+
+    function onDelete() {
+      vm.showValidationMessages = false;
+      Motd.delete().$promise.then(saveSuccess, saveFailure);
+
+      function saveSuccess() {
+        Toasts.toast('Message of the Day removed.');
         $state.go(vm.home);
       }
 
