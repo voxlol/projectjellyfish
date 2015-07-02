@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.users',
         label: 'Users',
-        order: 7
+        order: 8
       }
     };
   }

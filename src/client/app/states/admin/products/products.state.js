@@ -35,7 +35,7 @@
         type: 'state',
         state: 'admin.products',
         label: 'Products',
-        order: 4
+        order: 5
       }
     };
   }

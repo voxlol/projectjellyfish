@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.roles',
         label: 'Roles',
-        order: 6
+        order: 7
       }
     };
   }
