@@ -1,6 +1,6 @@
 class MotdController < ApplicationController
   def self.document_params(required: false)
-    param :message, String, desc: 'The message to of the day', required: required
+    param :message, String, desc: 'The message to of the day', required: true
     param :staff_id, :number, required: true
   end
 

@@ -16,7 +16,8 @@
 
 FactoryGirl.define do
   factory :motd do
-    message "MyText"
+    message '"Message of the Day" or "Motto of the Day" (MOTD): A regularly updated message used to send a common message to all users, in a more efficient manner than sending them all an e-mail message.'
     staff_id 1
   end
 end
+Fix
