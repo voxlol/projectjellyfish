@@ -44,9 +44,11 @@
     }
 
     function resolveMotd() {
-      Motd.query().$promise.then(function(result) {
+      Motd.query().$promise.then(assignResolved());
+
+      function assignResolved(result) {
         vm.motd = result;
-      });
+      }
     }
   }
 })();
