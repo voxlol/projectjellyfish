@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="alerts-table__row" ng-repeat="row in vm.alerts">
+        <tr class="alerts-table__row" ng-repeat="row in vm.alerts | filter:{status: '!ok'}">
             <td class="alerts-table__cell alerts-table__cell--padding"></td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.category }}</td>
              <td class="alerts-table__cell alerts-table__cell--status">
