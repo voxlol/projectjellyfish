@@ -151,6 +151,9 @@ Rails.application.routes.draw do
     delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
     resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
+
+    # MOTD Routes
+    resources :motd
   end
 
   root 'welcome#index'
