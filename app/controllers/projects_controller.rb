@@ -85,8 +85,10 @@ class ProjectsController < ApplicationController
       if params[:project_answers]
         project[:project_answers_attributes] = project.delete(:project_answers)
       end
+      if !current_user.admin? && !project[:id].nil?
+        project.delete(:budget)
+      end
     end
-    @_project_params = (!current_user.admin? && !params[:id].nil?) ? @_project_params.delete(:budget) : @_project_params
   end
 
   def authorize_and_normalize(project)
