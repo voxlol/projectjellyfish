@@ -20,4 +20,3 @@ FactoryGirl.define do
     staff_id 1
   end
 end
-Fix
