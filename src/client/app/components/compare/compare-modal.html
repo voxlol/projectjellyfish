@@ -30,7 +30,7 @@
       <div class="compare-modal__cell compare-modal__cell--value compare-modal__cell--footer"
            ng-repeat="product in ::vm.products track by product.id"
            ng-class="{'compare-modal__cell--even': $even}">
-        <add-to-cart project="vm.project" product="product"></add-to-cart>
+        <button type="button" class="btn-rounded" add-to-cart project="vm.project" product="product"></button>
       </div>
     </div>
   </div>
