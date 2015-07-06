@@ -1,6 +1,6 @@
 <content-header short="true">
-  <div class="service-details-heading">
-    <img ng-if="vm.product.img" class="service-details-heading__icon" ng-src="images/assets/{{ ::vm.product.img }}"
+  <div class="product-details-heading">
+    <img ng-if="vm.product.img" class="product-details-heading__icon" ng-src="images/assets/{{ ::vm.product.img }}"
          fallback-image="images/no_image.png"/>
     <span class="content-header__title">{{ ::vm.product.name }}</span>
   </div>
@@ -42,22 +42,22 @@
 </details-table>
 
 <region heading="Pricing">
-  <table class="service-pricing">
+  <table class="product-pricing">
     <thead>
     <tr>
-      <th class="service-pricing__heading"></th>
-      <th class="service-pricing__heading">Setup</th>
-      <th class="service-pricing__heading">Hourly</th>
-      <th class="service-pricing__heading">Monthly</th>
+      <th class="product-pricing__heading"></th>
+      <th class="product-pricing__heading">Setup</th>
+      <th class="product-pricing__heading">Hourly</th>
+      <th class="product-pricing__heading">Monthly</th>
       </th>
     </tr>
     </thead>
     <tbody>
     <tr class="selectRow">
-      <td class="service-pricing__cell service-pricing__cell--padding"></td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.product.setup_price | currency }}</td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.product.monthly_price | currency }}</td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.product.hourly_price | currency }}</td>
+      <td class="product-pricing__cell product-pricing__cell--padding"></td>
+      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.setup_price | currency }}</td>
+      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.monthly_price | currency }}</td>
+      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.hourly_price | currency }}</td>
     </tr>
     </tbody>
   </table>
