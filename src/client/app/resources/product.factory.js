@@ -7,18 +7,7 @@
   /** @ngInject */
   function ProductFactory($resource) {
     var Product = $resource('/api/v1/products/:id', {id: '@id'}, {
-      // Get Single
-      get: {
-        method: 'GET',
-        isArray: false
-      },
-      // Get All
-      query: {
-        method: 'GET',
-        isArray: true
-      },
-      update: {
-        method: 'PUT'}
+      update: {method: 'PUT'}
     });
 
     Product.defaults = {

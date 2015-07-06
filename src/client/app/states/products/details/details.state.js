@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'products.details': {
-        url: '/:productId',
+        url: 'product/:productId',
         templateUrl: 'app/states/products/details/details.html',
         controller: StateController,
         controllerAs: 'vm',

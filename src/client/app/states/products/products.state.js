@@ -14,8 +14,8 @@
   function getStates() {
     return {
       'products': {
-        url: '/product',
-        redirectTo: 'products.details',
+        url: '/',
+        redirectTo: 'marketplace',
         template: '<ui-view></ui-view>'
       }
     };

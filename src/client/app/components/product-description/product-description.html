@@ -1,7 +1,7 @@
 <div class="product-description">
   <div ng-if="::!vm.product.img" class="product-description__image product-description__image--missing"></div>
   <img ng-if="::vm.product.img" class="product-description__image" ng-src="images/assets/{{ ::vm.product.img }}"/>
-  <span class="product-description__link"><a ui-sref="{{vm.linkTo}}">{{ ::vm.product.name }}</a></span>
+  <a ui-sref="{{vm.linkTo}}">{{ ::vm.product.name }}</a>
   <span ng-if="::vm.product.description" class="product-description__description">
     &mdash; {{ ::vm.product.description }}
   </span>
