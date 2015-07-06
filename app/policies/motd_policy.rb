@@ -1,11 +1,9 @@
 class MotdPolicy < ApplicationPolicy
-  def index?
-    true
-  end
+  # def initialize(user, record); end
 
-  def show?
-    true
-  end
+  # def show?
+  #   true
+  # end
 
   def create?
     user.admin?

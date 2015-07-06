@@ -153,10 +153,7 @@ Rails.application.routes.draw do
     resources :tags, only: [:index]
 
     # MOTD Routes
-    get :motd, to: 'motd#index'
-    post :motd, to: 'motd#create'
-    match :motd, to: 'motd#update', via: [:put, :patch]
-    delete :motd, to: 'motd#destroy'
+    resource :motd, except: [:new, :edit]
   end
 
   root 'welcome#index'

@@ -1,15 +1,21 @@
-class MotdController < ApplicationController
+class MotdsController < ApplicationController
+  skip_before_action :require_user, only: :show
+
   before_action :pre_hook
-  after_action :verify_authorized
   after_action :post_hook
 
   def self.document_params
     param :message, String, desc: 'The message to of the day', required: true
+    error code: 404, desc: MissingRecordDetection::Messages.not_found
+    error code: 422, desc: ParameterValidation::Messages.missing
   end
 
-  api :GET, '/motd', 'Returns the MOTDs'
-  def index
-    respond_with_params motd
+  api :GET, '/motd', 'Return the MOTD'
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
+
+  def show
+    respond_with_params Motd.first
   end
 
   api :POST, '/motd', 'Create the MOTD'
@@ -30,6 +36,7 @@ class MotdController < ApplicationController
   end
 
   api :DELETE, '/motd', 'Destroy the MOTD'
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
     respond_with_params motd.destroy
