@@ -30,14 +30,8 @@
       var vm = this;
 
       vm.activate = activate;
-      vm.clicked = clicked;
 
       function activate() {
-        vm.linkTo = vm.linkTo || 'products.details';
-      }
-
-      function clicked() {
-        $state.go(vm.linkTo, {productId: vm.product.id});
       }
     }
   }

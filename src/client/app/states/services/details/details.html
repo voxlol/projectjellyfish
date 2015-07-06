@@ -25,7 +25,9 @@
   <div class="details-table__row">
     <div class="details-table__label">Product</div>
     <div class="details-table__detail">
-      <product-description product="vm.service.product"></product-description>
+      <product-description
+        product="vm.service.product"
+        link-to="products.details({productId: {{vm.service.product.id}}})"></product-description>
     </div>
   </div>
 
