@@ -25,7 +25,7 @@
     <tr ng-repeat="line in item.products track by line.product.id">
       <td class="cart-table__cell cart-table__cell--quantity">{{ line.quantity }}</td>
       <td class="cart-table__cell cart-table__cell--product">
-        <product-description product="line.product"></product-description>
+        <product-description product="line.product" link-to="products.details({productId: {{line.product.id}}})"></product-description>
       </td>
       <td class="cart-table__cell cart-table__cell--price">{{ line.price | currency }}</td>
       <td class="cart-table__cell cart-table__cell--actions">
