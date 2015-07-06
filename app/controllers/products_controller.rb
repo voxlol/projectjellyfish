@@ -94,8 +94,8 @@ class ProductsController < ApplicationController
 
   def product_params
     params
-      .permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price, :product_type, :tag_list)
-      .merge(params.slice(:provisioning_answers))
+      .permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price, :product_type, tags: [])
+      .merge(params.slice(:provisioning_answers)).tap { |p| p[:tag_list] = p.delete :tags }
   end
 
   def load_product

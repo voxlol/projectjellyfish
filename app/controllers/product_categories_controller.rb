@@ -47,7 +47,7 @@ class ProductCategoriesController < ApplicationController
   private
 
   def product_category_params
-    params.permit(:name, :description, :img, tag_list: [])
+    params.permit(:name, :description, :img, tags: []).tap { |p| p[:tag_list] = p.delete :tags }
   end
 
   def product_category

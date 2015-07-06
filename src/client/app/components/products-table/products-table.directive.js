@@ -2,16 +2,18 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('cart', CartDirective);
+    .directive('productsTable', ProductsTableDirective);
 
   /** @ngInject */
-  function CartDirective() {
+  function ProductsTableDirective() {
     var directive = {
       restrict: 'AE',
-      scope: {},
+      scope: {
+        products: '='
+      },
       link: link,
-      templateUrl: 'app/components/cart/cart.html',
-      controller: CartController,
+      templateUrl: 'app/components/products-table/products-table.html',
+      controller: ProductsTableController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -23,14 +25,12 @@
     }
 
     /** @ngInject */
-    function CartController() {
+    function ProductsTableController() {
       var vm = this;
 
       vm.activate = activate;
 
       function activate() {
-        // TODO Cart directive
-        // Likely to be used to manage the cart items, react to 'add to cart' and so on
       }
     }
   }

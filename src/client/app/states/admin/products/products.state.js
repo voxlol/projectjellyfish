@@ -18,7 +18,6 @@
         redirectTo: 'admin.products.list',
         template: '<ui-view></ui-view>',
         resolve: {
-          catalog: resolveCatalog,
           productTypes: resolveProductTypes
         }
       }
@@ -38,11 +37,6 @@
         order: 4
       }
     };
-  }
-
-  /** @ngInject */
-  function resolveCatalog(CatalogService) {
-    return CatalogService.getCatalog([]);
   }
 
   /** @ngInject */
