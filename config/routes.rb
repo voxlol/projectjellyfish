@@ -150,7 +150,7 @@ Rails.application.routes.draw do
     resources :tags, only: [:index]
 
     # MOTD Routes
-    resources :motd
+    resource :motd, except: [:new, :edit]
   end
 
   root 'welcome#index'
