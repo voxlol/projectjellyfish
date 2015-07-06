@@ -3,9 +3,7 @@
       ng-class="{'show-errors': vm.showErrors()}">
     <content-header short="true">
         <div>
-            <span class="content-header__title alert-form__title" ng-if="!vm.editing">Create Alert</span>
-            <span class="content-header__title alert-form__title"
-                  ng-if="vm.editing">Edit Alert: {{vm.alertToEdit.id}}</span>
+            <span class="content-header__title alert-form__title">{{ vm.heading }}</span>
             <span class="alert-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
         </div>
     </content-header>
@@ -40,7 +38,7 @@
                     <label class="alert-field__label">Category</label>
                 </div>
 
-                <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
+                <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('category')}">
           <textarea id="alert-category" ng-model="vm.alertToEdit.category" name="category"
                     class="alert-field__input field__input--textarea" rows="1" required></textarea>
 

@@ -39,9 +39,6 @@
     +modifier(compare)
       text-align: center
 
-    +modifier(cart)
-      text-align: center
-
     +modifier(sortable)
       color: $app-color-blue
       cursor: pointer
@@ -82,9 +79,8 @@
     +modifier(hourly)
       width: 136px
 
-    +modifier(cart)
-      width: 116px
-      text-align: center
+    +modifier(actions)
+      width: 136px
       padding-right: 0
 
   +element(image)
@@ -103,30 +99,12 @@
       height: 166px
       position: static
 
-    +modifier(pink)
-      background-color: $app-color-pink
-    +modifier(light-pink)
-      background-color: lighten($app-color-pink, 20%)
-    +modifier(dark-pink)
-      background-color: darken($app-color-pink, 20%)
-    +modifier(orange)
-      background-color: $app-color-orange
-    +modifier(light-orange)
-      background-color: lighten($app-color-orange, 20%)
-    +modifier(dark-orange)
-      background-color: darken($app-color-orange, 20%)
-    +modifier(blue)
-      background-color: $app-color-blue
-    +modifier(light-blue)
-      background-color: lighten($app-color-blue, 20%)
-    +modifier(dark-blue)
-      background-color: darken($app-color-blue, 20%)
-    +modifier(green)
-      background-color: $app-color-green
-    +modifier(light-green)
-      background-color: lighten($app-color-green, 20%)
-    +modifier(dark-green)
-      background-color: $app-color-dark-green
+  +element(action)
+    margin-right: 20px
+    cursor: pointer
+
+    &:last-child
+      margin-right: 0
 
   +element(grid)
     padding: 10px

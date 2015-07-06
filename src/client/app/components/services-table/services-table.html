@@ -24,7 +24,9 @@
       <a ui-sref="services.details({serviceId: row.id})">{{ ::row.id }}</a>
     </td>
     <td class="services-table__cell services-table__cell--description">
-      <product-description product="row.product"></product-description>
+      <product-description
+        product="row.product"
+        link-to="services.details({serviceId: {{row.id}}})"></product-description>
     </td>
     <td class="services-table__cell services-table__cell--status">
       <status type="{{ ::row.provision_status }}">{{ ::row.provision_status }}</status>

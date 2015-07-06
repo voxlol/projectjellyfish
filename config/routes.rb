@@ -38,8 +38,7 @@ Rails.application.routes.draw do
     resources :api_tokens, defaults: { format: :json }
 
     # Approvals
-    resources :staff, only: [:index]
-    resources :staff, only: [:show, :create, :update, :destroy] do
+    resources :staff, only: [:index, :show, :create, :update, :destroy] do
       # Staff Orders
       resources :orders, controller: :staff_orders, defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
 
@@ -98,7 +97,7 @@ Rails.application.routes.draw do
     get 'services/:id' => 'services#show', as: :services_show
 
     # Project Routes
-    scope 'projects/:project_id' do
+    resources :projects, only: [:index, :show, :create, :update, :destroy] do
       delete 'groups/:group_id' => 'memberships#destroy', as: :membership
       post 'groups' => 'memberships#create', as: :memberships
       put 'groups/:group_id' => 'memberships#update'
@@ -107,8 +106,6 @@ Rails.application.routes.draw do
       post 'approve' => 'project_approvals#update', as: :approve_project
       delete 'reject' => 'project_approvals#destroy', as: :reject_project
     end
-
-    resources :projects
 
     # ProjectQuestion Routes
     resources :project_questions do

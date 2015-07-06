@@ -7,15 +7,12 @@
   /** @ngInject */
   function AddToCartDirective() {
     var directive = {
-      restrict: 'AE',
+      restrict: 'A',
       scope: {
         project: '=',
-        product: '=',
-        text: '@?',
-        short: '=?'
+        product: '='
       },
       link: link,
-      templateUrl: 'app/components/cart/add-to-cart.html',
       controller: AddToCartController,
       controllerAs: 'vm',
       bindToController: true
@@ -24,7 +21,14 @@
     return directive;
 
     function link(scope, element, attrs, vm, transclude) {
+      element.click(add);
+
       vm.activate();
+
+      function add() {
+        vm.add();
+        scope.$apply();
+      }
     }
 
     /** @ngInject */
