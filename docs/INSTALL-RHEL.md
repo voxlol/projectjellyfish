@@ -180,7 +180,6 @@ npm install bower -g
 
 ##### Install dependencies
 ```shell
-rbenv install
 npm install
 bundle install
 ```
