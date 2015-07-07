@@ -2,30 +2,36 @@
   'use strict';
 
   angular.module('app.components')
-    .factory('AddGroup', AddGroupFactory);
+    .factory('ProjectGroup', ProjectGroupFactory);
 
   /** @ngInject */
-  function AddGroupFactory($modal, Group, Role) {
+  function ProjectGroupFactory($modal, Group, Role) {
     var service = {
       showModal: showModal
     };
 
     return service;
 
-    function showModal() {
+    function showModal(editMember) {
       var modalOptions = {
         templateUrl: 'app/components/project-group-modal/add-group-modal.html',
         controller: AddGroupModalController,
         controllerAs: 'vm',
         resolve: {
           groups: resolveGroups,
-          roles: resolveRoles
+          roles: resolveRoles,
+          editMembership: resolveEditMember
         },
         windowTemplateUrl: 'app/components/wizard/wizard-modal-window.html'
       };
       var modal = $modal.open(modalOptions);
 
       return modal.result;
+
+
+      function resolveEditMember() {
+        return editMember;
+      }
 
       function resolveGroups() {
         return Group.query().$promise;
@@ -38,11 +44,11 @@
   }
 
   /** @ngInject */
-  function AddGroupModalController(groups, lodash, roles) {
+  function AddGroupModalController(groups, roles, editMembership) {
     var vm = this;
 
     vm.groups = groups;
-    vm.membersip = '';
+    vm.membership =  editMembership || '';
     vm.roles = roles;
 
 

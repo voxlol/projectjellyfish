@@ -25,11 +25,12 @@
     }
 
     /** @ngInject */
-    function ProjectGroupsTableController(lodash, Toasts) {
+    function ProjectGroupsTableController(lodash, Toasts, ProjectGroup) {
       var vm = this;
 
       vm.activate = activate;
       vm.deleteGroup = deleteGroup;
+      vm.openEditGroup = openEditGroup;
 
       function activate() {
       }
@@ -52,6 +53,30 @@
 
         function deleteError() {
           Toasts.error('Could not remove group. Try again later.');
+        }
+      }
+
+      function openEditGroup(row) {
+
+        ProjectGroup.showModal(row).then(updateGroups);
+
+        function updateGroups(group) {
+          vm.groupToAdd = group;
+          if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
+            Toasts.error('Group already associated with this project.');
+          } else {
+            vm.project.groups.push(vm.groupToAdd);
+            vm.project.$update(saveSuccess, saveFailure);
+          }
+        }
+
+        function saveSuccess() {
+          Toasts.toast('Group successfully added.');
+          vm.project.group_ids.push(vm.groupToAdd.id);
+        }
+
+        function saveFailure() {
+          Toasts.error('Server returned an error while updating.');
         }
       }
     }

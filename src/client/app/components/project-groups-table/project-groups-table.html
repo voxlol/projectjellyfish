@@ -17,7 +17,10 @@
     <td class="groups-table__cell groups-table__cell--members">{{ ::row.staff_ids.length }}</td>
     <td class="groups-table__cell groups-table__cell--role">{{ ::row }}</td>
     <td class="groups-table__cell groups-table__cell--actions">
-      <a href="#" class="project-questions-table__action project-questions-table__action--edit" title="Edit">
+      <a href="#"
+         ng-click="vm.openEditGroup(row)"
+         class="project-questions-table__action project-questions-table__action--edit"
+         title="Edit">
         <img src="/images/ic_edit.png" alt="Edit"/>
       </a>
       <a href="#" class="groups-table__action groups-table__action"

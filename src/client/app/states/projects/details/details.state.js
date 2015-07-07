@@ -57,7 +57,7 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, logger, project, products, VIEW_MODES, AddGroup, Toasts, $stateParams) {
+  function StateController($state, lodash, logger, project, products, VIEW_MODES, ProjectGroup, Toasts, $stateParams) {
     var vm = this;
 
     vm.title = 'Project Details';
@@ -104,7 +104,8 @@
     }
 
     function openAddGroup() {
-      AddGroup.showModal().then(updateGroups);
+
+      ProjectGroup.showModal().then(updateGroups);
 
       function updateGroups(group) {
         vm.groupToAdd = group;
