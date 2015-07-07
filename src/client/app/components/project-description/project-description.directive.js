@@ -9,7 +9,8 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        project: '='
+        project: '=',
+        linkTo: '@?'
       },
       link: link,
       templateUrl: 'app/components/project-description/project-description.html',
