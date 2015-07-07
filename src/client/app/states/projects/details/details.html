@@ -12,8 +12,8 @@
 
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
-<region ng-if="::vm.project.alerts" heading="Alerts">
-  <active-alerts-table alerts="vm.project.alerts"></active-alerts-table>
+<region ng-if="::vm.project.latest_alerts" heading="Alerts">
+  <active-alerts-table alerts="vm.project.latest_alerts"></active-alerts-table>
 </region>
 
 <details-table>
