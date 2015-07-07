@@ -5,12 +5,14 @@
   </button>
   <div class="product-type-modal__title">{{ ::vm.heading }}</div>
 </div>
+
 <div class="product-type-modal__body">
   <p>{{ ::vm.message }}</p>
   <select class="product-type-modal__select"
           ng-options="productType as productType.title for productType in ::vm.productTypes"
           ng-model="vm.productType"></select>
 </div>
+
 <div class="product-type-modal__footer">
   <button type="button" class="btn-rounded btn-rounded--gray product-type-modal__cancel" ng-click="$dismiss()">
     Cancel

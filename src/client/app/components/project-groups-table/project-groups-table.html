@@ -1,10 +1,11 @@
-<table ng-if="0 < vm.project.groups.length" class="groups-table">
+<table ng-if="0 < vm.project.groups.length" class="groups-table ">
   <thead>
   <tr>
     <th class="groups-table__heading groups-table__heading--padding"></th>
-    <th class="groups-table__heading groups-table__heading--name">Name</th>
+    <th class="groups-table__heading groups-table__heading--sortable">Name</th>
     <th class="groups-table__heading groups-table__heading--description">Description</th>
     <th class="groups-table__heading groups-table__heading--members">Members</th>
+    <th class="groups-table__heading groups-table__heading--role">Role</th>
     <th class="groups-table__heading groups-table__heading--actions">Action</th>
   </tr>
   </thead>
@@ -14,7 +15,11 @@
     <td class="groups-table__cell groups-table__cell--name">{{ ::row.name}}</td>
     <td class="groups-table__cell groups-table__cell--description">{{ ::row.description }}</td>
     <td class="groups-table__cell groups-table__cell--members">{{ ::row.staff_ids.length }}</td>
+    <td class="groups-table__cell groups-table__cell--role">{{ ::row }}</td>
     <td class="groups-table__cell groups-table__cell--actions">
+      <a href="#" class="project-questions-table__action project-questions-table__action--edit" title="Edit">
+        <img src="/images/ic_edit.png" alt="Edit"/>
+      </a>
       <a href="#" class="groups-table__action groups-table__action"
          confirmation
          confirmation-position="left-center"

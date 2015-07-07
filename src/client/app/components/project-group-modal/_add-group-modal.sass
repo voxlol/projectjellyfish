@@ -3,7 +3,6 @@
 
   +element(dialog)
     @extend .modal-dialog
-    width: 760px
 
   +element(content)
     @extend .modal-content
@@ -40,15 +39,21 @@
 
   +element(body)
     @extend .modal-body
-    background-color: $app-color-light-gray-2
+    padding: 30px
 
-  +element(button)
-    display: block
-    min-width: 200px
-    margin: 0 auto 20px
+    &:after
+      content: ""
+      border-bottom: 1px solid $app-color-gray
+      position: absolute
+      bottom: 0
+      left: 30px
+      right: 30px
 
-    &:last-child
-      margin-bottom: 0
+  +element(select)
+    @extend .field__input
+    @extend .field__input--select
+    border-radius: 5px
+    border: 1px solid $app-color-gray
 
   +element(footer)
     @extend .modal-footer
@@ -56,4 +61,44 @@
     border: none
 
   +element(ok)
-    min-width: 180px
+    min-width: 120px
+
+  +element(cancel)
+    min-width: 120px
+
++block(form-field)
+  @extend .form-group
+  @extend .field
+
+  +element(container)
+    +make-sm-column(12)
+
+  +element(aside)
+    +make-sm-column(3)
+    @extend .field__aside
+
+  +element(body)
+    @extend .field__body
+
+  +element(label)
+    @extend .field__label
+
+  +element(body)
+    +make-sm-column(9)
+
+  +element(input)
+    @extend .field__input
+    margin-right: 10px !important
+
+  +element(checkbox)
+    @extend .field__checkbox
+
+  +element(feedback)
+    @extend .field__feedback
+
+  +element(member)
+    padding-top: 10px
+
+  +element(member-remove)
+    float: right
+

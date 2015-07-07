@@ -5,7 +5,7 @@
     .factory('AddGroup', AddGroupFactory);
 
   /** @ngInject */
-  function AddGroupFactory($modal, Group) {
+  function AddGroupFactory($modal, Group, Role) {
     var service = {
       showModal: showModal
     };
@@ -18,7 +18,8 @@
         controller: AddGroupModalController,
         controllerAs: 'vm',
         resolve: {
-          groups: resolveGroups
+          groups: resolveGroups,
+          roles: resolveRoles
         },
         windowTemplateUrl: 'app/components/wizard/wizard-modal-window.html'
       };
@@ -29,15 +30,39 @@
       function resolveGroups() {
         return Group.query().$promise;
       }
+
+      function resolveRoles() {
+        return Role.query().$promise;
+      }
     }
   }
 
   /** @ngInject */
-  function AddGroupModalController(groups, lodash) {
+  function AddGroupModalController(groups, lodash, roles) {
     var vm = this;
 
     vm.groups = groups;
-    vm.group = '';
+    vm.membersip = '';
+    vm.roles = roles;
+
+
+
+    vm.showErrors = showErrors;
+    vm.hasErrors = hasErrors;
+
+
+
+    function showErrors() {
+      return vm.showValidationMessages;
+    }
+
+    function hasErrors(field) {
+      if (angular.isUndefined(field)) {
+        return vm.showValidationMessages && vm.form.$invalid;
+      }
+
+      return vm.showValidationMessages && vm.form[field].$invalid;
+    }
 
     activate();
 

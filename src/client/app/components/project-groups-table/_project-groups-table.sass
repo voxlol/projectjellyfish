@@ -1,7 +1,6 @@
 +block(groups-table)
   @extend .table-striped
   width: 100%
-  background-color: $app-color-white
 
   +element(heading)
     height: 44px
@@ -9,9 +8,13 @@
     text-transform: uppercase
     color: $app-color-gray
 
+    +modifier(members)
+      text-align: center
+
     +modifier(sortable)
       color: $app-color-blue
       cursor: pointer
+      text-align: center
 
       &.st-sort-ascent::after
         font: normal normal normal 12px/1 FontAwesome
