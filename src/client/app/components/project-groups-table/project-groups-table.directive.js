@@ -57,7 +57,6 @@
       }
 
       function openEditGroup(row) {
-
         ProjectGroup.showModal(row).then(updateGroups);
 
         function updateGroups(group) {

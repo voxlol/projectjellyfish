@@ -15,7 +15,7 @@
     <td class="groups-table__cell groups-table__cell--name">{{ ::row.name}}</td>
     <td class="groups-table__cell groups-table__cell--description">{{ ::row.description }}</td>
     <td class="groups-table__cell groups-table__cell--members">{{ ::row.staff_ids.length }}</td>
-    <td class="groups-table__cell groups-table__cell--role">{{ ::row }}</td>
+    <td class="groups-table__cell groups-table__cell--role">{{ ::row |json }}</td>
     <td class="groups-table__cell groups-table__cell--actions">
       <a href="#"
          ng-click="vm.openEditGroup(row)"

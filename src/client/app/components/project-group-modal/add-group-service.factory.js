@@ -28,7 +28,6 @@
 
       return modal.result;
 
-
       function resolveEditMember() {
         return editMember;
       }
@@ -48,15 +47,16 @@
     var vm = this;
 
     vm.groups = groups;
-    vm.membership =  editMembership || '';
+    vm.editMembership = editMembership || '';
     vm.roles = roles;
-
-
-
+    vm.membership = {};
+    vm.membership.group = '';
+    vm.membership.role = '';
     vm.showErrors = showErrors;
     vm.hasErrors = hasErrors;
-
-
+    if (vm.editMembership !== '') {
+      vm.membership.group = vm.editMembership.name;
+    }
 
     function showErrors() {
       return vm.showValidationMessages;

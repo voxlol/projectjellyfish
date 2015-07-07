@@ -104,22 +104,23 @@
     }
 
     function openAddGroup() {
-
       ProjectGroup.showModal().then(updateGroups);
 
-      function updateGroups(group) {
-        vm.groupToAdd = group;
+      function updateGroups(membership) {
+        vm.project.group_ids = [];
+        vm.groupToAdd = membership.group;
+        vm.roleToAdd = membership.role;
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
-          vm.project.groups.push(vm.groupToAdd);
+          vm.project.group_ids.push(vm.groupToAdd.id);
           vm.project.$update(saveSuccess, saveFailure);
         }
       }
 
       function saveSuccess() {
         Toasts.toast('Group successfully added.');
-        vm.project.group_ids.push(vm.groupToAdd.id);
+        vm.project.groups.push(vm.groupToAdd);
       }
 
       function saveFailure() {
