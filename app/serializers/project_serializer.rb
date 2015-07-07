@@ -37,7 +37,7 @@ class ProjectSerializer < ApplicationSerializer
   has_many :groups_staffs, through: :groups, source: :staff
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
   has_many :alerts
-  has_many :latest_alerts, through: :services, class_name: 'Alert'
+  has_many :latest_alerts
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
   has_one :project_detail

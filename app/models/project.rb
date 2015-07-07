@@ -40,6 +40,7 @@ class Project < ActiveRecord::Base
   has_many :staff, through: :groups
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
   has_many :alerts, as: :alertable
+  has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
   has_one :project_detail
@@ -119,10 +120,6 @@ class Project < ActiveRecord::Base
 
   def ram
     '2 GB'
-  end
-
-  def latest_alerts
-    alerts.latest
   end
 
   def latest_service_alerts
