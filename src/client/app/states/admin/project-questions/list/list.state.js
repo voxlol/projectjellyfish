@@ -13,7 +13,7 @@
 
   function getStates() {
     return {
-      'admin.project-questions.list': {
+      'admin.motd.list': {
         url: '', // No url, this state is the index of admin.project-questions
         templateUrl: 'app/states/admin/project-questions/list/list.html',
         controller: StateController,

@@ -116,7 +116,7 @@
 
         function saveSuccess() {
           clear();
-          Toasts.success('Order accepted.');
+          Toasts.toast('Order accepted.');
         }
 
         function saveError() {
