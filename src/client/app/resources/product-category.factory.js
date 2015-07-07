@@ -16,7 +16,7 @@
     ProductCategory.defaults = {
       name: '',
       description: '',
-      tag_list: []
+      tags: []
     };
 
     ProductCategory.new = newProductCategory;

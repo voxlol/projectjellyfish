@@ -47,7 +47,7 @@
           <label class="product-category-field__label">Tags</label>
         </div>
         <div class="product-category-field__body" ng-class="{'has-error': vm.hasErrors('description')}">
-          <tag-field ng-model="vm.productCategory.tag_list" name="tags" placeholder="Enter tag name(s)" min-tags="1">
+          <tag-field ng-model="vm.productCategory.tags" name="tags" placeholder="Enter tag name(s)" min-tags="1">
             <tag-autocomplete source="vm.queryTags(query)"></tag-autocomplete>
             <div class="product-category-field__feedback" ng-messages="vm.form.tags.$error">
               <div ng-message="minTags">At least one tag must be entered.</div>
