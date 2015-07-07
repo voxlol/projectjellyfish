@@ -17,7 +17,9 @@
   <div class="details-table__row">
     <div class="details-table__label">Project</div>
     <div class="details-table__detail">
-      <project-description project="vm.service.project"></project-description>
+      <project-description
+        project="vm.service.project"
+        link-to="projects.details({projectId: {{vm.service.project.id}}})"></project-description>
     </div>
   </div>
 
