@@ -66,7 +66,6 @@ gem install bundler
 
 ##### Install dependencies
 ```shell
-rbenv install
 npm install
 bundle install
 ```
