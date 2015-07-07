@@ -52,5 +52,5 @@ class MotdController < ApplicationController
   def motds
     authorize Motd
     @motds = Motd.all
-end
+  end
 end
