@@ -85,6 +85,9 @@ class ProjectsController < ApplicationController
       if params[:project_answers]
         project[:project_answers_attributes] = project.delete(:project_answers)
       end
+      if !current_user.admin? && !project[:id].nil?
+        project.delete(:budget)
+      end
     end
   end
 

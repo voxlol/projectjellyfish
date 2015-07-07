@@ -28,7 +28,7 @@
             class="catalog-category__heading catalog-category__heading--hourly catalog-category__heading--sortable">
           Hourly Price
         </th>
-        <th ng-if="::vm.project" class="catalog-category__heading catalog-category__heading--cart">Cart</th>
+        <th ng-if="::vm.project" class="catalog-category__heading catalog-category__heading--actions">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -38,13 +38,16 @@
         </td>
         <td ng-if="::!vm.comparable" class="catalog-category__cell catalog-category__cell--padding"></td>
         <td class="catalog-category__cell catalog-category__cell--description">
-          <product-description product="::row" link-to="{{ ::vm.linkTo }}"></product-description>
+          <product-description product="::row" link-to="products.details({productId: {{row.id}}})"></product-description>
         </td>
         <td class="catalog-category__cell catalog-category__cell--setup">{{ ::row.setup_price }}</td>
         <td class="catalog-category__cell catalog-category__cell--monthly">{{ ::row.monthly_price }}</td>
         <td class="catalog-category__cell catalog-category__cell--hourly">{{ ::row.hourly_price }}</td>
-        <td ng-if="::vm.project" class="catalog-category__cell catalog-category__cell--cart">
-          <add-to-cart product="::row" project="::vm.project" short="::true" text="Add"></add-to-cart>
+        <td ng-if="::vm.project" class="catalog-category__cell catalog-category__cell--actions">
+          <img src="images/ic_cart.png" class="catalog-category__action"
+               alt="Add to cart" title="Add to cart"
+               add-to-cart product="::row" project="::vm.project"/>
+          <!--<add-to-cart product="::row" project="::vm.project" short="::true" text="Add"></add-to-cart>-->
         </td>
       </tr>
       </tbody>
