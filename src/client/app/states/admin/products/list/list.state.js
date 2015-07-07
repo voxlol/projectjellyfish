@@ -18,7 +18,10 @@
         templateUrl: 'app/states/admin/products/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Products List'
+        title: 'Admin Products List',
+        resolve: {
+          products: resolveProducts
+        }
       }
     };
   }
@@ -32,11 +35,16 @@
   }
 
   /** @ngInject */
-  function StateController(logger, VIEW_MODES, $q, CatalogService, $state) {
+  function resolveProducts(Product) {
+    return Product.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController(logger, $q, products, $state) {
     var vm = this;
 
     vm.title = 'Admin Products List';
-    vm.viewMode = VIEW_MODES.list;
+    vm.products = products;
 
     vm.activate = activate;
     vm.createType = createType;
@@ -45,21 +53,10 @@
 
     function activate() {
       logger.info('Activated Admin Products List View');
-      updateCatalog();
     }
 
     function createType(productType) {
       $state.go('admin.products.create', {productType: productType});
-    }
-
-    // Private
-
-    function updateCatalog() {
-      $q.when(CatalogService.getCatalog([])).then(handleResults);
-
-      function handleResults(results) {
-        vm.catalog = results;
-      }
     }
   }
 })();

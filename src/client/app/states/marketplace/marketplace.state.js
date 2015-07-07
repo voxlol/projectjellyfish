@@ -88,6 +88,7 @@
       function updateTags(tags) {
         vm.tags.length = 0;
         Array.prototype.push.apply(vm.tags, tags);
+        updateCatalog();
       }
     }
   }

@@ -74,6 +74,7 @@
 
     function clear() {
       service.items = {};
+      service.itemCount = 0;
     }
 
     function isEmpty() {

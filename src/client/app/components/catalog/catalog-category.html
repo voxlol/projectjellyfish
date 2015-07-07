@@ -1,6 +1,6 @@
 <div ng-if="::vm.category.products.length > 0" class="catalog-category">
   <div class="catalog-category__header">
-    <span class="catalog-category__title">{{ ::vm.category.title }}</span>
+    <span class="catalog-category__title">{{ ::vm.category.name }}</span>
     <a href="#" title="Collapse">
       <img class="catalog-category__collapse-icon" src="images/ic_viewcategory_dropdown.png"
            ng-click="vm.collapsed = !vm.collapsed">

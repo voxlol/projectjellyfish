@@ -10,12 +10,9 @@
         product-types="vm.productTypes"
         on-ok="vm.createType(productType)"></product-type-show-modal>
     </div>
-    <div class="admin-products-list__switch">
-      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
-    </div>
   </div>
 </content-header>
 
-<catalog-category ng-repeat="category in vm.catalog" category="category" view-mode="vm.viewMode"
-                  comparable="false"></catalog-category>
-
+<div class="admin-products-list__border">
+  <products-table products="vm.products"></products-table>
+</div>
