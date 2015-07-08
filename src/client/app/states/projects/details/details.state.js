@@ -110,6 +110,7 @@
         vm.project.group_ids = [];
         vm.groupToAdd = membership.group;
         vm.roleToAdd = membership.role;
+        console.log(vm.roleToAdd);
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
