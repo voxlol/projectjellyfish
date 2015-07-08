@@ -25,12 +25,33 @@
     }
 
     /** @ngInject */
-    function LatestAlertsTableController() {
+    function LatestAlertsTableController(lodash, Alert, Toasts) {
       var vm = this;
 
       vm.activate = activate;
+      vm.deleteAlert = deleteAlert;
+
+      activate();
 
       function activate() {
+      }
+
+      function deleteAlert(alert) {
+
+        // TODO: FIGURE OUT THE RIGHT WAY TO DO THIS
+        // alert.$delete(deleteSuccess, deleteFailure) returns method not found error
+        var deletedAlert = Alert.delete({id: alert.id}).$promise;
+        lodash.remove(vm.alerts, {id: alert.id});
+        Toasts.toast('Alert deleted.');
+
+        function deleteSuccess() {
+          lodash.remove(vm.alerts, {id: alert.id});
+          Toasts.toast('Alert deleted.');
+        }
+
+        function deleteFailure() {
+          Toasts.error('Server returned an error while deleting.');
+        }
       }
     }
   }
