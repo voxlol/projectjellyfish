@@ -9,16 +9,24 @@
     text-transform: uppercase
     color: $app-color-gray
 
+    +modifier(category)
+      text-align: left
+
     +modifier(status)
-      text-align: center
-
-    +modifier(creation-date)
-      text-align: center
-
-    +modifier(period)
-      text-align: center
+      text-align: left
 
     +modifier(message)
+      text-align: left
+
+    +modifier(start-date)
+      text-align: left
+
+    +modifier(end-date)
+      text-align: left
+
+    +modifier(actions)
+      text-align: left
+      padding-right: 20px
 
     +modifier(sortable)
       color: $app-color-blue
@@ -45,23 +53,31 @@
     +modifier(padding)
       width: 20px
 
-    +modifier(status)
-      width: 136px
+    +modifier(category)
       padding-right: 0
-      text-align: center
+      text-align: left
+
+    +modifier(status)
+      width: 100px
+      padding-right: 0
+      text-align: left
       text-transform: lowercase
 
-    +modifier(creation-date)
-      width: 160px
-      padding-right: 0
-      text-align: center
-
-    +modifier(period)
-      width: 160px
-      padding-right: 0
-      text-align: center
-
     +modifier(message)
+
+    +modifier(start-date)
+      width: 160px
+      padding-right: 0
+      text-align: left
+
+    +modifier(end-date)
+      width: 160px
+      padding-right: 0
+      text-align: left
+
+    +modifier(actions)
+      padding-right: 20px
+      text-align: left
 
   +element(empty)
     font-size: 22px

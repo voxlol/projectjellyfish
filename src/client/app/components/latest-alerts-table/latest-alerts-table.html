@@ -1,27 +1,51 @@
-<table ng-if="::0 < vm.alerts.length" class="latest-alerts-table">
+<table ng-if="::0 < vm.alerts.length"  st-table="vm.alerts" class="latest-alerts-table">
   <thead>
   <tr>
     <th class="latest-alerts-table__heading latest-alerts-table__heading--padding"></th>
-    <th class="latest-alerts-table__heading latest-alerts-table__heading--message">Message</th>
-    <th class="latest-alerts-table__heading latest-alerts-table__heading--creation-date">Creation Date</th>
-    <th class="latest-alerts-table__heading latest-alerts-table__heading--period">Alert Until</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--category latest-alerts-table__heading--sortable" st-sort="category">Category</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--status latest-alerts-table__heading--sortable" st-sort="status">Status</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--message latest-alerts-table__heading--sortable" st-sort="message">Message</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--start-date latest-alerts-table__heading--sortable" st-sort="start_date">Start Date</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--end-date latest-alerts-table__heading--sortable" st-sort="end_date">End Date</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--action">Action</th>
   </tr>
   </thead>
   <tbody>
   <tr ng-repeat="row in vm.alerts | filter: { status: '!ok'} track by row.id">
+
     <td class="latest-alerts-table__cell latest-alerts-table__cell--padding"></td>
-    <td class="latest-alerts-table__cell latest-alerts-table__cell--message">
-      <status type="{{ ::row.status }}">{{ ::row.status }} &mdash; {{ ::row.message }}</status>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--category">{{ ::row.category}}</td>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--status"><status type="{{ ::row.status }}">{{ ::row.status }}</status></td>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--message">{{ ::row.message }}</td>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--start-date">{{ ::row.start_date | date:'short' }}</td>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--end-date">{{ ::row.end_date | date:'short' }}</td>
+
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--actions">
+
+      <a ui-sref="admin.alerts.edit({id: row.id})" class="latest-alerts-table__cell">
+        <img src="/images/ic_edit.png" alt="Edit"/>
+      </a>
+
+      <a href="#" class="latest-alerts-table__cell"
+         confirmation
+         confirmation-position="left-center"
+         confirmation-message="Are you sure you want to remove this alert and it's content?"
+         confirmation-ok-style="danger"
+         confirmation-ok-text="Yes, Delete It"
+         confirmation-on-ok="vm.deleteAlert(row)"
+         confirmation-show-cancel="false">
+        <img src="/images/ic_deletequestion.png" alt="Delete"/>
+      </a>
+
     </td>
-    <td class="latest-alerts-table__cell latest-alerts-table__cell--creation-date">
-      {{ ::row.created_at | date:'short' }}
-    </td>
-    <td class="latest-alerts-table__cell latest-alerts-table__cell--period">
-        <span ng-if="::row.start_date">
-          {{ ::row.start_date | date:'short' }} &mdash; {{ ::row.end_date | date:'short' }}
-        </span>
-    </td>
+
   </tr>
+
   </tbody>
 </table>
 <div ng-if="::0 === vm.alerts.length" class="latest-alerts-table__empty">
