@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.18.2'
 gem 'pg_search', '~> 0.7.8'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
