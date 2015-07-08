@@ -22,7 +22,9 @@
         resolve: {
           project: resolveProjects,
           products: resolveProducts,
-          staff: resolveStaff
+          staff: resolveStaff,
+          groups: resolveGroups,
+          roles: resolveRoles
         }
       }
     };
@@ -57,14 +59,24 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, logger, project, products, VIEW_MODES, ProjectGroup, Toasts, $stateParams) {
+  function resolveGroups(Group) {
+    return Group.query().$promise;
+  }
+
+  /** @ngInject */
+  function resolveRoles(Role) {
+    return Role.query().$promise;
+  }
+
+  /** @ngInject */
+  function StateController($state, lodash, project, products, ProjectGroup, Toasts, Membership, groups, roles) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = project;
     vm.products = products;
-
-    vm.viewMode = vm.viewMode || VIEW_MODES.list;
+    vm.groups = groups;
+    vm.roles = roles;
 
     vm.activate = activate;
     vm.openAddGroup = openAddGroup;
@@ -78,7 +90,6 @@
       // Temporary! Merge products onto services
       tempMergeProductsOntoServices();
       vm.project.group_ids = lodash.pluck(vm.project.groups, 'id');
-      logger.info('Activated Project Details View');
     }
 
     function approve() {
@@ -108,23 +119,33 @@
 
       function updateGroups(membership) {
         vm.project.group_ids = [];
+        vm.membership = new Membership();
         vm.groupToAdd = membership.group;
         vm.roleToAdd = membership.role;
-        console.log(vm.roleToAdd);
         if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
           Toasts.error('Group already associated with this project.');
         } else {
+          vm.membership.project_id = vm.project.id;
+          vm.membership.group_id = vm.groupToAdd.id;
+          vm.membership.role_id = vm.roleToAdd.id;
           vm.project.group_ids.push(vm.groupToAdd.id);
-          vm.project.$update(saveSuccess, saveFailure);
+          vm.membership.$save({projectId: vm.project.id}, saveMembershipSuccess, saveMembershipFailure);
+          vm.project.$update(updateSuccess, updateFailure);
         }
       }
 
-      function saveSuccess() {
+      function saveMembershipSuccess() {
+      }
+
+      function saveMembershipFailure() {
+      }
+
+      function updateSuccess() {
         Toasts.toast('Group successfully added.');
         vm.project.groups.push(vm.groupToAdd);
       }
 
-      function saveFailure() {
+      function updateFailure() {
         Toasts.error('Server returned an error while updating.');
       }
     }
