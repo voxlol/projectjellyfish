@@ -19,8 +19,10 @@
 #
 
 class ProjectQuestionSerializer < ActiveModel::Serializer
-  attributes :id, :question, :help_text, :required,
-             :created_at, :updated_at, :deleted_at, :position, :options, :field_type
+  attributes :id, :question, :help_text, :required
+  attributes :created_at, :updated_at, :deleted_at, :position, :options, :field_type
+
+  private
 
   def options
     object.options
