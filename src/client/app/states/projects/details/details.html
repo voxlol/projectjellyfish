@@ -13,6 +13,12 @@
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
 <region ng-if="::vm.project.latest_alerts" heading="Alerts">
+  <div class="project-details__alert-buttons">
+    <button type="button" class="btn-rounded btn-rounded--short project-details__alert-button"
+            ui-sref="projects.services({projectId: vm.project.id})">
+      Add Alerts
+    </button>
+  </div>
   <latest-alerts-table alerts="vm.project.latest_alerts"></latest-alerts-table>
 </region>
 
