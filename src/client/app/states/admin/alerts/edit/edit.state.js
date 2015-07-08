@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin Alerts Create',
         resolve: {
-          alertToEdit: resolveAlert,
+          alertRecord: resolveAlert,
           staff: resolveStaff
         }
       }
@@ -50,13 +50,17 @@
   }
 
   /** @ngInject */
-  function StateController(logger, alertToEdit, $stateParams, staff) {
+  function StateController(logger, alertRecord, $stateParams, staff) {
     var vm = this;
 
     vm.title = 'Admin Alerts Edit';
-    vm.alertToEdit = alertToEdit;
+    vm.alertRecord = alertRecord;
     vm.activate = activate;
     vm.staffId = staff.id;
+
+    // HARD CODED FOR SINGLE TENANT
+    vm.alertableType = 'Organization';
+    vm.alertableId = '1';
 
     activate();
 
