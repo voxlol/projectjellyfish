@@ -24,7 +24,4 @@
 class ProjectDetailSerializer < ApplicationSerializer
   attributes :id, :requestor_name, :requestor_date, :team_name, :charge_number, :nte_budget
   attributes :project_owner, :sr_associate, :principle, :estimated_termination_date, :data_type, :others
-
-  # Relationships
-  belongs_to :project
 end

@@ -30,6 +30,7 @@ class ProjectSerializer < ApplicationSerializer
   attributes :archived, :spent, :budget, :start_date, :end_date
 
   # Relationships
+  has_many :project_questions
   has_many :project_answers
   has_many :groups, serializer: MembershipSerializer
   has_many :alerts

@@ -18,5 +18,4 @@
 
 class ApprovalSerializer < ApplicationSerializer
   attributes :id, :approved, :created_at, :updated_at, :reason
-  # attributes :approver
 end
