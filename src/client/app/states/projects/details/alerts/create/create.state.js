@@ -57,6 +57,8 @@
     vm.alertRecord = alertRecord;
     vm.activate = activate;
     vm.staffId = staff.id;
+    vm.home = 'projects.details';
+    vm.homeParams = { projectId: $stateParams.projectId };
 
     // HARD CODED FOR SINGLE TENANT
     vm.alertableType = 'Project';

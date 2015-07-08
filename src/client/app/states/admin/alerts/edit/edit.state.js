@@ -57,6 +57,8 @@
     vm.alertRecord = alertRecord;
     vm.activate = activate;
     vm.staffId = staff.id;
+    vm.home = 'admin.alerts.list';
+    vm.homeParams = { };
 
     // HARD CODED FOR SINGLE TENANT
     vm.alertableType = 'Organization';

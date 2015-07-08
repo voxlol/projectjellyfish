@@ -13,7 +13,9 @@
         heading: '@?',
         staffId: '@?',
         alertableId: '@?',
-        alertableType: '@?'
+        alertableType: '@?',
+        home: '=?',
+        homeParams: '=?'
       },
       link: link,
       templateUrl: 'app/components/alert-form/alert-form.html',
@@ -33,16 +35,12 @@
       var vm = this;
 
       vm.showValidationMessages = false;
-      vm.home = 'admin.alerts.list';
       vm.format = 'yyyy-MM-dd';
       vm.dateOptions = {
         formatYear: 'yy',
         startingDay: 0,
         showWeeks: false
       };
-
-      vm.activate = activate;
-      activate();
 
       vm.backToList = backToList;
       vm.showErrors = showErrors;
@@ -52,11 +50,14 @@
       vm.openEnd = openEnd;
       vm.openAnswerDate = openAnswerDate;
 
+      vm.activate = activate;
+      activate();
+
       function activate() {
       }
 
       function backToList() {
-        $state.go(vm.home);
+        $state.go(vm.home, vm.homeParams);
       }
 
       function showErrors() {
@@ -98,7 +99,7 @@
 
         function saveSuccess() {
           Toasts.toast('Alert saved.');
-          $state.go(vm.home);
+          backToList();
         }
 
         function saveFailure() {
