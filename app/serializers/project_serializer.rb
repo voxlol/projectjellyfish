@@ -31,14 +31,12 @@ class ProjectSerializer < ApplicationSerializer
 
   # Relationships
   has_many :project_answers
-  has_many :memberships
-  has_many :groups, through: :memberships
-  has_many :staff, through: :groups
-  has_many :groups_staffs, through: :groups, source: :staff
-  has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
+  has_many :groups, serializer: MembershipSerializer
   has_many :alerts
-  has_many :latest_alerts, through: :services, class_name: 'Alert'
+  has_many :memberships
   has_many :approvals
-  has_many :approvers, through: :approvals, source: :staff
+  has_many :approvers, serializer: StaffSerializer
+  has_many :services
+  has_many :staff
   has_one :project_detail
 end
