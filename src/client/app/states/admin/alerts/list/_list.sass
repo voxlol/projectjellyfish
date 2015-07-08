@@ -21,6 +21,10 @@
     text-transform: uppercase
     color: $app-color-gray
 
+    +modifier(category)
+      width: 136px
+      text-align: center
+
     +modifier(status)
       text-align: left
 
@@ -29,6 +33,9 @@
 
     +modifier(end-date)
       text-align: left
+
+    +modifier(actions)
+      text-align: center
 
     +modifier(sortable)
       color: $app-color-blue
@@ -56,7 +63,8 @@
       width: 20px
 
     +modifier(category)
-      text-align: left
+      padding-right: 0
+      text-align: center
 
     +modifier(status)
       width: 136px
@@ -79,7 +87,9 @@
       text-align: left
 
     +modifier(actions)
-      width: 196px
+      width: 136px
+      padding-right: 0
+      text-align: center
 
   +element(action)
     margin-right: 20px
