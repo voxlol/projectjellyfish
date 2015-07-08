@@ -74,6 +74,7 @@
 
     function clear() {
       service.items = {};
+      service.itemCount = 0;
     }
 
     function isEmpty() {
@@ -116,7 +117,7 @@
 
         function saveSuccess() {
           clear();
-          Toasts.success('Order accepted.');
+          Toasts.toast('Order accepted.');
         }
 
         function saveError() {

@@ -40,7 +40,7 @@
       <tr ng-repeat="row in vm.projects track by row.id" class="projects-table__row">
         <td class="projects-table__cell projects-table__cell--padding"></td>
         <td class="projects-table__cell projects-table__cell--description">
-          <project-description project="row"></project-description>
+          <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
         </td>
         <td class="projects-table__cell projects-table__cell--approval">
           <img ng-if="::'approved' === row.approval" class="projects-table__approved"

@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.product-categories',
         label: 'Product Categories',
-        order: 3
+        order: 4
       }
     };
   }

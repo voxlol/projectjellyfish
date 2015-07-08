@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.users': {
-        url: '/users',
-        redirectTo: 'admin.users.list',
+      'admin.motd': {
+        url: '/motd',
+        redirectTo: 'admin.motd.edit',
         template: '<ui-view></ui-view>'
       }
     };
@@ -27,11 +27,11 @@
 
   function sidebarItems() {
     return {
-      'admin.users': {
+      'admin.alerts': {
         type: 'state',
-        state: 'admin.users',
-        label: 'Users',
-        order: 8
+        state: 'admin.motd',
+        label: 'Message of the Day',
+        order: 3
       }
     };
   }

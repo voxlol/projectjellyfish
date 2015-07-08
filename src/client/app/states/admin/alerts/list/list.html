@@ -7,12 +7,8 @@
     </div>
 </content-header>
 <div class="alerts-table">
-    <table st-table="vm.alerts" class="alerts-table__table table-hover">
+    <table st-table="vm.alerts" class="alerts-table table-hover">
         <thead>
-        <th colspan="4">
-            <input st-search="" class="form-control alerts-table__filter-input"
-                   placeholder="Filter by project, status, message" type="text"/>
-        </th>
         <tr>
             <th class="alerts-table__heading alerts-table__heading--padding"></th>
             <th class="alerts-table__heading alerts-table__heading" st-sort="id">Category</th>
@@ -27,7 +23,9 @@
         <tr class="alerts-table__row" ng-repeat="row in vm.alerts | filter:{status: '!ok'}">
             <td class="alerts-table__cell alerts-table__cell--padding"></td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.category }}</td>
-            <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.status }}</td>
+             <td class="alerts-table__cell alerts-table__cell--status">
+              <status type="{{ ::row.status }}">{{ ::row.status }}</status>
+            </td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.message }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.start_date | date:'short' }}</td>
             <td class="alerts-table__cell alerts-table__cell--question">{{ ::row.end_date | date:'short' }}</td>

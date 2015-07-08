@@ -1,6 +1,11 @@
-+block(groups-table)
++block(products-table)
   @extend .table-striped
   width: 100%
+  background-color: $app-color-white
+
+  +element(row)
+    width: 100%
+    background-color: $app-color-white
 
   +element(heading)
     height: 44px
@@ -8,13 +13,9 @@
     text-transform: uppercase
     color: $app-color-gray
 
-    +modifier(name)
-      text-align: center
-
     +modifier(sortable)
       color: $app-color-blue
       cursor: pointer
-      text-align: center
 
       &.st-sort-ascent::after
         font: normal normal normal 12px/1 FontAwesome
@@ -26,6 +27,12 @@
         content: "\f078"
         padding-left: 4px
 
+    +modifier(description)
+      padding-left: 20px
+
+    +modifier(available)
+      text-align: center
+
   +element(cell)
     height: 44px
     font-size: 14px
@@ -34,20 +41,19 @@
     vertical-align: top
     position: relative
 
-    +modifier(padding)
-      width: 20px
-
     +modifier(description)
-      padding-right: 20px
+      padding-left: 20px
 
-    +modifier(name)
+    +modifier(product-type)
+      width: 166px
+
+    +modifier(available)
       width: 136px
       text-align: center
-
-    +modifier(members)
-      width: 136px
       padding-right: 0
-      text-align: center
+
+    +modifier(actions)
+      width: 136px
 
   +element(action)
     margin-right: 20px

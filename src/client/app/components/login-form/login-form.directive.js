@@ -62,7 +62,7 @@
         }
 
         function loginSuccess() {
-          Toasts.success('You have successfully logged in.');
+          Toasts.toast('You have successfully logged in.');
           $state.go(dashboard);
         }
 

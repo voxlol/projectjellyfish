@@ -30,14 +30,25 @@
   }
 
   /** @ngInject */
-  function StateController() {
+
+  /** @ngInject */
+  function StateController(Motd) {
     var vm = this;
 
     vm.title = 'Login';
-
+    vm.resolveMotd = resolveMotd;
     activate();
 
     function activate() {
+      vm.resolveMotd();
+    }
+
+    function resolveMotd() {
+      Motd.query().$promise.then(assignResolved());
+
+      function assignResolved(result) {
+        vm.motd = result;
+      }
     }
   }
 })();
