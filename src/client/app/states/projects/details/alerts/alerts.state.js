@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'projects.alerts': {
-        abstract:true,
+        abstract: true,
         url: '/:projectId/alerts',
         template: '<ui-view></ui-view>'
       }

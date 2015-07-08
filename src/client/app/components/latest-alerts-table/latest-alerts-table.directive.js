@@ -37,7 +37,6 @@
       }
 
       function deleteAlert(alert) {
-
         // TODO: FIGURE OUT THE RIGHT WAY TO DO THIS
         // alert.$delete(deleteSuccess, deleteFailure) returns method not found error
         var deletedAlert = Alert.delete({id: alert.id}).$promise;
