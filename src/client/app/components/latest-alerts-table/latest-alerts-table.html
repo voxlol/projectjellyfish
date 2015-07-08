@@ -1,0 +1,29 @@
+<table ng-if="::0 < vm.alerts.length" class="latest-alerts-table">
+  <thead>
+  <tr>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--padding"></th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--message">Message</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--creation-date">Creation Date</th>
+    <th class="latest-alerts-table__heading latest-alerts-table__heading--period">Alert Until</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="row in vm.alerts | filter: { status: '!ok'} track by row.id">
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--padding"></td>
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--message">
+      <status type="{{ ::row.status }}">{{ ::row.status }} &mdash; {{ ::row.message }}</status>
+    </td>
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--creation-date">
+      {{ ::row.created_at | date:'short' }}
+    </td>
+    <td class="latest-alerts-table__cell latest-alerts-table__cell--period">
+        <span ng-if="::row.start_date">
+          {{ ::row.start_date | date:'short' }} &mdash; {{ ::row.end_date | date:'short' }}
+        </span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div ng-if="::0 === vm.alerts.length" class="latest-alerts-table__empty">
+  No alerts at this time.
+</div>
