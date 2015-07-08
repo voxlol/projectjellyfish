@@ -85,7 +85,7 @@
                                max-date="vm.alertToEdit.end_date"
                                max-date="'2015-06-22'"
                                datepicker-options="vm.dateOptions"
-                               ng-required="true" close-text="Close"/>
+                               ng-required="false" close-text="Close"/>
                     </div>
                     <div class="alert-field__feedback" ng-messages="vm.form.startDate.$error">
                         <div ng-message="required">A start date is required.</div>
@@ -113,7 +113,7 @@
                                is-open="vm.openedEnd"
                                min-date="vm.alert.start_date"
                                datepicker-options="vm.dateOptions"
-                               ng-required="true" close-text="Close"/>
+                               ng-required="false" close-text="Close"/>
                     </div>
                     <div class="alert-field__feedback" ng-messages="vm.form.endDate.$error">
                         <div ng-message="required">An end date is required.</div>
