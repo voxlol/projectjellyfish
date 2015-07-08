@@ -21,11 +21,14 @@
     text-transform: uppercase
     color: $app-color-gray
 
-    +modifier(alert-id)
-      text-align: center
-
     +modifier(status)
-      text-align: center
+      text-align: left
+
+    +modifier(start-date)
+      text-align: left
+
+    +modifier(end-date)
+      text-align: left
 
     +modifier(sortable)
       color: $app-color-blue
@@ -52,33 +55,28 @@
     +modifier(padding)
       width: 20px
 
-    +modifier(alert-id)
-      width: 136px
-      padding-right: 0
-
-    +modifier(project-id)
-      width: 136px
-      padding-right: 0
-      text-align: center
-
-    +modifier(message)
-      padding-right: 20px
-
-    +modifier(start-date)
-      width: 136px
-      padding-right: 0
-      text-align: center
-
-    +modifier(end-date)
-      width: 136px
-      padding-right: 0
-      text-align: center
+    +modifier(category)
+      text-align: left
 
     +modifier(status)
       width: 136px
       padding-right: 0
-      text-align: center
+      text-align: left
       text-transform: lowercase
+
+    +modifier(message)
+      padding-right: 0px
+      text-align: left
+
+    +modifier(start-date)
+      width: 136px
+      padding-right: 0
+      text-align: left
+
+    +modifier(end-date)
+      width: 136px
+      padding-right: 0
+      text-align: left
 
     +modifier(actions)
       width: 196px
