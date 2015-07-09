@@ -69,7 +69,7 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, project, products, ProjectMembership, groups, roles) {
+  function StateController($state, lodash, project, products, ProjectMembership, groups, roles, Membership) {
     var vm = this;
 
     vm.title = 'Project Details';
@@ -114,9 +114,11 @@
     }
 
     function showMembershipModal() {
-      ProjectMembership.showModal(vm.project.memberships).then(updateMembership);
+      vm.membership = new Membership();
+      ProjectMembership.showModal(vm.membership).then(updateMembership);
 
       function updateMembership(membership) {
+        vm.project.memberships.push(membership);
       }
     }
   }

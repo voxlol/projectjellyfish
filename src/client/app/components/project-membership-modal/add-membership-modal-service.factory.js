@@ -12,7 +12,7 @@
 
     return service;
 
-    function showModal(listMembership, editMembership) {
+    function showModal(membership) {
       var modalOptions = {
         templateUrl: 'app/components/project-membership-modal/add-membership-modal.html',
         controller: AddMembershipModalController,
@@ -20,8 +20,8 @@
         resolve: {
           groups: resolveGroups,
           roles: resolveRoles,
-          editMembership: resolveEditMembership,
-          listMembership: resolveListMembership
+          membership: resolveMembership,
+
 
         },
         windowTemplateUrl: 'app/components/project-membership-modal/add-membership-modal-window.html'
@@ -30,12 +30,8 @@
 
       return modal.result;
 
-      function resolveListMembership() {
-        return listMembership;
-      }
-
-      function resolveEditMembership() {
-        return editMembership;
+      function resolveMembership() {
+        return membership;
       }
 
       function resolveGroups() {
@@ -49,15 +45,13 @@
   }
 
   /** @ngInject */
-  function AddMembershipModalController($stateParams, groups, roles, listMembership, editMembership, Membership,
-                                        lodash, Toasts) {
+  function AddMembershipModalController($stateParams, groups, roles, membership, Membership, Toasts) {
     var vm = this;
 
     vm.groups = groups;
-    vm.currentMembership = editMembership || new Membership();
+    vm.currentMembership = membership;
     vm.roles = roles;
     vm.onSubmit = onSubmit;
-    vm.listMembership = listMembership;
     vm.showErrors = showErrors;
     vm.hasErrors = hasErrors;
 
@@ -80,19 +74,14 @@
             },
             updateSuccess, updateFailure);
         } else if (!vm.currentMembership.id) {
-          if (lodash.result(lodash.find(vm.listMembership, 'group_id', vm.selectedGroup.id), 'group_id')) {
-            Toasts.error('Group selected is already associated with project.');
-          } else {
             vm.currentMembership.project_id = $stateParams.projectId;
             vm.currentMembership.group_id = vm.selectedGroup.id;
             vm.currentMembership.role_id = vm.selectedRole.id;
             vm.currentMembership.$save({projectId: $stateParams.projectId}, saveSuccess, saveFailure);
-          }
         }
       }
 
       function saveSuccess() {
-        vm.listMembership.push(vm.currentMembership);
         Toasts.toast('Group successfully added.');
       }
 

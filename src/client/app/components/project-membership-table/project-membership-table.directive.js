@@ -54,7 +54,7 @@
       }
 
       function showMembershipModal(row) {
-        ProjectMembership.showModal(vm.memberships, row).then(updateMembership);
+        ProjectMembership.showModal(row).then(updateMembership);
 
         function updateMembership(membership) {
         }
