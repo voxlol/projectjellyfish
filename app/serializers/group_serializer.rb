@@ -13,5 +13,6 @@ class GroupSerializer < ApplicationSerializer
   attributes :id, :name, :description, :staff_ids
 
   has_many :staff
+  has_many :memberships
   has_many :groups_staffs
 end
