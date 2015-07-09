@@ -3,15 +3,15 @@
       ng-class="{'show-errors': vm.showErrors()}">
 
 
-  <div class="add-group-modal__header">
-    <button type="button" class="add-group-modal__close" ng-click="$dismiss()" aria-label="Close">
+  <div class="add-membership-modal__header">
+    <button type="button" class="add-membership-modal__close" ng-click="$dismiss()" aria-label="Close">
       <i class="fa fa-close" aria-hidden="true"></i>
       <span class="sr-only">Close</span>
     </button>
-    <div class="add-group-modal__title">Configure Project Group Membership</div>
+    <div class="add-membership-modal__title">Configure Project Group Membership</div>
   </div>
 
-  <div class="add-group-modal__body">
+  <div class="add-membership-modal__body">
 
     <div class="row">
       <div class="form-field__container">
@@ -22,7 +22,7 @@
           </div>
           <div class="form-field__body">
             <select id="group-name" name="group" ng-model="vm.selectedGroup"
-                    class="add-group-modal__select"
+                    class="add-membership-modal__select"
                     ng-options="group as group.name for group in vm.groups track by group.id" required>
             </select>
             <div class="form-field__feedback" ng-messages="vm.form.group.$error">
@@ -50,11 +50,11 @@
     </div>
   </div>
 
-  <div class="add-group-modal__footer">
-    <button type="button" class="btn-rounded btn-rounded--gray add-group-modal__cancel" ng-click="$dismiss()">
+  <div class="add-membership-modal__footer">
+    <button type="button" class="btn-rounded btn-rounded--gray add-membership-modal__cancel" ng-click="$dismiss()">
       Cancel
     </button>
-    <button ng-disabled="vm.hasErrors()" type="submit" class="btn-rounded add-group-modal__ok" ng-click="$close()">
+    <button ng-disabled="vm.hasErrors()" type="submit" class="btn-rounded add-membership-modal__ok" ng-click="$close()">
       <span ng-if="vm.currentMembership.id">Update Group</span>
       <span ng-if="!vm.currentMembership.id">Add Group</span>
     </button>
