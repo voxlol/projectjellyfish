@@ -16,5 +16,9 @@
 #
 
 class MembershipSerializer < ApplicationSerializer
-  attributes :id, :created_at, :updated_at
+  attributes :id, :group_id, :project_id, :role_id, :created_at, :updated_at
+  
+  has_one :group
+  has_one :project
+  has_one :role
 end
