@@ -32,7 +32,7 @@
 
       vm.activate = activate;
       vm.deleteGroup = deleteMembership;
-      vm.openEditGroup = openEditGroup;
+      vm.showMembershipModal = showMembershipModal;
       vm.rowLookup = rowLookup;
       vm.membership = new Membership();
 
@@ -41,7 +41,7 @@
 
       function deleteMembership(index) {
         vm.membership.$delete({projectId: vm.memberships[index].project_id, groupId: vm.memberships[index].group_id},
-          deleteSuccess, deleteSuccess);
+          deleteSuccess, deleteError);
 
         function deleteSuccess() {
           vm.memberships = lodash.reject(vm.memberships, {'id': vm.memberships[index].id});
@@ -53,7 +53,7 @@
         }
       }
 
-      function openEditGroup(row) {
+      function showMembershipModal(row) {
         ProjectMembership.showModal(vm.memberships, row).then(updateMembership);
 
         function updateMembership(membership) {

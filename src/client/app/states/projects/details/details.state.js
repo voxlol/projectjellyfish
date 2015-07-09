@@ -79,7 +79,7 @@
     vm.roles = roles;
 
     vm.activate = activate;
-    vm.openAddGroup = openAddGroup;
+    vm.showMembershipModal = showMembershipModal;
     vm.approve = approve;
     vm.reject = reject;
 
@@ -113,7 +113,7 @@
       }
     }
 
-    function openAddGroup() {
+    function showMembershipModal() {
       ProjectMembership.showModal(vm.project.memberships).then(updateMembership);
 
       function updateMembership(membership) {
