@@ -34,6 +34,7 @@ class ProjectSerializer < ApplicationSerializer
   has_many :project_answers
   has_many :groups
   has_many :alerts
+  has_many :latest_alerts
   has_many :memberships
   has_many :approvals
   has_many :approvers, serializer: StaffSerializer

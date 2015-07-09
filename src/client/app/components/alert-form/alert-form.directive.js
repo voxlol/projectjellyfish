@@ -9,10 +9,13 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        alertToEdit: '=?',
-        editing: '=?',
+        alertRecord: '=?',
         heading: '@?',
-        staffId: '@?'
+        staffId: '@?',
+        alertableId: '@?',
+        alertableType: '@?',
+        home: '=?',
+        homeParams: '=?'
       },
       link: link,
       templateUrl: 'app/components/alert-form/alert-form.html',
@@ -31,21 +34,13 @@
     function AlertFormController($scope, $state, Toasts, Alert, lodash) {
       var vm = this;
 
-      vm.activate = activate;
-      activate();
-
       vm.showValidationMessages = false;
-      vm.home = 'admin.alerts.list';
       vm.format = 'yyyy-MM-dd';
-      vm.alert = vm.alertToEdit;
       vm.dateOptions = {
         formatYear: 'yy',
         startingDay: 0,
         showWeeks: false
       };
-
-      vm.activate = activate;
-      activate();
 
       vm.backToList = backToList;
       vm.showErrors = showErrors;
@@ -55,11 +50,14 @@
       vm.openEnd = openEnd;
       vm.openAnswerDate = openAnswerDate;
 
+      vm.activate = activate;
+      activate();
+
       function activate() {
       }
 
       function backToList() {
-        $state.go(vm.home);
+        $state.go(vm.home, vm.homeParams);
       }
 
       function showErrors() {
@@ -79,19 +77,21 @@
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
+          vm.alertRecord.alertable_type = vm.alertableType;
+          vm.alertRecord.alertable_id = vm.alertableId;
           // If editing update rather than save
-          if (vm.alert.id) {
-            for (var prop in vm.alertToEdit) {
-              if (vm.alert[prop] === null) {
-                delete vm.alert[prop];
+          if (vm.alertRecord.id) {
+            for (var prop in vm.alertRecord) {
+              if (vm.alertRecord[prop] === null) {
+                delete vm.alertRecord[prop];
               }
             }
 
-            Alert.update(vm.alert).$promise.then(saveSuccess, saveFailure);
+            Alert.update(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
 
             return false;
           } else {
-            Alert.save(vm.alert).$promise.then(saveSuccess, saveFailure);
+            Alert.save(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
 
             return false;
           }
@@ -99,7 +99,7 @@
 
         function saveSuccess() {
           Toasts.toast('Alert saved.');
-          $state.go(vm.home);
+          backToList();
         }
 
         function saveFailure() {
