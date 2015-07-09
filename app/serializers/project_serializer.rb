@@ -32,7 +32,7 @@ class ProjectSerializer < ApplicationSerializer
   # Relationships
   has_many :project_questions
   has_many :project_answers
-  has_many :groups, serializer: MembershipSerializer
+  has_many :groups
   has_many :alerts
   has_many :memberships
   has_many :approvals
