@@ -69,7 +69,7 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, project, products, ProjectGroup, Toasts, Membership, groups, roles) {
+  function StateController($state, lodash, project, products, ProjectMembership, groups, roles) {
     var vm = this;
 
     vm.title = 'Project Details';
@@ -82,7 +82,6 @@
     vm.openAddGroup = openAddGroup;
     vm.approve = approve;
     vm.reject = reject;
-    vm.groupToAdd = {};
 
     activate();
 
@@ -115,38 +114,9 @@
     }
 
     function openAddGroup() {
-      ProjectGroup.showModal().then(updateGroups);
+      ProjectMembership.showModal(vm.project.memberships).then(updateMembership);
 
-      function updateGroups(membership) {
-        vm.project.group_ids = [];
-        vm.membership = new Membership();
-        vm.groupToAdd = membership.group;
-        vm.roleToAdd = membership.role;
-        if (lodash.result(lodash.find(vm.project.groups, 'id', vm.groupToAdd.id), 'id')) {
-          Toasts.error('Group already associated with this project.');
-        } else {
-          vm.membership.project_id = vm.project.id;
-          vm.membership.group_id = vm.groupToAdd.id;
-          vm.membership.role_id = vm.roleToAdd.id;
-          vm.project.group_ids.push(vm.groupToAdd.id);
-          vm.membership.$save({projectId: vm.project.id}, saveMembershipSuccess, saveMembershipFailure);
-          vm.project.$update(updateSuccess, updateFailure);
-        }
-      }
-
-      function saveMembershipSuccess() {
-      }
-
-      function saveMembershipFailure() {
-      }
-
-      function updateSuccess() {
-        Toasts.toast('Group successfully added.');
-        vm.project.groups.push(vm.groupToAdd);
-      }
-
-      function updateFailure() {
-        Toasts.error('Server returned an error while updating.');
+      function updateMembership(membership) {
       }
     }
   }

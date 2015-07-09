@@ -1,4 +1,4 @@
-<table ng-if="0 < vm.project.groups.length" class="membership-table ">
+<table ng-if="0 < vm.memberships.length" class="membership-table ">
   <thead>
   <tr>
     <th class="membership-table__heading membership-table__heading--padding"></th>
@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="membership-table__row" ng-repeat="row in vm.project.memberships track by row.id">
+  <tr class="membership-table__row" ng-repeat="row in vm.memberships track by row.id">
 
     <td class="membership-table__cell membership-table__cell--padding"></td>
     <td class="membership-table__cell membership-table__cell--name"
@@ -24,7 +24,7 @@
     <td class="membership-table__cell membership-table__cell--actions">
       <a href="#"
          ng-click="vm.openEditGroup(row)"
-         class="project-questions-table__action project-questions-table__action--edit"
+         class="membership-table__action membership-table__action--edit"
          title="Edit">
         <img src="/images/ic_edit.png" alt="Edit"/>
       </a>
@@ -42,6 +42,6 @@
   </tr>
   </tbody>
 </table>
-<div ng-if="0 === vm.project.groups.length" class="membership-table__empty">
+<div ng-if="0 === vm.memberships.length" class="membership-table__empty">
   No groups at this time.
 </div>

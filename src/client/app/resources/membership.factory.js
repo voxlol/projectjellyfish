@@ -7,7 +7,12 @@
   /** @ngInject */
   function MembershipFactory($resource) {
     var Membership = $resource('/api/v1/projects/:projectId/groups/:groupId',
-      {projectId: '@projectId', groupId: '@groupId'}, {});
+      {projectId: '@projectId', groupId: '@groupId'}, {
+        update: {
+          method: 'PUT',
+          isArray: false
+        }
+      });
 
     Membership.defaults = {
       project_id: 0,

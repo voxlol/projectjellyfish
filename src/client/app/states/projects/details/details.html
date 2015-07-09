@@ -113,14 +113,18 @@
   <div class="project-details__service-buttons">
     <button type="button"
             class="btn-rounded btn-rounded--short project-details__service-button"
-            ng-click="vm.openAddGroup()">
+            ng-click="vm.openAddGroup(vm.project.memberships)">
       Add Group
     </button>
   </div>
-  <project-membership-table project="vm.project" groups="vm.groups" roles="vm.roles"></project-membership-table>
+  <project-membership-table
+    memberships="vm.project.memberships"
+    groups="vm.groups"
+    roles="vm.roles">
+  </project-membership-table>
 </region>
 
 <!-- Project Answers -->
-<region heading="Project Specifications">
-  <project-answers-table answers="vm.project.project_answers"></project-answers-table>
-</region>
+<!--<region heading="Project Specifications">-->
+  <!--<project-answers-table answers="vm.project.project_answers"></project-answers-table>-->
+<!--</region>-->

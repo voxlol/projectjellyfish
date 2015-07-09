@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        project: '=',
+        memberships: '=',
         groups: '=',
         roles: '='
       },
@@ -27,30 +27,24 @@
     }
 
     /** @ngInject */
-    function ProjectMembershipController(lodash, Toasts, ProjectGroup, Membership) {
+    function ProjectMembershipController($q, lodash, Toasts, ProjectMembership, Membership) {
       var vm = this;
 
       vm.activate = activate;
-      vm.deleteGroup = deleteGroup;
+      vm.deleteGroup = deleteMembership;
       vm.openEditGroup = openEditGroup;
       vm.rowLookup = rowLookup;
+      vm.membership = new Membership();
 
       function activate() {
       }
 
-      function deleteGroup(index) {
-        var groupId = vm.project.groups[index].id;
-
-        lodash.remove(vm.project.group_ids, removeGroupId);
-
-        function removeGroupId(id) {
-          return id === groupId;
-        }
-
-        vm.project.$update(deleteSuccess, deleteError);
+      function deleteMembership(index) {
+        vm.membership.$delete({projectId: vm.memberships[index].project_id, groupId: vm.memberships[index].group_id},
+          deleteSuccess, deleteSuccess);
 
         function deleteSuccess() {
-          vm.project.groups = lodash.reject(vm.project.groups, {'id': groupId});
+          vm.memberships = lodash.reject(vm.memberships, {'id': vm.memberships[index].id});
           Toasts.toast('Group successfully removed.');
         }
 
@@ -60,36 +54,9 @@
       }
 
       function openEditGroup(row) {
-        ProjectGroup.showModal(row).then(updateGroups);
+        ProjectMembership.showModal(vm.memberships, row).then(updateMembership);
 
-        function updateGroups(membership) {
-          vm.project.group_ids = [];
-          vm.membership = new Membership();
-          vm.groupToAdd = membership.group;
-          vm.roleToAdd = membership.role;
-
-          vm.membership.project_id = vm.project.id;
-          vm.membership.group_id = vm.groupToAdd.id;
-          vm.membership.role_id = vm.roleToAdd.id;
-          vm.project.group_ids.push(vm.groupToAdd.id);
-          vm.membership.$update({projectId: vm.project.id, groupId: vm.groupToAdd.id},
-           updateMembershipSuccess, updateMembershipFailure);
-          vm.project.$update(updateSuccess, updateFailure);
-        }
-
-        function updateMembershipSuccess() {
-        }
-
-        function updateMembershipFailure() {
-        }
-
-        function updateSuccess() {
-          Toasts.toast('Group successfully added.');
-          vm.project.groups.push(vm.groupToAdd);
-        }
-
-        function updateFailure() {
-          Toasts.error('Server returned an error while updating.');
+        function updateMembership(membership) {
         }
       }
 
