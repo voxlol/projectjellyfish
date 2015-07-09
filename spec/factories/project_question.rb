@@ -3,7 +3,7 @@ FactoryGirl.define do
     question 'Question?'
     field_type :select_option
     help_text 'helping'
-    options %w(one tow three)
+    options %w(one two three)
     required true
     position 0
 
