@@ -10,3 +10,7 @@ scheduler = Rufus::Scheduler.new
 scheduler.every '24h' do
   Rake::Task['upkeep:prune_alerts']
 end
+
+scheduler.every '15m' do
+  Rake::Task['upkeep:update_budgets']
+end
