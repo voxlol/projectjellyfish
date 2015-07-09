@@ -83,7 +83,7 @@
           if (lodash.result(lodash.find(vm.listMembership, 'group_id', vm.selectedGroup.id), 'group_id')) {
             Toasts.error('Group selected is already associated with project.');
           } else {
-            vm.currentMembership.group_id = $stateParams.projectId;
+            vm.currentMembership.project_id = $stateParams.projectId;
             vm.currentMembership.group_id = vm.selectedGroup.id;
             vm.currentMembership.role_id = vm.selectedRole.id;
             vm.currentMembership.$save({projectId: $stateParams.projectId}, saveSuccess, saveFailure);

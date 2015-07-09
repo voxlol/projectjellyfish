@@ -15,9 +15,9 @@
       });
 
     Membership.defaults = {
-      project_id: 0,
-      group_id: 0,
-      role_id: 0
+      project_id: null,
+      group_id: null,
+      role_id: null
     };
 
     Membership.new = newMembership;

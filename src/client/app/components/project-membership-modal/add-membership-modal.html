@@ -16,7 +16,7 @@
     <div class="row">
       <div class="form-field__container">
 
-        <div class="form-field" ng-disabled="!vm.currentMembership.id">
+        <div class="form-field" ng-if="!vm.currentMembership.id">
           <div class="form-field__aside">
             <label class="form-field__label" ng-if="!vm.currentMembership.id">Add Group</label>
           </div>
