@@ -18,7 +18,7 @@
                 <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('status')}">
                     <select id="alert-name"
                             name="status"
-                            ng-model="vm.alertToEdit.status"
+                            ng-model="vm.alertRecord.status"
                             class="alert-field__input"
                             required>
                         <option value="ok">ok</option>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('category')}">
-          <textarea id="alert-category" ng-model="vm.alertToEdit.category" name="category"
+          <textarea id="alert-category" ng-model="vm.alertRecord.category" name="category"
                     class="alert-field__input field__input--textarea" rows="1" required></textarea>
 
                     <div class="alert-field__feedback" ng-messages="vm.form.category.$error">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
-          <textarea id="alert-description" ng-model="vm.alertToEdit.message" name="message"
+          <textarea id="alert-description" ng-model="vm.alertRecord.message" name="message"
                     class="alert-field__input field__input--textarea" rows="3" required></textarea>
 
                     <div class="alert-field__feedback" ng-messages="vm.form.message.$error">
@@ -80,12 +80,12 @@
                                class="alert-field__group-input--input"
                                name="startDate"
                                datepicker-popup="{{vm.format}}"
-                               ng-model="vm.alertToEdit.start_date"
+                               ng-model="vm.alertRecord.start_date"
                                is-open="vm.openedStart"
-                               max-date="vm.alertToEdit.end_date"
+                               max-date="vm.alertRecord.end_date"
                                max-date="'2015-06-22'"
                                datepicker-options="vm.dateOptions"
-                               ng-required="true" close-text="Close"/>
+                               ng-required="false" close-text="Close"/>
                     </div>
                     <div class="alert-field__feedback" ng-messages="vm.form.startDate.$error">
                         <div ng-message="required">A start date is required.</div>
@@ -109,11 +109,11 @@
                                class="alert-field__group-input--input"
                                name="endDate"
                                datepicker-popup="{{vm.format}}"
-                               ng-model="vm.alertToEdit.end_date"
+                               ng-model="vm.alertRecord.end_date"
                                is-open="vm.openedEnd"
-                               min-date="vm.alert.start_date"
+                               min-date="vm.alertRecord.start_date"
                                datepicker-options="vm.dateOptions"
-                               ng-required="true" close-text="Close"/>
+                               ng-required="false" close-text="Close"/>
                     </div>
                     <div class="alert-field__feedback" ng-messages="vm.form.endDate.$error">
                         <div ng-message="required">An end date is required.</div>

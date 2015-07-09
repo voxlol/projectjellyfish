@@ -16,7 +16,8 @@
 #
 
 class ProjectAnswerSerializer < ActiveModel::Serializer
-  attributes :id, :answer, :created_at, :updated_at
+  attributes :id, :project_id, :answer, :created_at, :updated_at
 
   has_one :project_question
+  has_one :project
 end
