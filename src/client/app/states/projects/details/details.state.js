@@ -114,7 +114,7 @@
     }
 
     function showMembershipModal() {
-      MembershipModal.showModal(Membership.new()).then(updateMembership);
+      MembershipModal.showModal(Membership.new({project_id: project.id})).then(updateMembership);
 
       function updateMembership(result) {
         vm.project.memberships.push(result);

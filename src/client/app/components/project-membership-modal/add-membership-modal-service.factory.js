@@ -43,7 +43,7 @@
   }
 
   /** @ngInject */
-  function AddMembershipModalController($stateParams, groups, roles, membership, Toasts) {
+  function AddMembershipModalController(groups, roles, membership, Toasts) {
     var vm = this;
 
     vm.groups = groups;
@@ -63,13 +63,9 @@
 
       if (vm.form.$valid) {
         if (vm.membership.id) {
-          vm.membership.$update({
-            project_id: vm.membership.project_id,
-            group_Id: vm.membership.group_id
-          }, updateSuccess, updateFailure);
-        } else if (!vm.membership.id) {
-          vm.membership.project_id = Number($stateParams.projectId);
-          vm.membership.$save({project_id: vm.membership.project_id}, saveSuccess, saveFailure);
+          vm.membership.$update(updateSuccess, updateFailure);
+        } else {
+          vm.membership.$save(saveSuccess, saveFailure);
         }
       }
 
@@ -102,5 +98,4 @@
       return vm.showValidationMessages && vm.form[field].$invalid;
     }
   }
-})
-();
+})();

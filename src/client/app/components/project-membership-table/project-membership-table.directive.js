@@ -27,7 +27,7 @@
     }
 
     /** @ngInject */
-    function ProjectMembershipController($q, lodash, Toasts, MembershipModal, Membership) {
+    function ProjectMembershipController(lodash, Toasts, MembershipModal, Membership) {
       var vm = this;
 
       vm.activate = activate;
@@ -38,13 +38,11 @@
       function activate() {
       }
 
-      function deleteMembership(index) {
-        vm.membership = new Membership();
-        vm.membership.$delete({project_id: vm.memberships[index].project_id, group_id: vm.memberships[index].group_id},
-          deleteSuccess, deleteError);
+      function deleteMembership(row) {
+        new Membership(row).$delete(deleteSuccess, deleteError);
 
         function deleteSuccess() {
-          vm.memberships = lodash.reject(vm.memberships, {'id': vm.memberships[index].id});
+          lodash.remove(vm.memberships, {id: row.id});
           Toasts.toast('Group successfully removed.');
         }
 
@@ -53,13 +51,11 @@
         }
       }
 
-      function showMembershipModal(row) {
-        vm.membership = Membership.new(row);
-        MembershipModal.showModal(vm.membership).then(updateMembership);
+      function showMembershipModal(membership) {
+        MembershipModal.showModal(membership).then(updateMembership);
 
         function updateMembership(result) {
-          console.log(result);
-          row.role_id = result.role_id;
+          membership.role_id = result.role_id;
         }
       }
 

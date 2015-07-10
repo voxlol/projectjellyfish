@@ -9,8 +9,9 @@ class MembershipsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    membership = Membership.create membership_params
+    membership = Membership.new membership_params
     authorize membership
+    membership.save
     respond_with membership, location: project_memberships_url(membership.project, membership.group)
   end
 
