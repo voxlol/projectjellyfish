@@ -13,14 +13,17 @@
   <tr class="membership-table__row" ng-repeat="row in vm.memberships track by row.id">
 
     <td class="membership-table__cell membership-table__cell--padding"></td>
-    <td class="membership-table__cell membership-table__cell--name"
-        ng-bind-html="vm.rowLookup(vm.groups, row.group_id, 'name')"></td>
-    <td class="membership-table__cell membership-table__cell--description"
-        ng-bind-html="vm.rowLookup(vm.groups, row.group_id, 'description')"></td>
-    <td class="membership-table__cell membership-table__cell--members"
-        ng-bind-html="vm.rowLookup(vm.groups, row.group_id, 'staff_ids').length"></td>
-    <td class="membership-table__cell membership-table__cell--role"
-        ng-bind-html="vm.rowLookup(vm.roles, row.role_id, 'name')"></td>
+    <td class="membership-table__cell membership-table__cell--name">
+      {{ ::vm.rowLookup(vm.groups, row.group_id, 'name')}}
+    </td>
+    <td class="membership-table__cell membership-table__cell--description">
+      {{ ::vm.rowLookup(vm.groups, row.group_id, 'description')}}
+    </td>
+    <td class="membership-table__cell membership-table__cell--members"></td>
+    {{ ::vm.rowLookup(vm.groups, row.group_id, 'staff_ids').length}}
+    <td class="membership-table__cell membership-table__cell--role">
+      {{ ::vm.rowLookup(vm.roles, row.role_id, 'name')}}
+    </td>
     <td class="membership-table__cell membership-table__cell--actions">
       <a href="#"
          ng-click="vm.showMembershipModal(row)"
