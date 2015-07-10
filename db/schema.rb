@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701204949) do
+ActiveRecord::Schema.define(version: 20150709132509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,8 +112,9 @@ ActiveRecord::Schema.define(version: 20150701204949) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "extra"
     t.datetime "deleted_at"
+    t.json     "settings"
+    t.json     "properties"
   end
 
   add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
@@ -281,31 +282,59 @@ ActiveRecord::Schema.define(version: 20150701204949) do
     t.datetime "updated_at"
   end
 
+  create_table "product_instances", force: :cascade do |t|
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "type",                null: false
+    t.integer  "project_id",          null: false
+    t.integer  "product_id",          null: false
+    t.integer  "status"
+    t.string   "status_msg"
+    t.json     "properties"
+    t.json     "reported_properties"
+    t.datetime "fulfilled_at"
+  end
+
+  add_index "product_instances", ["product_id"], name: "index_product_instances_on_product_id", using: :btree
+  add_index "product_instances", ["project_id"], name: "index_product_instances_on_project_id", using: :btree
+
   create_table "product_types", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "questions_form_schema"
+    t.integer  "cloud_id",                      null: false
+    t.string   "type",                          null: false
+    t.string   "classification"
+    t.string   "uuid",                          null: false
+    t.string   "img"
+    t.string   "version",                       null: false
+    t.boolean  "active",         default: true, null: false
+    t.json     "settings"
   end
 
+  add_index "product_types", ["cloud_id"], name: "index_product_types_on_cloud_id", using: :btree
+  add_index "product_types", ["uuid"], name: "index_product_types_on_uuid", unique: true, using: :btree
+
   create_table "products", force: :cascade do |t|
-    t.string   "name",                 limit: 255
+    t.string   "name",            limit: 255
     t.text     "description"
     t.boolean  "active"
-    t.string   "img",                  limit: 255
+    t.string   "img",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.decimal  "setup_price",                      precision: 10, scale: 4, default: 0.0
-    t.decimal  "hourly_price",                     precision: 10, scale: 4, default: 0.0
-    t.decimal  "monthly_price",                    precision: 10, scale: 4, default: 0.0
-    t.jsonb    "provisioning_answers"
-    t.string   "product_type"
+    t.decimal  "setup_price",                 precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",                precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",               precision: 10, scale: 4, default: 0.0
     t.string   "cached_tag_list"
+    t.integer  "product_type_id",                                                    null: false
+    t.string   "type",                                                               null: false
+    t.json     "properties"
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
 
   create_table "project_answers", force: :cascade do |t|
     t.integer  "project_id"
@@ -479,5 +508,9 @@ ActiveRecord::Schema.define(version: 20150701204949) do
   add_foreign_key "groups_staff", "staff", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
   add_foreign_key "memberships", "projects", on_delete: :cascade
+  add_foreign_key "product_instances", "products", on_delete: :restrict
+  add_foreign_key "product_instances", "projects", on_delete: :restrict
+  add_foreign_key "product_types", "clouds", on_delete: :restrict
+  add_foreign_key "products", "product_types", on_delete: :restrict
   add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end

@@ -7,8 +7,9 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
-#  extra       :text
 #  deleted_at  :datetime
+#  settings    :json
+#  properties  :json
 #
 # Indexes
 #
@@ -19,4 +20,5 @@ class Cloud < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :chargebacks
+  has_many :product_types
 end

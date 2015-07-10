@@ -1,0 +1,25 @@
+---
+- _assoc: admin
+  first_name: Admin
+  last_name: User
+  email: admin@projectjellyfish.org
+  password: jellyfish
+  role: 1
+- _assoc: user
+  first_name: Normal
+  last_name: User
+  email: user@projectjellyfish.org
+  password: jellyfish
+  role: 0
+  alerts:
+    - status: ok
+      message: User has 2 months to compelte training.
+      category: training
+    - status: warning
+      message: User has 1 week to complete training.
+      category: training
+
+# Other Users that are being skipped
+# Unused User : unused@projectjellyfish.org
+# ManageIQ User : miq@projectjellyfish.org
+# All Users : projectjellyfish@bah.com

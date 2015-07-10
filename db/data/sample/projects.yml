@@ -1,0 +1,172 @@
+---
+- _assoc: analytics
+  name: Analytics Platform
+  budget: 30000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: projects/documentation.png
+  spent: 0
+  status: 0
+  approval: 1
+  approvals:
+    - staff: admin
+      approved: false
+      reason: Data not delivered on time.
+  project_answers:
+    - question: desc
+      answer: To analyze all the things.
+    - question: cc
+      answer: GSM-4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'true'
+    - question: loc
+      answer: West Coast Data Center
+    - question: prod
+      answer: 'Yes'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5
+- _assoc: mobile
+  name: Mobile App API
+  budget: 5000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: projects/icon-mobile-orange.png
+  spent: 2000.0
+  status: 0
+  approval: 1
+  approvals:
+    - staff: admin
+      approved: true
+      reason: nil
+  project_answers:
+    - question: desc
+      answer: High performance mobile REST API
+    - question: cc
+      answer: GSM-4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'true'
+    - question: loc
+      answer: West Coast Data Center
+    - question: prod
+      answer: 'Yes'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5
+- _assoc: blog
+  name: Blog
+  budget: 10000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: projects/128x128-wordpress.png
+  spent: 4135.03
+  status: 0
+  approval: 1
+  alerts:
+    - status: warning
+      message: Blog has 6 months of funding, please increase budget.
+      category: budget
+    - status: critical
+      message: Blog has 1 month of funding, please increase budget.
+      category: budget
+  project_answers:
+    - question: desc
+      answer: A realyl big blog site
+    - question: cc
+      answer: BLG-4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'false'
+    - question: loc
+      answer: West Coast Data Center
+    - question: prod
+      answer: 'Yes'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5
+- _assoc: files
+  name: Cloud File Share
+  budget: 1000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: projects/cloud-checkmark-128.png
+  spent: 0
+  status: 0
+  approval: 1
+  project_answers:
+    - question: desc
+      answer: Sharing files with the company
+    - question: cc
+      answer: FIL-4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'true'
+    - question: loc
+      answer: East Coast Data Center
+    - question: prod
+      answer: 'Yes'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5
+- _assoc: exchange
+  name: Cloud Exchange
+  budget: 50000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: nil
+  spent: 0
+  status: 0
+  approval: 0
+  project_answers:
+    - question: desc
+      answer: Share all things cloud related.
+    - question: cc
+      answer: CLD-4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'true'
+    - question: loc
+      answer: Europe
+    - question: prod
+      answer: 'Yes'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5
+- _assoc: jellyfish
+  name: Project Jellyfish Demo
+  budget: 10000.0
+  start_date: 2015-02-06
+  end_date: 2015-11-06
+  img: nil
+  spent: 0
+  status: 0
+  approval: 0
+  project_answers:
+    - question: desc
+      answer: A project to demo Jellyfish
+    - question: cc
+      answer: 4873849128497761
+    - question: maint
+      answer: 2015-05-20T05:00:00.000Z
+    - question: do_maint
+      answer: 'true'
+    - question: loc
+      answer: East Coast Data Center
+    - question: prod
+      answer: 'No'
+    - question: fisma
+      answer: High
+    - question: period
+      answer: 5

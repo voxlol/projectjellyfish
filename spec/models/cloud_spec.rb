@@ -7,8 +7,9 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
-#  extra       :text
 #  deleted_at  :datetime
+#  settings    :json
+#  properties  :json
 #
 # Indexes
 #

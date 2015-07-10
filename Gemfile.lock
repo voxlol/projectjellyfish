@@ -1,3 +1,11 @@
+PATH
+  remote: ../jellyfish_aws
+  specs:
+    jellyfish-aws (0.0.1)
+      bcrypt
+      fog-aws
+      rails (~> 4.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -133,12 +141,12 @@ GEM
     ffi (1.9.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.31.0)
+    fog (1.32.0)
       fog-atmos
-      fog-aws (~> 0.0)
+      fog-aws (>= 0.6.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.30)
-      fog-ecloud
+      fog-core (~> 1.32)
+      fog-ecloud (= 0.1.1)
       fog-google (>= 0.0.2)
       fog-json
       fog-local
@@ -159,7 +167,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.6.0)
+    fog-aws (0.7.2)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -172,17 +180,17 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.31.1)
+    fog-core (1.32.0)
       builder
       excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.3.0)
+    fog-ecloud (0.1.1)
       fog-core
       fog-xml
-    fog-google (0.0.6)
+    fog-google (0.0.7)
       fog-core
       fog-json
       fog-xml
@@ -249,7 +257,7 @@ GEM
     ice_nine (0.11.1)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jbuilder (2.3.0)
+    jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jellyfish-fog (0.0.5)
@@ -289,7 +297,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -462,7 +470,7 @@ GEM
       railties (~> 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.2)
-    websocket-driver (0.5.4)
+    websocket-driver (0.6.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     will_paginate (3.0.7)
@@ -494,6 +502,7 @@ DEPENDENCIES
   friendly_id
   highline
   jbuilder (~> 2.0)
+  jellyfish-aws!
   jellyfish-fog
   jellyfish-manageiq
   launchy

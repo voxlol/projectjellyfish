@@ -1,0 +1,2 @@
+class NullProduct < ::Product
+end
