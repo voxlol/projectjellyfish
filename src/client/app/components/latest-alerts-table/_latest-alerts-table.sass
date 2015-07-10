@@ -1,16 +1,4 @@
-+block(admin-alerts-list)
-
-  +element(body)
-    padding-right: 395px
-
-  +element(aside)
-    text-align: right
-    height: 90px
-    position: absolute
-    right: 0
-    top: 0
-
-+block(alerts-table)
++block(latest-alerts-table)
   @extend .table-striped
   width: 100%
   background-color: $app-color-white
@@ -26,6 +14,9 @@
       text-align: center
 
     +modifier(status)
+      text-align: left
+
+    +modifier(message)
       text-align: left
 
     +modifier(start-date)
@@ -67,22 +58,20 @@
       text-align: center
 
     +modifier(status)
-      width: 136px
+      width: 100px
       padding-right: 0
       text-align: left
       text-transform: lowercase
 
     +modifier(message)
-      padding-right: 0px
-      text-align: left
 
     +modifier(start-date)
-      width: 136px
+      width: 160px
       padding-right: 0
       text-align: left
 
     +modifier(end-date)
-      width: 136px
+      width: 160px
       padding-right: 0
       text-align: left
 
@@ -90,9 +79,6 @@
       width: 136px
       padding-right: 0
       text-align: center
-
-  +element(action)
-    margin-right: 20px
 
   +element(empty)
     font-size: 22px

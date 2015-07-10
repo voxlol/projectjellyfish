@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'admin.alerts.edit': {
+      'projects.alerts.edit': {
         url: '/edit/:id',
-        templateUrl: 'app/states/admin/alerts/edit/edit.html',
+        templateUrl: 'app/states/projects/details/alerts/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Alerts Create',
+        title: 'Project Alerts Edit',
         resolve: {
           alertRecord: resolveAlert,
           staff: resolveStaff
@@ -53,21 +53,21 @@
   function StateController(logger, alertRecord, $stateParams, staff) {
     var vm = this;
 
-    vm.title = 'Admin Alerts Edit';
+    vm.title = 'Project Alerts Edit';
     vm.alertRecord = alertRecord;
     vm.activate = activate;
     vm.staffId = staff.id;
-    vm.home = 'admin.alerts.list';
-    vm.homeParams = { };
+    vm.home = 'projects.details';
+    vm.homeParams = { projectId: $stateParams.projectId };
 
     // HARD CODED FOR SINGLE TENANT
-    vm.alertableType = 'Organization';
-    vm.alertableId = '1';
+    vm.alertableType = 'Project';
+    vm.alertableId = $stateParams.projectId;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin Alerts Create View');
+      logger.info('Activated Project Alerts Edit View');
     }
   }
 })();

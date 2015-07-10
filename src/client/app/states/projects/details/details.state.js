@@ -42,7 +42,7 @@
   function resolveProjects($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['latest_alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
     }).$promise;
   }
 
