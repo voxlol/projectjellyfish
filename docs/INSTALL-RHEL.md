@@ -220,6 +220,14 @@ You only need to run `rake sample:demo` if you are wanting sample data (useful f
 rake sample:demo
 ```
 
+The default username and password when using the seed file is:
+
+```
+Username: admin@projectjellyfish.org
+Password: jellyfish
+```
+
+
 ##### Start Server (Production)
 
 ```shell
