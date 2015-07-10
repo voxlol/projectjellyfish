@@ -9,7 +9,7 @@ RSpec.describe 'Memberships API' do
       group = create(:group)
       project = create(:project)
 
-      post project_memberships_path(project, group_id: group.id)
+      post project_memberships_path(project, group_id: group.id, role_id: role.id)
 
       project.reload
       expect(response).to be_successful
