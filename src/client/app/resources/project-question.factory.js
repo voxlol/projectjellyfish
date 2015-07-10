@@ -6,7 +6,7 @@
 
   /** @ngInject */
   function ProjectQuestionFactory($resource) {
-    var ProjectQuestion = $resource('/api/v1/project_questions', {}, {
+    var ProjectQuestion = $resource('/api/v1/project_questions/:id' , {id: '@id'}, {
       'update': {
         method: 'PUT',
         url: '/api/v1/project_questions/:id',
