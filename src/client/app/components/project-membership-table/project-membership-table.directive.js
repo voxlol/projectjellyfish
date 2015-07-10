@@ -27,20 +27,20 @@
     }
 
     /** @ngInject */
-    function ProjectMembershipController($q, lodash, Toasts, ProjectMembership, Membership) {
+    function ProjectMembershipController($q, lodash, Toasts, MembershipModal, Membership) {
       var vm = this;
 
       vm.activate = activate;
       vm.deleteGroup = deleteMembership;
       vm.showMembershipModal = showMembershipModal;
       vm.rowLookup = rowLookup;
-      vm.membership = new Membership();
 
       function activate() {
       }
 
       function deleteMembership(index) {
-        vm.membership.$delete({projectId: vm.memberships[index].project_id, groupId: vm.memberships[index].group_id},
+        vm.membership = new Membership();
+        vm.membership.$delete({project_id: vm.memberships[index].project_id, group_id: vm.memberships[index].group_id},
           deleteSuccess, deleteError);
 
         function deleteSuccess() {
@@ -54,9 +54,12 @@
       }
 
       function showMembershipModal(row) {
-        ProjectMembership.showModal(row).then(updateMembership);
+        vm.membership = Membership.new(row);
+        MembershipModal.showModal(vm.membership).then(updateMembership);
 
-        function updateMembership(membership) {
+        function updateMembership(result) {
+          console.log(result);
+          row.role_id = result.role_id;
         }
       }
 

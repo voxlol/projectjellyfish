@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.components')
-    .factory('ProjectMembership', ProjectMembershipFactory);
+    .factory('MembershipModal', ProjectMembershipFactory);
 
   /** @ngInject */
   function ProjectMembershipFactory($modal, Group, Role) {
@@ -20,9 +20,7 @@
         resolve: {
           groups: resolveGroups,
           roles: resolveRoles,
-          membership: resolveMembership,
-
-
+          membership: resolveMembership
         },
         windowTemplateUrl: 'app/components/project-membership-modal/add-membership-modal-window.html'
       };
@@ -45,11 +43,11 @@
   }
 
   /** @ngInject */
-  function AddMembershipModalController($stateParams, groups, roles, membership, Membership, Toasts) {
+  function AddMembershipModalController($stateParams, groups, roles, membership, Toasts) {
     var vm = this;
 
     vm.groups = groups;
-    vm.currentMembership = membership;
+    vm.membership = membership;
     vm.roles = roles;
     vm.onSubmit = onSubmit;
     vm.showErrors = showErrors;
@@ -64,20 +62,14 @@
       vm.showValidationMessages = true;
 
       if (vm.form.$valid) {
-        if (vm.currentMembership.id) {
-          vm.currentMembership.role_id = vm.selectedRole.id;
-          vm.updateMembership = new Membership();
-          vm.updateMembership.role_id = vm.selectedRole.id;
-          vm.updateMembership.$update({
-              projectId: vm.currentMembership.project_id,
-              groupId: vm.currentMembership.group_id
-            },
-            updateSuccess, updateFailure);
-        } else if (!vm.currentMembership.id) {
-            vm.currentMembership.project_id = $stateParams.projectId;
-            vm.currentMembership.group_id = vm.selectedGroup.id;
-            vm.currentMembership.role_id = vm.selectedRole.id;
-            vm.currentMembership.$save({projectId: $stateParams.projectId}, saveSuccess, saveFailure);
+        if (vm.membership.id) {
+          vm.membership.$update({
+            project_id: vm.membership.project_id,
+            group_Id: vm.membership.group_id
+          }, updateSuccess, updateFailure);
+        } else if (!vm.membership.id) {
+          vm.membership.project_id = Number($stateParams.projectId);
+          vm.membership.$save({project_id: vm.membership.project_id}, saveSuccess, saveFailure);
         }
       }
 

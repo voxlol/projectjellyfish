@@ -6,8 +6,8 @@
 
   /** @ngInject */
   function MembershipFactory($resource) {
-    var Membership = $resource('/api/v1/projects/:projectId/groups/:groupId',
-      {projectId: '@projectId', groupId: '@groupId'}, {
+    var Membership = $resource('/api/v1/projects/:project_id/groups/:group_id',
+      {project_id: '@project_id', group_id: '@group_id'}, {
         update: {
           method: 'PUT',
           isArray: false
@@ -22,8 +22,8 @@
 
     Membership.new = newMembership;
 
-    function newMembership() {
-      return new Membership(angular.copy(Membership.defaults));
+    function newMembership(data) {
+      return new Membership(angular.extend({}, Membership.defaults, data));
     }
 
     return Membership;
