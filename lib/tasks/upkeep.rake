@@ -62,7 +62,7 @@ namespace :upkeep do
   desc 'Update Remaining Project Budgets'
   task update_budgets: :environment do
     Project.where(approval: 1).each do |x|
-      puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]' if verbose === true
+      puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]' if verbose == true
 
       current_date = Time.zone.now
 
@@ -76,7 +76,7 @@ namespace :upkeep do
         # TODO: WORK OUT CORRECT LOGIC FOR MONTHS RUN
         months_run = (start_date.year * 12 + current_date.month) - (start_date.year * 12 + start_date.month)
 
-        if verbose === true
+        if verbose == true
           puts '  product_name: ' + Product.where(id: y.product_id).first.name
           puts '  provision_status: ' + y.provision_status.to_s
           puts '  created_at: ' + start_date.to_s
@@ -95,7 +95,7 @@ namespace :upkeep do
       end
 
       # puts ''
-      puts '  project_spent: ' + total_spent.to_s if verbose === true
+      puts '  project_spent: ' + total_spent.to_s if verbose == true
 
       x.spent = total_spent
 
