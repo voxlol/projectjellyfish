@@ -63,7 +63,6 @@ namespace :upkeep do
 
   desc 'Update Remaining Project Budgets'
   task update_budgets: :environment do
-
     options = {}
     OptionParser.new do |opts|
       opts.banner = 'Usage: rake upkeep:update_budgets [options]'
