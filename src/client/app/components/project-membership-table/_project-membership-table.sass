@@ -1,7 +1,6 @@
-+block(groups-table)
++block(membership-table)
   @extend .table-striped
   width: 100%
-  background-color: $app-color-white
 
   +element(heading)
     height: 44px
@@ -11,20 +10,6 @@
 
     +modifier(name)
       text-align: center
-
-    +modifier(sortable)
-      color: $app-color-blue
-      cursor: pointer
-
-      &.st-sort-ascent::after
-        font: normal normal normal 12px/1 FontAwesome
-        content: "\f077"
-        padding-left: 4px
-
-      &.st-sort-descent::after
-        font: normal normal normal 12px/1 FontAwesome
-        content: "\f078"
-        padding-left: 4px
 
   +element(cell)
     height: 44px
