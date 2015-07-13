@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.states')
@@ -22,7 +22,7 @@
   }
 
   function navItems() {
-    return {isVisible:isVisible};
+    return {};
   }
 
   function sidebarItems() {
@@ -40,13 +40,7 @@
 
   /** @ngInject */
   function isVisible(SessionService) {
-    if(SessionService.role == 'admin'){
-      return true;
-    }else{
-      return false;
-    }
-
+    return SessionService.role == 'admin';
   }
-
 
 })();
