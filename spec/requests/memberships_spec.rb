@@ -7,9 +7,10 @@ RSpec.describe 'Memberships API' do
     it 'adds a user to a group' do
       sign_in_as create :staff, :admin
       group = create(:group)
+      role = create(:role)
       project = create(:project)
 
-      post project_memberships_path(project, group_id: group.id)
+      post project_memberships_path(project, group_id: group.id, role_id: role.id)
 
       project.reload
       expect(response).to be_successful
