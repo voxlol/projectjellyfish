@@ -61,8 +61,8 @@ namespace :upkeep do
 
   desc 'Update Remaining Project Budgets'
   task update_budgets: :environment do
-    Project.where(approved: true).each do |x|
-      puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]'
+    Project.where(approval: 1).each do |x|
+      puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]' if verbose == true
 
       current_date = Time.zone.now
 
@@ -76,24 +76,26 @@ namespace :upkeep do
         # TODO: WORK OUT CORRECT LOGIC FOR MONTHS RUN
         months_run = (start_date.year * 12 + current_date.month) - (start_date.year * 12 + start_date.month)
 
-        puts '  product_name: ' + Product.where(id: y.product_id).first.name
-        puts '  provision_status: ' + y.provision_status.to_s
-        puts '  created_at: ' + start_date.to_s
-        puts '  hourly_price: ' + y.hourly_price.to_s
-        puts '  hours_run: ' + hours_run.to_s
-        puts '  hourly_cost: ' + (hours_run * y.hourly_price).to_s
-        puts '  monthly_price: ' + y.monthly_price.to_s
-        puts '  months_run: ' + months_run.to_s
-        puts '  monthly_cost: ' + (months_run * y.monthly_price).to_s
-        puts '  setup_price: ' + y.setup_price.to_s
-        puts '  total_cost: ' + (y.setup_price + (months_run * y.monthly_price) + (hours_run * y.hourly_price)).to_s
-        puts '------------------------------'
+        if verbose == true
+          puts '  product_name: ' + Product.where(id: y.product_id).first.name
+          puts '  provision_status: ' + y.provision_status.to_s
+          puts '  created_at: ' + start_date.to_s
+          puts '  hourly_price: ' + y.hourly_price.to_s
+          puts '  hours_run: ' + hours_run.to_s
+          puts '  hourly_cost: ' + (hours_run * y.hourly_price).to_s
+          puts '  monthly_price: ' + y.monthly_price.to_s
+          puts '  months_run: ' + months_run.to_s
+          puts '  monthly_cost: ' + (months_run * y.monthly_price).to_s
+          puts '  setup_price: ' + y.setup_price.to_s
+          puts '  total_cost: ' + (y.setup_price + (months_run * y.monthly_price) + (hours_run * y.hourly_price)).to_s
+          puts '------------------------------'
+        end
 
         total_spent += y.setup_price + (months_run * y.monthly_price) + (hours_run * y.hourly_price)
       end
 
       # puts ''
-      puts '  project_spent: ' + total_spent.to_s
+      puts '  project_spent: ' + total_spent.to_s if verbose == true
 
       x.spent = total_spent
 

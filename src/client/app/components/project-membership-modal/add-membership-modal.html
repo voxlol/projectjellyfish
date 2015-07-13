@@ -53,8 +53,7 @@
     <button type="button" class="btn-rounded btn-rounded--gray add-membership-modal__cancel" ng-click="$dismiss()">
       Cancel
     </button>
-    <button ng-disabled="vm.hasErrors()" type="submit" class="btn-rounded add-membership-modal__ok"
-            ng-click="$close(vm.membership)">
+    <button ng-disabled="vm.hasErrors()" type="submit" class="btn-rounded add-membership-modal__ok">
       <span ng-if="vm.membership.id">Update</span>
       <span ng-if="!vm.membership.id">Save</span>
     </button>

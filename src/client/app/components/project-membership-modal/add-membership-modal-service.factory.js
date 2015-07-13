@@ -43,7 +43,7 @@
   }
 
   /** @ngInject */
-  function AddMembershipModalController(groups, roles, membership, Toasts) {
+  function AddMembershipModalController(groups, roles, membership, Toasts, $modalInstance) {
     var vm = this;
 
     vm.groups = groups;
@@ -70,6 +70,7 @@
       }
 
       function saveSuccess() {
+        $modalInstance.close(vm.membership);
         Toasts.toast('Group successfully added.');
       }
 
@@ -78,6 +79,7 @@
       }
 
       function updateSuccess() {
+        $modalInstance.close(vm.membership);
         Toasts.toast('Group successfully updated.');
       }
 
