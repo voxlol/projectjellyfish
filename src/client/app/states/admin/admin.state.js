@@ -22,7 +22,7 @@
   }
 
   function navItems() {
-    return {};
+    return {isVisible:isVisible};
   }
 
   function sidebarItems() {
@@ -32,8 +32,21 @@
         state: 'admin',
         label: 'Admin',
         style: 'admin',
-        order: 5
+        order: 5,
+        isVisible: isVisible
       }
     };
   }
+
+  /** @ngInject */
+  function isVisible(SessionService) {
+    if(SessionService.role == 'admin'){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
+
 })();
