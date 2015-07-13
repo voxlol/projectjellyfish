@@ -7,13 +7,19 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="answer in vm.answers track by answer.project_question_id">
+  <tr ng-repeat="answer in vm.answers track by answer.project_question.id">
     <td class="project-answers-table__cell project-answers-table__cell--question">
-      {{answer.project_question.question}}
-      <span ng-if="answer.project_question.help_text">({{answer.project_question.help_text}})</span>
+      {{ ::answer.project_question.question}}
+      <span ng-if="answer.project_question.help_text">({{ ::answer.project_question.help_text}})</span>
     </td>
-    <td class="project-answers-table__cell project-answers-table__cell--answer">{{answer.answer}}</td>
-    <td class="project-answers-table__cell project-answers-table__cell--when">{{answer.updated_at | date: 'short'}}</td>
+    <td class="project-answers-table__cell project-answers-table__cell--answer">
+      <span ng-if="!answer.answer">N/A</span>
+      {{ ::answer.answer}}
+    </td>
+    <td class="project-answers-table__cell project-answers-table__cell--when">
+      <span ng-if="!answer.answer">N/A</span>
+      {{answer.updated_at | date: 'short'}}
+    </td>
   </tr>
   </tbody>
 </table>
