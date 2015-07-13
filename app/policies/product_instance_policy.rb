@@ -1,5 +1,5 @@
 class ProductInstancePolicy < ApplicationPolicy
-  # TODO True for the moment; Apply actual policies before commit
+  # TODO: True for the moment; Apply actual policies before commit
   def show?
     true
   end

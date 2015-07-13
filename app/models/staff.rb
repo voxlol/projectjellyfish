@@ -40,15 +40,11 @@ class Staff < ActiveRecord::Base
   has_many :authentications
   has_many :memberships, through: :groups
   has_many :notifications
-  has_many :orders
   has_many :projects, through: :memberships
   has_many :roles, through: :memberships
-  has_many :user_settings
   has_many :api_tokens
 
   has_and_belongs_to_many :groups
-
-  has_one :cart
 
   validates :phone, length: { maximum: 30 }, allow_blank: true
 

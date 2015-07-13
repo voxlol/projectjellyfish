@@ -16,8 +16,6 @@ RSpec.describe 'Projects API' do
 
     it 'returns a collection of all projects', :show_in_doc  do
       sign_in_as create :staff, :admin
-      create :project_detail, project_id: @project.id
-      create :project_detail, project_id: @project2.id
       create(:staff).groups << Group.new(projects: [@project])
 
       get '/api/v1/projects'

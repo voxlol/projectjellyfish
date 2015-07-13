@@ -38,11 +38,9 @@ class Project < ActiveRecord::Base
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :staff, through: :groups
-  has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
   has_many :alerts, as: :alertable
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
-  has_one :project_detail
 
   accepts_nested_attributes_for :project_answers
 

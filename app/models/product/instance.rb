@@ -20,7 +20,9 @@
 #  index_product_instances_on_project_id  (project_id)
 #
 
-class ProductInstance < ActiveRecord::Base
-  belongs_to :product
-  belongs_to :project
+class Product
+  class Instance < ActiveRecord::Base
+    belongs_to :product
+    belongs_to :project
+  end
 end

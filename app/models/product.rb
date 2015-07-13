@@ -1,43 +1,20 @@
-# == Schema Information
-#
-# Table name: products
-#
-#  id              :integer          not null, primary key
-#  name            :string(255)
-#  description     :text
-#  active          :boolean
-#  img             :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  deleted_at      :datetime
-#  setup_price     :decimal(10, 4)   default(0.0)
-#  hourly_price    :decimal(10, 4)   default(0.0)
-#  monthly_price   :decimal(10, 4)   default(0.0)
-#  cached_tag_list :string
-#  product_type_id :integer          not null
-#  type            :string           not null
-#  properties      :json
-#
-# Indexes
-#
-#  index_products_on_deleted_at       (deleted_at)
-#  index_products_on_product_type_id  (product_type_id)
-#
+class Product
+  class_attribute :registered_products
+  self.registered_products = {}
 
-class Product < ActiveRecord::Base
-  acts_as_paranoid
-  acts_as_taggable
+  class << self
+    def []=(key, product)
+      fail(StandardError, "Product '%s' is already registered.".format(key)) if registered_products.key? key
+      fail(StandardError, "Product class '%s' is already registered.".format(product.name)) if registered_products.key key
+      registered_products[key] = product
+    end
 
-  store_accessor :options
+    def [](key)
+      registered_products[key]
+    end
 
-  has_many :chargebacks
-  belongs_to :product_type
-
-  # delegate :provisioner, to: :product_type
-  #
-  # def product_type
-  #   ProductType.new(self[:product_type])
-  # end
+    def all
+      registered_products.values
+    end
+  end
 end
-
-require 'null_product'

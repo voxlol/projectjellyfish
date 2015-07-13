@@ -1,25 +1,24 @@
 module Jellyfish
   # Simple struct for manipulation and comparing versions
   class Version
-    attr_reader :version, :major, :minor, :build, :tag, :short, :notag
+    attr_reader :version, :major, :minor, :patch, :tag, :short, :notag
     alias_method :full, :version
 
     def initialize(givenversion = nil)
       if givenversion
         @version = givenversion
       else
-        root = File.expand_path(File.dirname(__FILE__) + "/../../..")
-        @version = File.read(root + "/VERSION").chomp # or fail if not found
+        root = File.expand_path File.join('..', '..', '..'), __FILE__
+        @version = File.read(File.join root, 'VERSION').chomp # or fail if not found
       end
-      @major, @minor, @build = @version.scan(/\d+/)
+      @major, @minor, @patch = @version.scan(/\d+/)
       @short = "#{@major}.#{@minor}"
+      @notag = @version
+      @tag = ''
 
-      if @version =~ /\A(.*)-([^-]+)\z/
-        @notag = $1
-        @tag = $2
-      else
-        @notag = @version
-        @tag = ""
+      @version.match(/\A(.*)-([^-]+)\z/) do |m|
+        @notag = m[1]
+        @tag = m[2]
       end
     end
 

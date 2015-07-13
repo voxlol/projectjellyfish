@@ -1,2 +1,3 @@
 require_relative 'jellyfish/version'
 require_relative 'jellyfish/cast'
+require_relative 'jellyfish/extension'

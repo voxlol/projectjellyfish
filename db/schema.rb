@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709132509) do
+ActiveRecord::Schema.define(version: 20150708181352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -303,18 +303,8 @@ ActiveRecord::Schema.define(version: 20150709132509) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cloud_id",                      null: false
-    t.string   "type",                          null: false
-    t.string   "classification"
-    t.string   "uuid",                          null: false
-    t.string   "img"
-    t.string   "version",                       null: false
-    t.boolean  "active",         default: true, null: false
-    t.json     "settings"
+    t.json     "questions_form_schema"
   end
-
-  add_index "product_types", ["cloud_id"], name: "index_product_types_on_cloud_id", using: :btree
-  add_index "product_types", ["uuid"], name: "index_product_types_on_uuid", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -399,11 +389,36 @@ ActiveRecord::Schema.define(version: 20150709132509) do
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
+  create_table "properties", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "propable_id"
+    t.string   "propable_type"
+    t.string   "name",          null: false
+    t.text     "value"
+    t.integer  "value_type"
+    t.text     "default"
+  end
+
+  add_index "properties", ["propable_type", "propable_id"], name: "index_properties_on_propable_type_and_propable_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.text   "description"
     t.jsonb  "permissions"
   end
+
+  create_table "settings", force: :cascade do |t|
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "type"
+    t.string   "name",                   null: false
+    t.text     "value"
+    t.integer  "value_type", default: 0
+    t.text     "default"
+  end
+
+  add_index "settings", ["type"], name: "index_settings_on_type", using: :btree
 
   create_table "staff", force: :cascade do |t|
     t.string   "first_name",             limit: 255
@@ -510,7 +525,6 @@ ActiveRecord::Schema.define(version: 20150709132509) do
   add_foreign_key "memberships", "projects", on_delete: :cascade
   add_foreign_key "product_instances", "products", on_delete: :restrict
   add_foreign_key "product_instances", "projects", on_delete: :restrict
-  add_foreign_key "product_types", "clouds", on_delete: :restrict
   add_foreign_key "products", "product_types", on_delete: :restrict
   add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end

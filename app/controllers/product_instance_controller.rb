@@ -6,17 +6,16 @@ class ProductInstanceController < ApplicationController
   end
 
   def create
-    product_instance = ProductInstance.new product_instance_params
+    ProductInstance.new product_instance_params
   end
 
   def update
-
   end
 
   private
 
   def product_instance_params
-
+    params
   end
 
   def product_instance

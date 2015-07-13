@@ -13,15 +13,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Pagination
 gem 'will_paginate', '~> 3.0.7'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
-
-# for console, rake
-gem 'highline'
-
 # .Env gem Gem
 gem 'dotenv-rails'
 
@@ -36,7 +27,6 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
-# gem 'ruby-saml', github: 'onelogin/ruby-saml'
 gem 'omniauth'
 
 # Authorization
@@ -44,8 +34,8 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-gem 'jellyfish-fog'
-gem 'jellyfish-manageiq'
+# gem 'jellyfish-fog'
+# gem 'jellyfish-manageiq'
 
 # Tests
 group :development, :test do
