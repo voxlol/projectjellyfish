@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function ProjectFormController($scope, $state, Toasts, logger, Project, lodash) {
+    function ProjectFormController($scope, $state, Toasts, Project, lodash) {
       var vm = this;
 
       var showValidationMessages = false;
@@ -80,7 +80,8 @@
               'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
             if (angular.isDefined(vm.project.project_answers) && (vm.project.project_answers.length > 0)) {
               console.log(vm.project.project_answers);
-              vm.filteredProject.project_answers = lodash.reduce(vm.project.project_answers, projectAnswerReduction, []);
+              vm.filteredProject.project_answers = lodash.reduce(
+                vm.project.project_answers, projectAnswerReduction, []);
             }
             console.log(vm.project.project_answers);
             Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
@@ -94,10 +95,7 @@
         }
 
         function projectAnswerReduction(pas, pa) {
-          console.log(pa);
-          console.log(pas);
-          pas.push(lodash.omit(pa, 'project_id', 'created_at', 'updated_at',
-            'project_question'));
+          pas.push(lodash.merge({'project_question_id': pa.project_question.id}, {'id': pa.id}, {'answer': pa.answer}));
 
           return pas;
         }
