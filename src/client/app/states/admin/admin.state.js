@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -40,7 +40,6 @@
 
   /** @ngInject */
   function isVisible(SessionService) {
-    return SessionService.role == 'admin';
+    return SessionService.role === 'admin';
   }
-
 })();
