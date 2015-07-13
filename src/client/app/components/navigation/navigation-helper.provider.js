@@ -31,7 +31,7 @@
     }
 
     /** @ngInject */
-    function NavigationHelper() {
+    function NavigationHelper($injector) {
       var service = {
         navItems: lodash.partial(navigationItems, 'nav'),
         navSearch: lodash.partial(navigationSearch, 'nav'),
@@ -82,7 +82,7 @@
         }
 
         function filterVisible(item) {
-          return item.isVisible();
+          return $injector.invoke(item.isVisible);
         }
       }
 
