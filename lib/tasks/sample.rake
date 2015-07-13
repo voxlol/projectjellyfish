@@ -7,6 +7,10 @@ namespace :sample do
     Project.connection.execute('ALTER SEQUENCE projects_id_seq RESTART 1')
     Product.connection.execute('ALTER SEQUENCE products_id_seq RESTART 1')
     Staff.connection.execute('ALTER SEQUENCE staff_id_seq RESTART 1')
+    Group.connection.execute('ALTER SEQUENCE group_id_seq RESTART 1')
+    GroupsStaff.connection.execute('ALTER SEQUENCE groups_staff_id_seq RESTART 1')
+    Role.connection.execute('ALTER SEQUENCE role_id_seq RESTART 1')
+    Membership.connection.execute('ALTER SEQUENCE membership_id_seq RESTART 1')
   end
 
   desc 'Generates demo data'
@@ -301,6 +305,43 @@ namespace :sample do
     ])
     ProjectAnswer.connection.execute("ALTER SEQUENCE project_answers_id_seq RESTART #{ProjectAnswer.all.order('id DESC').first.id + 1}")
 
+    Group.create!([
+      {id: 1, name: 'Site Administrators', description: 'Administrators for the entire site.'},
+      {id: 2, name: 'Project Administrators', description: 'Any administrators for this project.'},
+      {id: 3, name: 'Project Managers', description: 'Any project managers for this project.'},
+      {id: 4, name: 'Project Staff', description: 'Any staff for this project.'}
+    ])
+    Group.connection.execute("ALTER SEQUENCE groups_id_seq RESTART #{Group.all.order('id DESC').first.id + 1}")
+
+    GroupsStaff.create!([
+      {id: 1, group_id: 1, staff_id: 1},
+      {id: 2, group_id: 4, staff_id: 2},
+      {id: 3, group_id: 4, staff_id: 3}
+    ])
+    GroupsStaff.connection.execute("ALTER SEQUENCE groups_staff_id_seq RESTART #{GroupsStaff.all.order('id DESC').first.id + 1}")
+
+    Role.create!([
+      {id: 1, name: 'Site Administrators', description: 'Administrator role for the entire site.', permissions: '{"approvals": ["read", "write"], "memberships": ["read", "write"], "projects": ["read", "write"]}'},
+      {id: 2, name: 'Project Administrators', description: 'Administrator role for projects.', permissions: '{"approvals": ["read", "write"], "memberships": ["read", "write"]}'},
+      {id: 3, name: 'Project Managers', description: 'Manager role for projects.', permissions: '{"approvals": ["read"], "memberships": ["read", "write"]}'}
+    ])
+    Role.connection.execute("ALTER SEQUENCE roles_id_seq RESTART #{Role.all.order('id DESC').first.id + 1}")
+
+    Membership.create!([
+      {id: 1, group_id: 2, project_id: 1, role_id: 2},
+      {id: 2, group_id: 2, project_id: 2, role_id: 2},
+      {id: 3, group_id: 2, project_id: 3, role_id: 2},
+      {id: 4, group_id: 2, project_id: 4, role_id: 2},
+      {id: 5, group_id: 2, project_id: 5, role_id: 2},
+      {id: 6, group_id: 2, project_id: 6, role_id: 2},
+      {id: 7, group_id: 3, project_id: 1, role_id: 2},
+      {id: 8, group_id: 3, project_id: 2, role_id: 2},
+      {id: 9, group_id: 3, project_id: 3, role_id: 2},
+      {id: 10, group_id: 3, project_id: 4, role_id: 2},
+      {id: 11, group_id: 3, project_id: 5, role_id: 2},
+      {id: 12, group_id: 3, project_id: 6, role_id: 2}
+    ])
+    Membership.connection.execute("ALTER SEQUENCE memberships_id_seq RESTART #{Membership.all.order('id DESC').first.id + 1}")
   end
 
 end
