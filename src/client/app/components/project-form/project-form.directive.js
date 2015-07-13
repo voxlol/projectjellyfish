@@ -79,21 +79,10 @@
               'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
               'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
             if (angular.isDefined(vm.project.project_answers) && (vm.project.project_answers.length > 0)) {
-              vm.filteredProject.project_answers = lodash.reduce(vm.project.project_answers,
-                function(pas, pa) {
-                  pas.push(lodash.omit(pa, 'project_id', 'created_at', 'updated_at',
-                    'project_question'));
-
-                  return pas;
-                }, []);
+              console.log(vm.project.project_answers);
+              vm.filteredProject.project_answers = lodash.reduce(vm.project.project_answers, projectAnswerReduction, []);
             }
-
-            for (var prop in vm.filteredProject) {
-              if (vm.filteredProject[prop] === null) {
-                delete vm.filteredProject[prop];
-              }
-            }
-
+            console.log(vm.project.project_answers);
             Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
 
             return false;
@@ -102,6 +91,15 @@
 
             return false;
           }
+        }
+
+        function projectAnswerReduction(pas, pa) {
+          console.log(pa);
+          console.log(pas);
+          pas.push(lodash.omit(pa, 'project_id', 'created_at', 'updated_at',
+            'project_question'));
+
+          return pas;
         }
 
         function saveSuccess() {
