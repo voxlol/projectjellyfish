@@ -31,7 +31,7 @@
       </div>
 
       <div class="project-question-field__body" ng-class="{'has-error': vm.hasErrors('help')}">
-        <input id="project-question-help" ng-model="vm.projectQuestion.help" name="help" type="text"
+        <input id="project-question-help" ng-model="vm.projectQuestion.help_text" name="help" type="text"
                class="project-question-field__input" placeholder=""/>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <label class="project-question-field__label">Question Type</label>
       </div>
       <div class="project-question-field__body project-question-field__body--type">
-        <select id="project-question-type" ng-model="vm.projectQuestion.type" name="type"
+        <select id="project-question-type" ng-model="vm.projectQuestion.field_type" name="type"
                 class="project-question-field__input"
                 confirmation
                 confirmation-trigger="change"
@@ -66,13 +66,13 @@
                 confirmation-on-ok="vm.typeChangeOk()"
                 confirmation-on-cancel="vm.typeChangeCancel()">
           <option value="yes_no">"Yes or No"</option>
-          <option value="multiple">Multiple Choice</option>
+          <option value="select_option">Multiple Choice</option>
         </select>
       </div>
     </div>
 
     <project-question-options options="vm.projectQuestion.options"
-                              options-type="vm.projectQuestion.type"></project-question-options>
+                              options-type="vm.projectQuestion.field_type"></project-question-options>
 
   </div>
   <div class="row project-question-form__buttons">
