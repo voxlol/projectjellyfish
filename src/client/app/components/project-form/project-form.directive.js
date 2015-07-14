@@ -79,8 +79,8 @@
               'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
               'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
             if (angular.isDefined(vm.project.project_answers) && (vm.project.project_answers.length > 0)) {
-              vm.filteredProject.project_answers = lodash.reduce(
-                vm.project.project_answers, projectAnswerReduction, []);
+              vm.filteredProject.project_answers = lodash.map(
+                vm.project.project_answers, projectAnswerReduction);
             }
             Project.update(vm.filteredProject).$promise.then(saveSuccess, saveFailure);
 
@@ -92,10 +92,8 @@
           }
         }
 
-        function projectAnswerReduction(pas, pa) {
-          pas.push(lodash.merge({'project_question_id': pa.project_question.id}, {'id': pa.id}, {'answer': pa.answer}));
-
-          return pas;
+        function projectAnswerReduction(item) {
+          return lodash.merge({'project_question_id': item.project_question.id}, {'id': item.id}, {'answer': item.answer});
         }
 
         function saveSuccess() {
