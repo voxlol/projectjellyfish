@@ -21,7 +21,7 @@ class ProjectQuestionsController < ApplicationController
 
   api :POST, '/project_questions', 'Creates project_question'
   param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
+  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
   param :options, Array, desc: 'Options'
@@ -36,7 +36,7 @@ class ProjectQuestionsController < ApplicationController
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
   param :id, :number, required: true
   param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
+  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
   param :options, Array, desc: 'Options', allow_nil: true

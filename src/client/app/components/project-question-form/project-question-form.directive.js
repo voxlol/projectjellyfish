@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function ProjectQuestionFormController($state, Tag, ProjectQuestion, Toasts, TAG_QUERY_LIMIT) {
+    function ProjectQuestionFormController($state, Tag, ProjectQuestion, Toasts, TAG_QUERY_LIMIT, lodash) {
       var vm = this;
 
       var showValidationMessages = false;
@@ -69,6 +69,9 @@
         showValidationMessages = true;
 
         if (vm.form.$valid) {
+          if (vm.projectQuestion.field_type !== 'select_option') {
+            delete vm.projectQuestion.options;
+          }
           if (vm.projectQuestion.id) {
             vm.projectQuestion.$update(saveSuccess, saveFailure);
           } else {
@@ -90,12 +93,15 @@
 
       function typeChangeOk() {
         vm.projectQuestion.options.length = 0;
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
+        if (vm.projectQuestion.field_type === 'select_option') {
+          vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults),
+            angular.extend({}, ProjectQuestion.optionDefaults));
+        } else {
+          vm.projectQuestion.options.length = 0;
+        }
       }
 
       function typeChangeCancel() {
-        vm.projectQuestion.type = 'multiple' === vm.projectQuestion.type ? 'yes_no' : 'multiple';
       }
     }
   }
