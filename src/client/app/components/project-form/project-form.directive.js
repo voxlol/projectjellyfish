@@ -93,8 +93,7 @@
         }
 
         function projectAnswerReduction(item) {
-          return lodash.merge({'project_question_id': item.project_question.id}, {'id': item.id},
-            {'answer': item.answer});
+          return{id: item.id, project_question_id: item.project_question.id, answer: item.answer};
         }
 
         function saveSuccess() {
