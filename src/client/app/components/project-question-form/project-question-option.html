@@ -1,11 +1,11 @@
+<pre>{{vm.option |json}}</pre>
 <div ng-form name="vm.form" class="project-question-option__container">
   <div class="project-question-option">
     <div class="project-question-option__aside">
       <label class="project-question-option__label">{{ vm.label }}</label>
     </div>
-
-    <div class="project-question-option__body" ng-class="{'has-error': vm.hasError()}">
-      <input id="project-question-required" ng-model="vm.option" name="option" type="text"
+        <div class="project-question-option__body" ng-class="{'has-error': vm.hasError()}">
+      <input id="project-question-required" ng-model="vm.option.option" name="option" type="text"
              class="project-question-option__input" placeholder="" required/>
 
       <div class="project-question-option__feedback" ng-messages="vm.form.option.$error">
