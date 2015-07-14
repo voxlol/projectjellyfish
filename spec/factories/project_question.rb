@@ -6,15 +6,15 @@ FactoryGirl.define do
 
     options [
       {
-        option: "One",
+        option: 'One',
         position: 0
       },
       {
-        option: "Two",
+        option: 'Two',
         position: 1
       },
       {
-        option: "Three",
+        option: 'Three',
         position: 2
       }
     ]
