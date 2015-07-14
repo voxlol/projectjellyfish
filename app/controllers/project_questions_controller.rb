@@ -24,7 +24,12 @@ class ProjectQuestionsController < ApplicationController
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
-  param :options, Array, desc: 'Options'
+  param :options, Array, desc: 'Options', allow_nil: true do
+    param :option, String, desc: 'Option label'
+    param :position, :number, 'Load order'
+    param :exclude, Array, 'Exclude tags', allow_nil: true
+    param :include, Array, 'Include tags', allow_nil: true
+  end
   param :required, :bool, desc: 'Required?'
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -39,7 +44,12 @@ class ProjectQuestionsController < ApplicationController
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
-  param :options, Array, desc: 'Options', allow_nil: true
+  param :options, Array, desc: 'Options', allow_nil: true do
+    param :option, String, desc: 'Option label'
+    param :position, :number, 'Load order'
+    param :exclude, Array, 'Exclude tags', allow_nil: true
+    param :include, Array, 'Include tags', allow_nil: true
+  end
   param :required, :bool, desc: 'Required', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -71,7 +81,7 @@ class ProjectQuestionsController < ApplicationController
   private
 
   def project_question_params
-    params.permit(:question, :field_type, :help_text, :required, :position, options: [])
+    params.permit(:question, :field_type, :help_text, :required, :position, options: [:option, :position, exclude: [], include: []])
   end
 
   def project_question

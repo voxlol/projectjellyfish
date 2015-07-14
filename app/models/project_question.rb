@@ -28,7 +28,7 @@ class ProjectQuestion < ActiveRecord::Base
 
   store_accessor :options
 
-  enum field_type: [:check_box, :select_option, :text, :date]
+  enum field_type: [:check_box, :select_option, :text, :date, :radio]
 
   validates :question, presence: true
   validates :field_type, presence: true
