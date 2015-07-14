@@ -74,21 +74,41 @@ namespace :sample do
       order = data.delete 'order'
       data['uuid'] = SecureRandom.uuid
       [data.delete('_assoc'), Service.create(data).tap do |service|
-        service.alerts.create(alerts) unless alerts.nil?
-        product_listing = product_listings.assoc(order.delete('product_listing')).last
-        project = projects.assoc(order.delete('project')).last
-        order.merge! project: project, product_listing: product_listing
-        order.merge! setup_price: product_listing.setup_price,
-          hourly_price: product_listing.hourly_price,
-          monthly_price: product_listing.monthly_price
-        service.create_order order
-      end]
+          service.alerts.create(alerts) unless alerts.nil?
+          product_listing = product_listings.assoc(order.delete('product_listing')).last
+          project = projects.assoc(order.delete('project')).last
+          order.merge! project: project, product_listing: product_listing
+          order.merge! setup_price: product_listing.setup_price,
+            hourly_price: product_listing.hourly_price,
+            monthly_price: product_listing.monthly_price
+          service.create_order order
+        end]
     end
 
     sample_data 'wizard_questions' do |data|
       answers = data.delete 'answers'
       [data.delete('_assoc'), WizardQuestion.create(data).tap { |q| q.wizard_answers.create answers }]
     end
-  end
 
+    groups = sample_data('groups').map do |data|
+      group_staff = data.delete('group_staff') || []
+      [data.delete('_assoc'), Group.create(data).tap do |group|
+          next if group_staff.nil?
+          group_staff.each do |staff|
+            group.staff << users.assoc(staff).last
+          end
+        end]
+    end
+
+    roles = sample_data('roles').map do |data|
+      [data.delete('_assoc'), Role.create(data)]
+    end
+
+    sample_data 'memberships' do |data|
+      project = projects.assoc(data['project']).last
+      group = groups.assoc(data['group']).last
+      role = roles.assoc(data['role']).last
+      Membership.create(project: project, group: group, role: role)
+    end
+  end
 end
