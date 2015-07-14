@@ -20,6 +20,14 @@ Rails.application.routes.draw do
       end
     end
 
+    # Products
+    resources :products, param: :type do
+      get :listings, controller: 'product/listing'
+    end
+    namespace :product do
+      resources :listings
+    end
+
     # Alerts Routes
     resources :alerts do
       collection do
@@ -43,14 +51,6 @@ Rails.application.routes.draw do
     # Organizations
     resources :organizations
 
-    # Products
-    resources :products do
-      member do
-        get :answers
-      end
-    end
-    post '/products/:product_id/tags' => 'tags#create', as: :product_tags
-    delete '/products/:product_id/tags' => 'tags#destroy'
 
     resources :product_categories
 

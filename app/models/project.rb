@@ -42,6 +42,9 @@ class Project < ActiveRecord::Base
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
+  has_many :orders
+  has_many :services, through: :orders
+
   accepts_nested_attributes_for :project_answers
 
   # Columns

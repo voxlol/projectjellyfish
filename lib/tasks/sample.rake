@@ -4,7 +4,6 @@ def sample_data(file)
   data.each { |d| yield d }
 end
 
-
 namespace :sample do
   desc 'Reset Auto Increment Ids'
   task reset: :environment do
@@ -32,22 +31,15 @@ namespace :sample do
         end]
     end
 
-    clouds = sample_data('clouds').map do |data|
-      [data.delete('_assoc'), Cloud.create(data)]
-    end
-
     categories = sample_data('product_categories').map do |data|
       [data.delete('_assoc'), ProductCategory.create(data)]
     end
 
-    product_types = sample_data('product_types').map do |data|
-      cloud = clouds.assoc(data.delete 'cloud').last
-      [data.delete('_assoc'), ProductType.create(data.merge cloud: cloud)]
-    end
-
-    products = sample_data('products').map do |data|
-      product_type = product_types.assoc(data.delete 'product_type').last
-      [data.delete('_assoc'), Product.create(data.merge product_type: product_type)]
+    product_listings = sample_data('product_listings').map do |data|
+      answers = data.delete 'answers'
+      [data.delete('_assoc'), Product::Listing.create(data).tap do |listing|
+          listing.answers.create(answers) unless answers.nil?
+        end]
     end
 
     project_questions = sample_data('project_questions').map do |data|
@@ -77,43 +69,26 @@ namespace :sample do
         end]
     end
 
-    sample_data 'product_instances' do |data|
+    sample_data 'services' do |data|
       alerts = data.delete 'alerts'
-      product = products.assoc(data.delete('product')).last
-      project = projects.assoc(data.delete('project')).last
-      [data.delete('_assoc'), ProductInstance.create(data.merge product: product, project: project).tap do |instance|
-          instance.alerts.create(alerts) unless alerts.nil?
-        end]
+      order = data.delete 'order'
+      data['uuid'] = SecureRandom.uuid
+      [data.delete('_assoc'), Service.create(data).tap do |service|
+        service.alerts.create(alerts) unless alerts.nil?
+        product_listing = product_listings.assoc(order.delete('product_listing')).last
+        project = projects.assoc(order.delete('project')).last
+        order.merge! project: project, product_listing: product_listing
+        order.merge! setup_price: product_listing.setup_price,
+          hourly_price: product_listing.hourly_price,
+          monthly_price: product_listing.monthly_price
+        service.create_order order
+      end]
     end
 
     sample_data 'wizard_questions' do |data|
       answers = data.delete 'answers'
       [data.delete('_assoc'), WizardQuestion.create(data).tap { |q| q.wizard_answers.create answers }]
     end
-
-    # sample_data 'orders' do |data|
-    #   staff = Staff.find_by email: data.delete('staff')
-    #   project = Project.find_by name: data.delete('project')
-    #   order_items = data.delete 'order_items'
-    #   Order.create(data.merge staff: staff, project: project).tap do |order|
-    #     order_items.each do |item_data|
-    #       product = Product.find_by name: item_data.delete('product')
-    #       OrderItem.create(item_data.merge(
-    #         order_id: order.id,
-    #         product_id: product.id,
-    #         setup_price: product.setup_price,
-    #         monthly_price: product.monthly_price,
-    #         hourly_price: product.hourly_price
-    #       )).tap do |order_item|
-    #         ProductInstance.create(
-    #           order_item: order_item,
-    #           product: product,
-    #           project: project
-    #         )
-    #       end
-    #     end
-    #   end
-    # end
   end
 
 end

@@ -19,12 +19,11 @@ class ExtensiveRefactor < ActiveRecord::Migration
   end
 
   def up
-    # Create product_listings : Product listings in the marketpalce
+    # Create product_listings : Product listings in the marketplace
     create_table :product_listings do |t|
       t.timestamps null: false
       t.datetime :deleted_at
-      t.string :product, index: true, null: false
-      t.references :product, index: true, foreign_key: { on_delete: :restrict }, null: false
+      t.string :product_type, index: true, null: false
       t.string :name, null: false
       t.text :description
       t.string :img
@@ -35,25 +34,14 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.text :cached_tag_list
     end
 
-    # Create service_orders : Used to record budget utilization
-    create_table :service_orders do |t|
-      t.timestamps null: false
-      t.references :project, index: true, foreign_key: { on_delete: :restrict }, null: false
-      t.references :product_listing, index: true, null: false, foreign_key: { on_delete: :destroy }
-      t.references :service, index: true, null: false, foreign_key: { on_delete: :destroy }
-      t.decimal :setup_price, precision: 10, scale: 4
-      t.decimal :hourly_price, precision: 10, scale: 4
-      t.decimal :monthly_price, precision: 10, scale: 4
-    end
-
     # Create services : Instances of a product_listing
     create_table :services do |t|
       t.timestamps null: false
       t.string :type, index: true, null: false
+      t.string :product_type, index: true, null: false
       t.string :uuid, index: true, null: false
       t.integer :status
       t.string :status_msg
-      t.datetime :fulfilled_at
     end
 
     # Create settings : Storage of unique application-wide settings
@@ -90,11 +78,24 @@ class ExtensiveRefactor < ActiveRecord::Migration
     #
     # TODO: Migrate data from all the following tables into the new ones
     #
-    # orders into product_instances
-    # order_items into product_instances
+    # orders & order_items into services & service_orders
     # products into product_listings
     #
     #
+
+    drop_table :orders
+    drop_table :order_items
+
+    # Create orders : Used to record budget utilization
+    create_table :orders do |t|
+      t.timestamps null: false
+      t.references :project, index: true, foreign_key: { on_delete: :restrict }, null: false
+      t.references :product_listing, index: true, null: false, foreign_key: { on_delete: :cascade }
+      t.references :service, index: true, unique: true, null: false, foreign_key: { on_delete: :cascade }
+      t.decimal :setup_price, precision: 10, scale: 4
+      t.decimal :hourly_price, precision: 10, scale: 4
+      t.decimal :monthly_price, precision: 10, scale: 4
+    end
   end
 
   def down

@@ -51,4 +51,14 @@ class ApplicationPolicy
       scope
     end
   end
+
+  private
+
+  def any_user!
+    true
+  end
+
+  def only_admins!
+    user.admin?
+  end
 end

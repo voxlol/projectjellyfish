@@ -79,7 +79,7 @@ module Jellyfish
       private
 
       def to_string
-        return unless [:string, :password, :text, nil].include? @type
+        return unless [:string, :password, :text, :fingerprint, :certificate, :url, :email, nil].include? @type
         throw :cast, @value
       end
 

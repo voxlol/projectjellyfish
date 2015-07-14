@@ -34,9 +34,10 @@ class ProjectSerializer < ApplicationSerializer
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :staff, through: :groups
-  has_many :groups_staffs, through: :groups, source: :staff
   has_many :alerts
-  has_many :latest_alerts, through: :services, class_name: 'Alert'
+  has_many :latest_alerts
   has_many :approvals
-  has_many :approvers, through: :approvals, source: :staff
+  has_many :approvers
+  has_many :orders
+  has_many :services
 end

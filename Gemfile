@@ -43,7 +43,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'brakeman', require: false
   gem 'codeclimate-test-reporter', require: nil
-  gem 'database_cleaner', '~> 1.3.0'
+  gem 'database_cleaner', '~> 1.4.1'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'license_finder'
   gem 'pry-rails'
@@ -51,7 +51,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'seed_dump'
   gem 'selenium-webdriver'
-  gem 'poltergeist', require: 'capybara/poltergeist'
+  # gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
   gem 'web-console', '~> 2.0.0'
   gem 'capybara-angular', '0.1.0'

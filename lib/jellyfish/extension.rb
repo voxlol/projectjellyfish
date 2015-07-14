@@ -124,19 +124,8 @@ module Jellyfish
       true
     end
 
-    # provider
-    #
-    # Register a provider
-    #
-    #
-    def provider(key, &block)
-      provider = Provider.new(key)
-      provider.instance_eval &block
-      Provider.register provider
-    end
-
     def register_product(product)
-      product.new.tap { |p| Product[p.name] = p }
+      product.new.tap { |p| Product[p.class.name] = p }
     end
 
     def pending_migrations

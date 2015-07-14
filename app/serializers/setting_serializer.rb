@@ -2,14 +2,15 @@
 #
 # Table name: settings
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  type       :string
-#  name       :string           not null
-#  value      :text
-#  value_type :integer          default(0)
-#  default    :text
+#  id          :integer          not null, primary key
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  type        :string           not null
+#  name        :string           not null
+#  description :text
+#  value       :text
+#  value_type  :integer          default(0)
+#  default     :text
 #
 # Indexes
 #

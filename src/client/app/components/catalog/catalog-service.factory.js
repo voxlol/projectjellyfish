@@ -5,7 +5,7 @@
     .factory('CatalogService', CatalogServiceFactory);
 
   /** @ngInject */
-  function CatalogServiceFactory($q, ProductCategory, Product, lodash) {
+  function CatalogServiceFactory($q, ProductCategory, ProductListing, lodash) {
     var service = {
       getCatalog: getCatalog
     };
@@ -19,7 +19,7 @@
 
       $q.all([
         0 === categories.length ? ProductCategory.query().$promise : angular.noop,
-        Product.query({'tags[]': tags}).$promise
+        ProductListing.query({'tags[]': tags}).$promise
       ]).then(buildProductLists);
 
       return deferred.promise;

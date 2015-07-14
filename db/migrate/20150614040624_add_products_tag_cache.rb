@@ -1,4 +1,8 @@
 class AddProductsTagCache < ActiveRecord::Migration
+  class Product < ActiveRecord::Base
+    acts_as_taggable
+  end
+
   def up
     add_column :products, :cached_tag_list, :string
     Product.reset_column_information
