@@ -22,7 +22,7 @@
 
     return directive;
 
-    function link(vm) {
+    function link(scope, element, attrs, vm, transclude) {
       vm.activate();
     }
 
@@ -43,7 +43,6 @@
       vm.activate = activate;
       vm.addOption = addOption;
       vm.optionLabel = optionLabel;
-      vm.optionIndex = optionIndex;
       vm.canAdd = canAdd;
       vm.canRemove = canRemove;
       vm.removeOption = removeOption;
@@ -57,11 +56,9 @@
       }
 
       function optionLabel(index) {
-        return 'Option ' + (index + 1);
-      }
-
-      function optionIndex(index) {
-        return index;
+        if ('select_option' === vm.type) {
+          return 'Option ' + (index + 1);
+        }
       }
 
       function canAdd() {

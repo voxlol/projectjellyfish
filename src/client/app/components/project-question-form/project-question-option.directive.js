@@ -23,13 +23,12 @@
 
     return directive;
 
-    function link(scope, ctrls) {
+    function link(scope, element, attrs, ctrls, transclude) {
       var vm = scope.vm;
 
       vm.activate({
         hasErrors: ctrls[0].hasErrors,
         canRemove: ctrls[1].canRemove,
-        canSort: ctrls[1].canSort,
         removeOption: ctrls[1].removeOption
       });
     }

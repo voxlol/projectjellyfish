@@ -150,20 +150,20 @@
                   <span ng-switch-when="radio">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <label><input typ="radio"
+                         <label class="project-field__radio-label"><input type="radio"
                                        name="{{answer.project_question_name}}"
                                        value="Yes"
-                                       ng-model='answer.answer'u
+                                       ng-model='answer.answer'
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
-                                       ng-required="{{answer.project_question.required}}"></label><br>
-                         <label><input typ="radio"
+                                       ng-required="{{answer.project_question.required}}">Yes</label>
+                         <label class="project-field__radio-label"><input type="radio"
                                        name="{{answer.project_question_name}}"
                                        value="No"
                                        ng-model='answer.answer'
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
-                                       ng-required="{{answer.project_question.required}}"></label>
+                                       ng-required="{{answer.project_question.required}}">No</label>
                        </div>
                   <span ng-switch-when="select_option">
                        <div class="project-field__body"
