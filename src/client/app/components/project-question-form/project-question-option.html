@@ -3,8 +3,9 @@
     <div class="project-question-option__aside">
       <label class="project-question-option__label">{{ vm.label }}</label>
     </div>
+
     <div class="project-question-option__body" ng-class="{'has-error': vm.hasError()}">
-      <input id="project-question-required" ng-model="vm.option.option" name="option" type="text"
+      <input id="project-question-required" ng-model="vm.option" name="option" type="text"
              class="project-question-option__input" placeholder="" required/>
 
       <div class="project-question-option__feedback" ng-messages="vm.form.option.$error">
@@ -12,7 +13,7 @@
       </div>
     </div>
     <div class="project-question-option__actions">
-      <img ng-show="vm.canSort()" class="project-question-option__action project-question-options__handle"
+      <img class="project-question-option__action project-question-options__handle"
         src="/images/ic_sort.png" alt="Sort"/>
       <a ng-show="vm.canRemove()" href="#" class="project-question-option__action"
          confirmation

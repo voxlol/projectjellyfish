@@ -99,7 +99,6 @@
       }
 
       function typeChangeCancel() {
-        //vm.projectQuestion.field_type = 'multiple' === vm.projectQuestion.field_type ? 'yes_no' : 'multiple';
       }
     }
   }
