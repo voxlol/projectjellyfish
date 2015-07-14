@@ -93,7 +93,7 @@
         }
 
         function projectAnswerReduction(item) {
-          return{id: item.id, project_question_id: item.project_question.id, answer: item.answer};
+          return {id: item.id, project_question_id: item.project_question.id, answer: item.answer};
         }
 
         function saveSuccess() {
