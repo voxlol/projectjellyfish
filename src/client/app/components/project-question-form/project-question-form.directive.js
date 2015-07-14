@@ -90,12 +90,16 @@
 
       function typeChangeOk() {
         vm.projectQuestion.options.length = 0;
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-        vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
+        if(vm.projectQuestion.field_type === 'select_option'){
+          vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults),
+            angular.extend({}, ProjectQuestion.optionDefaults));
+        }else{
+          vm.projectQuestion.options.length = 0;
+        }
       }
 
       function typeChangeCancel() {
-        vm.projectQuestion.type = 'multiple' === vm.projectQuestion.type ? 'yes_no' : 'multiple';
+        //vm.projectQuestion.field_type = 'multiple' === vm.projectQuestion.field_type ? 'yes_no' : 'multiple';
       }
     }
   }
