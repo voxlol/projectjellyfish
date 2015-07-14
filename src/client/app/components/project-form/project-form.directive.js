@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function ProjectFormController($scope, $state, Toasts, logger, Project, lodash) {
+    function ProjectFormController($scope, $state, Toasts, Project, lodash) {
       var vm = this;
 
       var showValidationMessages = false;

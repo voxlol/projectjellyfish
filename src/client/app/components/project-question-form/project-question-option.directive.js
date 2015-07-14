@@ -23,7 +23,7 @@
 
     return directive;
 
-    function link(scope, element, attrs, ctrls, transclude) {
+    function link(scope, ctrls) {
       var vm = scope.vm;
 
       vm.activate({

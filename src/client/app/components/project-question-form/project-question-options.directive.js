@@ -22,7 +22,7 @@
 
     return directive;
 
-    function link(scope, element, attrs, vm, transclude) {
+    function link(vm) {
       vm.activate();
     }
 
@@ -57,11 +57,11 @@
       }
 
       function optionLabel(index) {
-          return 'Option ' + (index + 1);
+        return 'Option ' + (index + 1);
       }
 
       function optionIndex(index) {
-          return index;
+        return index;
       }
 
       function canAdd() {

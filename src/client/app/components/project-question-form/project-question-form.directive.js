@@ -69,7 +69,7 @@
         showValidationMessages = true;
 
         if (vm.form.$valid) {
-          if(vm.projectQuestion.field_type !== 'select_option'){
+          if (vm.projectQuestion.field_type !== 'select_option') {
             delete vm.projectQuestion.options;
           }
           if (vm.projectQuestion.id) {
@@ -93,10 +93,10 @@
 
       function typeChangeOk() {
         vm.projectQuestion.options.length = 0;
-        if(vm.projectQuestion.field_type === 'select_option'){
+        if (vm.projectQuestion.field_type === 'select_option') {
           vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults),
             angular.extend({}, ProjectQuestion.optionDefaults));
-        }else{
+        } else {
           vm.projectQuestion.options.length = 0;
         }
       }
