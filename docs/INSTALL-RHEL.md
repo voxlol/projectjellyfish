@@ -1,6 +1,7 @@
 # Project Jellyfish RHEL Installation Guide
 
-This guide will walk you through how to install and run Jellyfish on a fresh **Red Hat Enterprise Linux** (or similar, like CentOS) installation for a production environment.
+This guide will walk you through how to install and run Jellyfish on a fresh **Red Hat Enterprise Linux** 7.x (tested up to RHEL 7.1).  
+Other distros should work fine, but only RHEL / CenOS 7.x are supported
 
 ## System Prep
 
@@ -21,12 +22,12 @@ sudo useradd jellyfish
 ##### Install Pre-Requisites
 
 ```shell
-sudo yum install git
-sudo yum install gcc-c++ patch readline readline-devel zlib zlib-devel
-sudo yum install libyaml-devel libffi-devel openssl-devel make
-sudo yum install bzip2 autoconf automake libtool bison iconv-devel
-sudo yum install sqlite-devel libffi-devel openssl-devel
-sudo yum install ntp
+sudo yum -y install git
+sudo yum -y install gcc-c++ patch readline readline-devel zlib zlib-devel
+sudo yum -y install libyaml-devel libffi-devel openssl-devel make
+sudo yum -y install bzip2 autoconf automake libtool bison iconv-devel
+sudo yum -y install sqlite-devel libffi-devel openssl-devel
+sudo yum -y install ntp
 ```
 
 ##### Install PostgreSQL Server
@@ -35,15 +36,21 @@ Please install PostgreSQL (9.4+) via [PostgreSQL's directions on their website](
 
 You will need to install all of the following packages
 
-- `postgresql94-server`
-- `postgresql94-devel`
-- `postgresql94-contrib`
+```shell
+sudo yum -y install postgresql94-server
+sudo yum -y install postgresql94-devel
+sudo yum -y install postgresql94-contrib
+```
+
+##### Initialize DB on RHEL 7.x
+```shell
+sudo /usr/pgsql-9.4/bin/postgresql94-setup initdb
+```
 
 ##### Start PostgreSQL Server and add as a service
 ```shell
-sudo service postgresql-9.4 initdb
-sudo service postgresql-9.4 start
-sudo chkconfig postgresql-9.4 on
+sudo systemctl start postgresql-9.4.service
+sudo systemctl enable postgresql-9.4.service
 ```
 
 ## Configure PostgreSQL Server
@@ -116,8 +123,8 @@ host    all             all             ::1/128                 md5
 ```
 
 #### Restart PostgreSQL
-```
-sudo service postgresql-9.4 restart
+```shell
+sudo systemctl restart postgresql-9.4.service
 ```
 
 
@@ -155,7 +162,7 @@ gem install bundler
 
 #### Install pg gem
 ```
-gem install pg -v '0.17.1' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
+gem install pg -v '0.18.2' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 ```
 
 ##### Create Environment Variables
@@ -168,20 +175,29 @@ echo 'export DATABASE_URL=postgres://jellyfish:JELLYFISH_DB_PASSWORD@localhost:5
 echo 'export RAILS_ENV=test' >> ~/.bash_profile
 ```
 
+##### Install NPM
+
+You will need to install NodeJS / NPM you can do so by following the [NodeJS Install Docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#enterprise-linux-and-fedora)
+
+
 ## Build the Application
 
 _**From this point on it is assumed you are executing commands within the api directory.**_
 
+##### Install all needed gems
+```shell
+bundle install
+```
+
 ##### Ensure tools have been installed
 ```shell
-npm install gulp-cli -g
-npm install bower -g
+sudo npm install gulp-cli -g
+sudo npm install bower -g
 ```
 
 ##### Install dependencies
 ```shell
 npm install
-bundle install
 ```
 
 ##### Build the frontend
@@ -203,6 +219,14 @@ You only need to run `rake sample:demo` if you are wanting sample data (useful f
 ```shell
 rake sample:demo
 ```
+
+The default username and password when using the seed file is:
+
+```
+Username: admin@projectjellyfish.org
+Password: jellyfish
+```
+
 
 ##### Start Server (Production)
 
@@ -278,12 +302,6 @@ The following rake commands need to be executed to maintain Jellyfish Core.
 ```
 # Updates the budgets for projects
 rake upkeep:update_budgets
-
-# Pull down AWS pricing (not used at the moment)
-rake upkeep:get_aws_od_pricing
-
-# Get the status of VM's from ManageIQ
-rake upkeep:poll_miq_vms
 
 # Run the delayed job workers (this is what processes the orders to the various systems
 rake jobs:work

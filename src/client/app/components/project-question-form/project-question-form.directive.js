@@ -42,7 +42,7 @@
       vm.typeChangeCancel = typeChangeCancel;
 
       function activate() {
-        vm.heading = vm.heading || 'Add A Project Question';
+        vm.heading = vm.heading || 'Add Project Question';
       }
 
       function backToList() {

@@ -1,4 +1,4 @@
-+block(groups-table)
++block(latest-alerts-table)
   @extend .table-striped
   width: 100%
   background-color: $app-color-white
@@ -9,7 +9,23 @@
     text-transform: uppercase
     color: $app-color-gray
 
-    +modifier(name)
+    +modifier(category)
+      width: 136px
+      text-align: center
+
+    +modifier(status)
+      text-align: left
+
+    +modifier(message)
+      text-align: left
+
+    +modifier(start-date)
+      text-align: left
+
+    +modifier(end-date)
+      text-align: left
+
+    +modifier(actions)
       text-align: center
 
     +modifier(sortable)
@@ -37,23 +53,32 @@
     +modifier(padding)
       width: 20px
 
-    +modifier(description)
-      padding-right: 20px
-
-    +modifier(name)
-      width: 136px
-      text-align: center
-
-    +modifier(members)
-      width: 136px
+    +modifier(category)
       padding-right: 0
       text-align: center
 
-  +element(action)
-    margin-right: 20px
+    +modifier(status)
+      width: 100px
+      padding-right: 0
+      text-align: left
+      text-transform: lowercase
 
-    &:last-child
-      margin-right: 0
+    +modifier(message)
+
+    +modifier(start-date)
+      width: 160px
+      padding-right: 0
+      text-align: left
+
+    +modifier(end-date)
+      width: 160px
+      padding-right: 0
+      text-align: left
+
+    +modifier(actions)
+      width: 136px
+      padding-right: 0
+      text-align: center
 
   +element(empty)
     font-size: 22px

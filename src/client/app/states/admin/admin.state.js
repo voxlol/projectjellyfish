@@ -32,8 +32,14 @@
         state: 'admin',
         label: 'Admin',
         style: 'admin',
-        order: 5
+        order: 5,
+        isVisible: isVisible
       }
     };
+  }
+
+  /** @ngInject */
+  function isVisible(SessionService) {
+    return SessionService.role === 'admin';
   }
 })();

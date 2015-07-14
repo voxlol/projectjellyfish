@@ -36,6 +36,8 @@ class StaffSerializer < ApplicationSerializer
   has_many :notifications
   has_many :projects
   has_many :groups
+  has_many :approvals
+  has_one :cart
 
   def full_name
     [object.first_name, object.last_name].join(' ').strip

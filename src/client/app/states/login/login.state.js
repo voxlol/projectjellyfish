@@ -22,6 +22,9 @@
         controller: StateController,
         controllerAs: 'vm',
         title: 'Login',
+        resolve: {
+          motd: resolveMotd
+        },
         data: {
           layout: 'blank'
         }
@@ -30,25 +33,19 @@
   }
 
   /** @ngInject */
+  function resolveMotd(Motd) {
+    return Motd.get().$promise;
+  }
 
   /** @ngInject */
-  function StateController(Motd) {
+  function StateController(motd) {
     var vm = this;
 
     vm.title = 'Login';
-    vm.resolveMotd = resolveMotd;
+    vm.motd = motd;
     activate();
 
     function activate() {
-      vm.resolveMotd();
-    }
-
-    function resolveMotd() {
-      Motd.query().$promise.then(assignResolved());
-
-      function assignResolved(result) {
-        vm.motd = result;
-      }
     }
   }
 })();

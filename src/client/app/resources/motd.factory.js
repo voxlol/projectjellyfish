@@ -6,12 +6,7 @@
 
   /** @ngInject */
   function MotdFactory($resource) {
-    var Motd = $resource('/api/v1/motd/', {},  {
-      'update': {
-        method: 'PUT',
-        isArray: false
-      }
-    });
+    var Motd = $resource('/api/v1/motd/', {});
 
     return Motd;
   }

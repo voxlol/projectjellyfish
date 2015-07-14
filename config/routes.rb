@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     resources :bundles
 
     # Project Routes
-    resources :projects, only: [:index, :show, :create, :update, :destroy] do
+    resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json } do
       delete 'groups/:group_id' => 'memberships#destroy', as: :membership
       post 'groups' => 'memberships#create', as: :memberships
       put 'groups/:group_id' => 'memberships#update'

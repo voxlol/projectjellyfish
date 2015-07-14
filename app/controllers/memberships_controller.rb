@@ -4,12 +4,14 @@ class MembershipsController < ApplicationController
   api :POST, '/projects/:project_id/groups', 'Add a group membership to a project'
   param :project_id, :number, 'ID of Project to add group membership to', required: true
   param :group_id, :number, 'ID of Group to associate with the project', required: true
+  param :role_id, :number, 'ID of Role to associate with the group', required: true
   error code: 422, desc: ParameterValidation::Messages.missing
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    membership = Membership.create membership_params
+    membership = Membership.new membership_params
     authorize membership
+    membership.save
     respond_with membership, location: project_memberships_url(membership.project, membership.group)
   end
 
@@ -41,7 +43,7 @@ class MembershipsController < ApplicationController
   private
 
   def membership_params
-    params.permit(:group_id, :project_id)
+    params.permit(:group_id, :project_id, :role_id)
   end
 
   def membership

@@ -39,6 +39,7 @@ class Project < ActiveRecord::Base
   has_many :groups, through: :memberships
   has_many :staff, through: :groups
   has_many :alerts, as: :alertable
+  has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
@@ -120,10 +121,6 @@ class Project < ActiveRecord::Base
 
   def ram
     '2 GB'
-  end
-
-  def latest_alerts
-    alerts.latest
   end
 
   def latest_service_alerts

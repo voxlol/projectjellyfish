@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: members
+# Table name: groups_staff
 #
 #  id         :integer          not null, primary key
 #  created_at :datetime
@@ -10,11 +10,13 @@
 #
 # Indexes
 #
-#  index_members_on_group_id  (group_id)
-#  index_members_on_staff_id  (staff_id)
+#  index_groups_staff_on_group_id  (group_id)
+#  index_groups_staff_on_staff_id  (staff_id)
 #
 
 class GroupsStaff < ActiveRecord::Base
+  self.table_name = 'groups_staff'
+
   belongs_to :staff
   belongs_to :group
 end
