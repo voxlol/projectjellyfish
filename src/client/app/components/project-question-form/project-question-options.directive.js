@@ -62,7 +62,7 @@
       }
 
       function canAdd() {
-        return vm.options.length < vm.maxOptions;
+        return 'select_option' === vm.type && vm.options.length < vm.maxOptions;
       }
 
       function canRemove() {

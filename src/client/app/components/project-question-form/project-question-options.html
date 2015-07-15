@@ -8,7 +8,7 @@
 <div class="project-question-options__footer">
   <div class="project-question-options__actions">
     <button type="button" class="btn-bordered btn-bordered--short btn-bordered--capitalize" ng-click="vm.addOption()"
-            ng-disabled="vm.canAdd()">
+            ng-disabled="!vm.canAdd()">
       Add Another Option
     </button>
   </div>
