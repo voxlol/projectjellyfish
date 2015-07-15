@@ -61,3 +61,12 @@
     </tbody>
   </table>
 </region>
+
+<details-table heading="Provisioning Answers">
+
+  <div class="details-table__row" ng-repeat="(key, value) in vm.product.provisioning_answers">
+    <div class="details-table__label"> {{ ::key}}</div>
+    <div class="details-table__detail"> {{ ::value}}</div>
+  </div>
+
+</details-table>
