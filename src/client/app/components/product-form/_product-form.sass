@@ -37,6 +37,14 @@
   +element(cancel)
     text-transform: uppercase
 
++block(details-table)
+  +element(label)
+    width: 40%
+    text-align: left
+  +element(detail)
+    text-align: left
+    width: 50%
+
 +block(product-field)
   @extend .form-group
   @extend .field
@@ -62,6 +70,19 @@
 
   +element(feedback)
     @extend .field__feedback
+
++block(provisioning-answers)
+  display: block
+  background-color: $app-color-dark-gray
+  margin-bottom: 10px
+
+  +element(container)
+    width: 312px
+    padding: 30px 30px 10px 30px
+    text-align: left
+    display: inline-block
+    background-color: $app-color-white
+    border: 1px solid $app-color-gray
 
 +block(product-form-image)
   display: block
