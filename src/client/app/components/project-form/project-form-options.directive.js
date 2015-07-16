@@ -46,7 +46,6 @@
       function activate() {
       }
 
-
       function showErrors() {
         return showValidationMessages;
       }
@@ -79,8 +78,6 @@
         vm.answerDateOpened = [];
         vm.answerDateOpened[index] = true;
       }
-
-
     }
   }
 })();
