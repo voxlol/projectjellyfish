@@ -3,8 +3,8 @@
     <label for="{{answer.project_question.id}}"
            class="project-field__label">{{answer.project_question.question}}</label>
   </div>
-                <span ng-switch on="answer.project_question.field_type">
-                  <span ng-switch-when="check_box">
+                <div ng-switch on="answer.project_question.field_type">
+                  <div ng-switch-when="check_box">
 
                       <div class="project-field__body"
                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
@@ -15,8 +15,8 @@
                           <label for="{{answer.project_question.id}}"></label>
                         </div>
                       </div>
-                  </span>
-                  <span ng-switch-when="date">
+                  </div>
+                  <div ng-switch-when="date">
                     <div class="project-field__body"
                          ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                       <div class="input-group">
@@ -35,8 +35,8 @@
                                close-text="Close">
                       </div>
                     </div>
-                  </span>
-                  <span ng-switch-when="text">
+                  </div>
+                  <div ng-switch-when="text">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                          <input name="{{answer.project_question_name}}" ng-model='answer.answer'
@@ -45,8 +45,8 @@
                                 placeholder="{{answer.project_question.help_text}}"
                                 ng-required="{{answer.project_question.required}}">
                        </div>
-                  </span>
-                  <span ng-switch-when="radio">
+                  </div>
+                  <div ng-switch-when="radio">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                          <div class="project-field__radio">
@@ -75,8 +75,8 @@
                            </div>
 
                        </div>
-                  </span>
-                  <span ng-switch-when="select_option">
+                  </div>
+                  <div ng-switch-when="select_option">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                          <select name="{{answer.project_question_name}}" class="project-field__input"
@@ -86,6 +86,6 @@
                            <option value="">Please select an option.</option>
                          </select>
                        </div>
-                  </span>
-                </span>
+                  </div>
+                </div>
 </div>
