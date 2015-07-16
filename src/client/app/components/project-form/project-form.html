@@ -63,7 +63,6 @@
                    ng-model="vm.project.start_date"
                    is-open="vm.openedStart"
                    max-date="vm.project.end_date"
-                   max-date="'2015-06-22'"
                    datepicker-options="vm.dateOptions"
                    ng-required="true" close-text="Close"/>
           </div>
@@ -112,9 +111,11 @@
                   <span ng-switch-when="check_box">
                       <div class="project-field__body"
                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                        <input class="project-field__checkbox" type="checkbox" name="{{answer.project_question_name}}"
-                               ng-model='answer.answer'
-                               id="{{answer.project_question.id}}" ng-true-value="'true'" ng-false-value="'false'">
+                        <div class="project-field__checkbox">
+                          <input type="checkbox" name="{{answer.project_question_name}}"
+                                 ng-model='answer.answer'
+                                 id="{{answer.project_question.id}}" ng-true-value="'true'" ng-false-value="'false'">
+                        </div>
                       </div>
                   </span>
                   <span ng-switch-when="date">
@@ -150,10 +151,11 @@
                   <span ng-switch-when="radio">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
+                         <div class="project-field__checkbox">
                          <label><input typ="radio"
                                        name="{{answer.project_question_name}}"
                                        value="Yes"
-                                       ng-model='answer.answer'u
+                                       ng-model='answer.answer' u
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
                                        ng-required="{{answer.project_question.required}}"></label><br>
@@ -164,6 +166,7 @@
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
                                        ng-required="{{answer.project_question.required}}"></label>
+                         </div>
                        </div>
                   <span ng-switch-when="select_option">
                        <div class="project-field__body"
