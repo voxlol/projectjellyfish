@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <project-question-options options="vm.projectQuestion.options"
+    <project-question-options ng-if="vm.projectQuestion.field_type === 'select_option'" options="vm.projectQuestion.options"
                               options-type="vm.projectQuestion.field_type"></project-question-options>
 
   </div>

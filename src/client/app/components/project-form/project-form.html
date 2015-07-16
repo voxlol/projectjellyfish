@@ -101,7 +101,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-field" ng-repeat="answer in vm.project.project_answers">
         <div class="project-field__aside">
           <label for="{{answer.project_question.id}}"
@@ -151,29 +150,34 @@
                   <span ng-switch-when="radio">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <div class="project-field__checkbox">
-                         <label><input typ="radio"
+                         <label class="project-field__radio-label">
+                           <input type="radio"
                                        name="{{answer.project_question_name}}"
                                        value="Yes"
-                                       ng-model='answer.answer' u
+                                  ng-model='answer.answer'
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
-                                       ng-required="{{answer.project_question.required}}"></label><br>
-                         <label><input typ="radio"
+                                  ng-required="{{answer.project_question.required}}">
+                           Yes
+                         </label>
+                         <label class="project-field__radio-label">
+                           <input type="radio"
                                        name="{{answer.project_question_name}}"
                                        value="No"
                                        ng-model='answer.answer'
                                        class="project-field__input"
                                        id="{{answer.project_question.id}}"
-                                       ng-required="{{answer.project_question.required}}"></label>
+                                  ng-required="{{answer.project_question.required}}">
+                           No
+                         </label>
                          </div>
-                       </div>
+                  </span>
                   <span ng-switch-when="select_option">
                        <div class="project-field__body"
                             ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
                          <select name="{{answer.project_question_name}}" class="project-field__input"
                                  ng-model="answer.answer"
-                                 ng-options="option for option in answer.project_question.options"
+                                 ng-options="item.option for item in answer.project_question.options"
                                  ng-required="{{answer.project_question.required}}">
                            <option value="">Please select an option.</option>
                          </select>

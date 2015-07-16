@@ -222,9 +222,9 @@ namespace :sample do
       { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, position: 3, options: [], field_type: 2},
       { id: 3, question: "Maintenance Day", help_text: "", required: true, deleted_at: nil, position: 4, options: [], field_type: 3},
       { id: 4, question: "Performed Maintenance", help_text: "", required: true, deleted_at: nil, position: 5, options: [], field_type: 0},
-      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, position: 6, options: [{"option": "East Coast Data Center", "include": [], "exclude": [], "load_order": 0},{"option": "West Coast Data Center", "include": [], "exclude": [], "load_order": 1}, {"option": "Classified Data Center", "include": [], "exclude": [], "load_order": 2}], field_type: 1},
+      { id: 5, question: "Default provisioning location", help_text: "", required: true, deleted_at: nil, position: 6, options: [{option: "East Coast Data Center", include: [], exclude: [], position: 0},{option: "West Coast Data Center", include: [], exclude: [], position: 1}, {option: "Classified Data Center", include: [], exclude: [], position: 2}], field_type: 1},
       { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, position: 7, options: [], field_type: 4},
-      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, position: 8, options: [{"option": "Low", "include": [], "exclude": [], "load_order": 0}, {"option": "Medium", "include": [], "exclude": [], "load_order": 1}, {"option": "High", "include": [], "exclude": [], "load_order": 2}], field_type: 1},
+      { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, position: 8, options: [{option: "Low", include: [], exclude: [], position: 0}, {option: "Medium", include: [], exclude: [], position: 1}, {option: "High", include: [], exclude: [], position: 2}], field_type: 1},
       { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, position: 1, field_type: 2}
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")
