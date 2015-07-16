@@ -43,7 +43,6 @@
         </div>
       </div>
 
-
       <div class="project-field">
         <div class="project-field__aside">
           <label class="project-field__label">Start Date</label>
@@ -63,7 +62,6 @@
                    ng-model="vm.project.start_date"
                    is-open="vm.openedStart"
                    max-date="vm.project.end_date"
-                   max-date="'2015-06-22'"
                    datepicker-options="vm.dateOptions"
                    ng-required="true" close-text="Close"/>
           </div>
@@ -102,88 +100,9 @@
           </div>
         </div>
       </div>
-      <div class="project-field" ng-repeat="answer in vm.project.project_answers">
-        <div class="project-field__aside">
-          <label for="{{answer.project_question.id}}"
-                 class="project-field__label">{{answer.project_question.question}}</label>
-        </div>
-                <span ng-switch on="answer.project_question.field_type">
-                  <span ng-switch-when="check_box">
-                      <div class="project-field__body"
-                           ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                        <input class="project-field__checkbox" type="checkbox" name="{{answer.project_question_name}}"
-                               ng-model='answer.answer'
-                               id="{{answer.project_question.id}}" ng-true-value="'true'" ng-false-value="'false'">
-                      </div>
-                  </span>
-                  <span ng-switch-when="date">
-                    <div class="project-field__body"
-                         ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                      <div class="input-group">
-                        <span class="input-group-btn">
-                                <button type="button" class="btn btn-default project-field__group-input--button"
-                                        ng-click="vm.openAnswerDate($event, $index)"><i
-                                  class="fa fa-calendar"></i></button>
-                         </span>
-                        <input name="{{answer.project_question_name}}" ng-click="vm.openAnswerDate($event, $index)"
-                               ng-model='answer.answer' class="project-field__group-input--input"
-                               id="{{answer.project_question.id}}"
-                               placeholder="{{answer.project_question.help_text}}"
-                               name="{{answer.project_question_name}}"
-                               ng-required="{{answer.project_question.required}}" datepicker-popup="{{vm.format}}"
-                               is-open="vm.answerDateOpened[$index]" datepicker-options="vm.dateOptions"
-                               close-text="Close">
-                      </div>
-                    </div>
-                  </span>
-                  <span ng-switch-when="text">
-                       <div class="project-field__body"
-                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <input name="{{answer.project_question_name}}" ng-model='answer.answer'
-                                class="project-field__input"
-                                id="{{answer.project_question.id}}"
-                                placeholder="{{answer.project_question.help_text}}"
-                                ng-required="{{answer.project_question.required}}">
-                       </div>
-                  </span>
-                  <span ng-switch-when="radio">
-                       <div class="project-field__body"
-                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <label class="project-field__radio-label">
-                           <input type="radio"
-                                  name="{{answer.project_question_name}}"
-                                  value="Yes"
-                                  ng-model='answer.answer'
-                                  class="project-field__input"
-                                  id="{{answer.project_question.id}}"
-                                  ng-required="{{answer.project_question.required}}">
-                           Yes
-                         </label>
-                         <label class="project-field__radio-label">
-                           <input type="radio"
-                                  name="{{answer.project_question_name}}"
-                                  value="No"
-                                  ng-model='answer.answer'
-                                  class="project-field__input"
-                                  id="{{answer.project_question.id}}"
-                                  ng-required="{{answer.project_question.required}}">
-                           No
-                         </label>
-                       </div>
-                  </span>
-                  <span ng-switch-when="select_option">
-                       <div class="project-field__body"
-                            ng-class="{'has-error': vm.hasErrors({{answer.project_question_name}})}">
-                         <select name="{{answer.project_question_name}}" class="project-field__input"
-                                 ng-model="answer.answer"
-                                 ng-options="item.option for item in answer.project_question.options"
-                                 ng-required="{{answer.project_question.required}}">
-                           <option value="">Please select an option.</option>
-                         </select>
-                       </div>
-                  </span>
-                  </span>
-      </div>
+
+      <project-form-options project-options="vm.project.project_answers"></project-form-options>
+
     </div>
     <div class="project-form__aside">
       <div class="project-form-image__container">

@@ -96,8 +96,6 @@
         if (vm.projectQuestion.field_type === 'select_option') {
           vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults),
             angular.extend({}, ProjectQuestion.optionDefaults));
-        } else {
-          vm.projectQuestion.options.length = 0;
         }
       }
 

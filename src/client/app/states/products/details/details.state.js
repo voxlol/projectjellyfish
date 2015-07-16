@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveProduct(Product, $stateParams) {
-    return Product.get({id: $stateParams.productId}).$promise;
+    return Product.get({id: $stateParams.productId, 'methods[]': ['product_type']}).$promise;
   }
 
   /** @ngInject */
