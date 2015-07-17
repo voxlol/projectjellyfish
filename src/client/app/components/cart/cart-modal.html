@@ -10,6 +10,7 @@
     <colgroup>
       <col class="cart-table__col--quantity">
       <col class="cart-table__col--product">
+      <col class="cart-table__col--setup_price">
       <col class="cart-table__col--price">
       <col class="cart-table__col--actions">
     </colgroup>
@@ -17,7 +18,7 @@
     <tr>
       <th class="cart-table__heading cart-table__heading--quantity">Quantity</th>
       <th class="cart-table__heading cart-table__heading--product">Product</th>
-      <th class="cart-table__heading cart-table__heading--price">Setup Price</th>
+      <th class="cart-table__heading cart-table__heading--setup_price">Setup Price</th>
       <th class="cart-table__heading cart-table__heading--price">Monthly Price</th>
       <th class="cart-table__heading cart-table__heading--actions">Action</th>
     </tr>
@@ -28,7 +29,7 @@
       <td class="cart-table__cell cart-table__cell--product">
         <product-description product="line.product" link-to="products.details({productId: {{line.product.id}}})"></product-description>
       </td>
-      <td class="cart-table__cell cart-table__cell--price">{{ line.product.monthly_price | currency }}</td>
+      <td class="cart-table__cell cart-table__cell--setup_price">{{ line.product.setup_price}}</td>
       <td class="cart-table__cell cart-table__cell--price">
         <computed-monthly-price
           pricing="line.product"
