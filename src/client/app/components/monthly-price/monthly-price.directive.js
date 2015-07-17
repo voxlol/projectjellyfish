@@ -13,7 +13,7 @@
         quantity: '=?'
       },
       link: link,
-      template: '<span>{{ vm.computeMonthlyTotal() | number:2}}</span>',
+      template: '<span>{{ vm.computeMonthlyTotal()| currency}}</span>',
       controller: ComputedMonthlyPriceController,
       controllerAs: 'vm',
       bindToController: true

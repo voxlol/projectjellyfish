@@ -29,7 +29,7 @@
       <td class="cart-table__cell cart-table__cell--product">
         <product-description product="line.product" link-to="products.details({productId: {{line.product.id}}})"></product-description>
       </td>
-      <td class="cart-table__cell cart-table__cell--setup_price">{{ line.product.setup_price}}</td>
+      <td class="cart-table__cell cart-table__cell--setup_price">{{ ::line.product.setup_price | currency}}</td>
       <td class="cart-table__cell cart-table__cell--price">
         <computed-monthly-price
           pricing="line.product"
