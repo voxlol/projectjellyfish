@@ -34,7 +34,7 @@
           <product-description product="::row" link-to="products.details({productId: {{row.id}}})"></product-description>
         </td>
         <td class="catalog-category__cell catalog-category__cell--monthly">
-          <computed-monthly-price hourly-price="row.hourly_price" monthly-price="row.monthly_price"></computed-monthly-price>
+          <computed-monthly-price  pricing="row"></computed-monthly-price>
         </td>
         <td ng-if="::vm.project" class="catalog-category__cell catalog-category__cell--actions">
           <img src="images/ic_cart.png" class="catalog-category__action"

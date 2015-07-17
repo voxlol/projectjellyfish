@@ -9,12 +9,11 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        hourlyPrice: '=',
-        monthlyPrice: '=',
+        pricing: '=',
         quantity: '=?'
       },
       link: link,
-      templateUrl: 'app/components/monthly-price/monthly-price.html',
+      template: '<span>{{ vm.computeMonthlyTotal() | number:2}}</span>',
       controller: ComputedMonthlyPriceController,
       controllerAs: 'vm',
       bindToController: true
@@ -37,8 +36,8 @@
         vm.quantity = vm.quantity || 1;
       }
 
-      function computeMonthlyTotal(hourlyprice, monthlyprice) {
-        return ((parseFloat(monthlyprice)) + ((parseFloat(hourlyprice)) * 750)) * vm.quantity;
+      function computeMonthlyTotal() {
+        return ((parseFloat(vm.pricing.monthly_price)) + ((parseFloat(vm.pricing.hourly_price)) * 750)) * vm.quantity;
       }
     }
   }

@@ -31,8 +31,7 @@
       <td class="cart-table__cell cart-table__cell--price">{{ line.product.monthly_price | currency }}</td>
       <td class="cart-table__cell cart-table__cell--price">
         <computed-monthly-price
-          hourly-price="line.product.hourly_price"
-          monthly-price="line.product.monthly_price"
+          pricing="line.product"
           quantity="line.quantity">
         </computed-monthly-price></td>
       <td class="cart-table__cell cart-table__cell--actions">
