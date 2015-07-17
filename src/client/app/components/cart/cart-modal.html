@@ -17,7 +17,8 @@
     <tr>
       <th class="cart-table__heading cart-table__heading--quantity">Quantity</th>
       <th class="cart-table__heading cart-table__heading--product">Product</th>
-      <th class="cart-table__heading cart-table__heading--price">Price</th>
+      <th class="cart-table__heading cart-table__heading--price">Setup Price</th>
+      <th class="cart-table__heading cart-table__heading--price">Monthly Price</th>
       <th class="cart-table__heading cart-table__heading--actions">Action</th>
     </tr>
     </thead>
@@ -27,7 +28,13 @@
       <td class="cart-table__cell cart-table__cell--product">
         <product-description product="line.product" link-to="products.details({productId: {{line.product.id}}})"></product-description>
       </td>
-      <td class="cart-table__cell cart-table__cell--price">{{ line.price | currency }}</td>
+      <td class="cart-table__cell cart-table__cell--price">{{ line.product.monthly_price | currency }}</td>
+      <td class="cart-table__cell cart-table__cell--price">
+        <computed-monthly-price
+          hourly-price="line.product.hourly_price"
+          monthly-price="line.product.monthly_price"
+          quantity="line.quantity">
+        </computed-monthly-price></td>
       <td class="cart-table__cell cart-table__cell--actions">
         <a class="cart-table__action" href="#" title="Remove" ng-click="vm.remove(item.project, line.product)">
           <img src="/images/ic_deletequestion.png" alt="Remove"/>

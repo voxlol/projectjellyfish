@@ -21,7 +21,7 @@
         <div class="compare-modal__cell compare-modal__cell--value"
              ng-repeat="value in ::row.values track by $index"
              ng-class="{'compare-modal__cell--even': $even}">
-          {{ ::value }}
+          {{ ::value | number:2 }}
         </div>
       </div>
     </div>
