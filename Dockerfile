@@ -45,4 +45,7 @@ CMD bash -c "source ~/.bash_profile;cd /root/api;rails s -b 0.0.0.0"
 # ENV AWS_ACCESS_KEY <aws access key>
 # ENV AWS_SECRET_KEY <aws secret key>
 
+# docker build -t jellyfish .
+# docker run -d -p 3000:3000 jellyfish
+
 # Finished
