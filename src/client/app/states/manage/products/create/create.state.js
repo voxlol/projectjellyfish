@@ -44,7 +44,6 @@
     activate();
 
     function activate() {
-      logger.info('Activated Manage Products Create View');
       vm.productType = null !== $stateParams.productType ? $stateParams.productType : productTypes[0];
       initProduct();
     }

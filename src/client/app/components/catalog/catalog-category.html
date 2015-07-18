@@ -16,17 +16,10 @@
             class="catalog-category__heading catalog-category__heading--description catalog-category__heading--sortable">
           Description
         </th>
-        <th st-sort="setup_price"
-            class="catalog-category__heading catalog-category__heading--setup catalog-category__heading--sortable">
-          Setup Price
-        </th>
+
         <th st-sort="monthly_price"
             class="catalog-category__heading catalog-category__heading--monthly catalog-category__heading--sortable">
           Monthly Price
-        </th>
-        <th st-sort="hourly_price"
-            class="catalog-category__heading catalog-category__heading--hourly catalog-category__heading--sortable">
-          Hourly Price
         </th>
         <th ng-if="::vm.project" class="catalog-category__heading catalog-category__heading--actions">Action</th>
       </tr>
@@ -40,9 +33,9 @@
         <td class="catalog-category__cell catalog-category__cell--description">
           <product-description product="::row" link-to="products.details({productId: {{row.id}}})"></product-description>
         </td>
-        <td class="catalog-category__cell catalog-category__cell--setup">{{ ::row.setup_price }}</td>
-        <td class="catalog-category__cell catalog-category__cell--monthly">{{ ::row.monthly_price }}</td>
-        <td class="catalog-category__cell catalog-category__cell--hourly">{{ ::row.hourly_price }}</td>
+        <td class="catalog-category__cell catalog-category__cell--monthly">
+          <computed-monthly-price  pricing="row"></computed-monthly-price>
+        </td>
         <td ng-if="::vm.project" class="catalog-category__cell catalog-category__cell--actions">
           <img src="images/ic_cart.png" class="catalog-category__action"
                alt="Add to cart" title="Add to cart"

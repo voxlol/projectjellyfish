@@ -22,7 +22,7 @@
       name: '',
       help: '',
       required: false,
-      type: 'multiple',
+      field_type: 'select_option',
       options: []
     };
 

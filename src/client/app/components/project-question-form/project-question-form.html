@@ -65,13 +65,17 @@
                 confirmation-show-cancel="false"
                 confirmation-on-ok="vm.typeChangeOk()"
                 confirmation-on-cancel="vm.typeChangeCancel()">
-          <option value="yes_no">"Yes or No"</option>
+          <option value="date">Date Picker</option>
           <option value="select_option">Multiple Choice</option>
+          <option value="text">Text Input</option>
+          <option value="check_box">Checkbox</option>
+          <option value="radio">Yes/No</option>
+
         </select>
       </div>
     </div>
 
-    <project-question-options options="vm.projectQuestion.options"
+    <project-question-options ng-if="vm.projectQuestion.field_type === 'select_option'" options="vm.projectQuestion.options"
                               options-type="vm.projectQuestion.field_type"></project-question-options>
 
   </div>

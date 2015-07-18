@@ -45,7 +45,6 @@
       vm.optionLabel = optionLabel;
       vm.canAdd = canAdd;
       vm.canRemove = canRemove;
-      vm.canSort = canSort;
       vm.removeOption = removeOption;
 
       function activate() {
@@ -57,25 +56,17 @@
       }
 
       function optionLabel(index) {
-        if ('multiple' === vm.type) {
+        if ('select_option' === vm.type) {
           return 'Option ' + (index + 1);
-        } else if (0 === index) {
-          return 'Yes';
-        } else {
-          return 'No';
         }
       }
 
       function canAdd() {
-        return 'yes_no' !== vm.type && vm.options.length < vm.maxOptions;
+        return 'select_option' === vm.type && vm.options.length < vm.maxOptions;
       }
 
       function canRemove() {
         return vm.options.length > 2;
-      }
-
-      function canSort() {
-        return 'yes_no' !== vm.type;
       }
 
       function removeOption(index) {
