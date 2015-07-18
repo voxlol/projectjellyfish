@@ -4,13 +4,19 @@
   last_name: User
   email: admin@projectjellyfish.org
   password: jellyfish
-  role: 1
+  role: admin
+- _assoc: manager
+  first_name: Manager
+  last_name: User
+  email: manager@projectjellyfish.org
+  password: jellyfish
+  role: manager
 - _assoc: user
   first_name: Normal
   last_name: User
   email: user@projectjellyfish.org
   password: jellyfish
-  role: 0
+  role: user
   alerts:
     - status: ok
       message: User has 2 months to compelte training.
@@ -18,6 +24,32 @@
     - status: warning
       message: User has 1 week to complete training.
       category: training
+- _assoc: user
+  first_name: John
+  last_name: Doe
+  email: doe_john@projectjellyfish.org
+  password: jellyfish
+  role: user
+- _assoc: user
+  first_name: John
+  last_name: Smith
+  email: smith_john@projectjellyfish.org
+  password: jellyfish
+  role: user
+- _assoc: user
+  first_name: Jane
+  last_name: Jones
+  email: jones_jane@projectjellyfish.org
+  password: jellyfish
+  role: user
+- _assoc: user
+  first_name: Mary
+  last_name: Smith
+  email: smith_mary@projectjellyfish.org
+  password: jellyfish
+  role: user
+
+
 
 # Other Users that are being skipped
 # Unused User : unused@projectjellyfish.org

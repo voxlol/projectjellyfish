@@ -53,7 +53,7 @@ class Staff < ActiveRecord::Base
   # Enabling others may require migrations to be made and run
   devise :database_authenticatable, :trackable, :validatable
 
-  enum role: [:user, :admin]
+  enum role: { user: 0, admin: 1, manager: 2 }
 
   attr_accessor :api_token
 

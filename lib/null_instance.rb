@@ -1,2 +1,0 @@
-class NullInstance < ::ProductInstance
-end

@@ -20,9 +20,14 @@
       setup_price: '0.0',
       monthly_price: '0.0',
       hourly_price: '0.0',
-      tag_list: [],
-      properties: {}
+      tags: []
     };
+
+    Product.new = newProduct;
+
+    function newProduct(data) {
+      return new Product(angular.extend({}, Product.defaults, data || {}));
+    }
 
     return Product;
   }

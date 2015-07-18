@@ -9,7 +9,9 @@
     var service = {
       create: create,
       destroy: destroy,
-      fullName: fullName
+      fullName: fullName,
+      isAdmin: isAdmin,
+      isManager: isManager
     };
 
     destroy();
@@ -38,6 +40,14 @@
 
     function fullName() {
       return [service.firstName, service.lastName].join(' ');
+    }
+
+    function isAdmin() {
+      return service.role === 'admin';
+    }
+
+    function isManager() {
+      return isAdmin() || 'manager' === service.role;
     }
   }
 })();

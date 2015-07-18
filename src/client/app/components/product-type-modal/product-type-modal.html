@@ -9,7 +9,7 @@
 <div class="product-type-modal__body">
   <p>{{ ::vm.message }}</p>
   <select class="product-type-modal__select"
-          ng-options="productType as productType.title for productType in ::vm.productTypes"
+          ng-options="productType as productType.name for productType in ::vm.productTypes"
           ng-model="vm.productType"></select>
 </div>
 

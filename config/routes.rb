@@ -20,13 +20,10 @@ Rails.application.routes.draw do
       end
     end
 
-    # Products
-    resources :products, param: :type do
-      get :listings, controller: 'product/listing'
-    end
-    namespace :product do
-      resources :listings
-    end
+    # Products & related
+    resources :products
+    resources :product_types, only: [:index, :show]
+    resources :product_categories
 
     # Alerts Routes
     resources :alerts do
@@ -51,8 +48,6 @@ Rails.application.routes.draw do
     # Organizations
     resources :organizations
 
-
-    resources :product_categories
 
     # Chargebacks
     resources :chargebacks

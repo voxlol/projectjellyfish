@@ -22,7 +22,7 @@ class Service < ActiveRecord::Base
   has_many :alerts, as: :alertable
   has_one :order
   has_one :project, through: :order
-  has_one :product_listing, through: :order
+  has_one :product, through: :order
 
   def actions
     []

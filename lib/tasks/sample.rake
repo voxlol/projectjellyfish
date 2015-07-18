@@ -35,10 +35,10 @@ namespace :sample do
       [data.delete('_assoc'), ProductCategory.create(data)]
     end
 
-    product_listings = sample_data('product_listings').map do |data|
+    products = sample_data('products').map do |data|
       answers = data.delete 'answers'
-      [data.delete('_assoc'), Product::Listing.create(data).tap do |listing|
-          listing.answers.create(answers) unless answers.nil?
+      [data.delete('_assoc'), Product.create(data).tap do |product|
+          product.answers.create(answers) unless answers.nil?
         end]
     end
 
@@ -75,12 +75,12 @@ namespace :sample do
       data['uuid'] = SecureRandom.uuid
       [data.delete('_assoc'), Service.create(data).tap do |service|
           service.alerts.create(alerts) unless alerts.nil?
-          product_listing = product_listings.assoc(order.delete('product_listing')).last
+          product = products.assoc(order.delete('product')).last
           project = projects.assoc(order.delete('project')).last
-          order.merge! project: project, product_listing: product_listing
-          order.merge! setup_price: product_listing.setup_price,
-            hourly_price: product_listing.hourly_price,
-            monthly_price: product_listing.monthly_price
+          order.merge! project: project, product: product
+          order.merge! setup_price: product.setup_price,
+            hourly_price: product.hourly_price,
+            monthly_price: product.monthly_price
           service.create_order order
         end]
     end

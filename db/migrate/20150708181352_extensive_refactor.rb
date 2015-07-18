@@ -19,20 +19,36 @@ class ExtensiveRefactor < ActiveRecord::Migration
   end
 
   def up
-    # Create product_listings : Product listings in the marketplace
-    create_table :product_listings do |t|
+    # Create properties : Collection of properties for objects
+    create_table :answers do |t|
       t.timestamps null: false
-      t.datetime :deleted_at
-      t.string :product_type, index: true, null: false
+      t.references :answerable, index: true, null: false, polymorphic: true
       t.string :name, null: false
-      t.text :description
-      t.string :img
-      t.boolean :active
-      t.decimal :setup_price, precision: 10, scale: 4
-      t.decimal :hourly_price, precision: 10, scale: 4
-      t.decimal :monthly_price, precision: 10, scale: 4
-      t.text :cached_tag_list
+      t.text :value
+      t.integer :value_type
+      t.text :default
     end
+
+    # # Create product_listings : Product listings in the marketplace
+    # create_table :product_listings do |t|
+    #   t.timestamps null: false
+    #   t.datetime :deleted_at
+    #   t.string :product_type, index: true, null: false
+    #   t.string :name, null: false
+    #   t.text :description
+    #   t.string :img
+    #   t.boolean :active, null: false, default: true
+    #   t.decimal :setup_price, precision: 10, scale: 4
+    #   t.decimal :hourly_price, precision: 10, scale: 4
+    #   t.decimal :monthly_price, precision: 10, scale: 4
+    #   t.text :cached_tag_list
+    # end
+    #
+    # TODO: Migrate products.provisioning_answers to answers
+    remove_column :products, :provisioning_answers, :jsonb
+    change_column_null :products, :name, false
+    change_column_null :products, :product_type, false
+    add_index :products, :product_type
 
     # Create services : Instances of a product_listing
     create_table :services do |t|
@@ -52,16 +68,6 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.text :description
       t.text :value
       t.integer :value_type, default: 0
-      t.text :default
-    end
-
-    # Create properties : Collection of properties for objects
-    create_table :answers do |t|
-      t.timestamps null: false
-      t.references :answerable, index: true, null: false, polymorphic: true
-      t.string :name, null: false
-      t.text :value
-      t.integer :value_type
       t.text :default
     end
 
@@ -89,8 +95,8 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Create orders : Used to record budget utilization
     create_table :orders do |t|
       t.timestamps null: false
-      t.references :project, index: true, foreign_key: { on_delete: :restrict }, null: false
-      t.references :product_listing, index: true, null: false, foreign_key: { on_delete: :cascade }
+      t.references :project, index: true, null: false, foreign_key: { on_delete: :cascade }
+      t.references :product, index: true, null: false, foreign_key: { on_delete: :cascade }
       t.references :service, index: true, unique: true, null: false, foreign_key: { on_delete: :cascade }
       t.decimal :setup_price, precision: 10, scale: 4
       t.decimal :hourly_price, precision: 10, scale: 4

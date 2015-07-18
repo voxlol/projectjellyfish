@@ -1,45 +1,37 @@
-class Product
-  include ActiveModel::Serialization
-  include ActiveModel::SerializerSupport
+# == Schema Information
+#
+# Table name: products
+#
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  description          :text
+#  active               :boolean
+#  img                  :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  deleted_at           :datetime
+#  setup_price          :decimal(10, 4)   default(0.0)
+#  hourly_price         :decimal(10, 4)   default(0.0)
+#  monthly_price        :decimal(10, 4)   default(0.0)
+#  provisioning_answers :jsonb
+#  product_type         :string
+#  cached_tag_list      :string
+#
+# Indexes
+#
+#  index_products_on_deleted_at    (deleted_at)
+#  index_products_on_product_type  (product_type)
+#
 
-  class_attribute :registered_products
-  self.registered_products = {}
+class Product < ActiveRecord::Base
 
-  def self.[]=(key, product)
-    fail(StandardError, "Product '%s' is already registered.".format(key)) if registered_products.key? key
-    fail(StandardError, "Product class '%s' is already registered.".format(product.name)) if registered_products.key key
-    registered_products[key] = product
-  end
+  acts_as_paranoid
+  acts_as_taggable
 
-  def self.[](key)
-    registered_products[key]
-  end
+  has_many :answers, as: :answerable
+  has_many :orders
 
-  def self.types
-    registered_products.keys
-  end
-
-  def self.all
-    registered_products.values
-  end
-
-  def name
-    self.class.to_s.split('::').last.titlecase
-  end
-
-  def service_class
-    Service
-  end
-
-  def listing_form
-    []
-  end
-
-  def service_form
-    []
-  end
-
-  def as_json(_)
-    { name: name, listing_form: listing_form, service_form: service_form }
+  def product_type
+    ProductType[self[:product_type]]
   end
 end

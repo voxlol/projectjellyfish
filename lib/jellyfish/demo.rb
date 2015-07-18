@@ -9,6 +9,6 @@ if Rails.env.development?
 
     requires_jellyfish '>= 3.5.0'
 
-    register_product Null::Product
+#    register_product Null::Product
   end
 end

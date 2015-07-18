@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at"
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.integer  "count"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carts", ["staff_id"], name: "index_carts_on_staff_id", using: :btree
+
   create_table "chargebacks", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cloud_id"
@@ -110,6 +119,17 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "chargebacks", ["cloud_id"], name: "index_chargebacks_on_cloud_id", using: :btree
   add_index "chargebacks", ["deleted_at"], name: "index_chargebacks_on_deleted_at", using: :btree
   add_index "chargebacks", ["product_id"], name: "index_chargebacks_on_product_id", using: :btree
+
+  create_table "clouds", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "extra"
+    t.datetime "deleted_at"
+  end
+
+  add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
 
   create_table "content_pages", force: :cascade do |t|
     t.datetime "created_at"
@@ -170,6 +190,16 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "groups_staff", ["group_id"], name: "index_groups_staff_on_group_id", using: :btree
   add_index "groups_staff", ["staff_id"], name: "index_groups_staff_on_staff_id", using: :btree
 
+  create_table "logs", force: :cascade do |t|
+    t.integer  "staff_id",   null: false
+    t.integer  "level"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
+
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -202,17 +232,17 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "notifications", ["staff_id"], name: "index_notifications_on_staff_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.integer  "project_id",                                  null: false
-    t.integer  "product_listing_id",                          null: false
-    t.integer  "service_id",                                  null: false
-    t.decimal  "setup_price",        precision: 10, scale: 4
-    t.decimal  "hourly_price",       precision: 10, scale: 4
-    t.decimal  "monthly_price",      precision: 10, scale: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "project_id",                             null: false
+    t.integer  "product_id",                             null: false
+    t.integer  "service_id",                             null: false
+    t.decimal  "setup_price",   precision: 10, scale: 4
+    t.decimal  "hourly_price",  precision: 10, scale: 4
+    t.decimal  "monthly_price", precision: 10, scale: 4
   end
 
-  add_index "orders", ["product_listing_id"], name: "index_orders_on_product_listing_id", using: :btree
+  add_index "orders", ["product_id"], name: "index_orders_on_product_id", using: :btree
   add_index "orders", ["project_id"], name: "index_orders_on_project_id", using: :btree
   add_index "orders", ["service_id"], name: "index_orders_on_service_id", using: :btree
 
@@ -237,22 +267,31 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at"
   end
 
-  create_table "product_listings", force: :cascade do |t|
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.datetime "deleted_at"
-    t.string   "product_type",                             null: false
-    t.string   "name",                                     null: false
+  create_table "product_types", force: :cascade do |t|
+    t.string   "name"
     t.text     "description"
-    t.string   "img"
-    t.boolean  "active"
-    t.decimal  "setup_price",     precision: 10, scale: 4
-    t.decimal  "hourly_price",    precision: 10, scale: 4
-    t.decimal  "monthly_price",   precision: 10, scale: 4
-    t.text     "cached_tag_list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.json     "questions_form_schema"
   end
 
-  add_index "product_listings", ["product_type"], name: "index_product_listings_on_product_type", using: :btree
+  create_table "products", force: :cascade do |t|
+    t.string   "name",            limit: 255,                                        null: false
+    t.text     "description"
+    t.boolean  "active"
+    t.string   "img",             limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.decimal  "setup_price",                 precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",                precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",               precision: 10, scale: 4, default: 0.0
+    t.string   "product_type",                                                       null: false
+    t.string   "cached_tag_list"
+  end
+
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["product_type"], name: "index_products_on_product_type", using: :btree
 
   create_table "project_answers", force: :cascade do |t|
     t.integer  "project_id"
@@ -264,6 +303,23 @@ ActiveRecord::Schema.define(version: 20150711044620) do
 
   add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
   add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
+
+  create_table "project_details", force: :cascade do |t|
+    t.string  "requestor_name"
+    t.date    "requestor_date"
+    t.string  "team_name"
+    t.integer "charge_number"
+    t.float   "nte_budget"
+    t.string  "project_owner"
+    t.string  "sr_associate"
+    t.string  "principal"
+    t.date    "estimated_termination_date"
+    t.string  "data_type"
+    t.string  "others"
+    t.integer "project_id"
+  end
+
+  add_index "project_details", ["project_id"], name: "index_project_details_on_project_id", using: :btree
 
   create_table "project_questions", force: :cascade do |t|
     t.string   "question",   limit: 255
@@ -388,6 +444,32 @@ ActiveRecord::Schema.define(version: 20150711044620) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "user_setting_options", force: :cascade do |t|
+    t.string   "label",      limit: 255
+    t.string   "field_type", limit: 100
+    t.string   "help_text",  limit: 255
+    t.text     "options"
+    t.boolean  "required",               default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "user_setting_options", ["deleted_at"], name: "index_user_setting_options_on_deleted_at", using: :btree
+  add_index "user_setting_options", ["label"], name: "index_user_setting_options_on_label", unique: true, using: :btree
+
+  create_table "user_settings", force: :cascade do |t|
+    t.integer  "staff_id"
+    t.string   "name",       limit: 255
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "user_settings", ["deleted_at"], name: "index_user_settings_on_deleted_at", using: :btree
+  add_index "user_settings", ["staff_id", "name"], name: "index_user_settings_on_staff_id_and_name", unique: true, using: :btree
+
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -421,8 +503,8 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_foreign_key "groups_staff", "staff", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
   add_foreign_key "memberships", "projects", on_delete: :cascade
-  add_foreign_key "orders", "product_listings", on_delete: :cascade
-  add_foreign_key "orders", "projects", on_delete: :restrict
+  add_foreign_key "orders", "products", on_delete: :cascade
+  add_foreign_key "orders", "projects", on_delete: :cascade
   add_foreign_key "orders", "services", on_delete: :cascade
   add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end

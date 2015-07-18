@@ -19,8 +19,8 @@
 #
 # Indexes
 #
-#  index_products_on_deleted_at       (deleted_at)
-#  index_products_on_product_type_id  (product_type_id)
+#  index_products_on_deleted_at    (deleted_at)
+#  index_products_on_product_type  (product_type)
 #
 
 #

@@ -6,10 +6,7 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
-  PRODUCT_METHODS = %w(product_type)
-
   api :GET, '/products', 'Returns a collection of products'
-  param :methods, Array, in: PRODUCT_METHODS
   param :page, :number
   param :per_page, :number
   param :active, :bool
@@ -23,7 +20,6 @@ class ProductsController < ApplicationController
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
   param :includes, Array, in: %w(chargebacks)
-  param :methods, Array, in: PRODUCT_METHODS
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -60,7 +56,6 @@ class ProductsController < ApplicationController
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
-  param :methods, Array, in: PRODUCT_METHODS
   param :id, :number, required: true
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :description, String, desc: 'Short description', required: true
