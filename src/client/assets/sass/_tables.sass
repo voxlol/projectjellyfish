@@ -1,0 +1,60 @@
++block(tables)
+  @extend .table-striped
+  width: 100%
+  background-color: $app-color-white
+
+  +element(heading)
+    height: 44px
+    font-weight: bold
+    text-transform: uppercase
+    color: $app-color-gray
+    padding-right: 10px
+
+    &:first-child
+      padding-left: 20px
+
+    +modifier(centered)
+      text-align: center
+      padding: 0
+
+    +modifier(sortable)
+      color: $app-color-blue
+      cursor: pointer
+
+      &.st-sort-ascent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f077"
+        padding-left: 4px
+
+      &.st-sort-descent::after
+        font: normal normal normal 12px/1 FontAwesome
+        content: "\f078"
+        padding-left: 4px
+
+    +modifier(actions)
+      width: 136px
+
+  +element(cell)
+    height: 44px
+    font-size: 14px
+    border: none
+    padding: 10px 10px 10px 0
+    vertical-align: top
+    position: relative
+
+    &:first-child
+      padding-left: 20px
+
+    +modifier(centered)
+      text-align: center
+      padding: 0
+
+    +modifier(actions)
+      width: 136px
+
+  +element(action)
+    margin-right: 20px
+    cursor: pointer
+
+    &:last-child
+      margin-right: 0

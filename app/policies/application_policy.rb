@@ -58,6 +58,10 @@ class ApplicationPolicy
     true
   end
 
+  def only_managers!
+    user.manager? || user.admin?
+  end
+
   def only_admins!
     user.admin?
   end

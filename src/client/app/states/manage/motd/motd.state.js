@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.motd': {
+      'manage.motd': {
         url: '/motd',
-        redirectTo: 'admin.motd.edit',
+        redirectTo: 'manage.motd.edit',
         template: '<ui-view></ui-view>'
       }
     };
@@ -27,9 +27,9 @@
 
   function sidebarItems() {
     return {
-      'admin.alerts': {
+      'manage.alerts': {
         type: 'state',
-        state: 'admin.motd',
+        state: 'manage.motd',
         label: 'Message of the Day',
         order: 3
       }

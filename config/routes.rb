@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :product_types, only: [:index, :show]
     resources :product_categories
 
+    # Settings
+    resources :settings, only: [:index, :update], param: :name
+
     # Alerts Routes
     resources :alerts do
       collection do

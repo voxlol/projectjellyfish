@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.groups',
         label: 'Groups',
-        order: 2
+        order: 1
       }
     };
   }

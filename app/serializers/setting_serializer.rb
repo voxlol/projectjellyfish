@@ -18,9 +18,14 @@
 #
 
 class SettingSerializer < ApplicationSerializer
-  attributes :id, :name, :value
+  attributes :id, :group, :name, :description, :value, :value_type
+
+  def group
+    object.type.split('::').last
+  end
 
   def value
-    nil if object.password?
+    return nil if object.password?
+    object.value
   end
 end

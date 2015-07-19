@@ -46,6 +46,8 @@ class Setting < ActiveRecord::Base
     email: 12
   }
 
+  default_scope { order(:name) }
+
   def self.[](name)
     name = name.to_s
     Setting.cache.fetch name do
@@ -68,6 +70,10 @@ class Setting < ActiveRecord::Base
   def self.create!(opts)
     s = Setting.find_by name: opts[:name].to_s
     s.nil? ? super(opts.merge(value: SETTINGS[opts[:name].to_sym] || opts[:value])) : create_existing(s, opts)
+  end
+
+  def self.policy_class
+    SettingPolicy
   end
 
   def value
@@ -121,7 +127,7 @@ class Setting < ActiveRecord::Base
 
   def self.create_existing(s, opts)
     bypass_readonly(s) do
-      to_update = Hash[opts.select { |k, _| [:default].include? k }]
+      to_update = Hash[opts.select { |k, _| [:default, :value_type].include? k }]
       to_update.merge!(value: SETTINGS[opts[:name].to_sym]) if SETTINGS.key?(opts[:name].to_sym)
       s.update_attributes to_update
       s.update_column :type, opts[:type] if s.type != opts[:type]

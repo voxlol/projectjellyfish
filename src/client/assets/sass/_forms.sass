@@ -1,7 +1,12 @@
++block(forms)
+  @extend .form-horizontal
+
 +block(field)
+  @extend .form-group
   position: relative
 
   +element(aside)
+    +make-sm-column(3)
     @extend .text-right
     text-transform: uppercase
     height: 42px
@@ -16,6 +21,7 @@
     transform: translateY(-50%)
 
   +element(body)
+    +make-sm-column(9)
     min-height: 1px
 
     +modifier(checkbox)
@@ -37,7 +43,9 @@
       -webkit-appearance: none
 
   +element(group-input)
+
     +modifier(input)
+      @extend .form-control
       border-radius: 0 5px 5px 0
       min-height: 42px
       border: 1px solid $app-color-gray

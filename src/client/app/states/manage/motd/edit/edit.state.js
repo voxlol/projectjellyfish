@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'admin.motd.edit': {
+      'manage.motd.edit': {
         url: '/motd/edit',
-        templateUrl: 'app/states/admin/motd/edit/edit.html',
+        templateUrl: 'app/states/manage/motd/edit/edit.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin Edit MOTD',
+        title: 'Manage Edit MOTD',
         resolve: {
           motd: resolveMotd
         }
