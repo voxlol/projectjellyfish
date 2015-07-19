@@ -32,7 +32,7 @@
       vm.activate = activate;
 
       function activate() {
-        vm.linkTo = vm.linkTo || 'products.details({productId: vm.product.id})'
+        vm.linkTo = vm.linkTo || 'products.details({productId: vm.product.id})';
       }
     }
   }
