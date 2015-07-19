@@ -40,7 +40,7 @@
   }
 
   /** @ngInject */
-  function resolveProductTypes(Product) {
-    return Product.query().$promise;
+  function resolveProductTypes(ProductType) {
+    return ProductType.query().$promise;
   }
 })();

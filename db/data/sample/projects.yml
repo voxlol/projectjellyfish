@@ -123,7 +123,7 @@
   budget: 50000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
-  img: nil
+  img:
   spent: 0
   status: 0
   approval: 0
@@ -149,7 +149,7 @@
   budget: 10000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
-  img: nil
+  img:
   spent: 0
   status: 0
   approval: 0

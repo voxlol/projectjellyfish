@@ -57,15 +57,15 @@ class Project < ActiveRecord::Base
   scope :active, -> { where(archived: nil) }
   scope :archived, -> { where.not(archived: nil) }
 
-  def order_history
-    history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
-      order_json = order.as_json
-      order_json[:item_count] = order.item_count_for_project_id(id)
-      order_json[:total] = order.total_per_order(order.id)
-      order_json
-    end
-    history
-  end
+  # def order_history
+  #   history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
+  #     order_json = order.as_json
+  #     order_json[:item_count] = order.item_count_for_project_id(id)
+  #     order_json[:total] = order.total_per_order(order.id)
+  #     order_json
+  #   end
+  #   history
+  # end
 
   def compute_current_status!
     if latest_service_alerts.any?
@@ -75,13 +75,13 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def domain
-    'companyapp1.clouddealer.com/'
-  end
+  # def domain
+  #   'companyapp1.clouddealer.com/'
+  # end
 
-  def url
-    'http://companyapp1.clouddealer.com'
-  end
+  # def url
+  #   'http://companyapp1.clouddealer.com'
+  # end
 
   def state
     1 == problem_count ? '1 Problem' : "#{problem_count} Problems"
@@ -99,29 +99,29 @@ class Project < ActiveRecord::Base
     @problem_count ||= latest_service_alerts.count { |a| a unless a.status == 'ok' }
   end
 
-  def account_number
-    785
-  end
+  # def account_number
+  #   785
+  # end
 
-  def resources
-    256
-  end
+  # def resources
+  #   256
+  # end
 
-  def resource_unit
-    'MB'
-  end
+  # def resource_unit
+  #   'MB'
+  # end
 
-  def cpu
-    8
-  end
+  # def cpu
+  #   8
+  # end
 
-  def hdd
-    '42 GB'
-  end
+  # def hdd
+  #   '42 GB'
+  # end
 
-  def ram
-    '2 GB'
-  end
+  # def ram
+  #   '2 GB'
+  # end
 
   def latest_service_alerts
     services.map(&:latest_alerts).flatten

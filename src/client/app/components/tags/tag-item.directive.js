@@ -11,7 +11,9 @@
       scope: {
         text: '=',
         selected: '=?',
-        onRemove: '&'
+        active: '=?',
+        onRemove: '&?',
+        allowRemove: '=?'
       },
       link: link,
       templateUrl: 'app/components/tags/tag-item.html',
@@ -37,6 +39,8 @@
 
       function activate() {
         vm.selected = angular.isUndefined(vm.selected) ? false : vm.selected;
+        vm.active = angular.isUndefined(vm.active) ? false : vm.active;
+        vm.allowRemove = angular.isUndefined(vm.allowRemove) ? true : vm.allowRemove;
       }
 
       function remove() {

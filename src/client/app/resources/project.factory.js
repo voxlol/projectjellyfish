@@ -7,21 +7,21 @@
   /** @ngInject */
   function ProjectFactory($resource, lodash, moment) {
     var Project = $resource('/api/v1/projects/:id', {id: '@id'}, {
-      'query': {
-        method: 'GET',
-        params: {
-          'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'status', 'monthly_spend']
-        },
-        isArray: true
-      },
-      'get': {
-        method: 'GET',
-        params: {
-          'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'status', 'monthly_spend', 'order_history']
-        }
-      },
+      //'query': {
+      //  method: 'GET',
+      //  params: {
+      //    'methods[]': ['domain', 'url', 'problem_count', 'account_number',
+      //      'resources', 'resources_unit', 'status', 'monthly_spend']
+      //  },
+      //  isArray: true
+      //},
+      //'get': {
+      //  method: 'GET',
+      //  params: {
+      //    'methods[]': ['domain', 'url', 'problem_count', 'account_number',
+      //      'resources', 'resources_unit', 'status', 'monthly_spend']
+      //  }
+      //},
       'update': {method: 'PUT'},
       'approve': {
         url: '/api/v1/projects/:id/approve',

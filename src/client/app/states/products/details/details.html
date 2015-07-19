@@ -1,4 +1,4 @@
-<content-header short="true">
+<content-header>
   <div class="product-details-heading">
     <img ng-if="vm.product.img" class="product-details-heading__icon" ng-src="images/assets/{{ ::vm.product.img }}"/>
     <span class="content-header__title">{{ ::vm.product.name }}</span>
@@ -7,10 +7,13 @@
 
 <details-table heading="Details">
   <div class="details-table__row">
-    <div class="details-table__label">Product</div>
-    <div class="details-table__detail">
-      <product-description product="vm.product" link-to="products.details({productId: {{vm.product.id}}})"></product-description>
-    </div>
+    <div class="details-table__label">Name</div>
+    <div class="details-table__detail">{{  ::vm.product.name }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Description</div>
+    <div class="details-table__detail">{{ ::vm.product.description }}</div>
   </div>
 
   <div class="details-table__row">
@@ -26,7 +29,11 @@
 
   <div class="details-table__row">
     <div class="details-table__label">Product Tags</div>
-    <div class="details-table__detail" ng-bind-html="vm.tagList(vm.product.tags)"></div>
+    <div class="details-table__detail">
+      <div class="product-details__tag" ng-repeat="tag in vm.product.tags track by $index">
+        <tag-item allow-remove="false" active="true" text="::tag"></tag-item>
+      </div>
+    </div>
   </div>
 
   <div class="details-table__row">

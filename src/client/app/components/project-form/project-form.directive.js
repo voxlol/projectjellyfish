@@ -77,7 +77,7 @@
           if (vm.project.id) {
             vm.filteredProject = lodash.omit(vm.project, 'created_at', 'updated_at', 'deleted_at', 'services', 'domain',
               'url', 'state', 'state_ok', 'problem_count', 'account_number', 'resources', 'icon', 'status', 'users',
-              'order_history', 'cc', 'staff_id', 'approved', 'project_answers');
+              'cc', 'staff_id', 'approved', 'project_answers');
             if (angular.isDefined(vm.project.project_answers) && (vm.project.project_answers.length > 0)) {
               vm.filteredProject.project_answers = lodash.map(
                 vm.project.project_answers, projectAnswerReduction);

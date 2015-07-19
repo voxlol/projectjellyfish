@@ -2,7 +2,7 @@
   display: block
   color: $app-color-white
   background-color: $app-color-green
-  padding: 0 28px 0 8px
+  padding: 0 6px 0 8px
   font-size: 12px
   height: 2em
   line-height: 2em
@@ -16,6 +16,12 @@
 
     +element(button)
       background-color: darken($app-color-pink, 20%)
+
+  +modifier(removable)
+    padding-right: 28px
+
+  +element(active)
+    padding-left: 2px
 
   +element(button)
     display: block
