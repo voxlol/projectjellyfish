@@ -34,7 +34,7 @@
         label: 'Logout',
         style: 'logout',
         isVisible: isVisible,
-        order: 99
+        order: 9999
       }
     };
   }
