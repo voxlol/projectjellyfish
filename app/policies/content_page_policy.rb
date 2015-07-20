@@ -8,7 +8,7 @@ class ContentPagePolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin?
+    true
   end
 
   def new?
