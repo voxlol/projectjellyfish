@@ -35,7 +35,7 @@
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, Product, productTypes) {
+  function StateController($stateParams, Product, productTypes) {
     var vm = this;
 
     vm.title = 'Admin Products Create';
@@ -52,10 +52,12 @@
 
     function initProduct() {
       vm.product = angular.extend(new Product(), Product.defaults);
-      angular.forEach(vm.productType.schema.properties, initProperty);
+      console.log(vm.productType.title);
+      angular.forEach(vm.productType.properties, initProperty);
 
       function initProperty(property, key) {
-        vm.product.properties[key] = angular.isDefined(property.default) ? property.default : null;
+        vm.product.provisioning_answers[key] = angular.isDefined(property.default) ? property.default : null;
+        vm.product.product_type = vm.productType.title;
       }
     }
   }

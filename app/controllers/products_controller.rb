@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
   param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
-  param :tag_list, Array, desc: 'Array of Strings'
+  param :tags, Array, desc: 'Array of Strings'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -70,7 +70,7 @@ class ProductsController < ApplicationController
   param :product_type, String, desc: 'Product Type', required: true
   param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
   param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
-  param :tag_list, Array, desc: 'Array of Strings'
+  param :tags, Array, desc: 'Array of Strings'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
