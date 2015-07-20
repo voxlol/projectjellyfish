@@ -1,12 +1,13 @@
   class ProjectServicesController < ApplicationController
     after_action :verify_authorized
 
-    def index
-      respond_with services
-    end
+    api :GET, '/project/:project_id/services', 'Returns a collection of services related to a project'
+    param :includes, Array, in: %w(project order product product_type)
+    param :page, :number
+    param :per_page, :number
 
-    def show
-      respond_with service
+    def index
+      respond_with_params services, each_serializer: ServiceSerializer
     end
 
     private
@@ -15,11 +16,7 @@
       @_project ||= Project.find(params[:project_id]).tap { |p| authorize p }
     end
 
-    def service
-      @_service ||= project.services.find(params[:id]).tap { |s| authorize s }
-    end
-
     def services
-      @_services ||= project.services
+      @_services ||= query_with project.services, :includes, :pagination
     end
   end

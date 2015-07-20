@@ -1,49 +1,42 @@
 ---
 - _assoc: mobile_small_1
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: mobile
     product: small_ec2
 - _assoc: mobile_small_2
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: mobile
     product: small_ec2
 - _assoc: blog_small_1
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: blog
     product: small_ec2
 - _assoc: blog_medium_1
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: blog
     product: medium_ec2
 - _assoc: cloud_large_1
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: files
     product: large_ec2
 - _assoc: cloud_large_2
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: files
     product: large_ec2
 - _assoc: cloud_large_3
   type: Null::Service
-  product_type: Null::Product
   status: ok
   order:
     project: files

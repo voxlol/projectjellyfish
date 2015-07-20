@@ -98,15 +98,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at"
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer  "count"
-    t.integer  "staff_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "carts", ["staff_id"], name: "index_carts_on_staff_id", using: :btree
-
   create_table "chargebacks", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cloud_id"
@@ -119,17 +110,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "chargebacks", ["cloud_id"], name: "index_chargebacks_on_cloud_id", using: :btree
   add_index "chargebacks", ["deleted_at"], name: "index_chargebacks_on_deleted_at", using: :btree
   add_index "chargebacks", ["product_id"], name: "index_chargebacks_on_product_id", using: :btree
-
-  create_table "clouds", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "extra"
-    t.datetime "deleted_at"
-  end
-
-  add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
 
   create_table "content_pages", force: :cascade do |t|
     t.datetime "created_at"
@@ -178,6 +158,7 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
+    t.integer  "staff_count", default: 0
   end
 
   create_table "groups_staff", force: :cascade do |t|
@@ -189,16 +170,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
 
   add_index "groups_staff", ["group_id"], name: "index_groups_staff_on_group_id", using: :btree
   add_index "groups_staff", ["staff_id"], name: "index_groups_staff_on_staff_id", using: :btree
-
-  create_table "logs", force: :cascade do |t|
-    t.integer  "staff_id",   null: false
-    t.integer  "level"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at"
@@ -268,17 +239,26 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   end
 
   create_table "product_types", force: :cascade do |t|
-    t.string   "name"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "type",                          null: false
+    t.string   "uuid",                          null: false
+    t.string   "name",                          null: false
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.json     "questions_form_schema"
+    t.string   "service_class",                 null: false
+    t.json     "product_form",                  null: false
+    t.json     "service_form",                  null: false
+    t.boolean  "active",        default: true,  null: false
+    t.boolean  "deprecated",    default: false, null: false
   end
 
+  add_index "product_types", ["type"], name: "index_product_types_on_type", using: :btree
+  add_index "product_types", ["uuid"], name: "index_product_types_on_uuid", using: :btree
+
   create_table "products", force: :cascade do |t|
-    t.string   "name",            limit: 255,                                        null: false
+    t.string   "name",            limit: 255,                                         null: false
     t.text     "description"
-    t.boolean  "active"
+    t.boolean  "active",                                               default: true
     t.string   "img",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -286,12 +266,12 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.decimal  "setup_price",                 precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",                precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",               precision: 10, scale: 4, default: 0.0
-    t.string   "product_type",                                                       null: false
     t.string   "cached_tag_list"
+    t.integer  "product_type_id"
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
-  add_index "products", ["product_type"], name: "index_products_on_product_type", using: :btree
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
 
   create_table "project_answers", force: :cascade do |t|
     t.integer  "project_id"
@@ -303,23 +283,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
 
   add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
   add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
-
-  create_table "project_details", force: :cascade do |t|
-    t.string  "requestor_name"
-    t.date    "requestor_date"
-    t.string  "team_name"
-    t.integer "charge_number"
-    t.float   "nte_budget"
-    t.string  "project_owner"
-    t.string  "sr_associate"
-    t.string  "principal"
-    t.date    "estimated_termination_date"
-    t.string  "data_type"
-    t.string  "others"
-    t.integer "project_id"
-  end
-
-  add_index "project_details", ["project_id"], name: "index_project_details_on_project_id", using: :btree
 
   create_table "project_questions", force: :cascade do |t|
     t.string   "question",   limit: 255
@@ -374,16 +337,14 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "service_attributes", ["service_id"], name: "index_service_attributes_on_service_id", using: :btree
 
   create_table "services", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "type",         null: false
-    t.string   "product_type", null: false
-    t.string   "uuid",         null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "type",       null: false
+    t.string   "uuid",       null: false
     t.integer  "status"
     t.string   "status_msg"
   end
 
-  add_index "services", ["product_type"], name: "index_services_on_product_type", using: :btree
   add_index "services", ["type"], name: "index_services_on_type", using: :btree
   add_index "services", ["uuid"], name: "index_services_on_uuid", using: :btree
 
@@ -443,32 +404,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
-
-  create_table "user_setting_options", force: :cascade do |t|
-    t.string   "label",      limit: 255
-    t.string   "field_type", limit: 100
-    t.string   "help_text",  limit: 255
-    t.text     "options"
-    t.boolean  "required",               default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-  end
-
-  add_index "user_setting_options", ["deleted_at"], name: "index_user_setting_options_on_deleted_at", using: :btree
-  add_index "user_setting_options", ["label"], name: "index_user_setting_options_on_label", unique: true, using: :btree
-
-  create_table "user_settings", force: :cascade do |t|
-    t.integer  "staff_id"
-    t.string   "name",       limit: 255
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-  end
-
-  add_index "user_settings", ["deleted_at"], name: "index_user_settings_on_deleted_at", using: :btree
-  add_index "user_settings", ["staff_id", "name"], name: "index_user_settings_on_staff_id_and_name", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false

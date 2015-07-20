@@ -37,6 +37,8 @@ namespace :sample do
 
     products = sample_data('products').map do |data|
       answers = data.delete 'answers'
+      product_type = ProductType.find_by uuid: data.delete('product_type')
+      data.merge! product_type: product_type
       [data.delete('_assoc'), Product.create(data).tap do |product|
           product.answers.create(answers) unless answers.nil?
         end]

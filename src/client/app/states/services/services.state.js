@@ -13,10 +13,10 @@
 
   function getStates() {
     return {
-      'manage': {
-        abstract: true,
-        template: '<ui-view></ui-view>',
-        url: '/manage'
+      'services': {
+        url: '/services',
+        redirectTo: 'services.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }
@@ -27,19 +27,13 @@
 
   function sidebarItems() {
     return {
-      'manage': {
-        type: 'dropdown',
-        state: 'manage',
-        label: 'Manage',
-        style: 'manage',
-        order: 900,
-        isVisible: isVisible
+      'services': {
+        type: 'state',
+        state: 'services',
+        label: 'Services',
+        style: 'services',
+        order: 300
       }
     };
-  }
-
-  /** @ngInject */
-  function isVisible(SessionService) {
-    return SessionService.isManager();
   }
 })();

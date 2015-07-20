@@ -174,7 +174,7 @@ class Setting < ActiveRecord::Base
     false
   end
 
-  def self.set(name, description: '', default: nil, value: nil, value_type: 'string')
-    { name: name, description: description, value: value, default: default, value_type: value_type }
+  def self.set(name, description: '', default: nil, value_type: 'string')
+    { name: name, description: description, default: default, value_type: value_type }
   end
 end

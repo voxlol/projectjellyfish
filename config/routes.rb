@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     # Settings
     resources :settings, only: [:index, :update], param: :name
 
+    # Services
+    resources :services, only: [:index, :show]
+
     # Alerts Routes
     resources :alerts do
       collection do
@@ -59,6 +62,8 @@ Rails.application.routes.draw do
 
     # Project Routes
     resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json } do
+      resources :services, only: [:index], controller: :project_services
+
       delete 'groups/:group_id' => 'memberships#destroy', as: :membership
       post 'groups' => 'memberships#create', as: :memberships
       put 'groups/:group_id' => 'memberships#update'

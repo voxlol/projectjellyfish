@@ -21,6 +21,7 @@
         title: 'Project Details',
         resolve: {
           project: resolveProjects,
+          services: resolveServices,
           products: resolveProducts,
           staff: resolveStaff,
           groups: resolveGroups,
@@ -42,7 +43,15 @@
   function resolveProjects($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['latest_alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['latest_alerts', 'approvals', 'approvers', 'memberships', 'groups', 'project_answers']
+    }).$promise;
+  }
+
+  /** @ngInject */
+  function resolveServices($stateParams, ProjectService) {
+    return ProjectService.query({
+      projectId: $stateParams.projectId,
+      'includes[]': ['product']
     }).$promise;
   }
 
@@ -69,11 +78,12 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, project, products, MembershipModal, groups, roles, Membership) {
+  function StateController($state, lodash, project, services, products, MembershipModal, groups, roles, Membership) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = project;
+    vm.services = services;
     vm.products = products;
     vm.groups = groups;
     vm.roles = roles;

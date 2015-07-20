@@ -311,7 +311,7 @@ module.exports = (function() {
       injectChanges: true,
       logFileChanges: true,
       logLevel: 'debug',
-      logPrefix: 'angular-gulp-sass-inject',
+      logPrefix: 'Jellyfish UX',
       notify: true,
       reloadDelay: 0
     }

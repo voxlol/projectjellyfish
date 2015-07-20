@@ -9,8 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        product: '=',
-        linkTo: '@?'
+        product: '='
       },
       link: link,
       templateUrl: 'app/components/product-description/product-description.html',
@@ -32,7 +31,6 @@
       vm.activate = activate;
 
       function activate() {
-        vm.linkTo = vm.linkTo || 'products.details({productId: vm.product.id})';
       }
     }
   }

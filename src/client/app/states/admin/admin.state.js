@@ -32,7 +32,7 @@
         state: 'admin',
         label: 'Admin',
         style: 'admin',
-        order: 6,
+        order: 1000,
         isVisible: isVisible
       }
     };

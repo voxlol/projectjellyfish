@@ -32,7 +32,7 @@
         state: 'projects',
         label: 'Projects',
         style: 'projects',
-        order: 1
+        order: 100
       }
     };
   }

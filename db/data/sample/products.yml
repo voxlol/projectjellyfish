@@ -3,7 +3,8 @@
   name: AWS Small EC2
   description: t2.small compute instance
   img: products/aws_ec2.png
-  product_type: null_product
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  active: true
   setup_price: 5.99
   monthly_price: 0
   hourly_price: 0.08
@@ -18,7 +19,8 @@
   name: AWS Medium EC2
   description: t2.medium compute instance
   img: products/aws_ec2.png
-  product_type: null_product
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  active: true
   setup_price: 10.99
   monthly_price: 0
   hourly_price: 0.23
@@ -33,9 +35,10 @@
   name: AWS Large EC2
   description: t2.large compute instance
   img: products/aws_ec2.png
-  product_type: null_product
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  active: true
   setup_price: 20.99
-  monthly_price: 0
+  monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [server, aws, large, production, ec2]
   answers:

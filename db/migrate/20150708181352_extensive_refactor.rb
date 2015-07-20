@@ -1,9 +1,4 @@
 class ExtensiveRefactor < ActiveRecord::Migration
-  class Order < ActiveRecord::Base
-    belongs_to :staff
-    has_many :order_items
-  end
-
   class OrderItem < ActiveRecord::Base
     # Relationships
     belongs_to :order
@@ -15,10 +10,10 @@ class ExtensiveRefactor < ActiveRecord::Migration
     enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
   end
 
-  class Product < ActiveRecord::Base
-  end
-
   def up
+    # Add counter_cache columns
+    add_column :groups, :staff_count, :integer, default: 0
+
     # Create properties : Collection of properties for objects
     create_table :answers do |t|
       t.timestamps null: false
@@ -27,6 +22,22 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.text :value
       t.integer :value_type
       t.text :default
+    end
+
+    drop_table :product_types
+
+    # Create product_types : 'Products' provided by providers
+    create_table :product_types do |t|
+      t.timestamps null: false
+      t.string :type, null: false, index: true
+      t.string :uuid, null: false, index: true
+      t.string :name, null: false
+      t.text :description
+      t.string :service_class, null: false
+      t.json :product_form, null: false
+      t.json :service_form, null: false
+      t.boolean :active, null: false, default: true
+      t.boolean :deprecated, null: false, default: false
     end
 
     # # Create product_listings : Product listings in the marketplace
@@ -46,15 +57,16 @@ class ExtensiveRefactor < ActiveRecord::Migration
     #
     # TODO: Migrate products.provisioning_answers to answers
     remove_column :products, :provisioning_answers, :jsonb
+    remove_column :products, :product_type
+    Product.reset_column_information
     change_column_null :products, :name, false
-    change_column_null :products, :product_type, false
-    add_index :products, :product_type
+    change_column_default :products, :active, true
+    add_reference :products, :product_type, index: true
 
-    # Create services : Instances of a product_listing
+    # Create services : Instances of a product
     create_table :services do |t|
       t.timestamps null: false
       t.string :type, index: true, null: false
-      t.string :product_type, index: true, null: false
       t.string :uuid, index: true, null: false
       t.integer :status
       t.string :status_msg

@@ -20,7 +20,7 @@
       {{ ::vm.rowLookup(vm.groups, row.group_id, 'description')}}
     </td>
     <td class="membership-table__cell membership-table__cell--members"></td>
-    {{ ::vm.rowLookup(vm.groups, row.group_id, 'staff_ids').length}}
+    {{ ::vm.rowLookup(vm.groups, row.group_id, 'staff_count') }}
     <td class="membership-table__cell membership-table__cell--role">
       {{ vm.rowLookup(vm.roles, row.role_id, 'name')}}
     </td>

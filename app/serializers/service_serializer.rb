@@ -16,20 +16,11 @@
 #  index_services_on_uuid  (uuid)
 #
 
-class Service < ActiveRecord::Base
-  has_many :alerts, as: :alertable
+class ServiceSerializer < ApplicationSerializer
+  attributes :id, :uuid, :status, :status_msg, :created_at, :updated_at
+
   has_one :order
-  has_one :project, through: :order
-  has_one :product, through: :order
-  has_one :product_type, through: :product
-
-  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
-
-  def self.policy_class
-    ServicePolicy
-  end
-
-  def actions
-    []
-  end
+  has_one :project
+  has_one :product
+  has_one :product_type, serializer: ProductTypeSerializer
 end
