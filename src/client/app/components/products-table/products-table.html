@@ -19,7 +19,9 @@
   <tbody>
   <tr ng-repeat="row in vm.products track by row.id">
     <td class="products-table__cell products-table__cell--description">
-      <product-description product="::row"></product-description>
+      <product-description product="::row"
+                           link-to="products.details({productId: {{row.id}}})">
+      </product-description>
     </td>
     <td class="products-table__cell products-table__cell--product-type">{{ ::row.product_type }}</td>
     <td class="products-table__cell products-table__cell--available">
