@@ -16,12 +16,13 @@
     Product.defaults = {
       name: '',
       description: '',
+      product_type: '',
       active: true,
       setup_price: '0.0',
       monthly_price: '0.0',
       hourly_price: '0.0',
-      tag_list: [],
-      properties: {}
+      tags: [],
+      provisioning_answers: {}
     };
 
     return Product;
