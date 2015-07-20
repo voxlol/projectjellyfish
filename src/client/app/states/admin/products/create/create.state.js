@@ -52,12 +52,12 @@
 
     function initProduct() {
       vm.product = angular.extend(new Product(), Product.defaults);
-      console.log(vm.productType.title);
+      vm.product.product_type = vm.productType.title;
+
       angular.forEach(vm.productType.properties, initProperty);
 
       function initProperty(property, key) {
         vm.product.provisioning_answers[key] = angular.isDefined(property.default) ? property.default : null;
-        vm.product.product_type = vm.productType.title;
       }
     }
   }
