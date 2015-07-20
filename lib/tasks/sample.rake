@@ -382,6 +382,12 @@ namespace :sample do
       {id: 12, group_id: 3, project_id: 6, role_id: 2}
     ])
     Membership.connection.execute("ALTER SEQUENCE memberships_id_seq RESTART #{Membership.all.order('id DESC').first.id + 1}")
+
+    ContentPage.create!([
+      {id: 1, staff_id: 1, slug: '1', title: 'foo', body: 'bar'},
+      {id: 2, staff_id: 1, slug: '2', title: 'fizz', body: 'buzz'}
+    ])
+    ContentPage.connection.execute("ALTER SEQUENCE content_pages_id_seq RESTART #{ContentPage.all.order('id DESC').first.id + 1}")
   end
 
 end
