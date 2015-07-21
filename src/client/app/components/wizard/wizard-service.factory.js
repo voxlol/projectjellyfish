@@ -46,7 +46,6 @@
     vm.answerWith = answerWith;
     vm.previousQuestions = previousQuestions;
     vm.nextQuestions = nextQuestions;
-    vm.unansweredQuestionCheck = unansweredQuestionCheck;
 
     activate();
 
@@ -84,12 +83,6 @@
     function nextQuestions() {
       vm.questionsArchive.push(vm.question);
       vm.question = vm.questions.shift();
-    }
-
-    function unansweredQuestionCheck(){
-
-
-      return vm.answeredQuestions[vm.question.id].id >= vm.questionsArchive.length+1;
     }
   }
 })();
