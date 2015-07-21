@@ -39,10 +39,14 @@
     vm.state = 'intro';
     vm.questions = questions;
     vm.question = null;
-    vm.tags = [];
+    vm.questionsArchive = [];
+    vm.answeredQuestions = {};
 
     vm.startWizard = startWizard;
     vm.answerWith = answerWith;
+    vm.previousQuestions = previousQuestions;
+    vm.nextQuestions = nextQuestions;
+    vm.unansweredQuestionCheck = unansweredQuestionCheck;
 
     activate();
 
@@ -51,22 +55,41 @@
 
     function startWizard() {
       vm.question = vm.questions.shift();
+
       vm.state = 'wizard';
     }
 
     function answerWith(index) {
-      var answer;
-
       if (0 <= index) {
-        answer = vm.question.wizard_answers[index];
-        vm.tags = lodash.without(lodash.union(vm.tags, answer.tags_to_add), answer.tags_to_remove);
+        vm.answeredQuestions[vm.question.id] = vm.question.wizard_answers[index];
       }
 
       if (vm.questions.length) {
-        vm.question = vm.questions.shift();
+        vm.nextQuestions();
       } else {
+        lodash.forEach(vm.answeredQuestions, parseQuestionAnswers);
         vm.state = 'complete';
       }
+    }
+
+    function parseQuestionAnswers(item) {
+      vm.tags = lodash.without(lodash.union(vm.tags, item.tags_to_add), item.tags_to_remove);
+    }
+
+    function previousQuestions() {
+      vm.questions.unshift(vm.question);
+      vm.question = vm.questionsArchive.pop();
+    }
+
+    function nextQuestions() {
+      vm.questionsArchive.push(vm.question);
+      vm.question = vm.questions.shift();
+    }
+
+    function unansweredQuestionCheck(){
+
+
+      return vm.answeredQuestions[vm.question.id].id >= vm.questionsArchive.length+1;
     }
   }
 })();
