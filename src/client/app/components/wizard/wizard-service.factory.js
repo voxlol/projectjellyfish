@@ -41,7 +41,7 @@
     vm.question = null;
     vm.questionPointer = 0;
     vm.questionsEnd = lodash.size(vm.questions) - 1;
-    vm.answeredQuestions = {};
+    vm.answeredQuestions = [];
 
     vm.startWizard = startWizard;
     vm.answerWith = answerWith;
@@ -60,7 +60,7 @@
 
     function answerWith(index) {
       if (0 <= index) {
-        vm.answeredQuestions[vm.question.id] = vm.question.wizard_answers[index];
+        vm.answeredQuestions.push(vm.question.wizard_answers[index]);
       }
 
       if (vm.questionPointer < vm.questionsEnd) {

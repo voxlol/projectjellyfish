@@ -35,7 +35,7 @@
           ng-click="vm.previousQuestions()">Previous
   </button>
   <button type="button"
-          ng-disabled="!vm.answeredQuestions[vm.question.id] || vm.state !== 'wizard'"
+          ng-disabled="vm.answeredQuestions.length <= vm.questionPointer || vm.state !== 'wizard'"
           class="btn-rounded wizard-modal__ok"
           ng-click="vm.nextQuestions()">Next
   </button>
