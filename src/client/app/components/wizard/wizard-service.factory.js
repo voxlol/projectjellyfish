@@ -45,7 +45,7 @@
     vm.startWizard = startWizard;
     vm.answerWith = answerWith;
     vm.questionNavigation = questionNavigation;
-    
+
     activate();
 
     function activate() {
@@ -59,6 +59,8 @@
     function answerWith(index) {
       if (0 <= index) {
         vm.answeredQuestions[vm.questionPointer] = vm.question.wizard_answers[index];
+      } else {
+        vm.answeredQuestions[vm.questionPointer] = -1;
       }
 
       if (vm.questionPointer < vm.questions.length - 1) {
@@ -70,7 +72,11 @@
     }
 
     function parseQuestionAnswers(item) {
-      vm.tags = lodash.without(lodash.union(vm.tags, item.tags_to_add), item.tags_to_remove);
+      if (item === -1) {
+        return;
+      } else {
+        vm.tags = lodash.without(lodash.union(vm.tags, item.tags_to_add), item.tags_to_remove);
+      }
     }
 
     function questionNavigation(direction) {
