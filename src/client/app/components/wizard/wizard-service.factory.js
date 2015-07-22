@@ -76,12 +76,12 @@
     }
 
     function previousQuestions() {
-      vm.questionPointer --;
+      vm.questionPointer--;
       vm.question = vm.questions[vm.questionPointer];
-  }
+    }
 
     function nextQuestions() {
-      vm.questionPointer ++;
+      vm.questionPointer++;
       vm.question = vm.questions[vm.questionPointer];
     }
   }
