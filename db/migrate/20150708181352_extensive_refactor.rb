@@ -11,6 +11,17 @@ class ExtensiveRefactor < ActiveRecord::Migration
   end
 
   def up
+    # Create settings : Storage of unique application-wide settings
+    create_table :settings do |t|
+      t.timestamps null: false
+      t.string :type, index: true, null: false
+      t.string :name, unique: true, null: false
+      t.text :description
+      t.text :value
+      t.integer :value_type, default: 0
+      t.text :default
+    end
+
     # Add counter_cache columns
     add_column :groups, :staff_count, :integer, default: 0
 
@@ -35,7 +46,7 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.text :description
       t.string :service_class, null: false
       t.json :product_form, null: false
-      t.json :service_form, null: false
+      t.json :order_form, null: false
       t.boolean :active, null: false, default: true
       t.boolean :deprecated, null: false, default: false
     end
@@ -68,19 +79,9 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.timestamps null: false
       t.string :type, index: true, null: false
       t.string :uuid, index: true, null: false
+      t.string :name, null: false
       t.integer :status
       t.string :status_msg
-    end
-
-    # Create settings : Storage of unique application-wide settings
-    create_table :settings do |t|
-      t.timestamps null: false
-      t.string :type, index: true, null: false
-      t.string :name, unique: true, null: false
-      t.text :description
-      t.text :value
-      t.integer :value_type, default: 0
-      t.text :default
     end
 
     # Create properties : Collection of facts for product_instances

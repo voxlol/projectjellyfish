@@ -5,6 +5,7 @@
     'app.core',
     'smart-table',
     'schemaForm',
+    'formly',
     'ui.sortable'
   ]);
 })();

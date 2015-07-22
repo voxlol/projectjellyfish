@@ -19,9 +19,11 @@
 #  index_orders_on_service_id  (service_id)
 #
 
-class Order < ActiveRecord::Base
-  belongs_to :product
-  belongs_to :project
-  belongs_to :service
-  has_many :answers, as: :answerable
+class OrderSerializer < ApplicationSerializer
+  attributes :project_id, :product_id, :service_id, :setup_price, :hourly_price, :monthly_price
+
+  has_one :product
+  has_one :project
+  has_one :service
+  has_many :answers
 end

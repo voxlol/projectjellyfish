@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.text     "description"
     t.string   "service_class",                 null: false
     t.json     "product_form",                  null: false
-    t.json     "service_form",                  null: false
+    t.json     "order_form",                    null: false
     t.boolean  "active",        default: true,  null: false
     t.boolean  "deprecated",    default: false, null: false
   end

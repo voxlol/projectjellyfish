@@ -1,6 +1,46 @@
 +block(forms)
   @extend .form-horizontal
 
+  +element(title)
+
+    +modifier(description)
+      color: $app-color-gray
+
+    +modifier(error)
+      padding-left: 15px
+      font-weight: bold
+      font-size: 15px
+      color: $app-color-pink
+      text-transform: uppercase
+
+  +element(body)
+    +make-sm-column(7)
+    padding-bottom: 20px
+
+    &:after
+      content: ""
+      border-bottom: 1px solid $app-color-gray
+      position: absolute
+      left: 15px
+      right: 0
+
+  +element(aside)
+    +make-sm-column(5)
+    padding-left: 45px
+    padding-bottom: 10px
+
+  +element(buttons)
+    +make-sm-column(7)
+
+  +element(submit)
+    @extend .btn-rounded
+    min-width: 150px
+
+  +element(cancel)
+    @extend .btn
+    @extend .btn-link
+    text-transform: uppercase
+
 +block(field)
   @extend .form-group
   position: relative

@@ -1,0 +1,64 @@
+<form name="vm.form" class="forms" role="form" novalidate autocomplete="off" ng-submit="vm.onSubmit()"
+      ng-class="{'show-errors': vm.showErrors()}">
+
+  <content-header short="true">
+    <div>
+      <span class="content-header__title">{{ ::vm.product.name }}</span>
+      <span class="forms__title--error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
+    </div>
+    <div class="product-form__product-type">
+      <small class="forms__title--description">{{ ::vm.product.description }}</small>
+    </div>
+  </content-header>
+
+  <div class="row">
+
+    <div class="forms__body">
+      <div class="field">
+        <div class="field__aside">
+          <label class="field__label">Project</label>
+        </div>
+        <div class="field__body" ng-class="{'has-error': vm.hasError('project')}">
+          <select name="project" class="field__input" ng-options="project.id as project.name for project in vm.projects"
+                  ng-model="vm.order.project_id" required>
+            <option value="">Select a Project</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field__aside">
+          <label class="field__label">Name</label>
+        </div>
+        <div class="field__body">
+          <input name="name" type="text" class="field__input" ng-model="vm.order.service.name" required/>
+        </div>
+      </div>
+
+
+      <formly-form model="vm.model" fields="vm.fields"></formly-form>
+    </div>
+
+    <div class="forms__aside">
+      TODO: Display projected cost for the product for remainder of the project
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="forms_buttons">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="forms__submit" ng-disabled="vm.hasErrors()">Save</button>
+        <button type="button" class="forms__cancel"
+                confirmation
+                confirmation-if="vm.form.$dirty"
+                confirmation-message="You have unsaved changes. Abandon them and leave the page?"
+                confirmation-ok-style="danger"
+                confirmation-ok-text="Yes, Leave"
+                confirmation-on-ok="vm.backToList()"
+                confirmation-show-cancel="false">Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+<pre>{{ vm.order | json }}</pre>

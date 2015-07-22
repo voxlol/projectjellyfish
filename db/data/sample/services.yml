@@ -1,42 +1,49 @@
 ---
 - _assoc: mobile_small_1
   type: Null::Service
+  name: API Application Server
   status: ok
   order:
     project: mobile
     product: small_ec2
 - _assoc: mobile_small_2
   type: Null::Service
+  name: Job Queue
   status: ok
   order:
     project: mobile
     product: small_ec2
 - _assoc: blog_small_1
   type: Null::Service
+  name: Job Queue
   status: ok
   order:
     project: blog
     product: small_ec2
 - _assoc: blog_medium_1
   type: Null::Service
+  name: Application Web Server
   status: ok
   order:
     project: blog
     product: medium_ec2
 - _assoc: cloud_large_1
   type: Null::Service
+  name: File Processing Server (primary)
   status: ok
   order:
     project: files
     product: large_ec2
 - _assoc: cloud_large_2
   type: Null::Service
+  name: File Processing Server (failover)
   status: ok
   order:
     project: files
     product: large_ec2
 - _assoc: cloud_large_3
   type: Null::Service
+  name: Job Queue Server
   status: ok
   order:
     project: files

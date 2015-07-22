@@ -27,4 +27,7 @@ class ProductSerializer < ApplicationSerializer
   attributes :setup_price, :hourly_price, :monthly_price
   attributes :created_at, :updated_at, :deleted_at
   attribute :tag_list, key: :tags
+
+  has_one :product_type, serializer: ProductTypeSerializer
+  has_many :answers
 end

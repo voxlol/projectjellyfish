@@ -11,7 +11,7 @@
 #  description   :text
 #  service_class :string           not null
 #  product_form  :json             not null
-#  service_form  :json             not null
+#  order_form    :json             not null
 #  active        :boolean          default(TRUE), not null
 #  deprecated    :boolean          default(FALSE), not null
 #
@@ -22,7 +22,7 @@
 #
 
 class ProductTypeSerializer < ApplicationSerializer
-  attributes :id, :name, :provider, :description, :product_form, :service_form, :active, :deprecated
+  attributes :id, :name, :provider, :description, :product_form, :order_form, :active, :deprecated
 
   def provider
     object.type.split('::').last

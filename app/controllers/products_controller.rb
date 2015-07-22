@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, in: %w(chargebacks)
+  param :includes, Array, in: %w(chargebacks product_type)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
