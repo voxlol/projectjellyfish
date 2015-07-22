@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin CMS Create',
         resolve: {
-          alertRecord: resolveAlert,
+          contentPageRecord: resolveContentPage,
           staff: resolveStaff
         }
       }
@@ -36,12 +36,7 @@
   }
 
   /** @ngInject */
-  function resolveAlert($stateParams, Alert) {
-    //if ($stateParams.id) {
-    //  return Alert.get({id: $stateParams.id}).$promise;
-    //} else {
-    //  return {};
-    //}
+  function resolveContentPage($stateParams, ContentPage) {
     return {};
   }
 
@@ -51,24 +46,20 @@
   }
 
   /** @ngInject */
-  function StateController(logger, alertRecord, $stateParams, staff) {
+  function StateController(logger, contentPageRecord, staff, $stateParams) {
     var vm = this;
 
-    vm.title = 'Admin Alerts Create';
-    vm.alertRecord = alertRecord;
+    vm.title = 'Admin CMS Create';
+    vm.contentPageRecord = contentPageRecord;
     vm.activate = activate;
     vm.staffId = staff.id;
     vm.home = 'admin.cms.list';
     vm.homeParams = { };
 
-    // HARD CODED FOR SINGLE TENANT
-    vm.alertableType = 'Organization';
-    vm.alertableId = '1';
-
     activate();
 
     function activate() {
-      logger.info('Activated Admin Alerts Create View');
+      logger.info('Activated Admin CMS Create View');
     }
   }
 })();
