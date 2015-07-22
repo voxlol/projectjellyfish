@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
 
   def show
     authorize group
-    respond_with_params group
+    respond_with_params group_foo
   end
 
   api :POST, '/groups', 'Creates group'
