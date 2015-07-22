@@ -40,14 +40,12 @@
     vm.questions = questions;
     vm.question = null;
     vm.questionPointer = 0;
-    vm.questionsEnd = lodash.size(vm.questions) - 1;
     vm.answeredQuestions = [];
 
     vm.startWizard = startWizard;
     vm.answerWith = answerWith;
-    vm.previousQuestions = previousQuestions;
-    vm.nextQuestions = nextQuestions;
-
+    vm.questionNavigation = questionNavigation;
+    
     activate();
 
     function activate() {
@@ -60,11 +58,11 @@
 
     function answerWith(index) {
       if (0 <= index) {
-        vm.answeredQuestions.push(vm.question.wizard_answers[index]);
+        vm.answeredQuestions[vm.questionPointer] = vm.question.wizard_answers[index];
       }
 
-      if (vm.questionPointer < vm.questionsEnd) {
-        vm.nextQuestions();
+      if (vm.questionPointer < vm.questions.length - 1) {
+        vm.questionNavigation(1);
       } else {
         lodash.forEach(vm.answeredQuestions, parseQuestionAnswers);
         vm.state = 'complete';
@@ -75,13 +73,8 @@
       vm.tags = lodash.without(lodash.union(vm.tags, item.tags_to_add), item.tags_to_remove);
     }
 
-    function previousQuestions() {
-      vm.questionPointer--;
-      vm.question = vm.questions[vm.questionPointer];
-    }
-
-    function nextQuestions() {
-      vm.questionPointer++;
+    function questionNavigation(direction) {
+      vm.questionPointer = vm.questionPointer + direction;
       vm.question = vm.questions[vm.questionPointer];
     }
   }
