@@ -43,8 +43,6 @@
           $state.transitionTo('dashboard');
         }
       } else {
-        console.log(error);
-        //$state.transitionTo('error', { error: error });
         $state.go('error', { error: error });
         logger.error('Unhandled State Change Error occurred: ' + (error.statusText || error.message));
       }

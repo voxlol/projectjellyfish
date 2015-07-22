@@ -15,12 +15,23 @@
       'error': {
         url: '/error',
         templateUrl: 'app/states/error/error.html',
+        controller: StateController,
+        controllerAs: 'vm',
         title: 'Error',
         data: {
-          layout: 'blank',
-          error: false
+          layout: 'blank'
+        },
+        params: {
+          error: null
         }
       }
     };
+  }
+
+  /** @ngInject */
+  function StateController($stateParams) {
+    var vm = this;
+
+    vm.error = $stateParams.error;
   }
 })();
