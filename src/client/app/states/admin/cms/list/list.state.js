@@ -43,11 +43,13 @@
   function StateController(lodash, logger, $q, $state, pages, Toasts) {
     var vm = this;
 
+    // ATTRIBUTES
     vm.title = 'Admin CMS List';
     vm.pages = pages;
 
+    // METHODS
+    vm.deleteContentPage = deleteContentPage;
     vm.activate = activate;
-    vm.goTo = goTo;
 
     activate();
 
@@ -55,14 +57,17 @@
       logger.info('Activated Admin CMS List View');
     }
 
-    function goTo(id) {
-      $state.go('admin.cms.create', {alertId: id});
-    }
+    function deleteContentPage(page) {
+      page.$delete(deleteSuccess, deleteFailure);
 
-    vm.deletePage = deletePage;
+      function deleteSuccess() {
+        lodash.remove(vm.pages, {id: page.id});
+        Toasts.toast('Content deleted.');
+      }
 
-    function deletePage(page) {
-      alert('To be implemented!');
+      function deleteFailure() {
+        Toasts.error('Server returned an error while deleting.');
+      }
     }
   }
 })();
