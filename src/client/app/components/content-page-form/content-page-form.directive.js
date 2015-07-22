@@ -29,7 +29,7 @@
     }
 
     /** @ngInject */
-    function ContentPageFormController($scope, $state, Toasts, Alert, lodash) {
+    function ContentPageFormController($scope, $state, Toasts, ContentPage, lodash) {
       var vm = this;
 
       // SO FORM DOESN'T PRELOAD VALIDATION ERRORS
@@ -64,43 +64,28 @@
       }
 
       function onSubmit() {
-
         vm.showValidationMessages = true;
 
         // This is so errors can be displayed for 'untouched' angular-schema-form fields
         $scope.$broadcast('schemaFormValidate');
 
         if (vm.form.$valid) {
+          // If editing update rather than save
+          if (vm.contentPageRecord.id) {
+            for (var prop in vm.contentPageRecord) {
+              if (vm.contentPageRecord[prop] === null) {
+                delete vm.contentPageRecord[prop];
+              }
+            }
 
-          Toasts.toast('Content saved.');
-          backToList();
+            ContentPage.update(vm.contentPageRecord).$promise.then(saveSuccess, saveFailure);
 
-          //vm.alertRecord.alertable_type = vm.alertableType;
-          //vm.alertRecord.alertable_id = vm.alertableId;
-          //
-          //// If editing update rather than save
-          //if (vm.alertRecord.id) {
-          //  for (var prop in vm.alertRecord) {
-          //    if (vm.alertRecord[prop] === null) {
-          //      delete vm.alertRecord[prop];
-          //    }
-          //  }
-          //
-          //  //Alert.update(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
-          //
-          //  Toasts.toast('Content saved.');
-          //  backToList();
-          //
-          //  return false;
-          //} else {
-          //
-          //  Toasts.toast('Content saved.');
-          //  backToList();
-          //
-          //  //Alert.save(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
-          //
-          //  return false;
-          //}
+            return false;
+          } else {
+            ContentPage.save(vm.contentPageRecord).$promise.then(saveSuccess, saveFailure);
+
+            return false;
+          }
         }
 
         function saveSuccess() {
