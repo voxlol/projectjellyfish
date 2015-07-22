@@ -30,12 +30,12 @@
 </div>
 <div class="wizard-modal__footer">
   <button type="button"
-          ng-disabled="!vm.questionsArchive.length || vm.state === 'intro' || vm.state === 'complete'"
+          ng-disabled="vm.questionPointer <= 0 || vm.state !== 'wizard'"
           class="btn-rounded wizard-modal__ok"
           ng-click="vm.previousQuestions()">Previous
   </button>
   <button type="button"
-          ng-disabled="!vm.answeredQuestions[vm.question.id] || vm.state === 'intro' ||  vm.state === 'complete'"
+          ng-disabled="!vm.answeredQuestions[vm.question.id] || vm.state !== 'wizard'"
           class="btn-rounded wizard-modal__ok"
           ng-click="vm.nextQuestions()">Next
   </button>

@@ -39,7 +39,8 @@
     vm.state = 'intro';
     vm.questions = questions;
     vm.question = null;
-    vm.questionsArchive = [];
+    vm.questionPointer = 0;
+    vm.questionsEnd = lodash.size(vm.questions) - 1;
     vm.answeredQuestions = {};
 
     vm.startWizard = startWizard;
@@ -53,8 +54,7 @@
     }
 
     function startWizard() {
-      vm.question = vm.questions.shift();
-
+      vm.question = vm.questions[vm.questionPointer];
       vm.state = 'wizard';
     }
 
@@ -63,7 +63,7 @@
         vm.answeredQuestions[vm.question.id] = vm.question.wizard_answers[index];
       }
 
-      if (vm.questions.length) {
+      if (vm.questionPointer < vm.questionsEnd) {
         vm.nextQuestions();
       } else {
         lodash.forEach(vm.answeredQuestions, parseQuestionAnswers);
@@ -76,13 +76,13 @@
     }
 
     function previousQuestions() {
-      vm.questions.unshift(vm.question);
-      vm.question = vm.questionsArchive.pop();
-    }
+      vm.questionPointer --;
+      vm.question = vm.questions[vm.questionPointer];
+  }
 
     function nextQuestions() {
-      vm.questionsArchive.push(vm.question);
-      vm.question = vm.questions.shift();
+      vm.questionPointer ++;
+      vm.question = vm.questions[vm.questionPointer];
     }
   }
 })();
