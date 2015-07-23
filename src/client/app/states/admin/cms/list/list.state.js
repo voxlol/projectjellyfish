@@ -40,7 +40,7 @@
   }
 
   /** @ngInject */
-  function StateController(lodash, logger, $q, $state, pages, Toasts) {
+  function StateController($rootScope, lodash, logger, $q, $state, pages, Toasts) {
     var vm = this;
 
     // ATTRIBUTES
@@ -62,6 +62,7 @@
 
       function deleteSuccess() {
         lodash.remove(vm.pages, {id: page.id});
+        $rootScope.$emit('pageRemoved', {});
         Toasts.toast('Content deleted.');
       }
 

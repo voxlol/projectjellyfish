@@ -25,12 +25,20 @@
     }
 
     /** @ngInject */
-    function NavPagesController($state, $q, ContentPage, lodash) {
+    function NavPagesController($rootScope, $scope, $state, $q, ContentPage, lodash) {
       var vm = this;
 
       // METHODS
       vm.isActive = isActive;
       vm.activate = activate;
+
+      $rootScope.$on('newPageAdded', function() {
+        updatePageList();
+      });
+
+      $rootScope.$on('pageRemoved', function() {
+        updatePageList();
+      });
 
       function activate() {
         updatePageList();
@@ -40,8 +48,6 @@
       function isActive() {
         return $state.includes(vm.item.state);
       }
-
-      // Private
 
       function updatePageList() {
         $q.when(ContentPage.query()).then(handleResults);

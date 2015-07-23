@@ -29,7 +29,7 @@
     }
 
     /** @ngInject */
-    function ContentPageFormController($scope, $state, Toasts, ContentPage, lodash) {
+    function ContentPageFormController($rootScope, $scope, $state, Toasts, ContentPage, lodash) {
       var vm = this;
 
       // SO FORM DOESN'T PRELOAD VALIDATION ERRORS
@@ -78,7 +78,7 @@
               }
             }
 
-            ContentPage.update(vm.contentPageRecord).$promise.then(saveSuccess, saveFailure);
+            ContentPage.update(vm.contentPageRecord).$promise.then(updateSuccess, saveFailure);
 
             return false;
           } else {
@@ -89,6 +89,11 @@
         }
 
         function saveSuccess() {
+          $rootScope.$emit('newPageAdded', {});
+          updateSuccess();
+        }
+
+        function updateSuccess() {
           Toasts.toast('Content saved.');
           backToList();
         }
