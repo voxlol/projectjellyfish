@@ -10,14 +10,14 @@
     text-transform: uppercase
 
   +element(body)
-    +make-sm-column(7)
+    +make-sm-column(11)
     padding-bottom: 20px
 
     &:after
       content: ""
       border-bottom: 1px solid $app-color-gray
       position: absolute
-      left: 15px
+      left: 126px
       right: 0
 
   +element(aside)
@@ -35,7 +35,7 @@
   @extend .field
 
   +element(aside)
-    +make-sm-column(3)
+    +make-sm-column(2)
     @extend .field__aside
 
   +element(label)
@@ -43,7 +43,7 @@
 
   +element(body)
     @extend .field__body
-    +make-sm-column(9)
+    +make-sm-column(10)
 
     +modifier(markdown)
       border: 1px solid $app-color-gray
