@@ -72,12 +72,6 @@
         if (vm.form.$valid) {
           // If editing update rather than save
           if (vm.contentPageRecord.id) {
-            for (var prop in vm.contentPageRecord) {
-              if (vm.contentPageRecord[prop] === null) {
-                delete vm.contentPageRecord[prop];
-              }
-            }
-
             ContentPage.update(vm.contentPageRecord).$promise.then(updateSuccess, saveFailure);
 
             return false;
