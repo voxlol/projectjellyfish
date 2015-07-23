@@ -384,8 +384,13 @@ namespace :sample do
     Membership.connection.execute("ALTER SEQUENCE memberships_id_seq RESTART #{Membership.all.order('id DESC').first.id + 1}")
 
     ContentPage.create!([
-      {id: 1, staff_id: 1, title: 'foo', body: 'bar'},
-      {id: 2, staff_id: 1, title: 'fizz', body: 'buzz'}
+      {id: 1, staff_id: 1, title: 'Github', body: '##Project Jellyfish Github Repo
+
+Visit the Project Jellyfish Github repo at [github.com/projectjellyfish](https://github.com/projectjellyfish) to:
+- view code
+- log issues
+- contribute'},
+      {id: 2, staff_id: 1, title: 'FAQ', body: 'Visit [projectjellyfish.org](http://www.projectjellyfish.org/) to learn more about Project Jellyfish.'}
     ])
     ContentPage.connection.execute("ALTER SEQUENCE content_pages_id_seq RESTART #{ContentPage.all.order('id DESC').first.id + 1}")
   end
