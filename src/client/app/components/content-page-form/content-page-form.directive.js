@@ -11,7 +11,6 @@
       scope: {
         contentPageRecord: '=?',
         heading: '@?',
-        staffId: '@?',
         home: '=?',
         homeParams: '=?'
       },
