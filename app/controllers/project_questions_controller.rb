@@ -1,6 +1,15 @@
 class ProjectQuestionsController < ApplicationController
   after_action :verify_authorized
 
+  def self.option_params
+    param :options, Array, desc: 'Options', allow_nil: true do
+      param :option, String, desc: 'Option label'
+      param :position, :number, 'Load order'
+      param :exclude, Array, 'Exclude tags', allow_nil: true
+      param :include, Array, 'Include tags', allow_nil: true
+    end
+  end
+
   api :GET, '/project_questions', 'Returns a collection of project_questions'
   param :page, :number, required: false
   param :per_page, :number, required: false
@@ -24,12 +33,7 @@ class ProjectQuestionsController < ApplicationController
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
-  param :options, Array, desc: 'Options', allow_nil: true do
-    param :option, String, desc: 'Option label'
-    param :position, :number, 'Load order'
-    param :exclude, Array, 'Exclude tags', allow_nil: true
-    param :include, Array, 'Include tags', allow_nil: true
-  end
+  option_params
   param :required, :bool, desc: 'Required?'
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -44,12 +48,7 @@ class ProjectQuestionsController < ApplicationController
   param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
-  param :options, Array, desc: 'Options', allow_nil: true do
-    param :option, String, desc: 'Option label'
-    param :position, :number, 'Load order'
-    param :exclude, Array, 'Exclude tags', allow_nil: true
-    param :include, Array, 'Include tags', allow_nil: true
-  end
+  option_params
   param :required, :bool, desc: 'Required', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
