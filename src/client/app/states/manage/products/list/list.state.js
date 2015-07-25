@@ -40,11 +40,12 @@
   }
 
   /** @ngInject */
-  function StateController(products, $state) {
+  function StateController($state, products, productTypes) {
     var vm = this;
 
     vm.title = 'Manage Products List';
     vm.products = products;
+    vm.productTypes = productTypes;
 
     vm.activate = activate;
     vm.createType = createType;
@@ -55,7 +56,7 @@
     }
 
     function createType(productType) {
-      $state.go('manage.products.create', {productType: productType});
+      $state.go('manage.products.create', {productTypeId: productType.id});
     }
   }
 })();

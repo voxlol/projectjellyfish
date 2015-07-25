@@ -7,36 +7,33 @@
   /** @ngInject */
   function appRun(routerHelper, navigationHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
     return {
       'manage.products.create': {
-        url: '/create',
+        url: '/create/:productTypeId',
         templateUrl: 'app/states/manage/products/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Manage Products Create',
-        params: {
-          productType: null
+        resolve: {
+          productType: resolveProductType
         }
       }
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
+  /** @ngInject */
+  function resolveProductType($stateParams, ProductType) {
+    return ProductType.get({id: $stateParams.productTypeId}).$promise;
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, Product, productTypes) {
+  function StateController(Product, productType, lodash) {
     var vm = this;
+
+    vm.productType = productType;
 
     vm.title = 'Manage Products Create';
     vm.activate = activate;
@@ -44,7 +41,6 @@
     activate();
 
     function activate() {
-      vm.productType = null !== $stateParams.productType ? $stateParams.productType : productTypes[0];
       initProduct();
     }
 
@@ -52,10 +48,21 @@
 
     function initProduct() {
       vm.product = angular.extend(new Product(), Product.defaults);
-      angular.forEach(vm.productType.schema.properties, initProperty);
+      vm.product.product_type_id = productType.id;
+      // Flatten all sections into one; Stop using flatten when sections become a thing
+      vm.product.answers = lodash.flatten(lodash.map(productType.product_form, mapSection));
 
-      function initProperty(property, key) {
-        vm.product.properties[key] = angular.isDefined(property.default) ? property.default : null;
+      function mapSection(section) {
+        return lodash.map(section, mapAnswer);
+      }
+
+      function mapAnswer(definition) {
+        var answer = angular.copy(definition);
+
+        delete answer.control;
+        answer.value = '';
+
+        return answer;
       }
     }
   }

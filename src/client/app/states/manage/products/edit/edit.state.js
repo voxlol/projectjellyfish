@@ -36,12 +36,14 @@
 
   /** @ngInject */
   function resolveProduct(Product, $stateParams) {
-    return Product.get({id: $stateParams.productId, 'methods[]': ['product_type']}).$promise;
+    return Product.get({id: $stateParams.productId, 'includes[]': ['answers', 'product_type']}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, lodash, product, productTypes) {
+  function StateController(product, ProductType) {
     var vm = this;
+
+    vm.product = product;
 
     vm.title = 'Manage Products Edit';
     vm.activate = activate;
@@ -49,9 +51,8 @@
     activate();
 
     function activate() {
-      vm.product = product;
-      vm.productType = lodash.find(productTypes, {title: product.product_type});
-      logger.info('Activated Manage Products Edit View');
+      vm.productType = new ProductType(vm.product.product_type);
+      delete vm.product.product_type;
     }
   }
 })();
