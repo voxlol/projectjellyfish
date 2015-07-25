@@ -29,4 +29,6 @@ class Product < ActiveRecord::Base
   belongs_to :product_type
   has_many :answers, as: :answerable
   has_many :orders
+
+  accepts_nested_attributes_for :answers
 end
