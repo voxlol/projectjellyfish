@@ -11,7 +11,7 @@
     <td class="wizard-questions-table__cell wizard-questions-table__cell--order">{{ $index+1 }}</td>
     <td class="wizard-questions-table__cell wizard-questions-table__cell--question">{{ ::row.text }}</td>
     <td class="wizard-questions-table__cell wizard-questions-table__cell--actions">
-      <a ui-sref="admin.wizard-questions.edit({questionId: row.id})"
+      <a ui-sref="manage.wizard-questions.edit({questionId: row.id})"
          class="wizard-questions-table__action wizard-questions-table__action--edit" title="Edit">
         <img src="/images/ic_edit.png" alt="Edit"/>
       </a>

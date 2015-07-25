@@ -30,7 +30,7 @@
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'admin.wizard-questions';
+      var home = 'manage.wizard-questions';
 
       vm.activate = activate;
       vm.backToList = backToList;

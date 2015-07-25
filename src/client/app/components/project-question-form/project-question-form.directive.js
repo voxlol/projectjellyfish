@@ -30,7 +30,7 @@
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'admin.project-questions';
+      var home = 'manage.project-questions';
 
       vm.activate = activate;
       vm.backToList = backToList;

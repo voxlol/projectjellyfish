@@ -30,7 +30,7 @@
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'admin.product-categories.list';
+      var home = 'manage.product-categories.list';
 
       vm.activate = activate;
       vm.queryTags = queryTags;
