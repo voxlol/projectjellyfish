@@ -64,7 +64,7 @@ group :test do
 end
 
 # Documentation
-gem 'apipie-rails', '~> 0.2.6'
+gem 'apipie-rails', '~> 0.3.0'
 
 # Keep but hide deleted records
 gem 'paranoia'
