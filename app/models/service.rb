@@ -7,6 +7,7 @@
 #  updated_at :datetime         not null
 #  type       :string           not null
 #  uuid       :string           not null
+#  name       :string           not null
 #  status     :integer
 #  status_msg :string
 #
