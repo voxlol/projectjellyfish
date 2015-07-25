@@ -9,7 +9,8 @@
 
   angular.module('app.components')
     .config(wrappers)
-    .config(types);
+    .config(types)
+    .run(validation);
 
   /** @ngInject */
   function wrappers(formlyConfigProvider) {
@@ -31,6 +32,10 @@
       {
         name: 'jellyfishHasError',
         templateUrl: 'app/components/formly-jellyfish/wrappers/has-error.html'
+      },
+      {
+        name: 'jellyfishLoading',
+        templateUrl: 'app/components/formly-jellyfish/wrappers/loading.html'
       }
     ]);
   }
@@ -75,28 +80,68 @@
         templateOptions: formlyJellyfishApiCheck.shape({
           options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
           labelProp: formlyJellyfishApiCheck.string.optional,
+          valueProp: formlyJellyfishApiCheck.string.optional,
           groupProp: formlyJellyfishApiCheck.string.optional
         })
       }
     });
 
+    formlyConfigProvider.setType({
+      name: 'async_select',
+      template: '<select class="field__input" ng-model="model[options.key]"></select>',
+      wrapper: ['jellyfishHasError', 'jellyfishLoading', 'jellyfishLabel', 'jellyfishField'],
+      defaultOptions: selectDefaultOptions,
+      apiCheck: {
+        templateOptions: formlyJellyfishApiCheck.shape({
+          asyncKey: formlyJellyfishApiCheck.string,
+          options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
+          labelProp: formlyJellyfishApiCheck.string.optional,
+          valueProp: formlyJellyfishApiCheck.string.optional,
+          groupProp: formlyJellyfishApiCheck.string.optional,
+          blank: formlyJellyfishApiCheck.string.optional
+        })
+      },
+      controller: AsyncSelectController
+    });
+
+
     function selectDefaultOptions(options) {
       var ngOptions = options.templateOptions.ngOptions || 'option[to.valueProp || \'value\'] as option[to.labelProp || \'name\'] group by option[to.groupProp || \'group\'] for option in to.options';
+      var ngModelAttrs = {};
+
+      ngModelAttrs[ngOptions] = { value: 'ng-options' };
 
       return {
-        ngModelAttrs: _defineProperty({}, ngOptions, {
-          value: 'ng-options'
-        })
+        ngModelAttrs: ngModelAttrs
       };
+    }
 
-      function _defineProperty(obj, key, value) {
-        return Object.defineProperty(obj, key, {
-          value: value,
-          enumerable: true,
-          configurable: true,
-          writable: true
-        });
+    /** @ngInject */
+    function AsyncSelectController($scope) {
+      var blank = {};
+
+      $scope.to.loading = $scope.formState.productType.asyncSelect($scope.to.asyncKey).then(handleResults);
+
+      blank[$scope.to.valueProp || 'value'] = '';
+      blank[$scope.to.labelProp || 'name'] = $scope.to.blank;
+
+      function handleResults(data) {
+        if ($scope.to.blank) {
+          data.unshift(blank);
+        }
+        $scope.to.options = data;
+
+        return data;
       }
     }
+  }
+
+  /** @ngInject */
+  function validation(formlyConfig, formlyValidationMessages) {
+    formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = 'form.$submitted';
+    formlyValidationMessages.messages.required = 'to.label + " is required"';
+    formlyValidationMessages.messages.email = '$viewValue + " is not a valid email address"';
+    formlyValidationMessages.messages.minlength = 'to.label + " is too short"';
+    formlyValidationMessages.messages.maxlength = 'to.label + " is too long"';
   }
 })();

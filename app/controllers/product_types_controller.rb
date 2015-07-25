@@ -11,7 +11,16 @@ class ProductTypesController < ApplicationController
   api :GET, '/product_types/:id', 'Returns information on a product type'
 
   def show
-    authorize ProductType
-    render json: ProductType.find(params[:type]), serializer: ProductTypeSerializer
+    render json: product_type, serializer: ProductTypeSerializer
+  end
+
+  def async_select
+    render json: product_type.async_select(params[:key])
+  end
+
+  private
+
+  def product_type
+    @_product_type ||= ProductType.find(params[:id]).tap { |pt| authorize pt }
   end
 end

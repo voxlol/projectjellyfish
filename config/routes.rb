@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
     # Products & related
     resources :products
-    resources :product_types, only: [:index, :show]
+    resources :product_types, only: [:index, :show] do
+      get 'async_select/:key', action: :async_select, on: :member
+    end
     resources :product_categories
 
     # Settings
