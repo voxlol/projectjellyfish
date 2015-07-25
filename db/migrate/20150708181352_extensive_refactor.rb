@@ -25,14 +25,13 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Add counter_cache columns
     add_column :groups, :staff_count, :integer, default: 0
 
-    # Create properties : Collection of properties for objects
+    # Create answers : Collection of answers for objects
     create_table :answers do |t|
       t.timestamps null: false
       t.references :answerable, index: true, null: false, polymorphic: true
       t.string :name, null: false
       t.text :value
       t.integer :value_type
-      t.text :default
     end
 
     drop_table :product_types
