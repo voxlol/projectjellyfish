@@ -6,4 +6,8 @@ class ProductTypePolicy < ApplicationPolicy
   def show?
     any_user!
   end
+
+  def async_select?
+    any_user!
+  end
 end
