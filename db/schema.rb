@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.string   "name",            null: false
     t.text     "value"
     t.integer  "value_type"
-    t.text     "default"
   end
 
   add_index "answers", ["answerable_type", "answerable_id"], name: "index_answers_on_answerable_type_and_answerable_id", using: :btree
@@ -341,6 +340,7 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at", null: false
     t.string   "type",       null: false
     t.string   "uuid",       null: false
+    t.string   "name",       null: false
     t.integer  "status"
     t.string   "status_msg"
   end
