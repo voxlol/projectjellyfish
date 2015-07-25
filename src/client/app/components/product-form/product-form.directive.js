@@ -27,21 +27,20 @@
     }
 
     /** @ngInject */
-    function ProductFormController($scope, $state, Tag, Toasts, TAG_QUERY_LIMIT) {
+    function ProductFormController($scope, $state, lodash, Tag, Toasts, TAG_QUERY_LIMIT) {
       var vm = this;
 
-      var showValidationMessages = false;
-      var home = 'admin.products';
+      var home = 'manage.products';
 
       vm.activate = activate;
       vm.backToList = backToList;
       vm.queryTags = queryTags;
-      vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
       vm.onSubmit = onSubmit;
 
       function activate() {
         vm.heading = vm.heading || 'Add A Product';
+        initFormly();
       }
 
       function backToList() {
@@ -52,23 +51,15 @@
         return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
       }
 
-      function showErrors() {
-        return showValidationMessages;
-      }
-
       function hasErrors(field) {
         if (angular.isUndefined(field)) {
-          return showValidationMessages && vm.form.$invalid;
+          return vm.form.$submitted && vm.form.$invalid;
         }
 
-        return showValidationMessages && vm.form[field].$invalid;
+        return vm.form.$submitted && vm.form[field].$invalid;
       }
 
       function onSubmit() {
-        showValidationMessages = true;
-        // This is so errors can be displayed for 'untouched' angular-schema-form fields
-        $scope.$broadcast('schemaFormValidate');
-
         if (vm.form.$valid) {
           if (vm.product.id) {
             vm.product.$update(saveSuccess, saveFailure);
@@ -86,6 +77,29 @@
 
         function saveFailure() {
           Toasts.error('Server returned an error while saving.');
+        }
+      }
+
+      // Private
+
+      function initFormly() {
+        vm.fields = lodash.flatten(lodash.map(vm.productType.product_form, mapSection));
+        vm.options = {
+          formState: {
+            productType: vm.productType
+          }
+        };
+
+        function mapSection(section) {
+          return lodash.map(section, mapField);
+        }
+
+        function mapField(definition) {
+          var field = definition.control;
+
+          field.model = lodash.find(vm.product.answers, {name: definition.name});
+
+          return field;
         }
       }
     }

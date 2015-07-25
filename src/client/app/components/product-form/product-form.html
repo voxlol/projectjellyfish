@@ -1,6 +1,6 @@
 <form name="vm.form" class="form-horizontal" role="form" novalidate autocomplete="off"
       ng-submit="vm.onSubmit()"
-      ng-class="{'show-errors': vm.showErrors()}">
+      ng-class="{'show-errors': vm.form.$submitted}">
   <content-header short="true">
     <div>
       <span class="content-header__title product-form__title">{{ ::vm.heading }}</span>
@@ -107,9 +107,7 @@
         </div>
       </div>
 
-      <div sf-use-decorator="product-form-decorator" sf-model="vm.product.properties"
-           sf-schema="vm.productType.schema"
-           sf-form="vm.productType.definition"></div>
+      <formly-form form="vm.form" model="{}" fields="vm.fields" options="vm.options"></formly-form>
 
       <div class="product-field">
         <div class="product-field__aside">
@@ -134,16 +132,6 @@
       </div>
     </div>
 
-    <div class="product-form__aside" ng-if="false">
-      <div class="provisioning-answers__container">
-        <span class="content-header__title product-form__title"><small>Provisioning Answers</small></span>
-        <div class="details-table__row" ng-repeat="item in vm.productType.properties " ng-if="item.default">
-          <div class="details-table__label"> {{ ::item.title}}:</div>
-          <div class="details-table__detail"> {{ ::item.default}}</div>
-        </div>
-      </div>
-    </div>
-
   </div>
   <div class="row">
     <div class="col-sm-7">
@@ -162,5 +150,3 @@
     </div>
   </div>
 </form>
-
-
