@@ -67,11 +67,15 @@
                     <label class="user-field__label">Password</label>
                 </div>
                 <div class="user-field__body" ng-class="{'has-error': vm.hasErrors('password')}">
-                    <input id="user-password" name="password" type="password"
+                    <input id="user-password"
+                           name="password"
+                           type="password"
                            class="user-field__input"
                            ng-model="firstpass"
                            ng-minlength="8"
-                           placeholder="Must be 8 or more characters."  required />
+                           placeholder="Must be 8 or more characters."
+                           ng-required="!vm.editing"
+                          />
                     <div class="user-field__feedback" ng-messages="vm.form.password.$error">
                         <div ng-message="required">A password is required.</div>
                         <div ng-message="minlength">Password must be at least 8 Characters.</div>
@@ -84,9 +88,13 @@
                     <label class="user-field__label">Confirm Password</label>
                 </div>
                 <div class="user-field__body" ng-class="{'has-error': vm.hasErrors('confirmpassword')}">
-                    <input id="user-confirmpassword" ng-model="vm.userToEdit.password"
-                           name="confirmpassword" type="password"
-                           class="user-field__input" placeholder=""  required />
+                    <input id="user-confirmpassword"
+                           ng-model="vm.userToEdit.password"
+                           name="confirmpassword"
+                           type="password"
+                           class="user-field__input"
+                           placeholder=""
+                           ng-required="firstpass"/>
                     <div class="user-field__feedback" ng-messages="vm.form.confirmpassword.$error">
                         <div ng-message="required">Password confirmation is required.</div>
                         <div ng-message="compareTo">Passwords must match.</div>
