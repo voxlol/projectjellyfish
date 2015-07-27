@@ -24,6 +24,13 @@ class ContentPage < ActiveRecord::Base
   belongs_to :staff
 
   extend FriendlyId
-  friendly_id :title, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
   has_paper_trail
+
+  def slug_candidates
+    [
+      :title,
+      [:title, SecureRandom.hex(2).to_s]
+    ]
+  end
 end

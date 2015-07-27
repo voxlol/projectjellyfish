@@ -15,8 +15,8 @@ describe ContentPagePolicy do
   end
 
   permissions :show? do
-    it 'does not allow users to view content pages' do
-      expect(subject).to_not permit(current_staff, content_page)
+    it 'allows users to view content pages' do
+      expect(subject).to permit(current_staff, content_page)
     end
     it 'allows an admin to see any content page' do
       expect(subject).to permit(admin, content_page)

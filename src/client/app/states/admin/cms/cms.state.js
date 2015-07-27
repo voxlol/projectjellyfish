@@ -13,10 +13,10 @@
 
   function getStates() {
     return {
-      'admin': {
-        abstract: true,
-        template: '<ui-view></ui-view>',
-        url: '/admin'
+      'admin.cms': {
+        url: '/cms',
+        redirectTo: 'admin.cms.list',
+        template: '<ui-view></ui-view>'
       }
     };
   }
@@ -27,19 +27,12 @@
 
   function sidebarItems() {
     return {
-      'admin': {
-        type: 'dropdown',
-        state: 'admin',
-        label: 'Admin',
-        style: 'admin',
-        order: 6,
-        isVisible: isVisible
+      'admin.cms': {
+        type: 'state',
+        state: 'admin.cms',
+        label: 'CMS',
+        order: 10
       }
     };
-  }
-
-  /** @ngInject */
-  function isVisible(SessionService) {
-    return SessionService.role === 'admin';
   }
 })();
