@@ -209,11 +209,11 @@ namespace :sample do
 
     Project.create!([
       { id: 1, name: "Analytics Platform", description: "Project description", cc: "--CC--", budget: 30000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/documentation.png", deleted_at: nil, spent: 0.0, status: 0, approval: 1},
-      { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 5000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/icon-mobile-orange.png", deleted_at: nil, spent: 2000.0, status: 0, approval: 1},
-      { id: 3, name: "Blog", description: "Project description", cc: "--CC--", budget: 10000, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/128x128-wordpress.png", deleted_at: nil, spent: 4135.03, status: 0, approval: 1},
-      { id: 4, name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 1000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/cloud-checkmark-128.png", deleted_at: nil, spent: 0.0, status: 0, approval: 1},
-      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 35000.0, status: 0, approval: 0},
-      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 9000.0, status: 0, approval: 0}
+      { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 5000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/icon-mobile-orange.png", deleted_at: nil, spent: 600.12, status: 0, approval: 1},
+      { id: 3, name: "Blog", description: "Project description", cc: "--CC--", budget: 10000, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/128x128-wordpress.png", deleted_at: nil, spent: 1000.49, status: 0, approval: 1},
+      { id: 4, name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 1000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/cloud-checkmark-128.png", deleted_at: nil, spent: 70.98, status: 0, approval: 1},
+      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0},
+      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0}
     ])
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
 
@@ -239,26 +239,27 @@ namespace :sample do
       { id: 1, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
       { id: 2, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
       { id: 3, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
-      { id: 4, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
-      { id: 5, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
-      { id: 6, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
-      { id: 7, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
       { id: 8, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0},
       { id: 9, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, deleted_at: nil, total: 0.0}
     ])
     Order.connection.execute("ALTER SEQUENCE orders_id_seq RESTART #{Order.all.order('id DESC').first.id + 1}")
 
     OrderItem.create!([
-      { id: 8, order_id: 2, cloud_id: 1, :product => Product.where(name: 'Medium PostgreSQL').first, service_id: nil, provision_status: 2, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "4f249639-17ca-493d-8548-9b0728bfc99b", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      # ORDER 1
       { id: 4, order_id: 1, cloud_id: 1, :product => Product.where(name: 'West Coast Storage').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 2).first, miq_id: nil, uuid: "0c01b271-fcc6-4fdd-9dab-21f3f2f44e59", setup_price: "0.99", hourly_price: "0.01", monthly_price: "0.05", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      { id: 2, order_id: 1, cloud_id: 1, :product => Product.where(name: 'RHEL 6 Small').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 2).first, miq_id: nil, uuid: "7ee39a34-8fb2-4cf4-979a-9ae4d480b6e6", setup_price: "1.99", hourly_price: "0.05", monthly_price: "0.05", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      { id: 3, order_id: 1, cloud_id: 1, :product => Product.where(name: 'Medium PostgreSQL').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 2).first, miq_id: nil, uuid: "69ea7d91-e7bb-4854-9ff2-bcd167fe6a71", setup_price: "2.99", hourly_price: "0.09", monthly_price: "0.25", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      # ORDER 2
+      { id: 8, order_id: 2, cloud_id: 1, :product => Product.where(name: 'Medium PostgreSQL').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "4f249639-17ca-493d-8548-9b0728bfc99b", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      { id: 6, order_id: 2, cloud_id: 1, :product => Product.where(name: 'RHEL 6 Medium').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "152a5fb2-708c-412c-9187-3030d07089fd", setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      # ORDER 3
       { id: 10, order_id: 3, cloud_id: 1, :product => Product.where(name: 'RHEL 6 Medium').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 4).first, miq_id: nil, uuid: "e8e488c2-ca19-4d6f-aaf1-42d28050904d", setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
       { id: 12, order_id: 3, cloud_id: 1, :product => Product.where(name: 'West Coast Storage').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 4).first, miq_id: nil, uuid: "ee0164e6-89b7-451f-8351-8fd3d52d4eee", setup_price: "0.99", hourly_price: "0.001", monthly_price: "0.05", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 6, order_id: 2, cloud_id: 1, :product => Product.where(name: 'RHEL 6 Medium').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "152a5fb2-708c-412c-9187-3030d07089fd", setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 11, order_id: 3, cloud_id: 1, :product => Product.where(name: 'Large PostgreSQL').first, service_id: nil, provision_status: 2, deleted_at: nil, :project => Project.where(id: 4).first, miq_id: nil, uuid: "8402db1c-b0ca-43b0-9e65-d442be7683ed", setup_price: "3.99", hourly_price: "0.009", monthly_price: "0.5", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 2, order_id: 1, cloud_id: 1, :product => Product.where(name: 'RHEL 6 Small').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 2).first, miq_id: nil, uuid: "7ee39a34-8fb2-4cf4-979a-9ae4d480b6e6", setup_price: "1.99", hourly_price: "0.05", monthly_price: "0.05", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 3, order_id: 1, cloud_id: 1, :product => Product.where(name: 'Medium PostgreSQL').first, service_id: nil, provision_status: 1, deleted_at: nil, :project => Project.where(id: 2).first, miq_id: nil, uuid: "69ea7d91-e7bb-4854-9ff2-bcd167fe6a71", setup_price: "2.99", hourly_price: "0.09", monthly_price: "0.25", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 20, order_id: 8, cloud_id: 1, :product => Product.where(name: 'Rails Stack').first, service_id: nil, provision_status: nil, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "44642c1d-2fb9-41d8-9acf-d57e87da61fd", setup_price: "0.0", hourly_price: "2.0", monthly_price: "0.0", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
-      { id: 21, order_id: 9, cloud_id: 2, :product => Product.where(name: 'Apache Web Server').first, service_id: nil, provision_status: nil, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "add8e14e-6ac2-4476-a9f5-84c6b351a716", setup_price: "0.0", hourly_price: "3.5", monthly_price: "0.0", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } }
+      { id: 11, order_id: 3, cloud_id: 1, :product => Product.where(name: 'Large PostgreSQL').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 4).first, miq_id: nil, uuid: "8402db1c-b0ca-43b0-9e65-d442be7683ed", setup_price: "3.99", hourly_price: "0.009", monthly_price: "0.5", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      # ORDER 8
+      { id: 20, order_id: 8, cloud_id: 1, :product => Product.where(name: 'Rails Stack').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "44642c1d-2fb9-41d8-9acf-d57e87da61fd", setup_price: "0.0", hourly_price: "2.0", monthly_price: "0.0", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } },
+      # ORDER 9
+      { id: 21, order_id: 9, cloud_id: 2, :product => Product.where(name: 'Apache Web Server').first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 3).first, miq_id: nil, uuid: "add8e14e-6ac2-4476-a9f5-84c6b351a716", setup_price: "0.0", hourly_price: "3.5", monthly_price: "0.0", payload_request: nil, payload_acknowledgement: nil, payload_response: { defaults: { ip_address: '127.0.0.1', total: '0.0', hostname: 'TBD' } } }
     ])
     OrderItem.connection.execute("ALTER SEQUENCE order_items_id_seq RESTART #{OrderItem.all.order('id DESC').first.id + 1}")
 
@@ -268,28 +269,22 @@ namespace :sample do
     Organization.connection.execute("ALTER SEQUENCE organizations_id_seq RESTART #{Organization.all.order('id DESC').first.id + 1}")
 
     Alert.create!([
-      { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 360 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
-      { id: 2, status: "critical", message: "The sytstem will undergo maintenance in 1 day.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
-      { id: 3, status: "warning", message: "The sytstem will undergo maintenance in 3 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
-      { id: 4, status: "ok", message: "Security audit was successfully completed.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'security'},
-      { id: 5, status: "critical", message: "Security audit will occur in 1 day.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'security'},
-      { id: 6, status: "warning", message: "Security audit will occur in 7 days.", start_date: nil, end_date: nil, alertable_id: 1, alertable_type: Organization, category: 'security'},
-      { id: 7, status: "ok", message: "Blog has 6 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
-      { id: 8, status: "warning", message: "Blog has 3 months of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
-      { id: 9, status: "critical", message: "Blog has 1 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
-      { id: 10, status: "critical", message: "Blog has exceeded number of allowed users.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'capacity'},
-      { id: 11, status: "ok", message: "Blog has an acceptable number of users.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'capacity'},
-      { id: 12, status: "warning", message: "Blog user base has doubled.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'capacity'},
-      { id: 13, status: "ok", message: "Blog passed audit.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'security'},
-      { id: 14, status: "warning", message: "Medium PostgreSQL is at 85% capcity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 15, status: "critical", message: "Medium PostgreSQL is at 95% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 16, status: "ok", message: "Medium PostgreSQL is at 35% capacity.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'capacity'},
-      { id: 17, status: "warning", message: "Medium PostgreSQL license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 18, status: "critical", message: "Medium PostgreSQL license expires in 1 day.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 19, status: "ok", message: "Medium PostgreSQL license in 360 days.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: OrderItem, category: 'license'},
-      { id: 20, status: "warning", message: "RHEL 6 license expires in 5 days.", start_date: nil, end_date: nil, alertable_id: 2, alertable_type: OrderItem, category: 'license'},
-      { id: 21, status: "ok", message: "User has 2 months to complete training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'},
-      { id: 22, status: "warning", message: "User has 1 week to complete training.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Staff, category: 'training'}
+      # ORGANIZTION - MAINTENANCE
+      { id: 1, status: "ok", message: "The sytstem will undergo maintenance in 360 days.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 2, status: "critical", message: "The sytstem will undergo maintenance in 1 day.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      { id: 3, status: "warning", message: "The sytstem will undergo maintenance in 3 days.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'maintenance'},
+      # ORGANIZTION - SECURITY
+      { id: 4, status: "ok", message: "Security audit was successfully completed.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'security'},
+      { id: 5, status: "critical", message: "Security audit will occur in 1 day.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'security'},
+      { id: 6, status: "warning", message: "Security audit will occur in 7 days.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 1, alertable_type: Organization, category: 'security'},
+      # PROJECT - BUDGET (BLOG)
+      # { id: 7, status: "ok", message: "Blog has 6 month of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      # { id: 8, status: "warning", message: "Blog has 3 months of funding, please increase budget.", start_date: nil, end_date: nil, alertable_id: 3, alertable_type: Project, category: 'budget'},
+      { id: 9, status: "critical", message: "Blog charge code will expire this month.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 3, alertable_type: Project, category: 'budget'},
+      # PROJECT - CAPACITY (BLOG)
+      { id: 10, status: "critical", message: "Blog has exceeded number of allowed users.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 3, alertable_type: Project, category: 'capacity'},
+      { id: 11, status: "ok", message: "Blog has an acceptable number of users.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 3, alertable_type: Project, category: 'capacity'},
+      { id: 12, status: "warning", message: "Blog user base has doubled.", start_date: "#{Time.zone.now - 1.days}", end_date: "#{Time.zone.now + 7.day}", alertable_id: 3, alertable_type: Project, category: 'capacity'}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
 

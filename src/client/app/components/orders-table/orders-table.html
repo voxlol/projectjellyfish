@@ -20,7 +20,7 @@
   <tr class="selectRow" ng-repeat="item in vm.orders">
     <td class="orders-table__cell orders-table__cell--padding"></td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.id }}</td>
-    <td class="orders-table__cell orders-table__cell">{{ ::item.order_items.length || 0 }}</td>
+    <td class="orders-table__cell orders-table__cell">{{ ::item.item_count || 0 }}</td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.total | currency }}</td>
     <td ng-if="item.staff" class="orders-table__cell orders-table__cell">{{ ::item.staff.full_name }}</td>
     <td class="orders-table__cell orders-table__cell">{{ ::item.created_at | date:'medium' }}</td>
