@@ -36,7 +36,7 @@
 
   /** @ngInject */
   function resolveContentPage($stateParams, ContentPage) {
-    return {};
+    return new ContentPage();
   }
 
   /** @ngInject */
