@@ -209,11 +209,11 @@ namespace :sample do
 
     Project.create!([
       { id: 1, name: "Analytics Platform", description: "Project description", cc: "--CC--", budget: 30000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/documentation.png", deleted_at: nil, spent: 0.0, status: 0, approval: 1},
-      { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 5000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/icon-mobile-orange.png", deleted_at: nil, spent: 2000.0, status: 0, approval: 1},
-      { id: 3, name: "Blog", description: "Project description", cc: "--CC--", budget: 10000, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/128x128-wordpress.png", deleted_at: nil, spent: 4135.03, status: 0, approval: 1},
-      { id: 4, name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 1000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/cloud-checkmark-128.png", deleted_at: nil, spent: 0.0, status: 0, approval: 1},
-      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 35000.0, status: 0, approval: 0},
-      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 9000.0, status: 0, approval: 0}
+      { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 5000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/icon-mobile-orange.png", deleted_at: nil, spent: 600.12, status: 0, approval: 1},
+      { id: 3, name: "Blog", description: "Project description", cc: "--CC--", budget: 10000, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/128x128-wordpress.png", deleted_at: nil, spent: 1000.49, status: 0, approval: 1},
+      { id: 4, name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 1000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "projects/cloud-checkmark-128.png", deleted_at: nil, spent: 70.98, status: 0, approval: 1},
+      { id: 5, name: "Cloud Exchange", description: nil, cc: nil, budget: 50000.0, staff_id: nil, start_date: "2015-02-12", end_date: "2016-02-11", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0},
+      { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: 0.0, status: 0, approval: 0}
     ])
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
 
