@@ -10,14 +10,15 @@
 <div ng-if="!vm.roles.length">
   <h4>No roles presently exist. Add a new one!</h4>
 </div>
-<div class="roles-table" ng-if="vm.roles.length">
-  <table st-table="vm.roles" class="roles-table__table table-hover">
+<div ng-if="vm.roles.length">
+  <table st-table="vm.roles" class="roles-table">
     <thead>
     <tr>
       <th class="roles-table__heading roles-table__heading--padding"></th>
       <th class="roles-table__heading roles-table__heading--sortable" st-sort="name">Name</th>
       <th class="roles-table__heading roles-table__heading--sortable" st-sort="description">Description</th>
-      <th class="roles-table__heading roles-table__heading--actions" st-sort="permissions">Permissions</th>
+      <th class="roles-table__heading roles-table__heading--sortable" st-sort="permissions">Permissions</th>
+      <th class="roles-table__heading roles-table__heading--actions" >Action</th>
     </tr>
     </thead>
     <tbody>
