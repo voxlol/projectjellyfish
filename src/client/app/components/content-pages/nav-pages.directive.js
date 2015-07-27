@@ -32,13 +32,9 @@
       vm.isActive = isActive;
       vm.activate = activate;
 
-      $rootScope.$on('newPageAdded', function() {
-        updatePageList();
-      });
+      $rootScope.$on('newPageAdded', updatePageList());
 
-      $rootScope.$on('pageRemoved', function() {
-        updatePageList();
-      });
+      $rootScope.$on('pageRemoved', updatePageList());
 
       function activate() {
         updatePageList();
