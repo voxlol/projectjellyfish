@@ -71,9 +71,9 @@
         if (vm.form.$valid) {
           // If editing update rather than save
           if (vm.contentPageRecord.id) {
-            ContentPage.update(vm.contentPageRecord).$promise.then(updateSuccess, saveFailure);
+            vm.contentPageRecord.$update(updateSuccess, saveFailure);
           } else {
-            ContentPage.save(vm.contentPageRecord).$promise.then(saveSuccess, saveFailure);
+            vm.contentPageRecord.$save(saveSuccess, saveFailure);
           }
         }
 
