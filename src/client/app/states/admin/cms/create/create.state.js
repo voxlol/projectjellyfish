@@ -20,8 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin CMS Create',
         resolve: {
-          contentPageRecord: resolveContentPage,
-          staff: resolveStaff
+          contentPageRecord: resolveContentPage
         }
       }
     };
@@ -41,18 +40,12 @@
   }
 
   /** @ngInject */
-  function resolveStaff(Staff) {
-    return Staff.getCurrentMember().$promise;
-  }
-
-  /** @ngInject */
-  function StateController(logger, contentPageRecord, staff, $stateParams) {
+  function StateController(logger, contentPageRecord, $stateParams) {
     var vm = this;
 
     vm.title = 'Admin CMS Create';
     vm.contentPageRecord = contentPageRecord;
     vm.activate = activate;
-    vm.staffId = staff.id;
     vm.home = 'admin.cms.list';
     vm.homeParams = { };
 

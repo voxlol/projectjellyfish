@@ -44,7 +44,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, contentPageRecord, staff, $stateParams) {
+  function StateController(logger, contentPageRecord, $stateParams) {
     var vm = this;
 
     vm.title = 'Admin CMS Edit';
