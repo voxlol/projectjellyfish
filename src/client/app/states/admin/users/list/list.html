@@ -7,32 +7,23 @@
   </div>
 </content-header>
 
-<div class="users-table">
-  <table st-table="vm.staff" class="users-table__table table-hover">
+<div>
+  <table st-table="vm.staff" class="users-table">
     <thead>
-    <th colspan="3">
-      <input st-search="" class="form-control users-table__filter-input" placeholder="Filter by name, role, email" type="text"/>
-    </th>
     <tr>
       <th class="users-table__heading users-table__heading--padding"></th>
-      <th class="users-table__heading " st-sort="id">Id</th>
-      <th class="users-table__heading " st-sort="last_name">First/Last Name</th>
-      <th class="users-table__heading " st-sort="email">Email</th>
-      <th class="users-table__heading " st-sort="phone">Phone</th>
-      <th class="users-table__heading " st-sort="role">Role</th>
-      <th class="users-table__heading " st-sort="updated_at">Last Updated</th>
+      <th class="users-table__heading users-table__heading--sortable" st-sort="first_name"> Name</th>
+      <th class="users-table__heading users-table__heading--sortable" st-sort="email">Email</th>
+      <th class="users-table__heading users-table__heading--sortable" st-sort="role">Role</th>
       <th class="users-table__heading ">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr class="users-table__row" ng-repeat="row in vm.staff">
       <td class="users-table__cell users-table__cell--padding"></td>
-      <td class="users-table__cell users-table__cell--order">{{ ::row.id }}</td>
-      <td class="users-table__cell users-table__cell--question">{{ ::row.first_name}}/{{ ::row.last_name}}</td>
-      <td class="users-table__cell users-table__cell--question">{{ ::row.email }}</td>
-      <td class="users-table__cell users-table__cell--question">{{ ::row.phone }}<span ng-hide="row.phone">N/A</span></td>
-      <td class="users-table__cell users-table__cell--question">{{ ::row.role }}</td>
-      <td class="users-table__cell users-table__cell--question">{{ ::row.updated_at | date: 'short'}}</td>
+      <td class="users-table__cell users-table__cell--name">{{ ::row.first_name}} {{ ::row.last_name}}</td>
+      <td class="users-table__cell users-table__cell--email">{{ ::row.email }}</td>
+      <td class="users-table__cell users-table__cell--role">{{ ::row.role }}</td>
       <td class="users-table__cell users-table__cell--actions">
         <a ui-sref="admin.users.create({id: row.id})" class="users-table__action users-table__action--edit">
           <img src="/images/ic_edit.png" alt="Edit"/>

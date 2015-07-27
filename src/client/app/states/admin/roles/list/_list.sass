@@ -10,12 +10,10 @@
     top: 0
 
 +block(roles-table)
-  @extend .panel
-  border: none
-  border-radius: 0
-
-  +element(filter-input)
-    margin: 10px
+  @extend .table-striped
+  width: 100%
+  background-color: $app-color-white
+  border: 1px solid $app-color-gray
 
   +element(header)
     @extend .panel-heading
@@ -39,10 +37,6 @@
 
   +element(collapse-icon)
     @extend .pull-right
-
-  +element(table)
-    @extend .table-striped
-    width: 100%
 
   +element(heading)
     height: 44px
