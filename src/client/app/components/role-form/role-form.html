@@ -43,25 +43,23 @@
         <div class="role-field__aside">
           <label class="role-field__label">{{permission}}</label>
         </div>
-        <div class="role-field__body--checkbox">
-          <label>Read
-            <input id="approvals-read"
-                   name="approvals-read"
-                   type="checkbox"
+        <div class="role-field__radio">
+
+            <input id="{{permission}}+{{value}}+'read'"
+                   name="{{permission}}+{{value}}+'read'"
+                   type="radio"
                    ng-model="vm.role.permissions[permission]"
-                   ng-true-value="['read']"
-                   ng-false-value="null"
-                   class="role-field__checkbox"/>
-          </label>
-          <label> Read/Write
-            <input id="approvals-write"
-                   name="approvals-write"
-                   type="checkbox"
+                   ng-value="['read']"
+                   class="role-field__radio"/>
+            <label for="{{permission}}+{{value}}+'read'">Read</label>
+
+            <input id="{{permission}}+{{value}}+'write'"
+                   name="{{permission}}+{{value}}+'write'"
+                   type="radio"
                    ng-model="vm.role.permissions[permission]"
-                   ng-true-value="['read', 'write']"
-                   ng-false-value="null"
-                   class="role-field__checkbox"/>
-          </label>
+                   ng-value="['read', 'write']"
+                   class="role-field__radio"/>
+          <label for="{{permission}}+{{value}}+'write'"> Read/Write  </label>
         </div>
       </div>
     </div>
