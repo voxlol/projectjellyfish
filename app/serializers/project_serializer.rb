@@ -26,7 +26,7 @@
 #
 
 class ProjectSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :cc, :staff_id, :img, :created_at, :updated_at, :deleted_at, :status, :approval
+  attributes :id, :name, :description, :cc, :staff_id, :img, :created_at, :updated_at, :deleted_at, :status, :approval, :order_history
   attributes :archived, :spent, :budget, :start_date, :end_date
 
   # Relationships
