@@ -38,7 +38,6 @@
 
       function activate() {
         updatePageList();
-        console.log(vm);
       }
 
       function isActive() {
