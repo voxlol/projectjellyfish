@@ -45,21 +45,21 @@
         </div>
         <div class="role-field__radio">
 
-            <input id="{{permission}}+{{value}}+'read'"
-                   name="{{permission}}+{{value}}+'read'"
+            <input id="{{::[permission, value, 'read'].join('-')}}"
+                   name="{{::[permission, value, 'read'].join('-')}}'"
                    type="radio"
                    ng-model="vm.role.permissions[permission]"
                    ng-value="['read']"
                    class="role-field__radio"/>
-            <label for="{{permission}}+{{value}}+'read'">Read</label>
+            <label for="{{::[permission, value, 'read'].join('-')}}">Read</label>
 
-            <input id="{{permission}}+{{value}}+'write'"
-                   name="{{permission}}+{{value}}+'write'"
+            <input id="{{::[permission, value, 'write'].join('-')}}"
+                   name="{{::[permission, value, 'write'].join('-')}}"
                    type="radio"
                    ng-model="vm.role.permissions[permission]"
                    ng-value="['read', 'write']"
                    class="role-field__radio"/>
-          <label for="{{permission}}+{{value}}+'write'"> Read/Write  </label>
+          <label for="{{::[permission, value, 'write'].join('-')}}"> Read/Write  </label>
         </div>
       </div>
     </div>
