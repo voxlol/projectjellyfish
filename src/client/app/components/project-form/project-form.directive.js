@@ -30,7 +30,6 @@
       var vm = this;
 
       var showValidationMessages = false;
-      var home = 'projects.list';
       vm.format = 'yyyy-MM-dd';
       vm.dateOptions = {
         formatYear: 'yy',
@@ -53,7 +52,11 @@
       }
 
       function backToList() {
-        $state.go(home);
+        if (vm.project.id) {
+          $state.go('projects.details', {projectId: vm.project.id});
+        } else {
+          $state.go('^');
+        }
       }
 
       function showErrors() {
@@ -98,7 +101,7 @@
 
         function saveSuccess() {
           Toasts.toast(vm.project.name + ' saved to projects.');
-          $state.go(home);
+          vm.backToList();
         }
 
         function saveFailure() {
