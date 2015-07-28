@@ -1,54 +1,62 @@
 class MotdsController < ApplicationController
-  skip_before_action :require_user, only: :show
-
-  before_action :pre_hook
+  skip_before_action :require_user, only: [:show]
+  after_action :verify_authorized, except: [:show]
   after_action :post_hook
+  before_action :pre_hook
 
-  def self.document_params
-    param :message, String, desc: 'The message to of the day', required: true
+  def self.error_codes
     error code: 404, desc: MissingRecordDetection::Messages.not_found
     error code: 422, desc: ParameterValidation::Messages.missing
   end
 
-  api :GET, '/motd', 'Return the MOTD'
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-  error code: 422, desc: ParameterValidation::Messages.missing
+  def self.document_params
+    param :message, String, desc: 'Content of message of the day template', required: true
+    error_codes
+  end
+
+  api :GET, '/motd', 'Returns message of the day.'
+  error_codes
 
   def show
     respond_with_params Motd.first
   end
 
-  api :POST, '/motd', 'Create the MOTD'
+  api :POST, '/motd', 'Create new message of the day.'
   document_params
 
   def create
-    motd = Motd.first_or_initialize motd_params
-    authorize motd
-    motd.save
-    respond_with motd
+    motd_create_or_update
   end
 
-  api :PUT, '/motd', 'Update the MOTD'
+  api :PUT, '/motd', 'Updates existing message of the day.'
   document_params
 
   def update
-    respond_with_params motd.update_attributes motd_params
+    motd_create_or_update
   end
 
-  api :DELETE, '/motd', 'Destroy the MOTD'
+  api :DELETE, '/motd', 'Clears the message of the day'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    respond_with_params motd.destroy
+    authorize motd
+    motd.destroy
+    respond_with_params motd
   end
 
   private
+
+  def motd_create_or_update
+    authorize motd
+    motd.update motd_params
+    respond_with_params motd
+  end
 
   def motd_params
     params.permit(:message).merge(staff_id: current_user.id)
   end
 
   def motd
-    @motd = Motd.first_or_initialize.tap { |r| authorize(r) }
+    @_motd ||= Motd.first_or_initialize
   end
 end

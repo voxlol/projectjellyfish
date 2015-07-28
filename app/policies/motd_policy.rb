@@ -1,4 +1,12 @@
 class MotdPolicy < ApplicationPolicy
+  def index?
+    false
+  end
+
+  def show?
+    true
+  end
+
   def create?
     user.admin?
   end
