@@ -9,27 +9,28 @@
     var previous = null;
     var lastPrevious = null;
 
-    $rootScope.$on("$stateChangeStart", function(evt, toState, toStateParams, fromState, fromStateParams) {
+    $rootScope.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState, fromStateParams) {
       lastPrevious = previous;
-      previous = { state: fromState, params: fromStateParams };
+      previous = {state: fromState, params: fromStateParams};
     });
 
-    $rootScope.$on("$stateChangeError", function() {
+    $rootScope.$on('$stateChangeError', function() {
       previous = lastPrevious;
       lastPrevious = null;
     });
 
-    $rootScope.$on("$stateChangeSuccess", function() {
+    $rootScope.$on('$stateChangeSuccess', function() {
       lastPrevious = null;
     });
 
     var $previousState = {
       get: function() {
-        return  previous;
+        return previous;
       },
       go: function() {
         var to = $previousState.get();
-        return $state.go(to.state, to.params)
+
+        return $state.go(to.state, to.params);
       }
     };
 
@@ -37,7 +38,6 @@
   }
 
   angular.module('app.components').run(['$previousState', function($previousState) {
-    "use strict";
   }]);
 
   angular.module('app.components')
@@ -75,6 +75,5 @@
         $previousState.go();
       }
     }
-
   }
 })();
