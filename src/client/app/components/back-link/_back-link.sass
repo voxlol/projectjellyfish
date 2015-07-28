@@ -1,29 +1,10 @@
-+block(cart)
-  // TODO
-
-+block(nav-cart)
-
-  +element(item)
-    background-color: $app-color-orange
++block(nav-back-link)
+  +element(button)
+    text-align: right
+    position: absolute
+    right: 0px
+    top: 0px
     display: block
-    min-height: $navbar-height
-    width: 75px
-    height: 75px
 
     &:active, &:focus, &:hover
       outline: none
-
-  +element(image)
-    position: absolute
-    top: 50%
-    left: 54%
-    transform: translate(-50%, -50%)
-
-  +element(item-count)
-    text-align: center
-    position: absolute
-    left: 45%
-    top: 10px
-    font-weight: bold
-    font-size: 12px
-    color: $app-color-white
