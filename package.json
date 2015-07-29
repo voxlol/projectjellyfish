@@ -10,7 +10,7 @@
   "scripts": {
     "init": "npm install",
     "install": "bower install",
-    "postinstall": "gulp build",
+    "postinstall": "bundle exec gem install sass; gulp build",
     "start": "node src/server/app.js",
     "test": "gulp test"
   },
