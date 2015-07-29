@@ -9,30 +9,40 @@
     var previous = null;
     var lastPrevious = null;
 
-    $rootScope.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState, fromStateParams) {
+    $rootScope.$on('$stateChangeStart', stateChangeStart);
+
+    $rootScope.$on('$stateChangeError', stateChangeError);
+
+    $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
+
+    function stateChangeStart(evt, toState, toStateParams, fromState, fromStateParams) {
       lastPrevious = previous;
       previous = {state: fromState, params: fromStateParams};
-    });
+    }
 
-    $rootScope.$on('$stateChangeError', function() {
+    function stateChangeError() {
       previous = lastPrevious;
       lastPrevious = null;
-    });
+    }
 
-    $rootScope.$on('$stateChangeSuccess', function() {
+    function stateChangeSuccess() {
       lastPrevious = null;
-    });
+    }
 
     var $previousState = {
-      get: function() {
-        return previous;
-      },
-      go: function() {
-        var to = $previousState.get();
-
-        return $state.go(to.state, to.params);
-      }
+      get: getFunction,
+      go: goFunction
     };
+
+    function getFunction() {
+      return previous;
+    }
+
+    function goFunction() {
+      var to = $previousState.get();
+
+      return $state.go(to.state, to.params);
+    }
 
     return $previousState;
   }
@@ -49,7 +59,7 @@
       restrict: 'AE',
       scope: {},
       link: link,
-      templateUrl: 'app/components/back-link/back-link.html',
+      template: '<button class="nav-back-link__button btn-link" ng-click="vm.stateTransition()">Back</button>',
       controller: BackLinkController,
       controllerAs: 'vm',
       bindToController: true
