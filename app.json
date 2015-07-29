@@ -11,7 +11,7 @@
   "logo": "http://www.projectjellyfish.org/assets/images/logo-icon.svg",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "rake db:schema:load spec db:seed sample:demo"
+    "postdeploy": "gulp build; rake db:schema:load spec db:seed sample:demo"
   },
   "env": {
     "SECRET_KEY_BASE": {
@@ -26,10 +26,10 @@
       "description": "The Rails environment",
       "value": "production"
     },
-    "NODE_ENV": {
+    "NPM_CONFIG_PRODUCTION": {
       "description": "The NodeJs tools environment. Do Not Change!",
-      "value": "development"
-    }
+      "value": false
+    },
   },
   "addons": [
     "heroku-postgresql"
