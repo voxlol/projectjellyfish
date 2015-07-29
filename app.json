@@ -29,7 +29,7 @@
     "NPM_CONFIG_PRODUCTION": {
       "description": "The NodeJs tools environment. Do Not Change!",
       "value": "false"
-    },
+    }
   },
   "addons": [
     "heroku-postgresql"
