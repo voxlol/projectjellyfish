@@ -47,8 +47,11 @@
     return $previousState;
   }
 
-  angular.module('app.components').run(['$previousState', function($previousState) {
-  }]);
+  angular.module('app.components').run(previousStateInstantiation);
+
+  /** @ngInject */
+  function previousStateInstantiation($previousState) {
+  }
 
   angular.module('app.components')
     .directive('backLink', BackLinkDirective);
