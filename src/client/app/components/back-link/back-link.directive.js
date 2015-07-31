@@ -60,7 +60,7 @@
       restrict: 'AE',
       scope: {},
       link: link,
-      template: '<button class="nav-back-link__button btn-link" ng-click="vm.stateTransition()">Back</button>',
+      template: '<button class="btn-link" ng-click="vm.stateTransition()">Back</button>',
       controller: BackLinkController,
       controllerAs: 'vm',
       bindToController: true
