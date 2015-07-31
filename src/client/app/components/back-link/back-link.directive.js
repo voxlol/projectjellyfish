@@ -10,9 +10,7 @@
     var lastPrevious = null;
 
     $rootScope.$on('$stateChangeStart', stateChangeStart);
-
     $rootScope.$on('$stateChangeError', stateChangeError);
-
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
 
     function stateChangeStart(evt, toState, toStateParams, fromState, fromStateParams) {
