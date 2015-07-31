@@ -3,8 +3,8 @@
     <img ng-if="vm.product.img" class="service-details-heading__icon" ng-src="images/assets/{{ ::vm.product.img }}"/>
     <span class="content-header__title">{{ ::vm.service.product.name }}</span>
   </div>
-  <div class="service-details-heading__aside">
-    <a ui-sref="services.edit({serviceId: vm.service.id})" class="btn-rounded">Edit Service</a>
+  <div class="content-header__aside">
+    <back-link></back-link>
   </div>
 </content-header>
 
