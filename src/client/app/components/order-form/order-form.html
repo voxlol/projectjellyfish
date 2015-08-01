@@ -3,11 +3,11 @@
 
   <content-header short="true">
     <div>
-      <span class="content-header__title">{{ ::vm.product.name }}</span>
+      <span class="content-header__title">Service Order</span>
       <span class="forms__title--error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
     </div>
     <div class="product-form__product-type">
-      <small class="forms__title--description">{{ ::vm.product.description }}</small>
+      <small class="forms__title--description">{{ ::vm.product.name }}</small>
     </div>
   </content-header>
 
@@ -16,27 +16,34 @@
     <div class="forms__body">
       <div class="field">
         <div class="field__aside">
-          <label class="field__label">Project</label>
+          <label class="field__label">Name</label>
         </div>
-        <div class="field__body" ng-class="{'has-error': vm.hasError('project')}">
-          <select name="project" class="field__input" ng-options="project.id as project.name for project in vm.projects"
-                  ng-model="vm.order.project_id" required>
-            <option value="">Select a Project</option>
-          </select>
+        <div class="field__body">
+          <input name="name" type="text" class="field__input" ng-model="vm.order.service.name" required/>
+
+          <div class="field__feedback" ng-messages="vm.form.name.$error">
+            <div ng-message="required">A name for the service is required.</div>
+          </div>
         </div>
       </div>
 
       <div class="field">
         <div class="field__aside">
-          <label class="field__label">Name</label>
+          <label class="field__label">Project</label>
         </div>
-        <div class="field__body">
-          <input name="name" type="text" class="field__input" ng-model="vm.order.service.name" required/>
+        <div class="field__body" ng-class="{'has-error': vm.hasErrors('project')}">
+          <select name="project" class="field__input" ng-options="project.id as project.name for project in vm.projects"
+                  ng-model="vm.order.project_id" required>
+            <option value="">Select a Project</option>
+          </select>
+
+          <div class="field__feedback" ng-messages="vm.form.project.$error">
+            <div ng-message="required">You must select a project.</div>
+          </div>
         </div>
       </div>
 
-
-      <formly-form model="vm.model" fields="vm.fields"></formly-form>
+      <formly-form form="vm.form" model="{}" fields="vm.fields" options="vm.options"></formly-form>
     </div>
 
     <div class="forms__aside">

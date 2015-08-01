@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     # Services
     resources :services, only: [:index, :show]
 
+    # Orders
+    resources :orders, only: [:index, :show, :create]
+
+    # Extensions
+    resources :extensions, only: [:index]
+
     # Alerts Routes
     resources :alerts do
       collection do

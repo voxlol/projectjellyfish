@@ -11,6 +11,16 @@ class ExtensiveRefactor < ActiveRecord::Migration
   end
 
   def up
+    add_column :projects, :health, :integer, index: true
+    Project.reset_column_information
+    Project.find_each do |project|
+      project.health = project.status
+      project.status = project.approval
+      project.save
+    end
+    change_column_null :projects, :health, false
+    remove_column :projects, :approval, :integer
+
     # Create settings : Storage of unique application-wide settings
     create_table :settings do |t|
       t.timestamps null: false
@@ -50,21 +60,6 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.boolean :deprecated, null: false, default: false
     end
 
-    # # Create product_listings : Product listings in the marketplace
-    # create_table :product_listings do |t|
-    #   t.timestamps null: false
-    #   t.datetime :deleted_at
-    #   t.string :product_type, index: true, null: false
-    #   t.string :name, null: false
-    #   t.text :description
-    #   t.string :img
-    #   t.boolean :active, null: false, default: true
-    #   t.decimal :setup_price, precision: 10, scale: 4
-    #   t.decimal :hourly_price, precision: 10, scale: 4
-    #   t.decimal :monthly_price, precision: 10, scale: 4
-    #   t.text :cached_tag_list
-    # end
-    #
     # TODO: Migrate products.provisioning_answers to answers
     remove_column :products, :provisioning_answers, :jsonb
     remove_column :products, :product_type
@@ -79,6 +74,7 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.string :type, index: true, null: false
       t.string :uuid, index: true, null: false
       t.string :name, null: false
+      t.integer :health, null: false, default: 0
       t.integer :status
       t.string :status_msg
     end
@@ -107,6 +103,7 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Create orders : Used to record budget utilization
     create_table :orders do |t|
       t.timestamps null: false
+      t.references :staff, index: true, null: false, foreign_key: { on_delete: :cascade }
       t.references :project, index: true, null: false, foreign_key: { on_delete: :cascade }
       t.references :product, index: true, null: false, foreign_key: { on_delete: :cascade }
       t.references :service, index: true, unique: true, null: false, foreign_key: { on_delete: :cascade }

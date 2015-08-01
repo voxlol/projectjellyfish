@@ -5,6 +5,7 @@
 #  id            :integer          not null, primary key
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  staff_id      :integer          not null
 #  project_id    :integer          not null
 #  product_id    :integer          not null
 #  service_id    :integer          not null
@@ -17,11 +18,15 @@
 #  index_orders_on_product_id  (product_id)
 #  index_orders_on_project_id  (project_id)
 #  index_orders_on_service_id  (service_id)
+#  index_orders_on_staff_id    (staff_id)
 #
 
 class Order < ActiveRecord::Base
+  belongs_to :staff
   belongs_to :product
   belongs_to :project
   belongs_to :service
   has_many :answers, as: :answerable
+
+  accepts_nested_attributes_for :answers
 end
