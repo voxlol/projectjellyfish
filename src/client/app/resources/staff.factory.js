@@ -28,6 +28,12 @@
       }
     });
 
+    Staff.prototype.fullName = fullName;
+
+    function fullName() {
+      return [this.first_name, this.last_name].join(' ');
+    }
+
     return Staff;
   }
 })();
