@@ -18,6 +18,7 @@
 #  budget      :decimal(12, 2)   default(0.0)
 #  start_date  :datetime
 #  end_date    :datetime
+#  health      :integer
 #
 # Indexes
 #
@@ -49,13 +50,14 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_answers
 
   # Columns
-  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
-  enum approval: { undecided: 0, approved: 1, rejected: 2 }
+  enum health: { ok: 0, warning: 1, critical: 2 }
+  enum status: { pending: 0, approved: 1, rejected: 2 }
 
   # Scopes
   scope :main_inclusions, -> { includes(:project_answers, :services, :staff) }
-  scope :active, -> { where(archived: nil) }
-  scope :archived, -> { where.not(archived: nil) }
+
+  scope :approved, -> { where(status: 1) }
+  scope :archived, -> (archived = true) { archived ? where.not(archived: nil) : where(archived: nil) }
 
   # def order_history
   #   history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
@@ -75,14 +77,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  # def domain
-  #   'companyapp1.clouddealer.com/'
-  # end
-
-  # def url
-  #   'http://companyapp1.clouddealer.com'
-  # end
-
   def state
     1 == problem_count ? '1 Problem' : "#{problem_count} Problems"
   end
@@ -98,30 +92,6 @@ class Project < ActiveRecord::Base
   def problem_count
     @problem_count ||= latest_service_alerts.count { |a| a unless a.status == 'ok' }
   end
-
-  # def account_number
-  #   785
-  # end
-
-  # def resources
-  #   256
-  # end
-
-  # def resource_unit
-  #   'MB'
-  # end
-
-  # def cpu
-  #   8
-  # end
-
-  # def hdd
-  #   '42 GB'
-  # end
-
-  # def ram
-  #   '2 GB'
-  # end
 
   def latest_service_alerts
     services.map(&:latest_alerts).flatten

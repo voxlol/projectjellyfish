@@ -18,6 +18,7 @@
 #  budget      :decimal(12, 2)   default(0.0)
 #  start_date  :datetime
 #  end_date    :datetime
+#  health      :integer
 #
 # Indexes
 #

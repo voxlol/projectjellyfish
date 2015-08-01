@@ -5,6 +5,9 @@ class ProjectsController < ApplicationController
   after_action :verify_authorized
   after_action :post_hook
 
+  has_scope :active, type: :boolean
+  has_scope :archived, type: :boolean
+
   def self.document_project_params(required: false)
     param :approved, String
     param :budget, :decimal, precision: 12, scale: 2, required: required
@@ -26,7 +29,6 @@ class ProjectsController < ApplicationController
 
   def index
     authorize_and_normalize(Project.new)
-    projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
     respond_with_params projects
   end
 
@@ -81,12 +83,14 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    @_project_params ||= params.permit(:name, :description, :cc, :budget, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id]).tap do |project|
-      if params[:project_answers]
-        project[:project_answers_attributes] = project.delete(:project_answers)
-      end
-      if !current_user.admin? && !project[:id].nil?
-        project.delete(:budget)
+    @_project_params ||= begin
+      permitted = [
+        :name, :description, :cc, :start_date, :end_date,
+        :approved, :img, project_answers: [:project_question_id, :answer, :id]
+      ]
+      permitted << :budget if current_user.admin? || params[:id].nil?
+      params.permit(permitted).tap do |project|
+        project[:project_answers_attributes] = project.delete :project_answers
       end
     end
   end
@@ -102,6 +106,10 @@ class ProjectsController < ApplicationController
     ProjectQuestion.where.not(id: project.project_answer_ids).each do |pq|
       project.project_answers.build(project_question: pq)
     end
+  end
+
+  def projects
+    @_projects ||= query_with apply_scopes(policy_scope(Project)).main_inclusions, :includes, :pagination
   end
 
   def project

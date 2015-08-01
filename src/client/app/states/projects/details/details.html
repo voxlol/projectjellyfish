@@ -5,7 +5,7 @@
     <div ng-if="::!vm.project.img" class="project-details__icon project-details__icon--missing"></div>
     <span class="content-header__title">{{ ::vm.project.name }}</span>
   </div>
-  <div ng-if="::'approved' === vm.project.approval" class="content-header__aside">
+  <div ng-if="::'approved' === vm.project.status" class="content-header__aside">
     <a ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
   </div>
 </content-header>

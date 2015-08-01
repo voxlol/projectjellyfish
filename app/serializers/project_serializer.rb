@@ -18,6 +18,7 @@
 #  budget      :decimal(12, 2)   default(0.0)
 #  start_date  :datetime
 #  end_date    :datetime
+#  health      :integer
 #
 # Indexes
 #
@@ -26,7 +27,7 @@
 #
 
 class ProjectSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :cc, :staff_id, :img, :created_at, :updated_at, :deleted_at, :status, :approval
+  attributes :id, :name, :description, :cc, :staff_id, :img, :created_at, :updated_at, :deleted_at, :status, :health
   attributes :archived, :spent, :budget, :start_date, :end_date
 
   # Relationships
@@ -42,4 +43,8 @@ class ProjectSerializer < ApplicationSerializer
   has_many :staff
   has_many :orders
   has_many :services
+
+  def health
+    object.pending? ? nil : object.health
+  end
 end

@@ -24,7 +24,7 @@
         </th>
         <th st-sort="status"
             class="projects-table__heading projects-table__heading--status projects-table__heading--sortable">
-          Status
+          Health
         </th>
         <th st-sort="budget"
             class="projects-table__heading projects-table__heading--budget projects-table__heading--sortable">
@@ -43,15 +43,15 @@
           <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
         </td>
         <td class="projects-table__cell projects-table__cell--approval">
-          <img ng-if="::'approved' === row.approval" class="projects-table__approved"
+          <img ng-if="::'approved' === row.status" class="projects-table__approved"
                src="/images/ic_required.png"
                alt="Approved" title="Project is approved"/>
-          <img ng-if="::'rejected' === row.approval" class="projects-table__rejection"
+          <img ng-if="::'rejected' === row.status" class="projects-table__rejection"
                src="/images/ic_deletequestion.png"
                alt="Rejected" title="Project is rejected"/>
         </td>
         <td class="projects-table__cell projects-table__cell--status">
-          <status type="{{ ::row.status }}">{{ ::row.status }}</status>
+          <status type="{{ ::row.health }}">{{ ::row.health }}</status>
         </td>
         <td class="projects-table__cell projects-table__cell--budget">{{ ::row.budget | currency }}</td>
         <td class="projects-table__cell projects-table__cell--spent">{{ ::row.spent | currency }}</td>
