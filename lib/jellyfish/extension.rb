@@ -15,8 +15,11 @@ module Jellyfish
   #   end
   #
   class Extension
+    include ActiveModel::SerializerSupport
+
     @registered_extensions = {}
     @tests_to_skip = {}
+
     class << self
       attr_reader :registered_extensions
       private :new
@@ -57,7 +60,7 @@ module Jellyfish
 
       # Returns an array of all registered extensions
       def all
-        registered_extensions.values.sort
+        registered_extensions.values.sort_by { |ex| ex.name }
       end
 
       # Finds a extension by its id
@@ -73,25 +76,16 @@ module Jellyfish
       end
     end
 
-    def_field :name, :description, :url, :author, :author_url, :version, :path
+    def_field :name, :description, :url, :author, :author_url, :version, :path, :scripts
     attr_reader :id # , :logging
 
     def initialize(id)
       @id = id.to_sym
-      # TODO: Revisit and add logging
-      # @logging = Extension::Logging.new(@id)
+      @scripts = []
     end
 
     def after_initialize
     end
-    #
-    # def configure_logging
-    #   # @logging.configure(SETTINGS[@id])
-    # end
-    #
-    # def logger(name, configuration = {})
-    #   # @logging.add_logger(name, configuration)
-    # end
 
     def <=>(other)
       id.to_s <=> other.id.to_s
@@ -124,8 +118,11 @@ module Jellyfish
       true
     end
 
-    def register_product(product)
-      product.new.tap { |p| Product[p.class.name] = p }
+    # Sets a list of JavaScript includes for UX
+    #
+    # scripts should be complete paths excluding public/
+    def load_scripts(*scripts)
+      @scripts.concat scripts
     end
 
     def pending_migrations
