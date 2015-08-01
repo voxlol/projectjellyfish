@@ -5,19 +5,12 @@
     .run(startup);
 
   /** @ngInject */
-  function startup(Staff, $state, SessionService) {
+  function startup(userSession, SessionService) {
     var dashboard = 'dashboard';
     var login = 'login';
 
-    Staff.getCurrentMember(startupSuccess, startupError);
-
-    function startupSuccess(data) {
-      SessionService.create(data);
-      $state.go(dashboard);
-    }
-
-    function startupError() {
-      $state.go(login);
+    if (session) {
+      SessionService.create(userSession);
     }
   }
 })();

@@ -1,4 +1,4 @@
-/* global apiCheck:false, toastr:false, moment:false, _:false, $:false */
+/* global apiCheck:false, toastr:false, moment:false, _:false, $:false, session:false */
 (function() {
   'use strict';
 
@@ -7,5 +7,6 @@
     .constant('lodash', _)
     .constant('jQuery', $)
     .constant('toastr', toastr)
-    .constant('moment', moment);
+    .constant('moment', moment)
+    .constant('userSession', session);
 })();
