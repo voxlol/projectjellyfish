@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "staff_id",                               null: false
     t.integer  "project_id",                             null: false
     t.integer  "product_id",                             null: false
     t.integer  "service_id",                             null: false
@@ -215,6 +216,7 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "orders", ["product_id"], name: "index_orders_on_product_id", using: :btree
   add_index "orders", ["project_id"], name: "index_orders_on_project_id", using: :btree
   add_index "orders", ["service_id"], name: "index_orders_on_service_id", using: :btree
+  add_index "orders", ["staff_id"], name: "index_orders_on_staff_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -307,12 +309,12 @@ ActiveRecord::Schema.define(version: 20150711044620) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "status",                                           default: 0
-    t.integer  "approval",                                         default: 0
     t.datetime "archived"
     t.decimal  "spent",                   precision: 12, scale: 2, default: 0.0
     t.decimal  "budget",                  precision: 12, scale: 2, default: 0.0
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "health",                                                         null: false
   end
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
@@ -336,11 +338,12 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_index "service_attributes", ["service_id"], name: "index_service_attributes_on_service_id", using: :btree
 
   create_table "services", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "type",       null: false
-    t.string   "uuid",       null: false
-    t.string   "name",       null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "type",                   null: false
+    t.string   "uuid",                   null: false
+    t.string   "name",                   null: false
+    t.integer  "health",     default: 0, null: false
     t.integer  "status"
     t.string   "status_msg"
   end
@@ -441,5 +444,6 @@ ActiveRecord::Schema.define(version: 20150711044620) do
   add_foreign_key "orders", "products", on_delete: :cascade
   add_foreign_key "orders", "projects", on_delete: :cascade
   add_foreign_key "orders", "services", on_delete: :cascade
+  add_foreign_key "orders", "staff", on_delete: :cascade
   add_foreign_key "wizard_answers", "wizard_questions", on_delete: :cascade
 end
