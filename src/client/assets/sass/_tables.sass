@@ -3,6 +3,9 @@
   width: 100%
   background-color: $app-color-white
 
+  +modifier(bordered)
+    border: 1px solid $app-color-gray
+
   +element(heading)
     height: 44px
     font-weight: bold
@@ -15,7 +18,10 @@
 
     +modifier(centered)
       text-align: center
-      padding: 0
+      padding-right: 0
+
+    +modifier(righted)
+      text-align: right
 
     +modifier(sortable)
       color: $app-color-blue
@@ -47,7 +53,10 @@
 
     +modifier(centered)
       text-align: center
-      padding: 0
+      padding-right: 0
+
+    +modifier(righted)
+      text-align: right
 
     +modifier(actions)
       width: 136px
@@ -58,3 +67,9 @@
 
     &:last-child
       margin-right: 0
+
+  +element(empty)
+    font-size: 22px
+    font-weight: bold
+    text-align: center
+    padding: 10px
