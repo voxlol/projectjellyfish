@@ -12,9 +12,9 @@
 
   function getStates() {
     return {
-      '404': {
+      'errors.404': {
         url: '/404',
-        templateUrl: 'app/states/404/404.html',
+        templateUrl: 'app/states/errors/404/404.html',
         title: '404',
         data: {
           layout: 'blank'
