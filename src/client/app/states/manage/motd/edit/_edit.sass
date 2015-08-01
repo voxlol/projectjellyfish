@@ -8,18 +8,12 @@
       content: ""
       border-bottom: 1px solid $app-color-gray
       position: absolute
-      left: 15px
+      left: 126px
       right: 0
 
   +element(aside)
     +make-sm-column(5)
     padding-left: 45px
-
-  +element(motd-type)
-    text-transform: uppercase
-
-  +element(motd-type-description)
-    color: $app-color-gray
 
   +element(title-error)
     padding-left: 15px
@@ -54,6 +48,12 @@
   +element(body)
     +make-sm-column(9)
 
+    +modifier(markdown)
+      border: 1px solid $app-color-gray
+      border-radius: 5px
+      background-color: $app-color-white
+      padding: 6px 12px
+
   +element(input)
     @extend .field__input
     margin-right: 10px !important
@@ -63,9 +63,3 @@
 
   +element(feedback)
     @extend .field__feedback
-
-  +element(member)
-    padding-top: 10px
-
-  +element(member-remove)
-    float: right

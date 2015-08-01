@@ -13,7 +13,7 @@ sudo yum update
 ```
 
 ##### Create a Jellyfish User
-It is a bad idea to run the application with root privileges.
+Note: It is a bad idea to run the application with root privileges.
 
 ```shell
 sudo useradd jellyfish
@@ -165,48 +165,70 @@ gem install bundler
 gem install pg -v '0.18.2' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 ```
 
-##### Create Environment Variables
-Setup the environment variables.  You can use either the .env.sample file OR use "real" environment variables.  It is _**highly**_ recommended that you use "real" environment variables in a production environment.
+##### Install NPM
 
-Before running the first command copy and edit it to replace `JELLYFISH_DB_PASSWORD` with the password you entered above for the jellyfish database user.
+You will need to install NodeJS / NPM you can do so by following the [NodeJS Install Docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#enterprise-linux-and-fedora)
+
+##### Install "global" NPM Modules
+
+```shell
+sudo npm install gulp-cli -g
+sudo npm install bower -g
+```
+
+##### Create Environment Variables
+
+Jellyfish is configured using enviroment variables.  You can either use "real"
+enviromental variables, or use the included dotEnv gem.  It is _**highly**_ 
+recommended that you use "real" environment variables in a production 
+environment.
+
+Pick one or the other, you CANNOT use both; "real" enviromental variables will
+overide the "dotEnv" variables.
+
+##### Option 1 ("Real" Enviromental Variables)
+
+You can get a list of the configuration options from the .env.sample along with
+a description of what it does.
 
 ```
 echo 'export DATABASE_URL=postgres://jellyfish:JELLYFISH_DB_PASSWORD@localhost:5432/jellyfish_production' >> ~/.bash_profile
 echo 'export RAILS_ENV=test' >> ~/.bash_profile
 ```
 
-##### Install NPM
+##### Option 2 ("dotEnv" Enviromental Variables)
 
-You will need to install NodeJS / NPM you can do so by following the [NodeJS Install Docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#enterprise-linux-and-fedora)
+Rename the .env.sample file to .env and setup the options in that file.
 
+```shell
+mv .env.sample .env
+```
 
-## Build the Application
+## Build the UX
 
 _**From this point on it is assumed you are executing commands within the api directory.**_
 
 ##### Install all needed gems
+
 ```shell
 bundle install
 ```
 
-##### Ensure tools have been installed
-```shell
-sudo npm install gulp-cli -g
-sudo npm install bower -g
-```
-
-##### Install dependencies
+##### Install all needed NPM modules
 ```shell
 npm install
 ```
 
 ##### Build the frontend
+
 ```shell
 gulp build
 ```
 
 ##### Populate the Database
-Run the following rake commands. Please note that this rake task does not create the database or the database user (those will need to be created based on the DB you are using)
+Run the following rake commands. Please note that this rake task does not create 
+the database or the database user (those will need to be created based on the DB 
+you are using)
 
 ```shell
 rake db:migrate
@@ -228,84 +250,13 @@ Password: jellyfish
 ```
 
 
-##### Start Server (Production)
+##### Start Server
 
 ```shell
 rails s
 ```
 
-##### Install Nginx
-Please install Nginx via Nginx documented process.
+##### Setup SSL
 
-##### Configure Nginx
-Delete the default site config
-
-```
-sudo rm /etc/nginx/conf.d/default.conf
-```
-
-##### Create `jellyfish-api.conf`
-```
-sudo vi /etc/nginx/conf.d/jellyfish-api.conf
-```
-
-##### File contents for `jellyfish-api.conf`
-Replace `JELLYFISH_URL` in the contents below before saving
-
-```
-upstream myapp_puma {
-  server unix:///tmp/myapp_puma.sock;
-}
-
-server {
-  listen  80;
-  root /home/jellyfish/api/public;
-
-  location / {
-        #all requests are sent to the UNIX socket
-        proxy_pass http://JELLYFISH_URL;
-        proxy_redirect     off;
-
-        proxy_set_header   Host             $host:$proxy_port;
-        proxy_set_header   X-Real-IP        $remote_addr;
-        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-
-        client_max_body_size       10m;
-        client_body_buffer_size    128k;
-
-        proxy_connect_timeout      90;
-        proxy_send_timeout         90;
-        proxy_read_timeout         90;
-
-        proxy_buffer_size          4k;
-        proxy_buffers              4 32k;
-        proxy_busy_buffers_size    64k;
-        proxy_temp_file_write_size 64k;
-  }
-}
-```
-
-##### Restart Nginx
-```
-sudo /etc/init.d/nginx restart
-```
-
-##### Start API
-```
-cd /home/jellyfish/api
-bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock
-```
-
-#### Upkeep Rake Tasks
-The following rake commands need to be executed to maintain Jellyfish Core.
-
-```
-# Updates the budgets for projects
-rake upkeep:update_budgets
-
-# Run the delayed job workers (this is what processes the orders to the various systems
-rake jobs:work
-```
-
-
-Copyright 2015 Booz Allen Hamilton
+If you need to run Jellyfish in a production you should use SSL, please see the 
+docs on setting up SSL.

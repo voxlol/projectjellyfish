@@ -8,6 +8,7 @@
     'ui.sortable',
     'ui.bootstrap',
     'ngDraggable',
-    'highcharts-ng'
+    'highcharts-ng',
+    'hc.marked'
   ]);
 })();

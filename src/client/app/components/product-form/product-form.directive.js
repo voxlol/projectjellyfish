@@ -30,7 +30,8 @@
     function ProductFormController($state, lodash, Tag, Toasts, TAG_QUERY_LIMIT) {
       var vm = this;
 
-      var home = 'manage.products';
+      var showValidationMessages = false;
+      var home = 'admin.products';
 
       vm.activate = activate;
       vm.backToList = backToList;
@@ -44,7 +45,11 @@
       }
 
       function backToList() {
-        $state.go(home);
+        if (vm.project.id) {
+          $state.go('products.details', {productId: vm.product.id});
+        } else {
+          $state.go('^');
+        }
       }
 
       function queryTags(query) {
@@ -72,7 +77,7 @@
 
         function saveSuccess() {
           Toasts.toast(vm.product.name + ' saved to products.');
-          $state.go(home);
+          vm.backToList();
         }
 
         function saveFailure() {

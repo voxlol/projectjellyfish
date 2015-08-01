@@ -85,6 +85,9 @@
     +modifier(select)
       -webkit-appearance: none
 
+    +modifier(monospaced)
+      font-family: "Anonymous Pro", "Inconsolata", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace
+
   +element(group-input)
 
     +modifier(input)
@@ -136,7 +139,7 @@
 
     input[type=radio] + label
       font-weight: normal
-      padding-left: 10px
+      padding-left: 15px
       padding-right: 20px
       position: relative
       cursor: pointer
@@ -151,7 +154,7 @@
       border-radius: 50%
       position: relative
       top: 5px
-      left: -10px
+      left: -2px
 
     input[type=radio]:checked + label:before
       background-color: $app-color-green

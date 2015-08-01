@@ -1,6 +1,6 @@
 {
   "name": "Project Jellyfish",
-  "description": "Project Jellyfish Core System",
+  "description": "Project Jellyfish API Core System",
   "keywords": [
     "rails",
     "ruby",
@@ -11,7 +11,7 @@
   "logo": "http://www.projectjellyfish.org/assets/images/logo-icon.svg",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "rake db:schema:load spec db:seed sample:demo"
+    "postdeploy": "gulp build; rake db:schema:load spec db:seed sample:demo"
   },
   "env": {
     "SECRET_KEY_BASE": {
@@ -25,9 +25,21 @@
     "RAILS_ENV": {
       "description": "The Rails environment",
       "value": "production"
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "The NodeJs tools environment. Do Not Change!",
+      "value": "false"
     }
   },
   "addons": [
     "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
   ]
 }

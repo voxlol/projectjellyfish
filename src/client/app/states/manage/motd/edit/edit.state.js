@@ -49,7 +49,6 @@
     vm.showErrors = showErrors;
     vm.hasErrors = hasErrors;
     vm.onSubmit = onSubmit;
-    vm.onDelete = onDelete;
     vm.activate = activate;
     vm.home = 'dashboard';
     vm.motd = motd;
@@ -81,8 +80,7 @@
 
       if (vm.form.$valid) {
         if (vm.motd.id) {
-          vm.filteredMotd = lodash.omit(vm.motd, 'created_at', 'updated_at', 'deleted_at', 'staff_id', 'id');
-          Motd.update(vm.filteredMotd).$promise.then(saveSuccess, saveFailure);
+          vm.motd.$update(saveSuccess, saveFailure);
         } else {
           vm.motd.$save(saveSuccess, saveFailure);
         }
@@ -90,20 +88,6 @@
 
       function saveSuccess() {
         Toasts.toast('Message of the Day updated.');
-        $state.go(vm.home);
-      }
-
-      function saveFailure() {
-        Toasts.error('Server returned an error while saving.');
-      }
-    }
-
-    function onDelete() {
-      vm.showValidationMessages = false;
-      Motd.delete().$promise.then(saveSuccess, saveFailure);
-
-      function saveSuccess() {
-        Toasts.toast('Message of the Day removed.');
         $state.go(vm.home);
       }
 
