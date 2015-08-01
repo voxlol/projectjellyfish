@@ -47,8 +47,7 @@
     // Private
 
     function initProduct() {
-      vm.product = angular.extend(new Product(), Product.defaults);
-      vm.product.product_type_id = productType.id;
+      vm.product = Product.new({product_type_id: productType.id});
       // Flatten all sections into one; Stop using flatten when sections become a thing
       vm.product.answers = lodash.flatten(lodash.map(productType.product_form, mapSection));
 
