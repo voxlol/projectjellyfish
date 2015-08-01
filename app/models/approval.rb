@@ -24,7 +24,7 @@ class Approval < ActiveRecord::Base
     self.class.transaction do
       self.approved = true
       save!
-      project.approval = :approved
+      project.status = :approved
       project.save!
     end
   end
@@ -34,7 +34,7 @@ class Approval < ActiveRecord::Base
       self.approved = false
       self.reason = reason
       save!
-      project.approval = :rejected
+      project.status = :rejected
       project.save!
     end
   end
