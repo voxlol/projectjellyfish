@@ -14,7 +14,6 @@ begin
   init_product_types = ProductType.table_exists?
   if init_product_types
     Dir[Rails.root.join 'app', 'models', 'product_type', '*.rb'].each do |product_type_model|
-      #next if 'ProductType::Demo' == product_type_model.to_s && !Rails.env.development?
       require_dependency product_type_model
     end
     ProductType.descendants.each(&:load_product_types)

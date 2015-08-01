@@ -8,7 +8,5 @@ if Rails.env.development?
     path File.expand_path File.join('lib', 'jellyfish', 'demo.rb'), __FILE__
 
     requires_jellyfish '>= 3.5.0'
-
-#    register_product Null::Product
   end
 end

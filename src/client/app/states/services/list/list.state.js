@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -26,21 +24,13 @@
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
   function resolveServices(Service) {
     return Service.query({'includes[]': ['product', 'project']}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, services, lodash, $state) {
+  function StateController($state, services, lodash) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -55,7 +45,6 @@
     function activate() {
       initServices();
     }
-
 
     function goTo(serviceId, productId) {
       $state.go('services.details', {serviceId: serviceId, productId: productId});

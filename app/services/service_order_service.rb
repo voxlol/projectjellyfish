@@ -1,5 +1,4 @@
 class ServiceOrderService
-
   class UnapprovedProject < StandardError
   end
 

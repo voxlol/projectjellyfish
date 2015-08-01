@@ -31,6 +31,7 @@
     Staff.prototype.fullName = fullName;
 
     function fullName() {
+      /*jshint validthis: true */
       return [this.first_name, this.last_name].join(' ');
     }
 

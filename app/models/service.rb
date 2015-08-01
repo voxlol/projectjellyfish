@@ -27,17 +27,17 @@ class Service < ActiveRecord::Base
 
   enum health: { ok: 0, warning: 1, critical: 2 }
   enum status: {
-      unknown: 3,
-      pending: 4,
-      provisioning: 5,
-      starting: 6,
-      running: 7,
-      available: 8,
-      stopping: 9,
-      stopped: 10,
-      unavailable: 11,
-      retired: 12
-    }
+    unknown: 3,
+    pending: 4,
+    provisioning: 5,
+    starting: 6,
+    running: 7,
+    available: 8,
+    stopping: 9,
+    stopped: 10,
+    unavailable: 11,
+    retired: 12
+  }
 
   before_create :ensure_uuid
 

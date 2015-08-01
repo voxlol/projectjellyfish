@@ -24,6 +24,7 @@
     }
 
     function total() {
+      /*jshint validthis: true */
       return this.hourly_price * 750 + this.monthly_price;
     }
 

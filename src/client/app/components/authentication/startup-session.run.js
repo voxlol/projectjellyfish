@@ -9,7 +9,7 @@
     var dashboard = 'dashboard';
     var login = 'login';
 
-    if (session) {
+    if (angular.isDefined(userSession.id)) {
       SessionService.create(userSession);
     }
   }

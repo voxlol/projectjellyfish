@@ -24,18 +24,18 @@ class Answer < ActiveRecord::Base
   validates :value, email: true, if: -> (s) { s.value_type == 'email' }
 
   enum value_type: {
-      string: 0,
-      password: 1,
-      integer: 2,
-      boolean: 3,
-      array: 4,
-      json: 5,
-      date: 6,
-      datetime: 7,
-      fingerprint: 8,
-      certificate: 9,
-      text: 10,
-      url: 11,
-      email: 12
-    }
+    string: 0,
+    password: 1,
+    integer: 2,
+    boolean: 3,
+    array: 4,
+    json: 5,
+    date: 6,
+    datetime: 7,
+    fingerprint: 8,
+    certificate: 9,
+    text: 10,
+    url: 11,
+    email: 12
+  }
 end

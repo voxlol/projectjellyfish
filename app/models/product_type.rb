@@ -69,17 +69,18 @@ class ProductType < ActiveRecord::Base
     false
   end
 
-  def self.set(name, uuid, description: '', service_class: nil,
-    product_form: { main: [] }, order_form: { main: [] }, deprecated: false)
-
+  def self.set(name, uuid, options)
+    keys = %i(description service_class product_form order_form deprecated)
     {
       name: name,
       uuid: uuid,
-      description: description,
-      service_class: service_class,
-      product_form: product_form,
-      order_form: order_form,
-      deprecated: deprecated
-    }
+      description: '',
+      service_class: nil,
+      product_form: { main: [] },
+      order_form: { main: [] },
+      deprecated: false
+    }.merge options.keep_if do |key|
+      keys.include? key
+    end
   end
 end

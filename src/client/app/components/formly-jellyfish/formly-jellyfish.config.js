@@ -1,4 +1,5 @@
-(function() {
+/* global apiCheck:false */
+(function(apiCheck) {
   'use strict';
 
   var formlyJellyfishApiCheck = apiCheck({
@@ -104,9 +105,12 @@
       controller: AsyncSelectController
     });
 
-
     function selectDefaultOptions(options) {
-      var ngOptions = options.templateOptions.ngOptions || 'option[to.valueProp || \'value\'] as option[to.labelProp || \'name\'] group by option[to.groupProp || \'group\'] for option in to.options';
+      var defaultNgOptions = 'option[to.valueProp || \'value\'] ' +
+        'as option[to.labelProp || \'name\'] ' +
+        'group by option[to.groupProp || \'group\'] ' +
+        'for option in to.options';
+      var ngOptions = options.templateOptions.ngOptions || defaultNgOptions;
       var ngModelAttrs = {};
 
       ngModelAttrs[ngOptions] = { value: 'ng-options' };
@@ -145,4 +149,4 @@
     formlyValidationMessages.messages.maxlength = 'to.label + " is too long"';
     formlyValidationMessages.messages.pattern = 'to.label + " is not formatted correctly"';
   }
-})();
+})(apiCheck);

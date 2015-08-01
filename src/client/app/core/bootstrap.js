@@ -54,7 +54,7 @@
 
         function scriptLoaded() {
           scripts.splice(scripts.indexOf(script), 1);
-          if (0 == scripts.length) {
+          if (0 === scripts.length) {
             deferred.resolve();
           }
         }

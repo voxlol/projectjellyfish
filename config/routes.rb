@@ -62,7 +62,6 @@ Rails.application.routes.draw do
     # Organizations
     resources :organizations
 
-
     # Chargebacks
     resources :chargebacks
 

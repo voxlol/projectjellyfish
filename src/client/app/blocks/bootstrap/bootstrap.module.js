@@ -67,6 +67,7 @@
       promise = $q.when(injector.instantiate(promise));
       promises.push(promise);
 
+      /*jshint validthis: true */
       return this;
     }
 
@@ -86,18 +87,21 @@
     function loading(callback) {
       loadingCallback = callback;
 
+      /*jshint validthis: true */
       return this;
     }
 
     function done(callback) {
       doneCallback = callback;
 
+      /*jshint validthis: true */
       return this;
     }
 
     function error(callback) {
       errorCallback = callback;
 
+      /*jshint validthis: true */
       return this;
     }
   };

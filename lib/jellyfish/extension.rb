@@ -60,7 +60,7 @@ module Jellyfish
 
       # Returns an array of all registered extensions
       def all
-        registered_extensions.values.sort_by { |ex| ex.name }
+        registered_extensions.values.sort_by(&:name)
       end
 
       # Finds a extension by its id

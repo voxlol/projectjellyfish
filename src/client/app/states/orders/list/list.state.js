@@ -38,7 +38,7 @@
     activate();
 
     function activate() {
-      initOrders()
+      initOrders();
     }
 
     // Private
