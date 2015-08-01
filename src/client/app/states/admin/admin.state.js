@@ -16,7 +16,10 @@
       'admin': {
         abstract: true,
         template: '<ui-view></ui-view>',
-        url: '/admin'
+        url: '/admin',
+        data: {
+          authorizedRoles: ['admin']
+        }
       }
     };
   }

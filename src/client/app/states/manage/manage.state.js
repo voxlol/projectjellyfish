@@ -16,7 +16,10 @@
       'manage': {
         abstract: true,
         template: '<ui-view></ui-view>',
-        url: '/manage'
+        url: '/manage',
+        data: {
+          authorizedRoles: ['manager']
+        }
       }
     };
   }
