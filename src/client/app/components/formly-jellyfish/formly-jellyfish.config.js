@@ -143,5 +143,6 @@
     formlyValidationMessages.messages.email = '$viewValue + " is not a valid email address"';
     formlyValidationMessages.messages.minlength = 'to.label + " is too short"';
     formlyValidationMessages.messages.maxlength = 'to.label + " is too long"';
+    formlyValidationMessages.messages.pattern = 'to.label + " is not formatted correctly"';
   }
 })();
