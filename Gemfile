@@ -56,6 +56,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0.0'
   gem 'capybara-angular', '0.1.0'
   gem 'launchy'
+  gem 'foreman'
 end
 
 group :test do
@@ -104,4 +105,9 @@ gem 'acts_as_list'
 # TO ENCODE DECIMALS AS JSON NUMBERS
 gem 'activesupport-json_encoder'
 
+# Resource filtering with scopes
+gem 'has_scope'
+
+# Jellyfish Extensions
+#
 gem 'jellyfish-aws', path: '../jellyfish_aws'
