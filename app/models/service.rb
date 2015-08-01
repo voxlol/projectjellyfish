@@ -8,6 +8,7 @@
 #  type       :string           not null
 #  uuid       :string           not null
 #  name       :string           not null
+#  health     :integer          default(0), not null
 #  status     :integer
 #  status_msg :string
 #
@@ -24,7 +25,21 @@ class Service < ActiveRecord::Base
   has_one :product, through: :order
   has_one :product_type, through: :product
 
-  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4, retired: 5 }
+  enum health: { ok: 0, warning: 1, critical: 2 }
+  enum status: {
+      unknown: 3,
+      pending: 4,
+      provisioning: 5,
+      starting: 6,
+      running: 7,
+      available: 8,
+      stopping: 9,
+      stopped: 10,
+      unavailable: 11,
+      retired: 12
+    }
+
+  before_create :ensure_uuid
 
   def self.policy_class
     ServicePolicy
@@ -32,5 +47,11 @@ class Service < ActiveRecord::Base
 
   def actions
     []
+  end
+
+  private
+
+  def ensure_uuid
+    self[:uuid] = SecureRandom.uuid if self[:uuid].nil?
   end
 end

@@ -61,7 +61,7 @@ namespace :upkeep do
 
   desc 'Update Remaining Project Budgets'
   task update_budgets: :environment do
-    Project.where(approval: 1).each do |project|
+    Project.where(status: 1).each do |project|
       puts '[ project: ' + project.id.to_s + ' | name: ' + project.name.to_s + ' | spent/budget: ' + project.spent.to_s + '/' + project.budget.to_s + ' ]' if verbose == true
 
       current_date = Time.zone.now

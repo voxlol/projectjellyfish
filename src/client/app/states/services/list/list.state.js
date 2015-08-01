@@ -53,25 +53,29 @@
     activate();
 
     function activate() {
-      vm.projects = lodash.map(lodash.groupBy(services, 'project_id'), buildProjectHash);
+      initServices();
     }
 
-    function buildProjectHash(value) {
-      return {
-        project: value[0].project,
-        services: lodash.map(value, appendProperties)
-      };
-
-      // Useful for making properties available on the service for sorting purposes
-      function appendProperties(service) {
-        service.product_name = service.product.name;
-
-        return service;
-      }
-    }
 
     function goTo(serviceId, productId) {
       $state.go('services.details', {serviceId: serviceId, productId: productId});
+    }
+
+    // Private
+
+    function initServices() {
+      vm.projects = lodash.groupBy(lodash.map(services, mapService), 'project_id');
+
+      function mapService(service) {
+        var project = service.project;
+
+        delete service.project;
+
+        service.project_id = project.id;
+        service.project = project.name;
+
+        return service;
+      }
     }
   }
 })();

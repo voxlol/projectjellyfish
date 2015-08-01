@@ -8,6 +8,7 @@
 #  type       :string           not null
 #  uuid       :string           not null
 #  name       :string           not null
+#  health     :integer          default(0), not null
 #  status     :integer
 #  status_msg :string
 #
@@ -18,7 +19,7 @@
 #
 
 class ServiceSerializer < ApplicationSerializer
-  attributes :id, :uuid, :status, :status_msg, :created_at, :updated_at
+  attributes :id, :name, :uuid, :status, :health, :status_msg, :created_at, :updated_at
 
   has_one :order
   has_one :project

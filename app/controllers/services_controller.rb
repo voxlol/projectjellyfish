@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   after_action :verify_authorized
 
   api :GET, '/services', 'Returns all services'
-  param :includes, Array, in: %w(project order product product_type)
+  param :includes, Array, in: Service.reflect_on_all_associations.map(&:name).map(&:to_s)
   param :page, :number
   param :per_page, :number
 
@@ -13,7 +13,7 @@ class ServicesController < ApplicationController
 
   api :GET, '/services/:id', 'Returns a service'
   param :id, :number, required: true
-  param :includes, Array, in: %w(project order product product_type)
+  param :includes, Array, in: Service.reflect_on_all_associations.map(&:name).map(&:to_s)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -28,6 +28,6 @@ class ServicesController < ApplicationController
   end
 
   def service
-    @_service = (query_with Service.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
+    @_service = Service.find params[:id]
   end
 end
