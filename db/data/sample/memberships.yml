@@ -35,3 +35,6 @@
 - project: jellyfish
   group: managers
   role: padmins
+- project: blog
+  group: blog_staff
+  role: padmins

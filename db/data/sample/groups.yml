@@ -14,3 +14,7 @@
   name: Project Staff
   description: Any staff for this project.
   group_staff: [user, doe_john, smith_mary]
+- _assoc: blog_staff
+  name: Blog Staff
+  description: Everyone involved with the Blog project
+  group_staff: [admin, smith_mary, jones_jane]

@@ -1,8 +1,9 @@
 class GroupsController < ApplicationController
   api :GET, '/groups', 'Returns a collection of groups'
-  param :includes, Array, in: %w(staff)
+  param :includes, Array, in: Group.reflect_on_all_associations.map(&:name).map(&:to_s)
   param :page, :number
   param :per_page, :number
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def index
     authorize Group
@@ -11,8 +12,9 @@ class GroupsController < ApplicationController
 
   api :GET, '/groups/:id', 'Shows group with :id'
   param :id, :number, required: true
-  param :includes, Array, in: %w(staff)
+  param :includes, Array, in: Group.reflect_on_all_associations.map(&:name).map(&:to_s)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def show
     authorize group
@@ -58,14 +60,14 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.permit!.slice(:name, :description, :staff_ids)
-  end
-
-  def group
-    @_group ||= (query_with Group.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
+    params.permit :name, :description, :staff_ids
   end
 
   def groups
     @_groups ||= query_with Group.all, :includes, :pagination
+  end
+
+  def group
+    @_group ||= Group.find params[:id]
   end
 end
