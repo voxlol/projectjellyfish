@@ -27,7 +27,7 @@
     }
 
     /** @ngInject */
-    function ProductFormController($scope, $state, lodash, Tag, Toasts, TAG_QUERY_LIMIT) {
+    function ProductFormController($state, lodash, Tag, Toasts, TAG_QUERY_LIMIT) {
       var vm = this;
 
       var home = 'manage.products';
