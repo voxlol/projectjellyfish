@@ -59,16 +59,6 @@ class Project < ActiveRecord::Base
   scope :approved, -> { where(status: 1) }
   scope :archived, -> (archived = true) { archived ? where.not(archived: nil) : where(archived: nil) }
 
-  # def order_history
-  #   history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
-  #     order_json = order.as_json
-  #     order_json[:item_count] = order.item_count_for_project_id(id)
-  #     order_json[:total] = order.total_per_order(order.id)
-  #     order_json
-  #   end
-  #   history
-  # end
-
   def compute_current_status!
     if latest_service_alerts.any?
       update(status: highest_priority_latest_alert.status.downcase)
