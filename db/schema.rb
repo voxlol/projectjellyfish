@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801033028) do
+ActiveRecord::Schema.define(version: 20150802223125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,17 +240,17 @@ ActiveRecord::Schema.define(version: 20150801033028) do
   end
 
   create_table "product_types", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "type",                          null: false
-    t.string   "uuid",                          null: false
-    t.string   "name",                          null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "type",                              null: false
+    t.string   "uuid",                              null: false
+    t.string   "name",                              null: false
     t.text     "description"
-    t.string   "service_class",                 null: false
-    t.json     "product_form",                  null: false
-    t.json     "order_form",                    null: false
-    t.boolean  "active",        default: true,  null: false
-    t.boolean  "deprecated",    default: false, null: false
+    t.string   "service_class",                     null: false
+    t.json     "product_questions",                 null: false
+    t.json     "order_questions",                   null: false
+    t.boolean  "active",            default: true,  null: false
+    t.boolean  "deprecated",        default: false, null: false
   end
 
   add_index "product_types", ["type"], name: "index_product_types_on_type", using: :btree
@@ -320,13 +320,27 @@ ActiveRecord::Schema.define(version: 20150801033028) do
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
-  create_table "registered_providers", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "uuid",        null: false
-    t.string   "name",        null: false
+  create_table "providers", force: :cascade do |t|
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.datetime "deleted_at"
+    t.string   "type",            null: false
+    t.string   "name",            null: false
     t.text     "description"
-    t.string   "tags"
+    t.boolean  "active"
+    t.string   "cached_tag_list"
+  end
+
+  add_index "providers", ["type"], name: "index_providers_on_type", using: :btree
+
+  create_table "registered_providers", force: :cascade do |t|
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "uuid",            null: false
+    t.string   "name",            null: false
+    t.text     "description"
+    t.string   "cached_tag_list"
+    t.string   "provider_type",   null: false
     t.json     "questions"
   end
 

@@ -38,10 +38,12 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Create answers : Collection of answers for objects
     create_table :answers do |t|
       t.timestamps null: false
-      t.references :answerable, index: true, null: false, polymorphic: true
+      t.references :answerable, null: false, polymorphic: true
       t.string :name, null: false
       t.text :value
       t.integer :value_type
+
+      t.index [:answerable_type, :answerable_id]
     end
 
     drop_table :product_types
@@ -54,8 +56,8 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.string :name, null: false
       t.text :description
       t.string :service_class, null: false
-      t.json :product_form, null: false
-      t.json :order_form, null: false
+      t.json :product_questions, null: false
+      t.json :order_questions, null: false
       t.boolean :active, null: false, default: true
       t.boolean :deprecated, null: false, default: false
     end
