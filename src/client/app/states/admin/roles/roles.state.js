@@ -27,7 +27,7 @@
 
   function sidebarItems() {
     return {
-      'admin.alerts': {
+      'admin.roles': {
         type: 'state',
         state: 'admin.roles',
         label: 'Roles',
