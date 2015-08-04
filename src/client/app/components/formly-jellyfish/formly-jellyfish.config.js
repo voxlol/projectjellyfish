@@ -4,7 +4,7 @@
 
   var formlyJellyfishApiCheck = apiCheck({
     output: {
-      prefix: 'formly-jellyfish'
+      prefix: 'Jellyfish Fields:'
     }
   });
 
@@ -23,11 +23,7 @@
       {
         name: 'jellyfishLabel',
         templateUrl: 'app/components/formly-jellyfish/wrappers/label.html',
-        apiCheck: {
-          templateOptions: formlyJellyfishApiCheck.shape({
-            label: formlyJellyfishApiCheck.string
-          })
-        },
+        apiCheck: checkLabel,
         apiCheckInstance: formlyJellyfishApiCheck
       },
       {
@@ -39,6 +35,14 @@
         templateUrl: 'app/components/formly-jellyfish/wrappers/loading.html'
       }
     ]);
+
+    function checkLabel() {
+      return {
+        templateOptions: {
+          label: formlyJellyfishApiCheck.string
+        }
+      };
+    }
   }
 
   /** @ngInject */
@@ -64,11 +68,7 @@
           rows: { attribute: 'rows' }
         }
       },
-      apiCheck: {
-        templateOptions: formlyJellyfishApiCheck.shape({
-          rows: formlyJellyfishApiCheck.number.optional
-        })
-      },
+      apiCheck: checkTextarea,
       apiCheckInstance: formlyJellyfishApiCheck
     });
 
@@ -77,14 +77,8 @@
       template: '<select class="field__input" ng-model="model[options.key]"></select>',
       wrapper: ['jellyfishHasError', 'jellyfishLabel', 'jellyfishField'],
       defaultOptions: selectDefaultOptions,
-      apiCheck: {
-        templateOptions: formlyJellyfishApiCheck.shape({
-          options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
-          labelProp: formlyJellyfishApiCheck.string.optional,
-          valueProp: formlyJellyfishApiCheck.string.optional,
-          groupProp: formlyJellyfishApiCheck.string.optional
-        })
-      }
+      apiCheck: checkSelect,
+      apiCheckInstance: formlyJellyfishApiCheck
     });
 
     formlyConfigProvider.setType({
@@ -92,18 +86,42 @@
       template: '<select class="field__input" ng-model="model[options.key]"></select>',
       wrapper: ['jellyfishHasError', 'jellyfishLoading', 'jellyfishLabel', 'jellyfishField'],
       defaultOptions: selectDefaultOptions,
-      apiCheck: {
-        templateOptions: formlyJellyfishApiCheck.shape({
+      apiCheck: checkAsyncSelect,
+      apiCheckInstance: formlyJellyfishApiCheck,
+      controller: AsyncSelectController
+    });
+
+    function checkTextarea() {
+      return {
+        templateOptions: {
+          rows: formlyJellyfishApiCheck.number.optional
+        }
+      };
+    }
+
+    function checkSelect() {
+      return {
+        templateOptions: {
+          options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
+          labelProp: formlyJellyfishApiCheck.string.optional,
+          valueProp: formlyJellyfishApiCheck.string.optional,
+          groupProp: formlyJellyfishApiCheck.string.optional
+        }
+      };
+    }
+
+    function checkAsyncSelect() {
+      return {
+        templateOptions: {
           asyncKey: formlyJellyfishApiCheck.string,
           options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
           labelProp: formlyJellyfishApiCheck.string.optional,
           valueProp: formlyJellyfishApiCheck.string.optional,
           groupProp: formlyJellyfishApiCheck.string.optional,
           blank: formlyJellyfishApiCheck.string.optional
-        })
-      },
-      controller: AsyncSelectController
-    });
+        }
+      };
+    }
 
     function selectDefaultOptions(options) {
       var defaultNgOptions = 'option[to.valueProp || \'value\'] ' +
