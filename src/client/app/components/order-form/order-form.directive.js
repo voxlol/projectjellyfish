@@ -78,7 +78,7 @@
       // Private
 
       function initFormly() {
-        vm.fields = lodash.flatten(lodash.map(vm.productType.order_form, mapSection));
+        vm.fields = lodash.flatten(lodash.map(vm.productType.order_questions, mapSection));
         vm.options = {
           formState: {
             productType: vm.productType
