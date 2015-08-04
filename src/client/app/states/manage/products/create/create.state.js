@@ -49,7 +49,7 @@
     function initProduct() {
       vm.product = Product.new({product_type_id: productType.id});
       // Flatten all sections into one; Stop using flatten when sections become a thing
-      vm.product.answers = lodash.flatten(lodash.map(productType.product_form, mapSection));
+      vm.product.answers = lodash.flatten(lodash.map(productType.product_questions, mapSection));
 
       function mapSection(section) {
         return lodash.map(section, mapAnswer);

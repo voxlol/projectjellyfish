@@ -57,7 +57,7 @@
       vm.order = Order.new();
       vm.order.product_id = product.id;
       // Flatten all sections into one; Stop using flatten when sections become a thing
-      vm.order.answers = lodash.flatten(lodash.map(product.product_type.order_form, mapSection));
+      vm.order.answers = lodash.flatten(lodash.map(product.product_type.order_questions, mapSection));
 
       function mapSection(section) {
         return lodash.map(section, mapAnswer);
