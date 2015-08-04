@@ -2,14 +2,15 @@
 #
 # Table name: registered_providers
 #
-#  id          :integer          not null, primary key
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  uuid        :string           not null
-#  name        :string           not null
-#  description :text
-#  tags        :string
-#  questions   :json
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  uuid            :string           not null
+#  name            :string           not null
+#  description     :text
+#  cached_tag_list :string
+#  provider_type   :string           not null
+#  questions       :json
 #
 # Indexes
 #
