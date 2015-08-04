@@ -2,18 +2,18 @@
 #
 # Table name: product_types
 #
-#  id            :integer          not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  type          :string           not null
-#  uuid          :string           not null
-#  name          :string           not null
-#  description   :text
-#  service_class :string           not null
-#  product_form  :json             not null
-#  order_form    :json             not null
-#  active        :boolean          default(TRUE), not null
-#  deprecated    :boolean          default(FALSE), not null
+#  id                :integer          not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  type              :string           not null
+#  uuid              :string           not null
+#  name              :string           not null
+#  description       :text
+#  service_class     :string           not null
+#  product_questions :json             not null
+#  order_questions   :json             not null
+#  active            :boolean          default(TRUE), not null
+#  deprecated        :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -22,7 +22,7 @@
 #
 
 class ProductTypeSerializer < ApplicationSerializer
-  attributes :id, :name, :provider, :description, :product_form, :order_form, :active, :deprecated
+  attributes :id, :name, :provider, :description, :product_questions, :order_questions, :active, :deprecated
 
   def provider
     object.type.split('::').last
