@@ -18,4 +18,9 @@
 
 class AnswerSerializer < ApplicationSerializer
   attributes :id, :name, :value, :value_type
+
+  def value
+    return nil if object.password?
+    object.value
+  end
 end
