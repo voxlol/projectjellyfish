@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.cms.list': {
-        url: '', // No url, this state is the index of admin.cms
-        templateUrl: 'app/states/admin/cms/list/list.html',
+      'manage.cms.list': {
+        url: '', // No url, this state is the index of manage.cms
+        templateUrl: 'app/states/manage/cms/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Admin CMS List',

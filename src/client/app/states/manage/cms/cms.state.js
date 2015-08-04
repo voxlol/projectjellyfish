@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'admin.cms': {
+      'manage.cms': {
         url: '/cms',
-        redirectTo: 'admin.cms.list',
+        redirectTo: 'manage.cms.list',
         template: '<ui-view></ui-view>'
       }
     };
@@ -27,9 +27,9 @@
 
   function sidebarItems() {
     return {
-      'admin.cms': {
+      'manage.cms': {
         type: 'state',
-        state: 'admin.cms',
+        state: 'manage.cms',
         label: 'CMS',
         order: 10
       }
