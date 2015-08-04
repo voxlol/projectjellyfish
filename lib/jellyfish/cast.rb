@@ -61,7 +61,7 @@ module Jellyfish
       end
 
       def self.cast(value, type)
-        new(value, type.to_sym).cast
+        new(value, type.nil? ? nil : type.to_sym).cast
       end
 
       def cast
