@@ -74,26 +74,14 @@
 
       function onSubmit() {
         vm.showValidationMessages = true;
-        // This is so errors can be displayed for 'untouched' angular-schema-form fields
-        $scope.$broadcast('schemaFormValidate');
         if (vm.form.$valid) {
           vm.alertRecord.alertable_type = vm.alertableType;
           vm.alertRecord.alertable_id = vm.alertableId;
           // If editing update rather than save
           if (vm.alertRecord.id) {
-            for (var prop in vm.alertRecord) {
-              if (vm.alertRecord[prop] === null) {
-                delete vm.alertRecord[prop];
-              }
-            }
-
             Alert.update(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
-
-            return false;
           } else {
             Alert.save(vm.alertRecord).$promise.then(saveSuccess, saveFailure);
-
-            return false;
           }
         }
 
