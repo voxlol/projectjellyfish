@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711044620) do
+ActiveRecord::Schema.define(version: 20150801033028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -319,6 +319,18 @@ ActiveRecord::Schema.define(version: 20150711044620) do
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
+
+  create_table "registered_providers", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "uuid",        null: false
+    t.string   "name",        null: false
+    t.text     "description"
+    t.string   "tags"
+    t.json     "questions"
+  end
+
+  add_index "registered_providers", ["uuid"], name: "index_registered_providers_on_uuid", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
