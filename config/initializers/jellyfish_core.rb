@@ -22,6 +22,19 @@ rescue
   false
 end
 
+begin
+  init_registered_providers = RegisteredProvider.table_exists?
+  if init_registered_providers
+    Dir[Rails.root.join 'app', 'models', 'registered_provider', '*.rb'].each do |registered_provider_model|
+      require_dependency registered_provider_model
+    end
+    RegisteredProvider.descendants.each(&:load_registered_providers)
+  end
+rescue
+  false
+end
+
+
 # Include demo support code in development
 if Rails.env.development?
   Dir[Rails.root.join 'app', 'models', 'null', '*.rb'].each do |null_model|
