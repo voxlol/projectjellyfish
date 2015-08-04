@@ -106,7 +106,7 @@ class Setting < ActiveRecord::Base
       invalid_value_error e.to_s
       return false
     rescue Jellyfish::Cast::UnhandledCastException
-      raise StandardError, "parsing settings type '%s' from string is not defined".format(value_type)
+      raise StandardError, sprintf("parsing settings type '%s' from string is not defined", value_type)
     end
     true
   end
@@ -163,7 +163,7 @@ class Setting < ActiveRecord::Base
   end
 
   def invalid_value_error(error)
-    errors.add :value, 'is invalid: %s'.format(error)
+    errors.add :value, sprintf('is invalid: %s', error)
   end
 
   # Methods for loading default settings
