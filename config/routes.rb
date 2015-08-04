@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     # Extensions
     resources :extensions, only: [:index]
 
+    # Providers
+    resources :providers
+    resources :registered_providers, only: [:index]
+
     # Alerts Routes
     resources :alerts do
       collection do
