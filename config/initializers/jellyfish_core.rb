@@ -30,7 +30,9 @@ begin
     end
     RegisteredProvider.descendants.each(&:load_registered_providers)
   end
-rescue
+rescue => e
+  p e.message
+  p e.backtrace[0..3]
   false
 end
 

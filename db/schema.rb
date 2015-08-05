@@ -336,14 +336,17 @@ ActiveRecord::Schema.define(version: 20150802223125) do
   create_table "registered_providers", force: :cascade do |t|
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.datetime "deleted_at"
+    t.string   "type",            null: false
     t.string   "uuid",            null: false
     t.string   "name",            null: false
     t.text     "description"
     t.string   "cached_tag_list"
-    t.string   "provider_type",   null: false
+    t.string   "provider_class",  null: false
     t.json     "questions"
   end
 
+  add_index "registered_providers", ["type"], name: "index_registered_providers_on_type", using: :btree
   add_index "registered_providers", ["uuid"], name: "index_registered_providers_on_uuid", using: :btree
 
   create_table "roles", force: :cascade do |t|

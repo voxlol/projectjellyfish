@@ -73,7 +73,7 @@ class ProvidersController < ApplicationController
   end
 
   def provider_class
-    @_provider_class ||= RegisteredProvider.find(params[:registered_provider_id]).product_type.constantize
+    @_provider_class ||= RegisteredProvider.find(params[:registered_provider_id]).provider_class.constantize
   end
 
   def providers
