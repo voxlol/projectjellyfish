@@ -89,28 +89,6 @@ Rails.application.routes.draw do
       collection { put :sort }
     end
 
-    # Automate Routes
-    resources :automate, only: [] do
-      collection do
-        get :catalog_item_initialization
-        get :update_servicemix_and_chef
-        get :provision_rds
-
-        get :create_ec2
-        get :create_rds
-        get :create_s3
-        get :create_ses
-        get :create_vmware_vm
-        get :create_chef_node
-
-        get :retire_ec2
-        get :retire_rds
-        get :retire_s3
-        get :retire_ses
-        get :retire_vmware_vm
-      end
-    end
-
     # Content Pages Routes
     resources :content_pages, only: [:index, :create]
     resources :content_pages, only: [:update, :show, :destroy], param: :slug
