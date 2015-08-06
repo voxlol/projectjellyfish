@@ -22,7 +22,7 @@
           roles: resolveRoles,
           membership: resolveMembership
         },
-        windowTemplateUrl: 'app/components/project-membership-modal/add-membership-modal-window.html'
+        windowTemplateUrl: 'app/components/common/modal-window.html'
       };
       var modal = $modal.open(modalOptions);
 

@@ -52,7 +52,7 @@
             productTypes: resolveProductTypes,
             text: resolveText
           },
-          windowTemplateUrl: 'app/components/product-type-modal/product-type-modal-window.html'
+          windowTemplateUrl: 'app/components/common/modal-window.html'
         };
       }
 
