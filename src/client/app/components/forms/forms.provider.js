@@ -15,12 +15,13 @@
     function register(name, options) {
       var scope = {
         record: '=',
-        heading: '=',
-        back: '@',
-        subHeading: '=?',
-        backParams: '=?',
+        heading: '@',
+        backTo: '@',
+        backToParams: '=?',
+        subHeading: '@?',
         successMsg: '@?',
-        failureMsg: '@?'
+        failureMsg: '@?',
+        debug: '@?'
       };
 
       $compileProvider.directive(name, FormsDirective);
@@ -43,7 +44,7 @@
         }
 
         /** @ngInject */
-        function FormsController($injector, Toasts, lodash) {
+        function FormsController($injector, $state, Toasts) {
           var vm = this;
 
           vm.fields = options.fields;
@@ -58,18 +59,16 @@
           }
 
           function activate() {
+            vm.debug = vm.debug || false;
             vm.successMsg = vm.successMsg || 'Save successful!';
             vm.failureMsg = vm.failureMsg || 'Error encountered during save attempt!';
-            if (angular.isDefined(vm.record.answer)) {
-              initAnswerFields();
-            }
             if (angular.isDefined(vm.afterActivate)) {
               vm.afterActivate();
             }
           }
 
           function goBack() {
-            $state.go(vm.back, vm.backParams || {});
+            $state.go(vm.backTo, vm.backToParams || {});
           }
 
           function hasErrors(field) {
@@ -81,6 +80,10 @@
           }
 
           function onSubmit() {
+            if (vm.form.$invalid) {
+              return false;
+            }
+
             if (vm.record.id) {
               vm.record.$update(saveSuccess, saveFailure);
             } else {
@@ -88,7 +91,7 @@
             }
 
             function saveSuccess() {
-              Toasts.log(vm.successMsg);
+              Toasts.toast(vm.successMsg);
               goBack();
             }
 
@@ -104,15 +107,15 @@
       var service = {
         fields: fields
       };
-      var fieldStore = {};
+      var fieldsMap = {};
 
       return service;
 
-      function fields(uuid, fields) {
-        if (angular.isDefined(fields)) {
-          fieldStore[uuid] = fields;
+      function fields(key, field) {
+        if (angular.isDefined(field)) {
+          fieldsMap[key] = field;
         }
-        return fieldStore[uuid] || [];
+        return fieldsMap[key] || {noFormControl: true, template: '<div>fieldsMap["' + key + '"] is undefined</div>'};
       }
     }
   }

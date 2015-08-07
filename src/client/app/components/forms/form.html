@@ -1,9 +1,9 @@
 <form name="vm.form" class="forms" role="form" novalidate autocomplete="off" ng-submit="vm.onSubmit()"
-      ng-class="{'show-errors': vm.showErrors()}">
+      ng-class="{'show-errors': vm.form.$submitted}">
 
   <content-header short="true">
     <div>
-      <span class="content-header__title">{{ ::vm.header }}</span>
+      <span class="content-header__title">{{ ::vm.heading }}</span>
       <span class="forms__title--error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
     </div>
     <div>
@@ -28,9 +28,11 @@
                 confirmation-ok-style="danger"
                 confirmation-ok-text="Yes, Leave"
                 confirmation-on-ok="vm.goBack()"
-                confirmation-show-cancel="false">Cancel
+                confirmation-show-cancel="false">
+          Cancel
         </button>
       </div>
     </div>
   </div>
 </form>
+<pre ng-if="vm.debug">{{vm.record|json}}</pre>

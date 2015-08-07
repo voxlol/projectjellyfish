@@ -2,36 +2,34 @@
 (function(apiCheck) {
   'use strict';
 
-  var formlyJellyfishApiCheck = apiCheck({
-    output: {
-      prefix: 'Jellyfish Fields:'
-    }
-  });
-
   angular.module('app.components')
-    .config(wrappers)
-    .config(types)
+    .constant('jfApiCheck', apiCheck({
+      output: {
+        prefix: 'Jellyfish Fields:'
+      }
+    }))
+    .run(wrappers)
+    .run(types)
     .run(validation);
 
   /** @ngInject */
-  function wrappers(formlyConfigProvider) {
-    formlyConfigProvider.setWrapper([
+  function wrappers(formlyConfig, jfApiCheck) {
+    formlyConfig.setWrapper([
       {
-        name: 'jellyfishField',
+        name: 'jfField',
         templateUrl: 'app/components/formly-jellyfish/wrappers/field.html'
       },
       {
-        name: 'jellyfishLabel',
+        name: 'jfLabel',
         templateUrl: 'app/components/formly-jellyfish/wrappers/label.html',
-        apiCheck: checkLabel,
-        apiCheckInstance: formlyJellyfishApiCheck
+        apiCheck: checkLabel
       },
       {
-        name: 'jellyfishHasError',
+        name: 'jfHasError',
         templateUrl: 'app/components/formly-jellyfish/wrappers/has-error.html'
       },
       {
-        name: 'jellyfishLoading',
+        name: 'jfLoading',
         templateUrl: 'app/components/formly-jellyfish/wrappers/loading.html'
       }
     ]);
@@ -39,86 +37,77 @@
     function checkLabel() {
       return {
         templateOptions: {
-          label: formlyJellyfishApiCheck.string
+          label: jfApiCheck.string
         }
       };
     }
   }
 
   /** @ngInject */
-  function types(formlyConfigProvider) {
-    formlyConfigProvider.setType({
+  function types(formlyConfig, jfApiCheck) {
+    formlyConfig.setType({
       name: 'text',
-      template: '<input type="text" class="field__input" ng-model="model[options.key]" />',
-      wrapper: ['jellyfishHasError', 'jellyfishLabel', 'jellyfishField']
+      template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+      wrapper: ['jfHasError', 'jfLabel', 'jfField']
     });
 
-    formlyConfigProvider.setType({
+    formlyConfig.setType({
       name: 'password',
-      template: '<input type="password" class="field__input" ng-model="model[options.key]" />',
-      wrapper: ['jellyfishHasError', 'jellyfishLabel', 'jellyfishField']
+      template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+      wrapper: ['jfHasError', 'jfLabel', 'jfField']
     });
 
-    formlyConfigProvider.setType({
+    formlyConfig.setType({
       name: 'textarea',
       template: '<textarea class="field__input" ng-model="model[options.key]"></textarea>',
-      wrapper: ['jellyfishHasError', 'jellyfishLabel', 'jellyfishField'],
+      wrapper: ['jfHasError', 'jfLabel', 'jfField'],
       defaultOptions: {
         ngModelAttrs: {
-          rows: { attribute: 'rows' }
+          rows: {attribute: 'rows'}
         }
       },
-      apiCheck: checkTextarea,
-      apiCheckInstance: formlyJellyfishApiCheck
-    });
-
-    formlyConfigProvider.setType({
-      name: 'select',
-      template: '<select class="field__input" ng-model="model[options.key]"></select>',
-      wrapper: ['jellyfishHasError', 'jellyfishLabel', 'jellyfishField'],
-      defaultOptions: selectDefaultOptions,
-      apiCheck: checkSelect,
-      apiCheckInstance: formlyJellyfishApiCheck
-    });
-
-    formlyConfigProvider.setType({
-      name: 'async_select',
-      template: '<select class="field__input" ng-model="model[options.key]"></select>',
-      wrapper: ['jellyfishHasError', 'jellyfishLoading', 'jellyfishLabel', 'jellyfishField'],
-      defaultOptions: selectDefaultOptions,
-      apiCheck: checkAsyncSelect,
-      apiCheckInstance: formlyJellyfishApiCheck,
-      controller: AsyncSelectController
+      apiCheck: checkTextarea
     });
 
     function checkTextarea() {
       return {
         templateOptions: {
-          rows: formlyJellyfishApiCheck.number.optional
+          rows: jfApiCheck.number.optional
         }
       };
     }
+
+    formlyConfig.setType({
+      name: 'checkbox',
+      template: '<div class="field__checkbox"><input ng-model="model[options.key]" type="checkbox"/>' +
+      '<label for="{{ options.id }}">{{ to.checkboxLabel || to.label }}</label></div>',
+      wrapper: ['jfHasError', 'jfLabel', 'jfField'],
+      apiCheck: checkCheckbox
+    });
+
+    function checkCheckbox() {
+      return {
+        templateOptions: {
+          checkboxLabel: jfApiCheck.string.optional
+        }
+      };
+    }
+
+    formlyConfig.setType({
+      name: 'select',
+      template: '<select class="field__input" ng-model="model[options.key]"></select>',
+      wrapper: ['jfHasError', 'jfLabel', 'jfField'],
+      defaultOptions: selectDefaultOptions,
+      apiCheck: checkSelect
+    });
 
     function checkSelect() {
       return {
         templateOptions: {
-          options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
-          labelProp: formlyJellyfishApiCheck.string.optional,
-          valueProp: formlyJellyfishApiCheck.string.optional,
-          groupProp: formlyJellyfishApiCheck.string.optional
-        }
-      };
-    }
-
-    function checkAsyncSelect() {
-      return {
-        templateOptions: {
-          asyncKey: formlyJellyfishApiCheck.string,
-          options: formlyJellyfishApiCheck.arrayOf(formlyJellyfishApiCheck.object),
-          labelProp: formlyJellyfishApiCheck.string.optional,
-          valueProp: formlyJellyfishApiCheck.string.optional,
-          groupProp: formlyJellyfishApiCheck.string.optional,
-          blank: formlyJellyfishApiCheck.string.optional
+          options: jfApiCheck.arrayOf(jfApiCheck.object),
+          labelProp: jfApiCheck.string.optional,
+          valueProp: jfApiCheck.string.optional,
+          groupProp: jfApiCheck.string.optional
         }
       };
     }
@@ -131,35 +120,170 @@
       var ngOptions = options.templateOptions.ngOptions || defaultNgOptions;
       var ngModelAttrs = {};
 
-      ngModelAttrs[ngOptions] = { value: 'ng-options' };
+      ngModelAttrs[ngOptions] = {value: 'ng-options'};
 
       return {
         ngModelAttrs: ngModelAttrs
       };
     }
 
-    /** @ngInject */
-    function AsyncSelectController($scope) {
-      var blank = {};
+    formlyConfig.setType({
+      name: 'async_select',
+      extend: 'select',
+      wrapper: ['jfHasError', 'jfLoading', 'jfLabel', 'jfField']
+    });
 
-      $scope.to.loading = $scope.formState.productType.asyncSelect($scope.to.asyncKey).then(handleResults);
 
-      blank[$scope.to.valueProp || 'value'] = '';
-      blank[$scope.to.labelProp || 'name'] = $scope.to.blank;
+    //formlyConfig.setType({
+    //  name: 'async_select',
+    //  template: '<select class="field__input" ng-model="model[options.key]"></select>',
+    //  wrapper: ['jfHasError', 'jfLoading', 'jfLabel', 'jfField'],
+    //  defaultOptions: selectDefaultOptions,
+    //  apiCheck: {
+    //    templateOptions: {
+    //      asyncKey: jfApiCheck.string,
+    //      options: jfApiCheck.arrayOf(jfApiCheck.object),
+    //      labelProp: jfApiCheck.string.optional,
+    //      valueProp: jfApiCheck.string.optional,
+    //      groupProp: jfApiCheck.string.optional,
+    //      blank: jfApiCheck.string.optional
+    //    }
+    //  },
+    //  apiCheckInstance: jfApiCheck,
+    //  controller: AsyncSelectController
+    //});
 
-      function handleResults(data) {
-        if ($scope.to.blank) {
-          data.unshift(blank);
+    ///** @ngInject */
+    //function AsyncSelectController($scope) {
+    //  var blank = {};
+    //
+    //  $scope.to.loading = $scope.formState.productType.asyncSelect($scope.to.asyncKey).then(handleResults);
+    //
+    //  blank[$scope.to.valueProp || 'value'] = '';
+    //  blank[$scope.to.labelProp || 'name'] = $scope.to.blank;
+    //
+    //  function handleResults(data) {
+    //    if ($scope.to.blank) {
+    //      data.unshift(blank);
+    //    }
+    //    $scope.to.options = data;
+    //
+    //    return data;
+    //  }
+    //}
+
+    formlyConfig.setType({
+      name: 'questions',
+      template: '<formly-form form="form" model="model[options.key]" fields="options.data.fields"></formly-form>',
+      defaultOptions: {
+        data: {
+          fields: []
         }
-        $scope.to.options = data;
+      },
+      controller: QuestionsController
+    });
 
-        return data;
+    /** @ngInject */
+    function QuestionsController($scope, lodash, Forms) {
+      var templateOptions = [
+        'label', 'placeholder', // General
+        'options', 'labelProp', 'valueProp', 'groupProp', // Select
+        'rows', // Textarea
+        'minlength', 'maxlength', 'pattern' // Validation
+      ];
+      var data = $scope.model[$scope.options.key];
+
+      $scope.options.data.fields = lodash.map(data, buildField);
+
+      function buildField(question) {
+        var field = angular.copy(Forms.fields(question.field || 'text'));
+
+        field.key = 'value';
+        field.model = question;
+
+        if (angular.isDefined(field.templateOptions)) {
+          angular.forEach(templateOptions, setTemplateOptions);
+        }
+
+        if (angular.isDefined(question['required'])) {
+          setRequired();
+        }
+
+        return field;
+
+        function setTemplateOptions(option) {
+          if (angular.isDefined(question[option])) {
+            field.templateOptions[option] = question[option];
+          }
+        }
+
+        function setRequired() {
+          switch (question['required']) {
+            case 'if_new':
+              if (angular.isUndefined(field.expressionProperties)) {
+                field.expressionProperties = {};
+              }
+              field.expressionProperties['templateOptions.required'] = '!model.id';
+              break;
+            case true:
+              if (angular.isUndefined(field.templateOptions)) {
+                field.templateOptions = {};
+              }
+              field.templateOptions.required = true;
+              break;
+            case false:
+              break;
+            default:
+              if (angular.isUndefined(field.expressionProperties)) {
+                field.expressionProperties = {};
+              }
+              field.expressionProperties['templateOptions.required'] = question['required'];
+          }
+        }
+      }
+    }
+
+    formlyConfig.setType({
+      name: 'tags',
+      templateUrl: 'app/components/formly-jellyfish/types/tags.html',
+      wrapper: ['jfHasError', 'jfLabel', 'jfField'],
+      defaultOptions: {
+        ngModelAttrs: {
+          minTags: {
+            attribute: 'min-tags'
+          },
+          maxTags: {
+            attribute: 'max-tags'
+          }
+        }
+      },
+      controller: TagsController,
+      apiCheck: checkTags,
+      apiCheckInstance: jfApiCheck
+    });
+
+    function checkTags() {
+      return {
+        templateOptions: {
+          minTags: jfApiCheck.number.optional,
+          maxTags: jfApiCheck.number.optional
+        }
+      }
+    }
+
+    /** @ngInject */
+    function TagsController($scope, Tag, TAG_QUERY_LIMIT) {
+      $scope.queryTags = queryTags;
+
+      function queryTags(query) {
+        return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
       }
     }
   }
 
   /** @ngInject */
-  function validation(formlyConfig, formlyValidationMessages) {
+  function validation(formlyConfig, jfApiCheck, formlyValidationMessages) {
+    formlyConfig.extras.apiCheckInstance = jfApiCheck;
     formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = 'form.$submitted';
     formlyValidationMessages.messages.required = 'to.label + " is required"';
     formlyValidationMessages.messages.email = '$viewValue + " is not a valid email address"';
