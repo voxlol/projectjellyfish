@@ -11,6 +11,10 @@ class ProviderPolicy < ApplicationPolicy
     only_admins!
   end
 
+  def update?
+    only_admins!
+  end
+
   def destroy?
     only_admins!
   end

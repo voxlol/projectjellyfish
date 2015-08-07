@@ -4,7 +4,7 @@ class RegisteredProvidersController < ApplicationController
   api :GET, '/registered_providers', 'Returns a list of registered providers'
   def index
     authorize RegisteredProvider
-    respond_with registered_providers
+    respond_with registered_providers, each_serializer: RegisteredProviderSerializer
   end
 
   private

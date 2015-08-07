@@ -13,6 +13,21 @@
       }
     });
 
+    Provider.defaults = {
+      registered_provider_id: null,
+      name: '',
+      description: '',
+      active: false,
+      tags: [],
+      answers: []
+    };
+
+    Provider.new = newProvider;
+
+    function newProvider(data) {
+      return new Provider(angular.extend({}, Provider.defaults, data || {}));
+    }
+
     return Provider;
   }
 })();

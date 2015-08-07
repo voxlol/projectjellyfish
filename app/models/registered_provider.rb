@@ -2,17 +2,13 @@
 #
 # Table name: registered_providers
 #
-#  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  deleted_at      :datetime
-#  type            :string           not null
-#  uuid            :string           not null
-#  name            :string           not null
-#  description     :text
-#  cached_tag_list :string
-#  provider_class  :string           not null
-#  questions       :json
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  deleted_at :datetime
+#  type       :string           not null
+#  name       :string           not null
+#  uuid       :string           not null
 #
 # Indexes
 #
@@ -22,7 +18,6 @@
 
 class RegisteredProvider < ActiveRecord::Base
   acts_as_paranoid
-  acts_as_taggable
 
   has_many :providers
 
@@ -38,6 +33,22 @@ class RegisteredProvider < ActiveRecord::Base
 
   def self.policy_class
     RegisteredProviderPolicy
+  end
+
+  def provider_class
+    'Provider'.constantize
+  end
+
+  def description
+    ''
+  end
+
+  def tags
+    []
+  end
+
+  def questions
+    []
   end
 
   private
@@ -57,15 +68,10 @@ class RegisteredProvider < ActiveRecord::Base
     false
   end
 
-  def self.set(name, uuid, options)
-    keys = %i(description provider_class tag_list questions)
+  def self.set(name, uuid)
     {
       name: name,
-      uuid: uuid,
-      description: '',
-      provider_class: 'Provider',
-      tag_list: [],
-      questions: []
-    }.merge options.keep_if { |key| keys.include? key }
+      uuid: uuid
+    }
   end
 end

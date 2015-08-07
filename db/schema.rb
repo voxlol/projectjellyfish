@@ -321,29 +321,27 @@ ActiveRecord::Schema.define(version: 20150802223125) do
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.datetime "deleted_at"
-    t.string   "type",            null: false
-    t.string   "name",            null: false
+    t.string   "type",                   null: false
+    t.integer  "registered_provider_id", null: false
+    t.string   "name",                   null: false
     t.text     "description"
     t.boolean  "active"
     t.string   "cached_tag_list"
   end
 
+  add_index "providers", ["registered_provider_id"], name: "index_providers_on_registered_provider_id", using: :btree
   add_index "providers", ["type"], name: "index_providers_on_type", using: :btree
 
   create_table "registered_providers", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.string   "type",            null: false
-    t.string   "uuid",            null: false
-    t.string   "name",            null: false
-    t.text     "description"
-    t.string   "cached_tag_list"
-    t.string   "provider_class",  null: false
-    t.json     "questions"
+    t.string   "type",       null: false
+    t.string   "name",       null: false
+    t.string   "uuid",       null: false
   end
 
   add_index "registered_providers", ["type"], name: "index_registered_providers_on_type", using: :btree

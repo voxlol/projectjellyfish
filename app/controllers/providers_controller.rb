@@ -19,7 +19,7 @@ class ProvidersController < ApplicationController
 
   def index
     authorize Provider
-    respond_with_params providers
+    respond_with_params providers, each_serializer: ProviderSerializer
   end
 
   api :GET, '/providers/:id', 'Returns a provider'
@@ -30,17 +30,17 @@ class ProvidersController < ApplicationController
 
   def show
     authorize provider
-    respond_with_params provider
+    respond_with_params provider, serializer: ProviderSerializer
   end
 
   api :POST, '/providers', 'Creates a provider'
   param_group :provider
 
   def create
-    provider = provider_class.new provider_params
+    provider = provider_class.new provider_params.merge!(type: provider_class.to_s)
     authorize provider
     provider.save!
-    respond_with provider
+    respond_with provider, location: provider_url(provider), serializer: ProviderSerializer
   end
 
   api :PUT, '/providers/:id', 'Updates provider with :id'
@@ -50,7 +50,7 @@ class ProvidersController < ApplicationController
   def update
     authorize provider
     provider.update_attributes provider_params
-    respond_with provider
+    respond_with provider, serializer: ProviderSerializer
   end
 
   api :DELETE, '/providers/:id', 'Deletes provider with :id'
@@ -60,20 +60,20 @@ class ProvidersController < ApplicationController
   def destroy
     authorize provider
     provider.destroy
-    respond_with provider
+    respond_with provider, serializer: ProviderSerializer
   end
 
   private
 
   def provider_params
-    params.permit(:registered_provider_id, :name, :description, :tags).tap do |pr|
+    params.permit(:registered_provider_id, :name, :description, :active, tags: [], answers: [:id, :name, :value_type, :value]).tap do |pr|
       pr[:tag_list] = pr.delete :tags
       pr[:answers_attributes] = pr.delete :answers
     end
   end
 
   def provider_class
-    @_provider_class ||= RegisteredProvider.find(params[:registered_provider_id]).provider_class.constantize
+    @_provider_class ||= RegisteredProvider.find(params[:registered_provider_id]).provider_class
   end
 
   def providers
