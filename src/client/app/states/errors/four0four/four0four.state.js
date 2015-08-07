@@ -6,16 +6,16 @@
 
   /** @ngInject */
   function appRun(routerHelper) {
-    var otherwise = '/404';
+    var otherwise = '/errors/404';
     routerHelper.configureStates(getStates(), otherwise);
   }
 
   function getStates() {
     return {
-      'errors.404': {
+      'errors.four0four': {
         url: '/404',
-        templateUrl: 'app/states/errors/404/404.html',
-        title: '404',
+        templateUrl: 'app/states/errors/four0four/four0four.html',
+        title: 'Not Found : 404',
         data: {
           layout: 'blank'
         }

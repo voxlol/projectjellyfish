@@ -16,7 +16,10 @@
         templateUrl: 'app/states/errors/unauthorized/unauthorized.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Unauthorized'
+        title: 'Unauthorized',
+        data: {
+          layout: 'blank'
+        }
       }
     };
   }

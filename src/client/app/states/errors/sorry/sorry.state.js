@@ -16,7 +16,10 @@
         templateUrl: 'app/states/sorry/sorry.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Sorry'
+        title: 'Sorry',
+        data: {
+          layout: 'blank'
+        }
       }
     };
   }
