@@ -17,8 +17,6 @@
     'blocks.directive-options',
     'blocks.recursion',
 
-    'extensions',
-
     // Third party modules
     'ui.router',
     'angular.filter'
