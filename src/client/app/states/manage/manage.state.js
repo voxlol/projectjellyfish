@@ -18,7 +18,7 @@
         template: '<ui-view></ui-view>',
         url: '/manage',
         data: {
-          authorizedRoles: ['manager']
+          authorizedRoles: ['admin', 'manager']
         }
       }
     };

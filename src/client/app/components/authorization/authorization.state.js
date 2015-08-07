@@ -9,7 +9,6 @@
     $rootScope.$on('$stateChangeStart', changeStart);
     $rootScope.$on('$stateChangeError', changeError);
     $rootScope.$on('$stateChangeSuccess', changeSuccess);
-    $rootScope.$on('$stateNotFound', notFound);
 
     function changeStart(event, toState, toParams, fromState, fromParams) {
       var authorizedRoles = ['all'];
@@ -20,10 +19,10 @@
 
       if (!AuthorizationService.isAuthorized(authorizedRoles)) {
         event.preventDefault();
-        if (AuthorizationService.isAuthenticated()) {
+        if (AuthenticationService.isAuthenticated()) {
           $state.transitionTo('errors.unauthorized');
         } else {
-          $state.transitionTo('errors.404');
+          $state.transitionTo('login');
         }
       }
     }
@@ -42,11 +41,6 @@
 
     function changeSuccess() {
       jQuery('html, body').animate({scrollTop: 0}, 200);
-    }
-
-    function notFound(event) {
-      event.preventDefault();
-      $state.transitionTo('errors.404');
     }
   }
 })();

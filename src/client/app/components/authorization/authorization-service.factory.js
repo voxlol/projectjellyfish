@@ -16,11 +16,14 @@
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
       }
+      if (0 === authorizedRoles.length) {
+        authorizedRoles = [userRoles.all];
+      }
       // If authorizedRoles contains 'all', then we allow it through.
-      if (authorizedRoles.indexOf(userRoles.all) !== -1) {
+      if (-1 !== authorizedRoles.indexOf(userRoles.all)) {
         return true;
       } else {
-        return (AuthenticationService.isAuthenticated() && authorizedRoles.indexOf(SessionService.role) !== -1);
+        return (AuthenticationService.isAuthenticated() && -1 !== authorizedRoles.indexOf(SessionService.role));
       }
     }
   }
