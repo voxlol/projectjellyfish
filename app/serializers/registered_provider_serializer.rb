@@ -11,7 +11,6 @@
 #  name            :string           not null
 #  description     :text
 #  cached_tag_list :string
-#  provider_class  :string           not null
 #  questions       :json
 #
 # Indexes
@@ -20,7 +19,7 @@
 #  index_registered_providers_on_uuid  (uuid)
 #
 
-class RegisteredProviderSerializer < ActiveModel::Serializer
+class RegisteredProviderSerializer < ApplicationSerializer
   attributes :id, :uuid, :name, :description, :questions
   attribute :tag_list, key: :tags
 end

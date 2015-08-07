@@ -17,6 +17,6 @@
 #  index_content_pages_on_staff_id  (staff_id)
 #
 
-class ContentPageSerializer < ActiveModel::Serializer
+class ContentPageSerializer < ApplicationSerializer
   attributes :id, :created_at, :updated_at, :deleted_at, :staff_id, :slug, :title, :body
 end

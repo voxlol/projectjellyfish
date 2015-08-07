@@ -12,7 +12,7 @@
 #  updated_at      :datetime
 #
 
-class ProductCategorySerializer < ActiveModel::Serializer
+class ProductCategorySerializer < ApplicationSerializer
   attributes :id, :name, :description, :img, :created_at, :updated_at, :deleted_at
   attribute :tag_list, key: :tags
 end
