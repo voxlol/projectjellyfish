@@ -17,20 +17,20 @@
     formlyConfig.setWrapper([
       {
         name: 'jfField',
-        templateUrl: 'app/components/formly-jellyfish/wrappers/field.html'
+        templateUrl: 'app/components/forms/wrappers/field.html'
       },
       {
         name: 'jfLabel',
-        templateUrl: 'app/components/formly-jellyfish/wrappers/label.html',
+        templateUrl: 'app/components/forms/wrappers/label.html',
         apiCheck: checkLabel
       },
       {
         name: 'jfHasError',
-        templateUrl: 'app/components/formly-jellyfish/wrappers/has-error.html'
+        templateUrl: 'app/components/forms/wrappers/has-error.html'
       },
       {
         name: 'jfLoading',
-        templateUrl: 'app/components/formly-jellyfish/wrappers/loading.html'
+        templateUrl: 'app/components/forms/wrappers/loading.html'
       }
     ]);
 
@@ -129,7 +129,7 @@
 
     formlyConfig.setType({
       name: 'async_select',
-      extend: 'select',
+      extends: 'select',
       wrapper: ['jfHasError', 'jfLoading', 'jfLabel', 'jfField']
     });
 
@@ -245,7 +245,7 @@
 
     formlyConfig.setType({
       name: 'tags',
-      templateUrl: 'app/components/formly-jellyfish/types/tags.html',
+      templateUrl: 'app/components/forms/types/tags.html',
       wrapper: ['jfHasError', 'jfLabel', 'jfField'],
       defaultOptions: {
         ngModelAttrs: {
