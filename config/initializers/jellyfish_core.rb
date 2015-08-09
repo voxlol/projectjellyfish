@@ -1,6 +1,5 @@
 begin
-  init_settings = Setting.table_exists?
-  if init_settings
+  if Setting.table_exists?
     Dir[Rails.root.join 'app', 'models', 'setting', '*.rb'].each do |setting_model|
       require_dependency setting_model
     end
@@ -11,8 +10,7 @@ rescue
 end
 
 begin
-  init_product_types = ProductType.table_exists?
-  if init_product_types
+  if ProductType.table_exists?
     Dir[Rails.root.join 'app', 'models', 'product_type', '*.rb'].each do |product_type_model|
       require_dependency product_type_model
     end
@@ -23,8 +21,7 @@ rescue
 end
 
 begin
-  init_registered_providers = RegisteredProvider.table_exists?
-  if init_registered_providers
+  if RegisteredProvider.table_exists?
     Dir[Rails.root.join 'app', 'models', 'registered_provider', '*.rb'].each do |registered_provider_model|
       require_dependency registered_provider_model
     end
