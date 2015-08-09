@@ -181,6 +181,37 @@
     });
 
     formlyConfig.setType({
+      name: 'data_select',
+      extends: 'select',
+      apiCheck: checkDataSelect,
+      controller: DataSelectController
+    });
+
+    function checkDataSelect() {
+      return {
+        templateOptions: {
+          dataKey: jfApiCheck.string
+        }
+      };
+    }
+
+    /** @ngInject */
+    function DataSelectController($scope, Toasts) {
+      var dataKey = $scope.to.dataKey;
+
+      if (angular.isUndefined(dataKey)) {
+        Toasts.warning([$scope.to.label, 'has no dataKey'].join(' '));
+        return;
+      }
+
+      if (angular.isUndefined($scope.formState[dataKey])) {
+        Toasts.warning([$scope.to.label, 'cannot find', dataKey, 'in formState'].join(' '));
+      }
+
+      $scope.to.options = $scope.formState[dataKey];
+    }
+
+    formlyConfig.setType({
       name: 'questions',
       template: '<formly-form form="form" model="model[options.key]" fields="options.data.fields" options="formOptions"></formly-form>',
       defaultOptions: {
@@ -287,6 +318,11 @@
         return Tag.query({q: query, limit: TAG_QUERY_LIMIT}).$promise;
       }
     }
+
+    formlyConfig.setType({
+      name: 'image-chooser',
+      template: '<image-chooser image="model[options.key]"></image-chooser>'
+    });
   }
 
   /** @ngInject */

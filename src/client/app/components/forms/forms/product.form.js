@@ -88,7 +88,7 @@
               },
               validation: {
                 messages: {
-                  mingTags: '"At least one tag must be entered"'
+                  minTags: '"At least one tag must be entered"'
                 }
               }
             }
@@ -98,8 +98,8 @@
           className: 'forms__aside',
           fieldGroup: [
             {
-              noFormControl: true,
-              template: '<div class="product-form-image__container"><div class="product-form-image"></div> <button type="button" class="btn-rounded">Choose Image</button></div>'
+              key: 'img',
+              type: 'image-chooser'
             }
           ]
         }
