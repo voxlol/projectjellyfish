@@ -62,6 +62,9 @@
       template: '<textarea class="field__input" ng-model="model[options.key]"></textarea>',
       wrapper: ['jfHasError', 'jfLabel', 'jfField'],
       defaultOptions: {
+        templateOptions: {
+          rows: 3
+        },
         ngModelAttrs: {
           rows: {attribute: 'rows'}
         }
@@ -114,7 +117,7 @@
 
     function selectDefaultOptions(options) {
       var defaultNgOptions = 'option[to.valueProp || \'value\'] ' +
-        'as option[to.labelProp || \'name\'] ' +
+        'as option[to.labelProp || \'label\'] ' +
         'group by option[to.groupProp || \'group\'] ' +
         'for option in to.options';
       var ngOptions = options.templateOptions.ngOptions || defaultNgOptions;
@@ -128,53 +131,58 @@
     }
 
     formlyConfig.setType({
+      name: 'price',
+      extends: 'text',
+      defaultOptions: {
+        templateOptions: {
+          scale: 0
+        },
+        validators: {
+          pattern: {
+            expression: function(viewValue, modelValue, scope) {
+              var value = modelValue || viewValue;
+              var scale = scope.to.scale;
+              var precision = scope.to.precision - scale;
+              var pRx = '\\d{1,' + precision + '}';
+              var sRx = 0 < scale ? '(?:\\.\\d{1,' + scale + '})?' : '';
+              var rx = new RegExp(['^', pRx, sRx, '$'].join(''));
+
+              return rx.test(value);
+            },
+            message: function(foo, bar, scope) {
+              var to = scope.to;
+
+              return [
+                'Enter a value between',
+                Math.pow(10, to.scale * -1).toFixed(to.scale),
+                'and',
+                (Math.pow(10, to.precision - to.scale) - Math.pow(10, to.scale * -1)).toFixed(to.scale)
+              ].join(' ');
+            }
+          }
+        }
+      },
+      apiCheck: checkPrice
+    });
+
+    function checkPrice() {
+      return {
+        templateOptions: {
+          precision: jfApiCheck.number,
+          scale: jfApiCheck.number.optional
+        }
+      };
+    }
+
+    formlyConfig.setType({
       name: 'async_select',
       extends: 'select',
       wrapper: ['jfHasError', 'jfLoading', 'jfLabel', 'jfField']
     });
 
-
-    //formlyConfig.setType({
-    //  name: 'async_select',
-    //  template: '<select class="field__input" ng-model="model[options.key]"></select>',
-    //  wrapper: ['jfHasError', 'jfLoading', 'jfLabel', 'jfField'],
-    //  defaultOptions: selectDefaultOptions,
-    //  apiCheck: {
-    //    templateOptions: {
-    //      asyncKey: jfApiCheck.string,
-    //      options: jfApiCheck.arrayOf(jfApiCheck.object),
-    //      labelProp: jfApiCheck.string.optional,
-    //      valueProp: jfApiCheck.string.optional,
-    //      groupProp: jfApiCheck.string.optional,
-    //      blank: jfApiCheck.string.optional
-    //    }
-    //  },
-    //  apiCheckInstance: jfApiCheck,
-    //  controller: AsyncSelectController
-    //});
-
-    ///** @ngInject */
-    //function AsyncSelectController($scope) {
-    //  var blank = {};
-    //
-    //  $scope.to.loading = $scope.formState.productType.asyncSelect($scope.to.asyncKey).then(handleResults);
-    //
-    //  blank[$scope.to.valueProp || 'value'] = '';
-    //  blank[$scope.to.labelProp || 'name'] = $scope.to.blank;
-    //
-    //  function handleResults(data) {
-    //    if ($scope.to.blank) {
-    //      data.unshift(blank);
-    //    }
-    //    $scope.to.options = data;
-    //
-    //    return data;
-    //  }
-    //}
-
     formlyConfig.setType({
       name: 'questions',
-      template: '<formly-form form="form" model="model[options.key]" fields="options.data.fields"></formly-form>',
+      template: '<formly-form form="form" model="model[options.key]" fields="options.data.fields" options="formOptions"></formly-form>',
       defaultOptions: {
         data: {
           fields: []

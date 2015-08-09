@@ -21,6 +21,7 @@
         subHeading: '@?',
         successMsg: '@?',
         failureMsg: '@?',
+        options: '=?',
         debug: '@?'
       };
 
@@ -59,9 +60,10 @@
           }
 
           function activate() {
-            vm.debug = vm.debug || false;
             vm.successMsg = vm.successMsg || 'Save successful!';
             vm.failureMsg = vm.failureMsg || 'Error encountered during save attempt!';
+            vm.options = vm.options || {};
+            vm.debug = vm.debug || false;
             if (angular.isDefined(vm.afterActivate)) {
               vm.afterActivate();
             }

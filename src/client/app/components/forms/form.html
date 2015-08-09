@@ -1,6 +1,5 @@
 <form name="vm.form" class="forms" role="form" novalidate autocomplete="off" ng-submit="vm.onSubmit()"
       ng-class="{'show-errors': vm.form.$submitted}">
-
   <content-header short="true">
     <div>
       <span class="content-header__title">{{ ::vm.heading }}</span>
@@ -12,9 +11,7 @@
   </content-header>
 
   <div class="row">
-    <div class="forms__body">
-      <formly-form form="vm.form" model="vm.record" fields="vm.fields" options="vm.options"></formly-form>
-    </div>
+    <formly-form form="vm.form" model="vm.record" fields="vm.fields" options="vm.options"></formly-form>
   </div>
 
   <div class="row">
@@ -35,4 +32,4 @@
     </div>
   </div>
 </form>
-<pre ng-if="vm.debug">{{vm.record|json}}</pre>
+<pre ng-if="::vm.debug">{{vm.record|json}}</pre>
