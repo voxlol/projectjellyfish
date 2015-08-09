@@ -24,7 +24,7 @@ class ProviderSerializer < ApplicationSerializer
   attribute :tag_list, key: :tags
 
   has_many :answers
-  has_one :registered_provider
+  has_one :registered_provider, serializer: RegisteredProviderSerializer
 
   def type
     object.type.split('::').last

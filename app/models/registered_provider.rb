@@ -54,7 +54,7 @@ class RegisteredProvider < ActiveRecord::Base
   private
 
   def self.create_existing(registered_provider, opts)
-    columns = %i(name description provider_class tag_list questions)
+    columns = %i(name)
     to_update = Hash[opts.select { |k, _| columns.include? k }]
     registered_provider.update_attributes to_update
     registered_provider.update_column :type, opts[:type] if registered_provider.type != opts[:type]

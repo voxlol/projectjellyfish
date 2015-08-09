@@ -7,12 +7,15 @@
 </div>
 
 <div class="modals__body">
-  <p>Select Provider Type</p>
-  <select class="product-type-modal__select" ng-model="vm.provider"
-          ng-options="provider as provider.name for provider in ::vm.providers"></select>
+  <form class="forms">
+    <formly-form model="vm.selections" fields="vm.fields"></formly-form>
+  </form>
 </div>
 
 <div class="modals__footer">
   <button type="button" class="modals__button modals__button--cancel" ng-click="$dismiss()">Cancel</button>
-  <button type="button" class="modals__button" ng-click="$close(vm.provider)" ng-disabled="!vm.provider">Ok</button>
+  <button type="button" class="modals__button" ng-click="$close(vm.selections.provider)"
+          ng-disabled="!vm.selections.provider">
+    Ok
+  </button>
 </div>

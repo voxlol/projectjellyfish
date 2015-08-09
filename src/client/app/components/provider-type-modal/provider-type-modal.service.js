@@ -34,9 +34,44 @@
   }
 
   /** @ngInject */
-  function ProviderTypeModalController(registeredProviders) {
+  function ProviderTypeModalController(lodash, registeredProviders) {
     var vm = this;
 
-    vm.providers = registeredProviders;
+    vm.selections = {
+      provider: null
+    };
+
+    activate();
+
+    function activate() {
+      initFields();
+    }
+
+    // Private
+
+    function initFields() {
+      vm.fields = [
+        {
+          key: 'provider',
+          type: 'select',
+          templateOptions: {
+            label: 'Provider Type',
+            options: providers(),
+            labelProp: 'label'
+          }
+        }
+      ];
+
+      function providers() {
+        return lodash.map(registeredProviders, mapProviders);
+
+        function mapProviders(provider) {
+          return {
+            value: provider,
+            label: provider.name
+          };
+        }
+      }
+    }
   }
 })();
