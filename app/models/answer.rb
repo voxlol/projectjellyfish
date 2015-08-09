@@ -48,7 +48,7 @@ class Answer < ActiveRecord::Base
 
   def value=(v)
     @uncast_value = v
-    value_will_change!
+    value_will_change! if v != value
   end
 
   alias_method :value_before_type_cast, :value
