@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   after_action :verify_authorized
   after_action :post_hook
 
-  has_scope :active, type: :boolean
+  has_scope :approved, type: :boolean
   has_scope :archived, type: :boolean
 
   def self.document_project_params(required: false)
