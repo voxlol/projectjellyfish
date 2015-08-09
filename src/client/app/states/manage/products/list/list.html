@@ -3,11 +3,7 @@
     <span class="content-header__title">All Products</span>
   </div>
   <div class="manage-products-list__aside">
-    <product-type-show-modal
-      title="Add A Product"
-      message="Select the type of product you will be creating"
-      product-types="vm.productTypes"
-      on-ok="vm.createType(productType)"></product-type-show-modal>
+    <button class="btn-rounded" ng-click="vm.showModal()">Add a Product</button>
   </div>
 </content-header>
 

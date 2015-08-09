@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -26,37 +24,27 @@
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
   function resolveProducts(Product) {
     return Product.query().$promise;
   }
 
   /** @ngInject */
-  function StateController($state, products, productTypes) {
+  function StateController($state, products, productTypes, ProductTypeModal) {
     var vm = this;
 
     vm.title = 'Manage Products List';
     vm.products = products;
     vm.productTypes = productTypes;
 
-    vm.activate = activate;
-    vm.createType = createType;
+    vm.showModal = showModal;
 
-    activate();
+    function showModal() {
+      ProductTypeModal.showModal().then(handleResult);
 
-    function activate() {
-    }
-
-    function createType(productType) {
-      $state.go('manage.products.create', {productTypeId: productType.id});
+      function handleResult(selections) {
+        $state.go('manage.products.create', selections);
+      }
     }
   }
 })();

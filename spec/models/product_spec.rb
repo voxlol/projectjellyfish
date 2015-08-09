@@ -14,12 +14,14 @@
 #  hourly_price    :decimal(10, 4)   default(0.0)
 #  monthly_price   :decimal(10, 4)   default(0.0)
 #  cached_tag_list :string
+#  provider_id     :integer
 #  product_type_id :integer
 #
 # Indexes
 #
 #  index_products_on_deleted_at       (deleted_at)
 #  index_products_on_product_type_id  (product_type_id)
+#  index_products_on_provider_id      (provider_id)
 #
 
 #

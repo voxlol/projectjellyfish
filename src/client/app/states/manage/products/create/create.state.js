@@ -5,23 +5,29 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
   }
 
   function getStates() {
     return {
       'manage.products.create': {
-        url: '/create/:productTypeId',
+        url: '/create/:providerId/:productTypeId',
         templateUrl: 'app/states/manage/products/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Manage Products Create',
         resolve: {
+          provider: resolveProvider,
           productType: resolveProductType
         }
       }
     };
+  }
+
+  /** @ngInject */
+  function resolveProvider($stateParams, Provider) {
+    return Provider.get({id: $stateParams.providerId}).$promise;
   }
 
   /** @ngInject */
@@ -30,10 +36,8 @@
   }
 
   /** @ngInject */
-  function StateController(Product, productType, lodash) {
+  function StateController(Product, provider, productType) {
     var vm = this;
-
-    vm.productType = productType;
 
     vm.title = 'Manage Products Create';
     vm.activate = activate;
@@ -41,28 +45,25 @@
     activate();
 
     function activate() {
+      vm.subHeading = [provider.name, productType.name].join(' :: ');
       initProduct();
+      initForm();
     }
 
     // Private
 
     function initProduct() {
-      vm.product = Product.new({product_type_id: productType.id});
-      // Flatten all sections into one; Stop using flatten when sections become a thing
-      vm.product.answers = lodash.flatten(lodash.map(productType.product_questions, mapSection));
+      vm.product = Product.new({provider_id: provider.id, product_type_id: productType.id});
+      vm.product.tags = provider.tags.concat(productType.tags);
+      vm.product.answers = angular.copy(productType.product_questions);
+    }
 
-      function mapSection(section) {
-        return lodash.map(section, mapAnswer);
-      }
-
-      function mapAnswer(definition) {
-        var answer = angular.copy(definition);
-
-        delete answer.control;
-        answer.value = '';
-
-        return answer;
-      }
+    function initForm() {
+      vm.options = {
+        formState: {
+          provider: provider
+        }
+      };
     }
   }
 })();

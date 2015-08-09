@@ -14,10 +14,6 @@ class ProductTypesController < ApplicationController
     render json: product_type, serializer: ProductTypeSerializer
   end
 
-  def async_select
-    render json: product_type.async_select(params[:key])
-  end
-
   private
 
   def product_type

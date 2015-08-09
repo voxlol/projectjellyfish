@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
+  has_scope :active, type: :boolean
+
   def_param_group :project do
     param :name, String, desc: 'Product Name', action_aware: true
     param :description, String, desc: 'Short description', action_aware: true
@@ -26,7 +28,7 @@ class ProductsController < ApplicationController
   param :page, :number
   param :per_page, :number
   param :active, :bool
-  param :includes, Array, in: %w(chargebacks)
+  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
 
   def index
     authorize Product
@@ -35,7 +37,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, in: %w(answers chargebacks product_type)
+  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -77,18 +79,17 @@ class ProductsController < ApplicationController
 
   def product_params
     params.permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price,
-      :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |p|
+      :provider_id, :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |p|
       p[:tag_list] = p.delete :tags
       p[:answers_attributes] = p.delete :answers
     end
   end
 
-  def load_product
-    @product = (query_with Product.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
+  def load_products
+    @products ||= query_with apply_scopes(Product.all), :includes, :pagination, :tags_list
   end
 
-  def load_products
-    query = Product.all.tap { |q| q.where!(active: params[:active]) unless params[:active].nil? }
-    @products = query_with query, :includes, :pagination, :tags_list
+  def load_product
+    @product ||= Product.find params[:id]
   end
 end

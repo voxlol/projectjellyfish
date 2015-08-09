@@ -5,18 +5,14 @@ def sample_data(file)
 end
 
 namespace :sample do
-  desc 'Reset Auto Increment Ids'
-  task reset: :environment do
-    Alert.connection.execute('ALTER SEQUENCE alerts_id_seq RESTART 1')
-    Order.connection.execute('ALTER SEQUENCE orders_id_seq RESTART 1')
-    OrderItem.connection.execute('ALTER SEQUENCE order_items_id_seq RESTART 1')
-    Project.connection.execute('ALTER SEQUENCE projects_id_seq RESTART 1')
-    Product.connection.execute('ALTER SEQUENCE products_id_seq RESTART 1')
-    Staff.connection.execute('ALTER SEQUENCE staff_id_seq RESTART 1')
-  end
-
   desc 'Generates demo data'
   task demo: :environment do
+    providers = sample_data('providers').map do |data|
+      reg_provider = RegisteredProvider.find_by uuid: data.delete('registered_provider')
+      data.merge! registered_provider: reg_provider
+      [data.delete('_assoc'), Provider.create(data)]
+    end
+
     orgs = sample_data('organizations').map do |data|
       alerts = data.delete 'alerts'
       [data.delete('_assoc'), Organization.create(data).tap do |org|
@@ -38,7 +34,8 @@ namespace :sample do
     products = sample_data('products').map do |data|
       answers = data.delete 'answers'
       product_type = ProductType.find_by uuid: data.delete('product_type')
-      data.merge! product_type: product_type
+      provider = providers.assoc(data.delete 'provider').last
+      data.merge! product_type: product_type, provider: provider
       [data.delete('_assoc'), Product.create(data).tap do |product|
           product.answers.create(answers) unless answers.nil?
         end]

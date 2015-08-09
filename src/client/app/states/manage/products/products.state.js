@@ -7,7 +7,6 @@
   /** @ngInject */
   function appRun(routerHelper, navigationHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
     navigationHelper.sidebarItems(sidebarItems());
   }
 
@@ -22,10 +21,6 @@
         }
       }
     };
-  }
-
-  function navItems() {
-    return {};
   }
 
   function sidebarItems() {

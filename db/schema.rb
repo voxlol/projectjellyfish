@@ -240,19 +240,16 @@ ActiveRecord::Schema.define(version: 20150802223125) do
   end
 
   create_table "product_types", force: :cascade do |t|
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "type",                              null: false
-    t.string   "uuid",                              null: false
-    t.string   "name",                              null: false
-    t.text     "description"
-    t.string   "service_class",                     null: false
-    t.json     "product_questions",                 null: false
-    t.json     "order_questions",                   null: false
-    t.boolean  "active",            default: true,  null: false
-    t.boolean  "deprecated",        default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "type",                         null: false
+    t.string   "name",                         null: false
+    t.string   "uuid",                         null: false
+    t.boolean  "active",        default: true, null: false
+    t.string   "provider_type",                null: false
   end
 
+  add_index "product_types", ["provider_type"], name: "index_product_types_on_provider_type", using: :btree
   add_index "product_types", ["type"], name: "index_product_types_on_type", using: :btree
   add_index "product_types", ["uuid"], name: "index_product_types_on_uuid", using: :btree
 
@@ -268,11 +265,13 @@ ActiveRecord::Schema.define(version: 20150802223125) do
     t.decimal  "hourly_price",                precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",               precision: 10, scale: 4, default: 0.0
     t.string   "cached_tag_list"
+    t.integer  "provider_id"
     t.integer  "product_type_id"
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["provider_id"], name: "index_products_on_provider_id", using: :btree
 
   create_table "project_answers", force: :cascade do |t|
     t.integer  "project_id"

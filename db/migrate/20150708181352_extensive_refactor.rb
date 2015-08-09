@@ -51,15 +51,11 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Create product_types : 'Products' provided by providers
     create_table :product_types do |t|
       t.timestamps null: false
-      t.string :type, null: false, index: true
-      t.string :uuid, null: false, index: true
+      t.string :type, index: true, null: false
       t.string :name, null: false
-      t.text :description
-      t.string :service_class, null: false
-      t.json :product_questions, null: false
-      t.json :order_questions, null: false
-      t.boolean :active, null: false, default: true
-      t.boolean :deprecated, null: false, default: false
+      t.string :uuid, index: true, null: false
+      t.boolean :active, default: true, null: false
+      t.string :provider_type, index: true, null: false
     end
 
     # TODO: Migrate products.provisioning_answers to answers
@@ -68,6 +64,7 @@ class ExtensiveRefactor < ActiveRecord::Migration
     Product.reset_column_information
     change_column_null :products, :name, false
     change_column_default :products, :active, true
+    add_reference :products, :provider, index: true
     add_reference :products, :product_type, index: true
 
     # Create services : Instances of a product
@@ -76,7 +73,7 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.string :type, index: true, null: false
       t.string :uuid, index: true, null: false
       t.string :name, null: false
-      t.integer :health, null: false, default: 0
+      t.integer :health, default: 0, null: false
       t.integer :status
       t.string :status_msg
     end
