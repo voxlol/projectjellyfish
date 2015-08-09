@@ -27,7 +27,7 @@
 
   /** @ngInject */
   function resolveProduct($stateParams, Product) {
-    return Product.get({id: $stateParams.productId, 'includes[]': ['product_type']}).$promise;
+    return Product.get({id: $stateParams.productId, 'includes[]': ['product_type', 'provider']}).$promise;
   }
 
   /** @ngInject */
@@ -36,40 +36,39 @@
   }
 
   /** @ngInject */
-  function StateController(lodash, product, projects, Order) {
+  function StateController(product, projects, Order) {
     var vm = this;
 
     vm.title = 'Order Create';
-    vm.product = product;
-    vm.projects = projects;
 
     vm.activate = activate;
 
     activate();
 
     function activate() {
+      vm.subHeading = [product.product_type.name, product.name].join(' :: ');
       initOrder();
+      initForm();
     }
 
     // Private
 
     function initOrder() {
-      vm.order = Order.new();
+      vm.order = Order.new({product_id: product.id});
       vm.order.product_id = product.id;
-      // Flatten all sections into one; Stop using flatten when sections become a thing
-      vm.order.answers = lodash.flatten(lodash.map(product.product_type.order_questions, mapSection));
+      vm.order.answers = product.product_type.order_questions;
+      vm.order.setup_price = product.setup_price;
+      vm.order.monthly_price = product.monthly_price;
+      vm.order.hourly_price = product.hourly_price;
+    }
 
-      function mapSection(section) {
-        return lodash.map(section, mapAnswer);
-      }
-
-      function mapAnswer(definition) {
-        var answer = angular.copy(definition);
-
-        delete answer.control;
-        answer.value = '';
-
-        return answer;
+    function initForm() {
+      vm.options = {
+        formState: {
+          product: product,
+          provider: product.provider,
+          projects: projects
+        }
       }
     }
   }
