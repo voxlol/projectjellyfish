@@ -12,8 +12,8 @@
   function getStates() {
     return {
       'errors.sorry': {
-        url: '/whoops-an-error',
-        templateUrl: 'app/states/sorry/sorry.html',
+        url: '/sorry',
+        templateUrl: 'app/states/errors/sorry/sorry.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Sorry',
@@ -29,12 +29,5 @@
     var vm = this;
 
     vm.title = 'Sorry';
-
-    vm.activate = activate;
-
-    activate();
-
-    function activate() {
-    }
   }
 })();

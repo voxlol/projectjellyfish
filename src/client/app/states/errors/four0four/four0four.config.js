@@ -7,9 +7,9 @@
   function runNotFound($rootScope, $state) {
     $rootScope.$on('$stateNotFound', notFound);
 
-    function notFound(event) {
+    function notFound(event, toState) {
       event.preventDefault();
-      $state.transitionTo('errors.four0four');
+      $state.go('errors.four0four', {toState: toState});
     }
   }
 })();
