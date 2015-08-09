@@ -16,7 +16,10 @@
       'projects': {
         url: '/projects',
         redirectTo: 'projects.list',
-        template: '<ui-view></ui-view>'
+        template: '<ui-view></ui-view>',
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }

@@ -21,6 +21,9 @@
         controllerAs: 'vm',
         resolve: {
           page: resolvePage
+        },
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
         }
       }
     };

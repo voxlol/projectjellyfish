@@ -17,6 +17,7 @@
   <!-- build:css styles/lib.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="/bower_components/nganimate.css/animate.css" />
   <!-- endbower -->
   <!-- endbuild -->
@@ -63,7 +64,7 @@
   <script src="/bower_components/jquery-ui/ui/sortable.js"></script>
   <script src="/bower_components/angular-ui-sortable/sortable.js"></script>
   <script src="/bower_components/ngDraggable/ngDraggable.js"></script>
-  <script src="/bower_components/angular-filter/dist/angular-filter.js"></script>
+  <script src="/bower_components/angular-filter/dist/angular-filter.min.js"></script>
   <script src="/bower_components/highcharts/highcharts.js"></script>
   <script src="/bower_components/highcharts/highcharts-3d.js"></script>
   <script src="/bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
@@ -88,7 +89,6 @@
   <script src="/src/client/app/blocks/router/router.module.js"></script>
   <script src="/src/client/app/components/components.module.js"></script>
   <script src="/src/client/app/core/core.module.js"></script>
-  <script src="/src/client/app/extensions/extensions.module.js"></script>
   <script src="/src/client/app/resources/resources.module.js"></script>
   <script src="/src/client/app/states/states.module.js"></script>
   <script src="/src/client/app/blocks/bind-attrs/bind-attrs.directive.js"></script>
@@ -123,11 +123,15 @@
   <script src="/src/client/app/components/details-table/details-table.directive.js"></script>
   <script src="/src/client/app/components/edit-setting-modal/edit-setting-modal-service.factory.js"></script>
   <script src="/src/client/app/components/footer/footer.directive.js"></script>
-  <script src="/src/client/app/components/formly-jellyfish/formly-jellyfish.config.js"></script>
-  <script src="/src/client/app/components/forms/forms-test.js"></script>
+  <script src="/src/client/app/components/forms/fields.config.js"></script>
+  <script src="/src/client/app/components/forms/formly.config.js"></script>
   <script src="/src/client/app/components/forms/forms.provider.js"></script>
+  <script src="/src/client/app/components/forms/forms/order.form.js"></script>
+  <script src="/src/client/app/components/forms/forms/product.form.js"></script>
+  <script src="/src/client/app/components/forms/forms/provider.form.js"></script>
   <script src="/src/client/app/components/group-form/group-form.directive.js"></script>
   <script src="/src/client/app/components/groups-table/groups-table.directive.js"></script>
+  <script src="/src/client/app/components/image-chooser/image-chooser.directive.js"></script>
   <script src="/src/client/app/components/latest-alerts-table/latest-alerts-table.directive.js"></script>
   <script src="/src/client/app/components/login-form/login-form.directive.js"></script>
   <script src="/src/client/app/components/monthly-price/monthly-price.directive.js"></script>
@@ -136,13 +140,11 @@
   <script src="/src/client/app/components/navigation/navigation-helper.provider.js"></script>
   <script src="/src/client/app/components/navigation/navigation.directive.js"></script>
   <script src="/src/client/app/components/navigation/sidebar-item.directive.js"></script>
-  <script src="/src/client/app/components/order-form/order-form.directive.js"></script>
   <script src="/src/client/app/components/orders-table/orders-table.directive.js"></script>
   <script src="/src/client/app/components/product-categories-table/product-categories-table.directive.js"></script>
   <script src="/src/client/app/components/product-category-form/product-category-form.directive.js"></script>
   <script src="/src/client/app/components/product-description/product-description.directive.js"></script>
-  <script src="/src/client/app/components/product-form/product-form.directive.js"></script>
-  <script src="/src/client/app/components/product-type-modal/product-type-show-modal.directive.js"></script>
+  <script src="/src/client/app/components/product-type-modal/product-type-modal.service.js"></script>
   <script src="/src/client/app/components/products-table/products-table.directive.js"></script>
   <script src="/src/client/app/components/profile/nav-profile.directive.js"></script>
   <script src="/src/client/app/components/project-answers-table/project-answers-table.directive.js"></script>
@@ -155,6 +157,7 @@
   <script src="/src/client/app/components/project-question-form/project-question-form.directive.js"></script>
   <script src="/src/client/app/components/project-question-form/project-question-option.directive.js"></script>
   <script src="/src/client/app/components/project-question-form/project-question-options.directive.js"></script>
+  <script src="/src/client/app/components/provider-type-modal/provider-type-modal.service.js"></script>
   <script src="/src/client/app/components/region/region.directive.js"></script>
   <script src="/src/client/app/components/role-form/role-form.directive.js"></script>
   <script src="/src/client/app/components/services-table/services-table.directive.js"></script>
@@ -196,6 +199,9 @@
   <script src="/src/client/app/resources/project-question.factory.js"></script>
   <script src="/src/client/app/resources/project-service.factory.js"></script>
   <script src="/src/client/app/resources/project.factory.js"></script>
+  <script src="/src/client/app/resources/provider-product-type.factory.js"></script>
+  <script src="/src/client/app/resources/provider.factory.js"></script>
+  <script src="/src/client/app/resources/registered-provider.factory.js"></script>
   <script src="/src/client/app/resources/roles.factory.js"></script>
   <script src="/src/client/app/resources/service.factory.js"></script>
   <script src="/src/client/app/resources/setting.factory.js"></script>
@@ -207,14 +213,14 @@
   <script src="/src/client/app/states/admin/alerts/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/alerts/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/alerts/list/list.state.js"></script>
-  <script src="/src/client/app/states/admin/cms/cms.state.js"></script>
-  <script src="/src/client/app/states/admin/cms/create/create.state.js"></script>
-  <script src="/src/client/app/states/admin/cms/edit/edit.state.js"></script>
-  <script src="/src/client/app/states/admin/cms/list/list.state.js"></script>
   <script src="/src/client/app/states/admin/groups/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/groups/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/groups/groups.state.js"></script>
   <script src="/src/client/app/states/admin/groups/list/list.state.js"></script>
+  <script src="/src/client/app/states/admin/providers/create/create.state.js"></script>
+  <script src="/src/client/app/states/admin/providers/edit/edit.state.js"></script>
+  <script src="/src/client/app/states/admin/providers/list/list.state.js"></script>
+  <script src="/src/client/app/states/admin/providers/providers.state.js"></script>
   <script src="/src/client/app/states/admin/roles/create/create.state.js"></script>
   <script src="/src/client/app/states/admin/roles/edit/edit.state.js"></script>
   <script src="/src/client/app/states/admin/roles/list/list.state.js"></script>
@@ -225,12 +231,17 @@
   <script src="/src/client/app/states/admin/users/users.state.js"></script>
   <script src="/src/client/app/states/blank/blank.state.js"></script>
   <script src="/src/client/app/states/dashboard/dashboard.state.js"></script>
-  <script src="/src/client/app/states/error/error.state.js"></script>
-  <script src="/src/client/app/states/errors/404/404.state.js"></script>
+  <script src="/src/client/app/states/errors/errors.state.js"></script>
+  <script src="/src/client/app/states/errors/four0four/four0four.config.js"></script>
+  <script src="/src/client/app/states/errors/four0four/four0four.state.js"></script>
   <script src="/src/client/app/states/errors/sorry/sorry.state.js"></script>
   <script src="/src/client/app/states/errors/unauthorized/unauthorized.state.js"></script>
   <script src="/src/client/app/states/login/login.state.js"></script>
   <script src="/src/client/app/states/logout/logout.state.js"></script>
+  <script src="/src/client/app/states/manage/cms/cms.state.js"></script>
+  <script src="/src/client/app/states/manage/cms/create/create.state.js"></script>
+  <script src="/src/client/app/states/manage/cms/edit/edit.state.js"></script>
+  <script src="/src/client/app/states/manage/cms/list/list.state.js"></script>
   <script src="/src/client/app/states/manage/manage.state.js"></script>
   <script src="/src/client/app/states/manage/motd/edit/edit.state.js"></script>
   <script src="/src/client/app/states/manage/motd/motd.state.js"></script>

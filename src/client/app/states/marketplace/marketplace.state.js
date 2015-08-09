@@ -19,7 +19,10 @@
         controller: StateController,
         controllerAs: 'vm',
         title: 'Marketplace',
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }

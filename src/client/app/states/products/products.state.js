@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -16,16 +14,11 @@
       'products': {
         url: '/',
         redirectTo: 'marketplace',
-        template: '<ui-view></ui-view>'
+        template: '<ui-view></ui-view>',
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
-  }
-
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
   }
 })();
