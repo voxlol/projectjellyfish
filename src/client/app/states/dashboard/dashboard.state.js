@@ -14,11 +14,14 @@
   function getStates() {
     return {
       'dashboard': {
-        url: '/dashboard',
+        url: '/',
         templateUrl: 'app/states/dashboard/dashboard.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Dashboard'
+        title: 'Dashboard',
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }
