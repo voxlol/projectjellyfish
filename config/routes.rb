@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   apipie
 
   scope '/api/v1', except: [:new, :edit], defaults: { format: :json } do
+    # Extensions
+    mount JellyfishAws::Engine, at: :aws
+
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
 
@@ -40,7 +43,9 @@ Rails.application.routes.draw do
     resources :extensions, only: [:index]
 
     # Providers
-    resources :providers
+    resources :providers do
+      resources :product_types, only: [:index], controller: :provider_product_types
+    end
     resources :registered_providers, only: [:index]
 
     # Alerts Routes
