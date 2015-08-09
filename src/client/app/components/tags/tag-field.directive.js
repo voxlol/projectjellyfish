@@ -11,12 +11,12 @@
       require: 'ngModel',
       scope: {
         tags: '=ngModel',
-        onTagAdding: '&?',
-        onTagAdded: '&?',
-        onTagRemoving: '&?',
-        onTagRemoved: '&?',
-        onTagsCleared: '&?',
-        onInvalidTag: '&?',
+        onTagAdding: '&',
+        onTagAdded: '&',
+        onTagRemoving: '&',
+        onTagRemoved: '&',
+        onTagsCleared: '&',
+        onInvalidTag: '&',
         mode: '@?tagMode'
       },
       transclude: true,
@@ -84,12 +84,12 @@
         });
 
         vm.events
-          .on('tag-added', lodash.flow(vm.onTagAdded || angular.noop, returnTrueIfUndefined))
+          .on('tag-added', handleUndefinedWith(vm.onTagAdded || angular.identity, true))
           .on('tag-added', clearNewTag)
-          .on('invalid-tag', lodash.flow(vm.onInvalidTag || angular.noop, returnTrueIfUndefined))
+          .on('invalid-tag', handleUndefinedWith(vm.onInvalidTag || angular.identity, true))
           .on('invalid-tag', setInvalid)
-          .on('tag-removed', lodash.flow(vm.onTagRemoved || angular.noop, returnTrueIfUndefined))
-          .on('tags-cleared', lodash.flow(vm.onTagsCleared || angular.noop, returnTrueIfUndefined))
+          .on('tag-removed', handleUndefinedWith(vm.onTagRemoved || angular.identity, true))
+          .on('tags-cleared', handleUndefinedWith(vm.onTagsCleared || angular.identity, true))
           .on('tag-added tag-removed', setDirty)
           .on('input-change', changed)
           .on('input-focus', focused)
@@ -273,8 +273,8 @@
       function activate(api) {
         angular.extend(vm, api);
         vm.tags = vm.tags || [];
-        vm.onTagAdding = lodash.flow(vm.onTagAdding || angular.noop, returnTrueIfUndefined);
-        vm.onTagRemoving = lodash.flow(vm.onTagRemoving || angular.noop, returnTrueIfUndefined);
+        vm.onTagAdding = handleUndefinedWith(vm.onTagAdding || angular.identity, true);
+        vm.onTagRemoving = handleUndefinedWith(vm.onTagRemoving || angular.identity, true);
         vm.tagList = new TagList(vm.options, vm.events, vm.onTagAdding, vm.onTagRemoving);
         vm.tagList.tags = vm.tags;
         vm.mode = angular.isDefined(vm.mode) ? vm.mode : 'field';
@@ -320,11 +320,11 @@
     function add(tag) {
       if (tagIsValid(tag)) {
         self.tags.push(tag);
-        events.trigger('tag-added', tag);
+        events.trigger('tag-added', {tag: tag});
 
         return tag;
       }
-      events.trigger('invalid-tag', tag);
+      events.trigger('invalid-tag', {tag: tag});
 
       return false;
     }
@@ -335,7 +335,7 @@
       if ((onTagRemoving || angular.identity)(tag)) {
         self.tags.splice(index, 1);
         self.clearSelection();
-        events.trigger('tag-removed', tag);
+        events.trigger('tag-removed', {tag: tag});
 
         return tag;
       }
@@ -391,7 +391,13 @@
     }
   }
 
-  function returnTrueIfUndefined(result) {
-    return angular.isUndefined(result) ? true : result;
+  function handleUndefinedWith(fn, valueOtherwise) {
+    return handled;
+
+    function handled() {
+      var result = fn.apply(null, arguments);
+
+      return angular.isUndefined(result) ? valueOtherwise : result;
+    }
   }
 })();
