@@ -321,7 +321,10 @@
 
     formlyConfig.setType({
       name: 'image-chooser',
-      template: '<image-chooser image="model[options.key]"></image-chooser>'
+      template: '<image-chooser image="model[options.key]"></image-chooser>',
+      defaultOptions: {
+        noFormControl: true
+      }
     });
   }
 
