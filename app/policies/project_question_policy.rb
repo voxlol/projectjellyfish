@@ -23,7 +23,7 @@ class ProjectQuestionPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def sort?
+  def reposition?
     user.admin?
   end
 

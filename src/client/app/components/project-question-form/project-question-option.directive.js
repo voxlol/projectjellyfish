@@ -28,6 +28,7 @@
 
       vm.activate({
         hasErrors: ctrls[0].hasErrors,
+        canSort: ctrls[1].canSort,
         canRemove: ctrls[1].canRemove,
         removeOption: ctrls[1].removeOption
       });

@@ -30,7 +30,7 @@ class ProjectQuestionsController < ApplicationController
 
   api :POST, '/project_questions', 'Creates project_question'
   param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
+  param :field_type, String, desc: 'Field Type', in: ProjectQuestion.field_types.keys
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
   option_params
@@ -45,7 +45,7 @@ class ProjectQuestionsController < ApplicationController
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
   param :id, :number, required: true
   param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date radio)
+  param :field_type, String, desc: 'Field Type', in: ProjectQuestion.field_types.keys
   param :help_text, String, desc: 'Help Text'
   param :position, :number, desc: 'Load order'
   option_params
@@ -65,16 +65,14 @@ class ProjectQuestionsController < ApplicationController
     respond_with project_question
   end
 
-  api :PUT, '/project_questions/sort', 'Sorts all project_questions'
-  param :position, Array, required: true
+  api :PUT, '/project_questions/:id/reposition', 'Repositions the project question'
+  param :id, :number, required: true
+  param :position, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
-  def sort
-    params[:position].each_with_index do |id, index|
-      ProjectQuestion.where(id: id).update_all(position: index + 1)
-    end
-
-    respond_with project_questions
+  def reposition
+    project_question.insert_at project_question_params[:position]
+    respond_with project_question
   end
 
   private
@@ -88,7 +86,6 @@ class ProjectQuestionsController < ApplicationController
   end
 
   def project_questions
-    # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
     @project_questions ||= begin
       authorize ProjectQuestion
       query_with ProjectQuestion.all.order(:position), :includes, :pagination

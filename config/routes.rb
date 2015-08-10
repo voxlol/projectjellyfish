@@ -91,7 +91,9 @@ Rails.application.routes.draw do
 
     # ProjectQuestion Routes
     resources :project_questions do
-      collection { put :sort }
+      member do
+        put :reposition
+      end
     end
 
     # Content Pages Routes

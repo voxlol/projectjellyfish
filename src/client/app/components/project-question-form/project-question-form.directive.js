@@ -31,6 +31,7 @@
 
       var showValidationMessages = false;
       var home = 'manage.project-questions';
+      var lastFieldType = '';
 
       vm.activate = activate;
       vm.backToList = backToList;
@@ -40,9 +41,11 @@
       vm.onSubmit = onSubmit;
       vm.typeChangeOk = typeChangeOk;
       vm.typeChangeCancel = typeChangeCancel;
+      vm.typeHasOptions = typeHasOptions;
 
       function activate() {
         vm.heading = vm.heading || 'Add Project Question';
+        lastFieldType = vm.projectQuestion.field_type;
       }
 
       function backToList() {
@@ -66,20 +69,13 @@
       }
 
       function onSubmit() {
-        showValidationMessages = true;
-
         if (vm.form.$valid) {
-          if (vm.projectQuestion.field_type !== 'select_option') {
-            delete vm.projectQuestion.options;
-          }
           if (vm.projectQuestion.id) {
             vm.projectQuestion.$update(saveSuccess, saveFailure);
           } else {
             vm.projectQuestion.$save(saveSuccess, saveFailure);
           }
         }
-
-        return false;
 
         function saveSuccess() {
           Toasts.toast('Project Question saved.');
@@ -92,14 +88,21 @@
       }
 
       function typeChangeOk() {
+        lastFieldType = vm.projectQuestion.field_type;
+
         vm.projectQuestion.options.length = 0;
-        if (vm.projectQuestion.field_type === 'select_option') {
-          vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults),
-            angular.extend({}, ProjectQuestion.optionDefaults));
+        if (typeHasOptions()) {
+          vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
+          vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
         }
       }
 
       function typeChangeCancel() {
+        vm.projectQuestion.field_type = lastFieldType;
+      }
+
+      function typeHasOptions() {
+        return -1 !== ['yes_no', 'multiple'].indexOf(vm.projectQuestion.field_type)
       }
     }
   }

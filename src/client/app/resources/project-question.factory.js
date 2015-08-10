@@ -9,12 +9,12 @@
     var ProjectQuestion = $resource('/api/v1/project_questions/:id' , {id: '@id'}, {
       'update': {
         method: 'PUT',
-        url: '/api/v1/project_questions/:id',
-        params: { id: '@id' }
+        isArray: false
       },
-      'sort': {
+      'reposition': {
         method: 'PUT',
-        url: '/api/v1/project_questions/sort'
+        url: '/api/v1/project_questions/:id/reposition',
+        isArray: false
       }
     });
 
@@ -22,7 +22,7 @@
       name: '',
       help: '',
       required: false,
-      field_type: 'select_option',
+      field_type: 'yes_no',
       options: []
     };
 

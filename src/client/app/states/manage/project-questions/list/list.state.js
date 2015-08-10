@@ -85,6 +85,7 @@
     function sortableHelper(event, element) {
       var $originals = element.children();
       var $helper = element.clone();
+
       $helper.children().each(setCloneWidth);
 
       return $helper;
@@ -96,13 +97,10 @@
     }
 
     function sortableStop(event, ui) {
-      var projectQuestion = angular.element(ui.item).scope().row;
-      var sortableList = ui.item.parent().children().map(function(row) {
-        return vm.projectQuestions[row].id;
-      }).toArray();
+      var projectQuestion = ui.item.sortable.model;
 
-      projectQuestion.position = sortableList;
-      projectQuestion.$sort(updateSuccess, updateFailure);
+      projectQuestion.position = ui.item.index();
+      projectQuestion.$reposition(updateSuccess, updateFailure);
 
       function updateSuccess() {
         Toasts.toast('Project Question order saved.');

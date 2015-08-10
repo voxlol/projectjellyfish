@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -23,16 +21,8 @@
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
-  function StateController(logger, ProjectQuestion) {
+  function StateController(ProjectQuestion) {
     var vm = this;
 
     vm.title = 'Project Question Create';
@@ -44,16 +34,15 @@
     function activate() {
       initProjectQuestion();
       initOptions();
-      logger.info('Activated Project Question Create View');
-    }
-
-    function initOptions() {
-      vm.projectQuestion.options.length = 0;
-      vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
-      vm.projectQuestion.options.push(angular.extend({}, ProjectQuestion.optionDefaults));
     }
 
     // Private
+
+    function initOptions() {
+      vm.projectQuestion.options.length = 0;
+      vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
+      vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
+    }
 
     function initProjectQuestion() {
       vm.projectQuestion = ProjectQuestion.new();

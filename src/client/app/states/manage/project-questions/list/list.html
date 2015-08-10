@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody ui-sortable="vm.sortableOptions" ng-model="vm.projectQuestions">
-      <tr class="project-questions-table__row" ng-repeat="row in vm.projectQuestions">
+      <tr class="project-questions-table__row" ng-repeat="row in vm.projectQuestions track by row.id">
         <td class="project-questions-table__cell project-questions-table__cell--order">{{ $index+1 }}</td>
         <td class="project-questions-table__cell project-questions-table__cell--question">{{ ::row.question }}</td>
         <td class="project-questions-table__cell project-questions-table__cell--required">
@@ -26,7 +26,8 @@
                alt="Required" title="Question is required"/>
         </td>
         <td class="project-questions-table__cell project-questions-table__cell--actions">
-          <a ui-sref="manage.project-questions.edit({projectQuestionId: row.id})" class="project-questions-table__action project-questions-table__action--edit" title="Edit">
+          <a ui-sref="manage.project-questions.edit({projectQuestionId: row.id})"
+             class="project-questions-table__action project-questions-table__action--edit" title="Edit">
             <img src="/images/ic_edit.png" alt="Edit"/>
           </a>
           <img

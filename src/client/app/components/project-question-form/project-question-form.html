@@ -4,8 +4,9 @@
   <content-header short="true">
     <div>
       <span class="content-header__title project-question-form__title">{{ ::vm.heading }}</span>
-      <span class="project-question-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in
-        red</span>
+      <span class="project-question-form__title-error" ng-if="vm.hasErrors()">
+        Please complete required fields in red
+      </span>
     </div>
   </content-header>
   <div class="project-question-form__body">
@@ -31,7 +32,7 @@
       </div>
 
       <div class="project-question-field__body" ng-class="{'has-error': vm.hasErrors('help')}">
-        <input id="project-question-help" ng-model="vm.projectQuestion.help_text" name="help" type="text"
+        <input id="project-question-help" ng-model="vm.projectQuestion.help" name="help" type="text"
                class="project-question-field__input" placeholder=""/>
       </div>
     </div>
@@ -65,17 +66,16 @@
                 confirmation-show-cancel="false"
                 confirmation-on-ok="vm.typeChangeOk()"
                 confirmation-on-cancel="vm.typeChangeCancel()">
-          <option value="date">Date Picker</option>
-          <option value="select_option">Multiple Choice</option>
+          <option value="yes_no">"Yes or No"</option>
+          <option value="multiple">Multiple Choice</option>
+          <option value="date">Date Input</option>
           <option value="text">Text Input</option>
-          <option value="check_box">Checkbox</option>
-          <option value="radio">Yes/No</option>
-
+          <option value="checkbox">Checkbox Toggle</option>
         </select>
       </div>
     </div>
 
-    <project-question-options ng-if="vm.projectQuestion.field_type === 'select_option'" options="vm.projectQuestion.options"
+    <project-question-options ng-if="vm.typeHasOptions()" options="vm.projectQuestion.options"
                               options-type="vm.projectQuestion.field_type"></project-question-options>
 
   </div>
