@@ -1,6 +1,7 @@
 ---
 - _assoc: analytics
-  name: Analytics Platform
+  name: Widgets Co. Analytics
+  description: Reports and graphs showing the performance of the Widgets Co. website and mobile API services
   budget: 30000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
@@ -30,7 +31,8 @@
     - question: period
       answer: 5
 - _assoc: mobile
-  name: Mobile App API
+  name: Widgets Co Mobile API
+  description: Collections of services for running the Widgets Co. mobile API services
   budget: 5000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
@@ -60,7 +62,8 @@
     - question: period
       answer: 5
 - _assoc: blog
-  name: Blog
+  name: Widgets Co. Blog
+  description: The Widgets Co. blog site
   budget: 10000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
@@ -94,6 +97,7 @@
       answer: 5
 - _assoc: files
   name: Cloud File Share
+  description: A Widget Co. cloud sharing service
   budget: 1000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
@@ -120,6 +124,7 @@
       answer: 5
 - _assoc: exchange
   name: Cloud Exchange
+  description: Another great project underway for Widget Co.
   budget: 50000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
@@ -146,6 +151,7 @@
       answer: 5
 - _assoc: jellyfish
   name: Project Jellyfish Demo
+  description: A demo project for showcasing the features of Project Jellyfish.
   budget: 10000.0
   start_date: 2015-02-06
   end_date: 2015-11-06
