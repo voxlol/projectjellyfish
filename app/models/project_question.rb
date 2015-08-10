@@ -32,4 +32,12 @@ class ProjectQuestion < ActiveRecord::Base
 
   validates :question, presence: true
   validates :field_type, presence: true
+
+  before_create :ensure_uuid
+
+  private
+
+  def ensure_uuid
+    self[:uuid] = SecureRandom.uuid if self[:uuid].nil?
+  end
 end

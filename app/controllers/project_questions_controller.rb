@@ -78,7 +78,7 @@ class ProjectQuestionsController < ApplicationController
   private
 
   def project_question_params
-    params.permit(:question, :field_type, :help_text, :required, :position, options: [:option, :position, exclude: [], include: []])
+    params.permit(:uuid, :question, :field_type, :help_text, :required, :position, options: [:option, :position, exclude: [], include: []])
   end
 
   def project_question
@@ -88,7 +88,7 @@ class ProjectQuestionsController < ApplicationController
   def project_questions
     @project_questions ||= begin
       authorize ProjectQuestion
-      query_with ProjectQuestion.all.order(:position), :includes, :pagination
+      query_with ProjectQuestion.ordered, :includes, :pagination
     end
   end
 end

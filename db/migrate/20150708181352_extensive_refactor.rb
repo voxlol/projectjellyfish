@@ -110,6 +110,18 @@ class ExtensiveRefactor < ActiveRecord::Migration
       t.decimal :hourly_price, precision: 10, scale: 4
       t.decimal :monthly_price, precision: 10, scale: 4
     end
+
+    #
+    # Update project_questions
+    #
+    add_column :project_questions, :uuid, :string
+
+    #
+    # Touch up projects
+    #
+    remove_column :projects, :cc
+    remove_column :projects, :staff_id
+    add_column :projects, :monthly_spend, :decimal, precision: 12, scale: 2, default: 0.0
   end
 
   def down
