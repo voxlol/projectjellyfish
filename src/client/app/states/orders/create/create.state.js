@@ -57,9 +57,6 @@
       vm.order = Order.new({product_id: product.id});
       vm.order.product_id = product.id;
       vm.order.answers = product.product_type.order_questions;
-      vm.order.setup_price = product.setup_price;
-      vm.order.monthly_price = product.monthly_price;
-      vm.order.hourly_price = product.hourly_price;
     }
 
     function initForm() {

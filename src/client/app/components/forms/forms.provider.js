@@ -97,8 +97,15 @@
               goBack();
             }
 
-            function saveFailure() {
-              Toasts.error(vm.failureMsg);
+            function saveFailure(error) {
+              var data = error.data;
+              var message = vm.failureMsg;
+
+              if (angular.isObject(data) && angular.isDefined(data.error)) {
+                message = data.error;
+              }
+
+              Toasts.error(message);
             }
           }
         }

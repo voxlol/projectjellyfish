@@ -1,5 +1,8 @@
 class ServiceOrderService
-  class UnapprovedProject < StandardError
+  class Error < StandardError
+  end
+
+  class UnapprovedProject < Error
   end
 
   def initialize
@@ -11,7 +14,7 @@ class ServiceOrderService
     product_type = product.product_type
 
     unless project.approved?
-      fail UnapprovedProject, "Project '%s' is not approved.".format(project.name)
+      fail UnapprovedProject, sprintf("Project '%s' has not been approved.", project.name)
     end
 
     service_params = order_params.delete :service

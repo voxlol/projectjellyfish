@@ -60,4 +60,8 @@ class ApplicationController < ActionController::Base
   def post_hook
     ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook', params)
   end
+
+  def fail_with(error: '', type: nil)
+    render json: {error: error}.tap { |e| e.merge!(type: type) unless type.nil? }, status: :bad_request
+  end
 end

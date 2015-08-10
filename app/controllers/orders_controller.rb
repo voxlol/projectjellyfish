@@ -29,17 +29,20 @@ class OrdersController < ApplicationController
     param :name, String, desc: 'Answer key'
     param :value_type, String, desc: 'How to interpret the :value'
   end
+  error code: 400, desc: 'Order errors'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     order = ServiceOrderService.new.execute(current_user, order_params)
     respond_with order
+  rescue ServiceOrderService::Error => e
+    fail_with error: e.message, type: e.class.to_s.split('::').last
   end
 
   private
 
   def order_params
-    params.permit(:project_id, :product_id, service: [:name], answers: [:id, :value, :value_type, :name]).tap do |o|
+    params.permit(:project_id, :product_id, service: [:name], answers: [:value, :value_type, :name]).tap do |o|
       o[:answers_attributes] = o.delete :answers
     end
   end

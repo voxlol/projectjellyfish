@@ -14,6 +14,7 @@
             {
               key: 'name',
               type: 'text',
+              model: 'model.service',
               templateOptions: {
                 label: 'Service Name',
                 required: true
