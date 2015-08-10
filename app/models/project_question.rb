@@ -20,7 +20,7 @@
 
 class ProjectQuestion < ActiveRecord::Base
   acts_as_paranoid
-  acts_as_list
+  acts_as_list top_of_list: 0
 
   scope :ordered, -> { order('position') }
 
