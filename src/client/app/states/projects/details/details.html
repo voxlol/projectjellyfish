@@ -117,22 +117,6 @@
 <!-- Memberships -->
 <project-memberships project-id="vm.project.id" memberships="vm.memberships"></project-memberships>
 
-<!--&lt;!&ndash; Groups&ndash;&gt;-->
-<!--<region ng-if="::vm.project.isApproved()" heading="Group Membership">-->
-  <!--<div class="project-details__service-buttons">-->
-    <!--<button type="button"-->
-            <!--class="btn-rounded btn-rounded&#45;&#45;short project-details__service-button"-->
-            <!--ng-click="vm.showMembershipModal()">-->
-      <!--Add Group-->
-    <!--</button>-->
-  <!--</div>-->
-  <!--<project-membership-table-->
-    <!--memberships="vm.project.memberships"-->
-    <!--groups="vm.groups"-->
-    <!--roles="vm.roles">-->
-  <!--</project-membership-table>-->
-<!--</region>-->
-
  <!--Project Answers-->
 <region heading="Project Specifications">
   <table st-table="vm.project.answers" class="tables">
@@ -140,14 +124,12 @@
     <tr>
       <th class="tables__heading project-details__question">Question</th>
       <th class="tables__heading">Response</th>
-      <th class="tables__heading project-details--when">Answer Date</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="answer in vm.project.answers track by answer.id">
-      <td class="tables__cell">{{ ::answer.project_question.question}}</td>
-      <td class="tables__cell"><span ng-if="!answer.answer">N/A</span>{{ ::answer.answer }}</td>
-      <td class="tables__cell"><span ng-if="!answer.answer">N/A</span>{{ ::answer.updated_at | date: 'short' }}</td>
+      <td class="tables__cell">{{ ::answer.label}}</td>
+      <td class="tables__cell"><span ng-if="!answer.value">N/A</span>{{ ::answer.value }}</td>
     </tr>
     </tbody>
   </table>

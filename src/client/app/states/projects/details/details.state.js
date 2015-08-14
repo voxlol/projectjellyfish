@@ -20,7 +20,8 @@
         resolve: {
           project: resolveProject,
           services: resolveServices,
-          memberships: resolveMemberships
+          memberships: resolveMemberships,
+          projectQuestions: resolveProjectQuestions
         }
       }
     };
@@ -51,7 +52,20 @@
   }
 
   /** @ngInject */
-  function StateController($state, lodash, project, services, memberships) {
+  function resolveProjectQuestions(ProjectQuestion, lodash) {
+    return ProjectQuestion.query({ordered: true}).$promise.then(mapAsFieldQuestions);
+
+    function mapAsFieldQuestions(questions) {
+      return lodash.map(questions, mapQuestion);
+
+      function mapQuestion(question) {
+        return question.asField();
+      }
+    }
+  }
+
+  /** @ngInject */
+  function StateController($state, lodash, project, services, memberships, projectQuestions) {
     var vm = this;
 
     vm.title = 'Project Details';
@@ -66,7 +80,7 @@
     activate();
 
     function activate() {
-      //vm.project.group_ids = lodash.pluck(vm.project.groups, 'id');
+      initAnswers();
     }
 
     function approve() {
@@ -75,6 +89,19 @@
 
     function reject() {
       $state.transitionTo('projects.list');
+    }
+
+    // Private
+
+    function initAnswers() {
+      angular.forEach(projectQuestions, addAnswer);
+      vm.project.answers = projectQuestions;
+
+      function addAnswer(question) {
+        var answer = lodash.find(vm.project.answers, 'name', question.name);
+
+        angular.extend(question, answer || {});
+      }
     }
   }
 })
