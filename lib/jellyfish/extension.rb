@@ -36,7 +36,7 @@ module Jellyfish
 
       # Extension constructor
       def register(id, &block)
-        extension = new(id)
+        extension = new(id.to_sym)
         if (gem = Gem.loaded_specs[id.to_s])
           extension.name gem.name
           extension.author gem.authors.join(',')
@@ -76,12 +76,13 @@ module Jellyfish
       end
     end
 
-    def_field :name, :description, :url, :author, :author_url, :version, :path, :scripts
+    def_field :name, :description, :url, :author, :author_url, :version, :path, :scripts, :mount
     attr_reader :id # , :logging
 
     def initialize(id)
       @id = id.to_sym
       @scripts = []
+      @mount = nil
     end
 
     def after_initialize
@@ -123,6 +124,13 @@ module Jellyfish
     # scripts should be complete paths excluding public/
     def load_scripts(*scripts)
       @scripts.concat scripts
+    end
+
+    def mount_extension(engine, options)
+      @mount = {
+        engine: engine,
+        options: options
+      }
     end
 
     def pending_migrations

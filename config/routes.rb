@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  p :jellyfish_routes
   # Docs
   apipie
 
   scope '/api/v1', except: [:new, :edit], defaults: { format: :json } do
     # Extensions
-    mount JellyfishAws::Engine, at: :aws
+    mount_extensions
 
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
