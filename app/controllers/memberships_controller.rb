@@ -1,7 +1,29 @@
 class MembershipsController < ApplicationController
   after_action :verify_authorized
 
-  api :POST, '/projects/:project_id/groups', 'Add a group membership to a project'
+  api :GET, '/projects/:project_id/memberships', 'Get all memberships on a project'
+  param :project_id, :number, 'ID of Project', required: true
+  param :includes, Array, in: Membership.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :page, :number
+  param :per_page, :number
+
+  def index
+    authorize Membership
+    respond_with_params memberships
+  end
+
+  api :GET, '/memberships/:id', 'Get membership information'
+  param :id, :number, 'ID of Membership', required: true
+  param :includes, Array, in: Membership.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :page, :number
+  param :per_page, :number
+
+  def show
+    authorize membership
+    respond_with membership
+  end
+
+  api :POST, '/projects/:project_id/memberships', 'Add a group membership to a project'
   param :project_id, :number, 'ID of Project to add group membership to', required: true
   param :group_id, :number, 'ID of Group to associate with the project', required: true
   param :role_id, :number, 'ID of Role to associate with the group', required: true
@@ -9,16 +31,14 @@ class MembershipsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    membership = Membership.new membership_params
+    membership = project.memberships.build membership_params
     authorize membership
     membership.save
-    respond_with membership, location: project_memberships_url(membership.project, membership.group)
+    respond_with membership
   end
 
-  api :PUT, '/projects/:project_id/groups/:group_id', 'Update the role of a membership'
-  param :project_id, :number, 'ID of Project to add group membership to', required: true
-  param :group_id, :number, 'ID of Group to associate with the project', required: true
-  param :role_id, :number, 'ID of Role', required: true
+  api :PUT, '/memberships/:id', 'Update the group or role of a membership'
+  param :id, :number, desc: 'The membership id'
   error code: 422, desc: ParameterValidation::Messages.missing
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -28,9 +48,8 @@ class MembershipsController < ApplicationController
     respond_with membership
   end
 
-  api :DELETE, '/projects/:project_id/groups/:group_id', 'Remove a group from a project'
-  param :project_id, :number, required: true
-  param :group_id, :number, required: true
+  api :DELETE, '/memberships/:id', 'Remove a membership from a project'
+  param :id, :number, desc: 'The membership id'
   error code: 422, desc: ParameterValidation::Messages.missing
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -46,7 +65,15 @@ class MembershipsController < ApplicationController
     params.permit(:group_id, :project_id, :role_id)
   end
 
+  def project
+    @project ||= Project.find params[:project_id]
+  end
+
+  def memberships
+    @memberships ||= query_with Membership.where(project: project), :includes, :pagination
+  end
+
   def membership
-    @membership ||= Membership.find_by! membership_params.except :role_id
+    @membership ||= Membership.find params[:id]
   end
 end

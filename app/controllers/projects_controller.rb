@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   PROJECT_INCLUDES = %w(latest_alerts alerts approvals approvers memberships groups project_answers services staff orders)
-  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend problem_count ram resources resources_unit state state_ok status url users latest_service_alerts)
+  PROJECT_METHODS = %w(problem_count state state_ok)
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook
@@ -8,58 +8,56 @@ class ProjectsController < ApplicationController
   has_scope :approved, type: :boolean
   has_scope :archived, type: :boolean
 
-  def self.document_project_params(required: false)
-    param :approved, String
-    param :budget, :decimal, precision: 12, scale: 2, required: required
-    param :cc, String
+  def_param_group :project do
+    param :name, String, action_aware: true
+    param :budget, :decimal, precision: 12, scale: 2, action_aware: true
     param :description, String
-    param :end_date, String
+    param :end_date, String, action_aware: true
     param :img, String
-    param :name, String, required: required
-    param :project_answers, Array, desc: 'Project answers' do
-      param :project_question_id, :number, desc: 'Id for valid project question', required: true
+    param :answers, Array, desc: 'Project Specifications', action_aware: true do
+      param :name, String, desc: 'Answer key'
+      param :value_type, String, desc: 'How to interpret the :value'
     end
   end
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, in: PROJECT_INCLUDES
+  param :includes, Array, in: Project.reflect_on_all_associations.map(&:name).map(&:to_s)
   param :methods, Array, in: PROJECT_METHODS
   param :page, :number
   param :per_page, :number
 
   def index
-    authorize_and_normalize(Project.new)
+    authorize Project
     respond_with_params projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, in: PROJECT_INCLUDES
+  param :includes, Array, in: Project.reflect_on_all_associations.map(&:name).map(&:to_s)
   param :methods, Array, in: PROJECT_METHODS
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    authorize_and_normalize(project)
-    build_empty_answers_to_questions(project) if project.project_answers.empty?
+    authorize project
     respond_with_params project
   end
 
   api :POST, '/projects', 'Creates projects'
-  document_project_params(required: true)
-  param :start_date, String
+  param_group :project
+  param :start_date, String, required: true
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     authorize Project
-    group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
-    project = Project.create project_params.merge(group_ids: group_ids)
+    #group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
+    project = Project.create project_params #.merge(group_ids: group_ids)
     respond_with_params project
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
   param :id, :number, required: true
+  param_group :project
   param :includes, Array, in: PROJECT_INCLUDES
-  document_project_params
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -85,31 +83,32 @@ class ProjectsController < ApplicationController
   def project_params
     @_project_params ||= begin
       permitted = [
-        :name, :description, :cc, :start_date, :end_date,
-        :approved, :img, project_answers: [:project_question_id, :answer, :id]
+        :name, :description, :start_date, :end_date, :img,
+        answers: [:id, :name, :value, :value_type],
+        project_answers: [:project_question_id, :answer, :id]
       ]
       permitted << :budget if current_user.admin? || params[:id].nil?
       params.permit(permitted).tap do |project|
-        project[:project_answers_attributes] = project.delete :project_answers
+        project[:answers_attributes] = project.delete :answers
       end
     end
   end
 
-  def authorize_and_normalize(project)
-    authorize project
-    if render_params.fetch(:include, {})[:project_answers]
-      render_params[:include][:project_answers][:include] = :project_question
-    end
-  end
+  # def authorize_and_normalize(project)
+  #   authorize project
+  #   if render_params.fetch(:include, {})[:project_answers]
+  #     render_params[:include][:project_answers][:include] = :project_question
+  #   end
+  # end
 
-  def build_empty_answers_to_questions(project)
-    ProjectQuestion.where.not(id: project.project_answer_ids).each do |pq|
-      project.project_answers.build(project_question: pq)
-    end
-  end
+  # def build_empty_answers_to_questions(project)
+  #   ProjectQuestion.where.not(id: project.project_answer_ids).each do |pq|
+  #     project.project_answers.build(project_question: pq)
+  #   end
+  # end
 
   def projects
-    @_projects ||= query_with apply_scopes(policy_scope(Project)).main_inclusions, :includes, :pagination
+    @_projects ||= query_with apply_scopes(policy_scope(Project.all)), :includes, :pagination
   end
 
   def project

@@ -13,23 +13,21 @@
     - staff: admin
       approved: false
       reason: Data not delivered on time.
-  project_answers:
-    - question: desc
-      answer: To analyze all the things.
+  answers:
     - question: cc
-      answer: GSM-4873849128497761
+      value: GSM-4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'true'
+      value: 'true'
     - question: loc
-      answer: West Coast Data Center
+      value: West Coast Data Center
     - question: prod
-      answer: 'Yes'
+      value: 'Yes'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5
 - _assoc: mobile
   name: Widgets Co Mobile API
   description: Collections of services for running the Widgets Co. mobile API services
@@ -44,23 +42,21 @@
     - staff: admin
       approved: true
       reason:
-  project_answers:
-    - question: desc
-      answer: High performance mobile REST API
+  answers:
     - question: cc
-      answer: GSM-4873849128497761
+      value: GSM-4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'true'
+      value: 'true'
     - question: loc
-      answer: West Coast Data Center
+      value: West Coast Data Center
     - question: prod
-      answer: 'Yes'
+      value: 'Yes'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5
 - _assoc: blog
   name: Widgets Co. Blog
   description: The Widgets Co. blog site
@@ -78,23 +74,21 @@
     - status: critical
       message: Blog has 1 month of funding, please increase budget.
       category: budget
-  project_answers:
-    - question: desc
-      answer: A realyl big blog site
+  answers:
     - question: cc
-      answer: BLG-4873849128497761
+      value: BLG-4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'false'
+      value: 'false'
     - question: loc
-      answer: West Coast Data Center
+      value: West Coast Data Center
     - question: prod
-      answer: 'Yes'
+      value: 'Yes'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5
 - _assoc: files
   name: Cloud File Share
   description: A Widget Co. cloud sharing service
@@ -105,23 +99,21 @@
   spent: 0
   health: ok
   status: pending
-  project_answers:
-    - question: desc
-      answer: Sharing files with the company
+  answers:
     - question: cc
-      answer: FIL-4873849128497761
+      value: FIL-4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'true'
+      value: 'true'
     - question: loc
-      answer: East Coast Data Center
+      value: East Coast Data Center
     - question: prod
-      answer: 'Yes'
+      value: 'Yes'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5
 - _assoc: exchange
   name: Cloud Exchange
   description: Another great project underway for Widget Co.
@@ -132,23 +124,21 @@
   spent: 0
   health: ok
   status: pending
-  project_answers:
-    - question: desc
-      answer: Share all things cloud related.
+  answers:
     - question: cc
-      answer: CLD-4873849128497761
+      value: CLD-4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'true'
+      value: 'true'
     - question: loc
-      answer: Europe
+      value: Europe
     - question: prod
-      answer: 'Yes'
+      value: 'Yes'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5
 - _assoc: jellyfish
   name: Project Jellyfish Demo
   description: A demo project for showcasing the features of Project Jellyfish.
@@ -159,20 +149,18 @@
   spent: 0
   health: ok
   status: pending
-  project_answers:
-    - question: desc
-      answer: A project to demo Jellyfish
+  answers:
     - question: cc
-      answer: 4873849128497761
+      value: 4873849128497761
     - question: maint
-      answer: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T05:00:00.000Z
     - question: do_maint
-      answer: 'true'
+      value: 'true'
     - question: loc
-      answer: East Coast Data Center
+      value: East Coast Data Center
     - question: prod
-      answer: 'No'
+      value: 'No'
     - question: fisma
-      answer: High
+      value: High
     - question: period
-      answer: 5
+      value: 5

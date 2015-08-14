@@ -5,11 +5,6 @@
   required: true
   options: []
   field_type: 2
-- _assoc: desc
-  question: Project Description
-  required: true
-  options: []
-  field_type: 2
 - _assoc: cc
   question: Project Charge Code
   required: true
@@ -22,7 +17,7 @@
   field_type: 3
 - _assoc: do_maint
   question: Performed Maintenance
-  required: true
+  required: false
   options: []
   field_type: 4
 - _assoc: loc
@@ -33,7 +28,7 @@
 - _assoc: prod
   question: Will this run in production?
   required: true
-  options: [Yes, No]
+  options: []
   field_type: 0
 - _assoc: fisma
   question: Fisma Classification

@@ -12,14 +12,17 @@ class ExtensiveRefactor < ActiveRecord::Migration
 
   def up
     add_column :projects, :health, :integer, index: true
+    add_column :projects, :monthly_spend, :decimal, precision: 12, scale: 2, default: 0.0
     Project.reset_column_information
     Project.find_each do |project|
       project.health = project.status
       project.status = project.approval
       project.save
     end
-    change_column_null :projects, :health, false
     remove_column :projects, :approval, :integer
+    remove_column :projects, :cc
+    remove_column :projects, :staff_id
+    Project.reset_column_information
 
     # Create settings : Storage of unique application-wide settings
     create_table :settings do |t|
@@ -115,13 +118,6 @@ class ExtensiveRefactor < ActiveRecord::Migration
     # Update project_questions
     #
     add_column :project_questions, :uuid, :string
-
-    #
-    # Touch up projects
-    #
-    remove_column :projects, :cc
-    remove_column :projects, :staff_id
-    add_column :projects, :monthly_spend, :decimal, precision: 12, scale: 2, default: 0.0
   end
 
   def down

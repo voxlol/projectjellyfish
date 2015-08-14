@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Manage Project Question Edit',
         resolve: {
-          projectQuestion: resolveProjetQuestion
+          projectQuestion: resolveProjectQuestion
         }
       }
     };
@@ -35,7 +35,7 @@
   }
 
   /** @ngInject */
-  function resolveProjetQuestion(ProjectQuestion, $stateParams) {
+  function resolveProjectQuestion(ProjectQuestion, $stateParams) {
     return ProjectQuestion.get({id: $stateParams.projectQuestionId}).$promise;
   }
 

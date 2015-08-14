@@ -1,13 +1,12 @@
 class ProjectQuestionsController < ApplicationController
   after_action :verify_authorized
 
-  def self.option_params
-    param :options, Array, desc: 'Options', allow_nil: true do
-      param :option, String, desc: 'Option label'
-      param :position, :number, 'Load order'
-      param :exclude, Array, 'Exclude tags', allow_nil: true
-      param :include, Array, 'Include tags', allow_nil: true
-    end
+  def_param_group :project_question do
+    param :question, String, desc: 'Question', action_aware: true
+    param :field_type, String, desc: 'Field Type', in: ProjectQuestion.field_types.keys, action_aware: true
+    param :help_text, String, desc: 'Help Text', allow_nil: true
+    param :required, :bool, desc: 'Required?', action_aware: true
+    param :options, Array, desc: 'Options', allow_nil: true
   end
 
   api :GET, '/project_questions', 'Returns a collection of project_questions'
@@ -29,12 +28,7 @@ class ProjectQuestionsController < ApplicationController
   end
 
   api :POST, '/project_questions', 'Creates project_question'
-  param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: ProjectQuestion.field_types.keys
-  param :help_text, String, desc: 'Help Text'
-  param :position, :number, desc: 'Load order'
-  option_params
-  param :required, :bool, desc: 'Required?'
+  param_group :project_question
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -43,13 +37,7 @@ class ProjectQuestionsController < ApplicationController
   end
 
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
-  param :id, :number, required: true
-  param :question, String, desc: 'Question'
-  param :field_type, String, desc: 'Field Type', in: ProjectQuestion.field_types.keys
-  param :help_text, String, desc: 'Help Text'
-  param :position, :number, desc: 'Load order'
-  option_params
-  param :required, :bool, desc: 'Required', allow_nil: true
+  param_group :project_question
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -78,7 +66,7 @@ class ProjectQuestionsController < ApplicationController
   private
 
   def project_question_params
-    params.permit(:uuid, :question, :field_type, :help_text, :required, :position, options: [:option, :position, exclude: [], include: []])
+    params.permit(:uuid, :question, :field_type, :help_text, :required, :options)
   end
 
   def project_question

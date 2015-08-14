@@ -52,5 +52,13 @@
       }
     });
 
+    // Generic date
+    Forms.fields('date', {
+      key: 'value',
+      type: 'date',
+      templateOptions: {
+        label: 'Date'
+      }
+    });
   }
 })();

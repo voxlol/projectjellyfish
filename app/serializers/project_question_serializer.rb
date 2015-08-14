@@ -12,6 +12,7 @@
 #  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
+#  uuid       :string
 #
 # Indexes
 #
@@ -19,7 +20,7 @@
 #
 
 class ProjectQuestionSerializer < ApplicationSerializer
-  attributes :id, :question, :help_text, :required
+  attributes :id, :uuid, :question, :help_text, :required
   attributes :created_at, :updated_at, :deleted_at, :position, :options, :field_type
 
   private

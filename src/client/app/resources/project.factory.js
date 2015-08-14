@@ -28,6 +28,16 @@
       }
     });
 
+    Project.defaults = {
+      name: '',
+      description: '',
+      img: '',
+      start_date: null,
+      end_date: null
+    };
+
+    Project.new = newProject;
+
     Project.prototype.isApproved = isApproved;
     Project.prototype.finalApproval = finalApproval;
     Project.prototype.scheduleRemaining = scheduleRemaining;
@@ -37,6 +47,12 @@
     Project.prototype.budgetUtilizationStatus = budgetUtilizationStatus;
     Project.prototype.budgetRemainder = budgetRemainder;
     Project.prototype.budgetRemainderStatus = budgetRemainderStatus;
+
+    return Project;
+
+    function newProject(data) {
+      return new Project(angular.extend({}, angular.copy(Project.defaults), data || {}));
+    }
 
     function finalApproval() {
       /* jshint validthis:true */
@@ -145,7 +161,5 @@
 
       return 'danger';
     }
-
-    return Project;
   }
 })();

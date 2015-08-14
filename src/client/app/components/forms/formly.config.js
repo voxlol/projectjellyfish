@@ -58,6 +58,7 @@
     questionsField();
     tagsField();
     imageChooserField();
+    multipleOptionsField();
 
     function textField() {
       formlyConfig.setType({
@@ -201,7 +202,12 @@
             onFocus: function($viewValue, $modelValue, scope) {
               scope.to.isOpen = !scope.to.isOpen;
             },
-            datepickerOptions: {}
+            datepickerPopup: 'yyyy-MM-dd',
+            datepickerOptions: {
+              formatYear: 'yy',
+              startingDay: 0,
+              showWeeks: false
+            }
           }
         }
       });
@@ -422,6 +428,35 @@
           noFormControl: true
         }
       });
+    }
+
+    function multipleOptionsField() {
+      formlyConfig.setType({
+        name: 'multiple-options',
+        templateUrl: 'app/components/forms/types/multiple-options.html',
+        defaultOptions: {
+          noFormControl: true,
+          wrapper: null, //['jfHasError', 'jfField'],
+          templateOptions: {
+            inputOptions: {
+              type: 'text',
+              wrapper: null
+            }
+          }
+        },
+        controller: MultipleOptionsController
+      });
+
+      /** @ngInject */
+      function MultipleOptionsController($scope) {
+        $scope.copyItemOptions = copyItemOptions;
+
+        function copyItemOptions(index) {
+          var options = angular.copy($scope.to.inputOptions);
+
+          return options;
+        }
+      }
     }
   }
 

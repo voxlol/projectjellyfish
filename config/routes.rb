@@ -79,10 +79,7 @@ Rails.application.routes.draw do
     # Project Routes
     resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json } do
       resources :services, only: [:index], controller: :project_services
-
-      delete 'groups/:group_id' => 'memberships#destroy', as: :membership
-      post 'groups' => 'memberships#create', as: :memberships
-      put 'groups/:group_id' => 'memberships#update'
+      resources :memberships, only: [:index, :show, :create, :update, :destroy], shallow: true
 
       get 'approvals' => 'project_approvals#index', as: :project_approvals
       post 'approve' => 'project_approvals#update', as: :approve_project

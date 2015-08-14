@@ -12,6 +12,7 @@
 #  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
+#  uuid       :string
 #
 # Indexes
 #

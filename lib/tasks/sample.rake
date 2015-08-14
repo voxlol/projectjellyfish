@@ -48,7 +48,7 @@ namespace :sample do
     projects = sample_data('projects').map do |data|
       approvals = data.delete 'approvals'
       alerts = data.delete 'alerts'
-      answers = data.delete 'project_answers'
+      answers = data.delete 'answers'
       [data.delete('_assoc'), Project.create(data).tap do |project|
           project.alerts.create(alerts) unless alerts.nil?
           unless approvals.nil?
@@ -61,9 +61,9 @@ namespace :sample do
           unless answers.nil?
             answers = answers.map do |answer|
               question = project_questions.assoc(answer.delete 'question').last
-              answer.merge project_question: question
+              answer.merge name: question['uuid'], value_type: 'string'
             end
-            project.project_answers.create answers
+            project.answers.create answers
           end
         end]
     end

@@ -2,23 +2,21 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  cc          :string(10)
-#  staff_id    :string(255)
-#  img         :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  deleted_at  :datetime
-#  status      :integer          default(0)
-#  approval    :integer          default(0)
-#  archived    :datetime
-#  spent       :decimal(12, 2)   default(0.0)
-#  budget      :decimal(12, 2)   default(0.0)
-#  start_date  :datetime
-#  end_date    :datetime
-#  health      :integer
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  description   :text
+#  img           :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  deleted_at    :datetime
+#  status        :integer          default(0)
+#  archived      :datetime
+#  spent         :decimal(12, 2)   default(0.0)
+#  budget        :decimal(12, 2)   default(0.0)
+#  start_date    :datetime
+#  end_date      :datetime
+#  health        :integer
+#  monthly_spend :decimal(12, 2)   default(0.0)
 #
 # Indexes
 #
@@ -35,7 +33,7 @@ class Project < ActiveRecord::Base
   STATES = Hash[%w(unknown ok pending warning critical).map.with_index.to_a]
 
   # Relationships
-  has_many :project_answers
+  has_many :answers, as: :answerable
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :staff, through: :groups
@@ -47,15 +45,13 @@ class Project < ActiveRecord::Base
   has_many :orders
   has_many :services, through: :orders
 
-  accepts_nested_attributes_for :project_answers
+  accepts_nested_attributes_for :answers
 
   # Columns
   enum health: { ok: 0, warning: 1, critical: 2 }
   enum status: { pending: 0, approved: 1, rejected: 2 }
 
   # Scopes
-  scope :main_inclusions, -> { includes(:project_answers, :services, :staff) }
-
   scope :approved, -> { where(status: 1) }
   scope :archived, -> (archived = true) { archived ? where.not(archived: nil) : where(archived: nil) }
 
@@ -73,10 +69,6 @@ class Project < ActiveRecord::Base
 
   def state_ok
     problem_count.zero?
-  end
-
-  def monthly_spend
-    services.to_a.sum(&:calculate_price).to_f
   end
 
   def problem_count
