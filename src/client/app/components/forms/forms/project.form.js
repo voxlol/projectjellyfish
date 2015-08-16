@@ -53,6 +53,9 @@
                 label: 'Start Date',
                 required: true
               },
+              expressionProperties: {
+                'templateOptions.maxDate': 'model.end_date'
+              },
               validation: {
                 messages: {
                   required: '"A start date must be provided"'
@@ -65,6 +68,9 @@
               templateOptions: {
                 label: 'End Date',
                 required: true
+              },
+              expressionProperties: {
+                'templateOptions.minDate': 'model.start_date'
               },
               validation: {
                 messages: {
