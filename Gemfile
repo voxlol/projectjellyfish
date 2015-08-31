@@ -53,9 +53,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   # gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
-  gem 'web-console', '~> 2.0.0'
-  gem 'capybara-angular', '0.1.0'
-  gem 'launchy'
+  # gem 'web-console', '~> 2.0.0'
+  # gem 'capybara-angular', '0.1.0'
+  # gem 'launchy'
   gem 'foreman'
 end
 
