@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   param :service, Hash, required: true do
     param :name, String, desc: 'Name of the new service', required: true
   end
-  param :answers, Array, desc: 'Provisioning Answers' do
+  param :answers, Array, desc: 'Provisioning Answers', allow_nil: true do
     param :name, String, desc: 'Answer key'
     param :value_type, String, desc: 'How to interpret the :value'
   end
@@ -33,9 +33,9 @@ class OrdersController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    order = ServiceOrderService.new.execute(current_user, order_params)
-    respond_with order
-  rescue ServiceOrderService::Error => e
+    use_case = CreateServiceOrder.perform(current_user, order_params)
+    respond_with use_case.order
+  rescue UseCase::Error => e
     fail_with error: e.message, type: e.class.to_s.split('::').last
   end
 
