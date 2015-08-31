@@ -38,7 +38,6 @@
 
     Project.new = newProject;
 
-    Project.prototype.isApproved = isApproved;
     Project.prototype.finalApproval = finalApproval;
     Project.prototype.scheduleRemaining = scheduleRemaining;
     Project.prototype.monthsRemaining = monthsRemaining;
@@ -77,13 +76,6 @@
 
         return approval;
       }
-    }
-
-    function isApproved() {
-      /* jshint validthis:true */
-      var self = this;
-
-      return 'approved' === self.approval;
     }
 
     function scheduleRemaining() {
