@@ -11,7 +11,7 @@
 <details-table heading="Details">
   <div class="details-table__row">
     <div class="details-table__label">Name</div>
-    <div class="details-table__detail">{{  ::vm.product.name }}</div>
+    <div class="details-table__detail">{{ ::vm.product.name }}</div>
   </div>
 
   <div class="details-table__row">
@@ -21,13 +21,12 @@
 
   <div class="details-table__row">
     <div class="details-table__label">Product Status</div>
-    <div class="details-table__detail" ng-if="vm.product.active">Active</div>
-    <div class="details-table__detail" ng-if="!vm.product.active">Inactive</div>
+    <div class="details-table__detail">{{ ::vm.product.active ? 'Active' : 'Inactive' }}</div>
   </div>
 
   <div class="details-table__row">
     <div class="details-table__label">Product Type</div>
-    <div class="details-table__detail">{{ ::vm.product.product_type }}</div>
+    <div class="details-table__detail">{{ ::vm.product.product_type.name }}</div>
   </div>
 
   <div class="details-table__row">
@@ -40,20 +39,25 @@
   </div>
 
   <div class="details-table__row">
+    <div class="details-table__label">Provider</div>
+    <div class="details-table__detail">{{ ::vm.product.provider.name }}</div>
+  </div>
+
+  <div class="details-table__row">
     <div class="details-table__label">Creation Date</div>
-    <div class="details-table__detail">{{ ::vm.product.created_at | date:'medium' }}</div>
+    <div class="details-table__detail">{{ ::vm.product.created_at | date:'short' }}</div>
   </div>
 
   <div class="details-table__row">
     <div class="details-table__label">Last Updated</div>
-    <div class="details-table__detail">{{ ::vm.product.updated_at | date:'medium' }}</div>
+    <div class="details-table__detail">{{ ::vm.product.updated_at | date:'short' }}</div>
   </div>
 </details-table>
 
 <details-table heading="Provisioning Answers">
-  <div class="details-table__row" ng-repeat="(key, value) in vm.product.provisioning_answers">
-    <div class="details-table__label"> {{ ::key}}</div>
-    <div class="details-table__detail"> {{ ::value}}</div>
+  <div class="details-table__row" ng-repeat="answer in vm.product.answers track by answer.id">
+    <div class="details-table__label"> {{ ::answer.name | uppercase }}</div>
+    <div class="details-table__detail"> {{ ::answer.value }}</div>
   </div>
 </details-table>
 
