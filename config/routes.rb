@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  p :jellyfish_routes
   # Docs
   apipie
 
