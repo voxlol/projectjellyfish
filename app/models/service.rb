@@ -36,7 +36,8 @@ class Service < ActiveRecord::Base
     stopping: 6,
     stopped: 7,
     unavailable: 8,
-    retired: 9
+    retired: 9,
+    terminated: 10
   }
 
   before_create :ensure_uuid
