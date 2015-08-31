@@ -436,7 +436,7 @@
         templateUrl: 'app/components/forms/types/multiple-options.html',
         defaultOptions: {
           noFormControl: true,
-          wrapper: null, //['jfHasError', 'jfField'],
+          wrapper: null,
           templateOptions: {
             inputOptions: {
               type: 'text',
