@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 
   has_scope :active, type: :boolean
 
-  def_param_group :project do
+  def_param_group :product do
     param :name, String, desc: 'Product Name', action_aware: true
     param :description, String, desc: 'Short description', action_aware: true
     param :active, :bool, desc: 'Product is active and available in the marketplace', action_aware: true
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   end
 
   api :POST, '/products', 'Creates product'
-  param_group :project
+  param_group :product
 
   def create
     product = Product.new product_params
@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
-  param_group :project
+  param_group :product
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def update
