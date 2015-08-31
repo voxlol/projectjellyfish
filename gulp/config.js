@@ -241,9 +241,9 @@ module.exports = (function() {
   config.optimize = {
     index: client + indexFile,
     build: build,
-    cssFilter: '**/*.css',
-    appJsFilter: '**/app.js',
-    libJsFilter: '**/lib.js',
+    cssFilter: ['**/*.css'],
+    appJsFilter: ['**/app.js'],
+    libJsFilter: ['**/lib.js'],
     templateCache: config.templatecache.build + config.templatecache.output,
     ngAnnotateOptions: {
       add: true,
