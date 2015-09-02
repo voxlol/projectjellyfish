@@ -4,7 +4,7 @@ class SettingPolicy < ApplicationPolicy
   end
 
   def update?
-    only_admins!
+    admin?
   end
 
   class Scope < Scope

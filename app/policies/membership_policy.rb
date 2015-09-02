@@ -1,21 +1,21 @@
 class MembershipPolicy < ProjectPolicy
   def index?
-    any_user!
+    admin? || project_role_permits?(record.project_id, :read)
   end
 
   def show?
-    any_user!
+    admin? || project_role_permits?(record.project_id, :read)
   end
 
   def create?
-    any_user!
+    admin? || project_role_permits?(record.project_id, :write)
   end
 
   def update?
-    any_user!
+    admin? || project_role_permits?(record.project_id, :write)
   end
 
   def destroy?
-    any_user!
+    admin? || project_role_permits?(record.project_id, :write)
   end
 end

@@ -1,21 +1,21 @@
 class GroupPolicy < ApplicationPolicy
   def index?
-    only_admins!
+    admin?
   end
 
   def show?
-    only_admins!
+    admin?
   end
 
   def create?
-    only_admins!
+    admin?
   end
 
   def update?
-    only_admins!
+    admin?
   end
 
   def destroy?
-    only_admins!
+    admin?
   end
 end

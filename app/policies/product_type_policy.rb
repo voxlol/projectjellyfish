@@ -1,13 +1,13 @@
 class ProductTypePolicy < ApplicationPolicy
   def index?
-    any_user!
+    logged_in?
   end
 
   def show?
-    any_user!
+    logged_in?
   end
 
   def async_select?
-    any_user!
+    logged_in?
   end
 end

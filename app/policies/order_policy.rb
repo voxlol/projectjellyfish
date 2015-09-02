@@ -1,13 +1,13 @@
 class OrderPolicy < ApplicationPolicy
   def index?
-    any_user!
+    logged_in?
   end
 
   def show?
-    any_user!
+    logged_in?
   end
 
   def create?
-    any_user!
+    logged_in?
   end
 end

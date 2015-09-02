@@ -1,5 +1,5 @@
 class RegisteredProviderPolicy < ApplicationPolicy
   def index?
-    only_admins!
+    admin?
   end
 end
