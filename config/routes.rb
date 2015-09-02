@@ -98,9 +98,11 @@ Rails.application.routes.draw do
     resources :content_pages, only: [:update, :show, :destroy], param: :slug
     patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
-    resources :groups
-    post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
-    delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
+    resources :groups do
+      post 'staff/:staff_id' => 'associations#create'
+      delete 'staff/:staff_id' => 'associations#destroy'
+    end
+
     resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
 

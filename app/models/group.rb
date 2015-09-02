@@ -11,7 +11,8 @@
 #
 
 class Group < ActiveRecord::Base
-  has_and_belongs_to_many :staff, counter_cache: true
   has_many :memberships
   has_many :projects, through: :memberships
+  has_many :groups_staff, counter_cache: :staff_count
+  has_many :staff, through: :groups_staff, counter_cache: :this_is_here_to_workaround_broken_counter_cache
 end
