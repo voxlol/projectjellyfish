@@ -8,9 +8,9 @@ require 'pry'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
-module Features
-  include Capybara::Angular::DSL
-end
+# module Features
+#   include Capybara::Angular::DSL
+# end
 
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
@@ -27,5 +27,5 @@ RSpec.configure do |config|
     Warden.test_mode!
   end
 
-  Capybara.javascript_driver = :poltergeist
+  #Capybara.javascript_driver = :poltergeist
 end

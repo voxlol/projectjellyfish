@@ -18,7 +18,14 @@
 
 FactoryGirl.define do
   factory :registered_provider do
-    
-  end
+    sequence :name do |n|
+      "Provider Name #{n}"
+    end
 
+    sequence :type do |n|
+      "RegisteredProvider::Type#{n}"
+    end
+
+    uuid SecureRandom.uuid
+  end
 end

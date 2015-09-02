@@ -11,6 +11,6 @@ FactoryGirl.define do
       "Product description #{n}"
     end
 
-    product_type { ProductType.names.first }
+    product_type
   end
 end

@@ -21,7 +21,20 @@
 
 FactoryGirl.define do
   factory :provider do
-    
-  end
+    sequence :name do |n|
+      "Provider Name #{n}"
+    end
 
+    sequence :description do |n|
+      "Provider description #{n}"
+    end
+
+    active true
+
+    sequence :type do |n|
+      "Provider::Type#{n}"
+    end
+
+    registered_provider
+  end
 end
