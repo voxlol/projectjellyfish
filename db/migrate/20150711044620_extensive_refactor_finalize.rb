@@ -6,6 +6,7 @@ class ExtensiveRefactorFinalize < ActiveRecord::Migration
     drop_table :project_details
     drop_table :user_setting_options
     drop_table :user_settings
+    drop_table :project_answers
   end
 
   def down

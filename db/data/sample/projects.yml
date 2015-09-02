@@ -7,7 +7,7 @@
   end_date: 2015-11-06
   img: projects/documentation.png
   spent: 0
-  health: ok
+  health: pending
   status: rejected
   approvals:
     - staff: admin
@@ -97,8 +97,8 @@
   end_date: 2015-11-06
   img: projects/cloud-checkmark-128.png
   spent: 0
-  health: ok
-  status: pending
+  health: pending
+  status: undecided
   answers:
     - question: cc
       value: FIL-4873849128497761
@@ -122,8 +122,8 @@
   end_date: 2015-11-06
   img:
   spent: 0
-  health: ok
-  status: pending
+  health: pending
+  status: undecided
   answers:
     - question: cc
       value: CLD-4873849128497761
@@ -147,8 +147,8 @@
   end_date: 2015-11-06
   img:
   spent: 0
-  health: ok
-  status: pending
+  health: pending
+  status: undecided
   answers:
     - question: cc
       value: 4873849128497761

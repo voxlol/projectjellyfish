@@ -48,8 +48,8 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   # Columns
-  enum health: { ok: 0, warning: 1, critical: 2 }
-  enum status: { pending: 0, approved: 1, rejected: 2 }
+  enum health: { pending: 0, ok: 1, warning: 2, critical: 3 }
+  enum status: { undecided: 0, approved: 1, rejected: 2 }
 
   # Scopes
   scope :approved, -> { where(status: 1) }
