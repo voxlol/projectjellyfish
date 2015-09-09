@@ -10,7 +10,7 @@ class AssociationsController < ApplicationController
   param_group :association
   def create
     authorize group
-    group.groups_staff.create staff: staff
+    group.staff << staff
     head :ok
   end
 
@@ -18,7 +18,7 @@ class AssociationsController < ApplicationController
   param_group :association
   def destroy
     authorize group
-    group.groups_staff.where(staff: staff).delete
+    group.staff.delete staff
     head :ok
   end
 

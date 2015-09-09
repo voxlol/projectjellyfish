@@ -7,6 +7,8 @@ class ExtensiveRefactorFinalize < ActiveRecord::Migration
     drop_table :user_setting_options
     drop_table :user_settings
     drop_table :project_answers
+
+    remove_column :chargebacks, :cloud_id
   end
 
   def down

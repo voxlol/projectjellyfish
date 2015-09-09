@@ -10,9 +10,9 @@
 #  staff_count :integer          default(0)
 #
 
-class Group < ActiveRecord::Base
-  has_many :memberships
-  has_many :projects, through: :memberships
-  has_many :groups_staff, counter_cache: :staff_count
-  has_many :staff, through: :groups_staff
+FactoryGirl.define do
+  factory :group do
+    name 'Group name'
+    description 'Description of group'
+  end
 end

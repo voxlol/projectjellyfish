@@ -45,7 +45,6 @@
 
   /** @ngInject */
   function types(formlyConfig, jfApiCheck, lodash) {
-
     textField();
     passwordField();
     textareaField();
@@ -189,8 +188,8 @@
 
       var ngModelAttrs = {};
 
-      angular.forEach(attributes, attribute);
-      angular.forEach(bindings, binding);
+      angular.forEach(attributes, attributer);
+      angular.forEach(bindings, binder);
 
       formlyConfig.setType({
         name: 'date',
@@ -212,11 +211,11 @@
         }
       });
 
-      function attribute(attr) {
+      function attributer(attr) {
         ngModelAttrs[lodash.camelCase(attr)] = {attribute: attr};
       }
 
-      function binding(binding) {
+      function binder(binding) {
         ngModelAttrs[lodash.camelCase(binding)] = {bound: binding};
       }
     }
@@ -297,6 +296,7 @@
 
         if (angular.isUndefined(dataKey)) {
           Toasts.warning([$scope.to.label, 'has no dataKey'].join(' '));
+
           return;
         }
 
@@ -311,7 +311,8 @@
     function questionsField() {
       formlyConfig.setType({
         name: 'questions',
-        template: '<formly-form form="form" model="model[options.key]" fields="options.data.fields" options="formOptions"></formly-form>',
+        template: '<formly-form form="form" model="model[options.key]" ' +
+        'fields="options.data.fields" options="formOptions"></formly-form>',
         defaultOptions: {
           data: {
             fields: []
@@ -342,7 +343,7 @@
             angular.forEach(templateOptions, setTemplateOptions);
           }
 
-          if (angular.isDefined(question['required'])) {
+          if (angular.isDefined(question.required)) {
             setRequired();
           }
 
@@ -355,7 +356,7 @@
           }
 
           function setRequired() {
-            switch (question['required']) {
+            switch (question.required) {
               case 'if_new':
                 if (angular.isUndefined(field.expressionProperties)) {
                   field.expressionProperties = {};
@@ -374,7 +375,7 @@
                 if (angular.isUndefined(field.expressionProperties)) {
                   field.expressionProperties = {};
                 }
-                field.expressionProperties['templateOptions.required'] = question['required'];
+                field.expressionProperties['templateOptions.required'] = question.required;
             }
           }
         }
@@ -407,7 +408,7 @@
             minTags: jfApiCheck.number.optional,
             maxTags: jfApiCheck.number.optional
           }
-        }
+        };
       }
 
       /** @ngInject */

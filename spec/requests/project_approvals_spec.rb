@@ -35,8 +35,8 @@ context 'Project Approvals API' do
       post "/api/v1/projects/#{project.id}/approve.json", includes: %w(approvals)
 
       project.reload
-      expect(project.approval).to eq('approved')
-      expect(json['approval']).to eq('approved')
+      expect(project.status).to eq('approved')
+      expect(json['status']).to eq('approved')
       expect(json['approvals'].length).to eq(1)
       expect(json['approvals'][0]['approved']).to eq(true)
     end
@@ -59,7 +59,7 @@ context 'Project Approvals API' do
 
       delete "/api/v1/projects/#{project.id}/reject.json", reason: reason, includes: %w(approvals)
 
-      expect(project.reload.approval).to eq('rejected')
+      expect(project.reload.status).to eq('rejected')
       expect(response.status).to eq 204
     end
 

@@ -40,8 +40,6 @@
 
     function initOptions() {
       vm.projectQuestion.options.length = 0;
-      //vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
-      //vm.projectQuestion.options.push(angular.copy(ProjectQuestion.optionDefaults));
     }
 
     function initProjectQuestion() {

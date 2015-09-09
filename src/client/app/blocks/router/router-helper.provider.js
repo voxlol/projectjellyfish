@@ -87,7 +87,8 @@
         stateCounts.errors++;
         handlingStateChangeError = true;
         destination = (toState && (toState.title || toState.name || toState.loadedTemplateUrl)) || 'unknown target';
-        msg = 'Error routing to ' + destination + '. ' + '. <br/>' + (error.statusText || '') + ': ' + (error.status || '');
+        msg = 'Error routing to ' + destination + '. ' + '. <br/>'
+          + (error.statusText || '') + ': ' + (error.status || '');
         logger.warning(msg, [toState]);
         $state.go('errors.sorry');
       }

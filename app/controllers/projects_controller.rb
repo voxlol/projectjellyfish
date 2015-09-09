@@ -14,10 +14,10 @@ class ProjectsController < ApplicationController
     param :description, String
     param :end_date, String, action_aware: true
     param :img, String
-    param :answers, Array, desc: 'Project Specifications', action_aware: true do
-      param :name, String, desc: 'Answer key'
-      param :value_type, String, desc: 'How to interpret the :value'
-    end
+    # param :answers, Array, desc: 'Project Specifications', allow_nil: true do
+    #   param :name, String, desc: 'Answer key'
+    #   param :value_type, String, desc: 'How to interpret the :value'
+    # end
   end
 
   api :GET, '/projects', 'Returns a collection of projects'
@@ -49,8 +49,7 @@ class ProjectsController < ApplicationController
 
   def create
     authorize Project
-    #group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
-    project = Project.create project_params #.merge(group_ids: group_ids)
+    project = Project.create project_params
     respond_with_params project
   end
 
@@ -63,8 +62,7 @@ class ProjectsController < ApplicationController
 
   def update
     authorize project
-    group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
-    project.update project_params.merge(group_ids: group_ids)
+    project.update project_params
     respond_with_params project
   end
 
@@ -83,29 +81,14 @@ class ProjectsController < ApplicationController
   def project_params
     @_project_params ||= begin
       permitted = [
-        :name, :description, :start_date, :end_date, :img,
-        answers: [:id, :name, :value, :value_type],
-        project_answers: [:project_question_id, :answer, :id]
+        :name, :description, :start_date, :end_date, :img, answers: [:id, :name, :value, :value_type]
       ]
       permitted << :budget if current_user.admin? || params[:id].nil?
       params.permit(permitted).tap do |project|
-        project[:answers_attributes] = project.delete :answers
+        project[:answers_attributes] = project.delete(:answers) if project[:answers]
       end
     end
   end
-
-  # def authorize_and_normalize(project)
-  #   authorize project
-  #   if render_params.fetch(:include, {})[:project_answers]
-  #     render_params[:include][:project_answers][:include] = :project_question
-  #   end
-  # end
-
-  # def build_empty_answers_to_questions(project)
-  #   ProjectQuestion.where.not(id: project.project_answer_ids).each do |pq|
-  #     project.project_answers.build(project_question: pq)
-  #   end
-  # end
 
   def projects
     @_projects ||= query_with apply_scopes(policy_scope(Project.all)), :includes, :pagination

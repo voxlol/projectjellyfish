@@ -59,6 +59,5 @@
         angular.extend(question, answer || {});
       }
     }
-
   }
 })();

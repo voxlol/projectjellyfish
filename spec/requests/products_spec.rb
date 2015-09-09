@@ -19,25 +19,6 @@ RSpec.describe 'Products API' do
       get '/api/v1/products', page: 1, per_page: 1
       expect(json.length).to eq(1)
     end
-
-    it 'verifies tags can be viewed from products' do
-      test_tag = 'foobar'
-
-      # VERIFY PRODUCT HAS NO TAGS
-      expect(@product.tag_list.count).to eq(0)
-
-      # ADD TEST TAG TO PRODUCT
-      post "/api/v1/products/#{@product.id}/tags", tag_list: [test_tag], product_id: @product.id
-
-      # VERIFY TAG WAS SAVED - (REQUERY PRODUCT B/C IT IS OUT OF SYNC WITH DB NOW)
-      @product = Product.where(id: @product.id).first
-      expect(@product.tag_list.count).to eq(1)
-      expect(@product.tag_list).to include(test_tag)
-
-      # VERIFY TAG IS RETURNED FROM PRODUCTS ENDPOINT WITH METHODS URL PARAMETER SPECIFIED
-      get "/api/v1/products/#{@product.id}", tags: [test_tag]
-      expect(json['tags']).to include(test_tag)
-    end
   end
 
   describe 'GET show' do
@@ -81,17 +62,18 @@ RSpec.describe 'Products API' do
       sign_in_as create :staff, :admin
       product_attributes = attributes_for(
         :product,
-        'provisioning_answers[foo]' => 'bar',
-        'provisioning_answers[baz]' => 'bat',
-        'provisioning_answers[DBInstanceClass]' => 'db.m3.medium',
-        'provisioning_answers[AllocatedStorage]' => '40',
-        'provisioning_answers[Engine]' => 'mysql'
+        answers: [
+          { name: 'foo', value: 'bar', value_type: 'string' },
+          { name: 'fizz', value: 'buzz', value_type: 'string' }
+        ]
       )
 
       post products_path, product_attributes
 
       expect(response).to be_success
-      expect(Product.last.provisioning_answers).to eq 'foo' => 'bar', 'baz' => 'bat', 'DBInstanceClass' => 'db.m3.medium', 'AllocatedStorage' => '40', 'Engine' => 'mysql'
+      expect(Product.last.answers.length).to eq 2
+      expect(Product.last.answers.map(&:name)).to contain_exactly 'foo', 'fizz'
+      expect(Product.last.answers.map(&:value)).to contain_exactly 'bar', 'buzz'
     end
   end
 end

@@ -57,9 +57,9 @@ class Project < ActiveRecord::Base
 
   def compute_current_status!
     if latest_service_alerts.any?
-      update(status: highest_priority_latest_alert.status.downcase)
+      update(health: highest_priority_latest_alert.status.downcase)
     else
-      update(status: 'unknown')
+      update(health: 'ok')
     end
   end
 

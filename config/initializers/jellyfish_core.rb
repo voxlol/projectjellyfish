@@ -31,7 +31,6 @@ rescue
   false
 end
 
-
 # Include demo support code in development
 if Rails.env.development?
   Dir[Rails.root.join 'app', 'models', 'null', '*.rb'].each do |null_model|

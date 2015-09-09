@@ -16,15 +16,6 @@ RSpec.describe 'Chargebacks API' do
       expect(response.body).to eq(@chargebacks.to_json)
     end
 
-    it 'returns a collection of all of the chargebacks w/ coulds', :show_in_doc do
-      cloud = create :cloud
-      @chargeback1.update_attributes(cloud_id: cloud.id)
-      @chargeback2.update_attributes(cloud_id: cloud.id)
-
-      get '/api/v1/chargebacks', includes: ['cloud']
-      expect(json[0]['cloud']).to_not eq(nil)
-    end
-
     it 'returns a collection of all of the chargebacks w/ products', :show_in_doc do
       product = create :product
       @chargeback1.update_attributes(product_id: product.id)
@@ -50,14 +41,6 @@ RSpec.describe 'Chargebacks API' do
     it 'returns an chargeback', :show_in_doc do
       get "/api/v1/chargebacks/#{@chargeback.id}"
       expect(response.body).to eq(@chargeback.to_json)
-    end
-
-    it 'returns an chargeback w/ a cloud', :show_in_doc do
-      cloud = create :cloud
-      @chargeback.update_attributes(cloud_id: cloud.id)
-
-      get "/api/v1/chargebacks/#{@chargeback.id}", includes: ['cloud']
-      expect(json['cloud']).to_not eq(nil)
     end
 
     it 'returns an chargeback w/ a product', :show_in_doc do

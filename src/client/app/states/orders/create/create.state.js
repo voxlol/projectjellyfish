@@ -66,7 +66,7 @@
           provider: product.provider,
           projects: projects
         }
-      }
+      };
     }
   }
 })();

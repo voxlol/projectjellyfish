@@ -21,31 +21,14 @@
 #  index_orders_on_staff_id    (staff_id)
 #
 
-class Order < ActiveRecord::Base
-  belongs_to :staff
-  belongs_to :product
-  belongs_to :project
-  belongs_to :service
-  has_many :answers, as: :answerable
+FactoryGirl.define do
+  factory :order do
+    setup_price 0.0
+    monthly_price 0.0
+    hourly_price 0.0
 
-  accepts_nested_attributes_for :answers
-
-  after_initialize :init
-  after_commit :update_project_monthly_spend, on: :create
-
-  def monthly_cost
-    monthly_price + (hourly_price * 750)
-  end
-
-  private
-
-  def init
-    self.setup_price ||= 0.0
-    self.hourly_price ||= 0.0
-    self.monthly_price ||= 0.0
-  end
-
-  def update_project_monthly_spend
-    project.increment :monthly_spend, monthly_cost
+    staff
+    product
+    service
   end
 end

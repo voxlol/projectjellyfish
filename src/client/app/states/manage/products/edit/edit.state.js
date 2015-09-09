@@ -64,7 +64,6 @@
 
         angular.extend(question, answer || {});
       }
-
     }
 
     function initForm() {

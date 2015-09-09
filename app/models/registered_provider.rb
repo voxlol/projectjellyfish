@@ -51,8 +51,6 @@ class RegisteredProvider < ActiveRecord::Base
     []
   end
 
-  private
-
   def self.create_existing(registered_provider, opts)
     columns = %i(name)
     to_update = Hash[opts.select { |k, _| columns.include? k }]
@@ -60,7 +58,6 @@ class RegisteredProvider < ActiveRecord::Base
     registered_provider.update_column :type, opts[:type] if registered_provider.type != opts[:type]
     registered_provider
   end
-
 
   def self.load_registered_providers
     RegisteredProvider.table_exists?

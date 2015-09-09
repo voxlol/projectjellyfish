@@ -20,6 +20,8 @@
 
 class Service < ActiveRecord::Base
   has_many :alerts, as: :alertable
+  has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
+
   has_one :order
   has_one :project, through: :order
   has_one :product, through: :order

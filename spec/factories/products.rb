@@ -24,12 +24,19 @@
 #  index_products_on_provider_id      (provider_id)
 #
 
-#
+FactoryGirl.define do
+  factory :product do
+    active true
+    img 'product.png'
 
-describe Product do
-  it { should have_many(:chargebacks) }
-  it 'should have an associated product_type' do
-    product = Product.new(product_type: ProductType.names.first)
-    expect(product.product_type).to eq ProductType.new(ProductType.names.first)
+    sequence :name do |n|
+      "Product Name #{n}"
+    end
+
+    sequence :description do |n|
+      "Product description #{n}"
+    end
+
+    product_type
   end
 end

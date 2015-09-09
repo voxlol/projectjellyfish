@@ -33,7 +33,6 @@
     }).$promise;
   }
 
-
   /** @ngInject */
   function resolveProjectQuestions(ProjectQuestion, lodash) {
     return ProjectQuestion.query({ordered: true}).$promise.then(mapAsFieldQuestions);
@@ -48,7 +47,7 @@
   }
 
   /** @ngInject */
-  function StateController(project, projectQuestions) {
+  function StateController(lodash, project, projectQuestions) {
     var vm = this;
 
     vm.title = 'Project Role';

@@ -124,6 +124,7 @@
         if (angular.isDefined(field)) {
           fieldsMap[key] = field;
         }
+
         return fieldsMap[key] || {noFormControl: true, template: '<div>fieldsMap["' + key + '"] is undefined</div>'};
       }
     }

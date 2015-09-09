@@ -35,5 +35,15 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :answers
 
+  after_initialize :init
+
   scope :active, -> { where(active: true) }
+
+  private
+
+  def init
+    self.setup_price ||= 0.0
+    self.hourly_price ||= 0.0
+    self.monthly_price ||= 0.0
+  end
 end

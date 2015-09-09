@@ -62,6 +62,6 @@ class ApplicationController < ActionController::Base
   end
 
   def fail_with(error: '', type: nil)
-    render json: {error: error}.tap { |e| e.merge!(type: type) unless type.nil? }, status: :bad_request
+    render json: { error: error }.tap { |e| e.merge!(type: type) unless type.nil? }, status: :bad_request
   end
 end

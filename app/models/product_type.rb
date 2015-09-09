@@ -55,7 +55,9 @@ class ProductType < ActiveRecord::Base
     []
   end
 
-  private
+  def service_class
+    'Service'.constantize
+  end
 
   def self.create_existing(product_type, opts)
     columns = [:name, :provider_type]

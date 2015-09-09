@@ -31,7 +31,7 @@ RSpec.describe 'Alerts API' do
   end
 
   describe 'GET show' do
-    before :each  do
+    before :each do
       @active_alert = create :alert, :active, status: 'ok'
       create :alert, :inactive, status: 'ok'
       create :alert, :active, status: 'ok'
@@ -134,26 +134,6 @@ RSpec.describe 'Alerts API' do
       [alert, alert2, alert3].each do |al|
         expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
       end
-    end
-
-    it 'creates a new order item alert', :show_in_doc do
-      create(
-        :project,
-        services: [
-          service = create(:order_item,
-            alerts: [
-              alert = create(:alert, :critical),
-              alert2 = create(:alert, :critical),
-              alert3 = create(:alert, :critical)
-            ]
-          )
-        ]
-      )
-      get "/api/v1/order_items/#{service.id}", includes: [:alerts]
-      [alert, alert2, alert3].each do |al|
-        expect(json['alerts'].find { |v| v['id'] == al.id }.to_json).to eq(AlertSerializer.new(Alert.find al['id']).to_json)
-      end
-      expect(json['id']).to eq(service.id)
     end
   end
 

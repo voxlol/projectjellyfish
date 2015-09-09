@@ -24,65 +24,94 @@
 #  index_projects_on_deleted_at  (deleted_at)
 #
 
-describe Project do
-  it { should have_many(:project_answers) }
-end
-
 describe 'Project.compute_current_status!' do
   it 'sets project status to highest priority service alert status' do
-    project = create(
-      :project,
-      services: [
-        create(:order_item,
-          alerts: [
-            create(:alert, status: :ok),
-            high_priority_alert = create(:alert, status: :critical)
-          ]),
-        create(:order_item,
-          alerts: [
-            create(:alert, status: :warning),
-            create(:alert, status: :warning)
-          ])
-      ]
+    staff = create :staff, :admin
+    project = create :project
+
+    project.orders << create(:order,
+      project: project,
+      staff: staff,
+      product: create(:product),
+      service: create(:service,
+        alerts: [
+          create(:alert, status: :ok),
+          high_priority_alert = create(:alert, status: :critical)
+        ]
+      )
     )
-    project.compute_current_status!
-    expect(project.status).to eq(high_priority_alert.status)
+    project.orders << create(:order,
+      project: project,
+      staff: staff,
+      product: create(:product),
+      service: create(:service,
+        alerts: [
+          create(:alert, status: :warning),
+          create(:alert, status: :warning)
+        ]
+      )
+    )
+
+    project.reload.compute_current_status!
+    expect(project.health).to eq(high_priority_alert.status)
   end
 
-  it 'sets project status to unknown if project has no services' do
+  it 'sets project health to ok if project has no services' do
     project = create(:project)
     project.compute_current_status!
-    expect(project.status).to eq('unknown')
+    expect(project.health).to eq('ok')
   end
 end
 
 describe 'Project.problem_count' do
   it 'returns count of non-ok latest alerts for a project' do
-    project = create(
-      :project,
-      services: [
-        create(:order_item,
-          alerts: [
-            create(:alert, status: :ok),
-            create(:alert, status: :critical)
-          ]),
-        create(:order_item,
-          alerts: [
-            create(:alert, status: :warning),
-            create(:alert, status: :ok)
-          ])
-      ]
+    project = create :project
+
+    project.orders << create(:order,
+      project: project,
+      product: create(:product),
+      service: create(:service,
+        alerts: [
+          create(:alert, status: :ok),
+          create(:alert, status: :critical)
+        ]
+      )
     )
+    project.orders << create(:order,
+      project: project,
+      product: create(:product),
+      service: create(:service,
+        alerts: [
+          create(:alert, status: :warning),
+          create(:alert, status: :ok)
+        ]
+      )
+    )
+
     expect(project.problem_count).to eq(1)
   end
 end
 
 describe 'Project.monthly_spend' do
   it 'returns total monthly spend' do
-    project = create(:project)
-    create_list(:order_item, 2, project: project, monthly_price: 1.0)
+    pending 'Order.after_commit is not being called'
+    user = create :staff
+    project = create :project, status: :approved
+    product = create :product, monthly_price: 1.0
 
-    expect(project.monthly_spend).to be_a Float
+    CreateServiceOrder.perform user,
+      project_id: project.id,
+      product_id: product.id,
+      name: 'Service 1'
+
+    CreateServiceOrder.perform user,
+      project_id: project.id,
+      product_id: product.id,
+      name: 'Service 2'
+
+    project.reload
+
+    expect(project.monthly_spend).to be_a BigDecimal
     expect(project.monthly_spend).to eq 2.0
   end
 end

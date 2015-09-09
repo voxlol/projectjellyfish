@@ -7,12 +7,12 @@ module UseCase
   module ClassMethods
     # The perform method of a UseCase should always return itself
     def perform(*args)
-      new(*args).tap { |use_case| use_case.perform }
+      new(*args).tap(&:perform)
     end
   end
 
   # implement all the steps required to complete this use case
   def perform
-    raise NotImplementedError
+    fail NotImplementedError
   end
 end

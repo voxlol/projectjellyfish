@@ -83,7 +83,7 @@
         $scope.$watch('model.providerId', loadProductTypes);
 
         function loadProductTypes(newValue, oldValue) {
-          if (newValue == oldValue) {
+          if (newValue === oldValue) {
             return;
           }
 

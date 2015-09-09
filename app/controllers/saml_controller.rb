@@ -74,7 +74,7 @@ class SamlController < ApplicationController
         settings.name_identifier_value = session[:user_id]
       end
 
-      relay_state =  url_for controller: 'saml', action: 'index'
+      relay_state = url_for controller: 'saml', action: 'index'
       redirect_to(logout_request.create(settings, RelayState: relay_state))
     end
   end
