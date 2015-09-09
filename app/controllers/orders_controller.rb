@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
+  include Wisper::Publisher
   after_action :verify_authorized
-
+  after_action :publish_order_create, only: [:create]
   before_action :load_order, only: [:show, :update, :destroy]
   before_action :load_order_params, only: [:create, :update]
   before_action :load_orders, only: [:index]
@@ -117,5 +118,11 @@ class OrdersController < ApplicationController
   def load_order_items
     @order = Order.find params.require(:id)
     @order_items = query_with OrderItem.where(order_id: @order.id), :includes, :pagination
+  end
+
+  def publish_order_create
+    recipients = current_user.email
+    orders_url = "#{request.protocol}#{request.host_with_port}/order-history"
+    publish(:publish_order_create, @order, recipients, orders_url)
   end
 end

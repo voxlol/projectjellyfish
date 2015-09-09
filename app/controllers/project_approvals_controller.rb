@@ -1,6 +1,8 @@
 class ProjectApprovalsController < ApplicationController
+  include Wisper::Publisher
   before_action :pre_hook
   after_action :post_hook
+  after_action :publish_project_approval_update, only: [:update]
 
   api :GET, '/projects/:project_id/approvals', 'Returns a list of all approvals for a project'
   param :project_id, :number, required: true
@@ -40,5 +42,11 @@ class ProjectApprovalsController < ApplicationController
 
   def project
     @_project ||= Project.find(params[:project_id]).tap { |proj| authorize(proj) }
+  end
+
+  def publish_project_approval_update
+    recipients = Staff.admin.pluck(:email).join(', ')
+    project_url = "#{request.protocol}#{request.host_with_port}/projects/#{project.id}"
+    publish(:publish_project_approval_update, project, recipients, project_url) if project.approval == 'approved'
   end
 end

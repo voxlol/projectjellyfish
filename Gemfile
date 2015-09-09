@@ -44,8 +44,12 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
+# Adds enhanced pub/sub hooks
+gem 'wisper'
+
 gem 'jellyfish-fog'
 gem 'jellyfish-manageiq'
+gem 'jellyfish-notification'
 
 # Tests
 group :development, :test do

@@ -1,9 +1,11 @@
 class ProjectsController < ApplicationController
+  include Wisper::Publisher
   PROJECT_INCLUDES = %w(latest_alerts alerts approvals approvers memberships groups project_answers project_detail services staff)
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users latest_service_alerts)
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook
+  after_action :publish_project_create, only: [:create]
 
   def self.document_project_params(required: false)
     param :approved, String
@@ -106,5 +108,13 @@ class ProjectsController < ApplicationController
 
   def project
     @_project ||= Project.find(params[:id])
+  end
+
+  private
+
+  def publish_project_create
+    recipients = { project_approvers: Staff.admin.pluck(:email).join(', '), project_creator: current_user.email }
+    projects_url = "#{request.protocol}#{request.host_with_port}/projects"
+    publish(:publish_project_create, OpenStruct.new(body:  response.body), recipients, projects_url)
   end
 end
