@@ -270,7 +270,7 @@ GEM
       rest-client
       rufus-scheduler
       virtus
-    jellyfish-notification (0.0.1)
+    jellyfish-notification (0.0.2)
       delayed_job_active_record
       dotenv-rails
       pg
