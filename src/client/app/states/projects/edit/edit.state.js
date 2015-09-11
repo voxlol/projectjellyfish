@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -20,30 +18,36 @@
         controllerAs: 'vm',
         title: 'Project Edit Role',
         resolve: {
-          project: resolveProject
+          project: resolveProject,
+          projectQuestions: resolveProjectQuestions
         }
       }
     };
-  }
-
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
   }
 
   /** @ngInject */
   function resolveProject(Project, $stateParams) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['answers']
     }).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, project) {
+  function resolveProjectQuestions(ProjectQuestion, lodash) {
+    return ProjectQuestion.query({ordered: true}).$promise.then(mapAsFieldQuestions);
+
+    function mapAsFieldQuestions(questions) {
+      return lodash.map(questions, mapQuestion);
+
+      function mapQuestion(question) {
+        return question.asField();
+      }
+    }
+  }
+
+  /** @ngInject */
+  function StateController(lodash, project, projectQuestions) {
     var vm = this;
 
     vm.title = 'Project Role';
@@ -54,7 +58,20 @@
     activate();
 
     function activate() {
-      logger.info('Activated Edit Project View');
+      initAnswers();
+    }
+
+    // Private
+
+    function initAnswers() {
+      angular.forEach(projectQuestions, addAnswer);
+      vm.project.answers = projectQuestions;
+
+      function addAnswer(question) {
+        var answer = lodash.find(vm.project.answers, 'name', question.name);
+
+        angular.extend(question, answer || {});
+      }
     }
   }
 })();

@@ -7,10 +7,12 @@
 #  updated_at  :datetime
 #  name        :string
 #  description :text
+#  staff_count :integer          default(0)
 #
 
 class Group < ActiveRecord::Base
-  has_and_belongs_to_many :staff
   has_many :memberships
   has_many :projects, through: :memberships
+  has_many :groups_staff, counter_cache: :staff_count
+  has_many :staff, through: :groups_staff
 end

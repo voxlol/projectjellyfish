@@ -7,22 +7,10 @@
   /** @ngInject */
   function ProjectFactory($resource, lodash, moment) {
     var Project = $resource('/api/v1/projects/:id', {id: '@id'}, {
-      'query': {
-        method: 'GET',
-        params: {
-          'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'status', 'monthly_spend']
-        },
-        isArray: true
+      'update': {
+        method: 'PUT',
+        isArray: false
       },
-      'get': {
-        method: 'GET',
-        params: {
-          'methods[]': ['domain', 'url', 'problem_count', 'account_number',
-            'resources', 'resources_unit', 'status', 'monthly_spend', 'order_history']
-        }
-      },
-      'update': {method: 'PUT'},
       'approve': {
         url: '/api/v1/projects/:id/approve',
         method: 'POST',
@@ -40,7 +28,16 @@
       }
     });
 
-    Project.prototype.isApproved = isApproved;
+    Project.defaults = {
+      name: '',
+      description: '',
+      img: '',
+      start_date: null,
+      end_date: null
+    };
+
+    Project.new = newProject;
+
     Project.prototype.finalApproval = finalApproval;
     Project.prototype.scheduleRemaining = scheduleRemaining;
     Project.prototype.monthsRemaining = monthsRemaining;
@@ -49,6 +46,12 @@
     Project.prototype.budgetUtilizationStatus = budgetUtilizationStatus;
     Project.prototype.budgetRemainder = budgetRemainder;
     Project.prototype.budgetRemainderStatus = budgetRemainderStatus;
+
+    return Project;
+
+    function newProject(data) {
+      return new Project(angular.extend({}, angular.copy(Project.defaults), data || {}));
+    }
 
     function finalApproval() {
       /* jshint validthis:true */
@@ -73,13 +76,6 @@
 
         return approval;
       }
-    }
-
-    function isApproved() {
-      /* jshint validthis:true */
-      var self = this;
-
-      return 'approved' === self.approval;
     }
 
     function scheduleRemaining() {
@@ -157,7 +153,5 @@
 
       return 'danger';
     }
-
-    return Project;
   }
 })();

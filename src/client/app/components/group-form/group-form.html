@@ -1,6 +1,6 @@
 <form name="vm.form" class="form-horizontal" role="form" novalidate autocomplete="off"
       ng-submit="vm.onSubmit()"
-      ng-class="{'show-errors': vm.showErrors()}">
+      ng-class="{'show-errors': vm.form.$submitted}">
   <content-header short="true">
     <div>
       <span class="content-header__title group-form__title" ng-bind="::vm.heading"></span>

@@ -13,15 +13,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Pagination
 gem 'will_paginate', '~> 3.0.7'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
-
-# for console, rake
-gem 'highline'
-
 # .Env gem Gem
 gem 'dotenv-rails'
 
@@ -36,7 +27,6 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
-# gem 'ruby-saml', github: 'onelogin/ruby-saml'
 gem 'omniauth'
 
 # Authorization
@@ -47,17 +37,13 @@ gem 'time_for_a_boolean'
 # Adds enhanced pub/sub hooks
 gem 'wisper'
 
-gem 'jellyfish-fog'
-gem 'jellyfish-manageiq'
-gem 'jellyfish-notification'
-
 # Tests
 group :development, :test do
   gem 'annotate'
   gem 'awesome_print'
   gem 'brakeman', require: false
   gem 'codeclimate-test-reporter', require: nil
-  gem 'database_cleaner', '~> 1.3.0'
+  gem 'database_cleaner', '~> 1.4.1'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'license_finder'
   gem 'pry-rails'
@@ -65,11 +51,12 @@ group :development, :test do
   gem 'rubocop'
   gem 'seed_dump'
   gem 'selenium-webdriver'
-  gem 'poltergeist', require: 'capybara/poltergeist'
+  # gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
-  gem 'web-console', '~> 2.0.0'
-  gem 'capybara-angular', '0.1.0'
-  gem 'launchy'
+  # gem 'web-console', '~> 2.0.0'
+  # gem 'capybara-angular', '0.1.0'
+  # gem 'launchy'
+  gem 'foreman'
 end
 
 group :test do
@@ -78,7 +65,7 @@ group :test do
 end
 
 # Documentation
-gem 'apipie-rails', '~> 0.2.6'
+gem 'apipie-rails', '~> 0.3.0'
 
 # Keep but hide deleted records
 gem 'paranoia'
@@ -117,3 +104,10 @@ gem 'acts_as_list'
 
 # TO ENCODE DECIMALS AS JSON NUMBERS
 gem 'activesupport-json_encoder'
+
+# Resource filtering with scopes
+gem 'has_scope'
+
+# Jellyfish Extensions
+gem 'jellyfish-aws'
+gem 'jellyfish-notification'

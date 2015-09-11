@@ -14,9 +14,13 @@
   function getStates() {
     return {
       'services': {
+        parent: 'application',
         url: '/services',
         redirectTo: 'services.list',
-        template: '<ui-view></ui-view>'
+        template: '<ui-view></ui-view>',
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }
@@ -32,7 +36,7 @@
         state: 'services',
         label: 'Services',
         style: 'services',
-        order: 3
+        order: 300
       }
     };
   }

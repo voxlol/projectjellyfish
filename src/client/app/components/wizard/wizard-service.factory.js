@@ -20,7 +20,7 @@
         resolve: {
           questions: resolveQuestions
         },
-        windowTemplateUrl: 'app/components/wizard/wizard-modal-window.html'
+        windowTemplateUrl: 'app/components/common/modal-window.html'
       };
       var modal = $modal.open(modalOptions);
 

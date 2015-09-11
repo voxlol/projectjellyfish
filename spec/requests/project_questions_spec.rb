@@ -68,7 +68,7 @@ RSpec.describe 'ProjectQuestions API' do
 
     it 'creates an project_question', :show_in_doc do
       post '/api/v1/project_questions/', @project_question.as_json
-      expect(response.body).to eq(ProjectQuestion.first.to_json)
+      expect(response.body).to match_serialized_json ProjectQuestion.first
     end
   end
 

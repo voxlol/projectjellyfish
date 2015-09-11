@@ -1,10 +1,70 @@
++block(forms)
+  @extend .form-horizontal
+
+  +element(title)
+
+    +modifier(description)
+      text-transform: uppercase
+      color: $app-color-gray
+
+    +modifier(error)
+      padding-left: 15px
+      font-weight: bold
+      font-size: 15px
+      color: $app-color-pink
+      text-transform: uppercase
+
+  +element(full)
+    +make-sm-column(12)
+    padding-bottom: 20px
+
+    &:after
+      content: ""
+      border-bottom: 1px solid $app-color-gray
+      position: absolute
+      left: 15px
+      right: 15px
+
+  +element(body)
+    +make-sm-column(7)
+    padding-bottom: 20px
+
+    &:after
+      content: ""
+      border-bottom: 1px solid $app-color-gray
+      position: absolute
+      left: 15px
+      right: 0
+
+  +element(aside)
+    +make-sm-column(5)
+    padding-left: 45px
+    padding-bottom: 10px
+
+  +element(buttons)
+    +make-sm-column(7)
+
+  +element(submit)
+    @extend .btn-rounded
+    min-width: 150px
+
+  +element(cancel)
+    @extend .btn
+    @extend .btn-link
+    text-transform: uppercase
+
 +block(field)
+  @extend .form-group
   position: relative
 
   +element(aside)
+    +make-sm-column(3)
     @extend .text-right
     text-transform: uppercase
     height: 42px
+
+    +modifier(slim)
+      +make-sm-column(2)
 
   +element(label)
     font-size: 12px
@@ -16,13 +76,16 @@
     transform: translateY(-50%)
 
   +element(body)
+    +make-sm-column(9)
     min-height: 1px
+
+    +modifier(loading)
+      min-height: 42px
 
     +modifier(checkbox)
       margin-top: 10px
       float: left
       padding-left: 15px
-
 
   +element(input)
     @extend .form-control
@@ -40,22 +103,33 @@
     +modifier(monospaced)
       font-family: "Anonymous Pro", "Inconsolata", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace
 
+  +element(group-button)
+    height: 42px
+    border-radius: 5px
+    border: 1px solid $app-color-gray
+    color: $app-color-dark-gray
+    min-height: 42px
+
+  // TODO : Remove this element declaration; It is recreating existing styles from bootstrap
   +element(group-input)
+
     +modifier(input)
-      border-radius: 0px 5px 5px 0px
+      @extend .form-control
+      border-radius: 0 5px 5px 0
       min-height: 42px
       border: 1px solid $app-color-gray
       color: $app-color-dark-gray
       width: 100%
 
     +modifier(button)
-      border-radius: 5px 0px 0px 5px
+      border-radius: 5px 0 0 5px
       min-height: 42px
       border: 1px solid $app-color-gray
       color: $app-color-dark-gray
 
   +element(checkbox)
     padding-top: 5px
+    user-select: none
 
     input[type=checkbox]
       display: none
@@ -94,7 +168,6 @@
       position: relative
       cursor: pointer
 
-
     input[type=radio] + label:before
       content: ""
       display: inline-block
@@ -113,7 +186,67 @@
   +element(feedback)
     @extend .help-block
     display: none
-    margin-bottom: 0
+    margin: 0
 
     .show-errors &
       display: block
+
+    & > *
+      margin-top: 5px
+
++block(multiple-options)
+  +make-sm-column-offset(1)
+  position: relative
+
+  +element(placeholder)
+    background-color: $app-color-blue
+    height: 80px
+
+  +element(footer)
+    +make-sm-column(12)
+    padding: 10px 24.3333% 20px 0
+
++block(multiple-option)
+  padding: 20px 0
+
+  &.ui-sortable-helper
+    background-color: $app-color-light-gray-2
+    box-shadow: 0 5px 5px $app-color-dark-gray
+    transform: scale(0.8)
+
+  +element(aside)
+    +make-sm-column(2)
+    @extend .field__aside
+
+  +element(body)
+    +make-sm-column(7)
+    @extend .field__body
+
+  +element(actions)
+    +make-sm-column(2)
+    display: table-cell
+    padding-left: 0
+    line-height: 42px
+    vertical-align: middle
+
+  +element(label)
+    @extend .field__label
+
+  +element(input)
+    @extend .field__input
+
+  +element(feedback)
+    @extend .field__feedback
+
+  +element(action)
+    margin-right: 20px
+    display: inline-block
+
+    +modifier(handle)
+      cursor: move
+
+    &:active, &:focus, &:hover
+      outline: none
+
+    &:last-child
+      margin-right: 0

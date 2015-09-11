@@ -3,11 +3,14 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'rest-client'
 
+require File.expand_path File.join('..', '..', 'lib', 'settings'), __FILE__
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Provisioner = Jellyfish::Provisioner
+require File.expand_path File.join('..', '..', 'lib', 'jellyfish'), __FILE__
+
 module JellyfishCore
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

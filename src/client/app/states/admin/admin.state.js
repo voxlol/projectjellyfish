@@ -14,9 +14,13 @@
   function getStates() {
     return {
       'admin': {
+        parent: 'application',
         abstract: true,
         template: '<ui-view></ui-view>',
-        url: '/admin'
+        url: '/admin',
+        data: {
+          authorizedRoles: ['admin']
+        }
       }
     };
   }
@@ -32,7 +36,7 @@
         state: 'admin',
         label: 'Admin',
         style: 'admin',
-        order: 6,
+        order: 1000,
         isVisible: isVisible
       }
     };
@@ -40,6 +44,6 @@
 
   /** @ngInject */
   function isVisible(SessionService) {
-    return SessionService.role === 'admin';
+    return SessionService.isAdmin();
   }
 })();

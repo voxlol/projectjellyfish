@@ -37,7 +37,6 @@ FactoryGirl.define do
     end
     role 'user'
     password 'test_pass'
-    # secret 'test_token'
 
     created_at '2014-11-21T23:03:36.465Z'
     updated_at '2014-11-21T23:03:36.465Z'
@@ -46,6 +45,13 @@ FactoryGirl.define do
       sequence :email do |n|
         "user_#{n}@test.com"
       end
+    end
+
+    trait :manager do
+      sequence :email do |n|
+        "manager_#{n}@test.com"
+      end
+      role 'manager'
     end
 
     trait :admin do

@@ -25,9 +25,9 @@ module.exports = function(gulp, options) {
     var assets = useref.assets({searchPath: './'});
 
     // Filters are named for the gulp-useref path
-    var cssFilter = filter(config.cssFilter);
-    var jsAppFilter = filter(config.appJsFilter);
-    var jslibFilter = filter(config.libJsFilter);
+    var cssFilter = filter(config.cssFilter, {restore: true});
+    var jsAppFilter = filter(config.appJsFilter, {restore: true});
+    var jslibFilter = filter(config.libJsFilter, {restore: true});
 
     return gulp.src(config.index)
       .pipe(plumber())
@@ -36,17 +36,17 @@ module.exports = function(gulp, options) {
       // Get the css
       .pipe(cssFilter)
       .pipe(csso())
-      .pipe(cssFilter.restore())
+      .pipe(cssFilter.restore)
       // Get the custom javascript
       .pipe(jsAppFilter)
       .pipe(ngAnnotate(config.ngAnnotateOptions))
       .pipe(uglify())
       .pipe(getHeader())
-      .pipe(jsAppFilter.restore())
+      .pipe(jsAppFilter.restore)
       // Get the vendor javascript
       .pipe(jslibFilter)
       .pipe(uglify()) // another option is to override wiredep to use min files
-      .pipe(jslibFilter.restore())
+      .pipe(jslibFilter.restore)
       // Take inventory of the file names for future rev numbers
       .pipe(rev())
       // Apply the concat and file replacement with useref

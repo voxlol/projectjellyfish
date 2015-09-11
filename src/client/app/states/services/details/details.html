@@ -68,9 +68,9 @@
     <tbody>
     <tr class="selectRow">
       <td class="service-pricing__cell service-pricing__cell--padding"></td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.setup_price | currency }}</td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.monthly_price | currency }}</td>
-      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.hourly_price | currency }}</td>
+      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.order.setup_price | currency }}</td>
+      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.order.monthly_price | currency }}</td>
+      <td class="service-pricing__cell service-pricing__cell">{{ ::vm.service.order.hourly_price | currency }}</td>
     </tr>
     </tbody>
   </table>

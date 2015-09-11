@@ -1,0 +1,33 @@
+---
+- _assoc: compute
+  name: Compute
+  description: Compute and server resources
+  tag_list: [server]
+- _assoc: storage
+  name: Storage
+  description: Media and CDN delivery
+  tag_list: [storage, cdn]
+- _assoc: database
+  name: Database
+  description: Databases
+  tag_list: [database]
+- _assoc: application
+  name: Application
+  description: Applications
+  tag_list: [application]
+- _assoc: stacks
+  name: Application Stacks
+  description: One or more services brought together
+  tag_list: [stack]
+- _assoc: analysis
+  name: Analysis
+  description: Analytics and research computation
+  tag_list: [analysis]
+- _assoc: staff
+  name: Staff
+  description: Personnel and staffing needs
+  tag_list: [staff]
+- _assoc: oss
+  name: Open Source
+  description: Open Source Software and other open source offerings
+  tag_list: [oss]

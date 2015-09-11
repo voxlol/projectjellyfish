@@ -1,11 +1,28 @@
+# == Schema Information
 #
-# If you're using this file !!STOP!! and start using OrderItemSerializer
+# Table name: services
 #
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  type       :string           not null
+#  uuid       :string           not null
+#  name       :string           not null
+#  health     :integer          default(0), not null
+#  status     :integer
+#  status_msg :string
+#
+# Indexes
+#
+#  index_services_on_type  (type)
+#  index_services_on_uuid  (uuid)
+#
+
 class ServiceSerializer < ApplicationSerializer
-  attributes :id, :product_id, :project_id, :provision_status, :latest_alert_id
+  attributes :id, :name, :uuid, :status, :health, :status_msg, :created_at, :updated_at
 
   has_one :order
-  has_one :product
   has_one :project
-  has_one :latest_alert
+  has_one :product
+  has_one :product_type, serializer: ProductTypeSerializer
 end

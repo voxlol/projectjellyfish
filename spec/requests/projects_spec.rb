@@ -14,10 +14,8 @@ RSpec.describe 'Projects API' do
       @project2 = create :project
     end
 
-    it 'returns a collection of all projects', :show_in_doc  do
+    it 'returns a collection of all projects', :show_in_doc do
       sign_in_as create :staff, :admin
-      create :project_detail, project_id: @project.id
-      create :project_detail, project_id: @project2.id
       create(:staff).groups << Group.new(projects: [@project])
 
       get '/api/v1/projects'
@@ -38,7 +36,7 @@ RSpec.describe 'Projects API' do
   end
 
   describe 'GET show' do
-    before :each  do
+    before :each do
       @project = create :project
     end
 
@@ -68,14 +66,15 @@ RSpec.describe 'Projects API' do
 
     it 'creates a new project record w/ project answers for admin', :show_in_doc do
       sign_in_as create :staff, :admin
-      project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
+      project_data = attributes_for(:project, answers: [{ name: question_model.id, value: answer, value_type: 'string' }])
 
-      post '/api/v1/projects', project_data.merge(includes: %w(project_answers))
+      post '/api/v1/projects', project_data.merge(includes: %w(answers))
 
-      expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
+      expect(json['answers'][0]['name']).to eq(question_model.id.to_s)
     end
 
     it 'fails to create a new project without a group for staff' do
+      pending 'A user should not be telling the system how to give them access to things'
       sign_in_as create(:staff, groups: [create(:group)])
       project_data = attributes_for(:project, group_ids: [])
 
@@ -115,10 +114,10 @@ RSpec.describe 'Projects API' do
     it 'updates a project record w/ project answers', :show_in_doc do
       sign_in_as create :staff, :admin
 
-      project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
+      project_data = attributes_for(:project, answers: [{ name: 'foo', value: answer, value_type: 'string' }])
       put "/api/v1/projects/#{@project.id}", project_data
       @project.reload
-      expect(@project.project_answers.length).to eq(1)
+      expect(@project.answers.length).to eq(1)
     end
 
     it 'returns an error when the project does not exist' do

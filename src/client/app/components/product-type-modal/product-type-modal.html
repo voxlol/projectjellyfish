@@ -1,25 +1,24 @@
-<div class="product-type-modal__header">
-  <button type="button" class="product-type-modal__close" ng-click="$dismiss()" aria-label="Close">
+<div class="modals__header">
+  <button type="button" class="modals__close" ng-click="$dismiss()" aria-label="Close">
     <i class="fa fa-close" aria-hidden="true"></i>
     <span class="sr-only">Close</span>
   </button>
-  <div class="product-type-modal__title">{{ ::vm.heading }}</div>
+  <div class="modals__title">Select Product Type</div>
 </div>
 
-<div class="product-type-modal__body">
-  <p>{{ ::vm.message }}</p>
-  <select class="product-type-modal__select"
-          ng-options="productType as productType.title for productType in ::vm.productTypes"
-          ng-model="vm.productType"></select>
+<div class="modals__body">
+  <p>Select the provider and product type you'd like to create</p>
+  <form class="forms">
+    <formly-form model="vm.selections" fields="vm.fields"></formly-form>
+  </form>
 </div>
 
-<div class="product-type-modal__footer">
-  <button type="button" class="btn-rounded btn-rounded--gray product-type-modal__cancel" ng-click="$dismiss()">
+<div class="modals__footer">
+  <button type="button" class="modals__button modals__button--cancel" ng-click="$dismiss()">
     Cancel
   </button>
-  <button type="button" class="btn-rounded product-type-modal__ok"
-          ng-click="$close(vm.productType)"
-          ng-disabled="!vm.productType">
+  <button type="button" class="modals__button" ng-click="$close(vm.selections)"
+          ng-disabled="!vm.selections.productTypeId">
     Ok
   </button>
 </div>

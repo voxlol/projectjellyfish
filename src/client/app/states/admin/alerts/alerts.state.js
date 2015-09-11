@@ -31,7 +31,7 @@
         type: 'state',
         state: 'admin.alerts',
         label: 'Alerts',
-        order: 1
+        order: 0
       }
     };
   }

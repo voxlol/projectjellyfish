@@ -48,7 +48,8 @@
             tags: resolveTags,
             mode: resolveMode
           },
-          windowTemplateUrl: 'app/components/tags/tag-modal-window.html'
+          windowTemplateUrl: 'app/components/common/modal-window.html',
+          size: 'all-tags'
         };
       }
 

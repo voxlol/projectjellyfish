@@ -63,7 +63,8 @@
           productList: resolveItems,
           project: resolveProject
         },
-        windowTemplateUrl: 'app/components/compare/compare-modal-window.html'
+        windowTemplateUrl: 'app/components/common/modal-window.html',
+        size: 'compare'
       };
       var modal = $modal.open(modalOptions);
 

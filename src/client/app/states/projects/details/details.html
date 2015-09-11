@@ -5,22 +5,16 @@
     <div ng-if="::!vm.project.img" class="project-details__icon project-details__icon--missing"></div>
     <span class="content-header__title">{{ ::vm.project.name }}</span>
   </div>
-  <div ng-if="::'approved' === vm.project.approval" class="content-header__aside">
+  <div ng-if="::'approved' === vm.project.status" class="content-header__aside">
     <a ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
   </div>
 </content-header>
 
 <project-approval project="vm.project" on-approved="vm.approve()" on-rejected="vm.reject()"></project-approval>
 
-<region ng-if="::vm.project.latest_alerts" heading="Alerts">
-  <div class="project-details__alert-buttons">
-    <button type="button" class="btn-rounded btn-rounded--short project-details__alert-button"
-      ui-sref="projects.alerts.create({projectId: vm.project.id})">
-      Add Project Alerts
-    </button>
-  </div>
-  <latest-alerts-table alerts="vm.project.latest_alerts"></latest-alerts-table>
-</region>
+<alert ng-repeat="alert in ::vm.project.latest_alerts" type="{{ ::Alert.statusToType(alert.status) }}">
+  <strong>[{{ ::alert.category | uppercase }}]</strong> {{ ::alert.message }}
+</alert>
 
 <details-table>
   <div class="details-table__row">
@@ -33,11 +27,6 @@
     <div class="details-table__detail">
       <status type="{{ ::vm.project.status }}">{{ ::vm.project.status }}</status>
     </div>
-  </div>
-
-  <div class="details-table__row">
-    <div class="details-table__label">Account</div>
-    <div class="details-table__detail">{{ ::vm.project.account_number }}</div>
   </div>
 
   <div class="details-table__row">
@@ -75,8 +64,12 @@
   </alert>
 
   <div class="details-table__row">
-    <div class="details-table__label">Budget</div>
+    <div class="details-table__label">Total Budget</div>
     <div class="details-table__detail">{{ ::vm.project.budget | currency }}</div>
+  </div>
+  <div class="details-table__row">
+    <div class="details-table__label">Budget Spent</div>
+    <div class="details-table__detail">{{ ::vm.project.spent | currency }}</div>
   </div>
   <div class="details-table__row">
     <div class="details-table__label">Available</div>
@@ -99,38 +92,28 @@
   </div>
 </details-table>
 
-<region heading="Order History">
-  <orders-table orders="vm.project.order_history"></orders-table>
-</region>
-
 <!-- Services -->
-<region ng-if="::vm.project.isApproved()" heading="Services">
-  <div class="project-details__service-buttons">
-    <button type="button" class="btn-rounded btn-rounded--short project-details__service-button"
-            ui-sref="projects.services({projectId: vm.project.id})">
-      Add Services
-    </button>
-  </div>
-  <services-table services="vm.project.services"></services-table>
-</region>
+<project-services ng-if="::'approved' === vm.project.status" project-id="vm.project.id"
+                  services="vm.services"></project-services>
 
-<!-- Groups-->
-<region ng-if="::vm.project.isApproved()" heading="Group Membership">
-  <div class="project-details__service-buttons">
-    <button type="button"
-            class="btn-rounded btn-rounded--short project-details__service-button"
-            ng-click="vm.showMembershipModal()">
-      Add Group
-    </button>
-  </div>
-  <project-membership-table
-    memberships="vm.project.memberships"
-    groups="vm.groups"
-    roles="vm.roles">
-  </project-membership-table>
-</region>
+<!-- Memberships -->
+<project-memberships ng-if="::'approved' === vm.project.status" project-id="vm.project.id"
+                     memberships="vm.memberships"></project-memberships>
 
- <!--Project Answers-->
+<!--Project Answers-->
 <region heading="Project Specifications">
-  <project-answers-table answers="vm.project.project_answers"></project-answers-table>
+  <table st-table="vm.project.answers" class="tables">
+    <thead>
+    <tr>
+      <th class="tables__heading project-details__question">Question</th>
+      <th class="tables__heading">Response</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="answer in vm.project.answers track by answer.id">
+      <td class="tables__cell">{{ ::answer.label }}</td>
+      <td class="tables__cell"><span ng-if="!answer.value">N/A</span>{{ ::answer.value }}</td>
+    </tr>
+    </tbody>
+  </table>
 </region>

@@ -7,39 +7,35 @@
   </div>
 </content-header>
 
-<div>
-  <table st-table="vm.staff" class="users-table">
-    <thead>
-    <tr>
-      <th class="users-table__heading users-table__heading--padding"></th>
-      <th class="users-table__heading users-table__heading--sortable" st-sort="first_name"> Name</th>
-      <th class="users-table__heading users-table__heading--sortable" st-sort="email">Email</th>
-      <th class="users-table__heading users-table__heading--sortable" st-sort="role">Role</th>
-      <th class="users-table__heading ">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="users-table__row" ng-repeat="row in vm.staff">
-      <td class="users-table__cell users-table__cell--padding"></td>
-      <td class="users-table__cell users-table__cell--name">{{ ::row.first_name}} {{ ::row.last_name}}</td>
-      <td class="users-table__cell users-table__cell--email">{{ ::row.email }}</td>
-      <td class="users-table__cell users-table__cell--role">{{ ::row.role }}</td>
-      <td class="users-table__cell users-table__cell--actions">
-        <a ui-sref="admin.users.create({id: row.id})" class="users-table__action users-table__action--edit">
-          <img src="/images/ic_edit.png" alt="Edit"/>
-        </a>
-        <a href="#" class="users-table__action users-table__action--delete"
-           confirmation
-           confirmation-position="left-center"
-           confirmation-message="Are you sure you want to remove this user?"
-           confirmation-ok-style="danger"
-           confirmation-ok-text="Yes, Delete It"
-           confirmation-on-ok="vm.deleteUser($index)"
-           confirmation-show-cancel="false">
-          <img src="/images/ic_deletequestion.png" alt="Delete"/>
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<table st-table="vm.staff" class="tables tables--bordered">
+  <thead>
+  <tr>
+    <th class="tables__heading tables__heading--sortable" st-sort="first_name"> Name</th>
+    <th class="tables__heading tables__heading--sortable" st-sort="email">Email</th>
+    <th class="tables__heading tables__heading--sortable" st-sort="role">Role</th>
+    <th class="tables__heading ">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="tables__row" ng-repeat="row in vm.staff">
+    <td class="tables__cell tables__cell--name">{{ ::row.first_name}} {{ ::row.last_name}}</td>
+    <td class="tables__cell tables__cell--email">{{ ::row.email }}</td>
+    <td class="tables__cell tables__cell--role">{{ ::row.role }}</td>
+    <td class="tables__cell tables__cell--actions">
+      <a ui-sref="admin.users.create({id: row.id})" class="tables__action">
+        <img src="/images/ic_edit.png" alt="Edit"/>
+      </a>
+      <a href="#" class="tables__action tables__action--delete"
+         confirmation
+         confirmation-position="left-center"
+         confirmation-message="Are you sure you want to remove this user?"
+         confirmation-ok-style="danger"
+         confirmation-ok-text="Yes, Delete It"
+         confirmation-on-ok="vm.deleteUser($index)"
+         confirmation-show-cancel="false">
+        <img src="/images/ic_deletequestion.png" alt="Delete"/>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>

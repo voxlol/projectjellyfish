@@ -14,9 +14,13 @@
   function getStates() {
     return {
       'projects': {
+        parent: 'application',
         url: '/projects',
         redirectTo: 'projects.list',
-        template: '<ui-view></ui-view>'
+        template: '<ui-view></ui-view>',
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }
@@ -32,7 +36,7 @@
         state: 'projects',
         label: 'Projects',
         style: 'projects',
-        order: 1
+        order: 100
       }
     };
   }

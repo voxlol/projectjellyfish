@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'pages': {
+        parent: 'application',
         url: '/pages/:slug',
         templateUrl: 'app/states/pages/page.html',
         title: 'Pages',
@@ -21,6 +22,9 @@
         controllerAs: 'vm',
         resolve: {
           page: resolvePage
+        },
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
         }
       }
     };

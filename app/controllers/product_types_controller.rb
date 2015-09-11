@@ -1,16 +1,22 @@
 class ProductTypesController < ApplicationController
-  api :GET, '/product_types', 'Returns a collection of product_types'
+  after_action :verify_authorized
+
+  api :GET, '/product_types', 'Returns a list of all product types'
 
   def index
-    respond_with_params ProductType.schemas
+    authorize ProductType
+    render json: ProductType.all, each_serializer: ProductTypeSerializer
   end
 
-  api :GET, '/product_types/:id', 'Shows product_type with :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  api :GET, '/product_types/:id', 'Returns information on a product type'
 
   def show
-    product_type = ProductType.new(params[:id])
-    respond_with_params product_type
+    render json: product_type, serializer: ProductTypeSerializer
+  end
+
+  private
+
+  def product_type
+    @_product_type ||= ProductType.find(params[:id]).tap { |pt| authorize pt }
   end
 end

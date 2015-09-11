@@ -12,14 +12,15 @@
 #  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
+#  uuid       :string
 #
 # Indexes
 #
 #  index_project_questions_on_deleted_at  (deleted_at)
 #
 
-class ProjectQuestionSerializer < ActiveModel::Serializer
-  attributes :id, :question, :help_text, :required
+class ProjectQuestionSerializer < ApplicationSerializer
+  attributes :id, :uuid, :question, :help_text, :required
   attributes :created_at, :updated_at, :deleted_at, :position, :options, :field_type
 
   private

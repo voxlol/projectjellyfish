@@ -109,9 +109,17 @@
           vm.top = position.top - vm.getOffset();
 
           modal = $modal.open(modalOptions);
-          modal.result.then(vm.onOk, vm.onCancel);
+          modal.result.then(onOk, onCancel);
         } else {
           vm.onOk();
+        }
+
+        function onOk() {
+          vm.onOk();
+        }
+
+        function onCancel() {
+          vm.onCancel();
         }
       }
 

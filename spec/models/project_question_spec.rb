@@ -12,6 +12,7 @@
 #  position   :integer
 #  options    :jsonb
 #  field_type :integer          default(0)
+#  uuid       :string
 #
 # Indexes
 #
@@ -29,7 +30,7 @@ describe ProjectQuestion do
 
     it 'can store unstructured options' do
       create :project_question, options: options
-      project_question =  ProjectQuestion.first
+      project_question = ProjectQuestion.first
 
       expect(project_question.options[0]).to eq(options[0]['test1'])
       expect(project_question.options[1]).to eq(options[1]['test2'])

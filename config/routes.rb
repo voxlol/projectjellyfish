@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   apipie
 
   scope '/api/v1', except: [:new, :edit], defaults: { format: :json } do
+    # Extensions
+    mount_extensions
+
     # Auth
     devise_for :staff, controllers: { sessions: 'sessions' }
 
@@ -20,6 +23,31 @@ Rails.application.routes.draw do
       end
     end
 
+    # Products & related
+    resources :products
+    resources :product_types, only: [:index, :show] do
+      get 'async_select/:key', action: :async_select, on: :member
+    end
+    resources :product_categories
+
+    # Settings
+    resources :settings, only: [:index, :update], param: :name
+
+    # Services
+    resources :services, only: [:index, :show]
+
+    # Orders
+    resources :orders, only: [:index, :show, :create]
+
+    # Extensions
+    resources :extensions, only: [:index]
+
+    # Providers
+    resources :providers do
+      resources :product_types, only: [:index], controller: :provider_product_types
+    end
+    resources :registered_providers, only: [:index]
+
     # Alerts Routes
     resources :alerts do
       collection do
@@ -33,74 +61,25 @@ Rails.application.routes.draw do
       end
     end
 
-    # User Setting Options Routes
-    resources :user_setting_options, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-    resources :api_tokens, defaults: { format: :json }
-
     # Approvals
     resources :staff, only: [:index, :show, :create, :update, :destroy] do
-      # Staff Orders
-      resources :orders, controller: :staff_orders, defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
-
       collection do
         match 'current_member' => 'staff#current_member', via: :get
       end
-
-      # Staff Settings (user_settings)
-      resources :settings, controller: :staff_settings, only: [:index, :show, :create, :update, :destroy]
     end
 
     # Organizations
     resources :organizations
 
-    # Order Items
-    resources :order_items, only: [:show, :update, :destroy] do
-      member do
-        put :retire_service
-      end
-    end
-
-    # Orders
-    resources :orders do
-      member do
-        get :items
-      end
-    end
-
-    # Products
-    resources :products do
-      member do
-        get :answers
-      end
-    end
-    post '/products/:product_id/tags' => 'tags#create', as: :product_tags
-    delete '/products/:product_id/tags' => 'tags#destroy'
-
-    resources :product_types
-
-    resources :product_categories
-
     # Chargebacks
     resources :chargebacks
 
-    # Clouds
-    resources :clouds
-
     resources :bundles
-
-    # Services (Alias for OrderItem)
-    get 'services' => 'services#index', as: :services_index
-    get 'services/order_profiles' => 'services#order_profiles', as: :services_order_profiles
-    get 'services/count' => 'services#count', as: :services_count
-    get 'services/all_count' => 'services#all_count', as: :services_all_count
-    get 'services/project_count' => 'services#project_count', as: :services_project_count
-    get 'services/:id' => 'services#show', as: :services_show
 
     # Project Routes
     resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json } do
-      delete 'groups/:group_id' => 'memberships#destroy', as: :membership
-      post 'groups' => 'memberships#create', as: :memberships
-      put 'groups/:group_id' => 'memberships#update'
+      resources :services, only: [:index], controller: :project_services
+      resources :memberships, only: [:index, :show, :create, :update, :destroy], shallow: true
 
       get 'approvals' => 'project_approvals#index', as: :project_approvals
       post 'approve' => 'project_approvals#update', as: :approve_project
@@ -109,32 +88,8 @@ Rails.application.routes.draw do
 
     # ProjectQuestion Routes
     resources :project_questions do
-      collection { put :sort }
-    end
-
-    # Admin Settings
-    resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
-    resources :settings, defaults: { includes: %w(setting_fields)  }, only: [:show], param: :hid
-
-    # Automate Routes
-    resources :automate, only: [] do
-      collection do
-        get :catalog_item_initialization
-        get :update_servicemix_and_chef
-        get :provision_rds
-
-        get :create_ec2
-        get :create_rds
-        get :create_s3
-        get :create_ses
-        get :create_vmware_vm
-        get :create_chef_node
-
-        get :retire_ec2
-        get :retire_rds
-        get :retire_s3
-        get :retire_ses
-        get :retire_vmware_vm
+      member do
+        put :reposition
       end
     end
 
@@ -143,9 +98,11 @@ Rails.application.routes.draw do
     resources :content_pages, only: [:update, :show, :destroy], param: :slug
     patch 'content_pages/revert/:slug', to: 'content_pages#revert'
 
-    resources :groups
-    post '/groups/:group_id/staff/:staff_id' => 'associations#create', as: :group_association
-    delete '/groups/:group_id/staff/:staff_id' => 'associations#destroy'
+    resources :groups do
+      post 'staff/:staff_id' => 'associations#create'
+      delete 'staff/:staff_id' => 'associations#destroy'
+    end
+
     resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
 

@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'logout': {
+        parent: 'blank',
         url: '/logout',
         controller: StateController,
         controllerAs: 'vm',
@@ -34,7 +35,7 @@
         label: 'Logout',
         style: 'logout',
         isVisible: isVisible,
-        order: 99
+        order: 9999
       }
     };
   }

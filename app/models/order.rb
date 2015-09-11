@@ -2,62 +2,50 @@
 #
 # Table name: orders
 #
-#  id              :integer          not null, primary key
-#  staff_id        :integer          not null
-#  engine_response :text
-#  active          :boolean
-#  created_at      :datetime
-#  updated_at      :datetime
-#  options         :jsonb
-#  deleted_at      :datetime
-#  total           :float            default(0.0)
+#  id            :integer          not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  staff_id      :integer          not null
+#  project_id    :integer          not null
+#  product_id    :integer          not null
+#  service_id    :integer          not null
+#  setup_price   :decimal(10, 4)
+#  hourly_price  :decimal(10, 4)
+#  monthly_price :decimal(10, 4)
 #
 # Indexes
 #
-#  index_orders_on_deleted_at  (deleted_at)
+#  index_orders_on_product_id  (product_id)
+#  index_orders_on_project_id  (project_id)
+#  index_orders_on_service_id  (service_id)
 #  index_orders_on_staff_id    (staff_id)
 #
 
 class Order < ActiveRecord::Base
-  acts_as_paranoid
-  acts_as_taggable
-
   belongs_to :staff
-  has_many :order_items
+  belongs_to :product
+  belongs_to :project
+  belongs_to :service
+  has_many :answers, as: :answerable
 
-  store_accessor :options
+  accepts_nested_attributes_for :answers
 
-  accepts_nested_attributes_for :order_items
+  after_initialize :init
+  after_commit :update_project_monthly_spend, on: :create
 
-  def bundle_id=(bundle_id)
-    order_items << Bundle.find(bundle_id).products.map do |product|
-      OrderItem.new(product: product, project: project)
-    end
-  end
-
-  def item_count
-    order_items.count
-  end
-
-  def item_count_for_project_id(pid)
-    order_items.where(project_id: pid).count
-  end
-
-  def total_per_order(oid)
-    order_items.where(order_id: oid).map(&:calculate_price).sum
-  end
-
-  def exceeds_budget?
-    grouped_order_items = order_items.group_by(&:project)
-    grouped_order_items.reduce(false) do |over_budget, project_order_items|
-      cost = project_order_items[1].map(&:calculate_price).sum
-      over_budget || cost + project_order_items[0].spent.to_f > project_order_items[0].budget
-    end
+  def monthly_cost
+    monthly_price + (hourly_price * 750)
   end
 
   private
 
-  def project
-    order_items.any? ? order_items.first.project : nil
+  def init
+    self.setup_price ||= 0.0
+    self.hourly_price ||= 0.0
+    self.monthly_price ||= 0.0
+  end
+
+  def update_project_monthly_spend
+    project.increment :monthly_spend, monthly_cost
   end
 end

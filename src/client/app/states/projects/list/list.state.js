@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -26,21 +24,13 @@
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
   function resolveProjects(Project) {
-    return Project.query().$promise;
+    return Project.query({archived: false}).$promise;
   }
 
   /** @ngInject */
-  function StateController(logger, projects) {
+  function StateController(projects) {
     var vm = this;
 
     vm.projects = projects;
@@ -50,7 +40,6 @@
     activate();
 
     function activate() {
-      logger.info('Activated Project View');
     }
   }
 })();

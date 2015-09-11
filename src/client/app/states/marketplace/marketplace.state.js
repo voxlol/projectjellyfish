@@ -14,12 +14,16 @@
   function getStates() {
     return {
       'marketplace': {
+        parent: 'application',
         url: '/marketplace?tags',
         templateUrl: 'app/states/marketplace/marketplace.html',
         controller: StateController,
         controllerAs: 'vm',
         title: 'Marketplace',
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        data: {
+          authorizedRoles: ['user', 'manager', 'admin']
+        }
       }
     };
   }
@@ -39,7 +43,7 @@
         state: 'marketplace',
         label: 'Marketplace',
         style: 'marketplace',
-        order: 4
+        order: 400
       }
     };
   }

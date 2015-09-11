@@ -5,72 +5,54 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
     return {
       'projects.create': {
-        url: '/create/:projectId',
-        params: {
-          projectId: null
-        },
+        url: '/create',
         templateUrl: 'app/states/projects/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Project Create'
+        title: 'Project Create',
+        resolve: {
+          projectQuestions: resolveProjectQuestions
+        }
       }
     };
   }
 
-  function navItems() {
-    return {};
-  }
+  /** @ngInject */
+  function resolveProjectQuestions(ProjectQuestion, lodash) {
+    return ProjectQuestion.query({ordered: true}).$promise.then(mapAsFieldQuestions);
 
-  function sidebarItems() {
-    return {};
+    function mapAsFieldQuestions(questions) {
+      return lodash.map(questions, mapQuestion);
+
+      function mapQuestion(question) {
+        return question.asField();
+      }
+    }
   }
 
   /** @ngInject */
-  function StateController(logger, ProjectQuestion, $stateParams, Project, lodash) {
+  function StateController(Project, projectQuestions) {
     var vm = this;
 
-    vm.projectId = $stateParams.projectId;
     vm.activate = activate;
 
     activate();
 
     function activate() {
-      logger.info('Activated Project Create View');
-      resolveProjects();
+      initProject();
     }
 
-    function resolveProjects() {
-      vm.project = {};
-      vm.project.project_answers = [];
-      resolveProjectQuestions();
-    }
+    // Private
 
-    function resolveProjectQuestions() {
-      ProjectQuestion.query().$promise.then(function(result) {
-        vm.projectQuestions = result;
-
-        lodash.each(vm.projectQuestions, function(question) {
-          vm.existingAnswer = lodash.find(vm.project.project_answers, function(answer) {
-            return answer.project_question_id === question.id;
-          });
-          if (vm.existingAnswer === undefined) {
-            vm.project.project_answers.push({
-              project_question_id: question.id,
-              project_question: question,
-              project_question_name: 'project_question_' + question.id
-            });
-          }
-        });
-      });
+    function initProject() {
+      vm.project = Project.new({answers: projectQuestions});
     }
   }
 })();

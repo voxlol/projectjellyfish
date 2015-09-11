@@ -3,8 +3,9 @@
 
   angular.module('app.components')
     .constant('userRoles', {
-      all: '*',
+      all: 'all',
       user: 'user',
+      manager: 'manager',
       admin: 'admin'
     });
 })();

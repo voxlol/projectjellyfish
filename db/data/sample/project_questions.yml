@@ -1,0 +1,37 @@
+---
+- _assoc: period
+  question: Period of performance
+  help_text: in months
+  required: true
+  options: []
+  field_type: 2
+- _assoc: cc
+  question: Project Charge Code
+  required: true
+  options: []
+  field_type: 2
+- _assoc: maint
+  question: Maintenance Day
+  required: true
+  options: []
+  field_type: 3
+- _assoc: do_maint
+  question: Performed Maintenance
+  required: false
+  options: []
+  field_type: 4
+- _assoc: loc
+  question: Default provisioning location
+  required: true
+  options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"]
+  field_type: 1
+- _assoc: prod
+  question: Will this run in production?
+  required: true
+  options: []
+  field_type: 0
+- _assoc: fisma
+  question: Fisma Classification
+  required: true
+  options: ["Low", "Medium", "High"]
+  field_type: 1

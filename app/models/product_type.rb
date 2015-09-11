@@ -1,39 +1,84 @@
-require 'null_provisioner'
+# == Schema Information
+#
+# Table name: product_types
+#
+#  id            :integer          not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  type          :string           not null
+#  name          :string           not null
+#  uuid          :string           not null
+#  active        :boolean          default(TRUE), not null
+#  provider_type :string           not null
+#
+# Indexes
+#
+#  index_product_types_on_provider_type  (provider_type)
+#  index_product_types_on_type           (type)
+#  index_product_types_on_uuid           (uuid)
+#
 
-class ProductType
-  attr_reader :name, :description
+class ProductType < ActiveRecord::Base
+  has_many :products
 
-  delegate :all, to: self
+  validates :name, presence: true, allow_nil: false, allow_blank: false
+  validates :uuid, presence: true, allow_nil: false, allow_blank: false
+  validates :provider_type, presence: true, allow_nil: false, allow_blank: false
 
-  def initialize(name)
-    @name = name
+  def self.create(opts)
+    product_type = ProductType.find_by uuid: opts[:uuid]
+    product_type.nil? ? super(opts) : create_existing(product_type, opts)
   end
 
-  def self.all
-    Rails.configuration.x.product_types
+  def self.create!(opts)
+    product_type = ProductType.find_by uuid: opts[:uuid]
+    product_type.nil? ? super(opts) : create_existing(product_type, opts)
   end
 
-  def self.schemas
-    names.map { |n| ProductType.new(n).schema }
+  def self.policy_class
+    ProductTypePolicy
   end
 
-  def self.names
-    all.keys
+  def description
+    ''
   end
 
-  def schema
-    all.to_h[name]
+  def tags
+    []
   end
 
-  def products
-    Product.where(product_type: name)
+  def product_questions
+    []
   end
 
-  def ==(other)
-    other.name == name
+  def order_questions
+    []
   end
 
-  def provisioner
-    Rails.configuration.x.provisioners.fetch(name, NullProvisioner)
+  def service_class
+    'Service'.constantize
+  end
+
+  def self.create_existing(product_type, opts)
+    columns = [:name, :provider_type]
+    to_update = Hash[opts.select { |k, _| columns.include? k }]
+    product_type.update_attributes to_update
+    product_type.update_column :type, opts[:type] if product_type.type != opts[:type]
+    product_type
+  end
+
+  def self.load_product_types
+    ProductType.table_exists?
+  rescue
+    false
+  end
+
+  def self.set(name, uuid, options)
+    keys = %i(provider_type)
+    {
+      name: name,
+      uuid: uuid,
+      provider_type: 'Provider'
+    }.merge options.keep_if { |key| keys.include? key }
   end
 end

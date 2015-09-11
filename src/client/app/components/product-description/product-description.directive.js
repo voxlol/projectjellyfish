@@ -9,8 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        product: '=',
-        linkTo: '@?'
+        product: '='
       },
       link: link,
       templateUrl: 'app/components/product-description/product-description.html',

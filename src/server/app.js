@@ -22,6 +22,16 @@ app.use('/api/v1', proxy('127.0.0.1:3000', {
   }
 }));
 
+app.use('/extensions', proxy('127.0.0.1:3000', {
+  forwardPath: function(req, res) {
+    var path = '/extensions' + url.parse(req.url).path;
+
+    console.log('ASSET: http://127.0.0.1:3000' + path);
+    return path;
+  }
+}));
+
+
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -42,7 +52,7 @@ switch (environment) {
       four0four.send404(req, res);
     });
     // Any deep link calls should return index.html
-    app.use('/*', express.static('./public/index.html'));
+    //app.use('/*', express.static('./public/index.html'));
     break;
   default:
     console.log('** DEV **');

@@ -20,11 +20,6 @@ RSpec.describe 'Staff API' do
       expect(json[0]['projects']).to_not eq(nil)
     end
 
-    it 'returns a collection of all staff w/ user_settings' do
-      get '/api/v1/staff', includes: %w(user_settings)
-      expect(json[0]['user_settings']).to_not eq(nil)
-    end
-
     it 'returns a search of all staff using the query' do
       get '/api/v1/staff', query: 'joh'
       expect(json[0]['first_name']).to eq('john')
@@ -52,11 +47,6 @@ RSpec.describe 'Staff API' do
       expect(json['projects']).to_not eq(nil)
     end
 
-    it 'retrieves staff by id w/ user_settings', :show_in_doc do
-      get "/api/v1/staff/#{@staff.id}", includes: %w(user_settings)
-      expect(json['user_settings']).to_not eq(nil)
-    end
-
     it 'returns an error when the staff does not exist' do
       get "/api/v1/staff/#{@staff.id + 999}"
       expect(response.status).to eq(404)
@@ -82,14 +72,6 @@ RSpec.describe 'Staff API' do
 
       get '/api/v1/staff/current_member', includes: %w(notifications)
       expect(json['notifications']).to_not eq(nil)
-    end
-
-    it 'retrieves staff w/ a cart', :show_in_doc do
-      create :cart, staff_id: @staff.id
-      sign_in_as @staff
-
-      get '/api/v1/staff/current_member', includes: %w(cart)
-      expect(json['cart']).to_not eq(nil)
     end
 
     it 'returns a 401 when the user is not logged in' do

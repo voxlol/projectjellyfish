@@ -2,7 +2,6 @@
 class ApplicationController < ActionController::Base
   respond_to :json
 
-  extend Apipie::DSL::Concern
   include Pundit
 
   # Error Handling
@@ -25,6 +24,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?, only: [:create, :acs]
   before_action :require_user
+
+  def_param_group :answers do
+    param :answers, Array, desc: 'Provisioning Answers', allow_nil: true do
+      param :name, String, desc: 'Answer key'
+      param :value_type, String, desc: 'How to interpret the :value'
+    end
+  end
 
   def require_user
     head :unauthorized unless user_signed_in?
@@ -59,5 +65,9 @@ class ApplicationController < ActionController::Base
 
   def post_hook
     ActiveSupport::Notifications.instrument(controller_name + '#' + action_name + '/post_hook', params)
+  end
+
+  def fail_with(error: '', type: nil)
+    render json: { error: error }.tap { |e| e.merge!(type: type) unless type.nil? }, status: :bad_request
   end
 end

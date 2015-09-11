@@ -33,8 +33,6 @@ class StaffSerializer < ApplicationSerializer
   attributes :id, :email, :phone, :role, :created_at, :updated_at, :api_token
 
   has_many :alerts
-  has_many :orders
-  has_many :user_settings
   has_many :notifications
   has_many :projects
   has_many :groups

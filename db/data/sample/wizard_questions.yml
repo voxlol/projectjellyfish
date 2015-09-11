@@ -1,0 +1,66 @@
+---
+- _assoc: cloud
+  text: Will this be a public or private cloud?
+  answers:
+    - text: Public
+      tags_to_add: [public]
+      tags_to_remove: [private]
+    - text: Private
+      tags_to_add: [private]
+      tags_to_remove: [public]
+- _assoc: language
+  text: What programming language will be used?
+  answers:
+    - text: PHP
+      tags_to_add: [php, linux]
+      tags_to_remove: [windows, java, ruby, dotnet]
+    - text: Ruby
+      tags_to_add: [ruby, linux]
+      tags_to_remove: [php, windows, java, dotnet]
+    - text: Java
+      tags_to_add: [java, linux, windows]
+      tags_to_remove: [php, ruby, dotnet]
+    - text: dotNet
+      tags_to_add: [dotnet, windows]
+      tags_to_remove: [linux, java, ruby, php]
+    - text: Perl
+      tags_to_add: [perl, linux]
+      tags_to_remove: [windows, php, ruby, java, dotnet]
+- _assoc: fedramp
+  text: Does this require FedRAMP certification?
+  answers:
+    - text: 'Yes'
+      tags_to_add: [fedramp]
+    - text: 'No'
+      tags_to_remove: [fedramp]
+- _assoc: fisma
+  text: What FISMA Classification is needed?
+  answers:
+    - text: Low
+      tags_to_add: [fisma-low, fisma-medium, fisma-high]
+      tags_to_remove: [non-fisma]
+    - text: Medium
+      tags_to_add: [fisma-medium, fisma-high]
+      tags_to_remove: [fisma-low, non-fisma]
+    - text: High
+      tags_to_add: [fisma-high]
+      tags_to_remove: [fisma-low, fisma-medium, non-fisma]
+- _assoc: preferred
+  text: What is your preferred Cloud Provider
+  answers:
+    - text: AWS
+      tags_to_add: [aws]
+      tags_to_remove: [vmware, azure]
+    - text: VMWare
+      tags_to_add: [vmware]
+      tags_to_remove: [aws, azure]
+    - text: Azure
+      tags_to_add: [azure]
+      tags_to_remove: [aws, vmware]
+- _assoc: ha
+  text: Will you require high availability?
+  answers:
+    - text: 'Yes'
+      tags_to_add: [ha]
+    - text: 'No'
+      tags_to_remove: [ha]

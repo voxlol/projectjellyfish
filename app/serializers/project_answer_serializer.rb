@@ -15,7 +15,7 @@
 #  index_project_answers_on_project_question_id  (project_question_id)
 #
 
-class ProjectAnswerSerializer < ActiveModel::Serializer
+class ProjectAnswerSerializer < ApplicationSerializer
   attributes :id, :project_id, :answer, :created_at, :updated_at
 
   has_one :project_question

@@ -1,5 +1,5 @@
-<div ng-if="::'approved' !== vm.project.approval">
-  <div ng-if="::'undecided' === vm.project.approval" class="project-approval">
+<div ng-if="::'approved' !== vm.project.status">
+  <div ng-if="::'pending' === vm.project.status" class="project-approval">
       <div class="project-approval__heading">
         Project Pending, Requires
         <span class="project-approval__heading--approval">Approval</span>
@@ -30,7 +30,7 @@
       </div>
   </div>
 </div>
-<div ng-if="::'rejected' === vm.project.approval">
+<div ng-if="::'rejected' === vm.project.status">
   <details-table heading="Project was rejected ">
     <div class="details-table__row">
       <div class="details-table__label">by</div>

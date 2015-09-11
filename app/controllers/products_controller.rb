@@ -6,14 +6,26 @@ class ProductsController < ApplicationController
   before_action :load_product, only: [:show, :update, :destroy]
   before_action :load_products, only: [:index]
 
-  PRODUCT_METHODS = %w(product_type)
+  has_scope :active, type: :boolean
+
+  def_param_group :product do
+    param :name, String, desc: 'Product Name', action_aware: true
+    param :description, String, desc: 'Short description', action_aware: true
+    param :active, :bool, desc: 'Product is active and available in the marketplace', action_aware: true
+    param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee', action_aware: true
+    param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month', action_aware: true
+    param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour', action_aware: true
+    param :product_type_id, :number, desc: 'Product Type', action_aware: true
+    param :tags, Array, desc: 'List of tags', action_aware: true
+    param_group :answers, ApplicationController
+    error code: 422, desc: ParameterValidation::Messages.missing
+  end
 
   api :GET, '/products', 'Returns a collection of products'
-  param :methods, Array, in: PRODUCT_METHODS
   param :page, :number
   param :per_page, :number
   param :active, :bool
-  param :includes, Array, in: %w(chargebacks)
+  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
 
   def index
     authorize Product
@@ -22,8 +34,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, in: %w(chargebacks)
-  param :methods, Array, in: PRODUCT_METHODS
+  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -32,47 +43,18 @@ class ProductsController < ApplicationController
   end
 
   api :POST, '/products', 'Creates product'
-  param :active, :bool, desc: 'Product is active and available in the marketplace'
-  param :description, String, desc: 'Short description', required: true
-  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
-  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
-  param :name, String, desc: 'Product Name', required: true
-  param :product_type, String, desc: 'Product Type', required: true
-  param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
-  param :tags, Array, desc: 'Array of Strings'
-  error code: 422, desc: ParameterValidation::Messages.missing
+  param_group :product
 
   def create
-    product = Product.new(product_params)
-
-    required_attributes = Rails.application.config.x.product_types.to_a.assoc(product.product_type.name)[1]['required']
-
-    unless required_attributes.blank?
-      missing_parameters = required_attributes.select { |k| product_params['provisioning_answers'][k].blank? ? k : next }
-    end
-
-    fail ActionController::ParameterMissing, missing_parameters unless missing_parameters.blank?
-
+    product = Product.new product_params
     authorize product
     product.save!
     respond_with product
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
-  param :methods, Array, in: PRODUCT_METHODS
-  param :id, :number, required: true
-  param :active, :bool, desc: 'Product is active and available in the marketplace'
-  param :description, String, desc: 'Short description', required: true
-  param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour'
-  param :monthly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Month'
-  param :name, String, desc: 'Product Name', required: true
-  param :product_type, String, desc: 'Product Type', required: true
-  param :provisioning_answers, Hash, desc: 'Provisioning Answers', required: true
-  param :setup_price, :decimal, precision: 10, scale: 4, desc: 'Initial Setup Fee'
-  param :tags, Array, desc: 'Array of Strings'
+  param_group :product
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-  error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @product
@@ -93,17 +75,18 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params
-      .permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price, :product_type, tags: [])
-      .merge(params.slice(:provisioning_answers)).tap { |p| p[:tag_list] = p.delete :tags }
-  end
-
-  def load_product
-    @product = (query_with Product.where(id: params.require(:id)), :includes).first || fail(ActiveRecord::RecordNotFound)
+    params.permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price,
+      :provider_id, :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |p|
+      p[:tag_list] = p.delete :tags
+      p[:answers_attributes] = p.delete :answers
+    end
   end
 
   def load_products
-    query = Product.all.tap { |q| q.where!(active: params[:active]) unless params[:active].nil? }
-    @products = query_with query, :includes, :pagination, :tags_list
+    @products ||= query_with apply_scopes(Product.all), :includes, :pagination, :tags_list
+  end
+
+  def load_product
+    @product ||= Product.find params[:id]
   end
 end

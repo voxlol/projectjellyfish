@@ -16,14 +16,18 @@
     Product.defaults = {
       name: '',
       description: '',
-      product_type: '',
       active: true,
       setup_price: '0.0',
       monthly_price: '0.0',
       hourly_price: '0.0',
-      tags: [],
-      provisioning_answers: {}
+      tags: []
     };
+
+    Product.new = newProduct;
+
+    function newProduct(data) {
+      return new Product(angular.extend({}, Product.defaults, data || {}));
+    }
 
     return Product;
   }

@@ -27,22 +27,18 @@
     }
 
     /** @ngInject */
-    function GroupFormController($scope, $state, Toasts, Staff, lodash) {
+    function GroupFormController($state, Toasts, lodash) {
       var vm = this;
 
       vm.activate = activate;
       activate();
 
       vm.home = 'admin.groups.list';
-      vm.showValidationMessages = false;
-
-      vm.format = 'yyyy-MM-dd';
 
       vm.addMember = addMember;
       vm.removeMember = removeMember;
 
       vm.backToList = backToList;
-      vm.showErrors = showErrors;
       vm.hasErrors = hasErrors;
       vm.onSubmit = onSubmit;
 
@@ -54,21 +50,15 @@
         $state.go(vm.home);
       }
 
-      function showErrors() {
-        return vm.showValidationMessages;
-      }
-
       function hasErrors(field) {
         if (angular.isUndefined(field)) {
-          return vm.showValidationMessages && vm.form.$invalid;
+          return vm.form.$submitted && vm.form.$invalid;
         }
 
-        return vm.showValidationMessages && vm.form[field].$invalid;
+        return vm.form.$submitted && vm.form[field].$invalid;
       }
 
       function onSubmit() {
-        vm.showValidationMessages = true;
-
         if (vm.form.$valid) {
           if (vm.group.id) {
             vm.group.$update(saveSuccess, saveFailure);

@@ -5,10 +5,8 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
@@ -20,75 +18,69 @@
         controllerAs: 'vm',
         title: 'Project Details',
         resolve: {
-          project: resolveProjects,
-          products: resolveProducts,
-          staff: resolveStaff,
-          groups: resolveGroups,
-          roles: resolveRoles
+          project: resolveProject,
+          services: resolveServices,
+          memberships: resolveMemberships,
+          projectQuestions: resolveProjectQuestions
         }
       }
     };
   }
 
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
-  }
-
   /** @ngInject */
-  function resolveProjects($stateParams, Project) {
+  function resolveProject($stateParams, Project) {
     return Project.get({
       id: $stateParams.projectId,
-      'includes[]': ['latest_alerts', 'approvals', 'approvers', 'services', 'memberships', 'groups', 'project_answers']
+      'includes[]': ['latest_alerts', 'approvals', 'approvers', 'memberships', 'groups', 'answers']
     }).$promise;
   }
 
   /** @ngInject */
-  function resolveStaff(Staff) {
-    return Staff.getCurrentMember(
-      {'includes[]': ['groups']}
-    ).$promise;
+  function resolveServices($stateParams, ProjectService) {
+    return ProjectService.query({
+      projectId: $stateParams.projectId,
+      'includes[]': ['product']
+    }).$promise;
   }
 
   /** @ngInject */
-  function resolveProducts(Product) {
-    return Product.query().$promise;
+  function resolveMemberships($stateParams, Membership) {
+    return Membership.query({
+      project_id: $stateParams.projectId,
+      'includes[]': ['group', 'role']
+    }).$promise;
   }
 
   /** @ngInject */
-  function resolveGroups(Group) {
-    return Group.query().$promise;
+  function resolveProjectQuestions(ProjectQuestion, lodash) {
+    return ProjectQuestion.query({ordered: true}).$promise.then(mapAsFieldQuestions);
+
+    function mapAsFieldQuestions(questions) {
+      return lodash.map(questions, mapQuestion);
+
+      function mapQuestion(question) {
+        return question.asField();
+      }
+    }
   }
 
   /** @ngInject */
-  function resolveRoles(Role) {
-    return Role.query().$promise;
-  }
-
-  /** @ngInject */
-  function StateController($state, lodash, project, products, MembershipModal, groups, roles, Membership) {
+  function StateController($state, lodash, project, services, memberships, projectQuestions) {
     var vm = this;
 
     vm.title = 'Project Details';
     vm.project = project;
-    vm.products = products;
-    vm.groups = groups;
-    vm.roles = roles;
+    vm.services = services;
+    vm.memberships = memberships;
 
     vm.activate = activate;
-    vm.showMembershipModal = showMembershipModal;
     vm.approve = approve;
     vm.reject = reject;
 
     activate();
 
     function activate() {
-      // Temporary! Merge products onto services
-      tempMergeProductsOntoServices();
-      vm.project.group_ids = lodash.pluck(vm.project.groups, 'id');
+      initAnswers();
     }
 
     function approve() {
@@ -101,23 +93,14 @@
 
     // Private
 
-    function tempMergeProductsOntoServices() {
-      angular.forEach(vm.project.services, mergeOnProduct);
+    function initAnswers() {
+      angular.forEach(projectQuestions, addAnswer);
+      vm.project.answers = projectQuestions;
 
-      function mergeOnProduct(service) {
-        service.product = lodash.find(products, findProduct);
+      function addAnswer(question) {
+        var answer = lodash.find(vm.project.answers, 'name', question.name);
 
-        function findProduct(product) {
-          return product.id === service.product_id;
-        }
-      }
-    }
-
-    function showMembershipModal() {
-      MembershipModal.showModal(Membership.new({project_id: project.id})).then(updateMembership);
-
-      function updateMembership(result) {
-        vm.project.memberships.push(result);
+        angular.extend(question, answer || {});
       }
     }
   }

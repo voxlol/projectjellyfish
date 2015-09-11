@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.3.1)
     actionmailer (4.2.3)
       actionpack (= 4.2.3)
       actionview (= 4.2.3)
@@ -45,60 +44,42 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_list (0.7.2)
       activerecord (>= 3.0)
-    addressable (2.3.8)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
-    apipie-rails (0.2.6)
+    apipie-rails (0.3.4)
       json
-    arel (6.0.0)
-    ast (2.0.0)
-    astrolabe (1.3.0)
-      parser (>= 2.2.0.pre.3, < 3.0)
+    arel (6.0.3)
+    ast (2.1.0)
+    astrolabe (1.3.1)
+      parser (~> 2.2)
     awesome_print (1.6.1)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    azure (0.6.4)
-      json (~> 1.8)
-      mime-types (~> 1.0)
-      nokogiri (~> 1.5)
-      systemu (~> 2.6)
-      uuid (~> 2.0)
     bcrypt (3.1.10)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
-    brakeman (3.0.5)
+    brakeman (3.1.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
       haml (>= 3.0, < 5.0)
-      highline (~> 1.6.20)
+      highline (~> 1.6)
       multi_json (~> 1.2)
-      ruby2ruby (~> 2.1.1)
+      ruby2ruby (>= 2.1.1, < 2.3.0)
       ruby_parser (~> 3.7.0)
       sass (~> 3.0)
-      terminal-table (~> 1.4)
+      slim (>= 1.3.6, < 4.0)
+      terminal-table (~> 1.4.5)
     builder (3.2.2)
-    capybara (2.4.4)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-angular (0.1.0)
-      capybara
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
-    cliver (0.3.2)
-    codeclimate-test-reporter (0.4.7)
+    codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     daemons (1.2.3)
-    database_cleaner (1.3.0)
-    debug_inspector (0.0.2)
+    database_cleaner (1.4.1)
     delayed_job (4.0.6)
       activesupport (>= 3.0, < 5.0)
     delayed_job_active_record (4.0.3)
@@ -106,7 +87,7 @@ GEM
       delayed_job (>= 3.0, < 4.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.5.1)
+    devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -123,7 +104,7 @@ GEM
       railties (~> 4.0)
     equalizer (0.0.11)
     erubis (2.7.0)
-    excon (0.45.3)
+    excon (0.45.4)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -131,115 +112,38 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.10)
-    fission (0.5.0)
-      CFPropertyList (~> 2.2)
-    fog (1.31.0)
-      fog-atmos
-      fog-aws (~> 0.0)
-      fog-brightbox (~> 0.4)
-      fog-core (~> 1.30)
-      fog-ecloud
-      fog-google (>= 0.0.2)
-      fog-json
-      fog-local
-      fog-powerdns (>= 0.1.1)
-      fog-profitbricks
-      fog-radosgw (>= 0.0.2)
-      fog-riakcs
-      fog-sakuracloud (>= 0.0.4)
-      fog-serverlove
-      fog-softlayer
-      fog-storm_on_demand
-      fog-terremark
-      fog-vmfusion
-      fog-voxel
-      fog-xml (~> 0.1.1)
-      ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
-    fog-atmos (0.1.0)
-      fog-core
-      fog-xml
-    fog-aws (0.6.0)
+    fog-aws (0.7.6)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-azure (0.0.1)
-      fog-core (~> 1.27)
-      fog-json (~> 1.0)
-      fog-xml (~> 0.1)
-    fog-brightbox (0.7.2)
-      fog-core (~> 1.22)
-      fog-json
-      inflecto (~> 0.0.2)
-    fog-core (1.31.1)
+    fog-core (1.32.1)
       builder
       excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.3.0)
-      fog-core
-      fog-xml
-    fog-google (0.0.6)
-      fog-core
-      fog-json
-      fog-xml
     fog-json (1.0.2)
       fog-core (~> 1.0)
       multi_json (~> 1.10)
-    fog-local (0.2.1)
-      fog-core (~> 1.27)
-    fog-powerdns (0.1.1)
-      fog-core (~> 1.27)
-      fog-json (~> 1.0)
-      fog-xml (~> 0.1)
-    fog-profitbricks (0.0.3)
-      fog-core
-      fog-xml
-      nokogiri
-    fog-radosgw (0.0.4)
-      fog-core (>= 1.21.0)
-      fog-json
-      fog-xml (>= 0.0.1)
-    fog-riakcs (0.1.0)
-      fog-core
-      fog-json
-      fog-xml
-    fog-sakuracloud (1.0.1)
-      fog-core
-      fog-json
-    fog-serverlove (0.1.2)
-      fog-core
-      fog-json
-    fog-softlayer (0.4.7)
-      fog-core
-      fog-json
-    fog-storm_on_demand (0.1.1)
-      fog-core
-      fog-json
-    fog-terremark (0.1.0)
-      fog-core
-      fog-xml
-    fog-vmfusion (0.1.0)
-      fission
-      fog-core
-    fog-voxel (0.1.0)
-      fog-core
-      fog-xml
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
+    foreman (0.78.0)
+      thor (~> 0.19.1)
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    globalid (0.3.5)
+    globalid (0.3.6)
       activesupport (>= 4.1.0)
-    haml (4.0.6)
+    haml (4.0.7)
       tilt
+    has_scope (0.6.0)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hashie (3.4.2)
-    highline (1.6.21)
+    highline (1.7.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     httparty (0.13.5)
@@ -247,55 +151,32 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.1)
-    inflecto (0.0.2)
     ipaddress (0.8.0)
-    jbuilder (2.3.0)
-      activesupport (>= 3.0.0, < 5)
-      multi_json (~> 1.2)
-    jellyfish-fog (0.0.5)
-      azure (>= 0.6.0)
-      bcrypt
-      dotenv-rails
-      fog
-      fog-azure
-      pg
-      rails
-      rbvmomi
-    jellyfish-manageiq (0.0.3)
-      apipie-rails (~> 0.2.6)
-      jellyfish-provisioner
-      pundit
-      rails
-      rake
-      rest-client
-      rufus-scheduler
-      virtus
+    jellyfish-aws (0.0.1)
+      bcrypt (~> 3.1)
+      fog-aws (~> 0.7)
+      rails (~> 4.2)
     jellyfish-notification (0.0.2)
       delayed_job_active_record
       dotenv-rails
       pg
       rails
       wisper
-    jellyfish-provisioner (0.1.0)
     json (1.8.3)
-    launchy (2.4.3)
-      addressable (~> 2.3)
     license_finder (2.0.4)
       bundler
       httparty
       thor
       xml-simple
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    macaddr (1.7.1)
-      systemu (~> 2.6.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (1.25.1)
+    mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.7.0)
-    multi_json (1.11.1)
+    minitest (5.8.0)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -307,23 +188,19 @@ GEM
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
     orm_adapter (0.5.0)
-    paper_trail (3.0.8)
-      activerecord (>= 3.0, < 5.0)
-      activesupport (>= 3.0, < 5.0)
+    paper_trail (4.0.0)
+      activerecord (>= 3.0, < 6.0)
+      activesupport (>= 3.0, < 6.0)
+      request_store (~> 1.1)
     paranoia (2.1.3)
       activerecord (~> 4.0)
     parser (2.2.2.6)
       ast (>= 1.1, < 3.0)
-    pg (0.18.2)
+    pg (0.18.3)
     pg_search (0.7.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
-    poltergeist (1.6.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      multi_json (~> 1.0)
-      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -331,8 +208,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (2.11.3)
-      rack (>= 1.1, < 2.0)
+    puma (2.13.4)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -351,7 +227,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -361,7 +237,7 @@ GEM
       rails_serve_static_assets
       rails_stdout_logging
     rails_serve_static_assets (0.0.4)
-    rails_stdout_logging (0.0.3)
+    rails_stdout_logging (0.0.4)
     railties (4.2.3)
       actionpack (= 4.2.3)
       activesupport (= 4.2.3)
@@ -369,26 +245,22 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     rake (10.4.2)
-    rbvmomi (1.8.2)
-      builder
-      nokogiri (>= 1.4.1)
-      trollop
-    rdoc (4.2.0)
+    request_store (1.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rspec-core (3.3.1)
+    rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
-    rspec-expectations (3.3.0)
+    rspec-expectations (3.3.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-mocks (3.3.1)
+    rspec-mocks (3.3.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-rails (3.3.2)
+    rspec-rails (3.3.3)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
@@ -397,28 +269,25 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
-    rubocop (0.32.1)
+    rubocop (0.34.1)
       astrolabe (~> 1.3)
       parser (>= 2.2.2.5, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.5)
-    ruby2ruby (2.1.4)
+    ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
-    ruby_parser (3.7.0)
+    ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
-    rufus-scheduler (3.1.3)
-    sass (3.4.15)
-    sdoc (0.4.1)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
+    rufus-scheduler (3.1.4)
+    sass (3.4.18)
     seed_dump (3.2.2)
       activerecord (~> 4)
       activesupport (~> 4)
-    selenium-webdriver (2.46.2)
+    selenium-webdriver (2.47.1)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
@@ -431,30 +300,30 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    slim (3.0.6)
+      temple (~> 0.7.3)
+      tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     spring (1.3.6)
-    sprockets (3.2.0)
+    sprockets (3.3.4)
       rack (~> 1.0)
-    sprockets-rails (2.3.2)
+    sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    systemu (2.6.5)
-    terminal-table (1.5.2)
+    temple (0.7.6)
+    terminal-table (1.4.5)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
     time_for_a_boolean (0.0.6)
       activerecord
       railties
-    trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
-    uuid (2.3.8)
-      macaddr (~> 1.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -462,20 +331,10 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
-    web-console (2.0.0)
-      activemodel (~> 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (~> 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.2)
-    websocket-driver (0.5.4)
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
     will_paginate (3.0.7)
     wisper (1.6.1)
     xml-simple (1.1.5)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -486,32 +345,28 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_list
   annotate
-  apipie-rails (~> 0.2.6)
+  apipie-rails (~> 0.3.0)
   awesome_print
   bcrypt (~> 3.1.7)
   brakeman
-  capybara-angular (= 0.1.0)
   codeclimate-test-reporter
   daemons
-  database_cleaner (~> 1.3.0)
+  database_cleaner (~> 1.4.1)
   delayed_job_active_record
   devise
   dotenv-rails
   factory_girl_rails (~> 4.0)
+  foreman
   friendly_id
-  highline
-  jbuilder (~> 2.0)
-  jellyfish-fog
-  jellyfish-manageiq
+  has_scope
+  jellyfish-aws
   jellyfish-notification
-  launchy
   license_finder
   omniauth
   paper_trail
   paranoia
   pg (~> 0.18.2)
   pg_search (~> 0.7.8)
-  poltergeist
   pry-rails
   puma
   pundit
@@ -524,7 +379,6 @@ DEPENDENCIES
   rubocop
   rufus-scheduler
   sass
-  sdoc (~> 0.4.0)
   seed_dump
   selenium-webdriver
   shoulda-matchers
@@ -532,7 +386,6 @@ DEPENDENCIES
   time_for_a_boolean
   tzinfo-data
   virtus
-  web-console (~> 2.0.0)
   will_paginate (~> 3.0.7)
   wisper
 

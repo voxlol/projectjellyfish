@@ -18,12 +18,7 @@
             ng-click="vm.openWizard()">
       Open Product Wizard
     </button>
-    <div class="marketplace__switch">
-      <view-mode-switch view-mode="vm.viewMode"></view-mode-switch>
-    </div>
   </div>
 </content-header>
-<catalog-category ng-repeat="category in vm.catalog"
-                  category="category"
-                  view-mode="vm.viewMode"
+<catalog-category ng-repeat="category in vm.catalog" category="category" view-mode="vm.viewMode"
                   required-tags="vm.tags"></catalog-category>
