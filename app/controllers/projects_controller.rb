@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook
-  after_action :publish_project_create, only: [:create]
 
   def self.document_project_params(required: false)
     param :approved, String
@@ -53,6 +52,7 @@ class ProjectsController < ApplicationController
     authorize Project
     group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
     project = Project.create project_params.merge(group_ids: group_ids)
+    publish(:publish_project_create, project, current_user) if project.valid?
     respond_with_params project
   end
 
@@ -108,13 +108,5 @@ class ProjectsController < ApplicationController
 
   def project
     @_project ||= Project.find(params[:id])
-  end
-
-  private
-
-  def publish_project_create
-    recipients = { project_approvers: Staff.admin.pluck(:email).join(', '), project_creator: current_user.email }
-    projects_url = "#{request.protocol}#{request.host_with_port}/projects"
-    publish(:publish_project_create, OpenStruct.new(body:  response.body), recipients, projects_url)
   end
 end
