@@ -18,7 +18,7 @@
 #
 
 class Setting < ActiveRecord::Base
-  include ActiveModel::Validations
+  include ValueTypes
 
   before_save :clear_value_when_default
   before_save :clear_cache
@@ -26,25 +26,6 @@ class Setting < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :default, inclusion: { in: [true, false], message: 'is not a boolean' }, if: -> (s) { s.value_type == 'boolean' }
-  validates :value, uri: true, if: -> (s) { s.value_type == 'url' }
-  validates :value, email: true, if: -> (s) { s.value_type == 'email' }
-  # TODO: Add more type validations
-
-  enum value_type: {
-    string: 0,
-    password: 1,
-    integer: 2,
-    boolean: 3,
-    array: 4,
-    json: 5,
-    date: 6,
-    datetime: 7,
-    fingerprint: 8,
-    certificate: 9,
-    text: 10,
-    url: 11,
-    email: 12
-  }
 
   default_scope { order(:name) }
 
