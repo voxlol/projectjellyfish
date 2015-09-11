@@ -31,11 +31,7 @@ class OrdersController < ApplicationController
   param :service, Hash, required: true do
     param :name, String, desc: 'Name of the new service', required: true
   end
-  param :answers, Array, desc: 'Provisioning Answers', allow_nil: true do
-    param :name, String, desc: 'Answer key'
-    param :value_type, String, desc: 'How to interpret the :value'
-  end
-  error code: 400, desc: 'Order errors'
+  param_group :answers, ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create

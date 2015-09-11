@@ -17,10 +17,7 @@ class ProductsController < ApplicationController
     param :hourly_price, :decimal, precision: 10, scale: 4, desc: 'Cost per Hour', action_aware: true
     param :product_type_id, :number, desc: 'Product Type', action_aware: true
     param :tags, Array, desc: 'List of tags', action_aware: true
-    param :answers, Array, desc: 'Provisioning Answers', action_aware: true do
-      param :name, String, desc: 'Answer key'
-      param :value_type, String, desc: 'How to interpret the :value'
-    end
+    param_group :answers, ApplicationController
     error code: 422, desc: ParameterValidation::Messages.missing
   end
 

@@ -16,10 +16,7 @@ class ProjectsController < ApplicationController
     param :description, String
     param :end_date, String, action_aware: true
     param :img, String
-    param :answers, Array, desc: 'Project Specifications', allow_nil: true do
-      param :name, String, desc: 'Answer key'
-      param :value_type, String, desc: 'How to interpret the :value'
-    end
+    param_group :answers, ApplicationController
   end
 
   api :GET, '/projects', 'Returns a collection of projects'
