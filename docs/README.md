@@ -23,7 +23,7 @@ Jellyfish has the following requirements:
 * PostgreSQL 9.4+
 * Red Hat Enterprise Linux / CentOS
 
-To see a detailed list of [System Requirements](system_requirements.md)
+To see a detailed list of [System Requirements](requirements.md)
 
 **How to Install Project Jellyfish**
 
