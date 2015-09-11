@@ -12,6 +12,7 @@
   function getStates() {
     return {
       'products': {
+        parent: 'application',
         url: '/',
         redirectTo: 'marketplace',
         template: '<ui-view></ui-view>',

@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'marketplace': {
+        parent: 'application',
         url: '/marketplace?tags',
         templateUrl: 'app/states/marketplace/marketplace.html',
         controller: StateController,

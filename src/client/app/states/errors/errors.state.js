@@ -12,6 +12,7 @@
   function getStates() {
     return {
       'errors': {
+        parent: 'blank',
         abstract: true,
         template: '<ui-view></ui-view>',
         url: '/errors'

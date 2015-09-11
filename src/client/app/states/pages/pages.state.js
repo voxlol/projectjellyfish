@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'pages': {
+        parent: 'application',
         url: '/pages/:slug',
         templateUrl: 'app/states/pages/page.html',
         title: 'Pages',

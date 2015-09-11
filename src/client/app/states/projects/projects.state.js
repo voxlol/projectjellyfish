@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'projects': {
+        parent: 'application',
         url: '/projects',
         redirectTo: 'projects.list',
         template: '<ui-view></ui-view>',

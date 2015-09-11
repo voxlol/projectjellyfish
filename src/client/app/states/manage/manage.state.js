@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'manage': {
+        parent: 'application',
         abstract: true,
         template: '<ui-view></ui-view>',
         url: '/manage',

@@ -17,6 +17,7 @@
   function getStates() {
     return {
       'login': {
+        parent: 'application',
         url: '/login',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,
@@ -24,9 +25,6 @@
         title: 'Login',
         resolve: {
           motd: resolveMotd
-        },
-        data: {
-          layout: 'blank'
         }
       }
     };

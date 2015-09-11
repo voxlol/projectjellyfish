@@ -14,6 +14,7 @@
   function getStates() {
     return {
       'logout': {
+        parent: 'blank',
         url: '/logout',
         controller: StateController,
         controllerAs: 'vm',

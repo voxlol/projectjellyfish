@@ -13,6 +13,7 @@
   function getStates() {
     return {
       'orders': {
+        parent: 'application',
         url: '/orders',
         redirectTo: 'orders.list',
         template: '<ui-view></ui-view>',

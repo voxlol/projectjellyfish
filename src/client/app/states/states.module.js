@@ -3,6 +3,7 @@
 
   angular.module('app.states', [
     'app.core',
+    'app.layouts',
     'app.components',
     'app.resources'
   ]);
