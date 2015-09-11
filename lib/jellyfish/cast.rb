@@ -116,7 +116,7 @@ module Jellyfish
       end
 
       def to_datetime
-        return unless :date == @type
+        return unless :datetime == @type
         begin
           throw :cast, @value.to_datetime
         rescue => e
