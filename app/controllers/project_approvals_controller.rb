@@ -2,7 +2,6 @@ class ProjectApprovalsController < ApplicationController
   include Wisper::Publisher
   before_action :pre_hook
   after_action :post_hook
-  after_action :publish_project_approval_update, only: [:update]
 
   api :GET, '/projects/:project_id/approvals', 'Returns a list of all approvals for a project'
   param :project_id, :number, required: true
@@ -18,6 +17,7 @@ class ProjectApprovalsController < ApplicationController
   def update
     approval = project.approvals.find_or_initialize_by(staff_id: current_user.id)
     perform_in_transaction(project) { approval.approve! }
+    publish(:publish_project_approval_update, project) if project.approval == 'approved'
   end
 
   api :DELETE, '/projects/:project_id/reject', 'Set or change the approval for current_user for a project'
@@ -42,11 +42,5 @@ class ProjectApprovalsController < ApplicationController
 
   def project
     @_project ||= Project.find(params[:project_id]).tap { |proj| authorize(proj) }
-  end
-
-  def publish_project_approval_update
-    recipients = Staff.admin.pluck(:email).join(', ')
-    project_url = "#{request.protocol}#{request.host_with_port}/projects/#{project.id}"
-    publish(:publish_project_approval_update, project, recipients, project_url) if project.approval == 'approved'
   end
 end
