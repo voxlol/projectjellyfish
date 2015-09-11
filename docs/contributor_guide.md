@@ -5,8 +5,6 @@ Our resources:
 
 * [Github](https://github.com/projectjellyfish/api) - Development and issue tracking
 
-* [Trello](https://trello.com/projectjellyfish) - Sprint planning
-
 * [Forum](http://talk.projectjellyfish.org) - Portal for communication within the Jellyfish community
 
 * [Our website](http://www.projectjellyfish.org/) - General information
@@ -14,33 +12,44 @@ Our resources:
 We encourage you to contribute to Project Jellyfish! Here are a few ways in which you can help us improve:
 
 
-####Add a Module
+####Create a Module
 
-See our [Jellyfish Module Setup](http://projectjellyfish.readthedocs.org/) page.
+See our [Jellyfish Module Setup](module-creation/basic_setup.md) page.
 
 
 ####Report an Issue
 
-A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses GitHub Issue Tracking to track issues, which are typically bugs and contributions of new code. If you find a bug in Project Jellyfish, we encourage you to start by searching the Github Issues queue to see if a ticket has been generated already. If you don’t spot the issue at hand, please feel free to create a new ticket that we’ll review and prioritize.
+A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses [GitHub 
+Issue Tracking](https://github.com/projectjellyfish/api/issues) to track issues, which are typically bugs and 
+contributions of new code. If you find a bug in Project Jellyfish, we encourage you to start by searching the Github 
+Issues queue to see if a ticket has been generated already. 
 
-In order to interact with GitHub issues, you’ll first need to create a free GitHub account in order to submit a bug, comment on a bug, and/or create a pull request. From there, your issue should contain a concise title and specific description. If possible, attach screenshots and relevant code to the ticket.
-Since the goal is to fix the ticket swiftly on our (or your) end, submitting a clearly defined issue is the first step.
+If you don’t spot the issue at hand, please feel free to create a new ticket that we’ll review and prioritize.
 
+In order to interact with GitHub issues, you’ll first need to create a free GitHub account in order to submit a bug, 
+comment on a bug, and/or create a pull request. From there, your issue should contain a concise title and specific 
+description. If possible, attach screenshots and relevant code to the ticket.
 
 
 ####Request a Feature Enhancement/ New Feature
 
-A feature is anything that adds new behavior to Project Jellyfish. Since we welcome any and all suggestions at present, please feel free to include feature suggestions into Github Issue Tracking by labeling it as “feature” when creating your issue. Similar to reporting an issue, please be as thorough as necessary to convey your idea while keeping in mind the usefulness of visual aids, links to similar features elsewhere and code snippets.
-
+A feature is anything that adds new behavior to Project Jellyfish. Since we welcome any and all suggestions at present, 
+please feel free to include feature suggestions into Github Issue Tracking by labeling it as “feature” when creating 
+your issue. Similar to reporting an issue, please be as thorough as necessary to convey your idea while keeping in mind 
+the usefulness of visual aids, links to similar features elsewhere and code snippets.
 
 
 ####Resolve Existing Issues/ Contribute to Docs
 
-Take your involvement with Project Jellyfish a step further by assisting us. We welcome your help in fixing bugs, submitting new features, creating new modules and writing docs to guide new users through the process and keep the API reference guide up-to-date.
-Anything you choose to contribute will better Project Jellyfish - and its documentation – and is appreciated by the entire community!
+Take your involvement with Project Jellyfish a step further by assisting us. We welcome your help in fixing bugs, 
+submitting new features, creating new modules and writing docs to guide new users through the process and keep the API 
+reference guide up-to-date.
+
+Anything you choose to contribute will better Project Jellyfish - and its documentation – and is appreciated by the 
+entire community!
 
 
+#####Follow our Roadmap
 
-#####Follow our Priority Roadmap
-
-Interested in learning more about where we are in development? Check out our [Priority Roadmap](http://projectjellyfish.readthedocs.org/) for a look at what we've done and where we're going.
+Interested in learning more about where we are in development? Check out our [Roadmap](roadmap.md) for a look at what 
+we've done and where we're going.
