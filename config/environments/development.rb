@@ -42,3 +42,5 @@ Rails.application.configure do
   config.action_controller.action_on_unpermitted_parameters = true
   config.assets.paths << 'src/client'
 end
+
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'
