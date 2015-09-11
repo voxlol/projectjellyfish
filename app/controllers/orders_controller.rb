@@ -52,7 +52,7 @@ class OrdersController < ApplicationController
       render json: { error: 'The budget for one or more of these projects has been, or will be exceeded.' }, status: 409
     else
       @order.save
-      publish(:publish_order_create, @order, current_user)
+      publish(:publish_order_create, @order, current_user) if @order.persisted?
       respond_with @order
     end
   end

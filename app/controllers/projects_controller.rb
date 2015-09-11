@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     authorize Project
     group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
     project = Project.create project_params.merge(group_ids: group_ids)
-    publish(:publish_project_create, project, current_user) if project.valid?
+    publish(:publish_project_create, project, current_user) if project.persisted?
     respond_with_params project
   end
 
