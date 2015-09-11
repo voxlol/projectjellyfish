@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  include Wisper::Publisher
+
   PROJECT_INCLUDES = %w(latest_alerts alerts approvals approvers memberships groups project_answers services staff orders)
   PROJECT_METHODS = %w(problem_count state state_ok)
   before_action :pre_hook
@@ -14,10 +16,10 @@ class ProjectsController < ApplicationController
     param :description, String
     param :end_date, String, action_aware: true
     param :img, String
-    # param :answers, Array, desc: 'Project Specifications', allow_nil: true do
-    #   param :name, String, desc: 'Answer key'
-    #   param :value_type, String, desc: 'How to interpret the :value'
-    # end
+    param :answers, Array, desc: 'Project Specifications', allow_nil: true do
+      param :name, String, desc: 'Answer key'
+      param :value_type, String, desc: 'How to interpret the :value'
+    end
   end
 
   api :GET, '/projects', 'Returns a collection of projects'
@@ -50,6 +52,7 @@ class ProjectsController < ApplicationController
   def create
     authorize Project
     project = Project.create project_params
+    publish(:publish_project_create, project, current_user) if project.persisted?
     respond_with_params project
   end
 

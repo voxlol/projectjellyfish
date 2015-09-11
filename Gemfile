@@ -34,8 +34,9 @@ gem 'pundit'
 
 gem 'time_for_a_boolean'
 
-# gem 'jellyfish-fog'
-# gem 'jellyfish-manageiq'
+# Adds enhanced pub/sub hooks
+gem 'wisper'
+
 
 # Tests
 group :development, :test do
@@ -110,4 +111,7 @@ gem 'has_scope'
 
 # Jellyfish Extensions
 #
-gem 'jellyfish-aws', path: '../jellyfish_aws'
+gem 'jellyfish-aws'
+# gem 'jellyfish-fog'
+# gem 'jellyfish-manageiq'
+gem 'jellyfish-notification'

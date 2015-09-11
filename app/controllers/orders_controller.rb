@@ -1,5 +1,11 @@
 class OrdersController < ApplicationController
+  include Wisper::Publisher
+
+  after_action :verify_authorized
+
   api :GET, '/orders', 'Returns all orders'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   param :includes, Array, in: Order.reflect_on_all_associations.map(&:name).map(&:to_s)
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -34,6 +40,7 @@ class OrdersController < ApplicationController
 
   def create
     use_case = CreateServiceOrder.perform(current_user, order_params)
+    publish(:publish_order_create, use_case.order, current_user) if use_case.order.persisted?
     respond_with use_case.order
   rescue UseCase::Error => e
     fail_with error: e.message, type: e.class.to_s.split('::').last

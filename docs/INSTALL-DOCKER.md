@@ -3,16 +3,12 @@
 Guide to running API with Docker
 
 ## Installing Docker
-Please see Docker's installation instructions available here: https://docs.docker.com/installation/mac/
+Please see Docker's installation instructions available here: https://docs.docker.com/installation/
 
 ## Setup
-The Dockerfile and docker-compose.yml are the two files that properly configure Jellyfish-API to run on Docker. These files do not need to be altered. In your .env file, remove the following references to avoid database conflicts:
-```
-DATABASE_URL=
-CORS_ALLOW_ORIGIN=
-DEFAULT_URL=
-```
-You will need to set your devise secret key as an environment variable.
+The Dockerfile and docker-compose.yml are the two files that properly configure Jellyfish-API to run on Docker.  It is 
+highly recommended that you change the secret keys in the docker-compose.yml file if you are running in production.  The
+keys in the file are not secure.
 
 In a terminal inside of your project directory, run the following command to build the image:
 ```
@@ -24,8 +20,8 @@ docker-compose up
 ```
 In a different terminal, enter the following command to setup the database
 ```
-docker-compose run web rake db:create
-docker-compose run web rake db:migrate
+docker-compose run web rake db:setup
+docker-compose run web rake db:seed
 docker-compose run web rake sample:demo
 ```
 Your application should now be running. To find your boot2docker ip address, run
