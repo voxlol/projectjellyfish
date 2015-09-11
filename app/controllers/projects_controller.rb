@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  include Wisper::Publisher
   PROJECT_INCLUDES = %w(latest_alerts alerts approvals approvers memberships groups project_answers project_detail services staff)
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users latest_service_alerts)
   before_action :pre_hook
@@ -51,6 +52,7 @@ class ProjectsController < ApplicationController
     authorize Project
     group_ids = current_user.admin? ? params[:group_ids] : params.require(:group_ids)
     project = Project.create project_params.merge(group_ids: group_ids)
+    publish(:publish_project_create, project, current_user) if project.persisted?
     respond_with_params project
   end
 

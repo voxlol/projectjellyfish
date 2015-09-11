@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
+  include Wisper::Publisher
   after_action :verify_authorized
-
   before_action :load_order, only: [:show, :update, :destroy]
   before_action :load_order_params, only: [:create, :update]
   before_action :load_orders, only: [:index]
@@ -52,6 +52,7 @@ class OrdersController < ApplicationController
       render json: { error: 'The budget for one or more of these projects has been, or will be exceeded.' }, status: 409
     else
       @order.save
+      publish(:publish_order_create, @order, current_user) if @order.persisted?
       respond_with @order
     end
   end
