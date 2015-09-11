@@ -29,7 +29,7 @@ To see a detailed list of [System Requirements](system_requirements.md)
 
 Jellyfish is a Ruby on Rails application.  Please choose the appropriate installation guide for your system:
 
-* Mac Users: [OSX 10.10 Install](install-guides/osx.md) - Generally for development only
+* Mac Users: [OSX 10.10 Install](install-guides/mac.md) - Generally for development only
 
 * RHEL Users: [RHEL Install](install-guides/rhel.md)
 

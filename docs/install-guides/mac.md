@@ -1,4 +1,4 @@
-# OS X (Mac) Installation
+# Mac (OSX 10.10) Installation
 
 This guide will walk you through how to install and run Jellyfish-API on **Mac OS X Mavericks (for Development)**.  Generally, this guide would be used for development purposes, but you can run it in production as well.  This will set up the app to run on port 3000. If you want it to run on a different port, you will need to use Apache or Nginx (this doc will not cover that).
 
