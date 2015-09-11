@@ -1,11 +1,3 @@
-PATH
-  remote: ../jellyfish_aws
-  specs:
-    jellyfish-aws (0.0.1)
-      bcrypt
-      fog-aws
-      rails (~> 4.2.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -160,6 +152,16 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.1)
     ipaddress (0.8.0)
+    jellyfish-aws (0.0.1)
+      bcrypt (~> 3.1)
+      fog-aws (~> 0.7)
+      rails (~> 4.2)
+    jellyfish-notification (0.0.2)
+      delayed_job_active_record
+      dotenv-rails
+      pg
+      rails
+      wisper
     json (1.8.3)
     license_finder (2.0.4)
       bundler
@@ -331,6 +333,7 @@ GEM
       rack (>= 1.0)
     websocket (1.2.2)
     will_paginate (3.0.7)
+    wisper (1.6.1)
     xml-simple (1.1.5)
 
 PLATFORMS
@@ -356,7 +359,8 @@ DEPENDENCIES
   foreman
   friendly_id
   has_scope
-  jellyfish-aws!
+  jellyfish-aws
+  jellyfish-notification
   license_finder
   omniauth
   paper_trail
@@ -383,6 +387,7 @@ DEPENDENCIES
   tzinfo-data
   virtus
   will_paginate (~> 3.0.7)
+  wisper
 
 BUNDLED WITH
    1.10.6

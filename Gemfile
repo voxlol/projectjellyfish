@@ -37,7 +37,6 @@ gem 'time_for_a_boolean'
 # Adds enhanced pub/sub hooks
 gem 'wisper'
 
-
 # Tests
 group :development, :test do
   gem 'annotate'
@@ -110,8 +109,5 @@ gem 'activesupport-json_encoder'
 gem 'has_scope'
 
 # Jellyfish Extensions
-#
 gem 'jellyfish-aws'
-# gem 'jellyfish-fog'
-# gem 'jellyfish-manageiq'
 gem 'jellyfish-notification'
