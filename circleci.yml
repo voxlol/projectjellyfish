@@ -1,0 +1,51 @@
+## Customize the test machine
+machine:
+
+  timezone:
+    America/Chicago # Set the timezone
+
+  # Version of ruby to use
+  ruby:
+    version:
+      2.2.2
+
+  # Override /etc/hosts
+  hosts:
+    circlehost: 127.0.0.1
+    dev.mycompany.com: 127.0.0.1
+
+  # Add some environment variables
+  environment:
+    CIRCLE_ENV: development
+    #DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    RAILS_ENV: development
+    RACK_ENV: development
+
+## Customize dependencies
+dependencies:
+  pre:
+    - bundle install
+    - npm install -g npm@latest
+    - npm install -g gulp
+    - npm install
+
+## Customize database setup
+database:
+  override:
+    # replace CircleCI's generated database.yml
+    - cp config/database.yml.ci config/database.yml
+    - bundle exec rake db:create db:schema:load
+
+## Customize test commands
+test:
+  post:
+    - bundle exec rubocop
+    - bundle exec rspec
+
+
+## Customize deployment commands
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: jellyfish-api
