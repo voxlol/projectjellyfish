@@ -12,7 +12,7 @@ machine:
   # Add some environment variables
   environment:
     CIRCLE_ENV: development
-    #DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/jellyfish_development
     RAILS_ENV: development
     RACK_ENV: development
 
@@ -28,7 +28,7 @@ dependencies:
 database:
   override:
     # replace CircleCI's generated database.yml
-    - cp config/database.yml.ci config/database.yml
+    #- cp config/database.yml.ci config/database.yml
     - bundle exec rake db:create db:schema:load
 
 ## Customize test commands
