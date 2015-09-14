@@ -6,3 +6,6 @@ WORKDIR /api
 
 ADD . /api
 RUN bundle install
+RUN npm install gulp-cli -g
+RUN npm install bower -g
+RUN npm install
