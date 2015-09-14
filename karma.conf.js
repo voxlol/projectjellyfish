@@ -8,7 +8,7 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: './',
 
-    urlRoot: '/__karma__/',
+    // urlRoot: '/__karma__/',
 
     // frameworks to use
     // some available frameworks: https://npmjs.org/browse/keyword/karma-adapter

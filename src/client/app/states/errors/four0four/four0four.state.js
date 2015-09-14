@@ -6,8 +6,7 @@
 
   /** @ngInject */
   function appRun(routerHelper) {
-    var otherwise = '/errors/404';
-    routerHelper.configureStates(getStates(), otherwise);
+    routerHelper.configureStates(getStates(), '/errors/404');
   }
 
   function getStates() {
@@ -18,9 +17,6 @@
         controller: StateController,
         controllerAs: 'vm',
         title: 'Not Found : 404',
-        data: {
-          layout: 'blank'
-        },
         params: {
           toState: null
         }

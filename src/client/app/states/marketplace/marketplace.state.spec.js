@@ -1,25 +1,35 @@
 /* jshint -W117, -W030 */
 describe('Marketplace', function() {
+  beforeEach(function() {
+    module('app.states', bard.fakeToastr);
+    bard.inject('$location', '$rootScope', '$state', '$templateCache');
+    bard.inject('$q', 'SessionService', '$httpBackend');
+  });
+
+  beforeEach(function() {
+    SessionService.create({
+      id: 1,
+      email: 'foo@bar.com',
+      role: 'user'
+    });
+    $httpBackend.when('GET', /product_categories/).respond([]);
+    $httpBackend.when('GET', /products/).respond([]);
+  });
+
   describe('route', function() {
     var views = {
       marketplace: 'app/states/marketplace/marketplace.html'
     };
 
-    beforeEach(function() {
-      module('app.states');
-      bard.inject('$location', '$rootScope', '$state', '$templateCache');
-    });
-
     it('should work with $state.go', function() {
       $state.go('marketplace');
       $rootScope.$apply();
-      expect($state.is('marketplace'));
+      expect($state.is('marketplace')).to.equal(true);
     });
   });
 
   describe('navigation', function() {
     beforeEach(function() {
-      module('app.states', bard.fakeToastr);
       bard.inject('navigationHelper', '$rootScope');
     });
 
@@ -32,7 +42,6 @@ describe('Marketplace', function() {
     var controller;
 
     beforeEach(function() {
-      module('app.states', bard.fakeToastr);
       bard.inject('$controller', '$log', '$state', '$rootScope');
       controller = $controller($state.get('marketplace').controller);
       $rootScope.$apply();

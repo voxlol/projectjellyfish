@@ -79,7 +79,6 @@
         .finally(doneCallback);
 
       function boot() {
-        console.log('Booting', app);
         bootstrapApplication(app);
       }
     }
