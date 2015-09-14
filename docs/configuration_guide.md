@@ -1,9 +1,6 @@
 Configuration Guide
 ===================
 
-The vast majority of configuration guides on this page live in our 
-[Project Jellyfish Read the Docs site](http://projectjellyfish.readthedocs.org/en/latest/)
-
 ####How to Set an Jellyfish Settings:
 
 See the [Configuring Jellyfish Settings](how-tos/jellyfish-settings.md) for how to set configurations items, such as 
@@ -21,7 +18,7 @@ to pre and post hooks from an API or a Module.
 
 #####How to Use Content Tags:
 
-See the [Tags in Project Jellyfish](developer-guides/tags_in_project_jellyfish.md) guide to see how tags can be 
+See the [Tags in Project Jellyfish](developer-guides/tags_in_project_Jellyfish.md) guide to see how tags can be 
 implemented and used.
 
 

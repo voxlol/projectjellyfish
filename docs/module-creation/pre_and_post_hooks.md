@@ -58,7 +58,8 @@ end
 ...
 ```
 
-Rails will then automatically subscribe to the `sessions#create/pre_hook` and `sessions#create/post_hook` events upon initialization.
+Rails will then automatically subscribe to the `sessions#create/pre_hook` and `sessions#create/post_hook` events upon 
+initialization.
 
 To see which events correspond to which routes, you can run `rake routes` from the terminal:
 
@@ -69,14 +70,17 @@ $ rake routes
  destroy_staff_session DELETE /staff/sign_out(.:format)		sessions#destroy
  ```
 
-In the above example, we see that the `staff/sign_in` and `staff/sign_out` are mapped to the `sessions#create` and `sessions#destroy` routes respectively. Using that information, we can subscribe to Pre and Post hooks using the following naming convention:
+In the above example, we see that the `staff/sign_in` and `staff/sign_out` are mapped to the `sessions#create` 
+and `sessions#destroy` routes respectively. Using that information, we can subscribe to Pre and Post hooks using the 
+following naming convention:
 
 ```ruby
 controller_name + '#' + action_name + '/pre_hook'  # FOR A PRE HOOK EVENT
 controller_name + '#' + action_name + '/post_hook' # FOR A POST HOOK EVENT
 ```
 
-ActiveSupport::Notifications provides access to the following attributes which we can use from within our hook subscription:
+ActiveSupport::Notifications provides access to the following attributes which we can use from within our hook 
+subscription:
 
 ```ruby
 ...
@@ -95,5 +99,6 @@ end
 
 #### How to Subscribe to a Pre or Post Hook (from a module)
 
-Subscribing to a Pre or Post hook from a module should be analogous to subscribing from within API. Make sure that the module includes Rails and define your subscriptions in a way that will get picked up by Rails on initialization.
+Subscribing to a Pre or Post hook from a module should be analogous to subscribing from within API. Make sure that the 
+module includes Rails and define your subscriptions in a way that will get picked up by Rails on initialization.
 

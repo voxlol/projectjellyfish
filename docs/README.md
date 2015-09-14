@@ -38,7 +38,7 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 -----
 #### License
 
-See [LICENSE](https://github.com/projectjellyfish/api/blob/master/LICENSE).
+Project Jellyfish is released under the Apache 2.0 License.  See [LICENSE](https://github.com/projectjellyfish/api/blob/master/LICENSE).
 
 -----
 Copyright 2015 Booz Allen Hamilton

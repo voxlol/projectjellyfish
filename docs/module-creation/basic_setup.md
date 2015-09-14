@@ -1,7 +1,6 @@
 # Jellyfish Module Setup (Steps 1-7)
 
 This guide explains how to create a module that can be used with [Project Jellyfish](https://github.com/projectjellyfish/api).
-A continuation of this guide teaches you how to [Add Module Functionality](http://projectjellyfish.readthedocs.org/en/latest/Wiki/Modules/add_module_functionality/) (Step 8).
 
 ### Step 1: Create Empty Module
 
@@ -13,7 +12,8 @@ To create a new module named `jellyfish_logger` run:
 $ rails plugin new jellyfish_logger --dummy-path=spec/dummy --skip-test-unit --skip-bundle --mountable
 ```
 
-Jellyfish uses [rspec](http://rspec.info/), so skip test-unit and auto bundle. See a good discussion of mountable engines [here](http://stackoverflow.com/questions/6118905/rails-3-1-engine-vs-mountable-app#answer-6833288).
+Jellyfish uses [rspec](http://rspec.info/), so skip test-unit and auto bundle. See a good discussion of mountable 
+engines [here](http://stackoverflow.com/questions/6118905/rails-3-1-engine-vs-mountable-app#answer-6833288).
 
 ### Step 2: Update Gemspec and Gemfile
 
@@ -24,12 +24,6 @@ Start by specifying a homepage, summary and description in Gemspec:
 s.homepage    = "www.projectjellyfish.org"
 s.summary     = "Jellyfish Logger Module "
 s.description = "A module that adds log support to Jellyfish API"
-```
-
-Then replace MIT-LICENSE with APACHE [LICENSE](https://raw.githubusercontent.com/projectjellyfish/api/master/LICENSE) and switch README to `.md`:
-```shell
-s.license     = "APACHE"
-s.files       = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 ```
 
 ###### Add dependencies
@@ -495,4 +489,5 @@ Alternatively, you can load your module in a parent app's Gemfile from GitHub as
 gem 'jellyfish_logger', git: 'git://github.com/projectjellyfish/jellyfish_logger.git
 ```
 
-See [here](http://guides.rubygems.org/publishing) for instructions on how to make your module accessible from RubyGems.org - not required, but nice to have.
+See [here](http://guides.rubygems.org/publishing) for instructions on how to make your module accessible from 
+RubyGems.org - not required, but nice to have.

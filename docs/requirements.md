@@ -8,19 +8,19 @@ how many people are accessing the site via the mobile application and web applic
 ### Bare Metal / Traditional Virtual Machine
 
 **Suggested Minimum Configuration (single server)**
-* 8 CPU Core's
+* 8 CPU Cores
 * 16 GB of RAM
 * 500GB of Disk Space
 
 **Suggested Minimum Configuration (Separate DB Server and Web Server)**
 
 Web Server
-* 2 CPU Core's
+* 2 CPU Cores
 * 8 GB of RAM
 * 40GB of Disk Space
 
 Database (PostgreSQL) Server
-* 4 CPU Core's
+* 4 CPU Cores
 * 8 GB of RAM
 * 500GB of Disk Space
 
