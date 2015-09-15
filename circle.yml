@@ -29,7 +29,7 @@ database:
   override:
     # replace CircleCI's generated database.yml
     #- cp config/database.yml.ci config/database.yml
-    - rake db:schema:load; rake spec; rake db:seed; rake sample:demo
+    - rake db:create; rake db:schema:load; rake spec; rake db:seed; rake sample:demo
 
 ## Customize test commands
 test:
