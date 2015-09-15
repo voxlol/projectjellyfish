@@ -2,11 +2,6 @@
 (function(angular) {
   'use strict';
 
-  angular.lazy('app')
-    .resolve(initUserData)
-    .resolve(initExtensions)
-    .bootstrap();
-
   /** @ngInject */
   function initUserData($http) {
     $http.get('/api/v1/staff/current_member')
@@ -66,4 +61,9 @@
       }
     }
   }
+
+  angular.lazy('app')
+    .resolve(initUserData)
+    .resolve(initExtensions)
+    .bootstrap();
 })(angular);
