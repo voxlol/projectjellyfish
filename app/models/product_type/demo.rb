@@ -1,4 +1,4 @@
-class ProductType
+class ProductType < ActiveRecord::Base
   class Demo < ProductType
     def self.load_product_types
       return unless super
