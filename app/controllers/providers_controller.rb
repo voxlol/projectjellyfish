@@ -1,6 +1,8 @@
 class ProvidersController < ApplicationController
   after_action :verify_authorized
 
+  PROVIDER_INCLUDES = %w(tags answers registered_provider)
+
   def_param_group :provider do
     param :registered_provider_id, :number, desc: 'Registered Provider ID', action_aware: true, allow_nil: false
     param :name, String, desc: 'Provider Name', action_aware: true, allow_nil: false
@@ -11,7 +13,7 @@ class ProvidersController < ApplicationController
   end
 
   api :GET, '/providers', 'Lists all providers'
-  param :includes, Array, in: Provider.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PROVIDER_INCLUDES
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def index
@@ -21,7 +23,7 @@ class ProvidersController < ApplicationController
 
   api :GET, '/providers/:id', 'Returns a provider'
   param :id, :number
-  param :includes, Array, in: Provider.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PROVIDER_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
