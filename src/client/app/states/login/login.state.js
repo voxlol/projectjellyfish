@@ -17,7 +17,7 @@
   function getStates() {
     return {
       'login': {
-        parent: 'application',
+        parent: 'blank',
         url: '/login',
         templateUrl: 'app/states/login/login.html',
         controller: StateController,

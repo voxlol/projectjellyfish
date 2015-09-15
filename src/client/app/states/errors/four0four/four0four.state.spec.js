@@ -1,12 +1,12 @@
 /* jshint -W117, -W030 */
 describe('404', function() {
   beforeEach(function() {
-    bard.asyncModule('app.states');
+    module('app.states');
   });
 
   describe('route', function() {
     var views = {
-      four0four: 'app/states/404/404.html'
+      four0four: 'app/states/errors/four0four/four0four.html'
     };
 
     beforeEach(function() {
@@ -14,13 +14,13 @@ describe('404', function() {
     });
 
     it('should map /404 route to 404 View template', function() {
-      expect($state.get('404').templateUrl).to.equal(views.four0four);
+      expect($state.get('errors.four0four').templateUrl).to.equal(views.four0four);
     });
 
     it('should work with $state.go', function() {
-      $state.go('404');
+      $state.go('errors.four0four');
       $rootScope.$apply();
-      expect($state.is('404'));
+      expect($state.is('errors.four0four')).to.equal(true);
     });
 
     it('should route /invalid to the otherwise (404) route', function() {

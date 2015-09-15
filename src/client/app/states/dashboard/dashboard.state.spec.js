@@ -1,25 +1,32 @@
 /* jshint -W117, -W030 */
 describe('Dashboard', function() {
+  beforeEach(function() {
+    module('app.states', bard.fakeToastr);
+    bard.inject('$location', '$rootScope', '$state', '$templateCache', 'SessionService');
+  });
+
+  beforeEach(function() {
+    SessionService.create({
+      id: 1,
+      email: 'foo@bar.com',
+      role: 'user'
+    });
+  });
+
   describe('route', function() {
     var views = {
       dashboard: 'app/states/dashboard/dashboard.html'
     };
 
-    beforeEach(function() {
-      module('app.states');
-      bard.inject('$location', '$rootScope', '$state', '$templateCache');
-    });
-
     it('should work with $state.go', function() {
       $state.go('dashboard');
       $rootScope.$apply();
-      expect($state.is('dashboard'));
+      expect($state.is('dashboard')).to.equal(true);
     });
   });
 
   describe('navigation', function() {
     beforeEach(function() {
-      module('app.states', bard.fakeToastr);
       bard.inject('navigationHelper', '$rootScope');
     });
 
@@ -36,7 +43,6 @@ describe('Dashboard', function() {
     var controller;
 
     beforeEach(function() {
-      module('app.states', bard.fakeToastr);
       bard.inject('$controller', '$log', '$state', '$rootScope');
       controller = $controller($state.get('dashboard').controller);
       $rootScope.$apply();
