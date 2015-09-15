@@ -1,8 +1,10 @@
 class ServicesController < ApplicationController
+  SERVICE_INCLUDES = %w(alerts latest_alerts order project product product_type)
+
   after_action :verify_authorized
 
   api :GET, '/services', 'Returns all services'
-  param :includes, Array, in: Service.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: SERVICE_INCLUDES
   param :page, :number
   param :per_page, :number
 
@@ -13,7 +15,7 @@ class ServicesController < ApplicationController
 
   api :GET, '/services/:id', 'Returns a service'
   param :id, :number, required: true
-  param :includes, Array, in: Service.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: SERVICE_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show

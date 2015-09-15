@@ -1,12 +1,14 @@
 class OrdersController < ApplicationController
   include Wisper::Publisher
 
+  ORDER_INCLUDES = %w(staff product project service answers)
+
   after_action :verify_authorized
 
   api :GET, '/orders', 'Returns all orders'
   param :page, :number, required: false
   param :per_page, :number, required: false
-  param :includes, Array, in: Order.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: ORDER_INCLUDES
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def index
@@ -16,7 +18,7 @@ class OrdersController < ApplicationController
 
   api :GET, '/orders/:id', 'Returns an order by :id'
   param :id, :number
-  param :includes, Array, in: Order.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: ORDER_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 

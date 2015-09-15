@@ -1,6 +1,8 @@
 class GroupsController < ApplicationController
+  GROUP_INCLUDES = %w(memberships projects groups_staff staff)
+
   api :GET, '/groups', 'Returns a collection of groups'
-  param :includes, Array, in: Group.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: GROUP_INCLUDES
   param :page, :number
   param :per_page, :number
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -12,7 +14,7 @@ class GroupsController < ApplicationController
 
   api :GET, '/groups/:id', 'Shows group with :id'
   param :id, :number, required: true
-  param :includes, Array, in: Group.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: GROUP_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 

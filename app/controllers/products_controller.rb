@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  PRODUCT_INCLUDES = %w(tags provider product_type answers orders)
+
   after_action :verify_authorized
   after_action :post_hook
 
@@ -25,7 +27,7 @@ class ProductsController < ApplicationController
   param :page, :number
   param :per_page, :number
   param :active, :bool
-  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PRODUCT_INCLUDES
 
   def index
     authorize Product
@@ -34,7 +36,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, in: Product.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PRODUCT_INCLUDES
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show

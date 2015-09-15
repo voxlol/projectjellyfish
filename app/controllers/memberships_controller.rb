@@ -1,9 +1,11 @@
 class MembershipsController < ApplicationController
+  MEMBERSHIP_INCLUDES = %w(group project role)
+
   after_action :verify_authorized
 
   api :GET, '/projects/:project_id/memberships', 'Get all memberships on a project'
   param :project_id, :number, 'ID of Project', required: true
-  param :includes, Array, in: Membership.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: MEMBERSHIP_INCLUDES
   param :page, :number
   param :per_page, :number
 
@@ -14,7 +16,7 @@ class MembershipsController < ApplicationController
 
   api :GET, '/memberships/:id', 'Get membership information'
   param :id, :number, 'ID of Membership', required: true
-  param :includes, Array, in: Membership.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: MEMBERSHIP_INCLUDES
   param :page, :number
   param :per_page, :number
 

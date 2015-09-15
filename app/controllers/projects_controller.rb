@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
   include Wisper::Publisher
 
-  PROJECT_INCLUDES = %w(latest_alerts alerts approvals approvers memberships groups project_answers services staff orders)
+  PROJECT_INCLUDES = %w(tags answers memberships groups staff alerts latest_alerts approvals approvers orders services)
   PROJECT_METHODS = %w(problem_count state state_ok)
+
   before_action :pre_hook
   after_action :verify_authorized
   after_action :post_hook
@@ -20,7 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, in: Project.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PROJECT_INCLUDES
   param :methods, Array, in: PROJECT_METHODS
   param :page, :number
   param :per_page, :number
@@ -32,7 +33,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, in: Project.reflect_on_all_associations.map(&:name).map(&:to_s)
+  param :includes, Array, in: PROJECT_INCLUDES
   param :methods, Array, in: PROJECT_METHODS
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 

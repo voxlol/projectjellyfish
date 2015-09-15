@@ -1,7 +1,7 @@
 class ProvidersController < ApplicationController
-  after_action :verify_authorized
-
   PROVIDER_INCLUDES = %w(tags answers registered_provider)
+
+  after_action :verify_authorized
 
   def_param_group :provider do
     param :registered_provider_id, :number, desc: 'Registered Provider ID', action_aware: true, allow_nil: false
