@@ -9,7 +9,6 @@ This is the priority roadmap for Project Jellyfish.  Bug and security fixes are 
 ## Jellyfish 5.1
 - AWS Usage / Billing Import (Chargeback)
 
-
 ## Jellyfish 5.2
-- Approval Workflow (in progress)
+- Approval Workflow
 - Enhanced Security Policies
