@@ -39,8 +39,12 @@ module.exports = function(gulp, options) {
       .pipe(cssFilter.restore)
       // Get the custom javascript
       .pipe(jsAppFilter)
-      .pipe(ngAnnotate(config.ngAnnotateOptions))
-      .pipe(uglify())
+
+      // FIXME Disabling minification and annoations until this issue is fixed
+      // https://github.com/olov/ng-annotate/issues/168
+      //.pipe(ngAnnotate(config.ngAnnotateOptions))
+      //.pipe(uglify())
+
       .pipe(getHeader())
       .pipe(jsAppFilter.restore)
       // Get the vendor javascript
