@@ -10,6 +10,7 @@ module UnauthorizedAccessDetection
   end
 
   def user_not_authorized
+    self.response_body = nil
     render json: { error: 'Not authorized.' }, status: 403
   end
 end
