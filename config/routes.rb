@@ -106,8 +106,11 @@ Rails.application.routes.draw do
     resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index]
 
+    resource :version, only: [:show]
+
     # MOTD Routes
     resource :motd, only: [:create, :update, :show, :destroy]
+
   end
 
   root 'welcome#index'
