@@ -1,5 +1,6 @@
 class CreateServiceOrder
   include UseCase
+  include Pundit
 
   class UnapprovedProject < UseCase::Error
   end
@@ -27,6 +28,7 @@ class CreateServiceOrder
     validate
     build_service
     build_order
+    authorize order, :create?
     save
     provision_service
   end
@@ -40,26 +42,32 @@ class CreateServiceOrder
       fail UnapprovedProject, "Project '#{project.name}' has not been approved."
     end
 
-    unless params[:name].present?
+    unless params[:service]['name'].present?
       fail UnnamedService, 'A name for the service was not given.'
     end
   end
 
   def build_service
+    service_params = params.delete :service
+
     service.type = service.class.to_s
-    service.name = params.delete :name
+    service.name = service_params['name']
     service.status = :pending
     service.status_msg = 'Provisioning service...'
   end
 
   def build_order
-    @order = Order.new params.merge(
+    order_params = params.merge(
       staff: user,
       setup_price: product.setup_price,
       hourly_price: product.hourly_price,
       monthly_price: product.monthly_price,
       service: service
     )
+
+    order_params['answers_attributes'] = [] unless order_params['answers_attributes']
+
+    @order = Order.new order_params
   end
 
   def save
@@ -91,5 +99,9 @@ class CreateServiceOrder
 
   def service
     @service ||= service_class.new(params.delete :service)
+  end
+
+  def current_user
+    @user
   end
 end
