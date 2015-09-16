@@ -16,11 +16,8 @@ class VersionsController < ApplicationController
   error_codes
 
   def show
-    message = Hash.new
+    message = {}
     message['jellyfish_version'] = File.read('VERSION').strip
-    #message = message.to_json
     respond_with message.to_json
   end
-
-
 end
