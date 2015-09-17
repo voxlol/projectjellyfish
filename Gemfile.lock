@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/projectjellyfish/jellyfish-docker.git
+  revision: ab28cd4ef781386e0277fa19a1fa275e99bf1dc9
+  specs:
+    jellyfish-docker (0.0.1)
+      bcrypt (~> 3.1)
+      rails (~> 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -152,7 +160,7 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.1)
     ipaddress (0.8.0)
-    jellyfish-aws (0.0.3)
+    jellyfish-aws (0.0.4)
       bcrypt (~> 3.1)
       fog-aws (~> 0.7)
       rails (~> 4.2)
@@ -360,6 +368,7 @@ DEPENDENCIES
   friendly_id
   has_scope
   jellyfish-aws
+  jellyfish-docker!
   jellyfish-notification
   license_finder
   omniauth
