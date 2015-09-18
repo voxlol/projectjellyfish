@@ -25,12 +25,13 @@
 #
 
 class Product < ActiveRecord::Base
+  include Answers
+
   acts_as_paranoid
   acts_as_taggable
 
   belongs_to :provider
   belongs_to :product_type
-  has_many :answers, as: :answerable
   has_many :orders
 
   accepts_nested_attributes_for :answers

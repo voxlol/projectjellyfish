@@ -22,11 +22,12 @@
 #
 
 class Order < ActiveRecord::Base
+  include Answers
+
   belongs_to :staff
   belongs_to :product
   belongs_to :project
   belongs_to :service
-  has_many :answers, as: :answerable
 
   accepts_nested_attributes_for :answers
 

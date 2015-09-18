@@ -20,21 +20,16 @@
 #
 
 class Provider < ActiveRecord::Base
+  include Answers
+
   acts_as_paranoid
   acts_as_taggable
 
-  has_many :answers, as: :answerable
   belongs_to :registered_provider
 
   accepts_nested_attributes_for :answers, reject_if: -> (answer) { answer['value'].nil? }
 
   def self.policy_class
     ProviderPolicy
-  end
-
-  private
-
-  def settings
-    @_settings ||= Hash[answers.map { |answer| [answer.name.to_sym, answer.value] }]
   end
 end
