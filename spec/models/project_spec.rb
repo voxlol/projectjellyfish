@@ -101,12 +101,12 @@ describe 'Project.monthly_spend' do
     CreateServiceOrder.perform user,
       project_id: project.id,
       product_id: product.id,
-      name: 'Service 1'
+      service: { 'name' => 'Service 1' }
 
     CreateServiceOrder.perform user,
       project_id: project.id,
       product_id: product.id,
-      name: 'Service 2'
+      service: { 'name' => 'Service 2' }
 
     project.reload
 
