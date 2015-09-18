@@ -42,16 +42,14 @@ class CreateServiceOrder
       fail UnapprovedProject, "Project '#{project.name}' has not been approved."
     end
 
-    unless params[:service]['name'].present?
+    unless params[:name].present?
       fail UnnamedService, 'A name for the service was not given.'
     end
   end
 
   def build_service
-    service_params = params.delete :service
-
     service.type = service.class.to_s
-    service.name = service_params['name']
+    service.name = params[:name]
     service.status = :pending
     service.status_msg = 'Provisioning service...'
   end
@@ -63,7 +61,7 @@ class CreateServiceOrder
       hourly_price: product.hourly_price,
       monthly_price: product.monthly_price,
       service: service
-    )
+    ).except(:name)
 
     order_params['answers_attributes'] = [] unless order_params['answers_attributes']
 

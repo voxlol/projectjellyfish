@@ -31,7 +31,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   after_initialize :init
-  after_commit :update_project_monthly_spend, on: :create
+  after_save :update_project_monthly_spend, on: :create
 
   def monthly_cost
     monthly_price + (hourly_price * 750)
@@ -47,5 +47,6 @@ class Order < ActiveRecord::Base
 
   def update_project_monthly_spend
     project.increment :monthly_spend, monthly_cost
+    project.save
   end
 end
