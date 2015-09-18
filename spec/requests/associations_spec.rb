@@ -53,8 +53,6 @@ describe 'Associations API' do
     end
 
     it '404s if the staff was not on the group' do
-      pending
-
       sign_in_as create(:staff, :admin)
       staff = create(:staff)
       group = create(:group)

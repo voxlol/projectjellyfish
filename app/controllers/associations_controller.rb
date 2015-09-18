@@ -18,8 +18,12 @@ class AssociationsController < ApplicationController
   param_group :association
   def destroy
     authorize group
-    group.staff.delete staff
-    head :ok
+    begin
+      group.staff.delete staff if group.staff.find staff.id
+      head :ok
+    rescue ActiveRecord::RecordNotFound
+      head 404
+    end
   end
 
   private
