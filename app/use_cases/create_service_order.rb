@@ -61,7 +61,7 @@ class CreateServiceOrder
       hourly_price: product.hourly_price,
       monthly_price: product.monthly_price,
       service: service
-    )
+    ).except(:name)
 
     order_params['answers_attributes'] = [] unless order_params['answers_attributes']
 
