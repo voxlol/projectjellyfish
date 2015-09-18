@@ -94,7 +94,6 @@ end
 
 describe 'Project.monthly_spend' do
   it 'returns total monthly spend' do
-    pending 'Order.after_commit is not being called'
     user = create :staff
     project = create :project, status: :approved
     product = create :product, monthly_price: 1.0
