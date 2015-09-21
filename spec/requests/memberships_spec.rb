@@ -23,7 +23,11 @@ RSpec.describe 'Memberships API' do
 
       project.reload
 
-      expect(project.memberships.count).to eq(2)
+      # REQUEST LIST OF MEMEBERSHIPS
+      get "/api/v1/projects/#{project.id}/memberships"
+
+      # VERIFY MEMEBERSHIP COUNT RETURNED FROM INDEX
+      expect(JSON.parse(response.body).count).to eq(2)
     end
   end
 
