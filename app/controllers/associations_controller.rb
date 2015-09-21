@@ -18,7 +18,7 @@ class AssociationsController < ApplicationController
   param_group :association
   def destroy
     authorize group
-    group.staff.delete staff
+    group.staff.delete staff if group.staff.find staff.id
     head :ok
   end
 
