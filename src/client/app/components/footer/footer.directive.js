@@ -14,7 +14,7 @@
       replace: true,
       link: link,
       templateUrl: 'app/components/footer/footer.html',
-      controller: VersionController,
+      controller: FooterController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function VersionController($http) {
+    function FooterController($http) {
       var vm = this;
 
       vm.activate = activate;
