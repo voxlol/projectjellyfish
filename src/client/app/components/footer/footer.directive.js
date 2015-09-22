@@ -41,7 +41,6 @@
 
         function handleResults(results) {
           vm.version = results.data.jellyfish_version;
-          console.log(results.data.jellyfish_version);
         }
       }
     }
