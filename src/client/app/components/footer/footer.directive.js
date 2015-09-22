@@ -14,7 +14,7 @@
       replace: true,
       link: link,
       templateUrl: 'app/components/footer/footer.html',
-      controller: SulyController,
+      controller: VersionController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -26,7 +26,7 @@
     }
 
     /** @ngInject */
-    function SulyController($http) {
+    function VersionController($http) {
       var vm = this;
 
       vm.activate = activate;
