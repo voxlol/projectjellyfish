@@ -32,6 +32,7 @@ script:
 - gulp vet
 - bundle exec rubocop
 - bundle exec rspec
+- echo '4.0.0 Build - $TRAVIS_COMMIT' > VERSION
 
 deploy:
   provider: heroku
