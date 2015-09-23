@@ -32,7 +32,7 @@ Project Jellyfish can be downloaded from <a href="https://github.com/projectjell
 Out of the box, Project Jellyfish supports AWS and VMware instances. Booz Allen is also working with Microsoft and Google to ensure Jellyfish is available to Azure and Google Cloud users.
 
 
-Don’t see your question? Ask it <a href="http://talk.projectjellyfish.org" target="_blank">here</a> on our forums.
+Don’t see your question? Ask it <a href="http://talk.projectjellyfish.org" target="_blank">here</a> on our forum.
 
 
 
