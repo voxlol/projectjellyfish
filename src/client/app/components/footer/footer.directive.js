@@ -8,9 +8,6 @@
   function FooterDirective() {
     var directive = {
       restrict: 'AE',
-      scope: {
-        jellyfish_version: '='
-      },
       replace: true,
       link: link,
       templateUrl: 'app/components/footer/footer.html',
@@ -26,21 +23,20 @@
     }
 
     /** @ngInject */
-    function FooterController($http) {
+    function FooterController($q, Version) {
       var vm = this;
-
       vm.activate = activate;
 
       function activate() {
-        initVersion();
+        updateVersion();
       }
 
-      function initVersion() {
-        $http.get('/api/v1/version/')
-          .then(handleResults);
+      function updateVersion() {
+        Version.get().$promise.then(handleResults);
 
-        function handleResults(results) {
-          vm.version = results.data.jellyfish_version;
+        function handleResults(version) {
+          vm.version = version.jellyfish_version;
+          console.log(version.jellyfish_version);
         }
       }
     }
