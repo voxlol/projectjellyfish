@@ -1,4 +1,5 @@
-# Front End Development Workflow
+Front End Development Workflow
+============
 
 #### Major Technologies Used in Project Jellyfish
 
