@@ -25,14 +25,14 @@ Blueprints are packaged solutions that define how to take the core jellyfish pro
 
 **How do I get Project Jellyfish?**
 
-Project Jellyfish can be downloaded from [GitHub](https://github.com/projectjellyfish/api). There, you will find documentation and instructions for running Chef Cookbooks for setting up your platform.
+Project Jellyfish can be downloaded from <a href="https://github.com/projectjellyfish/api" target="_blank">Github</a>. There, you will find documentation and instructions for running Chef Cookbooks for setting up your platform.
 
 **Which clouds are supported?**
 
 Out of the box, Project Jellyfish supports AWS and VMware instances. Booz Allen is also working with Microsoft and Google to ensure Jellyfish is available to Azure and Google Cloud users.
 
 
-Don’t see your question? Ask it [here](http://talk.projectjellyfish.org) on our forums.
+Don’t see your question? Ask it <a href="http://talk.projectjellyfish.org" target="_blank">here</a> on our forums.
 
 
 
