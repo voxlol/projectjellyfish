@@ -1,31 +1,32 @@
 # Front End Development Workflow
 
-## Major Technologies Used in Project Jellyfish
-####Server and Support
+#### Major Technologies Used in Project Jellyfish
+
+Server and Support:
 * Ruby >= 2.2
 * Puma
 * SAML
 * AnnotateModels
 * Rufus-Scheduler
-# Storage
+
+Storage:
 * Postgress
 
-####Front-End
+Front-End:
 * AngularJS >=1.3
 * AngularUI Router
 * Bootstrap
 * SASS
 
-#### Testing
+Testing:
 * Selenium WebDriver
 * Capybara
 
-*_For the complete listing of resources, investigate this [Gemfile](https://github.com/projectjellyfish/api/blob/master/Gemfile)_
+*_For the complete listing of resources, investigate this [Gemfile](https://github.com/projectjellyfish/api/blob/master/Gemfile)._
 
 
-
-## Dependency Management
-Dependencies are managed as [Rails Assets](https://rails-assets.org) and within the Gemfile look a little like this:
+#### Dependency Management
+Dependencies are managed as <a href="https://rails-assets.org" target="_blank">Rails Assets</a> and within the Gemfile. They look a little like this:
 
 ```ruby
     # Add Dependencies
@@ -42,7 +43,7 @@ Dependencies are managed as [Rails Assets](https://rails-assets.org) and within 
 
 Adding a new dependency to Project Jellyfish is now a three part process:
 
-1). Confirm the existence and name of the asset on [Rails Assets](https://rails-assets.org) then add it winthin the dependency _do_ in the gemfile.  For this example we'll add the **leaflet** dependency.
+1). Confirm the existence and name of the asset on <a href="https://rails-assets.org" target="_blank">Rails Assets</a> then add it within the dependency and _do_ this in the gemfile.  For this example we'll add the **leaflet** dependency.
 ```ruby
     # Add Dependencies
     source 'http://rails-assets.org' do
@@ -54,9 +55,10 @@ Adding a new dependency to Project Jellyfish is now a three part process:
 ```
 
 
-2). Next the dependency must be added to **application.js** or **application.scss** (depending on the type of dependency, script or style).  As of writing, these resources are located here:[app/assets/javascripts/](https://github.com/projectjellyfish/api/blob/master/app/assets/javascripts/application.js) and here: [app/assets/stylesheets/](https://github.com/projectjellyfish/api/blob/master/app/assets/stylesheets/application.sass).
+2). Next the dependency must be added to **application.js** or **application.scss** (depending on the type of dependency, script or style). These resources are located in `<em>app/assets/javascripts/</em>` and in `<em>app/assets/stylesheets/</em>`. 
 
-* Adding a dependency to [app/assets/javascripts/application.js](https://github.com/projectjellyfish/api/blob/master/app/assets/javascripts/application.js) follows the pattern of existing dependencies, be sure to use the correct name, again, this is listed on [Rails Assets](https://rails-assets.org) when you look up the dependency.
+* Adding a dependency to `<em>app/assets/javascripts/application.js</em>` follows the pattern of existing dependencies, be sure to use the correct name, again, this is listed on <a href="https://rails-assets.org" target="_blank">Rails Assets</a> when you look up the dependency.
+    
     ```javascript
 
         //= require angularjs
@@ -64,7 +66,8 @@ Adding a new dependency to Project Jellyfish is now a three part process:
         //= require angular-animate
         //= require leaflet
     ```
-* Adding a dependency to [app/assets/stylesheets/application.sass](https://github.com/projectjellyfish/api/blob/master/app/assets/stylesheets/application.sass)
+* Adding a dependency to `<em>app/assets/stylesheets/application.sass</em>`:
+    
     ```sass
         @charset 'utf-8'
 
@@ -74,13 +77,13 @@ Adding a new dependency to Project Jellyfish is now a three part process:
     ````
 
 
-3). _(when adding angular modules)_ Now that we have made our new dependencies available to Project Jellyfish all that remains is to include our new dependency module in **broker** in index.js @ path [app/assets/javascripts/](https://github.com/projectjellyfish/api/blob/master/app/assets/javascripts/index.js)
+3). _(For AngularJS modules)_ Now that we have made our new dependencies available to Project Jellyfish all that remains is to include our new dependency module in **broker** within `<em>index.js</em>` via path `<em>app/assets/javascripts/</em>`.
+And there you have it! This is all that is required to include new dependencies in your Project Jellyfish.  Remember that your gems are installed at bundle and no other configuration is required.
 
-And there you have it! All that is required to include new dependencies in your Project Jellyfish.  Gems are installed at bundle, no other configuration is required.
 
+#### View/Controller Modification
 
-## View/Controller Modification
-HTML partials are stored in [public/templates/partials](https://github.com/projectjellyfish/api/tree/master/public/templates/partials).  Most controllers that support each partial are located in a tree matching the structure of the HTML partials and sharing the same name in [app/assets/javascripts/](https://github.com/projectjellyfish/api/tree/master/app/assets/javascripts)
+HTML partials are stored in `<em>public/templates/partials</em>`.  Most controllers that support each partial are located in a tree matching the structure of the HTML partials and sharing the same name in `<em>app/assets/javascripts/</em>`
 
 For example:
 * [assets/javascripts/admin/projects/project_questions_controller.js](https://github.com/projectjellyfish/api/blob/master/app/assets/javascripts/admin/projects/project_questions_controller.js)
@@ -88,10 +91,11 @@ For example:
 
 
 
-## Style Modifications
+#### Style Modifications
 
-### Font/Icon Inclusion
-After desired font/icon dependency is made available in [app/assets/fonts/font-awesome](https://github.com/projectjellyfish/api/tree/master/app/assets/fonts/font-awesome) proceed to add record of the resource to [app/assets/stylesheets/common/_fonts.sass](https://github.com/projectjellyfish/api/blob/master/app/assets/stylesheets/common/_fonts.sass) following the pattern below:
+## Font/Icon Inclusion
+
+After desired font/icon dependency is made available in `<em>app/assets/fonts/font-awesome<em>` proceed to add record of the resource to `<em>app/assets/stylesheets/common/_fonts.sass</em>` following the pattern below:
 ```sass
     @font-face
     font-family: 'FontAwesome'
