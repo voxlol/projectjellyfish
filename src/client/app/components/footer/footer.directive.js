@@ -18,12 +18,12 @@
 
     return directive;
 
-    function link(scope, element, attrs, vm, transclude, Version) {
+    function link(scope, element, attrs, vm, transclude) {
       vm.activate();
     }
 
     /** @ngInject */
-    function FooterController($q, Version) {
+    function FooterController(Version) {
       var vm = this;
       vm.activate = activate;
 
@@ -36,7 +36,6 @@
 
         function handleResults(version) {
           vm.version = version.jellyfish_version;
-          console.log(version.jellyfish_version);
         }
       }
     }
