@@ -3,11 +3,11 @@ Contributor Guide
 
 Our resources:
 
-* [Github](https://github.com/projectjellyfish/api) - Development and issue tracking
+* <a href="https://github.com/projectjellyfish/api" target="_blank">Github</a> - Development and issue tracking
 
-* [Forum](http://talk.projectjellyfish.org) - Portal for communication within the Jellyfish community
+* <a href="http://talk.projectjellyfish.org" target="_blank">Forum</a> - Portal for communication within the Jellyfish community
 
-* [Our website](http://www.projectjellyfish.org/) - General information
+* <a href="http://www.projectjellyfish.org/" target="_blank">Our website</a> - General information
 
 We encourage you to contribute to Project Jellyfish! Here are a few ways in which you can help us improve:
 
@@ -19,8 +19,7 @@ See our [Jellyfish Module Setup](module-creation/basic_setup.md) page.
 
 ####Report an Issue
 
-A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses [GitHub 
-Issue Tracking](https://github.com/projectjellyfish/api/issues) to track issues, which are typically bugs and 
+A bug is anything that fixes already existing behavior that is not behaving correctly. Project Jellyfish uses <a href="https://github.com/projectjellyfish/api/issues" target="_blank">GitHub Issue Tracking</a> to track issues, which are typically bugs and 
 contributions of new code. If you find a bug in Project Jellyfish, we encourage you to start by searching the Github 
 Issues queue to see if a ticket has been generated already. 
 
@@ -51,5 +50,5 @@ entire community!
 
 #####Follow our Roadmap
 
-Interested in learning more about where we are in development? Check out our [Roadmap](roadmap.md) for a look at what 
+Interested in learning more about where we are in development? Check out our [Roadmap](Roadmap.md) for a look at what 
 we've done and where we're going.
