@@ -1,8 +1,9 @@
-# Jellyfish Module Setup (Steps 1-7)
+Jellyfish Module Setup (Steps 1-7)
+============
 
-This guide explains how to create a module that can be used with [Project Jellyfish](https://github.com/projectjellyfish/api).
+This guide explains how to create a module that can be used with <a href="https://github.com/projectjellyfish/api" target="_blank">Project Jellyfish</a>.
 
-### Step 1: Create Empty Module
+#### Step 1: Create Empty Module
 
 Modules in Jellyfish are implemented with gemified [Rails engines](http://guides.rubyonrails.org/engines.html).
 
@@ -15,27 +16,27 @@ $ rails plugin new jellyfish_logger --dummy-path=spec/dummy --skip-test-unit --s
 Jellyfish uses [rspec](http://rspec.info/), so skip test-unit and auto bundle. See a good discussion of mountable 
 engines [here](http://stackoverflow.com/questions/6118905/rails-3-1-engine-vs-mountable-app#answer-6833288).
 
-### Step 2: Update Gemspec and Gemfile
+#### Step 2: Update Gemspec and Gemfile
 
-###### Populate gemspec
+Populate gemspec
 
-Start by specifying a homepage, summary and description in Gemspec:
+* Start by specifying a homepage, summary and description in Gemspec:
 ```shell
 s.homepage    = "www.projectjellyfish.org"
 s.summary     = "Jellyfish Logger Module "
 s.description = "A module that adds log support to Jellyfish API"
 ```
 
-###### Add dependencies
+Add dependencies
 
-Specify unversioned dependencies for rails and dotenv and replace sqlite3 with pg in Gemspec:
+* Specify unversioned dependencies for rails and dotenv and replace sqlite3 with pg in Gemspec:
 ```shell
 s.add_dependency "rails"
 s.add_dependency "dotenv-rails" # to use env vars from jellyfish api
 s.add_dependency 'pg' # to use jellyfish db
 ```
 
-And add these dev and test dependencies to your Gemfile.
+* And add these dev and test dependencies to your Gemfile.
 ```shell
 # DEV + TEST
 group :development, :test do
@@ -47,9 +48,9 @@ group :development, :test do
   gem 'pry'
 end
 ```
-### Step 3: Setup Rakefile
+Step 3: Setup Rakefile
 
-Modify Rakefile to look like this:
+* Modify Rakefile to look like this:
 ```shell
 begin
   require 'bundler/setup'
@@ -72,9 +73,9 @@ task :default => :spec
 ```
 The last block makes `rspec` executable via `rake`.
 
-### Step 4: Setup Engine
+#### Step 4: Setup Engine
 
-Modify `lib/jellyfish_logger/engine.rb`  to autoload `lib` dir:
+* Modify `lib/jellyfish_logger/engine.rb`  to autoload `lib` dir:
 ```ruby
 module JellyfishLogger
   class Engine < ::Rails::Engine
@@ -86,7 +87,7 @@ module JellyfishLogger
   end
 end
 ```
-See [here](http://apidock.com/rails/Rails/Engine/isolate_namespace/class#1438-isolate-namespace-description-with-example) for why ```isolate_namespace``` is used.
+See <a href="http://apidock.com/rails/Rails/Engine/isolate_namespace/class#1438-isolate-namespace-description-with-example" target="_blank">here</a> for why `isolate_namespace` is used.
 
 ### Step 5: Setup RSpec
 
@@ -105,6 +106,7 @@ Modify `.rspec` to run helpers before specs and format output:
 ```
 
 And update `spec/rails_helper.rb` to:
+
 ```ruby
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
@@ -209,7 +211,7 @@ Rails.application.routes.draw do
   mount JellyfishLogger::Engine => "/jellyfish_logger"
 end
 ```
-They [are only loaded in development](http://stackoverflow.com/questions/17964830/where-is-the-default-welcome-aboard-page-located-in-my-app) and need to be available in test.
+They <a href="http://stackoverflow.com/questions/17964830/where-is-the-default-welcome-aboard-page-located-in-my-app" target="_blank">are only loaded in development</a> and need to be available in test.
 
 ##### Setup Dotenv
 
