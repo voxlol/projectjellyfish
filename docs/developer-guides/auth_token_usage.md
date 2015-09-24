@@ -3,7 +3,7 @@ Authorization Token Usage
 
 #### Sign-In
 
-* Sign-in at POST api/v1/staff/sign_in.json with the following payload
+* Sign-in at POST `api/v1/staff/sign_in.json` with the following payload
 ````
 { staff: {email: "...", password: "..."} }
 ````
@@ -13,5 +13,5 @@ Authorization Token Usage
 
 #### Sign-out
 
-* Sign-out at DELETE api/v1/staff/sign_out
+* Sign-out at DELETE `api/v1/staff/sign_out`
 * The token will be invalidated along with the session.
