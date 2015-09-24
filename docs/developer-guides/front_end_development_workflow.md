@@ -17,13 +17,13 @@ Front-End:
 * AngularJS >=1.3
 * AngularUI Router
 * Bootstrap
-* SASS
+* Sass
 
 Testing:
 * Selenium WebDriver
 * Capybara
 
-*_For the complete listing of resources, investigate the Project Jellyfish [Gemfile](https://github.com/projectjellyfish/api/blob/master/Gemfile)._
+*_For the complete listing of resources, investigate the Project Jellyfish <a href="https://github.com/projectjellyfish/api/master/Gemfile" target="_blank">Gemfile</a>._
 
 
 #### Dependency Management
