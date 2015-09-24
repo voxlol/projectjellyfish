@@ -3,9 +3,9 @@ Jellyfish Module Setup (Steps 1-7)
 
 This guide explains how to create a module that can be used with <a href="https://github.com/projectjellyfish/api" target="_blank">Project Jellyfish</a>.
 
-#### Step 1: Create Empty Module
+### Step 1: Create Empty Module
 
-Modules in Jellyfish are implemented with gemified [Rails engines](http://guides.rubyonrails.org/engines.html).
+Modules in Jellyfish are implemented with gemified <a href="http://guides.rubyonrails.org/engines.html" target="_blank">Rails engines</a>.
 
 To create a new module named `jellyfish_logger` run:
 
@@ -13,30 +13,30 @@ To create a new module named `jellyfish_logger` run:
 $ rails plugin new jellyfish_logger --dummy-path=spec/dummy --skip-test-unit --skip-bundle --mountable
 ```
 
-Jellyfish uses [rspec](http://rspec.info/), so skip test-unit and auto bundle. See a good discussion of mountable 
-engines [here](http://stackoverflow.com/questions/6118905/rails-3-1-engine-vs-mountable-app#answer-6833288).
+Jellyfish uses <a href="http://rspec.info/" target="_blank">rspec</a>, so skip test-unit and auto bundle. See a good discussion of mountable 
+engines <a href="http://stackoverflow.com/questions/6118905/rails-3-1-engine-vs-mountable-app#answer-6833288" target="_blank">here</a>.
 
-#### Step 2: Update Gemspec and Gemfile
+### Step 2: Update Gemspec and Gemfile
 
-Populate gemspec
+__Populate gemspec__
 
-* Start by specifying a homepage, summary and description in Gemspec:
+Start by specifying a homepage, summary and description in Gemspec:
 ```shell
 s.homepage    = "www.projectjellyfish.org"
 s.summary     = "Jellyfish Logger Module "
 s.description = "A module that adds log support to Jellyfish API"
 ```
 
-Add dependencies
+__Add dependencies__
 
-* Specify unversioned dependencies for rails and dotenv and replace sqlite3 with pg in Gemspec:
+Specify unversioned dependencies for rails and dotenv and replace sqlite3 with pg in Gemspec:
 ```shell
 s.add_dependency "rails"
 s.add_dependency "dotenv-rails" # to use env vars from jellyfish api
 s.add_dependency 'pg' # to use jellyfish db
 ```
 
-* And add these dev and test dependencies to your Gemfile.
+And add these dev and test dependencies to your Gemfile.
 ```shell
 # DEV + TEST
 group :development, :test do
@@ -48,9 +48,9 @@ group :development, :test do
   gem 'pry'
 end
 ```
-Step 3: Setup Rakefile
+### Step 3: Setup Rakefile
 
-* Modify Rakefile to look like this:
+Modify Rakefile to look like this:
 ```shell
 begin
   require 'bundler/setup'
@@ -75,7 +75,7 @@ The last block makes `rspec` executable via `rake`.
 
 #### Step 4: Setup Engine
 
-* Modify `lib/jellyfish_logger/engine.rb`  to autoload `lib` dir:
+Modify `lib/jellyfish_logger/engine.rb`  to autoload `lib` dir:
 ```ruby
 module JellyfishLogger
   class Engine < ::Rails::Engine
@@ -87,11 +87,11 @@ module JellyfishLogger
   end
 end
 ```
-See <a href="http://apidock.com/rails/Rails/Engine/isolate_namespace/class#1438-isolate-namespace-description-with-example" target="_blank">here</a> for why `isolate_namespace` is used.
+See <a href="http://apidock.com/rails/Rails/Engine/isolate_namespace/class#1438-isolate-namespace-description-with-example" target="_blank">here</a> for the reason why `isolate_namespace` is used.
 
 ### Step 5: Setup RSpec
 
-##### Add Spec Helpers
+__Add Spec Helpers__
 
 Run `rails generate rspec:install` to add the following skeleton files:
 - `.rspec`
@@ -147,9 +147,10 @@ end
 ```
 This mounts `jellyfish_logger` on the test application in `spec/dummy`.
 
-##### Setup Spec Database
+__Setup Spec Database__
 
 Update `spec/dummy/config/database.yml` to use PostgreSQL:
+
 ```yaml
 development: &default
   adapter: postgresql
@@ -170,6 +171,7 @@ production:
 ```
 
 And add `spec/support/database_cleaner.rb` to clean up after tests:
+
 ```ruby
 RSpec.configure do |config|
   config.before(:suite) do
@@ -199,7 +201,7 @@ end
 ```
 This is included by `Dir[Rails.root.join('../support/*.rb')].each { |f| require f }` in `spec/rails_helper.rb`.
 
-##### Add Spec Routes
+__Add Spec Routes__
 
 Include default Rails WelcomeController routes in `spec/dummy/config/routes.rb`:
 ```ruby
@@ -213,7 +215,7 @@ end
 ```
 They <a href="http://stackoverflow.com/questions/17964830/where-is-the-default-welcome-aboard-page-located-in-my-app" target="_blank">are only loaded in development</a> and need to be available in test.
 
-##### Setup Dotenv
+__Setup Dotenv__
 
 By default, the `spec/dummy` application will not load Dotenv in test, so add the following lines to `spec/dummy/config/application.rb`:
 ```ruby
@@ -254,7 +256,7 @@ Finished in 0.00027 seconds (files took 1 second to load)
 
 ### Step 7: Setup Git
 
-##### Initialize Repo
+__Initialize Repo__
 
 Initialize git in your module:
 ```
@@ -303,7 +305,7 @@ This section walks through how to create a client that persists to a filesystem 
 
 It assumes that you have an empty module setup with the above instructions (Steps 1 through 7).
 
-##### Create Client
+__Create Client__
 
 Add `lib/jellyfish_logger/client.rb` to module:
 
@@ -349,7 +351,7 @@ to attach the client to any controller in the parent app which extends ActionCon
 
 See [here](http://rubyjunky.com/cleaning-up-rails-4-production-logging.html) for an excellent discussion on the different ways to extend the default Rails logger.
 
-##### Persist to Filesystem
+__Persist to Filesystem__
 
 Add methods `prepare_content` and `write_to_file` to `lib/jellyfish_logger/client.db` and call them from the `process_action` callback:
 ```ruby
@@ -388,7 +390,7 @@ LOG_TO_FILE = true
 ```
 which turns on logging in the `spec/dummy` application. The `write_to_file` `path` can be set to anywhere write access is permitted. When deployed with Jellyfish, this module will output to `log/audit.txt` in the parent apps root dir.
 
-##### Persist to Database
+__Persist to Database__
 
 Create `event` model with rails:
 ```shell
