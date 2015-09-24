@@ -1,4 +1,5 @@
-# Jellyfish Settings
+Jellyfish Settings
+==============
 
 __There are two ways to set your Jellyfish Settings credentials:__
 
