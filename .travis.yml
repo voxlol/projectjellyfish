@@ -1,49 +1,45 @@
 language: ruby
 cache:
   directories:
-    - vendor/bundle
-    - node_modules
-    - bower_components
-
+  - vendor/bundle
+  - node_modules
+  - bower_components
 rvm: 2.2.2
-
 sudo: false
-
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
   code_climate:
     repo_token:
-      secure: "rfbxXdcTWq7x9QZYZyOw/l1LMhRbVlgxOlUy2DOLoKTa/Kb6sWbZP87h2GPdTqPK0nyLwfe+X9rOm0q4NHwmKlON9uMR/zw3PeZxiMCwE89db5Q7jnqUzbfaYa9qpKH5gofoRMEfwJhpNkznvhCKoT++F4MLZZd9v8snBKuZQTw="
-
+      secure: rfbxXdcTWq7x9QZYZyOw/l1LMhRbVlgxOlUy2DOLoKTa/Kb6sWbZP87h2GPdTqPK0nyLwfe+X9rOm0q4NHwmKlON9uMR/zw3PeZxiMCwE89db5Q7jnqUzbfaYa9qpKH5gofoRMEfwJhpNkznvhCKoT++F4MLZZd9v8snBKuZQTw=
 before_install:
-  - echo "4.0.$TRAVIS_BUILD_NUMBER" > VERSION
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
+- echo "4.0.$TRAVIS_BUILD_NUMBER" > VERSION
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 before_script:
-  - bundle exec rake db:create
-  - npm install -g npm@latest
-  - npm install -g gulp
-  - npm install
-
+- bundle exec rake db:create
+- npm install -g npm@latest
+- npm install -g gulp
+- npm install
 notifications:
   slack:
-    secure: "htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec="
-
+    secure: htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec=
 script:
 - gulp vet
 - bundle exec rubocop
 - bundle exec rspec
-
 after_success:
+- git config credential.helper "store --file=.git/credentials"
+- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - git add VERSION
 - git commit -m 'Travis CI - Updated Version'
 - git push
-
 deploy:
   provider: heroku
   api_key:
-    secure: "ZDWFn6pTVtqg4DwXu0ge5wkFu8pVJV3c0px0KAXubOr8H0VNa4j1pOocS7JiCOAfsU1GVm1idyvCPS5Dyz5HqnZIqGYKS0TSiK4ezA10a1nb3MTPEiCtAyb6c/wxwPrtQ+7EvbI5oL7bWtXXhWXo7czNMG22+IhsQw3FPEnOxVQ="
+    secure: ZDWFn6pTVtqg4DwXu0ge5wkFu8pVJV3c0px0KAXubOr8H0VNa4j1pOocS7JiCOAfsU1GVm1idyvCPS5Dyz5HqnZIqGYKS0TSiK4ezA10a1nb3MTPEiCtAyb6c/wxwPrtQ+7EvbI5oL7bWtXXhWXo7czNMG22+IhsQw3FPEnOxVQ=
   app: jellyfish-dev
-  run: "rake db:schema:load; rake spec; rake db:seed; rake sample:demo"
+  run: rake db:schema:load; rake spec; rake db:seed; rake sample:demo
   skip_cleanup: true
+env:
+  global:
+    secure: oglFznpoXgadlL7TyQ7/XYHLUCKxKle7HY5+XEgox76++kWcWt9TyiYfscChHbV5ERartdrJgC+hrCz5QNyDTICMxi1eJrcyCJO9CRqVpeATW2RA+Rvedmg4XUBGqXowNSWuQVT5zZktS89dTgtoHo5sZUw2eqnEbGJ1XtIPDGs=
