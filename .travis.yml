@@ -35,7 +35,7 @@ after_success:
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - git add VERSION
 - git commit -m 'Travis CI - Updated Version'
-- git push
+- git push origin master
 deploy:
   provider: heroku
   api_key:
