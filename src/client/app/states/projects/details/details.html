@@ -25,7 +25,7 @@
   <div class="details-table__row">
     <div class="details-table__label">Status</div>
     <div class="details-table__detail">
-      <status type="{{ ::vm.project.status }}">{{ ::vm.project.status }}</status>
+      <status type="{{ ::vm.project.status }}">{{ ::vm.project.status | uppercase }}</status>
     </div>
   </div>
 
