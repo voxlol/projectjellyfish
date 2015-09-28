@@ -12,7 +12,7 @@ addons:
     repo_token:
       secure: rfbxXdcTWq7x9QZYZyOw/l1LMhRbVlgxOlUy2DOLoKTa/Kb6sWbZP87h2GPdTqPK0nyLwfe+X9rOm0q4NHwmKlON9uMR/zw3PeZxiMCwE89db5Q7jnqUzbfaYa9qpKH5gofoRMEfwJhpNkznvhCKoT++F4MLZZd9v8snBKuZQTw=
 before_install:
-- echo "4.0.$TRAVIS_BUILD_NUMBER" > VERSION
+- echo "4.0.1-$TRAVIS_BUILD_NUMBER" > VERSION
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 before_script:
@@ -27,15 +27,7 @@ script:
 - gulp vet
 - bundle exec rubocop
 - bundle exec rspec
-after_success:
-- git config --global user.email "travis@projectjellyfish.org"
-- git config --global user.name "Travis CI"
-- git config --global push.default simple
-- git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-- git add VERSION
-- git commit -m 'Travis CI - Updated Version'
-- git push origin master
+
 deploy:
   provider: heroku
   api_key:
