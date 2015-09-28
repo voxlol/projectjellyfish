@@ -19,10 +19,10 @@
 #
 
 class ServiceSerializer < ApplicationSerializer
-  attributes :id, :name, :uuid, :status, :health, :status_msg, :created_at, :updated_at
+  attributes :id, :type, :name, :uuid, :status, :health, :status_msg, :created_at, :updated_at
 
-  has_one :order
-  has_one :project
-  has_one :product
+  has_one :order, serializer: OrderSerializer
+  has_one :project, serializer: ProjectSerializer
+  has_one :product, serializer: ProductSerializer
   has_one :product_type, serializer: ProductTypeSerializer
 end
