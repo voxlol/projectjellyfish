@@ -5,33 +5,23 @@
     .run(appRun);
 
   /** @ngInject */
-  function appRun(routerHelper, navigationHelper) {
+  function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
-    navigationHelper.navItems(navItems());
-    navigationHelper.sidebarItems(sidebarItems());
   }
 
   function getStates() {
     return {
       'services.details': {
         url: '/:serviceId',
-        templateUrl: 'app/states/services/details/details.html',
-        controller: StateController,
-        controllerAs: 'vm',
         title: 'Service Details',
+        templateProvider: templateProvider,
+        controllerProvider: controllerProvider,
+        controllerAs: 'vm',
         resolve: {
           service: resolveService
         }
       }
     };
-  }
-
-  function navItems() {
-    return {};
-  }
-
-  function sidebarItems() {
-    return {};
   }
 
   /** @ngInject */
@@ -40,34 +30,34 @@
   }
 
   /** @ngInject */
-  function StateController(logger, service, $stateParams) {
+  function templateProvider($templateFactory, StateOverride, service) {
+    var templateUrl = 'app/states/services/details/details.html';
+    var override = StateOverride.get('services.details', {service: service}) || {templateUrl: templateUrl};
+
+    return $templateFactory.fromUrl(override.templateUrl);
+  }
+
+  /** @ngInject */
+  function controllerProvider(StateOverride, service) {
+    var controller = StateController;
+    var override = StateOverride.get('services.details', {service: service}) || {controller: controller};
+
+    return override.controller;
+  }
+
+  /** @ngInject */
+  function StateController(service) {
     var vm = this;
 
     vm.title = 'Service Details';
 
-    vm.serviceId = $stateParams.serviceId;
     vm.service = service;
 
     vm.activate = activate;
-    vm.toAlertType = toAlertType;
 
     activate();
 
     function activate() {
-      logger.info('Activated Service Details View');
-    }
-
-    function toAlertType(type) {
-      switch (type.toLowerCase()) {
-        case 'critical':
-          return 'danger';
-        case 'warning':
-          return 'warning';
-        case 'ok':
-          return 'success';
-        default:
-          return 'info';
-      }
     }
   }
 })();
