@@ -1,6 +1,7 @@
-# Implementation of Pre and Post Hooks
+Implementation of Pre and Post Hooks
+============
 
-Hooks in Jellyfish are implemented through [ActiveSupport::Notifications](http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html) which are part of Rails. Each controller in Jellyfish inherits a private `pre_hook` and `post_hook` method from the [`Rails Application Controller`](https://github.com/projectjellyfish/api/blob/master/app/controllers/application_controller.rb).
+Hooks in Jellyfish are implemented through <a href="http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html" target="_blank">ActiveSupport::Notifications</a> which are part of Rails. Each controller in Jellyfish inherits a private `pre_hook` and `post_hook` method from the <a href="https://github.com/projectjellyfish/api/blob/master/app/controllers/application_controller.rb" target="_blank">Rails Application Controller</a>.
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -17,7 +18,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-#### How to Instrument Pre and Post Hooks
+### How to Instrument Pre and Post Hooks
 
 To instrument a Pre or Post hook from a controller, add the corresponding `before_action :pre_hook` or `after_action :post_hook` as follows:
 
@@ -41,9 +42,9 @@ Hooks are currently active on the following controllers:
 - [Products](https://github.com/projectjellyfish/api/blob/master/app/controllers/products_controller.rb#L3-L5)
 - [Alerts](https://github.com/projectjellyfish/api/blob/master/app/controllers/alerts_controller.rb#L3-L5)
 
-#### How to Subscribe to a Pre or Post Hook (from API)
+### How to Subscribe to a Pre or Post Hook (from API)
 
-You can subscribe to instrumented hooks in Jellyfish by adding them under the [config/initializers] (https://github.com/projectjellyfish/api/tree/master/config/initializers) directory.
+You can subscribe to instrumented hooks in Jellyfish by adding them under the <a href="https://github.com/projectjellyfish/api/tree/master/config/initializers" target="_blank">`config/initializers`</a> directory.
 
 For example, we could add a new file named `subscribers.rb` to our initializers directory with the following content:
 
@@ -97,7 +98,7 @@ end
 ...
 ```
 
-#### How to Subscribe to a Pre or Post Hook (from a module)
+### How to Subscribe to a Pre or Post Hook (from a module)
 
 Subscribing to a Pre or Post hook from a module should be analogous to subscribing from within API. Make sure that the 
 module includes Rails and define your subscriptions in a way that will get picked up by Rails on initialization.

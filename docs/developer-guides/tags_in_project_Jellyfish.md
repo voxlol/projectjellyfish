@@ -1,10 +1,11 @@
-# Tags in Project Jellyfish
+Tags in Project Jellyfish
+============
 
 This document contains information on how tags are implemented in Project Jellyfish and how they can be used.
 
-## Setup Process
+#### Setup Process
 
-Add the [`acts-as-taggable-on`](https://github.com/mbleigh/acts-as-taggable-on) to Gemfile:
+Add the `acts-as-taggable-on` (see <a href="https://github.com/mbleigh/acts-as-taggable-on" target="_blank">acts-as-taggable-on</a>) to your Gemfile:
 
 ```ruby
 gem 'acts-as-taggable-on'
@@ -23,14 +24,15 @@ Create migrations for the `tags` and `taggings` tables that the gem requires
 rake acts_as_taggable_on_engine:install:migrations
 ```
 
-Run migrations:
+Run migrations
+
 ```shell
 rake db:migrate
 ```
 
-## Usage
+#### Usage
 
-Add `acts_as_taggable` or `acts_as_taggable_on` to model that we want to enable tags on
+Add `acts_as_taggable` or `acts_as_taggable_on` to model that we want to enable tags upon
 
 ```ruby
 class Product < ActiveRecord::Base
@@ -39,7 +41,7 @@ class Product < ActiveRecord::Base
 end
 ```
 
-Then to add, remove or view tags
+Add the following to add, remove or view tags
 
 ```ruby
 p = Product.where(id: 1).first
@@ -58,7 +60,7 @@ p.cloud_list
 
 Context agnostic tags can be added via `record.tag_list.add('tag')` whereas context specific tags like `:clouds` can be added with the list method specific to that context - i.e. `record.cloud_list.add('tag')`
 
-### Finding Tagged Objects
+#### Finding Tagged Objects
 
 Acts As Taggable On uses scopes to create an association for tags.
 This way you can mix and match to filter down your results.
@@ -90,6 +92,6 @@ You can also use `:wild => true` option along with `:any` or `:exclude` option. 
 __Tip:__ `User.tagged_with([])` or `User.tagged_with('')` will return `[]`, an empty set of records.
 
 
-## Schema Relations
+#### Schema Relations
 
 ![Taggable Gem Schema Relationships](https://cloud.githubusercontent.com/assets/9356425/6903634/4a6997f2-d6e1-11e4-88ee-ec93ac352173.jpg)

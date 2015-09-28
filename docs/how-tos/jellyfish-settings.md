@@ -1,15 +1,17 @@
-# Jellyfish Settings
+Jellyfish Settings
+==============
 
-**There are currently two ways to set your Jellyfish Settings credentials:**
+__There are two ways to set your Jellyfish Settings credentials:__
 
-1. All application settings can be configured using environment variables in the operating system's environment.
+1.  All application settings can be configured using environment variables in the operating system's environment.
 
-2.  Create a ```.env``` file in the api directory (this should only be used durring development). 
+2.  Create a `.env` file in the api directory (this should only be used during development). 
 
 
-##Application Environment Variables
+#### Application Environment Variables
 
-**Required**
+__Required__:
+
 ```
 DATABASE_URL                           = postgres://username:@yourapp.com:5432/yourdb
 CORS_ALLOW_ORIGIN                      = yourapp.com:5000
@@ -17,7 +19,8 @@ DEFAULT_URL                            = http://yourapp.com:3000
 SECRET_KEY_BASE                        = change_me_to_a_bunch_of_gibberish
 DEVISE_SECRET_KEY                      = keep_me_secret
 ```
-**_Optional_**
+**_Optional_**:
+
 ```
 PUMA_WORKERS                           = 3
 MIN_THREADS                            = 8
@@ -28,12 +31,13 @@ RACK_ENV                               = development
 ```
 
 ---
-## Gems
+#### Gems
 
-#### Manage IQ Environment Variables
->[Jellyfish Manage IQ](https://github.com/projectjellyfish/jellyfish-manageiq)
->
-**Required**
+__Manage IQ Environment Variables__
+
+<a href="https://github.com/projectjellyfish/jellyfish-manageiq" target="_blank">Jellyfish Manage IQ</a>
+
+Required:
 ```
 MIQ_URL                                = https://miq-url.com
 MIQ_REFERER                            = http://yourapp.com
@@ -42,28 +46,32 @@ MIQ_PASSWORD                           = password
 MIQ_USER_EMAIL                         = miq@pyourapp.com
 MIQ_USER_TOKEN                         = jellyfish
 ```
-**_Optional_**
+_Optional_:
 ```
-MIQ_SSL                                = OpenSSL::SSL::VERIFY_PEER
+MIQ_SSL                                  = OpenSSL::SSL::VERIFY_PEER
 ```
 
 ---
-#### Jellyfish Audit
->[Jellyfish Audit](https://github.com/projectjellyfish/jellyfish-audit/search?utf8=%E2%9C%93&q=env)
->
-**_Optional_**
+
+__Jellyfish Audit__
+
+<a href="https://github.com/projectjellyfish/jellyfish-audit/search?utf8=%E2%9C%93&q=env" target="_blank">Jellyfish Audit</a>.
+
+_Optional_:
 ```
 LOG_TO_FILE                              = true # Any value other than true sets this to false
 ```
 
 ---
-#### Jellyfish SAML Auth Environment Variables
->[Ruby SAML](https://github.com/onelogin/ruby-saml)
-[OmniAuth SAML](https://github.com/PracticallyGreen/omniauth-saml)
-[Jellyfish SAML](https://github.com/projectjellyfish/jellyfish-samlauth)
->
-**Required**
-###### SP Settings
+__Jellyfish SAML Auth Environment Variables__
+
+* <a href="https://github.com/onelogin/ruby-saml" target="_blank">Ruby SAML</a>
+* <a href="https://github.com/PracticallyGreen/omniauth-saml" target="_blank">OmniAuth SAML</a>
+* <a href="https://github.com/projectjellyfish/jellyfish-samlauth" target="_blank">Jellyfish SAML</a>
+
+Required:
+
+* SP Settings
 ```
 # Defaults to http(s)://<hostname>/<path_prefix>/:provider/metadata.xml if not entered
 SAML_ISSUER                              = http://www.example.com/saml/metadata.xml
@@ -97,9 +105,10 @@ SAML_SERVICE_INDEX                       = nil # Defaults to nil
 SAML_ATTRIBUTE_1="name: 'Name', name_format: 'Name Format', friendly_name: 'Friendly Name'"
 SAML_ATTRIBUTE_2="name: 'Another Attibute', name_format: 'Name Format', friendly_name: 'Friendly Name', attribute_value: 'Attribute Value'"
 ```
->
-**Required**
-###### IdP Settings
+
+Required:
+
+* IdP Settings
 ```
 # Required unless SAML_IDP_METADATA_URL is set
 SAML_IDP_SSO_TARGET_URL                  = nil # Defaults to nil
@@ -109,7 +118,7 @@ SAML_IDP_CERT_FINGERPRINT                = nil # Defaults to nil
 # Defaults to -> (fingerprint) { fingerprint } if not entered
 SAML_IDP_CERT_FINGERPRINT_VALIDATOR      = "-> (fingerprint) { fingerprint }"
 ```
-**_Optional_**
+_Optional_:
 ```
 SAML_IDP_SLO_TARGET_URL                  = nil # Defaults to nil
 # Defaults to { original_request_param: :mapped_idp_param } if not entered
@@ -125,18 +134,19 @@ SAML_PATH_PREFIX                         = /api/v1/staff/auth
 ```
 
 ---
-#### Jellyfish LDAP Auth Environment Variables
->[OmniAuth LDAP](https://github.com/intridea/omniauth-ldap)
-[Jellyfish LDAP](https://github.com/projectjellyfish/jellyfish-ldapauth)
->
-**Required**
+__Jellyfish LDAP Auth Environment Variables__
+
+<a href="https://github.com/intridea/omniauth-ldap" target="_blank">OmniAuth LDAP</a>
+<a href="https://github.com/projectjellyfish/jellyfish-ldapauth" target="_blank">Jellyfish LDAP</a>
+
+Required:
 ```
 LDAP_HOST                                = ldap.company.com
 LDAP_BASE                                = ou=Users,o=organization_id,dc=company,dc=com
 LDAP_BIND_DN                             = uid=username,ou=Admins,o=organization_id,dc=company,dc=com
 LDAP_PASSWORD                            = password
 ```
-**_Optional_**
+_Optional_:
 ```
 LDAP_TILE                                = "LDAP Authentication"
 LDAP_PORT                                = 389
@@ -149,24 +159,26 @@ LDAP_FILTER                              = "(&(uid=%{username})(memberOf=cn=myap
 ```
 
 ---
-#### Fog AWS Environment Variables
->[Jellyfish Fog AWS](https://github.com/projectjellyfish/jellyfish_fog_aws)
->
-**Required**
+__Fog AWS Environment Variables__
+
+<a href="https://github.com/projectjellyfish/jellyfish_fog_aws" target="_blank">Jellyfish Fog AWS</a>
+
+Required:
 ```
 AWS_ACCESS_KEY                           = Th1sK3Yd0eSn0tW0rK
 AWS_SECRET_KEY                           = N31tH3rD03sTh1sK3y
 ```
-**_Optional_**
+_Optional_:
 ```
 MOCK_FOG                                 = true # If this variable is present, it's evaluated as true
 ```
 
 ---
-#### Jellyfish Azure Environment Variables
->[Jellyfish Azure](https://github.com/projectjellyfish/jellyfish-azure)
->
-**Required**
+__Jellyfish Azure Environment Variables__
+
+<a href="https://github.com/projectjellyfish/jellyfish-azure" target="_blank">Jellyfish Azure</a>
+
+Required:
 ```
 JF_AZURE_SUB_ID                          = YOUR_AZURE_SUBSCRIPTION_ID
 JF_AZURE_PEM_PATH                        = YOUR_AZURE_PEM_PATH
@@ -174,10 +186,11 @@ JF_AZURE_API_URL                         = https://management.core.windows.net
 ```
 
 ---
-#### Jellyfish GitHub Environment Variables
->[Jellyfish GitHub](https://github.com/projectjellyfish/jellyfish-github)
->
-**Required**
+__Jellyfish GitHub Environment Variables__
+
+<a href="https://github.com/projectjellyfish/jellyfish-github" target="_blank">Jellyfish GitHub</a>
+
+Required:
 ```
 GIT_HUB_TOKEN                            = API_TOKEN
 GIT_HUB_ORG                              = YOUR_ORGANIZATION # Currently not being used
@@ -185,10 +198,12 @@ GIT_HUB_TEAM_ID                          = YOUR_GITHUB_TEAM_ID
 ```
 
 ---
-#### Jellyfish Notice Environment Variables
->[Jellyfish Notice](https://github.com/projectjellyfish/jellyfish-notice)
->
-**Required**
+
+__Jellyfish Notice Environment Variables__
+
+<a href="https://github.com/projectjellyfish/jellyfish-notice" target="_blank">Jellyfish Notice</a>
+
+Required
 ```
 PJ_PERFORM_DELIVERIES                    = true
 PJ_DELIVERY_METHOD                       = smtp
@@ -201,5 +216,4 @@ PJ_SMTP_ENABLE_STARTTLS_AUTO             = true
 PJ_SMTP_DEFAULT_RECIPIENT                = someonesname@somedomain.com
 PJ_SMTP_DEFAULT_SENDER                   = yourname@yourapp.com
 ```
-
 ---
