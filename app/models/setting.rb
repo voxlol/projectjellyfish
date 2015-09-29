@@ -44,13 +44,17 @@ class Setting < ActiveRecord::Base
   end
 
   def self.create(opts)
+    Setting.inheritance_column = :_type_disabled
     s = Setting.find_by name: opts[:name].to_s
     s.nil? ? super(opts.merge(value: SETTINGS[opts[:name].to_sym] || opts[:value])) : create_existing(s, opts)
+    Setting.inheritance_column = :type
   end
 
   def self.create!(opts)
+    Setting.inheritance_column = :_type_disabled
     s = Setting.find_by name: opts[:name].to_s
     s.nil? ? super(opts.merge(value: SETTINGS[opts[:name].to_sym] || opts[:value])) : create_existing(s, opts)
+    Setting.inheritance_column = :type
   end
 
   def self.policy_class
