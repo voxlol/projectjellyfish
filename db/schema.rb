@@ -99,14 +99,12 @@ ActiveRecord::Schema.define(version: 20150917174153) do
 
   create_table "chargebacks", force: :cascade do |t|
     t.integer  "product_id"
-    t.integer  "cloud_id"
     t.decimal  "hourly_price", precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
 
-  add_index "chargebacks", ["cloud_id"], name: "index_chargebacks_on_cloud_id", using: :btree
   add_index "chargebacks", ["deleted_at"], name: "index_chargebacks_on_deleted_at", using: :btree
   add_index "chargebacks", ["product_id"], name: "index_chargebacks_on_product_id", using: :btree
 
@@ -272,17 +270,6 @@ ActiveRecord::Schema.define(version: 20150917174153) do
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
   add_index "products", ["provider_id"], name: "index_products_on_provider_id", using: :btree
-
-  create_table "project_answers", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_question_id"
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
-  add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
 
   create_table "project_questions", force: :cascade do |t|
     t.string   "question",   limit: 255
