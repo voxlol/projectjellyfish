@@ -5,7 +5,7 @@
     .factory('AuthenticationService', AuthenticationServiceFactory);
 
   /** @ngInject */
-  function AuthenticationServiceFactory($http, $q, $state, SessionService) {
+  function AuthenticationServiceFactory($http, $q, SessionService) {
     var service = {
       login: login,
       logout: logout,

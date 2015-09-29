@@ -16,6 +16,7 @@
     'blocks.bind-attrs',
     'blocks.directive-options',
     'blocks.recursion',
+    'blocks.state-override',
 
     // Third party modules
     'ui.router',

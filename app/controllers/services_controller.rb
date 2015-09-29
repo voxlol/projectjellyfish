@@ -20,7 +20,7 @@ class ServicesController < ApplicationController
 
   def show
     authorize service
-    respond_with_params service
+    respond_with_params service, serializer: ServiceSerializer
   end
 
   private

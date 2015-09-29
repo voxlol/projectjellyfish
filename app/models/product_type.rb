@@ -26,13 +26,17 @@ class ProductType < ActiveRecord::Base
   validates :provider_type, presence: true, allow_nil: false, allow_blank: false
 
   def self.create(opts)
+    ProductType.inheritance_column = :_type_disabled
     product_type = ProductType.find_by uuid: opts[:uuid]
     product_type.nil? ? super(opts) : create_existing(product_type, opts)
+    ProductType.inheritance_column = :type
   end
 
   def self.create!(opts)
+    ProductType.inheritance_column = :_type_disabled
     product_type = ProductType.find_by uuid: opts[:uuid]
     product_type.nil? ? super(opts) : create_existing(product_type, opts)
+    ProductType.inheritance_column = :type
   end
 
   def self.policy_class

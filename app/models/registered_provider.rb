@@ -22,13 +22,17 @@ class RegisteredProvider < ActiveRecord::Base
   has_many :providers
 
   def self.create(opts)
+    RegisteredProvider.inheritance_column = :_type_disabled
     registered_provider = RegisteredProvider.find_by uuid: opts[:uuid]
     registered_provider.nil? ? super(opts) : create_existing(registered_provider, opts)
+    RegisteredProvider.inheritance_column = :type
   end
 
   def self.create!(opts)
+    RegisteredProvider.inheritance_column = :_type_disabled
     registered_provider = RegisteredProvider.find_by uuid: opts[:uuid]
     registered_provider.nil? ? super(opts) : create_existing(registered_provider, opts)
+    RegisteredProvider.inheritance_column = :type
   end
 
   def self.policy_class

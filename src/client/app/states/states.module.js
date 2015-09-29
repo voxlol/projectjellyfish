@@ -5,6 +5,7 @@
     'app.core',
     'app.layouts',
     'app.components',
+    'app.services',
     'app.resources'
   ]);
 })();

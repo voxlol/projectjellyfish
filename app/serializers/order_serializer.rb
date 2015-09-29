@@ -22,7 +22,8 @@
 #
 
 class OrderSerializer < ApplicationSerializer
-  attributes :project_id, :product_id, :service_id, :setup_price, :hourly_price, :monthly_price, :created_at
+  attributes :project_id, :product_id, :service_id, :setup_price, :hourly_price, :monthly_price, :monthly_cost
+  attributes :created_at, :updated_at
 
   has_one :staff
   has_one :product
