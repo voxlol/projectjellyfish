@@ -1,34 +1,13 @@
-begin
-  if Setting.table_exists?
-    Dir[Rails.root.join 'app', 'models', 'setting', '*.rb'].each do |setting_model|
-      require_dependency setting_model
-    end
-    Setting.descendants.each(&:load_defaults)
+{
+  Setting => :load_defaults,
+  ProductType => :load_product_types,
+  RegisteredProvider => :load_registered_providers
+}.each do |klass, loader|
+  next unless klass.table_exists?
+  Dir[Rails.root.join 'app', 'models', klass.name.underscore, '*.rb'].each do |model|
+    require_dependency model
   end
-rescue
-  false
-end
-
-begin
-  if ProductType.table_exists?
-    Dir[Rails.root.join 'app', 'models', 'product_type', '*.rb'].each do |product_type_model|
-      require_dependency product_type_model
-    end
-    ProductType.descendants.each(&:load_product_types)
-  end
-rescue
-  false
-end
-
-begin
-  if RegisteredProvider.table_exists?
-    Dir[Rails.root.join 'app', 'models', 'registered_provider', '*.rb'].each do |registered_provider_model|
-      require_dependency registered_provider_model
-    end
-    RegisteredProvider.descendants.each(&:load_registered_providers)
-  end
-rescue
-  false
+  klass.descendants.each(&loader)
 end
 
 # Include demo support code in development
