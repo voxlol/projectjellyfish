@@ -66,7 +66,7 @@ RSpec.describe 'Chargebacks API' do
     end
 
     it 'updates a chargeback', :show_in_doc do
-      put "/api/v1/chargebacks/#{@chargeback.id}", cloud_id: 1
+      put "/api/v1/chargebacks/#{@chargeback.id}", hourly_price: '10'
       expect(response.status).to eq(204)
     end
 

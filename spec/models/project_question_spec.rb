@@ -20,8 +20,6 @@
 #
 
 describe ProjectQuestion do
-  it { should have_many(:project_answers) }
-
   it { should validate_presence_of(:question) }
   it { should validate_presence_of(:field_type) }
 
