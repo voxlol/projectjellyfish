@@ -129,8 +129,8 @@ module Jellyfish
     def mount_extension(engine, options)
       @mount = {
         engine: engine,
-        options: options
-      }
+        options: options.freeze
+      }.freeze
     end
 
     def pending_migrations

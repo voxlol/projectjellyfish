@@ -55,7 +55,7 @@ GEM
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
-    apipie-rails (0.3.4)
+    apipie-rails (0.3.3)
       json
     arel (6.0.3)
     ast (2.1.0)
@@ -290,7 +290,7 @@ GEM
     ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
-    rufus-scheduler (3.1.5)
+    rufus-scheduler (3.1.6)
     sass (3.4.18)
     seed_dump (3.2.2)
       activerecord (~> 4)
@@ -353,7 +353,7 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_list
   annotate
-  apipie-rails (~> 0.3.0)
+  apipie-rails (= 0.3.3)
   awesome_print
   bcrypt (~> 3.1.7)
   brakeman
