@@ -6,23 +6,6 @@ GIT
       bcrypt (~> 3.1)
       rails (~> 4.2)
 
-PATH
-  remote: ../../neudesic/jellyfish-azure
-  specs:
-    jellyfish-azure (0.0.1)
-      azure_mgmt_resources (~> 0.1)
-      azure_mgmt_storage (~> 0.1)
-      bcrypt (~> 3.1)
-      rails (~> 4.2)
-
-PATH
-  remote: ../jellyfish_aws
-  specs:
-    jellyfish-aws (0.0.8)
-      bcrypt (~> 3.1)
-      fog-aws (~> 0.7)
-      rails (~> 4.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,18 +66,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    azure_mgmt_resources (0.1.0)
-      concurrent-ruby (>= 1.0.0.pre1, < 2)
-      faraday (~> 0.9)
-      faraday-cookie_jar (~> 0.0.6)
-      json (~> 1.8)
-      ms_rest_azure (~> 0.1)
-    azure_mgmt_storage (0.1.0)
-      concurrent-ruby (>= 1.0.0.pre1, < 2)
-      faraday (~> 0.9)
-      faraday-cookie_jar (~> 0.0.6)
-      json (~> 1.8)
-      ms_rest_azure (~> 0.1)
     bcrypt (3.1.10)
     brakeman (3.1.1)
       erubis (~> 2.6)
@@ -115,7 +86,6 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.0.0.pre3)
     daemons (1.2.3)
     database_cleaner (1.4.1)
     delayed_job (4.1.1)
@@ -148,11 +118,6 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.1)
-      multipart-post (>= 1.2, < 3)
-    faraday-cookie_jar (0.0.6)
-      faraday (>= 0.7.4)
-      http-cookie (~> 1.0.0)
     fastercsv (1.5.5)
     ffi (1.9.10)
     fog-aws (0.7.6)
@@ -195,6 +160,10 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.1)
     ipaddress (0.8.0)
+    jellyfish-aws (0.0.8)
+      bcrypt (~> 3.1)
+      fog-aws (~> 0.7)
+      rails (~> 4.2)
     jellyfish-notification (0.0.2)
       delayed_job_active_record
       dotenv-rails
@@ -215,20 +184,8 @@ GEM
     mime-types (2.6.2)
     mini_portile (0.6.2)
     minitest (5.8.1)
-    ms_rest (0.1.1)
-      concurrent-ruby (>= 1.0.0.pre1, < 2)
-      faraday (~> 0.9.1)
-      json (~> 1.8.3)
-      timeliness (~> 0.3.7)
-    ms_rest_azure (0.1.1)
-      concurrent-ruby (>= 1.0.0.pre1, < 2)
-      faraday (~> 0.9.1)
-      faraday-cookie_jar (~> 0.0.6)
-      json (~> 1.8.3)
-      ms_rest (~> 0.1.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
@@ -370,7 +327,6 @@ GEM
     time_for_a_boolean (0.0.6)
       activerecord
       railties
-    timeliness (0.3.7)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -411,8 +367,7 @@ DEPENDENCIES
   foreman
   friendly_id
   has_scope
-  jellyfish-aws!
-  jellyfish-azure!
+  jellyfish-aws
   jellyfish-docker!
   jellyfish-notification
   license_finder
