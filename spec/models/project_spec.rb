@@ -101,7 +101,7 @@ describe 'Project.monthly_spend' do
     CreateServiceOrder.perform user,
       project_id: project.id,
       product_id: product.id,
-      service: { 'name' => 'Service 1' }
+      service: { 'name' => 'Service 1', 'answers_attributes' => [{ 'value' => 'foo', 'name' => 'bar', 'value_type' => 'string' }] }
 
     CreateServiceOrder.perform user,
       project_id: project.id,

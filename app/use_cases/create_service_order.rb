@@ -48,10 +48,7 @@ class CreateServiceOrder
   end
 
   def build_service
-    service_params = params.delete :service
-
     service.type = service.class.to_s
-    service.name = service_params['name']
     service.status = :pending
     service.status_msg = 'Provisioning service...'
   end
@@ -64,8 +61,6 @@ class CreateServiceOrder
       monthly_price: product.monthly_price,
       service: service
     )
-
-    order_params['answers_attributes'] = [] unless order_params['answers_attributes']
 
     @order = Order.new order_params
   end
