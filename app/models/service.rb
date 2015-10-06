@@ -19,6 +19,8 @@
 #
 
 class Service < ActiveRecord::Base
+  include Answers
+
   has_many :alerts, as: :alertable
   has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
 
@@ -42,6 +44,8 @@ class Service < ActiveRecord::Base
     terminated: 10
   }
 
+  accepts_nested_attributes_for :answers
+
   before_create :ensure_uuid
 
   def self.policy_class
@@ -50,6 +54,9 @@ class Service < ActiveRecord::Base
 
   def actions
     []
+  end
+
+  def provision
   end
 
   private

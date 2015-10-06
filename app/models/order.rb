@@ -22,14 +22,10 @@
 #
 
 class Order < ActiveRecord::Base
-  include Answers
-
   belongs_to :staff
   belongs_to :product
   belongs_to :project
   belongs_to :service
-
-  accepts_nested_attributes_for :answers
 
   after_initialize :init
   after_save :update_project_monthly_spend, on: :create
