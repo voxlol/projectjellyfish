@@ -58,6 +58,18 @@ RSpec.describe 'Products API' do
   end
 
   describe 'POST create' do
+    it 'creates a product without any answers' do
+      sign_in_as create :staff, :admin
+      product_attributes = attributes_for(
+        :product,
+        answers: nil
+      )
+
+      post products_path, product_attributes
+
+      expect(response).to be_success
+    end
+
     it 'maps provisioning_answers to a hash' do
       sign_in_as create :staff, :admin
       product_attributes = attributes_for(
