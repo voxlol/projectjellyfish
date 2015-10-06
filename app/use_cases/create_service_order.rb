@@ -73,7 +73,7 @@ class CreateServiceOrder
   end
 
   def provision_service
-    # TODO: Create a worker to handle provisioning the pending service
+    service.delay.provision
   end
 
   def project
