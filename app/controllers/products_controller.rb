@@ -80,7 +80,7 @@ class ProductsController < ApplicationController
     params.permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price,
       :provider_id, :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |p|
       p[:tag_list] = p.delete :tags
-      p[:answers_attributes] = p.delete :answers
+      p[:answers_attributes] = p.delete(:answers) || []
     end
   end
 
