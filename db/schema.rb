@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917174153) do
+ActiveRecord::Schema.define(version: 20151009194552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -339,7 +339,7 @@ ActiveRecord::Schema.define(version: 20150917174153) do
     t.jsonb  "permissions"
   end
 
-  create_table "service_attributes", force: :cascade do |t|
+  create_table "service_outputs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "service_id", null: false
@@ -348,7 +348,7 @@ ActiveRecord::Schema.define(version: 20150917174153) do
     t.integer  "value_type"
   end
 
-  add_index "service_attributes", ["service_id"], name: "index_service_attributes_on_service_id", using: :btree
+  add_index "service_outputs", ["service_id"], name: "index_service_outputs_on_service_id", using: :btree
 
   create_table "services", force: :cascade do |t|
     t.datetime "created_at",             null: false

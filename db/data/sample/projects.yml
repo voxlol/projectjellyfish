@@ -20,6 +20,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'true'
+      value_type: boolean
     - question: loc
       value: West Coast Data Center
     - question: prod
@@ -28,6 +29,7 @@
       value: High
     - question: period
       value: 5
+      value_type: integer
 - _assoc: mobile
   name: Widgets Co Mobile API
   description: Collections of services for running the Widgets Co. mobile API services
@@ -49,6 +51,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'true'
+      value_type: boolean
     - question: loc
       value: West Coast Data Center
     - question: prod
@@ -57,6 +60,7 @@
       value: High
     - question: period
       value: 5
+      value_type: integer
 - _assoc: blog
   name: Widgets Co. Blog
   description: The Widgets Co. blog site
@@ -81,6 +85,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'false'
+      value_type: boolean
     - question: loc
       value: West Coast Data Center
     - question: prod
@@ -89,6 +94,7 @@
       value: High
     - question: period
       value: 5
+      value_type: integer
 - _assoc: files
   name: Cloud File Share
   description: A Widget Co. cloud sharing service
@@ -106,6 +112,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'true'
+      value_type: boolean
     - question: loc
       value: East Coast Data Center
     - question: prod
@@ -114,6 +121,7 @@
       value: High
     - question: period
       value: 5
+      value_type: integer
 - _assoc: exchange
   name: Cloud Exchange
   description: Another great project underway for Widget Co.
@@ -131,6 +139,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'true'
+      value_type: boolean
     - question: loc
       value: Europe
     - question: prod
@@ -139,6 +148,7 @@
       value: High
     - question: period
       value: 5
+      value_type: integer
 - _assoc: jellyfish
   name: Project Jellyfish Demo
   description: A demo project for showcasing the features of Project Jellyfish.
@@ -156,6 +166,7 @@
       value: 2015-05-20T05:00:00.000Z
     - question: do_maint
       value: 'true'
+      value_type: boolean
     - question: loc
       value: East Coast Data Center
     - question: prod
@@ -164,3 +175,4 @@
       value: High
     - question: period
       value: 5
+      value_type: integer

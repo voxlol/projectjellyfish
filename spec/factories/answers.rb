@@ -16,12 +16,31 @@
 #  index_answers_on_answerable_type_and_answerable_id  (answerable_type,answerable_id)
 #
 
-class Answer < ActiveRecord::Base
-  include ValueTypes
+FactoryGirl.define do
+  factory :answer do
+    sequence :name do |n|
+      "answer_#{n}"
+    end
 
-  belongs_to :answerable, polymorphic: true
+    answerable_id 1
+    answerable_type 'Mock'
 
-  validates :name, presence: true
+    value 'foobar'
+    value_type :string
 
-  before_save :convert_value
+    trait :integer do
+      value 1
+      value_type :integer
+    end
+
+    trait :email do
+      value 'foo@bar.com'
+      value_type :email
+    end
+
+    trait :url do
+      value 'http://foobar.com'
+      value_type :url
+    end
+  end
 end
