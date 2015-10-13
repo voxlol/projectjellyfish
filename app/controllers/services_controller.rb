@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  SERVICE_INCLUDES = %w(alerts latest_alerts order project product product_type)
+  SERVICE_INCLUDES = %w(alerts latest_alerts order project product provider product_type)
 
   after_action :verify_authorized
 
