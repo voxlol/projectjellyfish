@@ -25,4 +25,5 @@ class ServiceSerializer < ApplicationSerializer
   has_one :project, serializer: ProjectSerializer
   has_one :product, serializer: ProductSerializer
   has_one :product_type, serializer: ProductTypeSerializer
+  has_one :provider, serializer: ProviderSerializer
 end

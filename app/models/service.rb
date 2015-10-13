@@ -29,6 +29,7 @@ class Service < ActiveRecord::Base
   has_one :project, through: :order
   has_one :product, through: :order
   has_one :product_type, through: :product
+  has_one :provider, through: :product
 
   enum health: { ok: 0, warning: 1, critical: 2 }
   enum status: {
