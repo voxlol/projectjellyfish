@@ -18,12 +18,15 @@ before_install:
 before_script:
 - bundle exec rake db:create
 - npm install -g npm@latest
-- npm install -g gulp
+- npm install -g gulp bower
 - npm install
+- bower install
+- bundle install
 notifications:
   slack:
     secure: htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec=
 script:
+- gulp build
 - gulp vet
 - bundle exec rubocop
 - bundle exec rspec
