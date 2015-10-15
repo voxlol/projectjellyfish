@@ -5,6 +5,8 @@ cache:
   - node_modules
   - bower_components
 rvm: 2.2.2
+node_js:
+  - "0.12"
 sudo: false
 addons:
   postgresql: '9.4'
@@ -17,13 +19,16 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 before_script:
 - bundle exec rake db:create
-- npm install -g npm@latest
-- npm install -g gulp
+- npm install -g npm@2
+- npm install -g gulp bower
 - npm install
+- bower install
+- bundle install
 notifications:
   slack:
     secure: htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec=
 script:
+- gulp build
 - gulp vet
 - bundle exec rubocop
 - bundle exec rspec
