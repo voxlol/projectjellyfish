@@ -43,7 +43,7 @@
   function StateController($state, logger, motd, Toasts, lodash, Motd) {
     var vm = this;
 
-    vm.title = 'Edit the Message of the Day';
+    vm.title = 'Edit Message of the Day';
     vm.backToDash = backToDash;
     vm.showValidationMessages = false;
     vm.showErrors = showErrors;
