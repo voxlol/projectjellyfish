@@ -3,7 +3,7 @@
     <span class="content-header__title">Providers</span>
   </div>
   <div class="content-header__aside">
-    <button class="btn-rounded" ng-click="vm.showModal()">Add a Provider</button>
+    <button class="btn-rounded" ng-click="vm.showModal()">Add Provider</button>
   </div>
 </content-header>
 <table ng-if="vm.providers.length" class="tables tables--bordered" st-table="vm.providers">
@@ -34,6 +34,6 @@
   </tbody>
 </table>
 <div ng-if="!vm.providers.length" class="tables__empty tables--bordered">
-  No providers have been created.
-  <button class="btn-link" ng-click="vm.showModal()">Create one now.</button>
+  No providers have been added.
+  <button class="btn-link" ng-click="vm.showModal()">Add one now.</button>
 </div>

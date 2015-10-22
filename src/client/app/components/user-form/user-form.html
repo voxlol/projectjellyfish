@@ -3,7 +3,7 @@
       ng-class="{'show-errors': vm.showErrors()}">
     <content-header short="true">
         <div>
-            <span class="content-header__title user-form__title" ng-if="!vm.editing">Create User</span>
+            <span class="content-header__title user-form__title" ng-if="!vm.editing">Add User</span>
             <span class="content-header__title user-form__title" ng-if="vm.editing">Edit User: {{vm.userToEdit.first_name}} {{vm.userToEdit.last_name}}</span>
             <span class="user-form__title-error" ng-if="vm.hasErrors()">Please complete required fields in red</span>
         </div>
