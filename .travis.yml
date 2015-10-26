@@ -4,7 +4,7 @@ cache:
   - vendor/bundle
   - node_modules
   - bower_components
-rvm: 2.2.2
+rvm: 2.2.3
 node_js:
   - "0.12"
 sudo: false
