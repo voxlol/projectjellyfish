@@ -60,10 +60,9 @@ RSpec.describe 'Products API' do
   describe 'POST create' do
     it 'creates a product without any answers' do
       sign_in_as create :staff, :admin
-      product_attributes = attributes_for(
-        :product,
-        answers: nil
-      )
+      product_type = create :product_type
+      product_attributes = attributes_for :product, answers: nil
+      product_attributes[:product_type_id] = product_type.id
 
       post products_path, product_attributes
 
@@ -72,13 +71,13 @@ RSpec.describe 'Products API' do
 
     it 'maps provisioning_answers to a hash' do
       sign_in_as create :staff, :admin
-      product_attributes = attributes_for(
-        :product,
-        answers: [
-          { name: 'foo', value: 'bar', value_type: 'string' },
-          { name: 'fizz', value: 'buzz', value_type: 'string' }
-        ]
-      )
+      answers = [
+        { name: 'foo', value: 'bar', value_type: 'string' },
+        { name: 'fizz', value: 'buzz', value_type: 'string' }
+      ]
+      product_type = create :product_type
+      product_attributes = attributes_for :product, answers: answers
+      product_attributes[:product_type_id] = product_type.id
 
       post products_path, product_attributes
 

@@ -56,7 +56,7 @@
     function initOrder() {
       vm.order = Order.new({product_id: product.id});
       vm.order.product_id = product.id;
-      vm.order.answers = product.product_type.order_questions;
+      vm.order.answers = product.order_questions;
     }
 
     function initForm() {

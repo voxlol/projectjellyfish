@@ -89,7 +89,7 @@ class CreateServiceOrder
   end
 
   def service_class
-    @service_class ||= product.product_type.service_class
+    @service_class ||= product.service_class
   end
 
   def service
