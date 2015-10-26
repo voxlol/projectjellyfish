@@ -37,14 +37,14 @@
   text: What FISMA Classification is needed?
   answers:
     - text: Low
-      tags_to_add: [fisma-low, fisma-medium, fisma-high]
-      tags_to_remove: [non-fisma]
+      tags_to_add: [fisma-low]
+      tags_to_remove: [non-fisma, fisma-medium, fisma-high]
     - text: Medium
-      tags_to_add: [fisma-medium, fisma-high]
-      tags_to_remove: [fisma-low, non-fisma]
+      tags_to_add: [fisma-medium]
+      tags_to_remove: [non-fisma, fisma-low, fisma-high]
     - text: High
       tags_to_add: [fisma-high]
-      tags_to_remove: [fisma-low, fisma-medium, non-fisma]
+      tags_to_remove: [non-fisma, fisma-low, fisma-medium]
 - _assoc: preferred
   text: What is your preferred Cloud Provider?
   answers:
