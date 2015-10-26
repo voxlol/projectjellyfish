@@ -17,7 +17,7 @@
     - question: cc
       value: GSM-4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'true'
       value_type: boolean
@@ -48,7 +48,7 @@
     - question: cc
       value: GSM-4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'true'
       value_type: boolean
@@ -82,7 +82,7 @@
     - question: cc
       value: BLG-4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'false'
       value_type: boolean
@@ -109,7 +109,7 @@
     - question: cc
       value: FIL-4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'true'
       value_type: boolean
@@ -136,7 +136,7 @@
     - question: cc
       value: CLD-4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'true'
       value_type: boolean
@@ -163,7 +163,7 @@
     - question: cc
       value: 4873849128497761
     - question: maint
-      value: 2015-05-20T05:00:00.000Z
+      value: 2015-05-20T00:00:00.000Z
     - question: do_maint
       value: 'true'
       value_type: boolean
