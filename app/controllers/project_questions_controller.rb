@@ -50,6 +50,7 @@ class ProjectQuestionsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
+    project_question.delete
     respond_with project_question
   end
 
@@ -70,7 +71,7 @@ class ProjectQuestionsController < ApplicationController
   end
 
   def project_question
-    @project_question = ProjectQuestion.find(params.require(:id)).tap { |q| authorize q }
+    @project_question ||= ProjectQuestion.find(params.require(:id)).tap { |q| authorize q }
   end
 
   def project_questions
