@@ -30,7 +30,7 @@
   }
 
   /** @ngInject */
-  function StateController(projects) {
+  function StateController(projects, lodash) {
     var vm = this;
 
     vm.projects = projects;
@@ -40,6 +40,7 @@
     activate();
 
     function activate() {
+      vm.projects = lodash.sortBy(vm.projects, 'name');
     }
   }
 })();
