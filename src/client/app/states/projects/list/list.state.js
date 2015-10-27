@@ -40,7 +40,7 @@
     activate();
 
     function activate() {
-      vm.projects = lodash.sortBy(vm.projects, "name");
+      vm.projects = lodash.sortBy(vm.projects, 'name');
     }
   }
 })();
