@@ -1,12 +1,10 @@
 class ProductsController < ApplicationController
   PRODUCT_INCLUDES = %w(tags provider product_type answers orders)
 
+  before_action :pre_hook
+
   after_action :verify_authorized
   after_action :post_hook
-
-  before_action :pre_hook
-  before_action :load_product, only: [:show, :update, :destroy]
-  before_action :load_products, only: [:index]
 
   has_scope :active, type: :boolean
 
@@ -31,7 +29,7 @@ class ProductsController < ApplicationController
 
   def index
     authorize Product
-    respond_with_params @products
+    respond_with_params products, each_serializer: ProductSerializer
   end
 
   api :GET, '/products/:id', 'Shows product with :id'
@@ -40,18 +38,18 @@ class ProductsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    authorize @product
-    respond_with_params @product
+    authorize product
+    respond_with_params product, serializer: ProductSerializer
   end
 
   api :POST, '/products', 'Creates product'
   param_group :product
 
   def create
-    product = Product.new product_params
+    product = product_class.new product_params
     authorize product
     product.save!
-    respond_with product
+    respond_with product, serializer: ProductSerializer
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
@@ -59,9 +57,8 @@ class ProductsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def update
-    authorize @product
-    @product.update_attributes(product_params)
-    respond_with @product
+    product.update_attributes product_params
+    respond_with product, serializer: ProductSerializer
   end
 
   api :DELETE, '/products/:id', 'Deletes product with :id'
@@ -69,26 +66,30 @@ class ProductsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    authorize @product
-    @product.destroy
-    respond_with @product
+    authorize product
+    product.destroy
+    respond_with product, serializer: ProductSerializer
   end
 
   private
 
   def product_params
     params.permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price,
-      :provider_id, :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |p|
-      p[:tag_list] = p.delete :tags
-      p[:answers_attributes] = p.delete(:answers) || []
+      :provider_id, :product_type_id, tags: [], answers: [:id, :name, :value, :value_type]).tap do |par|
+      par[:tag_list] = par.delete :tags
+      par[:answers_attributes] = par.delete(:answers) || []
     end
   end
 
-  def load_products
-    @products ||= query_with apply_scopes(Product.all), :includes, :pagination, :tags_list
+  def products
+    @_products ||= query_with apply_scopes(Product.all), :includes, :pagination, :tags_list
   end
 
-  def load_product
-    @product ||= Product.find params[:id]
+  def product
+    @_product ||= Product.find(params[:id]).tap { |pr| authorize pr }
+  end
+
+  def product_class
+    @_product_class ||= ProductType.find(params[:product_type_id]).product_class
   end
 end

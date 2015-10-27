@@ -16,6 +16,7 @@
 #  cached_tag_list :string
 #  provider_id     :integer
 #  product_type_id :integer
+#  type            :string           default("Product"), not null
 #
 # Indexes
 #
@@ -39,6 +40,12 @@ class Product < ActiveRecord::Base
   after_initialize :init
 
   scope :active, -> { where(active: true) }
+
+  # TODO: Move contents of ProductType.order_questions here after removal of deprecated method
+  delegate :order_questions, to: :product_type
+
+  # TODO: Move contents of ProductType.service_class here after removal of deprecated method
+  delegate :service_class, to: :product_type
 
   private
 

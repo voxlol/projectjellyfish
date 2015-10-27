@@ -16,6 +16,7 @@
 #  cached_tag_list :string
 #  provider_id     :integer
 #  product_type_id :integer
+#  type            :string           default("Product"), not null
 #
 # Indexes
 #

@@ -19,7 +19,7 @@
 #
 
 class ProductTypeSerializer < ApplicationSerializer
-  attributes :id, :type, :name, :provider, :description, :tags, :product_questions, :order_questions, :active
+  attributes :id, :type, :name, :provider, :description, :tags, :product_questions, :active
 
   def provider
     object.provider_type.split('::').last
