@@ -110,7 +110,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="answer in vm.project.answers track by answer.id">
+    <tr ng-repeat="answer in vm.project.answers track by $index">
       <td class="tables__cell">{{ ::answer.label }}</td>
       <td class="tables__cell"><span ng-if="!answer.value">N/A</span>{{ ::answer.value }}</td>
     </tr>
