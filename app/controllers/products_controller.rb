@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
     product = product_class.new product_params
     authorize product
     product.save!
-    respond_with product, serializer: ProductSerializer
+    respond_with product, serializer: ProductSerializer, location: product_url(product)
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
