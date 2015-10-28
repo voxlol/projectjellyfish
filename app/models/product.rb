@@ -47,6 +47,10 @@ class Product < ActiveRecord::Base
   # TODO: Move contents of ProductType.service_class here after removal of deprecated method
   delegate :service_class, to: :product_type
 
+  def self.policy_class
+    ProductPolicy
+  end
+
   private
 
   def init
