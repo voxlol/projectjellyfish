@@ -29,9 +29,6 @@ class Project < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  # Constants
-  STATES = Hash[%w(unknown ok pending warning critical).map.with_index.to_a]
-
   # Relationships
   has_many :answers, as: :answerable
   has_many :memberships
@@ -41,9 +38,9 @@ class Project < ActiveRecord::Base
   has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
-
   has_many :orders
   has_many :services, through: :orders
+  has_many :latest_service_alerts, through: :services, source: :latest_alerts
 
   accepts_nested_attributes_for :answers
 
@@ -72,14 +69,10 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    @problem_count ||= latest_service_alerts.count { |a| a unless a.status == 'ok' }
-  end
-
-  def latest_service_alerts
-    services.map(&:latest_alerts).flatten
+    latest_service_alerts.not_status("ok").count
   end
 
   def highest_priority_latest_alert
-    latest_service_alerts.max_by { |alert| STATES[alert.status.downcase] }
+    latest_service_alerts.max_by_status
   end
 end
