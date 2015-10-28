@@ -69,7 +69,7 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    latest_service_alerts.not_status("ok").count
+    latest_service_alerts.not_status('ok').count
   end
 
   def highest_priority_latest_alert
