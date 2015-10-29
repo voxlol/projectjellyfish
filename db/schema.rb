@@ -200,16 +200,16 @@ ActiveRecord::Schema.define(version: 20151029161157) do
   add_index "notifications", ["staff_id"], name: "index_notifications_on_staff_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "staff_id",                               null: false
-    t.integer  "project_id",                             null: false
-    t.integer  "product_id",                             null: false
-    t.integer  "service_id",                             null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "staff_id",                                           null: false
+    t.integer  "project_id",                                         null: false
+    t.integer  "product_id",                                         null: false
+    t.integer  "service_id",                                         null: false
     t.decimal  "setup_price",   precision: 10, scale: 4
     t.decimal  "hourly_price",  precision: 10, scale: 4
     t.decimal  "monthly_price", precision: 10, scale: 4
-    t.integer  "status"
+    t.integer  "status",                                 default: 0
     t.string   "status_msg"
   end
 
