@@ -12,6 +12,8 @@
 #  setup_price   :decimal(10, 4)
 #  hourly_price  :decimal(10, 4)
 #  monthly_price :decimal(10, 4)
+#  status        :integer          default(0)
+#  status_msg    :string
 #
 # Indexes
 #

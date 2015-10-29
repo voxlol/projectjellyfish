@@ -12,6 +12,8 @@
 #  setup_price   :decimal(10, 4)
 #  hourly_price  :decimal(10, 4)
 #  monthly_price :decimal(10, 4)
+#  status        :integer          default(0)
+#  status_msg    :string
 #
 # Indexes
 #
@@ -26,6 +28,9 @@ class Order < ActiveRecord::Base
   belongs_to :product
   belongs_to :project
   belongs_to :service
+
+  # Columns
+  enum status: { pending: 0, working: 1, completed: 2, failed: 3 }
 
   after_initialize :init
   after_save :update_project_monthly_spend, on: :create
