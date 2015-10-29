@@ -25,12 +25,13 @@
         </div>
       </div>
     </div>
+
     <div ng-if="::vm.project" class="compare-modal__table-row compare-modal__table-row--footer">
       <div class="compare-modal__cell compare-modal__cell--key"></div>
       <div class="compare-modal__cell compare-modal__cell--value compare-modal__cell--footer"
            ng-repeat="product in ::vm.products track by product.id"
            ng-class="{'compare-modal__cell--even': $even}">
-        <button type="button" class="btn-rounded" add-to-cart project="vm.project" product="product"></button>
+        <button type="button" class="btn-rounded" ng-click="vm.orderService()">Order</button>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@
 
       $q.all([
         0 === categories.length ? ProductCategory.query().$promise : angular.noop,
-        Product.query({'tags[]': tags}).$promise
+        Product.query({'tags[]': tags, 'includes[]': ['answers']}).$promise
       ]).then(buildProductLists);
 
       return deferred.promise;

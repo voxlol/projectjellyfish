@@ -81,16 +81,19 @@
   }
 
   /** @ngInject */
-  function CompareModalController(lodash, productList, project) {
+  function CompareModalController(lodash, productList, project, $modalInstance, $state) {
     var vm = this;
 
+    vm.project = project;
     vm.products = productList;
     vm.rowData = [];
+    vm.orderService = orderService;
 
     buildData();
 
     function buildData() {
       var properties = [];
+      var column = 0;
       var data = {
         description: [],
         setup: [],
@@ -100,14 +103,17 @@
       };
 
       angular.forEach(productList, processBasics);
-      vm.rowData.push({name: 'Description', values: data.description});
       properties = lodash.uniq(properties.sort(), true);
       angular.forEach(properties, initProperty);
       angular.forEach(productList, processProperties);
       angular.forEach(properties, appendProperty);
-      vm.rowData.push({name: 'Setup', values: data.setup});
-      vm.rowData.push({name: 'Hourly', values: data.hourly});
-      vm.rowData.push({name: 'Monthly', values: data.monthly});
+      lodash.forOwn(data, createRows);
+
+      function createRows(value, key) {
+        if (key !== 'properties') {
+          vm.rowData.push({name: lodash.startCase(key), values: value});
+        }
+      }
 
       function processBasics(product) {
         data.description.push(product.description);
@@ -115,6 +121,11 @@
         data.hourly.push(product.hourly_price);
         data.monthly.push(product.monthly_price);
         properties = properties.concat(lodash.keys(product.properties));
+
+        if (0 < product.answers.length) {
+          lodash.forEach(product.answers, addAnswerKey);
+        }
+        column++;
       }
 
       function initProperty(property) {
@@ -134,6 +145,20 @@
       function isPurchasable() {
         return angular.isDefined(project);
       }
+
+      function addAnswerKey(answer) {
+        if (!data[answer.name]) {
+          data[answer.name] = [''];
+          data[answer.name][column] = answer.value;
+        } else {
+          data[answer.name][column] = answer.value;
+        }
+      }
+    }
+
+    function orderService() {
+      $modalInstance.close();
+      $state.go('orders');
     }
   }
 })();
