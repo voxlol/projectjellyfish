@@ -29,6 +29,9 @@ class Order < ActiveRecord::Base
   belongs_to :project
   belongs_to :service
 
+  # Columns
+  enum status: { pending: 0, working: 1, completed: 2, failed: 3 }
+
   after_initialize :init
   after_save :update_project_monthly_spend, on: :create
 
