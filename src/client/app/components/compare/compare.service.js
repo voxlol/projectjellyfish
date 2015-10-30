@@ -119,7 +119,7 @@
       function processProperties(product) {
         for (var idx = properties.length; --idx >= 0;) {
           data.properties[properties[idx]].values.push(
-            lodash.result(lodash.find(product.answers, {'name': properties[idx]}), 'value'));
+            lodash.result(lodash.find(product.answers, {name: properties[idx]}), 'value'));
         }
       }
 
