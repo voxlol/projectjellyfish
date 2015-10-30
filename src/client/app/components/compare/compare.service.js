@@ -54,14 +54,13 @@
       return self.items.length < MAX_COMPARES && !inList(product);
     }
 
-    function showModal(project) {
+    function showModal() {
       var modalOptions = {
         templateUrl: 'app/components/compare/compare-modal.html',
         controller: CompareModalController,
         controllerAs: 'vm',
         resolve: {
-          productList: resolveItems,
-          project: resolveProject
+          productList: resolveItems
         },
         windowTemplateUrl: 'app/components/common/modal-window.html',
         size: 'compare'
@@ -73,27 +72,20 @@
       function resolveItems() {
         return self.items;
       }
-
-      function resolveProject() {
-        return project;
-      }
     }
   }
 
   /** @ngInject */
-  function CompareModalController(lodash, productList, project, $modalInstance, $state) {
+  function CompareModalController(lodash, productList) {
     var vm = this;
 
-    vm.project = project;
     vm.products = productList;
     vm.rowData = [];
-    vm.orderService = orderService;
 
     buildData();
 
     function buildData() {
       var properties = [];
-      var column = 0;
       var data = {
         description: [],
         setup: [],
@@ -103,29 +95,21 @@
       };
 
       angular.forEach(productList, processBasics);
+      vm.rowData.push({name: 'Description', values: data.description});
       properties = lodash.uniq(properties.sort(), true);
       angular.forEach(properties, initProperty);
       angular.forEach(productList, processProperties);
       angular.forEach(properties, appendProperty);
-      lodash.forOwn(data, createRows);
-
-      function createRows(value, key) {
-        if (key !== 'properties') {
-          vm.rowData.push({name: lodash.startCase(key), values: value});
-        }
-      }
+      vm.rowData.push({name: 'Setup', values: data.setup});
+      vm.rowData.push({name: 'Hourly', values: data.hourly});
+      vm.rowData.push({name: 'Monthly', values: data.monthly});
 
       function processBasics(product) {
         data.description.push(product.description);
         data.setup.push(product.setup_price);
         data.hourly.push(product.hourly_price);
         data.monthly.push(product.monthly_price);
-        properties = properties.concat(lodash.keys(product.properties));
-
-        if (0 < product.answers.length) {
-          lodash.forEach(product.answers, addAnswerKey);
-        }
-        column++;
+        properties = properties.concat(lodash.pluck(product.answers, 'name'));
       }
 
       function initProperty(property) {
@@ -134,31 +118,14 @@
 
       function processProperties(product) {
         for (var idx = properties.length; --idx >= 0;) {
-          data.properties[properties[idx]].values.push(product.properties[properties[idx]]);
+          data.properties[properties[idx]].values.push(
+            lodash.result(lodash.find(product.answers, {'name':properties[idx]}), 'value'));
         }
       }
 
       function appendProperty(property) {
         vm.rowData.push(data.properties[property]);
       }
-
-      function isPurchasable() {
-        return angular.isDefined(project);
-      }
-
-      function addAnswerKey(answer) {
-        if (!data[answer.name]) {
-          data[answer.name] = [''];
-          data[answer.name][column] = answer.value;
-        } else {
-          data[answer.name][column] = answer.value;
-        }
-      }
-    }
-
-    function orderService() {
-      $modalInstance.close();
-      $state.go('orders');
     }
   }
 })();
