@@ -41,7 +41,7 @@
       }
 
       function showModal() {
-        Compare.showModal(vm.project);
+        Compare.showModal();
       }
 
       function disabled() {
