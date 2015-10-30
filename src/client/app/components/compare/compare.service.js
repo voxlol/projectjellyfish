@@ -54,14 +54,13 @@
       return self.items.length < MAX_COMPARES && !inList(product);
     }
 
-    function showModal(project) {
+    function showModal() {
       var modalOptions = {
         templateUrl: 'app/components/compare/compare-modal.html',
         controller: CompareModalController,
         controllerAs: 'vm',
         resolve: {
-          productList: resolveItems,
-          project: resolveProject
+          productList: resolveItems
         },
         windowTemplateUrl: 'app/components/common/modal-window.html',
         size: 'compare'
@@ -73,15 +72,11 @@
       function resolveItems() {
         return self.items;
       }
-
-      function resolveProject() {
-        return project;
-      }
     }
   }
 
   /** @ngInject */
-  function CompareModalController(lodash, productList, project) {
+  function CompareModalController(lodash, productList) {
     var vm = this;
 
     vm.products = productList;
@@ -114,7 +109,7 @@
         data.setup.push(product.setup_price);
         data.hourly.push(product.hourly_price);
         data.monthly.push(product.monthly_price);
-        properties = properties.concat(lodash.keys(product.properties));
+        properties = properties.concat(lodash.pluck(product.answers, 'name'));
       }
 
       function initProperty(property) {
@@ -123,16 +118,13 @@
 
       function processProperties(product) {
         for (var idx = properties.length; --idx >= 0;) {
-          data.properties[properties[idx]].values.push(product.properties[properties[idx]]);
+          data.properties[properties[idx]].values.push(
+            lodash.result(lodash.find(product.answers, {name: properties[idx]}), 'value'));
         }
       }
 
       function appendProperty(property) {
         vm.rowData.push(data.properties[property]);
-      }
-
-      function isPurchasable() {
-        return angular.isDefined(project);
       }
     }
   }
