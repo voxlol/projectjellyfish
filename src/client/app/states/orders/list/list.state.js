@@ -58,6 +58,7 @@
         order.product_name = order.product.name;
         order.total = order.total();
         order.staff = new Staff(staff).fullName();
+        order.status = order.status[0].toUpperCase() + order.status.slice(1);
 
         return order;
       }
