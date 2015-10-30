@@ -8,7 +8,9 @@
   function SelectProductDirective($position, $window) {
     var directive = {
       restrict: 'AE',
-      scope: {},
+      scope: {
+        product: '='
+      },
       link: link,
       templateUrl: 'app/components/compare/select-product.html',
       controller: SelectProductController,
