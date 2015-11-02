@@ -1,3 +1,7 @@
+<content-header short="true">
+  <span class="content-header__title">Order Details</span>
+</content-header>
+
 <details-table>
   <div class="details-table__row">
     <div class="details-table__label">Product</div>
@@ -6,20 +10,14 @@
 
   <div class="details-table__row">
     <div class="details-table__label">Project</div>
-    <div class="details-table__detail">
-      <a ui-sref="projects.details({projectId: vm.project.id})" class="tables__action">{{ ::vm.project.name }}</a>
-    </div>
+    <project-description project="vm.project" link-to="projects.details({projectId: vm.project.id})"></project-description>
   </div>
 
   <div class="details-table__row">
     <div class="details-table__label">Service</div>
     <div class="details-table__detail">
-      <a ui-sref="services.details({serviceId: vm.service.id})" class="tables__action">{{ ::vm.service.name }}</a>
+      <a ui-sref="services.details({serviceId: vm.service.id})">{{ ::vm.service.name }}</a>
     </div>
-  </div>
-
-  <div class="details-table__row">
-    <div class="details-table__label"></div>
   </div>
 
   <div class="details-table__row">
