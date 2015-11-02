@@ -16,7 +16,7 @@
               confirmation-on-ok="vm.archiveProject()"
               confirmation-show-cancel="true">Archive
       </button>
-      <a  ng-if="::'approved' === vm.project.status" ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded" ari-label="edit">Edit</a>
+      <a ng-if="::'approved' === vm.project.status || ::null === vm.project.archived" ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded" ari-label="edit">Edit</a>
     </div>
   </div>
 </content-header>
