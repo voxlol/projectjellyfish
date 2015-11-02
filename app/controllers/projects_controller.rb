@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     authorize project
-    project.update archived: DateTime.now
+    project.update archived: DateTime.now.utc
     respond_with project
   end
 
