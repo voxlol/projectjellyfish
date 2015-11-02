@@ -1,6 +1,6 @@
 <region heading="Memberships">
   <div class="region__buttons">
-    <button type="button" class="btn-rounded btn-rounded--short" ng-click="vm.showModal()">
+    <button type="button" class="btn-rounded btn-rounded--short" ng-if="::null === vm.projectArchived" ng-click="vm.showModal()">
       Add Membership
     </button>
   </div>
@@ -10,7 +10,7 @@
       <th class="tables__heading">Group</th>
       <th class="tables__heading">Role</th>
       <th class="tables__heading tables__heading--centered">Members</th>
-      <th class="tables__heading tables__heading--actions">Action</th>
+      <th class="tables__heading tables__heading--actions" ng-if="::null === vm.projectArchived">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -19,10 +19,10 @@
       <td class="tables__cell">{{ row.role.name }}</td>
       <td class="tables__cell tables__cell--centered">{{ row.group.staff_count }}</td>
       <td class="tables__cell tables__cell--actions">
-        <a href="#" ng-click="vm.showModal(row)" class="tables__action" title="Edit">
+        <a href="#" ng-click="vm.showModal(row)" class="tables__action" title="Edit" ng-if="::null === vm.projectArchived">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
-        <a href="#" class="tables__action"
+        <a href="#" class="tables__action" ng-if="::null === vm.projectArchived"
            confirmation
            confirmation-position="left-center"
            confirmation-message="Are you sure you want to remove this membership?"

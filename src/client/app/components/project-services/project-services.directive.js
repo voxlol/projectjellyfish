@@ -10,6 +10,7 @@
       restrict: 'AE',
       scope: {
         projectId: '=',
+        projectArchived: '=?',
         services: '='
       },
       link: link,

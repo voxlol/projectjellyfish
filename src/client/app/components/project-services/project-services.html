@@ -1,6 +1,6 @@
 <region heading="Services">
   <div class="region__buttons">
-    <button type="button" class="btn-rounded btn-rounded--short" ui-sref="marketplace">
+    <button type="button" class="btn-rounded btn-rounded--short" ng-if="::null === vm.projectArchived " ui-sref="marketplace">
       Add Service
     </button>
   </div>
@@ -11,7 +11,7 @@
       <th class="tables__heading">Product</th>
       <th class="tables__heading tables__heading--centered tables__heading--status">Status</th>
       <th class="tables__heading tables__heading--centered tables__heading--health">Health</th>
-      <th class="tables__heading tables__heading--actions">Action</th>
+      <th class="tables__heading tables__heading--actions" ng-if="::null === vm.projectArchived">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +23,10 @@
         <status type="{{ :: row.health }}">{{ ::row.health }}</status>
       </td>
       <td class="tables__cell tables__cell--actions">
-        <a ui-sref="services.details({serviceId: row.id})" class="tables__action" title="Edit">
+        <a ui-sref="services.details({serviceId: row.id})"
+           class="tables__action"
+           title="Edit"
+           ng-if="::null === vm.projectArchived">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
       </td>

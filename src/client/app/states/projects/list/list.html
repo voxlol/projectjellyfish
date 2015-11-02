@@ -25,7 +25,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="row in vm.projects track by row.id">
+  <tr ng-repeat="row in vm.projects track by row.id" ng-if="null === row.archived ">
     <td class="tables__cell tables__cell--description">
       <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
     </td>
@@ -43,7 +43,47 @@
   </tr>
   </tbody>
 </table>
-
+<hr/>
+<region heading="Achieved Projects"  ng-if="::vm.projectsArchived.length > 1">
+    <table st-table="vm.projects" class="tables tables--bordered">
+      <thead>
+      <tr>
+        <th st-sort="name" class="tables__heading tables__heading--sortable">Project</th>
+        <th st-sort="approval"
+            class="tables__heading tables__heading--centered tables__heading--sortable projects-list__approval">
+          Approved
+        </th>
+        <th st-sort="health"
+            class="tables__heading tables__heading--centered tables__heading--health tables__heading--sortable">
+          Health
+        </th>
+        <th st-sort="budget" class="tables__heading tables__heading--sortable projects-list__budget">Budget</th>
+        <th st-sort="spent" class="tables__heading tables__heading--sortable projects-list__spent">Spent</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in vm.projects track by row.id" ng-if="null !== row.archived ">
+        <td class="tables__cell tables__cell--description">
+          <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
+        </td>
+        <td class="tables__cell tables__cell--centered">
+          <img ng-if="::'approved' === row.status" src="/images/ic_required.png" alt="Approved"
+               title="Project is approved"/>
+          <img ng-if="::'rejected' === row.status" src="/images/ic_deletequestion.png" alt="Rejected"
+               title="Project is rejected"/>
+        </td>
+        <td class="tables__cell tables__cell--centered">
+          <status type="{{ ::row.health }}">{{ ::row.health }}</status>
+        </td>
+        <td class="tables__cell tables__cell--budget">{{ ::row.budget | currency }}</td>
+        <td class="tables__cell tables__cell--spent">{{ ::row.spent | currency }}</td>
+      </tr>
+      </tbody>
+    </table>
+  <div ng-if="::0 === vm.projects.length" class="tables__empty">
+    No archived projects at this time.
+  </div>
+</region>
 
 
 

@@ -36,6 +36,7 @@
     vm.projects = projects;
     vm.activate = activate;
     vm.title = 'Projects';
+    vm.projectsArchived = lodash.uniq(lodash.pluck(vm.projects, 'archived'));
 
     activate();
 
