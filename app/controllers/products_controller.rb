@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
 
   def index
     authorize Product
-    respond_with_params products, each_serializer: ProductSerializer
+    respond_with_params products, index_respond_options
   end
 
   api :GET, '/products/:id', 'Shows product with :id'
@@ -72,6 +72,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def index_respond_options
+    { each_serializer: ProductSerializer, except: [:order_questions, :active, :deleted_at] }
+  end
 
   def product_params
     params.permit(:name, :description, :img, :active, :hourly_price, :monthly_price, :setup_price,

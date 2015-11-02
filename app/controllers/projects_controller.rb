@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
 
   def index
     authorize Project
-    respond_with_params projects
+    respond_with_params projects, index_respond_options
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
@@ -78,6 +78,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def index_respond_options
+    { each_serializer: ProjectSerializer, except: [:deleted_at, :archived, :created_at, :end_date, :updated_at, :start_date] }
+  end
 
   def project_params
     @_project_params ||= begin
