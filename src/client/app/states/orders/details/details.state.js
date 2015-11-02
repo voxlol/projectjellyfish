@@ -28,7 +28,7 @@
   function resolveOrder($stateParams, Order){
     return Order.get({
       id: $stateParams.orderId,
-      'includes[]': ['product', 'project', 'service']
+      'includes[]': ['product', 'project', 'service', 'staff']
     }).$promise;
   }
 
@@ -37,11 +37,16 @@
     var vm = this;
 
     vm.order = order;
+    vm.staff = order.staff;
+    vm.product = order.product;
+    vm.service = order.service;
+    vm.project = order.project;
 
     vm.activate = activate;
 
-    function activate() {
+    activate();
 
+    function activate() {
     }
   }
 })();

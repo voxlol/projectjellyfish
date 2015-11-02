@@ -1,26 +1,42 @@
 <details-table>
   <div class="details-table__row">
-    <div class="details-table__label">Description</div>
-    <div class="details-table__detail">{{ ::vm.order.description }}</div>
+    <div class="details-table__label">Product</div>
+    <product-description product="vm.product"></product-description>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Project</div>
+    <div class="details-table__detail">
+      <a ui-sref="projects.details({projectId: vm.project.id})" class="tables__action">{{ ::vm.project.name }}</a>
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Service</div>
+    <div class="details-table__detail">
+      <a ui-sref="services.details({serviceId: vm.service.id})" class="tables__action">{{ ::vm.service.name }}</a>
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label"></div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Placed by</div>
+    <div class="details-table__detail">{{ ::vm.staff.full_name }}</div>
   </div>
 
   <div class="details-table__row">
     <div class="details-table__label">Status</div>
     <div class="details-table__detail">
-      <status type="{{ ::vm.project.status }}">{{ ::vm.order.status | uppercase }}</status>
+      <status type="{{ ::vm.order.status }}">{{ ::vm.order.status | uppercase }}</status>
     </div>
   </div>
 
   <div class="details-table__row">
-    <div class="details-table__label">Schedule</div>
-    <div class="details-table__detail">
-      {{ ::vm.order.start_date | date:'short' }} &mdash; {{ ::vm.order.end_date | date:'short' }}
-    </div>
-  </div>
-
-  <div class="details-table__row">
-    <div class="details-table__label">Months</div>
-    <div class="details-table__detail">{{ ::vm.order.scheduleRemaining() }} months remaining</div>
+    <div class="details-table__label">Status Message</div>
+    <div class="details-table__detail">{{ ::vm.order.status_msg }}</div>
   </div>
 
   <div class="details-table__row">
