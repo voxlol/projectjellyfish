@@ -12,7 +12,7 @@
   function getStates() {
     return {
       'orders.details': {
-        url: '/:orderId',
+        url: '/details/:orderId',
         templateUrl: 'app/states/orders/details/details.html',
         controller: StateController,
         controllerAs: 'vm',
@@ -28,17 +28,20 @@
   function resolveOrder($stateParams, Order){
     return Order.get({
       id: $stateParams.orderId,
-      'includes[]': ['project']
+      'includes[]': ['product', 'project', 'service']
     }).$promise;
   }
 
-  function StateController($state, lodash, order) {
+  /** @ngInject */
+  function StateController(order) {
     var vm = this;
+
     vm.order = order;
 
     vm.activate = activate;
 
     function activate() {
+
     }
   }
 })();
