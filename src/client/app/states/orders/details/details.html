@@ -1,0 +1,35 @@
+<details-table>
+  <div class="details-table__row">
+    <div class="details-table__label">Description</div>
+    <div class="details-table__detail">{{ ::vm.order.description }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Status</div>
+    <div class="details-table__detail">
+      <status type="{{ ::vm.project.status }}">{{ ::vm.order.status | uppercase }}</status>
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Schedule</div>
+    <div class="details-table__detail">
+      {{ ::vm.order.start_date | date:'short' }} &mdash; {{ ::vm.order.end_date | date:'short' }}
+    </div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Months</div>
+    <div class="details-table__detail">{{ ::vm.order.scheduleRemaining() }} months remaining</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Creation Date</div>
+    <div class="details-table__detail">{{ ::vm.order.created_at | date:'medium' }}</div>
+  </div>
+
+  <div class="details-table__row">
+    <div class="details-table__label">Last Updated</div>
+    <div class="details-table__detail">{{ ::vm.order.updated_at | date:'medium' }}</div>
+  </div>
+</details-table>
