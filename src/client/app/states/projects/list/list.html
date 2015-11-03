@@ -25,7 +25,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="row in vm.projects track by row.id" ng-if="null === row.archived ">
+  <tr ng-if="null === row.archived" ng-repeat="row in vm.projects track by row.id">
     <td class="tables__cell tables__cell--description">
       <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
     </td>
@@ -44,7 +44,7 @@
   </tbody>
 </table>
 <hr/>
-<region heading="Achieved Projects"  ng-if="::vm.projectsArchived.length > 1">
+<region ng-if="::vm.projectsArchived.length > 1" heading="Archived Projects">
     <table st-table="vm.projects" class="tables tables--bordered">
       <thead>
       <tr>

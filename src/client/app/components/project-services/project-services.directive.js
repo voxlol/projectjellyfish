@@ -9,8 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        projectId: '=',
-        projectArchived: '=?',
+        project: '=',
         services: '='
       },
       link: link,
@@ -31,8 +30,13 @@
       var vm = this;
 
       vm.activate = activate;
+      vm.archivedProject = archivedProject;
 
       function activate() {
+      }
+
+      function archivedProject() {
+        return null === vm.project.archived ? true : false;
       }
     }
   }

@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app.components')
@@ -9,8 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        projectId: '=',
-        projectArchived: '=?',
+        project: '=',
         memberships: '='
       },
       link: link,
@@ -33,6 +32,7 @@
       vm.activate = activate;
       vm.showModal = showModal;
       vm.remove = remove;
+      vm.archivedProject = archivedProject;
 
       function activate() {
       }
@@ -82,6 +82,10 @@
         function deleteFailure() {
           Toasts.error('Could not remove membership. Try again later.');
         }
+      }
+
+      function archivedProject() {
+        return null === vm.project.archived ? true : false;
       }
     }
   }
