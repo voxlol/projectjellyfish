@@ -88,6 +88,18 @@
                   required: '"A password confirmation must be provided"'
                 }
               }
+            },
+            {
+              key: 'role',
+              type: 'select',
+              templateOptions: {
+                label: 'Role',
+                options: [
+                  {label: 'User', value: 'user'},
+                  {label: 'Manager', value: 'manager'},
+                  {label: 'Admin', value: 'admin'},
+                ],
+              }
             }
           ]
         }
