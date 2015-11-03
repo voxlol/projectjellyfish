@@ -41,7 +41,7 @@ class Staff < ActiveRecord::Base
   has_many :memberships, through: :groups
   has_many :notifications
   has_many :projects, through: :memberships
-  has_many :roles, through: :memberships
+  has_many :roles, -> { uniq }, through: :memberships
   has_many :api_tokens
 
   has_and_belongs_to_many :groups

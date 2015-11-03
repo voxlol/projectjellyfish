@@ -63,6 +63,9 @@ Rails.application.routes.draw do
 
     # Approvals
     resources :staff, only: [:index, :show, :create, :update, :destroy] do
+      member do
+        resources :permissions, only: [:show], param: :project_id, controller: :staff_permissions, as: :staff_permissions
+      end
       collection do
         match 'current_member' => 'staff#current_member', via: :get
       end
