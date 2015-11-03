@@ -30,12 +30,12 @@
       var vm = this;
 
       vm.activate = activate;
-      vm.archivedProject = projectArchiveCheck;
+      vm.readOnly = readOnlyCheck;
 
       function activate() {
       }
 
-      function projectArchiveCheck() {
+      function readOnlyCheck() {
         return null === vm.project.archived ? true : false;
       }
     }

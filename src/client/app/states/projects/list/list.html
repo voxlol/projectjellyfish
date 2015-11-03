@@ -25,7 +25,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-if="null === row.archived" ng-repeat="row in vm.projects track by row.id">
+  <tr ng-repeat="row in vm.projects track by row.id">
     <td class="tables__cell tables__cell--description">
       <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
     </td>
@@ -44,8 +44,8 @@
   </tbody>
 </table>
 <hr/>
-<region ng-if="::vm.projectsArchived.length > 1" heading="Archived Projects">
-    <table st-table="vm.projects" class="tables tables--bordered">
+<region ng-if="::vm.archivedProjects.length >= 1" heading="Archived Projects">
+    <table st-table="vm.projects" class="tables">
       <thead>
       <tr>
         <th st-sort="name" class="tables__heading tables__heading--sortable">Project</th>
@@ -62,7 +62,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="row in vm.projects track by row.id" ng-if="null !== row.archived ">
+      <tr ng-repeat="row in vm.archivedProjects track by row.id">
         <td class="tables__cell tables__cell--description">
           <project-description project="row" link-to="projects.details({projectId: {{row.id}}})"></project-description>
         </td>
@@ -80,9 +80,6 @@
       </tr>
       </tbody>
     </table>
-  <div ng-if="::0 === vm.projects.length" class="tables__empty">
-    No archived projects at this time.
-  </div>
 </region>
 
 

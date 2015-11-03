@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -32,7 +32,7 @@
       vm.activate = activate;
       vm.showModal = showModal;
       vm.remove = remove;
-      vm.archivedProject = projectArchiveCheck;
+      vm.readOnly = readOnlyCheck;
 
       function activate() {
       }
@@ -84,7 +84,7 @@
         }
       }
 
-      function projectArchiveCheck() {
+      function readOnlyCheck() {
         return null === vm.project.archived ? true : false;
       }
     }

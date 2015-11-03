@@ -110,18 +110,6 @@
       var status = lodash.pluck(vm.services, 'status');
       if (0 === status.length) {
         return false;
-      } else {
-        for (var i = 0; i <= status.length; i++) {
-          switch (status[i]) {
-            case 'stopped':
-            case 'unavailable':
-            case 'retired':
-            case 'terminated':
-              break;
-            default:
-              return true;
-          }
-        }
       }
     }
 

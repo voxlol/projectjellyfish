@@ -32,11 +32,11 @@
   /** @ngInject */
   function StateController(projects, lodash) {
     var vm = this;
-
-    vm.projects = projects;
+    var allProjects = lodash.partition(projects, {'archived': null});
+    vm.projects = allProjects[0];
     vm.activate = activate;
     vm.title = 'Projects';
-    vm.projectsArchived = lodash.uniq(lodash.pluck(vm.projects, 'archived'));
+    vm.archivedProjects = allProjects[1];
 
     activate();
 

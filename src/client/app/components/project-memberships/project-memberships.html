@@ -1,6 +1,6 @@
 <region heading="Memberships">
   <div class="region__buttons">
-    <button ng-if="vm.archivedProject()" type="button" class="btn-rounded btn-rounded--short" ng-click="vm.showModal()">
+    <button ng-if="vm.readOnly()" type="button" class="btn-rounded btn-rounded--short" ng-click="vm.showModal()">
       Add Membership
     </button>
   </div>
@@ -10,7 +10,7 @@
       <th class="tables__heading">Group</th>
       <th class="tables__heading">Role</th>
       <th class="tables__heading tables__heading--centered">Members</th>
-      <th ng-if="vm.archivedProject()" nclass="tables__heading tables__heading--actions">Action</th>
+      <th ng-if="vm.readOnly()" nclass="tables__heading tables__heading--actions">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
            title="Edit">
           <img src="/images/ic_edit.png" alt="Edit"/>
         </a>
-        <a ng-if="vm.archivedProject()" href="#" class="tables__action"
+        <a ng-if="vm.readOnly()" href="#" class="tables__action"
            confirmation
            confirmation-position="left-center"
            confirmation-message="Are you sure you want to remove this membership?"
