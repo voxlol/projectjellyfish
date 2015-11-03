@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.components')
-    .directive('userForm', UserFormDirective);
+    .directive('userFormOld', UserFormDirective);
 
   /** @ngInject */
   function UserFormDirective() {
