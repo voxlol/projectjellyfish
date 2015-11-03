@@ -5,17 +5,27 @@ class Permissions
     @user = user
   end
 
+  def all
+    roles_for_project.pluck(:permissions).each_with_object({}) do |r, m|
+      r.keys.each { |k| m[k] = m.key?(k) ? (m[k] | r[k]) : r[k] }
+      m
+    end
+  end
+
   def allow?(action)
-    @user.roles
-      .joins(:projects)
-      .where('projects.id' => @project_id)
-      .where('permissions->:model_type ? :permission',
-        model_type: @model_type,
-        permission: action)
+    roles_for_project.where('permissions->:model_type ? :permission',
+      model_type: @model_type,
+      permission: action)
       .exists?
   end
 
   private
+
+  def roles_for_project
+    @user.roles
+      .joins(:projects)
+      .where('projects.id' => @project_id)
+  end
 
   def project(project_or_related)
     if project_or_related.is_a?(Project)
