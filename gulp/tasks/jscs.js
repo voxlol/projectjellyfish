@@ -6,8 +6,6 @@ var log = require('../utils/log');
 module.exports = function(gulp, options) {
   var config = require('../config')[options.key || 'jscs'];
 
-  console.log(config.src);
-
   return task;
 
   function task() {
