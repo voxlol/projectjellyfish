@@ -32,7 +32,7 @@
       vm.activate = activate;
       vm.showModal = showModal;
       vm.remove = remove;
-      vm.archivedProject = archivedProject;
+      vm.archivedProject = projectArchiveCheck;
 
       function activate() {
       }
@@ -84,7 +84,7 @@
         }
       }
 
-      function archivedProject() {
+      function projectArchiveCheck() {
         return null === vm.project.archived ? true : false;
       }
     }
