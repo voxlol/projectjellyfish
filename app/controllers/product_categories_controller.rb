@@ -2,7 +2,7 @@ class ProductCategoriesController < ApplicationController
   api :GET, '/product_categories', 'Returns all product categories'
 
   def index
-    respond_with product_categories
+    respond_with product_categories, index_respond_options
   end
 
   api :GET, '/product_categories/:id', 'Shows product category with :id'
@@ -45,6 +45,10 @@ class ProductCategoriesController < ApplicationController
   end
 
   private
+
+  def index_respond_options
+    { each_serializer: ProductCategorySerializer, except: [:deleted_at, :created_at, :updated_at, :img] }
+  end
 
   def product_category_params
     params.permit(:name, :description, :img, tags: []).tap { |p| p[:tag_list] = p.delete :tags }
