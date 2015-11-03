@@ -13,6 +13,6 @@
 class Group < ActiveRecord::Base
   has_many :memberships
   has_many :projects, through: :memberships
-  has_many :groups_staff, counter_cache: :staff_count
-  has_many :staff, through: :groups_staff
+  has_many :groups_staff
+  has_many :staff, through: :groups_staff, dependent: :destroy
 end
