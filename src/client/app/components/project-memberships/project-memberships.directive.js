@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        projectId: '=',
+        project: '=',
         memberships: '='
       },
       link: link,
@@ -32,6 +32,7 @@
       vm.activate = activate;
       vm.showModal = showModal;
       vm.remove = remove;
+      vm.readOnly = readOnlyCheck;
 
       function activate() {
       }
@@ -81,6 +82,10 @@
         function deleteFailure() {
           Toasts.error('Could not remove membership. Try again later.');
         }
+      }
+
+      function readOnlyCheck() {
+        return null === vm.project.archived;
       }
     }
   }

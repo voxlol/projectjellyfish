@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        projectId: '=',
+        project: '=',
         services: '='
       },
       link: link,
@@ -30,8 +30,13 @@
       var vm = this;
 
       vm.activate = activate;
+      vm.readOnly = readOnlyCheck;
 
       function activate() {
+      }
+
+      function readOnlyCheck() {
+        return null === vm.project.archived;
       }
     }
   }

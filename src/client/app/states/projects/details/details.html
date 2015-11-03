@@ -5,8 +5,19 @@
     <div ng-if="::!vm.project.img" class="project-details__icon project-details__icon--missing"></div>
     <span class="content-header__title">{{ ::vm.project.name }}</span>
   </div>
-  <div ng-if="::'approved' === vm.project.status" class="content-header__aside">
-    <a ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded">Edit Project</a>
+  <div class="content-header__aside">
+    <button ng-if="::null === vm.project.archived" class="btn-rounded" ari-label="archive"
+            ng-disabled="vm.activeServices()"
+            confirmation
+            confirmation-position="bottom"
+            confirmation-message="Would you like to archive this project?"
+            confirmation-ok-style="primary"
+            confirmation-ok-text="Archive"
+            confirmation-on-ok="vm.archiveProject()"
+            confirmation-show-cancel="true">Archive
+    </button>
+    <a ng-if="::null === vm.project.archived && 'approved' === vm.project.status"
+       ui-sref="projects.edit({projectId: vm.project.id})" class="btn-rounded" ari-label="edit">Edit</a>
   </div>
 </content-header>
 
@@ -93,12 +104,12 @@
 </details-table>
 
 <!-- Services -->
-<project-services ng-if="::'approved' === vm.project.status" project-id="vm.project.id"
-                  services="vm.services"></project-services>
+<project-services ng-if="::'approved' === vm.project.status" project="vm.project" services="vm.services">
+</project-services>
 
 <!-- Memberships -->
-<project-memberships ng-if="::'approved' === vm.project.status" project-id="vm.project.id"
-                     memberships="vm.memberships"></project-memberships>
+<project-memberships ng-if="::'approved' === vm.project.status" project="vm.project" memberships="vm.memberships">
+</project-memberships>
 
 <!--Project Answers-->
 <region heading="Project Specifications">
