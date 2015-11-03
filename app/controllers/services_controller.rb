@@ -26,7 +26,7 @@ class ServicesController < ApplicationController
   private
 
   def index_respond_options
-    { each_serializer: ServiceSerializer, except: [:created_at, :updated_at, :type, :uuid, :health, :status_msg] }
+    { each_serializer: ServiceSerializer, except: [:type, :uuid, :health, :status_msg, :created_at, :updated_at] }
   end
 
   def services

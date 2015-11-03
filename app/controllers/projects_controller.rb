@@ -80,7 +80,7 @@ class ProjectsController < ApplicationController
   private
 
   def index_respond_options
-    { each_serializer: ProjectSerializer, except: [ :archived, :start_date, :end_date, :created_at, :updated_at, :deleted_at ] }
+    { each_serializer: ProjectSerializer, except: [:start_date, :end_date, :created_at, :updated_at, :deleted_at] }
   end
 
   def project_params

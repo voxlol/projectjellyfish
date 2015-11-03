@@ -47,7 +47,7 @@ class ProductCategoriesController < ApplicationController
   private
 
   def index_respond_options
-    { each_serializer: ProductCategorySerializer, except: [:deleted_at, :created_at, :updated_at, :img] }
+    { each_serializer: ProductCategorySerializer, except: [:img, :created_at, :updated_at, :deleted_at] }
   end
 
   def product_category_params

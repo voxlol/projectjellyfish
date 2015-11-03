@@ -47,8 +47,7 @@ class OrdersController < ApplicationController
   private
 
   def index_respond_options
-    { each_serializer: OrderSerializer, except: [:order_questions, :active, :updated_at, :staff_id,
-                                                 :deleted_at, :setup_price, :status_msg] }
+    { each_serializer: OrderSerializer, except: [:staff_id, :setup_price, :status_msg, :updated_at, :deleted_at] }
   end
 
   def order_params
