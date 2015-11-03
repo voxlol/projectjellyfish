@@ -14,6 +14,7 @@ module.exports = function(gulp, options) {
     }
 
     return gulp.src(config.src)
-      .pipe(jscs(config.rcFile));
+      .pipe(jscs({configPath: config.rcFile}))
+      .pipe(jscs.reporter());
   }
 };
