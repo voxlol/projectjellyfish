@@ -36,7 +36,7 @@
       }
 
       function readOnlyCheck() {
-        return null === vm.project.archived ? true : false;
+        return null === vm.project.archived;
       }
     }
   }
