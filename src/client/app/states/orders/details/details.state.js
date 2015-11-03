@@ -1,4 +1,4 @@
-(function(){
+(function() {
   'use strict';
 
   angular.module('app.states')
@@ -25,7 +25,7 @@
   }
 
   /** @ngInject */
-  function resolveOrder($stateParams, Order){
+  function resolveOrder($stateParams, Order) {
     return Order.get({
       id: $stateParams.orderId,
       'includes[]': ['product', 'project', 'service', 'staff']
