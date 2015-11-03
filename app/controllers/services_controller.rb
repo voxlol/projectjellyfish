@@ -10,7 +10,7 @@ class ServicesController < ApplicationController
 
   def index
     authorize Service
-    respond_with_params services
+    respond_with_params services, index_respond_options
   end
 
   api :GET, '/services/:id', 'Returns a service'
@@ -24,6 +24,10 @@ class ServicesController < ApplicationController
   end
 
   private
+
+  def index_respond_options
+    { each_serializer: ServiceSerializer, except: [:type, :uuid, :health, :status_msg, :created_at, :updated_at] }
+  end
 
   def services
     @_services ||= query_with Service.all, :includes, :pagination
