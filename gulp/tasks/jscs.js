@@ -6,6 +6,8 @@ var log = require('../utils/log');
 module.exports = function(gulp, options) {
   var config = require('../config')[options.key || 'jscs'];
 
+  console.log(config.src);
+
   return task;
 
   function task() {
@@ -14,6 +16,7 @@ module.exports = function(gulp, options) {
     }
 
     return gulp.src(config.src)
-      .pipe(jscs(config.rcFile));
+      .pipe(jscs({configPath: config.rcFile}))
+      .pipe(jscs.reporter());
   }
 };
