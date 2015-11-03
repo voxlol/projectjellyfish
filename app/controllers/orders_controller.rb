@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 
   def index
     authorize Order
-    respond_with_params orders
+    respond_with_params orders, index_respond_options
   end
 
   api :GET, '/orders/:id', 'Returns an order by :id'
@@ -45,6 +45,11 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def index_respond_options
+    { each_serializer: OrderSerializer, except: [:order_questions, :active, :updated_at, :staff_id,
+                                                 :deleted_at, :setup_price, :status_msg] }
+  end
 
   def order_params
     params.permit(:project_id, :product_id, service: [:name], answers: [:value, :value_type, :name]).tap do |o|
