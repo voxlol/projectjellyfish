@@ -82,7 +82,7 @@
               }
             },
             {
-              key: 'passwordConfirm',
+              key: 'password_confirmation',
               type: 'password',
               templateOptions: {
                 label: 'Confirm Password',

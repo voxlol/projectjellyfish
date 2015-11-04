@@ -19,9 +19,6 @@
         controller: StateController,
         controllerAs: 'vm',
         title: 'Admin User Create',
-        resolve: {
-          userToEdit: resolveUser
-        }
       }
     };
   }
@@ -35,27 +32,23 @@
   }
 
   /** @ngInject */
-  function resolveUser(Staff, $stateParams) {
-    if ($stateParams.id) {
-      return Staff.get({id: $stateParams.id}).$promise;
-    } else {
-      return {};
-    }
-  }
-
-  /** @ngInject */
-  function StateController($stateParams, logger, userToEdit) {
+  function StateController(logger, Staff) {
     var vm = this;
 
     vm.title = 'Admin User Create';
     vm.activate = activate;
-    vm.editing = $stateParams.id ? true : false;
-    vm.userToEdit = userToEdit;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin User Modification');
+      logger.info('Activated Admin User Creation');
+      initStaff();
+    }
+
+    // Private
+
+    function initStaff() {
+      vm.userToEdit = Staff.new();
     }
   }
 })();
