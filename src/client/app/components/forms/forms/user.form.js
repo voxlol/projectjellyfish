@@ -16,7 +16,8 @@
               type: 'text',
               templateOptions: {
                 label: 'First Name',
-                required: true
+                required: true,
+                placeholder: 'Enter a first name.'
               },
               validation: {
                 messages: {
@@ -29,7 +30,8 @@
               type: 'text',
               templateOptions: {
                 label: 'Last Name',
-                required: true
+                required: true,
+                placeholder: 'Enter a last name.'
               },
               validation: {
                 messages: {
@@ -42,7 +44,8 @@
               type: 'text',
               templateOptions: {
                 label: 'Email',
-                required: true
+                required: true,
+                placeholder: 'Enter a valid email address.'
               },
               validation: {
                 messages: {
@@ -55,7 +58,8 @@
               type: 'text',
               templateOptions: {
                 label: 'Phone Number',
-                required: true
+                required: true,
+                placeholder: 'Enter a valid phone number.'
               },
               validation: {
                 messages: {
@@ -68,7 +72,8 @@
               type: 'password',
               templateOptions: {
                 label: 'Password',
-                required: false
+                required: false,
+                placeholder: 'Enter a password.'
               },
               validation: {
                 messages: {
@@ -81,7 +86,8 @@
               type: 'password',
               templateOptions: {
                 label: 'Confirm Password',
-                required: false
+                required: false,
+                placeholder: 'Confirm the password.'
               },
               validation: {
                 messages: {
