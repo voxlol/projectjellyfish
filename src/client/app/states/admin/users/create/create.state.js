@@ -14,7 +14,7 @@
   function getStates() {
     return {
       'admin.users.create': {
-        url: '/create/:id',
+        url: '/create',
         templateUrl: 'app/states/admin/users/create/create.html',
         controller: StateController,
         controllerAs: 'vm',

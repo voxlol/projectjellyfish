@@ -49,7 +49,6 @@
 
     vm.title = 'Admin User Edit';
     vm.activate = activate;
-    vm.editing = $stateParams.id ? true : false;
     vm.userToEdit = userToEdit;
 
     activate();

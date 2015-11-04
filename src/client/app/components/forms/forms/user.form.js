@@ -44,6 +44,7 @@
               type: 'text',
               templateOptions: {
                 label: 'Email',
+                type: 'email',
                 required: true,
                 placeholder: 'Enter a valid email address.'
               },
@@ -72,8 +73,11 @@
               type: 'password',
               templateOptions: {
                 label: 'Password',
-                required: false,
-                placeholder: 'Enter a password.'
+                placeholder: 'Enter a password.',
+                minlength: 8
+              },
+              expressionProperties: {
+                'templateOptions.required': '!model.id'
               },
               validation: {
                 messages: {
@@ -86,8 +90,11 @@
               type: 'password',
               templateOptions: {
                 label: 'Confirm Password',
-                required: false,
-                placeholder: 'Confirm the password.'
+                placeholder: 'Confirm the password.',
+                minlength: 8
+              },
+              expressionProperties: {
+                'templateOptions.required': 'model.password'
               },
               validation: {
                 messages: {
@@ -105,6 +112,12 @@
                   {label: 'Manager', value: 'manager'},
                   {label: 'Admin', value: 'admin'},
                 ],
+                required: true
+              },
+              validation: {
+                messages: {
+                  required: '"An user status is required."'
+                }
               }
             }
           ]
