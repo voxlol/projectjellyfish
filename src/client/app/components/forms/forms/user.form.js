@@ -45,7 +45,13 @@
               templateOptions: {
                 label: 'Email',
                 type: 'email',
-                placeholder: 'Enter a valid email address.'
+                placeholder: 'Enter a valid email address.',
+                required: true
+              },
+              validation: {
+                messages: {
+                  required: '"An email must be provided"'
+                }
               }
             },
             {
