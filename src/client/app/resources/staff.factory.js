@@ -28,13 +28,27 @@
       }
     });
 
+    Staff.defaults = {
+      first_name: '',
+      last_name: '',
+      phone: null,
+      role: 'user',
+      email: null
+    };
+
+    Staff.new = newStaff;
+
     Staff.prototype.fullName = fullName;
+
+    return Staff;
 
     function fullName() {
       /*jshint validthis: true */
       return [this.first_name, this.last_name].join(' ');
     }
 
-    return Staff;
+    function newStaff(data) {
+      return new Staff(angular.extend({}, angular.copy(Staff.defaults), data || {}));
+    }
   }
 })();
