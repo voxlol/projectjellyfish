@@ -88,17 +88,22 @@
             {
               key: 'password_confirmation',
               type: 'password',
+              extras: {validateOnModelChange: true},
               templateOptions: {
                 label: 'Confirm Password',
-                placeholder: 'Confirm the password.',
+                placeholder: 'Please re-enter your password',
                 minlength: 8
               },
               expressionProperties: {
                 'templateOptions.required': 'model.password'
               },
+              validators: {
+                samePassword: samePassword
+              },
               validation: {
                 messages: {
-                  required: '"A password confirmation must be provided"'
+                  required: '"A password confirmation must be provided"',
+                  samePassword: '"Must match your password"'
                 }
               }
             },
@@ -124,5 +129,9 @@
         }
       ]
     });
+
+    function samePassword(view, model, scope) {
+      return view === scope.model.password;
+    }
   }
 })();
