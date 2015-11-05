@@ -20,7 +20,7 @@
         controllerAs: 'vm',
         title: 'Admin User Edit',
         resolve: {
-          userToEdit: resolveUser
+          user: resolveUser
         }
       }
     };
@@ -36,25 +36,20 @@
 
   /** @ngInject */
   function resolveUser(Staff, $stateParams) {
-    if ($stateParams.id) {
-      return Staff.get({id: $stateParams.id}).$promise;
-    } else {
-      return {};
-    }
+    return Staff.get({id: $stateParams.id}).$promise;
   }
 
   /** @ngInject */
-  function StateController($stateParams, logger, userToEdit) {
+  function StateController($stateParams, user) {
     var vm = this;
 
     vm.title = 'Admin User Edit';
     vm.activate = activate;
-    vm.userToEdit = userToEdit;
+    vm.user = user;
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin User Modification');
     }
   }
 })();

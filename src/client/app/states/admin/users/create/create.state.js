@@ -32,7 +32,7 @@
   }
 
   /** @ngInject */
-  function StateController(logger, Staff) {
+  function StateController(Staff) {
     var vm = this;
 
     vm.title = 'Admin User Create';
@@ -41,14 +41,13 @@
     activate();
 
     function activate() {
-      logger.info('Activated Admin User Creation');
       initStaff();
     }
 
     // Private
 
     function initStaff() {
-      vm.userToEdit = Staff.new();
+      vm.user = Staff.new();
     }
   }
 })();

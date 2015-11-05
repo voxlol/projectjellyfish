@@ -32,7 +32,7 @@
       first_name: '',
       last_name: '',
       phone: null,
-      role: null,
+      role: 'user',
       email: null
     };
 

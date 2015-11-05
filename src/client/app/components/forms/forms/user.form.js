@@ -45,13 +45,7 @@
               templateOptions: {
                 label: 'Email',
                 type: 'email',
-                required: true,
                 placeholder: 'Enter a valid email address.'
-              },
-              validation: {
-                messages: {
-                  required: '"A email address must be provided"'
-                }
               }
             },
             {
@@ -59,13 +53,7 @@
               type: 'text',
               templateOptions: {
                 label: 'Phone Number',
-                required: true,
                 placeholder: 'Enter a valid phone number.'
-              },
-              validation: {
-                messages: {
-                  required: '"A phone number must be provided"'
-                }
               }
             },
             {
