@@ -3,6 +3,8 @@ class StaffController < ApplicationController
   before_action :pre_hook
   after_action :post_hook
 
+  has_scope :by_email, :include_deleted
+
   def self.document_staff_params
     param :email, String
     param :first_name, String
@@ -84,6 +86,8 @@ class StaffController < ApplicationController
       authorize(Staff)
       if params[:query]
         Staff.search params[:query]
+      elsif params[:by_email]
+        Staff.with_deleted.where :email => params[:by_email]
       else
         query_with Staff.all, :includes, :pagination
       end
