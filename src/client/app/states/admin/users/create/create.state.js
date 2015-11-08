@@ -18,7 +18,7 @@
         templateUrl: 'app/states/admin/users/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin User Create',
+        title: 'Admin User Create'
       }
     };
   }
