@@ -619,6 +619,179 @@
     - name: database
       value: MongoDB 3.0
       value_type: string
+#o	NEW ONE: NCI Stack: A server running Windows 2008, IIS, MS-SQL, Ant Hill Pro
+- _assoc: app_nci
+  name: NCI Stack
+  description: A server running Windows 2008, IIS, MS-SQL, Ant Hill Pro
+  img: products/windows.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, nci, stack, windows, iis, sqlserver, anthill, production]
+  answers:
+    - name: operating_system
+      value: Windows 2012
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: web_server
+      value: IIS
+      value_type: string
+    - name: application
+      value: Any Hill Pro
+      value_type: string
+    - name: database
+      value: SQL Server
+      value_type: string
+# o	NEW ONE: NCI-2:  A server running CentOS, Drupal, MySQL,
+- _assoc: app_nci2
+  name: NCI-2 Stack
+  description: A server running CentOS, Drupal, MySQL
+  img: products/rhel.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, nci, stack, centos, drupal, mysql, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: framework
+      value: Drupal
+      value_type: string
+    - name: database
+      value: MySQL
+      value_type: string
+# o	NEW ONE:  Indexing Stack:  A server running CentOS, Elasticsearch, Apache Nutch
+- _assoc: app_index
+  name: Indexing Stack
+  description: A server running CentOS, Elasticsearch, Apache Nutch
+  img: products/rhel.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, nci, stack, oss, centos, elasticsearch, nutch, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: search_engine
+      value: Elasticsearch
+      value_type: string
+    - name: application
+      value: Apache Nutch
+      value_type: string
+# o	NEW ONE:  Data Analysis Stack 1:  A server running CentOS, Java 8, R statistical software, Python, MongoDB, dcm4chee Radiology Image archive
+- _assoc: app_analysis
+  name: Data Analysis Stack
+  description: A server running CentOS, Java 8, R statistical software, Python, MongoDB
+  img: products/rhel.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, nci, stack, oss, centos, r, python, mongodb, java, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: language
+      value: Python
+      value_type: string
+    - name: java
+      value: Java 8
+      value_type: string
+    - name: database
+      value: MongoDB
+      value_type: string
+# o	NEW ONE: NBIA Server Stack 1:  A server running  CentOS 6.5, JBOSS 5.1, NBIA version 6.2, MySQL 5.1, Java 1.6.0 update 33
+- _assoc: app_nbia
+  name: NBIA Server Stack
+  description: A server running  CentOS 6.5, JBOSS 5.1, NBIA version 6.2, MySQL 5.1, Java 1.6.0 update 33
+  img: products/rhel.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, nci, stack, oss, centos, jboss, nbia, mysql, java, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: framework
+      value: JBoss
+      value_type: string
+    - name: java
+      value: Java 1.6.0 update 33
+      value_type: string
+    - name: application
+      value: NBIA 6.2
+      value_type: string
+    - name: database
+      value: MySQL 5.1
+      value_type: string
 - _assoc: app_jira
   name: JIRA
   description: An installation of JIRA Project management software
@@ -830,6 +1003,33 @@
   answers:
     - name: cpus
       value: 10
+      value_type: integer
+- _assoc: pilot_genomic
+  name: Pilot Genomic Analysis
+  description: 100 Node Hadoop Cluster (64GB/node), CentOS, MongoDB, 10TB storage,  JAVA JRE, Eclipse
+  img: products/hadoop.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 129.99
+  hourly_price: 3.67
+  tag_list: [cluster, hadoop, large, production, analysis, genomic]
+  answers:
+    - name: cpus
+      value: 100
+      value_type: integer
+    - name: memory
+      value: 64
+      value_type: integer
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: database
+      value: MongoDB
+      value_type: string
+    - name: disk_size
+      value: 10000
       value_type: integer
 - _assoc: other_monte
   name: Monte Carlo
