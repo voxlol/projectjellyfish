@@ -25,13 +25,38 @@
   required: true
   options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"]
   field_type: 1
+- _assoc: dev
+  question: Requires development environment?
+  required: true
+  options: []
+  field_type: 0
+- _assoc: test
+  question: Requires test environment?
+  required: true
+  options: []
+  field_type: 0
 - _assoc: prod
-  question: Will this run in production?
+  question: Requires production environment?
+  required: true
+  options: []
+  field_type: 0
+- _assoc: pii
+  question: Contains PII/PHI data?
   required: true
   options: []
   field_type: 0
 - _assoc: fisma
-  question: Fisma Classification
+  question: FISMA Classification
   required: true
   options: ["Low", "Medium", "High"]
   field_type: 1
+- _assoc: owner
+  question: Business Owner
+  required: true
+  options: []
+  field_type: 2
+- _assoc: owner
+  question: Is this request for internal NIH users?
+  required: true
+  options: []
+  field_type: 0
