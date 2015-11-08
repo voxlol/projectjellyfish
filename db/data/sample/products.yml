@@ -17,7 +17,7 @@
   setup_price: 5.99
   monthly_price: 0
   hourly_price: 0.08
-  tag_list: [server, aws, small, development, ec2]
+  tag_list: [server, aws, public, small, development, ec2]
   answers:
     - name: operating_system
       value: Amazon Linux
@@ -44,7 +44,7 @@
   setup_price: 10.99
   monthly_price: 0
   hourly_price: 0.23
-  tag_list: [server, aws, medium, production, ec2]
+  tag_list: [server, aws, public, medium, production, ec2]
   answers:
     - name: operating_system
       value: Amazon Linux
@@ -71,7 +71,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [server, aws, large, production, ec2]
+  tag_list: [server, aws, public, large, production, ec2]
   answers:
     - name: operating_system
       value: Amazon Linux
@@ -98,7 +98,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.05
-  tag_list: [server, rhel, small, development, ec2]
+  tag_list: [server, aws, public, rhel, small, development, ec2]
   answers:
     - name: operating_system
       value: RHEL 7.1
@@ -125,7 +125,7 @@
   setup_price: 10.99
   monthly_price: 0
   hourly_price: 0.23
-  tag_list: [server, rhel, medium, production, ec2]
+  tag_list: [server, aws, public, rhel, medium, production, ec2]
   answers:
     - name: operating_system
       value: RHEL 7.1
@@ -152,7 +152,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [server, rhel, large, production, ec2]
+  tag_list: [server, aws, public, rhel, large, production, ec2]
   answers:
     - name: operating_system
       value: RHEL 7.1
@@ -179,19 +179,19 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [server, win, windows, large, production, ec2]
+  tag_list: [server, azure, public, win, windows, large, production]
   answers:
     - name: operating_system
       value: Windows Server 2012
       value_type: string
     - name: instance_size
-      value: t2.large
+      value: A3\Large
       value_type: string
     - name: cpus
-      value: 2
+      value: 4
       value_type: integer
     - name: memory
-      value: 8
+      value: 7
       value_type: integer
     - name: disk_size
       value: 200
@@ -216,7 +216,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, mysql, small, development, rds]
+  tag_list: [database, aws, public, mysql, small, development, rds]
   answers:
     - name: database
       value: MySQL
@@ -240,7 +240,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, mysql, medium, development, rds]
+  tag_list: [database, aws, public, mysql, medium, development, rds]
   answers:
     - name: database
       value: MySQL
@@ -264,7 +264,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, mysql, large, production, rds]
+  tag_list: [database, aws, public, mysql, large, production, rds]
   answers:
     - name: database
       value: MySQL
@@ -288,7 +288,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, postgresql, small, development, rds]
+  tag_list: [database, aws, public, postgresql, small, development, rds]
   answers:
     - name: database
       value: PostgreSQL
@@ -312,7 +312,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, postgresql, medium, development, rds]
+  tag_list: [database, aws, public, postgresql, medium, development, rds]
   answers:
     - name: database
       value: PostgreSQL
@@ -336,7 +336,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, postgresql, large, production, rds]
+  tag_list: [database, aws, public, postgresql, large, production, rds]
   answers:
     - name: database
       value: PostgreSQL
@@ -360,7 +360,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, aurora, medium, development, rds]
+  tag_list: [database, aws, public, aurora, medium, development, rds]
   answers:
     - name: database
       value: Amazon Aurora
@@ -384,7 +384,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, aurora, large, production, rds]
+  tag_list: [database, aws, public, aurora, large, production, rds]
   answers:
     - name: database
       value: Amazon Aurora
@@ -401,50 +401,38 @@
 - _assoc: sqlserver_medium
   name: Medium Sql Server
   description: A medium development level instance of Sql Server
-  img: products/aws_rds.png
+  img: products/mssql.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, sqlserver, medium, development, rds]
+  tag_list: [database, azure, public, sqlserver, medium, development]
   answers:
     - name: database
       value: SQL Server 2012
       value_type: string
     - name: instance_size
-      value: db.m3.large
-      value_type: string
-    - name: cpus
-      value: 2
-      value_type: integer
-    - name: memory
-      value: 7.5
+      value: S1
       value_type: string
 - _assoc: sqlserver_large
   name: Large Sql Server
   description: A large production capable instance of Sql Server
-  img: products/aws_rds.png
+  img: products/mssql.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [database, sqlserver, large, production, rds]
+  tag_list: [database, azure, public, sqlserver, large, production]
   answers:
     - name: database
       value: SQL Server 2012
       value_type: string
     - name: instance_size
-      value: db.m3.xlarge
-      value_type: string
-    - name: cpus
-      value: 4
-      value_type: integer
-    - name: memory
-      value: 15
+      value: S3
       value_type: string
 ## Storage
 #{ name: 'West Coast Storage', description: 'Normal, Northern California', active: true, img: 'products/aws_s3.png', deleted_at: nil, product_type: 'Databases', setup_price: '0.99', hourly_price: '0.001', monthly_price: '0.05', tag_list: %w(storage aws development production s3) },
@@ -479,7 +467,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [storage, aws, production, development, s3]
+  tag_list: [storage, aws, public, production, development, s3]
   answers:
     - name: capacity
       value: 1
@@ -524,7 +512,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, lamp, oss, php, mysql, development]
+  tag_list: [application, aws, public, app, stack, lamp, oss, php, mysql, development]
   answers:
     - name: operating_system
       value: Ubuntu 14.04
@@ -557,7 +545,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, oss, rails, ruby, postgresql, development]
+  tag_list: [application, aws, public, app, stack, oss, rails, ruby, postgresql, development]
   answers:
     - name: operating_system
       value: Ubuntu 14.04
@@ -593,7 +581,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, oss, mean, mongo, node, development]
+  tag_list: [application, aws, public, app, stack, oss, mean, mongo, node, development]
   answers:
     - name: operating_system
       value: Ubuntu 14.04
@@ -630,13 +618,10 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, nci, stack, windows, iis, sqlserver, anthill, production]
+  tag_list: [application, private, vmware, nci, stack, windows, iis, sqlserver, anthill, production]
   answers:
     - name: operating_system
       value: Windows 2012
-      value_type: string
-    - name: instance_size
-      value: t2.xlarge
       value_type: string
     - name: cpus
       value: 2
@@ -657,14 +642,44 @@
 - _assoc: app_nci2
   name: NCI-2 Stack
   description: A server running CentOS, Drupal, MySQL
-  img: products/rhel.png
+  img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, nci, stack, centos, drupal, mysql, production]
+  tag_list: [application, private, vmware, nci, stack, centos, drupal, mysql, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: framework
+      value: Drupal
+      value_type: string
+    - name: database
+      value: MySQL
+      value_type: string
+- _assoc: app_nci2_aws
+  name: NCI-2 Stack
+  description: An EC2 instance running CentOS, Drupal, MySQL
+  img: products/centos.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, public, aws, nci, stack, centos, drupal, mysql, production]
   answers:
     - name: operating_system
       value: CentOS
@@ -691,20 +706,17 @@
 - _assoc: app_index
   name: Indexing Stack
   description: A server running CentOS, Elasticsearch, Apache Nutch
-  img: products/rhel.png
+  img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, nci, stack, oss, centos, elasticsearch, nutch, production]
+  tag_list: [application, private, vmware, nci, stack, oss, centos, elasticsearch, nutch, production]
   answers:
     - name: operating_system
       value: CentOS
-      value_type: string
-    - name: instance_size
-      value: t2.xlarge
       value_type: string
     - name: cpus
       value: 2
@@ -725,14 +737,44 @@
 - _assoc: app_analysis
   name: Data Analysis Stack
   description: A server running CentOS, Java 8, R statistical software, Python, MongoDB
-  img: products/rhel.png
+  img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, nci, stack, oss, centos, r, python, mongodb, java, production]
+  tag_list: [application, private, vmware, nci, stack, oss, centos, r, python, mongodb, java, production]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: language
+      value: Python
+      value_type: string
+    - name: java
+      value: Java 8
+      value_type: string
+    - name: database
+      value: MongoDB
+      value_type: string
+- _assoc: app_analysis_aws
+  name: Data Analysis Stack
+  description: An EC2 instance running CentOS, Java 8, R statistical software, Python, MongoDB
+  img: products/centos.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 20.99
+  monthly_price: 1.29
+  hourly_price: 0.90
+  tag_list: [application, public, aws, nci, stack, oss, centos, r, python, mongodb, java, production]
   answers:
     - name: operating_system
       value: CentOS
@@ -759,20 +801,17 @@
 - _assoc: app_nbia
   name: NBIA Server Stack
   description: A server running  CentOS 6.5, JBOSS 5.1, NBIA version 6.2, MySQL 5.1, Java 1.6.0 update 33
-  img: products/rhel.png
+  img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, nci, stack, oss, centos, jboss, nbia, mysql, java, production]
+  tag_list: [application, private, vmware, nci, stack, oss, centos, jboss, nbia, mysql, java, production]
   answers:
     - name: operating_system
       value: CentOS
-      value_type: string
-    - name: instance_size
-      value: t2.xlarge
       value_type: string
     - name: cpus
       value: 2
@@ -883,7 +922,7 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, apache, web, php, oss]
+  tag_list: [application, app, apache, web, oss]
   answers:
     - name: operating_system
       value: Ubuntu 14.04
@@ -910,19 +949,19 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, exchange, mail]
+  tag_list: [application, azure, public, app, exchange, mail]
   answers:
     - name: operating_system
       value: Windows 2012 R2
       value_type: string
     - name: instance_size
-      value: t2.xlarge
+      value: A3\Large
       value_type: string
     - name: cpus
-      value: 2
+      value: 4
       value_type: integer
     - name: memory
-      value: 8
+      value: 7
       value_type: string
     - name: application
       value: Exchange Server 2016

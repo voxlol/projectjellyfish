@@ -72,10 +72,11 @@
     }
 
     function parseQuestionAnswers(item) {
-      if (item === -1) {
-        return;
-      } else {
-        vm.tags = lodash.without(lodash.union(vm.tags, item.tags_to_add), item.tags_to_remove);
+      var filter;
+      if (item !== -1) {
+        filter = item.tags_to_remove;
+        filter.unshift(lodash.union(vm.tags, item.tags_to_add));
+        vm.tags = lodash.without.apply(this, filter);
       }
     }
 
