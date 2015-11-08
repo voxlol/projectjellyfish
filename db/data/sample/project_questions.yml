@@ -35,3 +35,8 @@
   required: true
   options: ["Low", "Medium", "High"]
   field_type: 1
+- _assoc: owner
+  question: Business Owner
+  required: true
+  options: []
+  field_type: 2
