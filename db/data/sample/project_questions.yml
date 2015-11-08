@@ -40,6 +40,11 @@
   required: true
   options: []
   field_type: 0
+- _assoc: pii
+  question: Contains PII/PHI data?
+  required: true
+  options: []
+  field_type: 0
 - _assoc: fisma
   question: FISMA Classification
   required: true
