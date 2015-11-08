@@ -12,8 +12,8 @@
   description: Databases
   tag_list: [database]
 - _assoc: cluster
-  name: Computer Architecture
-  description: Raw computing services, multi-node architecture
+  name: Clustered Architecture
+  description: Multi-node computing architecture
   tag_list: [cluster]
 - _assoc: application
   name: Application
