@@ -18,6 +18,22 @@
   monthly_price: 0
   hourly_price: 0.08
   tag_list: [server, aws, small, development, ec2]
+  answers:
+    - name: operating_system
+      value: Amazon Linux
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 2
+      value_type: integer
+    - name: disk_size
+      value: 100
+      value_type: integer
 - _assoc: medium_ec2
   name: AWS Medium EC2
   description: t2.medium compute instance
@@ -29,6 +45,22 @@
   monthly_price: 0
   hourly_price: 0.23
   tag_list: [server, aws, medium, production, ec2]
+  answers:
+    - name: operating_system
+      value: Amazon Linux
+      value_type: string
+    - name: instance_size
+      value: t2.medium
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 4
+      value_type: integer
+    - name: disk_size
+      value: 100
+      value_type: integer
 - _assoc: large_ec2
   name: AWS Large EC2
   description: t2.large compute instance
@@ -40,8 +72,24 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [server, aws, large, production, ec2]
+  answers:
+    - name: operating_system
+      value: Amazon Linux
+      value_type: string
+    - name: instance_size
+      value: t2.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: integer
+    - name: disk_size
+      value: 200
+      value_type: integer
 - _assoc: small_rhel
-  name: RHEL 6 Small
+  name: RHEL 7 Small
   description: A small server running RHEL
   img: products/redhat.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
@@ -51,6 +99,22 @@
   monthly_price: 1.29
   hourly_price: 0.05
   tag_list: [server, rhel, small, development, ec2]
+  answers:
+    - name: operating_system
+      value: RHEL 7.1
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 2
+      value_type: integer
+    - name: disk_size
+      value: 100
+      value_type: integer
 - _assoc: medium_rhel
   name: RHEL 6 Medium
   description: A medium capacity server running RHEL
@@ -62,6 +126,22 @@
   monthly_price: 0
   hourly_price: 0.23
   tag_list: [server, rhel, medium, production, ec2]
+  answers:
+    - name: operating_system
+      value: RHEL 7.1
+      value_type: string
+    - name: instance_size
+      value: t2.medium
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 4
+      value_type: integer
+    - name: disk_size
+      value: 100
+      value_type: integer
 - _assoc: large_rhel
   name: RHEL 6 Large
   description: A large production capable server running RHEL
@@ -73,6 +153,22 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [server, rhel, large, production, ec2]
+  answers:
+    - name: operating_system
+      value: RHEL 7.1
+      value_type: string
+    - name: instance_size
+      value: t2.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: integer
+    - name: disk_size
+      value: 200
+      value_type: integer
 - _assoc: win_2012
   name: Windows Server 2012
   description: Windows Server 2012 R2 Datacenter
@@ -84,6 +180,22 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [server, win, windows, large, production, ec2]
+  answers:
+    - name: operating_system
+      value: Windows Server 2012
+      value_type: string
+    - name: instance_size
+      value: t2.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: integer
+    - name: disk_size
+      value: 200
+      value_type: integer
 ## Databases
 #{ name: 'Small MySQL', description: 't2.small MySQL', active: true, img: 'products/aws_rds.png', deleted_at: nil, product_type: 'AWS Fog Databases', setup_price: 0.0, hourly_price: 0.034, monthly_price: 0.0, tag_list: %w(database aws mysql small development rds mysql-5 mysql-55), provisioning_answers: "{'DBInstanceClass':'db.t2.small','AllocatedStorage':'20','StorageType':'standard','availability':'reduced','Engine':'mysql'}" },
 #{ name: 'Medium MySQL', description: 'm3.medium MySQL', active: true, img: 'products/aws_rds.png', deleted_at: nil, product_type: 'AWS Fog Databases', setup_price: 0.0, hourly_price: 0.090, monthly_price: 0.0, tag_list: %w(database aws mysql medium production rds mysql-5 mysql-55), provisioning_answers: "{'DBInstanceClass':'db.m3.medium','AllocatedStorage':'40','StorageType':'standard','availability':'reduced','Engine':'mysql'}" },
@@ -105,6 +217,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, mysql, small, development, rds]
+  answers:
+    - name: database
+      value: MySQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.medium
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 3.75
+      value_type: string
 - _assoc: mysql_medium
   name: Medium MySQL
   description: A medium development level instance of MySQL
@@ -116,6 +241,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, mysql, medium, development, rds]
+  answers:
+    - name: database
+      value: MySQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 7.5
+      value_type: string
 - _assoc: mysql_large
   name: Large MySQL
   description: A large production capable instance of MySQL
@@ -127,6 +265,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, mysql, large, production, rds]
+  answers:
+    - name: database
+      value: MySQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.xlarge
+      value_type: string
+    - name: cpus
+      value: 4
+      value_type: integer
+    - name: memory
+      value: 15
+      value_type: string
 - _assoc: postgresql_small
   name: Small PostgreSQL
   description: A small development level instance of PostgreSQL
@@ -138,6 +289,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, postgresql, small, development, rds]
+  answers:
+    - name: database
+      value: PostgreSQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.medium
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 3.75
+      value_type: string
 - _assoc: postgresql_medium
   name: Medium PostgreSQL
   description: A medium development level instance of PostgreSQL
@@ -149,6 +313,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, postgresql, medium, development, rds]
+  answers:
+    - name: database
+      value: PostgreSQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 7.5
+      value_type: string
 - _assoc: postgresql_large
   name: Large PostgreSQL
   description: A large production capable instance of PostgreSQL
@@ -160,6 +337,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, postgresql, large, production, rds]
+  answers:
+    - name: database
+      value: PostgreSQL
+      value_type: string
+    - name: instance_size
+      value: db.m3.xlarge
+      value_type: string
+    - name: cpus
+      value: 4
+      value_type: integer
+    - name: memory
+      value: 15
+      value_type: string
 - _assoc: aurora_medium
   name: Medium Aurora
   description: A medium development level instance of Aurora
@@ -171,6 +361,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, aurora, medium, development, rds]
+  answers:
+    - name: database
+      value: Amazon Aurora
+      value_type: string
+    - name: instance_size
+      value: db.m3.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 7.5
+      value_type: string
 - _assoc: aurora_large
   name: Large Aurora
   description: A large production capable instance of Aurora
@@ -182,6 +385,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, aurora, large, production, rds]
+  answers:
+    - name: database
+      value: Amazon Aurora
+      value_type: string
+    - name: instance_size
+      value: db.m3.xlarge
+      value_type: string
+    - name: cpus
+      value: 4
+      value_type: integer
+    - name: memory
+      value: 15
+      value_type: string
 - _assoc: sqlserver_medium
   name: Medium Sql Server
   description: A medium development level instance of Sql Server
@@ -193,6 +409,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, sqlserver, medium, development, rds]
+  answers:
+    - name: database
+      value: SQL Server 2012
+      value_type: string
+    - name: instance_size
+      value: db.m3.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 7.5
+      value_type: string
 - _assoc: sqlserver_large
   name: Large Sql Server
   description: A large production capable instance of Sql Server
@@ -204,6 +433,19 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [database, sqlserver, large, production, rds]
+  answers:
+    - name: database
+      value: SQL Server 2012
+      value_type: string
+    - name: instance_size
+      value: db.m3.xlarge
+      value_type: string
+    - name: cpus
+      value: 4
+      value_type: integer
+    - name: memory
+      value: 15
+      value_type: string
 ## Storage
 #{ name: 'West Coast Storage', description: 'Normal, Northern California', active: true, img: 'products/aws_s3.png', deleted_at: nil, product_type: 'Databases', setup_price: '0.99', hourly_price: '0.001', monthly_price: '0.05', tag_list: %w(storage aws development production s3) },
 #{ name: '1GB NetApps Storage', description: 'NetApps Storage', active: true, img: 'products/netapp.png', deleted_at: nil, product_type: 'Storage', setup_price: '10.0', hourly_price: '10.0', monthly_price: '10.0', tag_list: %w(storage production netapps) },
@@ -220,6 +462,13 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [storage, netapps, production]
+  answers:
+    - name: capacity
+      value: 1
+      value_type: integer
+    - name: secure
+      value: yes
+      value_type: string
 - _assoc: storage_s3
   name: AWS S3 Bucket
   description: AWS bucket storage
@@ -231,6 +480,13 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [storage, aws, production, development, s3]
+  answers:
+    - name: capacity
+      value: 1
+      value_type: integer
+    - name: secure
+      value: yes
+      value_type: string
 - _assoc: storage_teradata
   name: Teradata
   description: Teradata
@@ -242,6 +498,13 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [storage, teradata, production]
+  answers:
+    - name: capacity
+      value: 10
+      value_type: integer
+    - name: secure
+      value: yes
+      value_type: string
 ## Applications
 #{ name: 'LAMP Stack', description: 'Linux, Apache, MySQL, PHP', active: true, img: 'products/php.png', deleted_at: nil, product_type: 'Platforms', setup_price: '10.0', hourly_price: '10.0', monthly_price: '10.0', tag_list: %w(application stack aws production linux apache php lamp) },
 #{ name: 'Rails Stack', description: 'Ruby on Rails Stack', active: true, img: 'products/rails.png', deleted_at: nil, product_type: 'Platforms', setup_price: '10.0', hourly_price: '3.0', monthly_price: '5.0', tag_list: %w(application stack aws production ruby rails) },
@@ -261,7 +524,29 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, lamp, php, mysql, development]
+  tag_list: [application, app, stack, lamp, oss, php, mysql, development]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 3.75
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: language
+      value: PHP 7
+      value_type: string
+    - name: database
+      value: MySQL 5.5
+      value_type: string
 - _assoc: app_rails
   name: Rails Stack
   description: A server running Linux, Apache, Postgresql, and Ruby.
@@ -272,7 +557,32 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, rails, ruby, postgresql, development]
+  tag_list: [application, app, stack, oss, rails, ruby, postgresql, development]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 3.75
+      value_type: string
+    - name: web_server
+      value: Phusion Passenger 5.0
+      value_type: string
+    - name: language
+      value: Ruby 2.2
+      value_type: string
+    - name: framework
+      value: Rails 4.2
+      value_type: string
+    - name: database
+      value: PostgreSQL 9.5
+      value_type: string
 - _assoc: app_mean
   name: MEAN Stack
   description: A server running Linux, Apache, MongoDB, and Node.Js
@@ -283,7 +593,32 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, stack, mean, mongo, node, development]
+  tag_list: [application, app, stack, oss, mean, mongo, node, development]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 3.75
+      value_type: string
+    - name: web_server
+      value: Nginx 1.9
+      value_type: string
+    - name: language
+      value: Node.js 5.0
+      value_type: string
+    - name: framework
+      value: Express 4.13
+      value_type: string
+    - name: database
+      value: MongoDB 3.0
+      value_type: string
 - _assoc: app_jira
   name: JIRA
   description: An installation of JIRA Project management software
@@ -295,6 +630,22 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [application, app, jira, atlassian, production]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: application
+      value: Jira
+      value_type: string
 - _assoc: app_confluence
   name: Confluence
   description: An installation of Confluence wiki software
@@ -306,6 +657,22 @@
   monthly_price: 1.29
   hourly_price: 0.90
   tag_list: [application, app, confluence, atlassian, production]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: application
+      value: Confluence
+      value_type: string
 - _assoc: app_bugzilla
   name: Bugzilla
   description: An installation of Bugzilla bug tracking software
@@ -316,7 +683,23 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, bugzilla, tracker, production]
+  tag_list: [application, app, oss, bugzilla, tracker, production]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.large
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 4
+      value_type: string
+    - name: application
+      value: Bugzilla
+      value_type: string
 - _assoc: app_web
   name: Apache Web Server
   description: An installation of Apache with PHP support
@@ -327,7 +710,23 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, apache, web, server, php]
+  tag_list: [application, app, apache, web, php, oss]
+  answers:
+    - name: operating_system
+      value: Ubuntu 14.04
+      value_type: string
+    - name: instance_size
+      value: t2.small
+      value_type: string
+    - name: cpus
+      value: 1
+      value_type: integer
+    - name: memory
+      value: 2
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
 - _assoc: app_mail
   name: MS Exchange Server
   description: An installation of Microsoft Exchange Server
@@ -338,7 +737,23 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [application, app, exchange, mail, server]
+  tag_list: [application, app, exchange, mail]
+  answers:
+    - name: operating_system
+      value: Windows 2012 R2
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: application
+      value: Exchange Server 2016
+      value_type: string
 ## Other
 #{ name: 'Sr. Java Developer', description: '', active: true, img: 'products/woman.png', deleted_at: nil, product_type: 'Staff', setup_price: '10.0', hourly_price: '10.0', monthly_price: '10.0', tag_list: %w(staff java engineer developer senior) },
 #{ name: 'Sr. System Administrator', description: 'Sr. System Administrator', active: true, img: 'products/woman.png', deleted_at: nil, product_type: 'Staff', setup_price: '10.0', hourly_price: '10.0', monthly_price: '10.0', tag_list: %w(staff system administrator senior) },
@@ -396,7 +811,11 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [server, cluster, large, dataset, hadoop, production]
+  tag_list: [cluster, large, dataset, hadoop, production]
+  answers:
+    - name: cpus
+      value: 100
+      value_type: integer
 - _assoc: other_10
   name: 10 Node Hadoop Cluster
   description: 10 nodes of processing power
@@ -407,7 +826,11 @@
   setup_price: 20.99
   monthly_price: 1.29
   hourly_price: 0.90
-  tag_list: [server, cluster, small, dataset, hadoop, development]
+  tag_list: [cluster, small, dataset, hadoop, development]
+  answers:
+    - name: cpus
+      value: 10
+      value_type: integer
 - _assoc: other_monte
   name: Monte Carlo
   description: Monte Carlo Simulation
