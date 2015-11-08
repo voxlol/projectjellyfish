@@ -25,8 +25,18 @@
   required: true
   options: ["East Coast Data Center", "West Coast Data Center", "Classified Data Center"]
   field_type: 1
+- _assoc: dev
+  question: Requires development environment?
+  required: true
+  options: []
+  field_type: 0
+- _assoc: test
+  question: Requires test environment?
+  required: true
+  options: []
+  field_type: 0
 - _assoc: prod
-  question: Will this run in production?
+  question: Requires production environment?
   required: true
   options: []
   field_type: 0
