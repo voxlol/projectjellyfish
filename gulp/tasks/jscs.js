@@ -15,6 +15,7 @@ module.exports = function(gulp, options) {
 
     return gulp.src(config.src)
       .pipe(jscs({configPath: config.rcFile}))
-      .pipe(jscs.reporter());
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'));
   }
 };

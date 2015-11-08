@@ -1,4 +1,5 @@
 def sample_data(file)
+  puts "-- Loading #{file.titlecase}"
   data = YAML.load_file(File.join [Rails.root, 'db', 'data', 'sample', [file, 'yml'].join('.')])
   return data unless block_given?
   data.each { |d| yield d }
@@ -10,11 +11,13 @@ namespace :sample do
     providers = sample_data('providers').map do |data|
       reg_provider = RegisteredProvider.find_by uuid: data.delete('registered_provider')
       data.merge! registered_provider: reg_provider
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Provider.create(data)]
     end
 
     orgs = sample_data('organizations').map do |data|
       alerts = data.delete 'alerts'
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Organization.create(data).tap do |org|
           org.alerts.create(alerts) unless alerts.nil?
         end]
@@ -22,12 +25,14 @@ namespace :sample do
 
     users = sample_data('staff').map do |data|
       alerts = data.delete 'alerts'
+      puts "  #{data['first_name']} #{data['last_name']}"
       [data.delete('_assoc'), Staff.create(data).tap do |user|
           user.alerts.create(alerts) unless alerts.nil?
         end]
     end
 
     categories = sample_data('product_categories').map do |data|
+      puts "  #{data['name']}"
       [data.delete('_assoc'), ProductCategory.create(data)]
     end
 
@@ -36,12 +41,14 @@ namespace :sample do
       product_type = ProductType.find_by uuid: data.delete('product_type')
       provider = providers.assoc(data.delete 'provider').last
       data.merge! product_type: product_type, provider: provider
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Product.create(data).tap do |product|
           product.answers.create(answers) unless answers.nil?
         end]
     end
 
     project_questions = sample_data('project_questions').map do |data|
+      puts "  #{data['question']}"
       [data.delete('_assoc'), ProjectQuestion.create(data)]
     end
 
@@ -49,6 +56,7 @@ namespace :sample do
       approvals = data.delete 'approvals'
       alerts = data.delete 'alerts'
       answers = data.delete 'answers'
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Project.create(data).tap do |project|
           project.alerts.create(alerts) unless alerts.nil?
           unless approvals.nil?
@@ -72,6 +80,7 @@ namespace :sample do
       alerts = data.delete 'alerts'
       order = data.delete 'order'
       data['uuid'] = SecureRandom.uuid
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Service.create(data).tap do |service|
           service.alerts.create(alerts) unless alerts.nil?
           staff = users.assoc(order.delete('staff')).last
@@ -89,11 +98,13 @@ namespace :sample do
 
     sample_data 'wizard_questions' do |data|
       answers = data.delete 'answers'
+      puts "  #{data['text']}"
       [data.delete('_assoc'), WizardQuestion.create(data).tap { |q| q.wizard_answers.create answers }]
     end
 
     groups = sample_data('groups').map do |data|
       group_staff = data.delete('group_staff') || []
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Group.create(data).tap do |group|
           next if group_staff.nil?
           group_staff.each do |staff|
@@ -103,6 +114,7 @@ namespace :sample do
     end
 
     roles = sample_data('roles').map do |data|
+      puts "  #{data['name']}"
       [data.delete('_assoc'), Role.create(data)]
     end
 
