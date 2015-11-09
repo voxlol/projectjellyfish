@@ -14,15 +14,10 @@
             {
               key: 'first_name',
               type: 'text',
-              templateOptions: {
+              templateOptions: { 
                 label: 'First Name',
                 required: true,
                 placeholder: 'Enter a first name.'
-              },
-              validation: {
-                messages: {
-                  required: '"A first name must be provided"'
-                }
               }
             },
             {
@@ -32,26 +27,46 @@
                 label: 'Last Name',
                 required: true,
                 placeholder: 'Enter a last name.'
-              },
-              validation: {
-                messages: {
-                  required: '"A last name must be provided"'
-                }
               }
             },
             {
               key: 'email',
               type: 'text',
+              /** @ngInject */
+              controller: function($scope, $q, Staff) {
+                $scope.Staff = Staff;
+                $scope.q = $q;
+              },
               templateOptions: {
                 label: 'Email',
+                required: true,
                 type: 'email',
                 placeholder: 'Enter a valid email address.',
-                required: true
-              },
-              validation: {
-                messages: {
-                  required: '"An email must be provided"'
+                onKeyDown: function(value, options){
+                  options.validation.show = false;
+                },
+                onBlur: function(value, options){
+                  options.validation.show = null;
                 }
+              },
+              asyncValidators: {
+                uniqueEmail: {
+                  expression: function(view, model, scope){
+                    var def = scope.q.defer();
+                    scope.Staff.query({by_email: view}).$promise.then(handleRequest);
+
+                    return def.promise;
+
+                    function handleRequest(res){
+                      console.log(res);
+                      def.reject('Test rejection');
+                    }
+                  },
+                  message: '"This email address is already taken, please try another."'
+                }
+              },
+              modelOptions: {
+                updateOn: 'blur'
               }
             },
             {
