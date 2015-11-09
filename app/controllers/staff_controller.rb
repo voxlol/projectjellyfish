@@ -87,7 +87,7 @@ class StaffController < ApplicationController
       if params[:query]
         Staff.search params[:query]
       elsif params[:by_email]
-        Staff.with_deleted.where :email => params[:by_email]
+        Staff.with_deleted.where email: params[:by_email]
       else
         query_with Staff.all, :includes, :pagination
       end
