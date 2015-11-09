@@ -83,7 +83,7 @@
     }
 
     /** @ngInject */
-    function TagModalController(tagList, tagCommands, tags, mode, $location, $timeout) {
+    function TagModalController(tagList, tagCommands, tags, mode, $location, $timeout, lodash) {
       var vm = this;
 
       vm.tagList = tagList;
@@ -98,6 +98,12 @@
       vm.tagInUse = tagInUse;
       vm.tagUnavailable = tagUnavailable;
       vm.gotoHash = gotoHash;
+
+      activate();
+
+      function activate() {
+        vm.tags = sortKeys(vm.tags);
+      }
 
       function tagsExistForLetter(letter) {
         return angular.isDefined(vm.tags[letter]);
@@ -122,6 +128,20 @@
         $timeout(function() {
           $location.hash('');
         });
+      }
+
+      function sortKeys(obj) {
+        var newObj = {};
+        var keys = Object.keys(obj);
+        lodash.sortBy(keys).forEach(function(e) {
+          newObj[e] = lodash.sortBy(obj[e], resourceName);
+        });
+
+        return newObj;
+
+        function resourceName(resource) {
+          return resource.name;
+        }
       }
     }
   }
