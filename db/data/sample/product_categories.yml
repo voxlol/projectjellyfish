@@ -11,23 +11,27 @@
   name: Database
   description: Databases
   tag_list: [database]
+- _assoc: cluster
+  name: Clustered Architecture
+  description: Multi-node computing architecture
+  tag_list: [cluster]
 - _assoc: application
   name: Application
   description: Applications
   tag_list: [application]
 - _assoc: stacks
   name: Application Stacks
-  description: One or more services brought together
+  description: Two or more services brought together
   tag_list: [stack]
 - _assoc: analysis
   name: Analysis
   description: Analytics and research computation
   tag_list: [analysis]
-- _assoc: staff
-  name: Staff
-  description: Personnel and staffing needs
-  tag_list: [staff]
 - _assoc: oss
   name: Open Source
   description: Open Source Software and other open source offerings
   tag_list: [oss]
+- _assoc: staff
+  name: Staff
+  description: Personnel and staffing needs
+  tag_list: [staff]

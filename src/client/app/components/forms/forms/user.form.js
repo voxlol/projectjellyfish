@@ -109,7 +109,7 @@
                 options: [
                   {label: 'User', value: 'user'},
                   {label: 'Manager', value: 'manager'},
-                  {label: 'Admin', value: 'admin'},
+                  {label: 'Admin', value: 'admin'}
                 ],
                 required: true
               },
