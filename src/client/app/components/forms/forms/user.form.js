@@ -32,36 +32,22 @@
             {
               key: 'email',
               type: 'text',
-              /** @ngInject */
-              controller: function($scope, $q, Staff) {
-                $scope.Staff = Staff;
-                $scope.q = $q;
-              },
+              controller: EmailFieldController,
               templateOptions: {
                 label: 'Email',
                 required: true,
                 type: 'email',
                 placeholder: 'Enter a valid email address.',
-                onKeyDown: function(value, options){
+                onKeyDown: function(value, options) {
                   options.validation.show = false;
                 },
-                onBlur: function(value, options){
+                onBlur: function(value, options) {
                   options.validation.show = null;
                 }
               },
               asyncValidators: {
                 uniqueEmail: {
-                  expression: function(view, model, scope){
-                    var def = scope.q.defer();
-                    scope.Staff.query({by_email: view}).$promise.then(handleRequest);
-
-                    return def.promise;
-
-                    function handleRequest(res){
-                      console.log(res);
-                      def.reject('Test rejection');
-                    }
-                  },
+                  expression: uniqueEmail,
                   message: '"This email address is already taken, please try another."'
                 }
               },
@@ -138,6 +124,27 @@
         }
       ]
     });
+
+    /** @ngInject */
+    function EmailFieldController($scope, $q, Staff) {
+      $scope.Staff = Staff;
+      $scope.q = $q;
+    }
+
+    function uniqueEmail(view, model, scope) {
+      var def = scope.q.defer();
+      scope.Staff.query({by_email: view}).$promise.then(handleRequest);
+
+      return def.promise;
+
+      function handleRequest(res) {
+        if (res.length > 0) {
+          def.reject();
+        } else {
+          def.resolve();
+        }
+      }
+    }
 
     function samePassword(view, model, scope) {
       return view === scope.model.password;
