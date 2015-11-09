@@ -719,8 +719,8 @@
   provider: demo
   active: true
   setup_price: 0.00
-  monthly_price: 0.00
-  hourly_price: 231.00
+  monthly_price: 231.00
+  hourly_price: 0.00
   tag_list: [application , private , vmware , nci , stack , centos , drupal , mysql , production , ACQUIA , cms]
   answers:
     - name: operating_system
@@ -780,8 +780,9 @@
     - name: time_to_deploy
       value: 12 minutes
       value_type: string
+- _assoc: app_drupal_cms_onsite
   name: Drupal CMS Stack - Basic On-Site
-  description: An EC2 instance running CentOS, Drupal, MySQL
+  description: An onsite instance running CentOS, Drupal, MySQL
   img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
