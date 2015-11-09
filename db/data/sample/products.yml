@@ -712,16 +712,16 @@
       value_type: string
 # o	NEW ONE: NCI-2:  A server running CentOS, Drupal, MySQL,
 - _assoc: app_nci2
-  name: NCI-2 Stack
-  description: A server running CentOS, Drupal, MySQL
+  name: Drupal CMS Stack - Basic ACQUIA
+  description: A server running CentOS, Drupal, MySQL and managed by Acquia.
   img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
-  tag_list: [application, private, vmware, nci, stack, centos, drupal, mysql, production]
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 231.00
+  tag_list: [application , private , vmware , nci , stack , centos , drupal , mysql , production , ACQUIA , cms]
   answers:
     - name: operating_system
       value: CentOS
@@ -745,16 +745,16 @@
       value: 9 minutes
       value_type: string
 - _assoc: app_nci2_aws
-  name: NCI-2 Stack
+  name: Drupal CMS Stack - Basic AWS
   description: An EC2 instance running CentOS, Drupal, MySQL
   img: products/centos.png
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
-  tag_list: [application, public, aws, nci, stack, centos, drupal, mysql, production]
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 0.24
+  tag_list: [application , public , aws , nci , stack , centos , drupal , mysql , production , cms]
   answers:
     - name: operating_system
       value: CentOS
@@ -779,6 +779,80 @@
       value_type: string
     - name: time_to_deploy
       value: 12 minutes
+      value_type: string
+  name: Drupal CMS Stack - Basic On-Site
+  description: An EC2 instance running CentOS, Drupal, MySQL
+  img: products/centos.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 0.00
+  tag_list: [application , public , aws , nci , stack , centos , drupal , mysql , production , cms]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 2
+      value_type: integer
+    - name: memory
+      value: 8
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: framework
+      value: Drupal
+      value_type: string
+    - name: database
+      value: MySQL
+      value_type: string
+    - name: time_to_deploy
+      value: 2 weeks
+      value_type: string
+- _assoc: app_nci2_aws_high
+  name: Drupal CMS Stack - High Availability AWS
+  description: An EC2 instance running CentOS, Drupal, MySQL
+  img: products/centos.png
+  product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
+  provider: demo
+  active: true
+  setup_price: 0.00
+  monthly_price: 625.00
+  hourly_price: 0.00
+  tag_list: [application , public , aws , nci , stack , centos , drupal , mysql , production , cms]
+  answers:
+    - name: operating_system
+      value: CentOS
+      value_type: string
+    - name: instance_size
+      value: t2.xlarge
+      value_type: string
+    - name: cpus
+      value: 16
+      value_type: integer
+    - name: ram
+      value: 64
+      value_type: integer
+    - name: storage
+      value: 200 gig
+      value_type: string
+    - name: web_server
+      value: Apache 2.2
+      value_type: string
+    - name: framework
+      value: Drupal
+      value_type: string
+    - name: database
+      value: MySQL
+      value_type: string
+    - name: time_to_deploy
+      value: 20 minutes
       value_type: string
 # o	NEW ONE:  Indexing Stack:  A server running CentOS, Elasticsearch, Apache Nutch
 - _assoc: app_index
@@ -1018,9 +1092,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 3.50
   tag_list: [application, app, apache, web, oss]
   answers:
     - name: operating_system
@@ -1048,9 +1122,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 30.00
+  monthly_price: 13.00
+  hourly_price: 0.00
   tag_list: [application, azure, public, app, exchange, mail]
   answers:
     - name: operating_system
@@ -1092,9 +1166,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 5000.00
+  monthly_price: 8000.00
+  hourly_price: 0.00
   tag_list: [staff, java, engineer, developer, programmer, senior]
 - _assoc: other_admin
   name: Sr. System Administrator
@@ -1103,9 +1177,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 5000.00
+  monthly_price: 7600.00
+  hourly_price: 0.00
   tag_list: [staff, system, admin, administrator, senior]
 - _assoc: other_manager
   name: Project Manager
@@ -1114,9 +1188,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 4000.00
+  monthly_price: 9000.00
+  hourly_price: 0.00
   tag_list: [staff, project, manager]
 - _assoc: other_100
   name: 100 Node Hadoop Cluster
@@ -1125,9 +1199,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 20.00
+  monthly_price: 0.00
+  hourly_price: 5.00
   tag_list: [cluster, large, dataset, hadoop, production]
   answers:
     - name: cpus
@@ -1143,9 +1217,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 5.00
+  monthly_price: 0
+  hourly_price: 0.50
   tag_list: [cluster, small, dataset, hadoop, development]
   answers:
     - name: cpus
@@ -1191,9 +1265,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 3.00
   tag_list: [analysis, dataset, monte-carlo]
 - _assoc: other_genome
   name: Gemone Modeling
@@ -1202,9 +1276,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 95.00
+  hourly_price: 0.00
   tag_list: [analysis, modeling, genome]
 - _assoc: other_neural
   name: Neural Network
@@ -1213,9 +1287,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 30.00
+  hourly_price: 0.00
   tag_list: [analysis, modeling, brain, neural]
 - _assoc: other_satellite
   name: Satellite Data
@@ -1224,9 +1298,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 0.00
   tag_list: [analysis, dataset, satellite, mapping]
 - _assoc: other_air
   name: Air Traffic Logs
@@ -1235,9 +1309,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 0.00
+  monthly_price: 0.00
+  hourly_price: 0.00
   tag_list: [analysis, dataset, logging, processing]
 - _assoc: other_human
   name: Human Genome
@@ -1246,9 +1320,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 10.00
+  monthly_price: 0.00
+  hourly_price: 0.00
   tag_list: [analysis, dataset, modeling, genome]
 - _assoc: other_ebola
   name: Ebola Genome
@@ -1257,9 +1331,9 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 10.00
+  monthly_price: 0.00
+  hourly_price: 0.00
   tag_list: [analysys, dataset, ebola, modeling, genome]
 - _assoc: other_anthrax
   name: Anthrax Genome
@@ -1268,7 +1342,7 @@
   product_type: 6e1c01ab-64e9-43b0-891f-5657170c845d
   provider: demo
   active: true
-  setup_price: 20.99
-  monthly_price: 1.29
-  hourly_price: 0.90
+  setup_price: 10.00
+  monthly_price: 0.00
+  hourly_price: 0.00
   tag_list: [analysis, anthrax, dataset, modeling, genome]
