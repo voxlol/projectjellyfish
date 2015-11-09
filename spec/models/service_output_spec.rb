@@ -29,13 +29,13 @@ describe ServiceOutput do
   it 'can be added to services' do
     service = create :service
 
-    service.service_outputs << build(:service_output)
-    service.service_outputs << build(:service_output, :integer)
-    service.service_outputs << build(:service_output, :email)
+    service.service_output << build(:service_output)
+    service.service_output << build(:service_output, :integer)
+    service.service_output << build(:service_output, :email)
 
     service.save
     service.reload
 
-    expect(service.service_outputs.length).to eq(3)
+    expect(service.service_output.length).to eq(3)
   end
 end
