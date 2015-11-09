@@ -8,6 +8,16 @@
     staff: admin
     project: mobile
     product: small_ec2
+  service_output:
+    - name: Public IP
+      value: 10.0.0.12
+      value_type: string
+    - name: Username
+      value: root
+      value_type: string
+    - name: Password
+      value: toor
+      value_type: string
 - _assoc: mobile_small_2
   type: Null::Service
   name: Job Queue
@@ -17,6 +27,16 @@
     staff: admin
     project: mobile
     product: small_ec2
+  service_output:
+      - name: Public IP
+        value: 44.44.0.12
+        value_type: string
+      - name: Username
+        value: Admin
+        value_type: string
+      - name: Password
+        value: admin1234!@#$
+        value_type: string
 - _assoc: blog_small_1
   type: Null::Service
   name: Job Queue
@@ -44,6 +64,19 @@
     staff: admin
     project: files
     product: large_ec2
+  service_output:
+      - name: Public IP
+        value: 102.0.0.33
+        value_type: string
+      - name: Username
+        value: root
+        value_type: string
+      - name: Password
+        value: toor
+        value_type: string
+      - name: Private IP
+        value: 192.168.2.99
+        value_type: string
 - _assoc: cloud_large_2
   type: Null::Service
   name: File Processing Server (failover)
@@ -62,3 +95,13 @@
     staff: admin
     project: files
     product: large_ec2
+  service_output:
+      - name: Public IP
+        value: 22.1.13.12
+        value_type: string
+      - name: Username
+        value: admin
+        value_type: string
+      - name: Password
+        value: 1234!@#$
+        value_type: string
