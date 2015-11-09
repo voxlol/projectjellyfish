@@ -79,12 +79,12 @@ namespace :sample do
     sample_data 'services' do |data|
       alerts = data.delete 'alerts'
       order = data.delete 'order'
-      service_output = data.delete 'service_output'
+      service_outputs = data.delete 'service_outputs'
       data['uuid'] = SecureRandom.uuid
       puts "  #{data['name']}"
       [data.delete('_assoc'), Service.create(data).tap do |service|
           service.alerts.create(alerts) unless alerts.nil?
-          service.service_output.create(service_output) unless service_output.nil?
+          service.service_outputs.create(service_outputs) unless service_outputs.nil?
           staff = users.assoc(order.delete('staff')).last
           product = products.assoc(order.delete('product')).last
           project = projects.assoc(order.delete('project')).last

@@ -26,7 +26,7 @@
 
   /** @ngInject */
   function resolveService(Service, $stateParams) {
-    var includes = ['order', 'product', 'project', 'provider', 'service_output'];
+    var includes = ['order', 'product', 'project', 'provider', 'service_outputs'];
 
     return Service.get({id: $stateParams.serviceId, 'includes[]': includes}).$promise;
   }

@@ -28,5 +28,5 @@ class ServiceSerializer < ApplicationSerializer
   has_one :product_type, serializer: ProductTypeSerializer
   has_one :provider, serializer: ProviderSerializer
 
-  has_many :service_output
+  has_many :service_outputs
 end
