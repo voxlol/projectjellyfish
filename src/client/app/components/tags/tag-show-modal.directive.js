@@ -90,7 +90,7 @@
       vm.addTag = tagCommands.add;
       vm.removeTag = tagCommands.remove;
       vm.clearTags = tagCommands.clear;
-      vm.tags = tags;
+      vm.tags = initTags(tags);
 
       vm.shortcuts = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -99,10 +99,8 @@
       vm.tagUnavailable = tagUnavailable;
       vm.gotoHash = gotoHash;
 
-      activate();
-
-      function activate() {
-        vm.tags = sortKeys(vm.tags);
+      function initTags(tags) {
+        return sortTags(tags);
       }
 
       function tagsExistForLetter(letter) {
@@ -130,17 +128,17 @@
         });
       }
 
-      function sortKeys(obj) {
-        var newObj = {};
-        var keys = Object.keys(obj);
-        lodash.sortBy(keys).forEach(function(e) {
-          newObj[e] = lodash.sortBy(obj[e], resourceName);
-        });
+      function sortTags(tags) {
+        var letters = Object.keys(tags);
 
-        return newObj;
+        return lodash.map(letters.sort(), createTagHash);
 
-        function resourceName(resource) {
-          return resource.name;
+        function createTagHash(letter) {
+          var obj = {};
+          obj.letter = letter;
+          obj.tags = lodash.sortBy(tags[letter], 'name');
+
+          return obj;
         }
       }
     }
