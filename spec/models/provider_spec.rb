@@ -22,13 +22,22 @@
 require 'rails_helper'
 
 RSpec.describe Provider, type: :model do
-  it 'assigns a type' do
-    provider = create :provider, name: 'Demo', registered_provider_id: 3
-    expect(provider.type).to eq('Provider::Type1')
+  let(:registered_provider) { create :registered_provider }
+  let(:provider) { create :provider, registered_provider: registered_provider }
+
+  it 'has a valid factory' do
+    expect(provider).to be_valid
+  end
+
+  it 'sets the type' do
+    expect(provider).to have_attributes(type: a_string_starting_with('Provider::Type'))
   end
 
   it 'sets the registered_provider_id field'do
-    provider = create :provider, name: 'Azure', type: 'Azure', registered_provider_id: 5
-    expect(provider.registered_provider_id).to eq(5)
+    expect(provider.registered_provider_id).to eq(registered_provider.id)
+  end
+
+  it 'has a relationship with a registered provider' do
+    expect(provider.registered_provider).to be(registered_provider)
   end
 end
