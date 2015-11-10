@@ -21,9 +21,12 @@
 class ServiceSerializer < ApplicationSerializer
   attributes :id, :type, :name, :uuid, :status, :health, :status_msg, :created_at, :updated_at
 
+  # Relationships
   has_one :order, serializer: OrderSerializer
   has_one :project, serializer: ProjectSerializer
   has_one :product, serializer: ProductSerializer
   has_one :product_type, serializer: ProductTypeSerializer
   has_one :provider, serializer: ProviderSerializer
+
+  has_many :service_outputs
 end

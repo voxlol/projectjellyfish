@@ -9,3 +9,14 @@
 </content-header>
 
 <service-basic-details service="vm.service"></service-basic-details>
+
+<details-table heading="Provisioning Output">
+  <div ng-if=" ::!vm.service.service_outputs.length" class="details-table__row">
+    <div class="details-table__empty">Provisioning output not available for this service.</div>
+  </div>
+  <div ng-if="::vm.service.service_outputs.length" class="details-table__row"
+       ng-repeat="output in ::vm.service.service_outputs">
+    <div class="details-table__label"> {{ ::output.name }}</div>
+    <div class="details-table__detail">{{ ::output.value }}</div>
+  </div>
+</details-table>
