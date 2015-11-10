@@ -38,12 +38,8 @@
                 required: true,
                 type: 'email',
                 placeholder: 'Enter a valid email address.',
-                onKeyDown: function(value, options) {
-                  options.validation.show = false;
-                },
-                onBlur: function(value, options) {
-                  options.validation.show = null;
-                }
+                onKeyDown: onKeyDown,
+                onBlur: onBlur
               },
               asyncValidators: {
                 uniqueEmail: {
@@ -129,6 +125,12 @@
     function EmailFieldController($scope, $q, Staff) {
       $scope.Staff = Staff;
       $scope.q = $q;
+
+      init();
+
+      function init() {
+        $scope.initialEmail = $scope.model.email;
+      }
     }
 
     function uniqueEmail(view, model, scope) {
@@ -138,12 +140,20 @@
       return def.promise;
 
       function handleRequest(res) {
-        if (res.length > 0) {
-          def.reject();
-        } else {
+        if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
           def.resolve();
+        } else {
+          return res.length > 0 ? def.reject() : def.resolve();
         }
       }
+    }
+
+    function onKeyDown(value, options) {
+      options.validation.show = false;
+    }
+
+    function onBlur(value, options) {
+      options.validation.show = null;
     }
 
     function samePassword(view, model, scope) {
