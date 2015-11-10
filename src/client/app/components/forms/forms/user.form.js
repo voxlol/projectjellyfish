@@ -134,17 +134,18 @@
     }
 
     function uniqueEmail(view, model, scope) {
-      var def = scope.q.defer();
-      scope.Staff.query({by_email: view}).$promise.then(handleRequest);
+      var defer = scope.q.defer();
 
-      return def.promise;
+      if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
+        defer.resolve();
+      } else {
+        scope.Staff.query({by_email: view}).$promise.then(handleRequest);
+      }
+
+      return defer.promise;
 
       function handleRequest(res) {
-        if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
-          def.resolve();
-        } else {
-          return res.length > 0 ? def.reject() : def.resolve();
-        }
+        return res.length > 0 ? defer.reject() : defer.resolve();
       }
     }
 
