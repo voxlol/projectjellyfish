@@ -46,6 +46,7 @@
   /** @ngInject */
   function types(formlyConfig, jfApiCheck, lodash) {
     textField();
+    emailField();
     passwordField();
     textareaField();
     checkboxField();
@@ -63,6 +64,14 @@
       formlyConfig.setType({
         name: 'text',
         template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        wrapper: ['jfHasError', 'jfLabel', 'jfField']
+      });
+    }
+
+    function emailField() {
+      formlyConfig.setType({
+        name: 'email',
+        template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }

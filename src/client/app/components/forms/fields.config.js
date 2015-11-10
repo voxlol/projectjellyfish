@@ -59,6 +59,15 @@
       templateOptions: {
         label: 'Date'
       }
+    });    
+
+    // Generic email
+    Forms.fields('email', {
+      key: 'value',
+      type: 'email',
+      templateOptions: {
+        label: 'Email'
+      }
     });
   }
 })();

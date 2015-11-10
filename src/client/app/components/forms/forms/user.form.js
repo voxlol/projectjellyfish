@@ -31,7 +31,7 @@
             },
             {
               key: 'email',
-              type: 'text',
+              type: 'email',
               controller: EmailFieldController,
               templateOptions: {
                 label: 'Email',
