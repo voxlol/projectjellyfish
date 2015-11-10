@@ -46,9 +46,6 @@
                   expression: uniqueEmail,
                   message: '"This email address is already taken, please try another."'
                 }
-              },
-              modelOptions: {
-                updateOn: 'blur'
               }
             },
             {
@@ -138,8 +135,8 @@
 
       if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
         defer.resolve();
-      } else {
-        scope.Staff.query({by_email: view}).$promise.then(handleRequest);
+      } else if (view.match(/.+\@.+\..+/)) {
+        scope.Staff.query({query: view, with_deleted: true}).$promise.then(handleRequest);
       }
 
       return defer.promise;

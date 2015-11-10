@@ -31,9 +31,9 @@
     Staff.defaults = {
       first_name: '',
       last_name: '',
-      phone: null,
+      phone: '',
       role: 'user',
-      email: null
+      email: ''
     };
 
     Staff.new = newStaff;
