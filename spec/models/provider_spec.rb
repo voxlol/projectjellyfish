@@ -22,5 +22,13 @@
 require 'rails_helper'
 
 RSpec.describe Provider, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'assigns a type' do
+    provider = create :provider, name: 'Demo', registered_provider_id: 3
+    expect(provider.type).to eq('Provider::Type1')
+  end
+
+  it 'sets the registered_provider_id field'do
+    provider = create :provider, name: 'Azure', type: 'Azure', registered_provider_id: 5
+    expect(provider.registered_provider_id).to eq(5)
+  end
 end
