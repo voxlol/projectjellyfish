@@ -3,7 +3,7 @@ class StaffController < ApplicationController
   before_action :pre_hook
   after_action :post_hook
 
-  has_scope :by_email, :include_deleted
+  has_scope :by_email
 
   def self.document_staff_params
     param :email, String
