@@ -37,9 +37,7 @@
                 label: 'Email',
                 required: true,
                 type: 'email',
-                placeholder: 'Enter a valid email address.',
-                onKeyDown: onKeyDown,
-                onBlur: onBlur
+                placeholder: 'Enter a valid email address.'
               },
               asyncValidators: {
                 uniqueEmail: {
@@ -135,7 +133,7 @@
 
       if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
         defer.resolve();
-      } else if (view.match(/.+\@.+\..+/)) {
+      } else {
         scope.Staff.query({query: view, with_deleted: true}).$promise.then(handleRequest);
       }
 
@@ -144,14 +142,6 @@
       function handleRequest(res) {
         return res.length > 0 ? defer.reject() : defer.resolve();
       }
-    }
-
-    function onKeyDown(value, options) {
-      options.validation.show = false;
-    }
-
-    function onBlur(value, options) {
-      options.validation.show = null;
     }
 
     function samePassword(view, model, scope) {
