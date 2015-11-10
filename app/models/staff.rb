@@ -36,8 +36,6 @@ class Staff < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
 
-  scope :by_email, -> email { where email: email }
-
   has_many :alerts, as: :alertable
   has_many :authentications
   has_many :memberships, through: :groups
