@@ -14,15 +14,10 @@
             {
               key: 'first_name',
               type: 'text',
-              templateOptions: {
+              templateOptions: { 
                 label: 'First Name',
                 required: true,
                 placeholder: 'Enter a first name.'
-              },
-              validation: {
-                messages: {
-                  required: '"A first name must be provided"'
-                }
               }
             },
             {
@@ -32,25 +27,22 @@
                 label: 'Last Name',
                 required: true,
                 placeholder: 'Enter a last name.'
-              },
-              validation: {
-                messages: {
-                  required: '"A last name must be provided"'
-                }
               }
             },
             {
               key: 'email',
-              type: 'text',
+              type: 'email',
+              controller: EmailFieldController,
               templateOptions: {
                 label: 'Email',
+                required: true,
                 type: 'email',
-                placeholder: 'Enter a valid email address.',
-                required: true
+                placeholder: 'Enter a valid email address.'
               },
-              validation: {
-                messages: {
-                  required: '"An email must be provided"'
+              asyncValidators: {
+                uniqueEmail: {
+                  expression: uniqueEmail,
+                  message: '"This email address is already taken, please try another."'
                 }
               }
             },
@@ -123,6 +115,34 @@
         }
       ]
     });
+
+    /** @ngInject */
+    function EmailFieldController($scope, $q, Staff) {
+      $scope.Staff = Staff;
+      $scope.q = $q;
+
+      init();
+
+      function init() {
+        $scope.initialEmail = $scope.model.email;
+      }
+    }
+
+    function uniqueEmail(view, model, scope) {
+      var defer = scope.q.defer();
+
+      if (scope.model.id && scope.initialEmail && view === scope.initialEmail) {
+        defer.resolve();
+      } else {
+        scope.Staff.query({query: view, with_deleted: true}).$promise.then(handleRequest);
+      }
+
+      return defer.promise;
+
+      function handleRequest(res) {
+        return res.length > 0 ? defer.reject() : defer.resolve();
+      }
+    }
 
     function samePassword(view, model, scope) {
       return view === scope.model.password;

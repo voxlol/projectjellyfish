@@ -3,6 +3,8 @@ class StaffController < ApplicationController
   before_action :pre_hook
   after_action :post_hook
 
+  has_scope :with_deleted, type: :boolean
+
   def self.document_staff_params
     param :email, String
     param :first_name, String
@@ -83,9 +85,9 @@ class StaffController < ApplicationController
     @staffs ||= begin
       authorize(Staff)
       if params[:query]
-        Staff.search params[:query]
+        apply_scopes(Staff.search params[:query])
       else
-        query_with Staff.all, :includes, :pagination
+        query_with apply_scopes(Staff.all), :includes, :pagination
       end
     end
   end
