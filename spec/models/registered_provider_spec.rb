@@ -19,5 +19,13 @@
 require 'rails_helper'
 
 RSpec.describe RegisteredProvider, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:registered_provider) { create :registered_provider }
+
+  it 'has a valid factory' do
+    expect(registered_provider).to be_valid
+  end
+
+  it 'sets the type' do
+    expect(registered_provider).to have_attributes(type: a_string_starting_with('RegisteredProvider::Type'))
+  end
 end
