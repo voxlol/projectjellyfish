@@ -46,7 +46,7 @@ class Staff < ActiveRecord::Base
 
   has_and_belongs_to_many :groups
 
-  validates :phone, length: { maximum: 30 }, allow_blank: true
+  validates :phone, length: { maximum: 30 }, allow_blank: true, format: { with: /\A\+?[0-9\-]+\*?\z/ }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, :registerable

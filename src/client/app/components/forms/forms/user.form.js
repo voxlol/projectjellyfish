@@ -14,7 +14,7 @@
             {
               key: 'first_name',
               type: 'text',
-              templateOptions: { 
+              templateOptions: {
                 label: 'First Name',
                 required: true,
                 placeholder: 'Enter a first name.'
@@ -52,6 +52,12 @@
               templateOptions: {
                 label: 'Phone Number',
                 placeholder: 'Enter a valid phone number.'
+              },
+              validators: {
+                phoneNumber: {
+                  expression: validatePhoneNumber,
+                  message: '$viewValue + " is not a valid phone number"'
+                }
               }
             },
             {
@@ -146,6 +152,13 @@
 
     function samePassword(view, model, scope) {
       return view === scope.model.password;
+    }
+
+    function validatePhoneNumber($viewValue, $modelValue, scope) {
+      var value = $viewValue || $modelValue;
+      if (value) {
+        return /^\+?[0-9\-]+\*?$/.test(value);
+      }
     }
   }
 })();
