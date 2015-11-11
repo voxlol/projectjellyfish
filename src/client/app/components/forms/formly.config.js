@@ -205,8 +205,7 @@
               showWeeks: false
             }
           }
-        },
-        controller: DateFieldController
+        }
       });
 
       function attributer(attr) {
@@ -215,11 +214,6 @@
 
       function binder(binding) {
         ngModelAttrs[lodash.camelCase(binding)] = {bound: binding};
-      }
-
-      function DateFieldController($scope) {
-        $scope.datepicker = $scope.datepicker || {};
-        $scope.datepicker.opened = false;
       }
     }
 

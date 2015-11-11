@@ -1,11 +1,9 @@
 <div class="input-group">
   <span class="input-group-btn">
-    <button type="button" class="btn btn-default field__group-button" ng-click="datepicker.opened = !datepicker.opened;">
+    <button type="button" class="btn btn-default field__group-button" ng-click="datepicker.opened = !datepicker.opened">
       <i class="fa fa-calendar"></i>
     </button>
   </span>
-  <input type="text" class="field__input" ng-model="model[options.key]"
-         ng-click="datepicker.opened = !datepicker.opened;"
-         is-open="datepicker.opened"
-         datepicker-options="to.datepickerOptions"/>
+  <input class="field__input" ng-model="model[options.key]" is-open="datepicker.opened"
+         datepicker-options="to.datepickerOptions" ng-click="datepicker.opened= !datepicker.opened"/>
 </div>
