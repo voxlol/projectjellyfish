@@ -52,6 +52,17 @@
               templateOptions: {
                 label: 'Phone Number',
                 placeholder: 'Enter a valid phone number.'
+              },
+              validators: {
+                phoneNumber: {
+                  expression: function($viewValue, $modelValue, scope) {
+                    var value = $modelValue || $viewValue;
+                    if (value) {
+                      return validatePhoneNumber(value);
+                    }
+                  },
+                  message: '$viewValue + " is not a valid phone number"'
+                }
               }
             },
             {
@@ -146,6 +157,10 @@
 
     function samePassword(view, model, scope) {
       return view === scope.model.password;
+    }
+
+    function validatePhoneNumber(value) {
+      return /^\+?[0-9\-]+\*?$/.test(value);
     }
   }
 })();
