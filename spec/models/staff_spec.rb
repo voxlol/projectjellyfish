@@ -50,4 +50,12 @@ describe Staff do
       expect(results.size).to eq(1)
     end
   end
+  context 'phone' do
+    it 'accepts valid phone numbers' do
+      expect(FactoryGirl.build(:staff, phone: '555-867-5309')).to be_valid
+    end
+    it 'rejects invalid phone numbers' do
+      expect(FactoryGirl.build(:staff, phone: 'foobar')).to_not be_valid
+    end
+  end
 end
