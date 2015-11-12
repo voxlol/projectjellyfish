@@ -44,7 +44,8 @@ class Staff < ActiveRecord::Base
   has_many :roles, -> { uniq }, through: :memberships
   has_many :api_tokens
 
-  has_and_belongs_to_many :groups
+  has_many :groups_staff
+  has_many :groups, through: :groups_staff, dependent: :destroy
 
   validates :phone, length: { maximum: 30 }, allow_blank: true, format: { with: /\A\+?[0-9\-]+\*?\z/ }
 
