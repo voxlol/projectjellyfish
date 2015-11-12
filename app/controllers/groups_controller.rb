@@ -47,7 +47,7 @@ class GroupsController < ApplicationController
   def update
     authorize group
     group.update! group_params
-    #update_group_staff
+    update_group_staff
     respond_with_params group
   end
 
@@ -65,16 +65,29 @@ class GroupsController < ApplicationController
 
   def create_group_staff
     if params[:staff_ids]
-      group.groups_staff.create( params[:staff_ids].map {|id| {staff_id: id}})
+      group.groups_staff.create(params[:staff_ids].map { |id| { staff_id: id } })
+    end
+  end
+
+  def update_group_staff
+    groups_staff = group.groups_staff
+    staff_ids = params[:staff_ids]
+
+    staff_ids.each do |id|
+      unless groups_staff.detect { |gs| gs.staff_id == id }
+        group.groups_staff.create staff_id: id
+      end
+    end
+
+    groups_staff.each do |gs|
+      unless staff_ids.detect { |id| gs.staff_id == id }
+        GroupsStaff.destroy(gs.id)
+      end
     end
   end
 
   def group_params
     params.permit :name, :description, :staff_ids
-  end
-
-  def membership_params
-    params.permit(:group_id, :project_id, :role_id)
   end
 
   def groups
