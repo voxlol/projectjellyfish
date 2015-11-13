@@ -14,9 +14,8 @@
 FactoryGirl.define do
   factory :log do
     log_level 1
-message "MyString"
-loggable_type "MyString"
-loggable_id 1
+    message 'MyString'
+    loggable_type 'MyString'
+    loggable_id 1
   end
-
 end

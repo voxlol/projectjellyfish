@@ -1,5 +1,4 @@
 class LogsController < ApplicationController
-  skip_before_filter :require_user
   def index
     respond_with_params logs
   end
