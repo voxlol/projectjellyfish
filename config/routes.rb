@@ -42,6 +42,9 @@ Rails.application.routes.draw do
     # Extensions
     resources :extensions, only: [:index]
 
+    # Logs
+    get 'logs/:loggable_type/:loggable_id' => 'logs#index', as: :logs
+
     # Providers
     resources :providers do
       resources :product_types, only: [:index], controller: :provider_product_types
