@@ -54,11 +54,7 @@ class Service < ActiveRecord::Base
     ServicePolicy
   end
 
-  def actions
-    []
-  end
-
-  def provision
+  def operations(operation)
   end
 
   private

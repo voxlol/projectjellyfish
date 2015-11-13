@@ -2,15 +2,15 @@ Rails.application.routes.draw do
   # Docs
   apipie
 
-  scope '/api/v1', except: [:new, :edit], defaults: { format: :json } do
+  scope '/api/v1', except: [:new, :edit], defaults: {format: :json} do
     # Extensions
     mount_extensions
 
     # Auth
-    devise_for :staff, controllers: { sessions: 'sessions' }
+    devise_for :staff, controllers: {sessions: 'sessions'}
 
     devise_scope :staff do
-      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post], defaults: { format: :html }
+      match '/staff/auth/:provider/callback', to: 'sessions#create', via: [:get, :post], defaults: {format: :html}
     end
 
     resources :saml, only: :index do
@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     resources :settings, only: [:index, :update], param: :name
 
     # Services
-    resources :services, only: [:index, :show]
+    resources :services, only: [:index, :show] do
+      resources :actions, only: [:update], param: :operation, controller: :service_actions
+    end
 
     # Orders
     resources :orders, only: [:index, :show, :create]
@@ -80,7 +82,7 @@ Rails.application.routes.draw do
     resources :bundles
 
     # Project Routes
-    resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json } do
+    resources :projects, only: [:index, :show, :create, :update, :destroy], defaults: {format: :json} do
       resources :services, only: [:index], controller: :project_services
       resources :memberships, only: [:index, :show, :create, :update, :destroy], shallow: true
 

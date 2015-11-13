@@ -11,6 +11,10 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
+  def action?
+    true
+  end
+
   def project_count?
     true
   end

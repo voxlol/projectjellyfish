@@ -6,7 +6,13 @@
 
   /** @ngInject */
   function ServicesFactory($resource) {
-    var Service = $resource('/api/v1/services/:id', {id: '@id'}, {});
+    var Service = $resource('/api/v1/services/:id', {id: '@id', action: '@action'}, {
+      action: {
+        url: '/api/v1/services/:id/actions/:action',
+        method: 'PUT',
+        isArray: false
+      }
+    });
 
     return Service;
   }
