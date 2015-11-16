@@ -55,11 +55,11 @@ class CreateServiceOrder
 
   def build_order
     order_params = params.merge(
-        staff: user,
-        setup_price: product.setup_price,
-        hourly_price: product.hourly_price,
-        monthly_price: product.monthly_price,
-        service: service
+      staff: user,
+      setup_price: product.setup_price,
+      hourly_price: product.hourly_price,
+      monthly_price: product.monthly_price,
+      service: service
     )
 
     @order = Order.new order_params

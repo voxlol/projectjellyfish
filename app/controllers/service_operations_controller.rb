@@ -1,5 +1,4 @@
 class ServiceOperationsController < ApplicationController
-
   def_param_group :service_operation_params do
     param :id, Integer, desc: 'ID of the service acted upon', allow_nil: false
     param :operation, String, desc: 'Name of the operation to execute on the service', allow_nil: false
