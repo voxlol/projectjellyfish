@@ -11,7 +11,7 @@ class ServicePolicy < ApplicationPolicy
     true
   end
 
-  def action?
+  def operations
     true
   end
 

@@ -3,8 +3,8 @@
     Actions <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
-    <li role="menuitem" ng-repeat="action in vm.actions">
-      <a href="#" ng-click="vm.executeAction(action.name)">{{ ::action.name }}</a>
+    <li role="menuitem" ng-repeat="operation in vm.operations">
+      <a href="#" ng-click="vm.executeOperation(operation.name)">{{ ::operation.name }}</a>
     </li>
   </ul>
 </div>

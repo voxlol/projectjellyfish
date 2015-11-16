@@ -33,17 +33,17 @@ class Service < ActiveRecord::Base
 
   enum health: { ok: 0, warning: 1, critical: 2 }
   enum status: {
-    unknown: 0,
-    pending: 1,
-    provisioning: 2,
-    starting: 3,
-    running: 4,
-    available: 5,
-    stopping: 6,
-    stopped: 7,
-    unavailable: 8,
-    retired: 9,
-    terminated: 10
+      unknown: 0,
+      pending: 1,
+      provisioning: 2,
+      starting: 3,
+      running: 4,
+      available: 5,
+      stopping: 6,
+      stopped: 7,
+      unavailable: 8,
+      retired: 9,
+      terminated: 10
   }
 
   accepts_nested_attributes_for :answers
@@ -55,6 +55,13 @@ class Service < ActiveRecord::Base
   end
 
   def operations(operation)
+  end
+
+  def action
+    []
+  end
+
+  def provision
   end
 
   private
