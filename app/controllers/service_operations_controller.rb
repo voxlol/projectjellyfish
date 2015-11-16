@@ -11,7 +11,7 @@ class ServiceOperationsController < ApplicationController
 
   def update
     authorize service, :operations?
-    service.operations params[:operation]
+    service.start_operations params[:operation]
     respond_with service
   end
 

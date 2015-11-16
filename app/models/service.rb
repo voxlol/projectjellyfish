@@ -54,13 +54,16 @@ class Service < ActiveRecord::Base
     ServicePolicy
   end
 
-  def operations(_operation)
+  def operations
     []
+  end
+
+  def start_operations(_opeation)
   end
 
   def actions
     ActiveSupport::Deprecation.warn 'Service.actions will be removed in a future update, use Service.operations instead', caller
-    []
+    operations
   end
 
   def provision
