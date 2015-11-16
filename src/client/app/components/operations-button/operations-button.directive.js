@@ -13,7 +13,7 @@
       },
       link: link,
       templateUrl: 'app/components/operations-button/operations-button.html',
-      controller: operationsButtonController,
+      controller: OperationsController,
       controllerAs: 'vm',
       bindToController: true
     };
@@ -25,7 +25,7 @@
     }
 
     /** @ngInject */
-    function operationsButtonController(Service) {
+    function OperationsController(Service) {
       var vm = this;
 
       vm.activate = activate;
@@ -36,15 +36,14 @@
       }
 
       function executeOperation(operation) {
-        Service.operation({id: vm.service.id, operation: operation.toLowerCase()}).$promise.then(operationSuccess, operationFailure);
+        Service.operation({id: vm.service.id, operation: operation.toLowerCase()})
+          .$promise.then(operationSuccess, operationFailure);
       }
 
       function operationSuccess(data) {
-        console.log(data);
       }
 
       function operationFailure(data) {
-        console.log(data);
       }
     }
   }

@@ -55,6 +55,8 @@ class Service < ActiveRecord::Base
   end
 
   def operations(operation)
+    ActiveSupport::Deprecation.warn 'Service.operations will be removed in a future update', caller
+    []
   end
 
   def action

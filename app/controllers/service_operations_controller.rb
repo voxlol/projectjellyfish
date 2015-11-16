@@ -11,7 +11,7 @@ class ServiceOperationsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    authorize service, :operations
+    authorize service, :operations?
     service.operations params[:operation]
     respond_with service
   end
