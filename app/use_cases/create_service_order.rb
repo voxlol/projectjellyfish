@@ -73,7 +73,7 @@ class CreateServiceOrder
   end
 
   def provision_service
-    service.delay.provision
+    service.operations('provision')
   end
 
   def project
