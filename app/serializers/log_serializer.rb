@@ -12,5 +12,5 @@
 #
 
 class LogSerializer < ApplicationSerializer
-  attributes :id, :log_level, :loggable_type, :loggable_id, :created_at, :updated_at
+  attributes :id, :log_level, :message, :loggable_type, :loggable_id, :created_at, :updated_at
 end

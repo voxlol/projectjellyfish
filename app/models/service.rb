@@ -24,7 +24,7 @@ class Service < ActiveRecord::Base
   has_many :alerts, as: :alertable
   has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
   has_many :service_outputs
-  has_many :loggings, as: :loggable, dependent: :destroy
+  has_many :logs, as: :loggable, dependent: :destroy
 
   has_one :order
   has_one :project, through: :order

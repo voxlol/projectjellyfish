@@ -28,6 +28,6 @@ class ServiceSerializer < ApplicationSerializer
   has_one :product_type, serializer: ProductTypeSerializer
   has_one :provider, serializer: ProviderSerializer
 
-  has_many :loggings
+  has_many :logs, serializer: LogSerializer
   has_many :service_outputs
 end
