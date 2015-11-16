@@ -14,8 +14,12 @@
 FactoryGirl.define do
   factory :log do
     log_level 1
-    message 'MyString'
-    loggable_type 'MyString'
-    loggable_id 1
+    message 'Test message'
+
+    loggable
+  end
+
+  factory :service_log, class: 'Log' do
+    association :loggable, factory: :log
   end
 end
