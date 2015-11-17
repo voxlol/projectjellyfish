@@ -31,7 +31,9 @@ class GroupsController < ApplicationController
 
   def create
     group = Group.create group_params
-    create_group_staff
+    if params[:staff_ids]
+      group.groups_staff.create(params[:staff_ids].map { |id| { staff_id: id } })
+    end
     authorize group
     respond_with_params group
   end
@@ -63,12 +65,6 @@ class GroupsController < ApplicationController
 
   private
 
-  def create_group_staff
-    if params[:staff_ids]
-      group.groups_staff.create(params[:staff_ids].map { |id| { staff_id: id } })
-    end
-  end
-
   def update_group_staff
     groups_staff = group.groups_staff
     staff_ids = params[:staff_ids]
@@ -91,7 +87,7 @@ class GroupsController < ApplicationController
   end
 
   def groups
-    @_groups ||= query_with Group.all, :includes, :pagination
+    @_groups ||= query_with Group.order('id').all, :includes, :pagination
   end
 
   def group
