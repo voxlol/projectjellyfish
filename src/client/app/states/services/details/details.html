@@ -21,30 +21,4 @@
   </div>
 </details-table>
 
-<region heading="Logs">
-  <table st-table="vm.logs" class="tables">
-    <thead>
-    <tr>
-      <th class="tables__heading">Time</th>
-      <th class="tables__heading">Level</th>
-      <th class="tables__heading">Message</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr ng-repeat="log in vm.logs | orderBy : 'created_at'">
-      <td class="tables__cell logs-list__time">{{ ::log.created_at | date : 'medium' }}</td>
-      <td class="tables__cell logs-list__level">{{ ::log.log_level }}</td>
-      <td class="tables__cell logs-list__message">{{ ::log.message }}</td>
-    </tr>
-    </tbody>
-
-    <tfoot>
-      <tr>
-        <td colspan="5" class="text-center">
-          <div st-pagination="" st-items-by-page="10" st-display-pages="50"></div>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</region>
+<log-table heading="Logs" records="vm.logs" items-per-page="10"></log-table>
