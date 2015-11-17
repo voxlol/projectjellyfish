@@ -54,8 +54,18 @@ class Service < ActiveRecord::Base
     ServicePolicy
   end
 
-  def actions
+  def operations
     []
+  end
+
+  def start_operation(operation)
+    message = operation.to_sym
+    send(message) if respond_to? message
+  end
+
+  def actions
+    ActiveSupport::Deprecation.warn 'Service.actions will be removed in a future update, use Service.operations instead', caller
+    operations
   end
 
   def provision
