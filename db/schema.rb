@@ -169,12 +169,12 @@ ActiveRecord::Schema.define(version: 20151113182253) do
   add_index "groups_staff", ["staff_id"], name: "index_groups_staff_on_staff_id", using: :btree
 
   create_table "logs", force: :cascade do |t|
-    t.integer  "log_level"
-    t.string   "message"
-    t.string   "loggable_type"
-    t.integer  "loggable_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "log_level"
+    t.text     "message"
+    t.string   "loggable_type"
+    t.integer  "loggable_id"
   end
 
   create_table "memberships", force: :cascade do |t|
