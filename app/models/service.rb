@@ -58,7 +58,7 @@ class Service < ActiveRecord::Base
     []
   end
 
-  def start_operations(_opeation)
+  def start_operation(opeation)
   end
 
   def actions
