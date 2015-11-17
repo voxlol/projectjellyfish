@@ -1,4 +1,4 @@
-(function(){
+(function() {
   'use strict';
 
   angular.module('app.components')
@@ -10,7 +10,7 @@
       restrict: 'AE',
       scope: {
         heading: '@',
-        records : '=',
+        records: '=',
         collapsed: '=?',
         itemsPerPage: '=?'
       },
@@ -19,7 +19,7 @@
       controller: LogTableController,
       controllerAs: 'vm',
       bindToController: true
-    }
+    };
 
     return directive;
 
