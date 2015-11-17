@@ -58,7 +58,9 @@ class Service < ActiveRecord::Base
     []
   end
 
-  def start_operation(opeation)
+  def start_operation(operation)
+    message = operation.to_sym
+    send(message) if respond_to? message
   end
 
   def actions
