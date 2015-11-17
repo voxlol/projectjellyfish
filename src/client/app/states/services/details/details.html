@@ -21,42 +21,30 @@
   </div>
 </details-table>
 
-<!-- <region heading="Logs">
-  <table class="product-pricing">
-    <thead>
-    <tr>
-      <th class="product-pricing__heading"></th>
-      <th class="product-pricing__heading">Setup</th>
-      <th class="product-pricing__heading">Hourly</th>
-      <th class="product-pricing__heading">Monthly</th>
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="selectRow">
-      <td class="product-pricing__cell product-pricing__cell--padding"></td>
-      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.setup_price | currency }}</td>
-      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.hourly_price | currency }}</td>
-      <td class="product-pricing__cell product-pricing__cell">{{ ::vm.product.monthly_price | currency }}</td>
-    </tr>
-    </tbody>
-  </table>
-</region> -->
-
-<!--Project Answers-->
 <region heading="Logs">
   <table st-table="vm.logs" class="tables">
     <thead>
     <tr>
-      <th class="tables__heading project-details__question">Time</th>
+      <th class="tables__heading">Time</th>
+      <th class="tables__heading">Level</th>
       <th class="tables__heading">Message</th>
     </tr>
     </thead>
+
     <tbody>
-    <tr ng-repeat="log in vm.logs track by $index">
-      <td class="tables__cell">{{ ::log.created_at }}</td>
-      <td class="tables__cell">{{ ::log.message }}</td>
+    <tr ng-repeat="log in vm.logs | orderBy : 'created_at'">
+      <td class="tables__cell logs-list__time">{{ ::log.created_at | date : 'medium' }}</td>
+      <td class="tables__cell logs-list__level">{{ ::log.log_level }}</td>
+      <td class="tables__cell logs-list__message">{{ ::log.message }}</td>
     </tr>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-center">
+          <div st-pagination="" st-items-by-page="15" st-displayed-pages="50"></div>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </region>

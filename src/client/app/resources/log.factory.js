@@ -15,7 +15,7 @@
       message: '',
       loggable_type: null,
       loggable_id: null
-    }
+    };
 
     Log.new = newLog;
 
