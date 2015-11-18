@@ -46,7 +46,7 @@ class MembershipsController < ApplicationController
 
   def update
     authorize membership
-    membership.update! role: Role.find(params[:role_id])
+    membership.update! role: Role.find(params[:role_id]), group: Group.find(params[:group_id])
     respond_with membership
   end
 
