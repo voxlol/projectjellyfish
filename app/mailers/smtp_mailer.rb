@@ -6,7 +6,7 @@ class SMTPMailer < ActionMailer::Base
     set_smtp_settings
     @project = project
     # TODO: FIGURE OUT MORE CONVENTION FRIENDLY WAY TO GET PROJECT URL
-    @project_url = (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/api/v1/projects/' + project.id.to_s)
+    @project_url = (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
     mail(template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
