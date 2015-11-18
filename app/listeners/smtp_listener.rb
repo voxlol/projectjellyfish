@@ -1,7 +1,8 @@
 class SMTPListener
   def project_create(project, current_user)
     return nil unless smtp_enabled
-    SMTPMailer.project_create(project, current_user).deliver_now
+    SMTPMailer.project_create(project, current_user).deliver_now unless Setting[:smtp_async_enabled]
+    SMTPMailer.delay.project_create(project, current_user) if Setting[:smtp_async_enabled]
   end
 
   def order_create(_order, _current_user)
