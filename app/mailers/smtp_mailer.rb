@@ -17,12 +17,6 @@ class SMTPMailer < ActionMailer::Base
     mail(to: @project_admins, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
-  def order_create(_order, _recipients)
-  end
-
-  def project_approval_update(_project, _recipients)
-  end
-
   private
 
   def project_url(project)
