@@ -4,10 +4,17 @@ class SMTPMailer < ActionMailer::Base
   def project_create(project, recipient)
     set_smtp_settings
     @project = project
+    @project_url = project_url(project)
     @recipient = (recipient.nil?) ? Setting[:smtp_default_recipient] : recipient
-    # TODO: FIGURE OUT BETTER WAY TO BUILD PROJECT URL
-    @project_url = (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
     mail(to: @recipient, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
+  end
+
+  def project_create_admin(project)
+    set_smtp_settings
+    @project = project
+    @project_url = project_url(project)
+    @project_admins = Staff.admin.pluck(:email).join(', ')
+    mail(to: @project_admins, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
   def order_create(_order, _recipients)
@@ -17,6 +24,11 @@ class SMTPMailer < ActionMailer::Base
   end
 
   private
+
+  def project_url(project)
+    # TODO: FIGURE OUT BETTER WAY TO BUILD PROJECT URL
+  (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
+  end
 
   def set_smtp_settings
     # TODO: REFACTOR TO ONLY RUN ONCE THE FIRST TIME ITS CALLED
