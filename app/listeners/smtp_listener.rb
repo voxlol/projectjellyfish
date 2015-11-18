@@ -1,6 +1,7 @@
 class SMTPListener
-  def project_create(_project, _current_user)
+  def project_create(project, current_user)
     return nil unless smtp_enabled
+    SMTPMailer.project_create(project, current_user).deliver_now
   end
 
   def order_create(_order, _current_user)
