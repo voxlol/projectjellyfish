@@ -1,13 +1,13 @@
 class SMTPMailer < ActionMailer::Base
   default from: Setting[:smtp_default_sender]
-  default to: Setting[:smtp_default_recipient]
 
-  def project_create(project, _current_user)
+  def project_create(project, recipient)
     set_smtp_settings
     @project = project
-    # TODO: FIGURE OUT MORE CONVENTION FRIENDLY WAY TO GET PROJECT URL
+    @recipient = (recipient.nil?) ? Setting[:smtp_default_recipient] : recipient
+    # TODO: FIGURE OUT BETTER WAY TO BUILD PROJECT URL
     @project_url = (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
-    mail(template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
+    mail(to: @recipient, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
   def order_create(_order, _recipients)
