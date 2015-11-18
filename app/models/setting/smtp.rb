@@ -5,7 +5,6 @@ class Setting
       transaction do
         [
           set('smtp_enabled', description: 'SMTP Enabled', value_type: :boolean, default: false),
-          set('smtp_async_enabled', description: 'SMTP Send Mail Asynchronously', value_type: :boolean, default: true),
           set('smtp_address', description: 'SMTP Server IP Address', value_type: :string, default: 'address'),
           set('smtp_port', description: 'SMTP Server Port', value_type: :string, default: 'port'),
           set('smtp_user_name', description: 'SMTP User Name', value_type: :password, default: 'user_name'),
