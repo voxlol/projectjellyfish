@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     resources :settings, only: [:index, :update], param: :name
 
     # Services
-    resources :services, only: [:index, :show]
+    resources :services, only: [:index, :show] do
+      resources :operations, only: [:update], param: :operation, controller: :service_operations
+    end
 
     # Orders
     resources :orders, only: [:index, :show, :create]
