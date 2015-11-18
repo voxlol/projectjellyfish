@@ -21,7 +21,7 @@ class SMTPMailer < ActionMailer::Base
 
   def project_url(project)
     # TODO: FIGURE OUT BETTER WAY TO BUILD PROJECT URL
-  (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
+    (Rails.env != 'test') ? (Rails.application.routes.url_helpers.root_url + 'projects/' + project.id.to_s) : ('http://localhost:3000/projects/' + project.id.to_s)
   end
 
   def set_smtp_settings
