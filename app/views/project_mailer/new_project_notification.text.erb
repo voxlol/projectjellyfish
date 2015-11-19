@@ -1,8 +1,8 @@
-Dear User,
+<%= @salutation %>
 The following project has been created:
 Name: <%= @project['name'].to_s.upcase %>
 Budget: <%= number_to_currency(@project['budget']) %>
 URL: <%= @project_url %>
-Please wait for admin approval before using the project.
+<%= @direction %>
 Thank you,
 Project Jellyfish Mailer

@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
   def create
     authorize Project
     project = Project.create project_params
-    publish(:project_create, project, current_user.email) if project.persisted?
+    publish(:project_create, project, current_user) if project.persisted?
     respond_with_params project
   end
 

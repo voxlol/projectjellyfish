@@ -1,20 +1,25 @@
 class ProjectMailer < ActionMailer::Base
   default from: Setting[:smtp_default_sender]
 
-  def new_project_notification(project, recipient)
+  def new_project_notification(project, current_user, mode)
     set_smtp_settings
+    case mode
+    when 'current_user'
+      @recipient = current_user.email
+      @subject = "Project Create Notification: #{project['name'].to_s.upcase}"
+      @salutation = 'Dear User,'
+      @direction = 'Please wait for admin approval before using the project.'
+    when 'admin'
+      @recipient = Staff.admin.pluck(:email).join(', ')
+      @subject = "Project Approval Needed: #{project['name'].to_s.upcase}"
+      @salutation = 'Dear Admin,'
+      @direction = 'Please navigate to the project and approve it at your discretion.'
+    else
+      return nil
+    end
     @project = project
     @project_url = project_url(project)
-    @recipient = (recipient.nil?) ? Setting[:smtp_default_recipient] : recipient
-    mail(to: @recipient, subject: "Project Create Notification: #{project['name'].to_s.upcase}")
-  end
-
-  def admin_project_approval_reminder(project)
-    set_smtp_settings
-    @project = project
-    @project_url = project_url(project)
-    @project_admins = Staff.admin.pluck(:email).join(', ')
-    mail(to: @project_admins, subject: "Project Create Notification: #{project['name'].to_s.upcase}")
+    mail(to: @recipient, subject: @subject)
   end
 
   private
