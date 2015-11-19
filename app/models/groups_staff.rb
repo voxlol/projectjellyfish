@@ -16,7 +16,6 @@
 
 class GroupsStaff < ActiveRecord::Base
   self.table_name = 'groups_staff'
-
   belongs_to :staff
   belongs_to :group, counter_cache: :staff_count
 end
