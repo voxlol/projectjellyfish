@@ -1,20 +1,20 @@
-class SMTPMailer < ActionMailer::Base
+class ProjectMailer < ActionMailer::Base
   default from: Setting[:smtp_default_sender]
 
-  def project_create(project, recipient)
+  def new_project_notification(project, recipient)
     set_smtp_settings
     @project = project
     @project_url = project_url(project)
     @recipient = (recipient.nil?) ? Setting[:smtp_default_recipient] : recipient
-    mail(to: @recipient, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
+    mail(to: @recipient, subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
-  def project_create_admin(project)
+  def admin_project_approval_reminder(project)
     set_smtp_settings
     @project = project
     @project_url = project_url(project)
     @project_admins = Staff.admin.pluck(:email).join(', ')
-    mail(to: @project_admins, template_path: 'smtp_mailer', subject: "Project Create Notification: #{project['name'].to_s.upcase}")
+    mail(to: @project_admins, subject: "Project Create Notification: #{project['name'].to_s.upcase}")
   end
 
   private
