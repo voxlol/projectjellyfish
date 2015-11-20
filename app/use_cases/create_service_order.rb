@@ -17,6 +17,9 @@ class CreateServiceOrder
   class PersistError < UseCase::Error
   end
 
+  class BudgetError < UseCase::Error
+  end
+
   attr_reader :order
 
   def initialize(current_user, order_params)
@@ -44,6 +47,10 @@ class CreateServiceOrder
 
     unless params[:service]['name'].present?
       fail UnnamedService, 'A name for the service was not given.'
+    end
+
+    unless (product.monthly_price + (product.hourly_price * 750)) + project.monthly_spend <= project.monthly_budget
+      fail BudgetError, 'Adding this service will exceed the Project\'s monthly budget.'
     end
   end
 
