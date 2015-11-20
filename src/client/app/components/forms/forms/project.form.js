@@ -47,6 +47,21 @@
               }
             },
             {
+              key: 'monthly_budget',
+              type: 'price',
+              templateOptions: {
+                label: 'Monthly Budget',
+                required: true,
+                precision: 12,
+                scale: 2
+              },
+              validation: {
+                messages: {
+                  required: '"A monthly budget must be provided"'
+                }
+              }
+            },
+            {
               key: 'start_date',
               type: 'date',
               templateOptions: {

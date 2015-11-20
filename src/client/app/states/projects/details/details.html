@@ -94,6 +94,10 @@
     </div>
   </div>
   <div class="details-table__row">
+    <div class="details-table__label">Monthly Budget</div>
+    <div class="details-table__detail">{{ ::vm.project.monthly_budget | currency }}</div>
+  </div>
+  <div class="details-table__row">
     <div class="details-table__label">Monthly Spend</div>
     <div class="details-table__detail">{{ ::vm.project.monthly_spend | currency }}</div>
   </div>
