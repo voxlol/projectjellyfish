@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
   enum status: { pending: 0, working: 1, completed: 2, failed: 3 }
 
   after_initialize :init
-  after_save :update_project_monthly_spend, on: :create
+  after_commit :update_project_monthly_spend, on: :create
 
   def monthly_cost
     monthly_price + (hourly_price * 750)

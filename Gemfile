@@ -51,6 +51,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'seed_dump'
   gem 'selenium-webdriver'
+  gem 'test_after_commit'
   # gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'spring'
   # gem 'web-console', '~> 2.0.0'
