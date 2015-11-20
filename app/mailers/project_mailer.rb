@@ -2,23 +2,23 @@ class ProjectMailer < ActionMailer::Base
   default from: Setting[:smtp_default_sender]
 
   def project_created_notifications(project, recipients)
-    apply_project_params(project)
-    @subject = "Project Created Notification: #{project['name'].to_s.upcase}"
-    mail(to: recipients.join(', '), subject: @subject)
+    subject = "Project Created Notification: #{project['name'].to_s.upcase}"
+    send_project_mail(project, subject, recipients)
   end
 
   def project_needs_approval_notifications(project, recipients)
-    apply_project_params(project)
-    @subject = "Project Needs Approval Notification: #{project['name'].to_s.upcase}"
-    mail(to: recipients.join(', '), subject: @subject)
+    subject = "Project Needs Approval Notification: #{project['name'].to_s.upcase}"
+    send_project_mail(project, subject, recipients)
   end
 
   private
 
-  def apply_project_params(project)
+  def send_project_mail(project, subject, recipients)
     set_smtp_settings
+    @subject = subject
     @project = project
     @project_url = project_url(project)
+    mail(subject: @subject, to: recipients)
   end
 
   def project_url(project)
