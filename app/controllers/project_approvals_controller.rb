@@ -17,7 +17,6 @@ class ProjectApprovalsController < ApplicationController
   def update
     approval = project.approvals.find_or_initialize_by(staff_id: current_user.id)
     perform_in_transaction(project) { approval.approve! }
-    publish(:publish_project_approval_update, project) if project.approved?
   end
 
   api :DELETE, '/projects/:project_id/reject', 'Set or change the approval for current_user for a project'

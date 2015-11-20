@@ -193,12 +193,6 @@ GEM
       bcrypt (~> 3.1)
       fog-aws (~> 0.7)
       rails (~> 4.2)
-    jellyfish-notification (0.0.2)
-      delayed_job_active_record
-      dotenv-rails
-      pg
-      rails
-      wisper
     json (1.8.3)
     license_finder (2.0.4)
       bundler
@@ -413,7 +407,6 @@ DEPENDENCIES
   jellyfish-aws
   jellyfish-azure!
   jellyfish-docker!
-  jellyfish-notification
   license_finder
   omniauth
   paper_trail
