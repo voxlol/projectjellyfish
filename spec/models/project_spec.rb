@@ -125,12 +125,12 @@ describe 'Project.monthly_budget' do
   it 'denies new orders that exceed the monthly budget' do
     @product = create :product, monthly_price: 150
 
-    expect{
+    expect do
       CreateServiceOrder.perform @user,
         project_id: @project.id,
         product_id: @product.id,
         service: { 'name' => 'Service 1' }
-    }.to raise_error CreateServiceOrder::BudgetError
+    end .to raise_error CreateServiceOrder::BudgetError
   end
 
   it 'allows new orders that stay within the monthly budget' do
