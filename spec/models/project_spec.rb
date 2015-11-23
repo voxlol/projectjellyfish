@@ -96,7 +96,7 @@ end
 describe 'Project.monthly_spend' do
   it 'returns total monthly spend' do
     user = create :staff
-    project = create :project, status: :approved
+    project = create :project, status: :approved, monthly_budget: 1000
     product = create :product, monthly_price: 1.0
 
     CreateServiceOrder.perform user,
