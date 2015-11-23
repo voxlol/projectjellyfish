@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113182253) do
+ActiveRecord::Schema.define(version: 20151120153828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -299,20 +299,21 @@ ActiveRecord::Schema.define(version: 20151113182253) do
   add_index "project_questions", ["deleted_at"], name: "index_project_questions_on_deleted_at", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",          limit: 255
+    t.string   "name",           limit: 255
     t.text     "description"
-    t.string   "img",           limit: 255
+    t.string   "img",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "status",                                             default: 0
+    t.integer  "status",                                              default: 0
     t.datetime "archived"
-    t.decimal  "spent",                     precision: 12, scale: 2, default: 0.0
-    t.decimal  "budget",                    precision: 12, scale: 2, default: 0.0
+    t.decimal  "spent",                      precision: 12, scale: 2, default: 0.0
+    t.decimal  "budget",                     precision: 12, scale: 2, default: 0.0
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "health"
-    t.decimal  "monthly_spend",             precision: 12, scale: 2, default: 0.0
+    t.decimal  "monthly_spend",              precision: 12, scale: 2, default: 0.0
+    t.decimal  "monthly_budget",             precision: 12, scale: 2, default: 0.0
   end
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree

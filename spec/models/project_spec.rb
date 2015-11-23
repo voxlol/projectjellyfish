@@ -2,21 +2,22 @@
 #
 # Table name: projects
 #
-#  id            :integer          not null, primary key
-#  name          :string(255)
-#  description   :text
-#  img           :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
-#  deleted_at    :datetime
-#  status        :integer          default(0)
-#  archived      :datetime
-#  spent         :decimal(12, 2)   default(0.0)
-#  budget        :decimal(12, 2)   default(0.0)
-#  start_date    :datetime
-#  end_date      :datetime
-#  health        :integer
-#  monthly_spend :decimal(12, 2)   default(0.0)
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  description    :text
+#  img            :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  deleted_at     :datetime
+#  status         :integer          default(0)
+#  archived       :datetime
+#  spent          :decimal(12, 2)   default(0.0)
+#  budget         :decimal(12, 2)   default(0.0)
+#  start_date     :datetime
+#  end_date       :datetime
+#  health         :integer
+#  monthly_spend  :decimal(12, 2)   default(0.0)
+#  monthly_budget :decimal(12, 2)   default(0.0)
 #
 # Indexes
 #
@@ -95,7 +96,7 @@ end
 describe 'Project.monthly_spend' do
   it 'returns total monthly spend' do
     user = create :staff
-    project = create :project, status: :approved
+    project = create :project, status: :approved, monthly_budget: 1000
     product = create :product, monthly_price: 1.0
 
     CreateServiceOrder.perform user,
@@ -112,5 +113,36 @@ describe 'Project.monthly_spend' do
 
     expect(project.monthly_spend).to be_a BigDecimal
     expect(project.monthly_spend).to eq 2.0
+  end
+end
+
+describe 'Project.monthly_budget' do
+  before(:each) do
+    @user = create :staff
+    @project = create :project, status: :approved, monthly_budget: 100
+  end
+
+  it 'denies new orders that exceed the monthly budget' do
+    @product = create :product, monthly_price: 150
+
+    expect do
+      CreateServiceOrder.perform @user,
+        project_id: @project.id,
+        product_id: @product.id,
+        service: { 'name' => 'Service 1' }
+    end .to raise_error CreateServiceOrder::BudgetError
+  end
+
+  it 'allows new orders that stay within the monthly budget' do
+    @product = create :product, monthly_price: 100
+
+    CreateServiceOrder.perform @user,
+      project_id: @project.id,
+      product_id: @product.id,
+      service: { 'name' => 'Service 1' }
+
+    @project.reload
+
+    expect(@project.services.length).to eq 1
   end
 end

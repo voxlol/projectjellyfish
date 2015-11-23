@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
       permitted = [
         :name, :description, :start_date, :end_date, :img, answers: [:id, :name, :value, :value_type]
       ]
-      permitted << :budget if current_user.admin? || params[:id].nil?
+      permitted.push(:budget, :monthly_budget) if current_user.admin? || params[:id].nil?
       params.permit(permitted).tap do |project|
         project[:answers_attributes] = project.delete(:answers) if project[:answers]
       end
