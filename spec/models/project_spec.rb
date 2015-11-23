@@ -115,3 +115,34 @@ describe 'Project.monthly_spend' do
     expect(project.monthly_spend).to eq 2.0
   end
 end
+
+describe 'Project.monthly_budget' do
+  before(:each) do
+    @user = create :staff
+    @project = create :project, status: :approved, monthly_budget: 100
+  end
+
+  it 'denies new orders that exceed the monthly budget' do
+    @product = create :product, monthly_price: 150
+
+    expect{
+      CreateServiceOrder.perform @user,
+        project_id: @project.id,
+        product_id: @product.id,
+        service: { 'name' => 'Service 1' }
+    }.to raise_error CreateServiceOrder::BudgetError
+  end
+
+  it 'allows new orders that stay within the monthly budget' do
+    @product = create :product, monthly_price: 100
+
+    CreateServiceOrder.perform @user,
+      project_id: @project.id,
+      product_id: @product.id,
+      service: { 'name' => 'Service 1' }
+
+    @project.reload
+
+    expect(@project.services.length).to eq 1
+  end
+end
