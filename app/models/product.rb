@@ -51,6 +51,10 @@ class Product < ActiveRecord::Base
     ProductPolicy
   end
 
+  def monthly_cost
+    monthly_price + (hourly_price * 750)
+  end
+
   private
 
   def init
