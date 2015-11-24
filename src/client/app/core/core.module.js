@@ -6,6 +6,7 @@
     'ngAnimate',
     'ngSanitize',
     'ngMessages',
+    'ngAria',
 
     // Blocks modules
     'blocks.exception',
