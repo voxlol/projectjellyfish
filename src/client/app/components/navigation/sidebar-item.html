@@ -36,7 +36,7 @@
   </a>
   <ul ng-if="::vm.item.items.length > 0" class="sidebar__nav sidebar__nav--subnav" collapse="vm.item.collapsed"
       role="menu">
-    <li class="dropdown sidebar__item" ng-repeat="item in ::vm.item.items">
+    <li class="dropdown sidebar__item" ng-repeat="item in ::vm.item.items" role="menuitem">
       <sidebar-item item="::item"></sidebar-item>
     </li>
   </ul>
