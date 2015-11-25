@@ -10,11 +10,11 @@
   <div class="login-form__body">
     <div class="login-field">
       <div class="login-field__aside">
-        <label class="login-field__label">Email</label>
+        <label id="login-email-label" class="login-field__label">Email</label>
       </div>
       <div class="login-field__body" ng-class="{'has-error': vm.hasErrors('email')}">
         <input id="login-email" ng-model="vm.email" name="email" type="email"
-               class="login-field__input" placeholder="" required/>
+               class="login-field__input" placeholder="" aria-labelledby="login-email-label" required/>
 
         <div class="login-field__feedback" ng-messages="vm.form.email.$error">
           <div ng-message="required">Your email is required.</div>
@@ -25,11 +25,11 @@
 
     <div class="login-field">
       <div class="login-field__aside">
-        <label class="login-field__label">Password</label>
+        <label id="login-password-label" class="login-field__label">Password</label>
       </div>
       <div class="login-field__body" ng-class="{'has-error': vm.hasErrors('password')}">
         <input id="login-password" ng-model="vm.password" name="password" type="password"
-               class="login-field__input" placeholder="" required/>
+               class="login-field__input" placeholder="" aria-labelledby="login-password-label" required/>
 
         <div class="login-field__feedback" ng-messages="vm.form.password.$error">
           <div ng-message="required">Your password is required.</div>
