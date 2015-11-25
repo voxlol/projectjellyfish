@@ -6,7 +6,7 @@
   <i class="fa fa-fw sidebar__arrow" ng-class="vm.item.collapsed ? 'fa-angle-left' : 'fa-angle-down'"></i>
 </a>
 <ul class="sidebar__nav sidebar__nav--subnav" collapse="vm.item.collapsed" role="menu">
-  <li class="dropdown sidebar__item" ng-repeat="page in vm.pages">
+  <li class="dropdown sidebar__item" ng-repeat="page in vm.pages" role="menuitem">
     <a class="sidebar__item-body sidebar__link"
        ui-sref="pages({slug: page.slug})"
        ui-sref-active="sidebar__item-body--active">
