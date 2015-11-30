@@ -5,8 +5,7 @@
         <tag-item text="tag" selected="tag === vm.tagList.selected" on-remove="vm.removeTag($index)"></tag-item>
       </li>
     </ul>
-    <input type="text" spellcheck="false" class="tag-input" autocomplete="off" ng-model="vm.newTag"
-           ng-change="vm.inputChange(vm.newTag)"
+    <input type="text" spellcheck="false" class="tag-input" autocomplete="off" ng-model="vm.newTag" aria-label="tag-input"
            ng-keydown="vm.inputKeydown($event)"
            ng-focus="vm.inputFocus($event)"
            ng-blur="vm.inputBlur($event)"

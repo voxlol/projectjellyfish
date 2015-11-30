@@ -45,6 +45,7 @@
 
       function activate(api) {
         angular.extend(vm, api);
+        vm.formattedLabel = vm.label.replace(/[\s]/g, '-');
       }
 
       function queryTags(query) {
