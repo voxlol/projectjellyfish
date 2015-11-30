@@ -8,6 +8,7 @@
         prefix: 'Jellyfish Fields:'
       }
     }))
+    .filter('removeSpaces', removeSpacesFilter)
     .run(wrappers)
     .run(types)
     .run(validation);
@@ -63,7 +64,8 @@
     function textField() {
       formlyConfig.setType({
         name: 'text',
-        template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::to.label | removeSpaces }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -71,7 +73,8 @@
     function emailField() {
       formlyConfig.setType({
         name: 'email',
-        template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::to.label | removeSpaces }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -79,7 +82,8 @@
     function passwordField() {
       formlyConfig.setType({
         name: 'password',
-        template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::to.label | removeSpaces }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -87,7 +91,8 @@
     function textareaField() {
       formlyConfig.setType({
         name: 'textarea',
-        template: '<textarea class="field__input" ng-model="model[options.key]"></textarea>',
+        template: '<textarea class="field__input" ng-model="model[options.key]" ' + 
+          'aria-labelledby="{{ ::to.label | removeSpaces }}-label"></textarea>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: {
           templateOptions: {
@@ -476,5 +481,11 @@
     formlyValidationMessages.messages.minlength = 'to.label + " is too short"';
     formlyValidationMessages.messages.maxlength = 'to.label + " is too long"';
     formlyValidationMessages.messages.pattern = 'to.label + " is not formatted correctly"';
+  }
+
+  function removeSpacesFilter() {
+    return function(string) {
+      return !(angular.isString(string)) ? string : string.replace(/[\s]/g, '-');
+    };
   }
 })(apiCheck);
