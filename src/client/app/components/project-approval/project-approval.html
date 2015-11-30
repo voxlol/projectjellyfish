@@ -17,7 +17,7 @@
         <div class="project-approval__input">
           <input type="text" class="field__input project-approval__input--input" ng-model="vm.message"
                  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                 placeholder="Reason for rejection"/>
+                 placeholder="Reason for rejection" aria-label="rejection-reason"/>
         </div>
         <div class=" project-approval__button">
           <button ng-disabled="vm.message == ''"

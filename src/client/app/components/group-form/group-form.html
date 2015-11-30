@@ -12,11 +12,13 @@
     <div class="group-form__body">
       <div class="group-field">
         <div class="group-field__aside">
-          <label class="group-field__label">Name</label>
+          <label class="group-field__label" id="name-label">Name</label>
         </div>
         <div class="group-field__body" ng-class="{'has-error': vm.hasErrors('name')}">
           <input id="group-name" ng-model="vm.group.name" name="name" type="text"
-                 class="group-field__input" placeholder="Enter a group name." required/>
+                 class="group-field__input" placeholder="Enter a group name."
+                 aria-labelledby="name-label"
+                 required/>
 
           <div class="group-field__feedback" ng-messages="vm.form.name.$error">
             <div ng-message="required">A group name is required.</div>
@@ -26,12 +28,14 @@
 
       <div class="group-field">
         <div class="group-field__aside">
-          <label class="group-field__label">Description</label>
+          <label class="group-field__label" id="description-label">Description</label>
         </div>
         <div class="group-field__body" ng-class="{'has-error': vm.hasErrors('description')}">
           <textarea id="group-description" ng-model="vm.group.description" name="description"
                     class="group-field__input field__input--textarea" rows="3"
-                    placeholder="Enter a group description." required></textarea>
+                    placeholder="Enter a group description."
+                    aria-labelledby="description-label"
+                    required></textarea>
 
           <div class="group-field__feedback" ng-messages="vm.form.description.$error">
             <div ng-message="required">An group description is required.</div>
@@ -41,11 +45,12 @@
 
       <div class="group-field">
         <div class="group-field__aside">
-          <label class="group-field__label">Add User</label>
+          <label class="group-field__label" id="add-user-label">Add User</label>
         </div>
         <div class="group-field__body">
           <select id="group-role" name="staff" ng-model="vm.selectedStaff" class="group-field__input"
                   ng-options="staff as staff.full_name for staff in vm.staff track by staff.id"
+                  aria-labelledby="add-user-label"
                   ng-change="vm.addMember(vm.selectedStaff.id)">
           </select>
         </div>

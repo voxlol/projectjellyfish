@@ -9,7 +9,7 @@
     var directive = {
       restrict: 'AE',
       scope: {
-        role: '=',
+        record: '=',
         heading: '@'
       },
       link: link,
@@ -67,10 +67,10 @@
         vm.showValidationMessages = true;
 
         if (vm.form.$valid) {
-          if (vm.role.id) {
-            vm.role.$update(saveSuccess, saveFailure);
+          if (vm.record.id) {
+            vm.record.$update(saveSuccess, saveFailure);
           } else {
-            vm.role.$save(saveSuccess, saveFailure);
+            vm.record.$save(saveSuccess, saveFailure);
           }
         }
 
