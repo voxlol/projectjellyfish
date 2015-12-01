@@ -135,7 +135,8 @@
     function selectField() {
       formlyConfig.setType({
         name: 'select',
-        template: '<select class="field__input" ng-model="model[options.key]"></select>',
+        template: '<select class="field__input" ng-model="model[options.key]" ' +
+          'aria-labelledby="{{ ::to.label | removeSpaces }}-label"></select>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: selectDefaultOptions,
         apiCheck: checkSelect
@@ -323,7 +324,7 @@
       formlyConfig.setType({
         name: 'questions',
         template: '<formly-form form="form" model="model[options.key]" ' +
-        'fields="options.data.fields" options="formOptions"></formly-form>',
+          'fields="options.data.fields" options="formOptions"></formly-form>',
         defaultOptions: {
           data: {
             fields: []

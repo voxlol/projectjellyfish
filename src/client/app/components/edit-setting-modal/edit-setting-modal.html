@@ -11,10 +11,10 @@
     <div class="forms">
       <div class="field" ng-switch="vm.inputType">
         <div class="field__aside">
-          <label class="field__label">{{ ::vm.setting.name }}</label>
+          <label class="field__label" id="{{vm.setting.name}}-label">{{ ::vm.setting.name }}</label>
         </div>
         <div class="field__body" ng-class="{'has-error': vm.hasErrors('value')}">
-          <input ng-switch-when="text" name="value" type="text" class="field__input" ng-model="vm.setting.value"/>
+          <input ng-switch-when="text" name="value" type="text" class="field__input" ng-model="vm.setting.value" aria-labelledby="{{vm.setting.name}}-label"/>
           <input ng-switch-when="password" name="value" type="password" class="field__input"
                  ng-model="vm.setting.value"/>
           <textarea ng-switch-when="textarea" name="value" rows="10" class="field__input"
