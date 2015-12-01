@@ -3,14 +3,14 @@
   border-radius: 20px
   padding: 10px 20px
   color: $app-color-white
-  background-color: $app-color-blue
+  background-color: $app-color-dark-blue
   border: none
   text-transform: uppercase
 
   &:hover, &:focus, &:active
     outline: none
     color: $app-color-white
-    background-color: $app-color-blue
+    background-color: $app-color-dark-blue
     text-decoration: none
 
   +modifier(gray)
@@ -41,29 +41,29 @@
     padding: 5px 15px
 
 +block(btn-link)
-  color: $app-color-blue
+  color: $app-color-dark-blue
   text-transform: uppercase
 
   &:active, &:focus, &:hover
     outline: none
-    color: $app-color-blue
+    color: $app-color-dark-blue
     text-decoration: none
 
 +block(btn-bordered)
   @extend .btn
   border-radius: 20px
   padding: 10px 20px
-  color: $app-color-blue
+  color: $app-color-dark-blue
   background-color: $app-color-light-gray-2
   border: 2px solid
   text-transform: uppercase
 
   &.disabled, &[disabled]
-    color: lighten($app-color-blue, 20%)
+    color: lighten($app-color-dark-blue, 20%)
 
   &:hover, &:focus, &:active
     outline: none
-    color: $app-color-blue
+    color: $app-color-dark-blue
     background-color: $app-color-light-gray-2
     text-decoration: none
 
