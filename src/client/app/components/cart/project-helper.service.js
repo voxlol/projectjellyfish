@@ -43,7 +43,7 @@
 
     vm.selections = {
       projectId: null,
-      projectDefault: false
+      projectDefault: null
     };
     vm.addToCart = addToCart;
 
@@ -56,7 +56,11 @@
     function addToCart() {
       $modalInstance.close();
       var selectedProject = lodash.find(projects, {'id': vm.selections.projectId});
-      SelectedProjectHelper.selectProject(selectedProject, vm.selections.projectDefault);
+      if (vm.selections.projectDefault) {
+        SelectedProjectHelper.selectProject(selectedProject, true);
+      } else {
+        SelectedProjectHelper.selectProject(selectedProject, false);
+      }
       CartService.add(selectedProject, product);
     }
 

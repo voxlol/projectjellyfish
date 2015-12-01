@@ -132,11 +132,10 @@
 
     function addToCart(product) {
       $modalInstance.close();
-      vm.addToProject = vm.projectId ? vm.projectId : CartService.defaultProject();
-      if (vm.addToProject) {
-        CartService.add(vm.projectId, product);
+      if (SelectedProjectHelper.defaultProject) {
+        CartService.add(SelectedProjectHelper.selectedProject, product);
       } else {
-        CartProjectHelper.showModal(vm.projectId, product);
+        ProjectHelper.showModal(product);
       }
     }
       if (SelectedProjectHelper.defaultProject) {
