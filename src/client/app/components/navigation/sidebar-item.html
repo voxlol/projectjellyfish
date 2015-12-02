@@ -34,8 +34,8 @@
     <span>{{ ::vm.item.label }}</span>
     <i class="fa fa-fw sidebar__arrow" ng-class="vm.item.collapsed ? 'fa-angle-left' : 'fa-angle-down'"></i>
   </a>
-  <ul ng-if="::vm.item.items.length > 0" class="sidebar__nav sidebar__nav--subnav" collapse="vm.item.collapsed" role="menu">
-    <li class="dropdown sidebar__item" ng-repeat="item in ::vm.item.items" role="menuitem">
+  <ul ng-if="::vm.item.items.length > 0" class="sidebar__nav sidebar__nav--subnav" collapse="vm.item.collapsed" role="group">
+    <li class="dropdown sidebar__item" ng-repeat="item in ::vm.item.items">
       <sidebar-item item="::item"></sidebar-item>
     </li>
   </ul>
