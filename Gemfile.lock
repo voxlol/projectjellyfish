@@ -10,6 +10,16 @@ GIT
       waitutil (~> 0.2.1)
 
 GIT
+  remote: git://github.com/projectjellyfish/jellyfish-aws.git
+  revision: 604bc3e57f4a8f0507fb910258be069cb0444f0a
+  branch: develop
+  specs:
+    jellyfish-aws (0.0.8)
+      bcrypt (~> 3.1)
+      fog-aws (~> 0.7)
+      rails (~> 4.2)
+
+GIT
   remote: git://github.com/projectjellyfish/jellyfish-docker.git
   revision: 20056a268ec2a09a49ec86cca6631769e21f372c
   specs:
@@ -154,13 +164,10 @@ GEM
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-core (1.32.1)
+    fog-core (1.35.0)
       builder
       excon (~> 0.45)
       formatador (~> 0.2)
-      mime-types
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
     fog-json (1.0.2)
       fog-core (~> 1.0)
       multi_json (~> 1.10)
@@ -189,10 +196,6 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.1)
     ipaddress (0.8.0)
-    jellyfish-aws (0.0.8)
-      bcrypt (~> 3.1)
-      fog-aws (~> 0.7)
-      rails (~> 4.2)
     json (1.8.3)
     license_finder (2.0.4)
       bundler
@@ -221,9 +224,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (3.0.1)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -406,7 +406,7 @@ DEPENDENCIES
   foreman
   friendly_id
   has_scope
-  jellyfish-aws
+  jellyfish-aws!
   jellyfish-azure!
   jellyfish-docker!
   license_finder
