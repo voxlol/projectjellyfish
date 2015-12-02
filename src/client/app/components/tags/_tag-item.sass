@@ -1,7 +1,7 @@
 +block(tag-item)
   display: block
   color: $app-color-white
-  background-color: $app-color-teal
+  background-color: $app-color-green
   padding: 0 6px 0 8px
   font-size: 12px
   height: 2em
@@ -12,10 +12,10 @@
   left: 0
 
   +modifier(selected)
-    background-color: $app-color-dark-pink
+    background-color: $app-color-pink
 
     +element(button)
-      background-color: darken($app-color-dark-pink, 20%)
+      background-color: darken($app-color-pink, 20%)
 
   +modifier(removable)
     padding-right: 28px
@@ -26,7 +26,7 @@
   +element(button)
     display: block
     color: $app-color-white
-    background-color: $app-color-dark-green
+    background-color: $app-color-light-green
     font-size: 12px
     height: 2em
     width: 20px
