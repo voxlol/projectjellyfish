@@ -23,6 +23,8 @@
 
     function getProjects() {
       return projects;
+    }
+
     function add(project, product) {
       var projectId = project.id;
       if (lodash.isUndefined(projects[projectId])) {
