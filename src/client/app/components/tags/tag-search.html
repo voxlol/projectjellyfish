@@ -12,7 +12,7 @@
            ng-blur="vm.inputBlur($event)"
            ng-paste="vm.inputPaste($event)"
            bind-attrs="{placeholder: vm.options.placeholder}"
-           ng-trim="false" ng-class="{'invalid-tag': vm.invalid}" ng-disabled="vm.disabled" tag-autosize/>
+           ng-trim="false" ng-class="{'invalid-tag': vm.invalid}" ng-disabled="vm.disabled" aria-label="tag-search" tag-autosize/>
     <a ng-if="vm.tagList.tags.length > 0" href="#" title="Remove all tags" class="tag-search__clear"
        ng-click="vm.clearTags()">
       <span class="tag-search__clear-text">Clear</span>

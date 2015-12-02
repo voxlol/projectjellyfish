@@ -63,7 +63,8 @@
     function textField() {
       formlyConfig.setType({
         name: 'text',
-        template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -71,7 +72,8 @@
     function emailField() {
       formlyConfig.setType({
         name: 'email',
-        template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -79,7 +81,8 @@
     function passwordField() {
       formlyConfig.setType({
         name: 'password',
-        template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off"/>',
+        template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
+          'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -87,7 +90,8 @@
     function textareaField() {
       formlyConfig.setType({
         name: 'textarea',
-        template: '<textarea class="field__input" ng-model="model[options.key]"></textarea>',
+        template: '<textarea class="field__input" ng-model="model[options.key]" ' + 
+          'aria-labelledby="{{ ::id }}-label"></textarea>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: {
           templateOptions: {
@@ -130,7 +134,8 @@
     function selectField() {
       formlyConfig.setType({
         name: 'select',
-        template: '<select class="field__input" ng-model="model[options.key]"></select>',
+        template: '<select class="field__input" ng-model="model[options.key]" ' +
+          'aria-labelledby="{{ ::id }}-label"></select>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: selectDefaultOptions,
         apiCheck: checkSelect
@@ -318,7 +323,7 @@
       formlyConfig.setType({
         name: 'questions',
         template: '<formly-form form="form" model="model[options.key]" ' +
-        'fields="options.data.fields" options="formOptions"></formly-form>',
+          'fields="options.data.fields" options="formOptions"></formly-form>',
         defaultOptions: {
           data: {
             fields: []

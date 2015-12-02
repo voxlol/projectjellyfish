@@ -12,12 +12,12 @@
 
     <div class="wizard-question-field">
       <div class="wizard-question-field__aside">
-        <label class="wizard-question-field__label">Question</label>
+        <label class="wizard-question-field__label" id="question-label">Question</label>
       </div>
 
       <div class="wizard-question-field__body" ng-class="{'has-error': vm.hasErrors('question')}">
         <input id="wizard-question-name" ng-model="vm.question.text" name="question" type="text"
-               class="wizard-question-field__input" placeholder="" required/>
+               class="wizard-question-field__input" placeholder="" aria-labelledby="question-label" required/>
 
         <div class="wizard-question-field__feedback" ng-messages="vm.form.question.$error">
           <div ng-message="required">A question is required.</div>

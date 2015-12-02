@@ -11,11 +11,11 @@
 
       <div class="alert-field">
         <div class="alert-field__aside">
-          <label class="alert-field__label">Status</label>
+          <label class="alert-field__label" id="status-label">Status</label>
         </div>
 
         <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('status')}">
-          <select id="alert-name" name="status" ng-model="vm.alertRecord.status" class="alert-field__input" required>
+          <select id="alert-name" name="status" ng-model="vm.alertRecord.status" class="alert-field__input" aria-labelledby="status-label" required>
             <option value="ok">ok</option>
             <option value="warning">warning</option>
             <option value="critical">critical</option>
@@ -30,12 +30,12 @@
 
       <div class="alert-field">
         <div class="alert-field__aside">
-          <label class="alert-field__label">Category</label>
+          <label class="alert-field__label" id="category-label">Category</label>
         </div>
 
         <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('category')}">
           <input type="text" id="alert-category" ng-model="vm.alertRecord.category" name="category"
-                    class="alert-field__input" required/>
+                    class="alert-field__input" aria-labelledby="category-label" required/>
 
           <div class="alert-field__feedback" ng-messages="vm.form.category.$error">
             <div ng-message="required">An alert category is required.</div>
@@ -45,12 +45,12 @@
 
       <div class="alert-field">
         <div class="alert-field__aside">
-          <label class="alert-field__label">Message</label>
+          <label class="alert-field__label" id="message-label">Message</label>
         </div>
 
         <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('message')}">
           <textarea id="alert-description" ng-model="vm.alertRecord.message" name="message"
-                    class="alert-field__input field__input--textarea" rows="3" required></textarea>
+                    class="alert-field__input field__input--textarea" rows="3" aria-labelledby="message-label"required></textarea>
 
           <div class="alert-field__feedback" ng-messages="vm.form.message.$error">
             <div ng-message="required">An alert message is required.</div>
@@ -60,14 +60,14 @@
 
       <div class="alert-field">
         <div class="alert-field__aside">
-          <label class="alert-field__label">Start Date</label>
+          <label class="alert-field__label" id="start-date-label">Start Date</label>
         </div>
 
         <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('startDate')}">
           <div class="input-group">
             <span class="input-group-btn ">
               <button type="button" class="btn btn-default alert-field__group-input--button"
-                        ng-click="vm.openStart($event)">
+                      aria-labelledby="start-date-label" ng-click="vm.openStart($event)">
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
@@ -77,7 +77,9 @@
                    is-open="vm.openedStart"
                    max-date="vm.alertRecord.end_date"
                    datepicker-options="vm.dateOptions"
-                   ng-required="false" close-text="Close"/>
+                   ng-required="false"
+                   aria-labelledby="start-date-label"
+                   close-text="Close"/>
           </div>
           <div class="alert-field__feedback" ng-messages="vm.form.startDate.$error">
             <div ng-message="required">A start date is required.</div>
@@ -88,14 +90,14 @@
 
       <div class="alert-field">
         <div class="alert-field__aside">
-          <label class="alert-field__label">End Date</label>
+          <label class="alert-field__label" id="end-date-label">End Date</label>
         </div>
 
         <div class="alert-field__body" ng-class="{'has-error': vm.hasErrors('endDate')}">
           <div class="input-group">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default alert-field__group-input--button"
-                      ng-click="vm.openEnd($event)">
+                      aria-labelledby="end-date-label" ng-click="vm.openEnd($event)">
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
@@ -105,7 +107,9 @@
                    is-open="vm.openedEnd"
                    min-date="vm.alertRecord.start_date"
                    datepicker-options="vm.dateOptions"
-                   ng-required="false" close-text="Close"/>
+                   ng-required="false"
+                   aria-labelledby="end-date-label"
+                   close-text="Close"/>
           </div>
           <div class="alert-field__feedback" ng-messages="vm.form.endDate.$error">
             <div ng-message="required">An end date is required.</div>

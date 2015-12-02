@@ -1,11 +1,11 @@
 <div ng-form name="vm.form" class="wizard-question-option__container">
   <div class="wizard-question-option">
     <div class="wizard-question-option__aside">
-      <label class="wizard-question-option__label">{{ vm.label }}</label>
+      <label class="wizard-question-option__label" id="{{ vm.formattedLabel }}">{{ vm.label }}</label>
     </div>
     <div class="wizard-question-option__body" ng-class="{'has-error': vm.hasError()}">
-      <input id="wizard-question-required" ng-model="vm.option.text" name="option" type="text"
-             class="wizard-question-option__input" placeholder="" required/>
+      <input ng-model="vm.option.text" name="option" type="text"
+             class="wizard-question-option__input" placeholder="" aria-labelledby="{{ vm.formattedLabel }}" required/>
 
       <div class="wizard-question-option__feedback" ng-messages="vm.form.option.$error">
         <div ng-message="required">Option text is required.</div>

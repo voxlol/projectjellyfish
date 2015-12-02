@@ -11,12 +11,12 @@
       <div class="motd-form__body">
         <div class="motd-field">
           <div class="motd-field__aside">
-            <label class="content-page-field__label">Content</label>
+            <label class="content-page-field__label" id="content-label">Content</label>
           </div>
           <div class="motd-field__body" ng-class="{'has-error': vm.hasErrors('body')}">
                     <textarea id="content-page-body" ng-model="vm.motd.message" name="body"
                               class="content-page-field__input field__input--textarea field__input--monospaced"
-                              placeholder="Specify message of the day here." rows="10" required></textarea>
+                              placeholder="Specify message of the day here." rows="10" aria-labelledby="content-label" required></textarea>
             <div class="content-page-field__feedback" ng-messages="vm.form.body.$error">
               <div ng-message="required">A page body is required.</div>
             </div>

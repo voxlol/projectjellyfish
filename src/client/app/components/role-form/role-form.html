@@ -12,11 +12,13 @@
     <div class="role-form__body">
       <div class="role-field">
         <div class="role-field__aside">
-          <label class="role-field__label">Name</label>
+          <label class="role-field__label" id="name-label">Name</label>
         </div>
         <div class="role-field__body" ng-class="{'has-error': vm.hasErrors('name')}">
           <input id="role-name" ng-model="vm.role.name" name="name" type="text"
-                 class="role-field__input" placeholder="Enter a role name." required/>
+                 class="role-field__input" placeholder="Enter a role name."
+                 aria-labelledby="name-label"
+                 required/>
 
           <div class="role-field__feedback" ng-messages="vm.form.name.$error">
             <div ng-message="required">A role name is required.</div>
@@ -26,12 +28,14 @@
 
       <div class="role-field">
         <div class="role-field__aside">
-          <label class="role-field__label">Description</label>
+          <label class="role-field__label" id="description-label">Description</label>
         </div>
         <div class="role-field__body" ng-class="{'has-error': vm.hasErrors('description')}">
           <textarea id="role-description" ng-model="vm.role.description" name="description"
                     class="role-field__input field__input--textarea" rows="3"
-                    placeholder="Enter a role description." required></textarea>
+                    placeholder="Enter a role description."
+                    aria-labelledby="description-label"
+                    required></textarea>
 
           <div class="role-field__feedback" ng-messages="vm.form.description.$error">
             <div ng-message="required">An role description is required.</div>
