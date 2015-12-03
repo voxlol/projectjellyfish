@@ -156,9 +156,9 @@
 
     function validatePhoneNumber($viewValue, $modelValue, scope) {
       var value = $viewValue || $modelValue;
-      if (value) {
-        return /^\+?[0-9\-]+\*?$/.test(value);
-      }
+
+      return value ? /^\+?[0-9\-]+\*?$/.test(value) : true;
     }
   }
-})();
+})
+();
