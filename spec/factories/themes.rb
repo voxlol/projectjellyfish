@@ -3,20 +3,17 @@
 # Table name: themes
 #
 #  id          :integer          not null, primary key
-#  name        :string
-#  description :text
-#  bg_color    :string(6)
-#  text_color  :string(6)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  name        :string
+#  description :text
+#  colors      :json
 #
 
 FactoryGirl.define do
   factory :theme do
-    name "MyString"
-description "MyText"
-bg_color "MyString"
-text_color "MyString"
+    name 'Test Theme'
+    description 'This is a description of the test theme'
+    colors bg: '#EBEBEB', font: '#000000'
   end
-
 end

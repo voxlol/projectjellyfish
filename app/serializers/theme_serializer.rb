@@ -10,10 +10,7 @@
 #  colors      :json
 #
 
-require 'rails_helper'
-
-describe Theme do
-  it 'has a valid factory' do
-    expect(build(:theme)).to be_valid
-  end
+class ThemeSerializer < ApplicationSerializer
+  attributes :name, :description, :colors
+  attributes :created_at, :updated_at
 end

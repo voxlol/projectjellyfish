@@ -435,12 +435,11 @@ ActiveRecord::Schema.define(version: 20151204071547) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "themes", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "name"
     t.text     "description"
-    t.string   "bg_color",    limit: 6
-    t.string   "text_color",  limit: 6
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.json     "colors"
   end
 
   create_table "versions", force: :cascade do |t|

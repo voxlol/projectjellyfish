@@ -1,33 +1,61 @@
 class ThemesController < ApplicationController
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:show]
 
-  api :GET, '/themes', 'Returns all themes.'
-
-  def index
-    authorize Theme
-    respond_with_params themes
+  def self.error_codes
+    error code: 404, desc: MissingRecordDetection::Messages.not_found
+    error code: 422, desc: ParameterValidation::Messages.missing
   end
 
-  api :POST, '/themes', 'Creates a new theme'
-  param :name, String, required: true, desc: 'Theme name'
-  param :description, String, required: false, desc: 'A short description of the theme.'
-  param :bg_color, String, required: true, desc: 'Main background color in 6-character hex (no #).'
-  param :text_color, String, required: true, desc: 'Main text color in 6-character hex (no #).'
-  error code: 422, desc: ParameterValidation::Messages.missing
+  def self.document_params
+    param :name, String, required: true, desc: 'Name of the theme.'
+    param :description, String, required: false, desc: 'A short description of the theme.'
+    param :colors, Hash, required: true, desc: 'Color configuration in a JSON format.'
+    error_codes
+  end
+
+  api :GET, '/themes', 'Returns the site theme.'
+  error_codes
+
+  def show
+    respond_with_params Theme.first
+  end
+
+  api :POST, '/themes', 'Create new site theme.'
+  document_params
 
   def create
-    authorize Theme
-    theme = Theme.create theme_params
-    respond_with theme
+    theme_create_or_update
+  end
+
+  api :PUT, '/themes', 'Updates existing site theme.'
+  document_params
+
+  def update
+    theme_create_or_update
+  end
+
+  api :DELETE, '/themes', 'Clears the site theme.'
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def destroy
+    authorize theme
+    theme.destroy
+    respond_with_params theme
   end
 
   private
 
-  def themes
-    @_themes ||= query_with Theme.all, :includes, :pagination
+  def theme_create_or_update
+    authorize theme
+    theme.update theme_params
+    respond_with_params theme
   end
 
   def theme_params
-    params.permit(:name, :description, :bg_color, :text_color)
+    params.permit(:name, :description, :colors)
+  end
+
+  def theme
+    @_theme ||= Theme.first_or_initialize
   end
 end
