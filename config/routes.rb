@@ -118,6 +118,9 @@ Rails.application.routes.draw do
 
     # MOTD Routes
     resource :motd, only: [:create, :update, :show, :destroy]
+
+    # Themes
+    resources :themes, only: [:index, :create]
   end
 
   root 'welcome#index'
