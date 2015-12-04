@@ -16,7 +16,7 @@ class Theme < ActiveRecord::Base
   validate :colors_are_hex_format, if: :colors
 
   def colors_are_hex_format
-    unless colors.values.all? { |color| color=~/#\h{6}/ }
+    unless colors.values.all? { |color| color =~ /#\h{6}/ }
       errors.add(:colors, 'must be in hex format.')
     end
   end
