@@ -4,12 +4,7 @@ class MotdsController < ApplicationController
   after_action :post_hook
   before_action :pre_hook
 
-  def self.error_codes
-    error code: 404, desc: MissingRecordDetection::Messages.not_found
-    error code: 422, desc: ParameterValidation::Messages.missing
-  end
-
-  def self.document_params
+  def_param_group :motd_params do
     param :message, String, desc: 'Content of message of the day template', required: true
     error_codes
   end
@@ -22,14 +17,14 @@ class MotdsController < ApplicationController
   end
 
   api :POST, '/motd', 'Create new message of the day.'
-  document_params
+  param_group :motd_params
 
   def create
     motd_create_or_update
   end
 
   api :PUT, '/motd', 'Updates existing message of the day.'
-  document_params
+  param_group :motd_params
 
   def update
     motd_create_or_update

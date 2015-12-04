@@ -10,8 +10,7 @@ class ThemesController < ApplicationController
   end
 
   api :GET, '/themes', 'Returns the site theme.'
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-  error code: 422, desc: ParameterValidation::Messages.missing
+  error_codes
 
   def show
     respond_with_params Theme.first
