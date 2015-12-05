@@ -90,7 +90,7 @@
     function textareaField() {
       formlyConfig.setType({
         name: 'textarea',
-        template: '<textarea class="field__input" ng-model="model[options.key]" ' + 
+        template: '<textarea class="field__input" ng-model="model[options.key]" ' +
           'aria-labelledby="{{ ::id }}-label"></textarea>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: {
@@ -322,11 +322,12 @@
     function questionsField() {
       formlyConfig.setType({
         name: 'questions',
-        template: '<formly-form form="form" model="model[options.key]" ' +
+        template: '<formly-form form="form" model="options.data.values" ' +
           'fields="options.data.fields" options="formOptions"></formly-form>',
         defaultOptions: {
           data: {
-            fields: []
+            fields: [],
+            values: {}
           }
         },
         controller: QuestionsController
@@ -343,28 +344,29 @@
         var data = $scope.model[$scope.options.key];
 
         $scope.options.data.fields = lodash.map(data, buildField);
+        $scope.options.data.values = lodash(data).indexBy('name').mapValues('value').value();
+
+        // Make the parent model available
+        $scope.options.data.values.$parent = $scope.model;
 
         function buildField(question) {
           var field = angular.copy(Forms.fields(question.field || 'text'));
 
-          field.key = 'value';
-          field.model = question;
+          field.key = question.name;
 
           if (angular.isDefined(field.templateOptions)) {
-            angular.forEach(templateOptions, setTemplateOptions);
+            angular.merge(field.templateOptions, lodash(question).pick(templateOptions).value());
           }
 
           if (angular.isDefined(question.required)) {
             setRequired();
           }
 
-          return field;
+          field.watcher = {
+            listener: listener
+          };
 
-          function setTemplateOptions(option) {
-            if (angular.isDefined(question[option])) {
-              field.templateOptions[option] = question[option];
-            }
-          }
+          return field;
 
           function setRequired() {
             switch (question.required) {
@@ -388,6 +390,17 @@
                 }
                 field.expressionProperties['templateOptions.required'] = question.required;
             }
+          }
+
+          function listener(field, newValue, oldValue, scope, stopWatching) {
+            var name = field.key;
+            var question = lodash.find(data, 'name', name);
+
+            if (newValue === oldValue) {
+              return;
+            }
+
+            question.value = newValue;
           }
         }
       }
