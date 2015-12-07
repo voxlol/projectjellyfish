@@ -25,7 +25,7 @@ sudo useradd jellyfish
 sudo yum -y install git
 sudo yum -y install gcc-c++ patch readline readline-devel zlib zlib-devel
 sudo yum -y install libyaml-devel libffi-devel openssl-devel make
-sudo yum -y install bzip2 autoconf automake libtool bison iconv-devel
+sudo yum -y install bzip2 autoconf automake libtool bison 
 sudo yum -y install sqlite-devel libffi-devel openssl-devel
 sudo yum -y install ntp
 ```
@@ -162,7 +162,7 @@ gem install bundler
 
 #### Install pg gem
 ```
-gem install pg -v '0.18.2' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
+gem install pg -v '0.18.3' -- --with-pg-config=/usr/pgsql-9.4/bin/pg_config
 ```
 
 ##### Install NPM
@@ -220,7 +220,9 @@ npm install
 ```
 
 ##### Build the frontend
-
+```shell
+bower install
+```
 ```shell
 gulp build
 ```
