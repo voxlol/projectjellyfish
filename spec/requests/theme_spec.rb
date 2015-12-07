@@ -33,7 +33,7 @@ describe 'theme API' do
     it 'allows creation of an theme for an admin' do
       sign_in_as create(:staff, :admin)
 
-      post theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      post theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.body).to eq(Theme.first.to_json)
     end
@@ -41,13 +41,13 @@ describe 'theme API' do
     it 'prevents creation of an theme for a user' do
       sign_in_as create(:staff, :user)
 
-      post theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      post theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.status).to eq(403)
     end
 
     it 'prevents creation of an theme for a guest' do
-      post theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      post theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.status).to eq(401)
     end
@@ -57,7 +57,7 @@ describe 'theme API' do
     it 'allows an admin to make updates' do
       sign_in_as create(:staff, :admin)
 
-      put theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      put theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.status).to eq(204)
     end
@@ -65,13 +65,13 @@ describe 'theme API' do
     it 'prevents updates for a user' do
       sign_in_as create(:staff, :user)
 
-      put theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      put theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.status).to eq(403)
     end
 
     it 'prevents updates for a guest' do
-      put theme_path, name: 'Test theme', description: 'Description of the theme', colors: { bg: '#000000' }
+      put theme_path, name: 'Test theme', description: 'Description of the theme', config: { bg: '#000000' }
 
       expect(response.status).to eq(401)
     end

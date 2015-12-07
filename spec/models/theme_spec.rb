@@ -7,7 +7,7 @@
 #  updated_at  :datetime         not null
 #  name        :string
 #  description :text
-#  colors      :json
+#  config      :json
 #
 
 require 'rails_helper'

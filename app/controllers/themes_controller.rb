@@ -5,7 +5,7 @@ class ThemesController < ApplicationController
   def_param_group :theme_params do
     param :name, String, required: true, desc: 'Name of the theme.'
     param :description, String, required: false, desc: 'A short description of the theme.'
-    param :colors, Hash, required: true, desc: 'Color configuration in a JSON format.'
+    param :config, Hash, required: true, desc: 'Color configuration in a JSON format.'
     error_codes
   end
 
@@ -39,7 +39,7 @@ class ThemesController < ApplicationController
   end
 
   def theme_params
-    params.permit(:name, :description, :colors)
+    params.permit(:name, :description, :config)
   end
 
   def theme

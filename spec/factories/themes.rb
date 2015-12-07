@@ -7,13 +7,13 @@
 #  updated_at  :datetime         not null
 #  name        :string
 #  description :text
-#  colors      :json
+#  config      :json
 #
 
 FactoryGirl.define do
   factory :theme do
     name 'Test Theme'
     description 'This is a description of the test theme'
-    colors bg: '#EBEBEB', font: '#000000'
+    config bg: '#EBEBEB', font: '#000000'
   end
 end

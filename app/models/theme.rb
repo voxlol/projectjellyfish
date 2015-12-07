@@ -7,17 +7,17 @@
 #  updated_at  :datetime         not null
 #  name        :string
 #  description :text
-#  colors      :json
+#  config      :json
 #
 
 class Theme < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
-  validate :colors_are_hex_format, if: :colors
+  validate :colors_are_hex_format, if: :config
 
   def colors_are_hex_format
-    unless colors.values.all? { |color| color =~ /#\h{6}/ }
-      errors.add(:colors, 'must be in hex format.')
+    unless config.values.all? { |color| color =~ /^#\h{6}/ }
+      errors.add(:config, 'must be in hex format.')
     end
   end
 end

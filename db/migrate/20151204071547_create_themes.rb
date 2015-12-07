@@ -5,7 +5,7 @@ class CreateThemes < ActiveRecord::Migration
 
       t.string :name
       t.text :description
-      t.json :colors
+      t.json :config
     end
   end
 end

@@ -439,7 +439,7 @@ ActiveRecord::Schema.define(version: 20151204071547) do
     t.datetime "updated_at",  null: false
     t.string   "name"
     t.text     "description"
-    t.json     "colors"
+    t.json     "config"
   end
 
   create_table "versions", force: :cascade do |t|
