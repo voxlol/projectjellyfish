@@ -11,8 +11,7 @@ GIT
 
 GIT
   remote: git://github.com/projectjellyfish/jellyfish-aws.git
-  revision: 604bc3e57f4a8f0507fb910258be069cb0444f0a
-  branch: develop
+  revision: 7ee30ae7399593cef5e2420d9f8538cdb56f7f33
   specs:
     jellyfish-aws (0.0.8)
       bcrypt (~> 3.1)
