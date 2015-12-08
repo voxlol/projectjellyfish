@@ -11,14 +11,14 @@
       id: 1,
       name: 'mock theme',
       description: 'mock theme description',
-      colors: {
+      config: {
         bg: '#000000',
         font: '#FFFFFF'
       }
     }
 
-    theme.defaults = {
-
+    theme.reset = function() {
+      // set back to default here
     }
 
     return theme;
