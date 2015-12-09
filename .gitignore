@@ -131,5 +131,5 @@ crashlytics-build.properties
 # Temp build directory
 .tmp
 
-# Ignore all of public
-/public
+# # Ignore all of public
+# /public
