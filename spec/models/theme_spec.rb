@@ -7,7 +7,7 @@
 #  updated_at  :datetime         not null
 #  name        :string
 #  description :text
-#  config      :json
+#  config      :json             default([]), is an Array
 #
 
 require 'rails_helper'

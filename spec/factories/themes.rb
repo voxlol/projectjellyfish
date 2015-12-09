@@ -7,13 +7,23 @@
 #  updated_at  :datetime         not null
 #  name        :string
 #  description :text
-#  config      :json
+#  config      :json             default([]), is an Array
 #
 
 FactoryGirl.define do
   factory :theme do
     name 'Test Theme'
     description 'This is a description of the test theme'
-    config bg: '#EBEBEB', font: '#000000'
+    config [{
+      type: 'group',
+      name: 'modal',
+      children: [{
+        type: 'style',
+        label: 'body bg color',
+        selector: 'body',
+        rule: 'background-color',
+        value: '#FFFFFF'
+      }]
+    }]
   end
 end
