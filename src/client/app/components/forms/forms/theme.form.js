@@ -20,13 +20,13 @@
               },
               validation: {
                 messages: {
-                  required: '"A project name must be provided"'
+                  required: '"A theme name must be provided"'
                 }
               }
             },
             {
-              key: 'answers',
-              type: 'questions'
+              key: 'colors',
+              type: 'multipleColors'
             }
           ]
         }

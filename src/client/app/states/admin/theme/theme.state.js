@@ -43,7 +43,6 @@
 
   /** @ngInject */
   function resolveTheme(Theme) {
-    // return theme.query().$promise;
     return Theme;
   }
 
@@ -52,6 +51,7 @@
     var vm = this;
 
     vm.title = 'Theme';
+
     vm.theme = theme;
 
     vm.activate = activate;

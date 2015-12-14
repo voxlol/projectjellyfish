@@ -10,6 +10,7 @@
     }))
     .run(wrappers)
     .run(types)
+    .run(complexTypes)
     .run(validation);
 
   /** @ngInject */
@@ -53,18 +54,15 @@
     selectField();
     dateField();
     priceField();
+    colorPickerField();
     asyncSelectField();
     dataSelectField();
-    questionsField();
-    tagsField();
-    imageChooserField();
-    multipleOptionsField();
 
     function textField() {
       formlyConfig.setType({
         name: 'text',
         template: '<input type="text" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
-          'aria-labelledby="{{ ::id }}-label"/>',
+        'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -73,7 +71,7 @@
       formlyConfig.setType({
         name: 'email',
         template: '<input type="email" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
-          'aria-labelledby="{{ ::id }}-label"/>',
+        'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -82,7 +80,7 @@
       formlyConfig.setType({
         name: 'password',
         template: '<input type="password" class="field__input" ng-model="model[options.key]" autocomplete="off" ' +
-          'aria-labelledby="{{ ::id }}-label"/>',
+        'aria-labelledby="{{ ::id }}-label"/>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField']
       });
     }
@@ -91,7 +89,7 @@
       formlyConfig.setType({
         name: 'textarea',
         template: '<textarea class="field__input" ng-model="model[options.key]" ' +
-          'aria-labelledby="{{ ::id }}-label"></textarea>',
+        'aria-labelledby="{{ ::id }}-label"></textarea>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: {
           templateOptions: {
@@ -135,7 +133,7 @@
       formlyConfig.setType({
         name: 'select',
         template: '<select class="field__input" ng-model="model[options.key]" ' +
-          'aria-labelledby="{{ ::id }}-label"></select>',
+        'aria-labelledby="{{ ::id }}-label"></select>',
         wrapper: ['jfHasError', 'jfLabel', 'jfField'],
         defaultOptions: selectDefaultOptions,
         apiCheck: checkSelect
@@ -277,6 +275,36 @@
       }
     }
 
+    function colorPickerField() {
+      var attributes = [
+        'color-picker-format',
+        'color-picker-alpha',
+        'color-picker-swatch',
+        'color-picker-swatch-pos',
+        'color-picker-swatch-bootstrap',
+        'color-picker-swatch-only',
+        'color-picker-pos',
+        'color-picker-case'
+      ];
+
+      var ngModelAttrs = {};
+
+      angular.forEach(attributes, attributer);
+
+      formlyConfig.setType({
+        name: 'colorpicker',
+        template: '<color-picker ng-model="model[options.key]" aria-labelledby="{{ ::id }}-label" ></color-picker>',
+        wrapper: ['jfHasError', 'jfLabel', 'jfField'],
+        defaultOptions: {
+          ngModelAttrs: ngModelAttrs
+        }
+      });
+
+      function attributer(attr) {
+        ngModelAttrs[lodash.camelCase(attr)] = {attribute: attr};
+      }
+    }
+
     function asyncSelectField() {
       formlyConfig.setType({
         name: 'async_select',
@@ -318,12 +346,21 @@
         $scope.to.options = $scope.formState[dataKey];
       }
     }
+  }
+
+  /** @ngInject */
+  function complexTypes(formlyConfig, jfApiCheck, lodash) {
+    questionsField();
+    tagsField();
+    imageChooserField();
+    multipleOptionsField();
+    multipleColorsField();
 
     function questionsField() {
       formlyConfig.setType({
         name: 'questions',
         template: '<formly-form form="form" model="options.data.values" ' +
-          'fields="options.data.fields" options="formOptions"></formly-form>',
+        'fields="options.data.fields" options="formOptions"></formly-form>',
         defaultOptions: {
           data: {
             fields: [],
@@ -480,6 +517,88 @@
           var options = angular.copy($scope.to.inputOptions);
 
           return options;
+        }
+      }
+    }
+
+    function multipleColorsField() {
+      formlyConfig.setType({
+        name: 'multipleColors',
+        template: '<formly-form form="form" model="options.data.values" ' +
+        'fields="options.data.fields" options="formOptions"></formly-form>',
+        defaultOptions: {
+          data: {
+            fields: [],
+            values: {}
+          }
+        },
+        controller: MultipleColorsController
+      });
+
+      /** @ngInject */
+      function MultipleColorsController($scope, lodash, Forms) {
+        var templateOptions = [
+          'label'
+        ];
+        var data = $scope.model[$scope.options.key];
+
+        // lodash.filter(data,{'type':'style'})
+        $scope.options.data.fields = lodash.map(data, buildField);
+        $scope.options.data.values = lodash(data).indexBy('selector').mapValues('value').value();
+        // Make the parent model available
+        $scope.options.data.values.$parent = $scope.model;
+
+        function buildField(question) {
+          var field = angular.copy(Forms.fields(question.type || 'text'));
+          field.key = question.selector;
+          if (angular.isDefined(field.templateOptions)) {
+            angular.merge(field.templateOptions, lodash(question).pick(templateOptions).value());
+          }
+
+          if (angular.isDefined(question.required)) {
+            setRequired();
+          }
+
+          field.watcher = {
+            listener: listener
+          };
+
+          return field;
+
+          function setRequired() {
+            switch (question.required) {
+              case 'if_new':
+                if (angular.isUndefined(field.expressionProperties)) {
+                  field.expressionProperties = {};
+                }
+                field.expressionProperties['templateOptions.required'] = '!model.id';
+                break;
+              case true:
+                if (angular.isUndefined(field.templateOptions)) {
+                  field.templateOptions = {};
+                }
+                field.templateOptions.required = true;
+                break;
+              case false:
+                break;
+              default:
+                if (angular.isUndefined(field.expressionProperties)) {
+                  field.expressionProperties = {};
+                }
+                field.expressionProperties['templateOptions.required'] = question.required;
+            }
+          }
+
+          function listener(field, newValue, oldValue, scope, stopWatching) {
+            var name = field.key;
+            var question = lodash.find(data, 'selector', name);
+
+            if (newValue === oldValue) {
+              return;
+            }
+
+            question.value = newValue;
+          }
         }
       }
     }
