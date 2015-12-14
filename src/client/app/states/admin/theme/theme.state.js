@@ -16,11 +16,11 @@
       'admin.theme': {
         url: '/theme',
         templateUrl: 'app/states/admin/theme/theme.html',
-        controller: themeController,
+        controller: StateController,
         controllerAs: 'vm',
         title: 'Theme',
         resolve: {
-          theme: resolvetheme
+          theme: resolveTheme
         }
       }
     };
@@ -42,13 +42,13 @@
   }
 
   /** @ngInject */
-  function resolvetheme(Theme) {
+  function resolveTheme(Theme) {
     // return theme.query().$promise;
     return Theme;
   }
 
   /** @ngInject */
-  function themeController(theme) {
+  function StateController(theme) {
     var vm = this;
 
     vm.title = 'Theme';

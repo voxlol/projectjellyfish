@@ -15,11 +15,11 @@
         bg: '#000000',
         font: '#FFFFFF'
       }
-    }
+    };
 
     theme.reset = function() {
       // set back to default here
-    }
+    };
 
     return theme;
   }
