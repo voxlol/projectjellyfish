@@ -36,7 +36,7 @@
         type: 'state',
         state: 'admin.settings',
         label: 'Settings',
-        order: 4
+        order: 3
       }
     };
   }
