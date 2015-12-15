@@ -542,12 +542,11 @@
         ];
         var data = $scope.model[$scope.options.key];
 
-        // lodash.filter(data,{'type':'style'})
         $scope.options.data.fields = lodash.map(data, buildField);
         $scope.options.data.values = lodash(data).indexBy('selector').mapValues('value').value();
         // Make the parent model available
         $scope.options.data.values.$parent = $scope.model;
-
+        
         function buildField(question) {
           var field = angular.copy(Forms.fields(question.type || 'text'));
           field.key = question.selector;
