@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'manage.cms.edit': {
-        url: '/edit/:id',
-        templateUrl: 'app/states/manage/cms/edit/edit.html',
+      'manage.pages.create': {
+        url: '/create',
+        templateUrl: 'app/states/manage/pages/create/create.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin CMS Edit',
+        title: 'Admin Pages Create',
         resolve: {
           contentPageRecord: resolveContentPage
         }
@@ -36,27 +36,23 @@
 
   /** @ngInject */
   function resolveContentPage($stateParams, ContentPage) {
-    if ($stateParams.id) {
-      return ContentPage.get({id: $stateParams.id}).$promise;
-    } else {
-      return {};
-    }
+    return new ContentPage();
   }
 
   /** @ngInject */
   function StateController(logger, contentPageRecord, $stateParams) {
     var vm = this;
 
-    vm.title = 'Admin CMS Edit';
+    vm.title = 'Admin Pages Create';
     vm.contentPageRecord = contentPageRecord;
     vm.activate = activate;
-    vm.home = 'manage.cms.list';
+    vm.home = 'manage.pages.list';
     vm.homeParams = { };
 
     activate();
 
     function activate() {
-      logger.info('Activated Admin CMS Edit View');
+      logger.info('Activated Admin Pages Create View');
     }
   }
 })();

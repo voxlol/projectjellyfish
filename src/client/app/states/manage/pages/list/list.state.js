@@ -13,12 +13,12 @@
 
   function getStates() {
     return {
-      'manage.cms.list': {
-        url: '', // No url, this state is the index of manage.cms
-        templateUrl: 'app/states/manage/cms/list/list.html',
+      'manage.pages.list': {
+        url: '', // No url, this state is the index of manage.pages
+        templateUrl: 'app/states/manage/pages/list/list.html',
         controller: StateController,
         controllerAs: 'vm',
-        title: 'Admin CMS List',
+        title: 'Admin Pages List',
         resolve: {
           pages: resolvePages
         }
@@ -44,7 +44,7 @@
     var vm = this;
 
     // ATTRIBUTES
-    vm.title = 'Admin CMS List';
+    vm.title = 'Admin Pages List';
     vm.pages = pages;
 
     // METHODS
@@ -54,7 +54,7 @@
     activate();
 
     function activate() {
-      logger.info('Activated Admin CMS List View');
+      logger.info('Activated Admin Pages List View');
     }
 
     function deleteContentPage(page) {
