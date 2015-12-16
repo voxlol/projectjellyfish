@@ -3,7 +3,7 @@
     <span class="content-header__title">Content Pages</span>
   </div>
   <div class="content-header__aside">
-    <a ui-sref="manage.pages.create" class="btn-rounded">Add Content Page</a>
+    <a ui-sref="manage.cms.create" class="btn-rounded">Add Content Page</a>
   </div>
 </content-header>
 <table ng-if="1 <= vm.pages.length" st-table="vm.pages" class="tables tables--bordered">
@@ -21,7 +21,7 @@
     <td class="tables__cell tables__cell--centered">{{ ::row.created_at | date:'short' }}</td>
     <td class="tables__cell tables__cell--centered">{{ ::row.updated_at | date:'short' }}</td>
     <td class="tables__cell tables__cell--actions">
-      <a ui-sref="manage.pages.edit({id: row.id})" class="tables__action">
+      <a ui-sref="manage.cms.edit({id: row.id})" class="tables__action">
         <img src="/images/ic_edit.png" alt="Edit"/>
       </a>
       <a href="#" class="tables__action"

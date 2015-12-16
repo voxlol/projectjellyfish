@@ -13,9 +13,9 @@
 
   function getStates() {
     return {
-      'manage.pages': {
-        url: '/pages',
-        redirectTo: 'manage.pages.list',
+      'manage.cms': {
+        url: '/cms',
+        redirectTo: 'manage.cms.list',
         template: '<ui-view></ui-view>'
       }
     };
@@ -27,10 +27,10 @@
 
   function sidebarItems() {
     return {
-      'manage.pages': {
+      'manage.cms': {
         type: 'state',
-        state: 'manage.pages',
-        label: 'Pages',
+        state: 'manage.cms',
+        label: 'CMS',
         order: 10
       }
     };
