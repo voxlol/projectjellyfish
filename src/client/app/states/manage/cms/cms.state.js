@@ -30,7 +30,7 @@
       'manage.cms': {
         type: 'state',
         state: 'manage.cms',
-        label: 'CMS',
+        label: 'Pages',
         order: 10
       }
     };
