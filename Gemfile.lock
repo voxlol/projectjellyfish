@@ -60,6 +60,9 @@ GEM
       activemodel (= 4.2.3)
       activesupport (= 4.2.3)
       arel (~> 6.0)
+    activerecord_json_validator (1.0.0)
+      activerecord (>= 4.2.0, < 5)
+      json-schema (~> 2.5)
     activesupport (4.2.3)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -72,6 +75,7 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_list (0.7.2)
       activerecord (>= 3.0)
+    addressable (2.3.8)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -196,6 +200,8 @@ GEM
     ice_nine (0.11.1)
     ipaddress (0.8.0)
     json (1.8.3)
+    json-schema (2.5.2)
+      addressable (~> 2.3.8)
     license_finder (2.0.4)
       bundler
       httparty
@@ -387,6 +393,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.8.0)
+  activerecord_json_validator
   activesupport-json_encoder
   acts-as-taggable-on
   acts_as_list

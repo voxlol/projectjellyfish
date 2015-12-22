@@ -109,6 +109,9 @@ gem 'activesupport-json_encoder'
 # Resource filtering with scopes
 gem 'has_scope'
 
+# ActiveRecord JSON Validator
+gem 'activerecord_json_validator'
+
 # Jellyfish Extensions
 gem 'jellyfish-aws', git: 'git://github.com/projectjellyfish/jellyfish-aws.git'
 gem 'jellyfish-docker', git: 'git://github.com/projectjellyfish/jellyfish-docker.git'
