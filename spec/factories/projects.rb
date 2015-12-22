@@ -37,7 +37,7 @@ FactoryGirl.define do
     spent 0.0
     monthly_spend 0
     start_date((Time.zone.now + 1.week).to_date)
-    end_date((Time.zone.now + 2.week).to_date)
+    end_date((Time.zone.now + 2.weeks).to_date)
     img '/images/no_image.png'
     status :undecided
     health :pending
