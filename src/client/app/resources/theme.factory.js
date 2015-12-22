@@ -6,9 +6,21 @@
 
   /** @ngInject */
   function ThemeFactory($resource) {
-    // var theme = $resource('/api/v1/themes/', {}, {});
+    var theme = $resource('/api/v1/theme', {}, {
+      get: {
+        method: 'GET',
+        isArray: false
+      },
+      update: {
+        method: 'PUT',
+        isArray: false
+      },
+      query: {
+        isArray: false
+      }
+    });
 
-    var theme = {
+    theme.defaults = {
       global: [{
         type: 'style',
         label: 'Primary Background ',

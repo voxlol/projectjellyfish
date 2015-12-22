@@ -32,7 +32,7 @@ class ThemesController < ApplicationController
   end
 
   def theme_params
-    params.permit(:name, :description, :config)
+    params.permit(:name, :description).tap { |v| v[:config] = params[:config] }
   end
 
   def theme

@@ -540,7 +540,7 @@
         var templateOptions = [
           'label'
         ];
-        var data = $scope.model[$scope.options.key];
+        var data = $scope.model.config[$scope.options.key];
 
         $scope.options.data.fields = lodash.map(data, buildField);
         $scope.options.data.values = lodash(data).indexBy('selector').mapValues('value').value();

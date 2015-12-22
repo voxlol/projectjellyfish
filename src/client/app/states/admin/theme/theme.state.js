@@ -43,7 +43,7 @@
 
   /** @ngInject */
   function resolveTheme(Theme) {
-    return Theme;
+    return Theme.query({}).$promise;
   }
 
   /** @ngInject */
