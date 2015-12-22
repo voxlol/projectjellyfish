@@ -3,11 +3,7 @@ class ThemePolicy < ApplicationPolicy
     true
   end
 
-  def create?
-    admin?
-  end
-
   def update?
-    admin?
+    user.admin?
   end
 end

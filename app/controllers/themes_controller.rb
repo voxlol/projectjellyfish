@@ -9,30 +9,23 @@ class ThemesController < ApplicationController
     error_codes
   end
 
-  api :GET, '/themes', 'Returns the site theme.'
+  api :GET, '/theme', 'Returns the site theme.'
   error_codes
 
   def show
     respond_with_params Theme.first
   end
 
-  api :POST, '/themes', 'Create new site theme.'
-  param_group :theme_params
-
-  def create
-    theme_create_or_update
-  end
-
-  api :PUT, '/themes', 'Updates existing site theme.'
+  api :PUT, '/theme', 'Updates existing site theme.'
   param_group :theme_params
 
   def update
-    theme_create_or_update
+    theme_update
   end
 
   private
 
-  def theme_create_or_update
+  def theme_update
     authorize theme
     theme.update theme_params
     respond_with_params theme

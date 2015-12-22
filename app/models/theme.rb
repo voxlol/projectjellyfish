@@ -30,5 +30,4 @@ class Theme < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   validates :config, presence: true, json: { schema: CONFIG_SCHEMA }
-
 end
