@@ -11,10 +11,6 @@
 #
 
 class Theme < ActiveRecord::Base
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :config, presence: true, json: { schema: CONFIG_SCHEMA }
-
   CONFIG_SCHEMA = {
     'type': 'object',
     '$schema': 'http://json-schema.org/draft-04/schema',
@@ -30,4 +26,9 @@ class Theme < ActiveRecord::Base
     },
     'required': %w(global link button navigation region tables tags modal)
   }
+
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :config, presence: true, json: { schema: CONFIG_SCHEMA }
+
 end
