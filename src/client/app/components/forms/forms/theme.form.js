@@ -7,69 +7,51 @@
   /** @ngInject */
   function themeForm(FormsProvider) {
     FormsProvider.register('themeForm', {
-      fields: [
-        {
-          className: 'forms__body',
-          fieldGroup: [
-            {
-              key: 'global',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Global'
-              }
-            },
-            {
-              key: 'navigation',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Navigation'
-              }
-            },
-            {
-              key: 'button',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Buttons'
-              }
-            },
-            {
-              key: 'link',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Links'
-              }
-            },
-            {
-              key: 'region',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Region'
-              }
-            },
-            {
-              key: 'tables',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Tables'
-              }
-            },
-            {
-              key: 'tags',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Tags'
-              }
-            },
-            {
-              key: 'modal',
-              type: 'multipleColors',
-              templateOptions: {
-                label: 'Modals'
-              }
-            }
-          ]
-        }
-      ]
+      controller: ThemeFormController
     });
+
+    /** @ngInject */
+    function ThemeFormController(lodash) {
+      var vm = this;
+
+      init();
+
+      function init() {
+        var groups = [
+          ['global', 'Site Colors'],
+          ['navigation', 'Navigation'],
+          ['button', 'Buttons'],
+          ['link', 'Links'],
+          ['region', 'Regions'],
+          ['table', 'Tables'],
+          ['tags', 'Tags'],
+          ['modal', 'Modals']
+        ];
+
+        var fieldGroups = lodash.flatten(lodash.map(groups, buildFieldGroup));
+        vm.fields = fieldGroups;
+
+        function buildFieldGroup(group) {
+          var key = group[0];
+          var label = group[1];
+
+          return [
+            {
+              className: 'forms__category',
+              template: '<hr/>' + label + ':'
+            },
+            {
+              className: 'forms__body',
+              fieldGroup: [
+                {
+                  key: key,
+                  type: 'multipleColors'
+                }
+              ]
+            }
+          ];
+        }
+      }
+    }
   }
 })();
