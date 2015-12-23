@@ -15,14 +15,62 @@ class Theme < ActiveRecord::Base
     'type': 'object',
     '$schema': 'http://json-schema.org/draft-04/schema',
     'properties': {
-      'global': { 'type': 'array' },
-      'link': { 'type': 'array' },
-      'button': { 'type': 'array' },
-      'navigation': { 'type': 'array' },
-      'region': { 'type': 'array' },
-      'tables': { 'type': 'array' },
-      'tags': { 'type': 'array' },
-      'modal': { 'type': 'array' }
+      'global': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'link': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'button': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'navigation': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'region': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'tables': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'tags': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      },
+      'modal': {
+        'type': 'array',
+        'items': {
+          'type': 'object'
+        },
+        'uniqueItems': true
+      }
     },
     'required': %w(global link button navigation region tables tags modal)
   }

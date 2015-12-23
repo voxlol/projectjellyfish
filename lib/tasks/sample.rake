@@ -126,10 +126,5 @@ namespace :sample do
       role = roles.assoc(data['role']).last
       Membership.create(project: project, group: group, role: role)
     end
-
-    sample_data 'themes' do |data|
-      puts " #{data['name']}"
-      Theme.create(data)
-    end
   end
 end

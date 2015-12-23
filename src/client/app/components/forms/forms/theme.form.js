@@ -9,99 +9,67 @@
     FormsProvider.register('themeForm', {
       fields: [
         {
-          className: 'forms__category',
-          template: '<hr/>Global:'
-        },
-        {
           className: 'forms__body',
           fieldGroup: [
             {
               key: 'global',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Navigation:'
-        }, {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Global'
+              }
+            },
             {
               key: 'navigation',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Button:'
-        }, {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Navigation'
+              }
+            },
             {
               key: 'button',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Link:'
-        },
-        {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Buttons'
+              }
+            },
             {
               key: 'link',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Region:'
-        }, {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Links'
+              }
+            },
             {
               key: 'region',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Table:'
-        }, {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Region'
+              }
+            },
             {
               key: 'tables',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Tags:'
-        }, {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Tables'
+              }
+            },
             {
               key: 'tags',
-              type: 'multipleColors'
-            }
-          ]
-        }, {
-          className: 'forms__category',
-          template: '<hr/>Modal:'
-        },
-        {
-          className: 'forms__body',
-          fieldGroup: [
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Tags'
+              }
+            },
             {
               key: 'modal',
-              type: 'multipleColors'
+              type: 'multipleColors',
+              templateOptions: {
+                label: 'Modals'
+              }
             }
           ]
         }
       ]
-    })
-    ;
+    });
   }
 })();

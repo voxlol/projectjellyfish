@@ -66,6 +66,12 @@
       "main": [
         "css/font-awesome.css"
       ]
+    },
+    "angular-color-picker": {
+      "dependencies": {
+        "tinycolor": "^1.3.0",
+        "angular": "^1.3.0"
+      }
     }
   }
 }
