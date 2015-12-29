@@ -370,7 +370,7 @@
     function questionsField() {
       formlyConfig.setType(angular.extend({
         name: 'questions',
-        controller: nestedFormControllerFactory({
+        controller: nestedFormCtrlFactory({
           templateOptions: [
             'label', 'placeholder',                           // General
             'options', 'labelProp', 'valueProp', 'groupProp', // Select
@@ -389,15 +389,20 @@
     function multipleColorsField() {
       formlyConfig.setType(angular.extend({
         name: 'multipleColors',
-        controller: nestedFormControllerFactory({
+        controller: nestedFormCtrlFactory({
           templateOptions: ['label'],
           data: {
             indexKey: 'selector',       // Key to index all the different data
             location: 'config',         // Key to data from resource
-            buildKey: 'type'            // Key to build field from field data
+            buildKey: 'type',           // Key to build field from field data
+            transform: mapMixinToStyle  // Change which form field to use
           }
         })
       }, nestedFormDefaults));
+
+      function mapMixinToStyle(fieldType) {
+        return fieldType === 'mixin' ? 'style' : fieldType;
+      }
     }
 
     function tagsField() {
@@ -478,15 +483,16 @@
       }
     }
 
-    function nestedFormControllerFactory(config) {
+    function nestedFormCtrlFactory(config) {
       var templateOptions = config.templateOptions;
       var buildKey = config.data.buildKey;
       var indexKey = config.data.indexKey;
       var location = config.data.location;
+      var transform = config.data.transform || null;
 
-      return nestedFormController;
+      return nestedFormCtrl;
 
-      function nestedFormController($scope, lodash, Forms) {
+      function nestedFormCtrl($scope, lodash, Forms) {
         var data = config.data.location === 'root' ? 
             $scope.model[$scope.options.key] : $scope.model[location][$scope.options.key];
 
@@ -497,7 +503,9 @@
         $scope.options.data.values.$parent = $scope.model;
 
         function buildField(fieldData) {
-          var field = angular.copy(Forms.fields(fieldData[buildKey] || 'text'));
+          var field = angular.copy(Forms.fields(
+            (transform ? transform(fieldData[buildKey]) : fieldData[buildKey]) || 'text')
+          );
 
           field.key = fieldData[indexKey];
 
