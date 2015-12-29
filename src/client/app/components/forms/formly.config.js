@@ -492,6 +492,7 @@
 
       return nestedFormCtrl;
 
+      /** @ngInject */
       function nestedFormCtrl($scope, lodash, Forms) {
         var data = config.data.location === 'root' ? 
             $scope.model[$scope.options.key] : $scope.model[location][$scope.options.key];
@@ -549,13 +550,13 @@
 
           function listener(field, newValue, oldValue, scope, stopWatching) {
             var name = field.key;
-            var question = lodash.find(data, indexKey, name);
+            var fieldData = lodash.find(data, indexKey, name);
 
             if (newValue === oldValue) {
               return;
             }
 
-            question.value = newValue;
+            fieldData.value = newValue;
           }
         }
       }
