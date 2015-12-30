@@ -1,8 +1,8 @@
 Project Jellyfish
 =======
 
-[![Code Climate](https://codeclimate.com/repos/562121c0e30ba00b9000001d/badges/7acea550c1f3774c4f12/gpa.svg)](https://codeclimate.com/repos/562121c0e30ba00b9000001d/feed)
-[![Test Coverage](https://codeclimate.com/repos/562121c0e30ba00b9000001d/badges/7acea550c1f3774c4f12/coverage.svg)](https://codeclimate.com/repos/562121c0e30ba00b9000001d/coverage)
+[![Code Climate](https://codeclimate.com/github/projectjellyfish/api/badges/gpa.svg)](https://codeclimate.com/github/projectjellyfish/api)
+[![Test Coverage](https://codeclimate.com/github/projectjellyfish/api/badges/coverage.svg)](https://codeclimate.com/github/projectjellyfish/api/coverage)
 [![Build Status](https://travis-ci.org/projectjellyfish/api.svg?branch=master)](https://travis-ci.org/projectjellyfish/api)
 
 #### Overview
@@ -27,17 +27,19 @@ Jellyfish has the following requirements:
 * PostgreSQL 9.4+
 * Red Hat Enterprise Linux / CentOS
 
-To see a detailed list of [System Requirements](https://github.com/projectjellyfish/api/wiki/System-Requirements), please check out our [Wiki](https://github.com/projectjellyfish/api/wiki).
+To see a detailed list of [System Requirements](http://projectjellyfish.readthedocs.org/requirements/)
+
+[Project Documentation](http://projectjellyfish.readthedocs.org)
 
 **How to Install Project Jellyfish**
 
 Jellyfish is a Ruby on Rails application.  Please choose the appropriate installation guide for your system:
 
-* Mac Users: [INSTALL-OSX.md](https://github.com/projectjellyfish/api/blob/master/docs/install-guides/mac.md) - Mac OS Installation (generally used for development)
+* Mac Users: [INSTALL-OSX.md](http://projectjellyfish.readthedocs.org/install-guides/mac/) - Mac OS Installation (generally used for development)
 
-* Windows Users: [INSTALL-RHEL.md](https://github.com/projectjellyfish/api/blob/master/docs/install-guides/rhel.md)  - Red Hat Enterprise Linux / CentOS installation
+* Windows Users: [INSTALL-RHEL.md](http://projectjellyfish.readthedocs.org/install-guides/rhel/)  - Red Hat Enterprise Linux / CentOS installation
 
-* Heroku Quick Install: 
+* Heroku Quick Install:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/projectjellyfish/api/tree/distributions/heroku-button)
 
@@ -45,7 +47,7 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 -----
 #### License
 
-See [LICENSE](https://github.com/projectjellyfish/api/blob/master/LICENSE).
+This project is licensed under the [Apache 2.0 License](http://projectjellyfish.readthedocs.org/#license).
 
 -----
 Copyright 2015 Booz Allen Hamilton
