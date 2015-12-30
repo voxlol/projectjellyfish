@@ -12,7 +12,7 @@ addons:
   postgresql: '9.4'
   code_climate:
     repo_token:
-      secure: QqCIf4CKVhbryGg6KugWjQsjADZEtQO+pyDel7YJETWTmfo+raQfyDlHAOgHJlX5OSyrYFwenxCDg+SvPH7NfiVdPnF9HOG95XlYAexuOuSrgnbwQUrI4S8vRQiuOG8Q22j1zs4W21B03KIWTGDo1/Hjw4FlSELlVQakJlROH6U=
+      secure: fI35jtrhazWf+Ec+DJyrPnGx6ZRprtnhtyx204tcND++bh/3p2c4OEkHtqDjbUz/HVss8W7jgEIBzlfwT4DDC7pgE/Bt20OZv8DA85p/6o0jZNYoHxvccWL+KaLp/cvV9al7/QyvczhdPlZsPrgpkxV8ASWZ20nkN9NOnejI4j0=
 before_install:
 - echo "4.0.1-$TRAVIS_BUILD_NUMBER" > VERSION
 - export DISPLAY=:99.0
