@@ -11,7 +11,7 @@
     });
 
     /** @ngInject */
-    function ThemeFormController(lodash) {
+    function ThemeFormController(lodash, Forms) {
       var vm = this;
 
       init();
@@ -23,33 +23,37 @@
           ['button', 'Buttons'],
           ['link', 'Links'],
           ['region', 'Regions'],
-          ['table', 'Tables'],
+          ['tables', 'Tables'],
           ['tags', 'Tags'],
           ['modal', 'Modals']
         ];
 
-        var fieldGroups = lodash.flatten(lodash.map(groups, buildFieldGroup));
-        vm.fields = fieldGroups;
+        vm.fields = lodash.flatten(lodash.map(groups, buildFieldGroup));
 
         function buildFieldGroup(group) {
           var key = group[0];
           var label = group[1];
 
+          var dataSet = vm.record.config[key];
+
           return [
             {
               className: 'forms__category',
-              template: '<hr/>' + label + ':'
+              template: '<hr />' + label + ':'
             },
             {
               className: 'forms__body',
-              fieldGroup: [
-                {
-                  key: key,
-                  type: 'multipleColors'
-                }
-              ]
+              fieldGroup: lodash.map(dataSet, buildField)
             }
           ];
+
+          function buildField(data, index) {
+            var field = angular.copy(Forms.fields('colorpicker'));
+            field.key = 'config[\'' + key + '\'][' + index + '].value';
+            field.templateOptions.label = data.label;
+
+            return field;
+          }
         }
       }
     }

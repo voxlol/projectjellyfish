@@ -71,20 +71,7 @@
     });
 
     // Generic color
-    Forms.fields('style', {
-      key: 'value',
-      type: 'colorpicker',
-      templateOptions: {
-        label: 'Color',
-        colorPickerFormat: '"hex"',
-        colorPickerAlpha: false,
-        colorPickerPos: '"top left"',
-        colorPickerSwatchBootstrap: false
-      }
-    });
-
-    // Generic color mixin
-    Forms.fields('mixin', {
+    Forms.fields('colorpicker', {
       key: 'value',
       type: 'colorpicker',
       templateOptions: {

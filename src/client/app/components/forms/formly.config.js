@@ -354,7 +354,6 @@
     tagsField();
     imageChooserField();
     multipleOptionsField();
-    multipleColorsField();
 
     function questionsField() {
       formlyConfig.setType({
@@ -517,87 +516,6 @@
           var options = angular.copy($scope.to.inputOptions);
 
           return options;
-        }
-      }
-    }
-
-    function multipleColorsField() {
-      formlyConfig.setType({
-        name: 'multipleColors',
-        template: '<formly-form form="form" model="options.data.values" ' +
-        'fields="options.data.fields" options="formOptions"></formly-form>',
-        defaultOptions: {
-          data: {
-            fields: [],
-            values: {}
-          }
-        },
-        controller: MultipleColorsController
-      });
-
-      /** @ngInject */
-      function MultipleColorsController($scope, lodash, Forms) {
-        var templateOptions = [
-          'label'
-        ];
-        var data = $scope.model.config[$scope.options.key];
-
-        $scope.options.data.fields = lodash.map(data, buildField);
-        $scope.options.data.values = lodash(data).indexBy('selector').mapValues('value').value();
-        // Make the parent model available
-        $scope.options.data.values.$parent = $scope.model;
-
-        function buildField(question) {
-          var field = angular.copy(Forms.fields(question.type || 'text'));
-          field.key = question.selector;
-          if (angular.isDefined(field.templateOptions)) {
-            angular.merge(field.templateOptions, lodash(question).pick(templateOptions).value());
-          }
-
-          if (angular.isDefined(question.required)) {
-            setRequired();
-          }
-
-          field.watcher = {
-            listener: listener
-          };
-
-          return field;
-
-          function setRequired() {
-            switch (question.required) {
-              case 'if_new':
-                if (angular.isUndefined(field.expressionProperties)) {
-                  field.expressionProperties = {};
-                }
-                field.expressionProperties['templateOptions.required'] = '!model.id';
-                break;
-              case true:
-                if (angular.isUndefined(field.templateOptions)) {
-                  field.templateOptions = {};
-                }
-                field.templateOptions.required = true;
-                break;
-              case false:
-                break;
-              default:
-                if (angular.isUndefined(field.expressionProperties)) {
-                  field.expressionProperties = {};
-                }
-                field.expressionProperties['templateOptions.required'] = question.required;
-            }
-          }
-
-          function listener(field, newValue, oldValue, scope, stopWatching) {
-            var name = field.key;
-            var question = lodash.find(data, 'selector', name);
-
-            if (newValue === oldValue) {
-              return;
-            }
-
-            question.value = newValue;
-          }
         }
       }
     }
