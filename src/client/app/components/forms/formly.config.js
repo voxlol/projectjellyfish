@@ -350,58 +350,96 @@
 
   /** @ngInject */
   function complexTypes(formlyConfig, jfApiCheck, lodash) {
-    var nestedFormDefaults = {
-      template: '<formly-form form="form" model="options.data.values" ' +
-      'fields="options.data.fields" options="formOptions"></formly-form>',
-      defaultOptions: {
-        data: {
-          fields: [],
-          values: {}
-        }
-      }
-    };
-
     questionsField();
-    multipleColorsField();
     tagsField();
     imageChooserField();
     multipleOptionsField();
+    multipleColorsField();
 
     function questionsField() {
-      formlyConfig.setType(angular.extend({
+      formlyConfig.setType({
         name: 'questions',
-        controller: nestedFormCtrlFactory({
-          templateOptions: [
-            'label', 'placeholder',                           // General
-            'options', 'labelProp', 'valueProp', 'groupProp', // Select
-            'rows',                                           // Textarea
-            'minlength', 'maxlength', 'pattern'               // Validation
-          ],
+        template: '<formly-form form="form" model="options.data.values" ' +
+        'fields="options.data.fields" options="formOptions"></formly-form>',
+        defaultOptions: {
           data: {
-            indexKey: 'name',             // Key to index all the different data
-            location: 'root',             // Key to data from resource
-            buildKey: 'field'             // Key to build field from field data
+            fields: [],
+            values: {}
           }
-        })
-      }, nestedFormDefaults));
-    }
+        },
+        controller: QuestionsController
+      });
 
-    function multipleColorsField() {
-      formlyConfig.setType(angular.extend({
-        name: 'multipleColors',
-        controller: nestedFormCtrlFactory({
-          templateOptions: ['label'],
-          data: {
-            indexKey: 'selector',       // Key to index all the different data
-            location: 'config',         // Key to data from resource
-            buildKey: 'type',           // Key to build field from field data
-            transform: mapMixinToStyle  // Change which form field to use
+      /** @ngInject */
+      function QuestionsController($scope, lodash, Forms) {
+        var templateOptions = [
+          'label', 'placeholder', // General
+          'options', 'labelProp', 'valueProp', 'groupProp', // Select
+          'rows', // Textarea
+          'minlength', 'maxlength', 'pattern' // Validation
+        ];
+        var data = $scope.model[$scope.options.key];
+
+        $scope.options.data.fields = lodash.map(data, buildField);
+        $scope.options.data.values = lodash(data).indexBy('name').mapValues('value').value();
+
+        // Make the parent model available
+        $scope.options.data.values.$parent = $scope.model;
+
+        function buildField(question) {
+          var field = angular.copy(Forms.fields(question.field || 'text'));
+
+          field.key = question.name;
+
+          if (angular.isDefined(field.templateOptions)) {
+            angular.merge(field.templateOptions, lodash(question).pick(templateOptions).value());
           }
-        })
-      }, nestedFormDefaults));
 
-      function mapMixinToStyle(fieldType) {
-        return fieldType === 'mixin' ? 'style' : fieldType;
+          if (angular.isDefined(question.required)) {
+            setRequired();
+          }
+
+          field.watcher = {
+            listener: listener
+          };
+
+          return field;
+
+          function setRequired() {
+            switch (question.required) {
+              case 'if_new':
+                if (angular.isUndefined(field.expressionProperties)) {
+                  field.expressionProperties = {};
+                }
+                field.expressionProperties['templateOptions.required'] = '!model.id';
+                break;
+              case true:
+                if (angular.isUndefined(field.templateOptions)) {
+                  field.templateOptions = {};
+                }
+                field.templateOptions.required = true;
+                break;
+              case false:
+                break;
+              default:
+                if (angular.isUndefined(field.expressionProperties)) {
+                  field.expressionProperties = {};
+                }
+                field.expressionProperties['templateOptions.required'] = question.required;
+            }
+          }
+
+          function listener(field, newValue, oldValue, scope, stopWatching) {
+            var name = field.key;
+            var question = lodash.find(data, 'name', name);
+
+            if (newValue === oldValue) {
+              return;
+            }
+
+            question.value = newValue;
+          }
+        }
       }
     }
 
@@ -483,38 +521,40 @@
       }
     }
 
-    function nestedFormCtrlFactory(config) {
-      var templateOptions = config.templateOptions;
-      var buildKey = config.data.buildKey;
-      var indexKey = config.data.indexKey;
-      var location = config.data.location;
-      var transform = config.data.transform || null;
-
-      return nestedFormCtrl;
+    function multipleColorsField() {
+      formlyConfig.setType({
+        name: 'multipleColors',
+        template: '<formly-form form="form" model="options.data.values" ' +
+        'fields="options.data.fields" options="formOptions"></formly-form>',
+        defaultOptions: {
+          data: {
+            fields: [],
+            values: {}
+          }
+        },
+        controller: MultipleColorsController
+      });
 
       /** @ngInject */
-      function nestedFormCtrl($scope, lodash, Forms) {
-        var data = config.data.location === 'root' ? 
-            $scope.model[$scope.options.key] : $scope.model[location][$scope.options.key];
+      function MultipleColorsController($scope, lodash, Forms) {
+        var templateOptions = [
+          'label'
+        ];
+        var data = $scope.model.config[$scope.options.key];
 
         $scope.options.data.fields = lodash.map(data, buildField);
-        $scope.options.data.values = lodash(data).indexBy(indexKey).mapValues('value').value();
-
+        $scope.options.data.values = lodash(data).indexBy('selector').mapValues('value').value();
         // Make the parent model available
         $scope.options.data.values.$parent = $scope.model;
 
-        function buildField(fieldData) {
-          var field = angular.copy(Forms.fields(
-            (transform ? transform(fieldData[buildKey]) : fieldData[buildKey]) || 'text')
-          );
-
-          field.key = fieldData[indexKey];
-
+        function buildField(question) {
+          var field = angular.copy(Forms.fields(question.type || 'text'));
+          field.key = question.selector;
           if (angular.isDefined(field.templateOptions)) {
-            angular.merge(field.templateOptions, lodash(fieldData).pick(templateOptions).value());
+            angular.merge(field.templateOptions, lodash(question).pick(templateOptions).value());
           }
 
-          if (angular.isDefined(fieldData.required)) {
+          if (angular.isDefined(question.required)) {
             setRequired();
           }
 
@@ -525,7 +565,7 @@
           return field;
 
           function setRequired() {
-            switch (fieldData.required) {
+            switch (question.required) {
               case 'if_new':
                 if (angular.isUndefined(field.expressionProperties)) {
                   field.expressionProperties = {};
@@ -544,19 +584,19 @@
                 if (angular.isUndefined(field.expressionProperties)) {
                   field.expressionProperties = {};
                 }
-                field.expressionProperties['templateOptions.required'] = fieldData.required;
+                field.expressionProperties['templateOptions.required'] = question.required;
             }
           }
 
           function listener(field, newValue, oldValue, scope, stopWatching) {
             var name = field.key;
-            var fieldData = lodash.find(data, indexKey, name);
+            var question = lodash.find(data, 'selector', name);
 
             if (newValue === oldValue) {
               return;
             }
 
-            fieldData.value = newValue;
+            question.value = newValue;
           }
         }
       }

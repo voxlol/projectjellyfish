@@ -82,5 +82,18 @@
         colorPickerSwatchBootstrap: false
       }
     });
+
+    // Generic color mixin
+    Forms.fields('mixin', {
+      key: 'value',
+      type: 'colorpicker',
+      templateOptions: {
+        label: 'Color',
+        colorPickerFormat: '"hex"',
+        colorPickerAlpha: false,
+        colorPickerPos: '"top left"',
+        colorPickerSwatchBootstrap: false
+      }
+    });
   }
 })();
