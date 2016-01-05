@@ -19,18 +19,19 @@ GIT
       rails (~> 4.2)
 
 GIT
+  remote: git://github.com/projectjellyfish/jellyfish-demo.git
+  revision: f5ad6ac7c28f3e5a98e2326ab752109e597fecad
+  specs:
+    jellyfish-demo (0.0.1)
+      rails (~> 4.2.3)
+
+GIT
   remote: git://github.com/projectjellyfish/jellyfish-docker.git
   revision: 20056a268ec2a09a49ec86cca6631769e21f372c
   specs:
     jellyfish-docker (0.0.1)
       bcrypt (~> 3.1)
       rails (~> 4.2)
-
-PATH
-  remote: /Users/isapple/Development/jellyfish-demo
-  specs:
-    jellyfish-demo (0.0.1)
-      rails (~> 4.2.3)
 
 GEM
   remote: https://rubygems.org/
