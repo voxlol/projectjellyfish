@@ -16,7 +16,7 @@
       'admin.theme': {
         url: '/theme',
         templateUrl: 'app/states/admin/theme/theme.html',
-        controller: StateController,
+        controller: ThemeController,
         controllerAs: 'vm',
         title: 'Theme',
         resolve: {
@@ -47,7 +47,7 @@
   }
 
   /** @ngInject */
-  function StateController(theme) {
+  function ThemeController(theme) {
     var vm = this;
 
     vm.title = 'Theme';
