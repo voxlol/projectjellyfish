@@ -26,6 +26,12 @@ GIT
       bcrypt (~> 3.1)
       rails (~> 4.2)
 
+PATH
+  remote: /Users/isapple/Development/jellyfish-demo
+  specs:
+    jellyfish-demo (0.0.1)
+      rails (~> 4.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -407,6 +413,7 @@ DEPENDENCIES
   has_scope
   jellyfish-aws!
   jellyfish-azure!
+  jellyfish-demo!
   jellyfish-docker!
   license_finder
   omniauth
@@ -438,4 +445,4 @@ DEPENDENCIES
   wisper
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
