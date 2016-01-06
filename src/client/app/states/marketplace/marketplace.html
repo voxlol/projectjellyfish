@@ -1,3 +1,7 @@
+<alert ng-show="vm.wizardAlert()">
+  <strong>Your Wizard Results are In!</strong> To see more results, reduce the number of tags in your search.
+</alert>
+
 <content-header>
   <div class="marketplace__body">
     <tag-field ng-model="vm.tags" class="search-input" placeholder="Enter product tag or category"
@@ -20,5 +24,6 @@
     </button>
   </div>
 </content-header>
+
 <catalog-category ng-repeat="category in vm.catalog" category="category" view-mode="vm.viewMode"
                   required-tags="vm.tags"></catalog-category>

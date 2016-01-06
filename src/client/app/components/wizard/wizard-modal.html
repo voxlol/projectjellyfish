@@ -27,7 +27,7 @@
   <div ng-switch-when="complete">
     <div class="wizard-modal__question">Congratulations!</div>
     <div class="wizard-modal__subtitle">The Wizard has come up with the best service options for you.</div>
-    <button type="button" class="btn-rounded wizard-modal__button" ng-click="$close(vm.tags)">
+    <button type="button" class="btn-rounded wizard-modal__button" ng-click="$close(vm.tags, wizardAlert())">
       Show Matching Products
     </button>
   </div>

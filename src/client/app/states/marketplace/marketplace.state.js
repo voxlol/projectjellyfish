@@ -93,6 +93,17 @@
         vm.tags.length = 0;
         Array.prototype.push.apply(vm.tags, tags);
         updateCatalog();
+        wizardAlert(vm.tags);
+      }
+      function wizardAlert(tags) {
+        console.log('Inside of wizardAlert');
+
+        if (vm.tags.length > 0) {
+          console.log('Should return TRUE // Wizard Alert should show up on top');
+          return true;
+        }
+        console.log('Should return FALSE // Wizard Alert should be hidden');
+        return false;
       }
     }
   }
