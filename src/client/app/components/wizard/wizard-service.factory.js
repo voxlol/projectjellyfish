@@ -83,7 +83,7 @@
       vm.question = vm.questions[vm.questionPointer];
     }
 
-    function wizardSuccess(tags) {
+    function wizardSuccess() {
       $modalInstance.close(vm.tags);
       Toasts.toast('Wizard results are shown.');
     }
