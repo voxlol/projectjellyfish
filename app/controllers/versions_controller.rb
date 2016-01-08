@@ -2,12 +2,7 @@ class VersionsController < ApplicationController
   skip_before_action :require_user, only: [:show]
   after_action :verify_authorized, except: [:show]
 
-  def self.error_codes
-    error code: 404, desc: MissingRecordDetection::Messages.not_found
-    error code: 422, desc: ParameterValidation::Messages.missing
-  end
-
-  def self.document_params
+  def_param_group :document_params do
     param :message, String, desc: 'Return various meta data about the app', required: true
     error_codes
   end

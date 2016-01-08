@@ -7,6 +7,7 @@
 
     // Third part modules
     'smart-table',
+    'color.picker',
     'formly',
     'ui.sortable',
     'ui.bootstrap',

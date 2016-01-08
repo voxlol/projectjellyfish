@@ -32,6 +32,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def self.error_codes
+    error code: 404, desc: MissingRecordDetection::Messages.not_found
+    error code: 422, desc: ParameterValidation::Messages.missing
+  end
+
   def require_user
     head :unauthorized unless user_signed_in?
   end

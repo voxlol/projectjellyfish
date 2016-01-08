@@ -59,7 +59,7 @@
       templateOptions: {
         label: 'Date'
       }
-    });    
+    });
 
     // Generic email
     Forms.fields('email', {
@@ -67,6 +67,19 @@
       type: 'email',
       templateOptions: {
         label: 'Email'
+      }
+    });
+
+    // Generic color
+    Forms.fields('colorpicker', {
+      key: 'value',
+      type: 'colorpicker',
+      templateOptions: {
+        label: 'Color',
+        colorPickerFormat: '"hex"',
+        colorPickerAlpha: false,
+        colorPickerPos: '"top left"',
+        colorPickerSwatchBootstrap: false
       }
     });
   }
