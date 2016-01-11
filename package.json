@@ -1,12 +1,17 @@
 {
   "name": "project_jellyfish",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "license" : "Apache-2.0",
   "description": "Project Jellyfish dependencies",
   "authors": [
     "Michael Stack",
-    "Allen Wight"
+    "Allen Wight",
+    "Chris Kacerguis"
   ],
-  "license": "Apache 2.0",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/projectjellyfish/api.git"
+  },
   "scripts": {
     "init": "npm install",
     "install": "",
@@ -93,7 +98,7 @@
     "serve-favicon": "^2.2.0"
   },
   "engines": {
-    "node": "0.12.x",
-    "npm": "2.1.x"
+    "node": "5.x",
+    "npm": "3.x"
   }
 }
