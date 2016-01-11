@@ -3,7 +3,7 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev npm nodej
 RUN mkdir /api
 WORKDIR /api
 
-RUN npm install -g gulp bower
+RUN npm install gulp bower
 
 COPY Gemfile /api/
 COPY Gemfile.lock /api/
