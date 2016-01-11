@@ -33,7 +33,7 @@
   }
 
   /** @ngInject */
-  function WizardModalController(questions, lodash) {
+  function WizardModalController(questions, lodash, $modalInstance, Toasts) {
     var vm = this;
 
     vm.state = 'intro';
@@ -45,6 +45,7 @@
     vm.startWizard = startWizard;
     vm.answerWith = answerWith;
     vm.questionNavigation = questionNavigation;
+    vm.wizardSuccess = wizardSuccess;
 
     activate();
 
@@ -80,6 +81,11 @@
     function questionNavigation(direction) {
       vm.questionPointer = vm.questionPointer + direction;
       vm.question = vm.questions[vm.questionPointer];
+    }
+
+    function wizardSuccess() {
+      $modalInstance.close(vm.tags);
+      Toasts.toast('Wizard results are shown.');
     }
   }
 })();
