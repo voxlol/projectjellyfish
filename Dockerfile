@@ -18,6 +18,7 @@ COPY Gemfile.lock /api/
 COPY . /api/
 
 RUN npm install -g gulp bower
+RUN npm install gulp bower
 
 RUN bundle install --without development test
 RUN bower install --allow-root --config.interactive=false
