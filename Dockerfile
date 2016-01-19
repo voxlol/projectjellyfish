@@ -25,8 +25,11 @@ RUN npm install --production
 RUN bower install --allow-root --config.interactive=false
 RUN gulp build --production
 
-EXPOSE 3000
-
 # Need to populate the DB
+RUN rake db:migrate
+RUN rake db:seed
+RUN rake sample:demo
+
+EXPOSE 3000
 
 CMD bundle exec rails s -p 3000 -b '0.0.0.0'
