@@ -50,8 +50,11 @@ gulp.task('build-specs', ['templatecache'], task('buildSpecs'));
 /**
  * Testing tasks
  */
-gulp.task('test', ['vet', 'templatecache'], task('test', {singleRun: true}));
-gulp.task('autotest', task('test', {singleRun: false}));
+
+if (process.env.NODE_ENV === "production") {
+    gulp.task('test', ['vet', 'templatecache'], task('test', {singleRun: true}));
+    gulp.task('autotest', task('test', {singleRun: false}));
+}
 
 /**
  * Serves up injected html for dev, builds for evything else.
