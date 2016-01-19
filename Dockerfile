@@ -19,7 +19,7 @@ COPY . /api/
 
 RUN npm install -g gulp bower wiredep
 
-RUN npm install gulp bower wiredep yargs
+RUN npm install gulp bower wiredep yargs merge gulp-task-listing browser-sync gulp-util
 
 RUN bundle install --without development test
 RUN bower install --allow-root --config.interactive=false
