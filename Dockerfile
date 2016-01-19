@@ -25,10 +25,8 @@ RUN npm install --production
 RUN bower install --allow-root --config.interactive=false
 RUN gulp build --production
 
-# Need to populate the DB
-RUN rake db:migrate
-RUN rake db:seed
-RUN rake sample:demo
+# Need to populate the DB (db needs to be running)
+#RUN rake db:create && rake db:migrate && rake db:seed && rake sample:demo
 
 EXPOSE 3000
 

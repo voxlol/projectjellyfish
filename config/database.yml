@@ -26,5 +26,5 @@ docker:
   database: postgres
   pool: 5
   username: postgres
-  password:
+  password: <%= ENV["POSTGRES_PASS"] %>
   host: db
