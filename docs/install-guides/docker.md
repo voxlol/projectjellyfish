@@ -20,9 +20,7 @@ docker-compose up
 ```
 In a different terminal, enter the following command to setup the database
 ```
-docker-compose run web rake db:setup
-docker-compose run web rake db:seed
-docker-compose run web rake sample:demo
+docker-compose run web rake db:migrate && rake db:seed && rake sample:demo
 ```
 Your application should now be running. To find your boot2docker ip address, run
 ```

@@ -33,11 +33,11 @@ To see a detailed list of [System Requirements](http://projectjellyfish.readthed
 
 Jellyfish is a Ruby on Rails application.  Please choose the appropriate installation guide for your system:
 
-* Mac Users: [INSTALL-OSX.md](http://projectjellyfish.readthedocs.org/install-guides/mac/) - Mac OS Installation (generally used for development)
+* [Mac Users](http://projectjellyfish.readthedocs.org/install-guides/mac/) - Mac OS Installation (generally used for development)
 
-* Windows Users: [INSTALL-RHEL.md](http://projectjellyfish.readthedocs.org/install-guides/rhel/)  - Red Hat Enterprise Linux / CentOS installation
+* [Windows Users](http://projectjellyfish.readthedocs.org/install-guides/rhel/)  - Red Hat Enterprise Linux / CentOS installation
 
-* Docker Users: - This is the best way to run Jellyfish
+* [Docker Users (Recomended)] (http://projectjellyfish.readthedocs.org/install-guides/docker/)- This is the best way to run Jellyfish
 
 -----
 #### License
