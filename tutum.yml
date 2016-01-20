@@ -1,5 +1,5 @@
 db:
-  image: tutum/postgresql
+  image: postgres
 web:
   image: boozallen/projectjellyfish:latest
   command: bundle exec rails s -p 3000 -b '0.0.0.0'
