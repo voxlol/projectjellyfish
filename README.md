@@ -37,7 +37,9 @@ Jellyfish is a Ruby on Rails application.  Please choose the appropriate install
 
 * [Windows Users](http://projectjellyfish.readthedocs.org/install-guides/rhel/) - Red Hat Enterprise Linux / CentOS installation
 
-* [Docker Users (Recomended)](http://projectjellyfish.readthedocs.org/install-guides/docker/) - This is the best way to run Jellyfish
+Reccomended:
+
+* [Docker Users](http://projectjellyfish.readthedocs.org/install-guides/docker/) - This is the best way to run Jellyfish
 
 -----
 #### License
