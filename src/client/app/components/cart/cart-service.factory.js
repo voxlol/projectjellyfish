@@ -43,9 +43,7 @@
       service.itemCountTotal += 1;
       calculateProjectCost();
       Toasts.toast(product.name + ' has been add to your cart under ' + project.name);
-      if (project.budget < projects[projectId].total) {
-        Toasts.error('You have exceeded the budget for ' + project.name)
-      }
+      checkBudget(project);
     }
 
     function remove(index) {
@@ -97,6 +95,12 @@
 
       function computeProductTotal(total, line) {
         return total + (parseFloat(line.product.monthly_price) + ((parseFloat(line.product.hourly_price)) * 750));
+      }
+    }
+
+    function checkBudget(project) {
+      if (project.budget < projects[project.id].total) {
+        Toasts.error('You have exceeded the budget for ' + project.name);
       }
     }
   }
