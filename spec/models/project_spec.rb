@@ -33,24 +33,22 @@ describe 'Project.compute_current_status!' do
     project.orders << create(:order,
       project: project,
       staff: staff,
-      product: create(:product),
-      service: create(:service,
+      services: [create(:service,
         alerts: [
           create(:alert, status: :ok),
           high_priority_alert = create(:alert, status: :critical)
         ]
-      )
+      )]
     )
     project.orders << create(:order,
       project: project,
       staff: staff,
-      product: create(:product),
-      service: create(:service,
+      services: [create(:service,
         alerts: [
           create(:alert, status: :warning),
           create(:alert, status: :warning)
         ]
-      )
+      )]
     )
 
     project.reload.compute_current_status!
@@ -70,23 +68,22 @@ describe 'Project.problem_count' do
 
     project.orders << create(:order,
       project: project,
-      product: create(:product),
-      service: create(:service,
+      services: [create(:service,
         alerts: [
           create(:alert, status: :ok),
           create(:alert, status: :critical)
         ]
-      )
+      )]
     )
+
     project.orders << create(:order,
       project: project,
-      product: create(:product),
-      service: create(:service,
+      services: [create(:service,
         alerts: [
           create(:alert, status: :warning),
           create(:alert, status: :ok)
         ]
-      )
+      )]
     )
 
     expect(project.problem_count).to eq(1)
@@ -101,14 +98,19 @@ describe 'Project.monthly_spend' do
 
     CreateServiceOrder.perform user,
       project_id: project.id,
-      product_id: product.id,
-      service: { 'name' => 'Service 1', 'answers_attributes' => [{ 'value' => 'foo', 'name' => 'bar', 'value_type' => 'string' }] }
+      products: [
+        {
+          product_id: product.id,
+          service: { 'name' => 'Service 1' }
+        }
+      ]
 
     CreateServiceOrder.perform user,
       project_id: project.id,
-      product_id: product.id,
-      service: { 'name' => 'Service 2' }
-
+      products: [{
+        product_id: product.id,
+        service: { 'name' => 'Service 2' }
+      }]
     project.reload
 
     expect(project.monthly_spend).to be_a BigDecimal
@@ -128,8 +130,10 @@ describe 'Project.monthly_budget' do
     expect do
       CreateServiceOrder.perform @user,
         project_id: @project.id,
-        product_id: @product.id,
-        service: { 'name' => 'Service 1' }
+        products: [{
+          product_id: @product.id,
+          service: { 'name' => 'Service 1' }
+        }]
     end .to raise_error CreateServiceOrder::BudgetError
   end
 
@@ -138,11 +142,69 @@ describe 'Project.monthly_budget' do
 
     CreateServiceOrder.perform @user,
       project_id: @project.id,
-      product_id: @product.id,
-      service: { 'name' => 'Service 1' }
-
+      products: [{
+        product_id: @product.id,
+        service: { 'name' => 'Service 1' }
+      }]
     @project.reload
 
     expect(@project.services.length).to eq 1
+  end
+
+  it 'allows new orders with multiple services that stay within the monthly budget' do
+    @product_one = create :product, monthly_price: 50
+    @product_two = create :product, monthly_price: 25
+
+    CreateServiceOrder.perform @user,
+      project_id: @project.id,
+      products: [{
+        product_id: @product_one.id,
+        service: { 'name' => 'Service 1' }
+      }, {
+        product_id: @product_two.id,
+        service: { 'name' => 'Service 2' }
+      }]
+    @project.reload
+
+    expect(@project.services.length).to eq 2
+  end
+
+  it 'rejects new orders with multiple services that exceed the monthly budget' do
+    @product_one = create :product, monthly_price: 50
+    @product_two = create :product, monthly_price: 75
+
+    expect do
+      CreateServiceOrder.perform @user,
+        project_id: @project.id,
+        products: [{
+          product_id: @product_one.id,
+          service: { 'name' => 'Service 1' }
+        }, {
+          product_id: @product_two.id,
+          service: { 'name' => 'Service 2' }
+        }]
+      @project.reload
+    end .to raise_error CreateServiceOrder::BudgetError
+  end
+
+  it 'rejects new orders with multiple identical services that exceed the monthly budget' do
+    @product_one = create :product, monthly_price: 20
+    @product_two = create :product, monthly_price: 75
+
+    expect do
+      CreateServiceOrder.perform @user,
+        project_id: @project.id,
+        products: [{
+          product_id: @product_one.id,
+          service: { 'name' => 'Service 1' }
+        }, {
+          product_id: @product_two.id,
+          service: { 'name' => 'Service 2' }
+        }, {
+          product_id: @product_one.id,
+          service: { 'name' => 'Service 3' }
+        }]
+      @project.reload
+    end .to raise_error CreateServiceOrder::BudgetError
   end
 end

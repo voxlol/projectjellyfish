@@ -29,7 +29,7 @@ class CreateServiceOrder
 
   def perform
     validate
-    build_service
+    build_services
     build_order
     authorize order, :create?
     save
@@ -45,42 +45,74 @@ class CreateServiceOrder
       fail UnapprovedProject, "Project '#{project.name}' has not been approved."
     end
 
-    unless params[:service]['name'].present?
-      fail UnnamedService, 'A name for the service was not given.'
-    end
+    validate_name
 
-    unless product.monthly_cost + project.monthly_spend <= project.monthly_budget
+    unless total_cost + project.monthly_spend <= project.monthly_budget
       fail BudgetError, 'Adding this service will exceed the Project\'s monthly budget.'
     end
   end
 
-  def build_service
+  def validate_name
+    params[:products].each do |product|
+      unless product[:service]['name'].present?
+        fail UnnamedService, 'A name for the service was not given.'
+      end
+    end
+  end
+
+  def total_cost
+    @total_cost ||= services.map { |s| Product.find(s.product_id)[:monthly_price] }.inject(&:+)
+  end
+
+  def build_service(service, product_id)
     service.type = service.class.to_s
     service.status = :pending
     service.status_msg = 'Provisioning service...'
+    service.product_id = product_id
+    service
+  end
+
+  def build_services
+    @setup_price = 0
+    @hourly_price = 0
+    @monthly_price = 0
+
+    services.each do |service|
+      @setup_price += Product.find(service.product_id).setup_price
+      @hourly_price += Product.find(service.product_id).hourly_price
+      @monthly_price += Product.find(service.product_id).monthly_price
+    end
   end
 
   def build_order
-    order_params = params.merge(
+    order_params = {
       staff: user,
-      setup_price: product.setup_price,
-      hourly_price: product.hourly_price,
-      monthly_price: product.monthly_price,
-      service: service
-    )
+      project_id: params[:project_id],
+      setup_price: @setup_price,
+      hourly_price: @hourly_price,
+      monthly_price: @monthly_price,
+      services: services
+    }
 
     @order = Order.new order_params
   end
 
   def save
     # Saving the service will also save the order
-    unless service.save
-      fail PersistError, 'The service could not be created.'
+    services.map do |service|
+      unless service.save
+        fail PersistError, 'The service could not be created.'
+      end
+    end
+    unless order.save
+      fail PersistError, 'The order could not be created.'
     end
   end
 
   def provision_service
-    service.delay.provision
+    services.map do |service|
+      service.delay.provision
+    end
   end
 
   def project
@@ -89,18 +121,23 @@ class CreateServiceOrder
     raise MissingProject, 'The associated project cannot be located.'
   end
 
-  def product
-    @product ||= Product.find params[:product_id]
+  def products
+    @products ||= Product.find params[:products].map { |p| p[:product_id] }
   rescue ActiveRecord::RecordNotFound
     raise MissingProduct, 'The associated product cannot be located.'
   end
 
-  def service_class
-    @service_class ||= product.service_class
+  def service_class(product_id)
+    @service_class ||= {}
+    @service_class[product_id] ||= Product.find(product_id).service_class
   end
 
-  def service
-    @service ||= service_class.new(params.delete :service)
+  def services
+    @services ||= params[:products].map do |product|
+      klass = service_class product[:product_id]
+      @service = klass.new(product.delete :service)
+      @service = build_service(@service, product[:product_id])
+    end
   end
 
   def current_user

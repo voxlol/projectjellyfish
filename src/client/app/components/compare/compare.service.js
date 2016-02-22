@@ -76,11 +76,13 @@
   }
 
   /** @ngInject */
-  function CompareModalController(lodash, productList) {
+  function CompareModalController(lodash, productList, CartService,
+                                  ProjectHelper, $modalInstance, SelectedProjectHelper) {
     var vm = this;
 
     vm.products = productList;
     vm.rowData = [];
+    vm.addToCart = addToCart;
 
     buildData();
 
@@ -125,6 +127,15 @@
 
       function appendProperty(property) {
         vm.rowData.push(data.properties[property]);
+      }
+    }
+
+    function addToCart(product) {
+      $modalInstance.close();
+      if (SelectedProjectHelper.defaultProject) {
+        CartService.add(SelectedProjectHelper.selectedProject, product);
+      } else {
+        ProjectHelper.showModal(product);
       }
     }
   }
