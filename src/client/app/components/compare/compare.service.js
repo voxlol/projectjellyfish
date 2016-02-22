@@ -138,11 +138,5 @@
         ProjectHelper.showModal(product);
       }
     }
-      if (SelectedProjectHelper.defaultProject) {
-        CartService.add(SelectedProjectHelper.selectedProject, product);
-      } else {
-        ProjectHelper.showModal(product);
-      }
-    }
   }
 })();
