@@ -6,7 +6,9 @@ AllCops:
     - bin/**
     - lib/tasks/sample.rake
     - lib/jellyfish_fog_aws/spec/dummy/**/*
-  RunRailsCops: true
+
+Rails:
+  Enabled: true
 
 ClassLength:
   Max: 300
