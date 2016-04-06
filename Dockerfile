@@ -3,12 +3,12 @@ FROM ubuntu
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -q -y install libpq-dev build-essential git-core wget libssl-dev curl git zlib1g-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev libsqlite3-dev
 
 ENV PORT="3000" \
-    DEVISE_SECRET_KEY="de2e276ea051563e017f824d3e137c6d3d2bd267d1e9a94a07100d6e043fd99b533bc311967dda19125eb8f0fedf1e96c922b848e1299bb466494cd34cdeb740" \
+    DEVISE_SECRET_KEY="1442b3a4b4ccfd790b9c445f215c75fa2a8d1ac80248fec56c9dd662f2936fce4e08ac6ad46b80004baa0f48ec8fe19f047376ce334cf90cb6a258ed4f3c85bf" \
     RAILS_ENV="production" \
     SECRET_KEY_BASE="$(openssl rand -base64 32)" \
     NODE_ENV="production" \
     NODE_VERSION="5.x" \
-    RUBY_VERSION="2.3.6" \
+    RUBY_VERSION="2.3.2" \
     CONFIGURE_OPTS="--disable-install-doc" \
     PATH="/root/.rbenv/bin:/root/.rbenv/shims:$PATH"
 
