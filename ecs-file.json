@@ -1,0 +1,86 @@
+{
+  "container_definitions": [
+    {
+      "name": "worker",
+      "image": "",
+      "links": [
+        "redis",
+        "db"
+      ],
+      "command": [
+        "bundle",
+        "exec",
+        "rake",
+        "jobs:work"
+      ],
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgres://postgres:CWzYG_DZiDMY60sDDf9APw@db:5432/postgres"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "production"
+        }
+      ]
+    },
+    {
+      "name": "app",
+      "image": "",
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgres://postgres:CWzYG_DZiDMY60sDDf9APw@db:5432/postgres"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "production"
+        }
+      ],
+      "links": [
+        "db"
+      ],
+      "port_mappings": [
+        {
+          "protocol": "tcp",
+          "container_port": 3000,
+          "host_port": 0
+        }
+      ],
+      "command": [
+        "bundle",
+        "exec",
+        "rails",
+        "s",
+        "-b",
+        "0.0.0.0"
+      ]
+    },
+    {
+      "name": "db",
+      "image": "postgres",
+      "port_mappings": [
+        {
+          "protocol": "tcp",
+          "container_port": 5432,
+          "host_port": 0
+        }
+      ],
+      "environment": [
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "CWzYG_DZiDMY60sDDf9APw"
+        }
+      ]
+    }
+  ],
+  "family": "voxlolprojectjellyfish"
+}
