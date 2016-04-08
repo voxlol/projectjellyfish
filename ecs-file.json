@@ -1,0 +1,86 @@
+{
+  "container_definitions": [
+    {
+      "name": "app",
+      "image": "",
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgres://postgres:eJthmx_3DOb2e-Ia3fXuEw@db:5432/postgres"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "production"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        }
+      ],
+      "links": [
+        "db"
+      ],
+      "port_mappings": [
+        {
+          "protocol": "tcp",
+          "container_port": 3000,
+          "host_port": 0
+        }
+      ],
+      "command": [
+        "bundle",
+        "exec",
+        "rails",
+        "s",
+        "-b",
+        "0.0.0.0"
+      ]
+    },
+    {
+      "name": "db",
+      "image": "postgres",
+      "port_mappings": [
+        {
+          "protocol": "tcp",
+          "container_port": 5432,
+          "host_port": 0
+        }
+      ],
+      "environment": [
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "eJthmx_3DOb2e-Ia3fXuEw"
+        }
+      ]
+    },
+    {
+      "name": "worker",
+      "image": "",
+      "links": [
+        "redis",
+        "db"
+      ],
+      "command": [
+        "bundle",
+        "exec",
+        "rake",
+        "jobs:work"
+      ],
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgres://postgres:eJthmx_3DOb2e-Ia3fXuEw@db:5432/postgres"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "production"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        }
+      ]
+    }
+  ],
+  "family": "voxlolprojectjellyfish"
+}
