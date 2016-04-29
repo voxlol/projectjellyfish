@@ -1,14 +1,14 @@
 FROM ubuntu
 
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -q -y install libpq-dev build-essential git-core wget libssl-dev curl git zlib1g-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev libsqlite3-dev
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -q -y install git-core build-essential wget libssl-dev curl git zlib1g-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev libsqlite3-dev libpq-dev
 
 ENV PORT="3000" \
-    DEVISE_SECRET_KEY="1442b3a4b4ccfd790b9c445f215c75fa2a8d1ac80248fec56c9dd662f2936fce4e08ac6ad46b80004baa0f48ec8fe19f047376ce334cf90cb6a258ed4f3c85bf" \
+    DEVISE_SECRET_KEY="79b2aa444ce12b995c83f19654b057de80c8cd57194a8398efdb3dd8b0ec1ae9688a28c9ca858ad155b229cabcd90612c5f8e2b42b6893a795407afc7a37b0f7" \
     RAILS_ENV="production" \
     SECRET_KEY_BASE="$(openssl rand -base64 32)" \
     NODE_ENV="production" \
     NODE_VERSION="5.x" \
-    RUBY_VERSION="2.3.2" \
+    RUBY_VERSION="2.3.5" \
     CONFIGURE_OPTS="--disable-install-doc" \
     PATH="/root/.rbenv/bin:/root/.rbenv/shims:$PATH"
 
@@ -26,17 +26,17 @@ RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv \
     && echo "gem: --no-ri --no-rdoc" > ~/.gemrc \
     && gem install bundler
 RUN mkdir -p /app
-RUN npm install -g bower && npm install bower
 RUN npm install -g gulp && npm install gulp
+RUN npm install -g bower && npm install bower
 WORKDIR /app
 COPY . /app
 COPY Gemfile* /app/
 RUN bundle install --without development test --jobs 4
 COPY . /app/
 RUN bundle exec rake assets:precompile
-RUN rm -rf ./node_modules \
-    && npm install --production
 RUN echo '{ "allow_root": true }' > ~/.bowerrc \
     && bower install --config.interactive=false
+RUN rm -rf ./node_modules \
+    && npm install --production
 
 EXPOSE 3000

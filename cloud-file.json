@@ -1,6 +1,49 @@
 {
   "services": [
     {
+      "name": "app",
+      "container_ports": [
+        {
+          "protocol": "tcp",
+          "inner_port": 3000,
+          "published": true,
+          "outer_port": 1377
+        },
+        {
+          "protocol": "tcp",
+          "inner_port": 3000,
+          "published": true,
+          "outer_port": 7573
+        }
+      ],
+      "image": "",
+      "run_command": "rails s -b 0.0.0.0",
+      "target_num_containers": 1,
+      "sequential_deployment": true,
+      "autorestart": "ALWAYS",
+      "autoredeploy": true,
+      "container_envvars": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "RACK_ENV",
+          "value": "production"
+        },
+        {
+          "key": "DATABASE_URL",
+          "value": "postgres://postgres:688OMWXwaaD-nw1Yf8R6fg@db:5432/postgres"
+        }
+      ],
+      "linked_to_service": [
+        {
+          "name": "db",
+          "to_service": "db"
+        }
+      ]
+    },
+    {
       "name": "worker",
       "image": "",
       "linked_to_service": [
@@ -19,61 +62,18 @@
       "sequential_deployment": true,
       "container_envvars": [
         {
-          "key": "DATABASE_URL",
-          "value": "postgres://postgres:CWzYG_DZiDMY60sDDf9APw@db:5432/postgres"
-        },
-        {
           "key": "NODE_ENV",
           "value": "production"
         },
         {
           "key": "RACK_ENV",
           "value": "production"
+        },
+        {
+          "key": "DATABASE_URL",
+          "value": "postgres://postgres:688OMWXwaaD-nw1Yf8R6fg@db:5432/postgres"
         }
       ]
-    },
-    {
-      "name": "app",
-      "image": "",
-      "target_num_containers": 1,
-      "sequential_deployment": true,
-      "autorestart": "ALWAYS",
-      "autoredeploy": true,
-      "container_envvars": [
-        {
-          "key": "DATABASE_URL",
-          "value": "postgres://postgres:CWzYG_DZiDMY60sDDf9APw@db:5432/postgres"
-        },
-        {
-          "key": "NODE_ENV",
-          "value": "production"
-        },
-        {
-          "key": "RACK_ENV",
-          "value": "production"
-        }
-      ],
-      "linked_to_service": [
-        {
-          "name": "db",
-          "to_service": "db"
-        }
-      ],
-      "container_ports": [
-        {
-          "protocol": "tcp",
-          "inner_port": 3000,
-          "published": true,
-          "outer_port": 5479
-        },
-        {
-          "protocol": "tcp",
-          "inner_port": 3000,
-          "published": true,
-          "outer_port": 7595
-        }
-      ],
-      "run_command": "bash -c \"rake db:migrate && rails s -b 0.0.0.0\""
     },
     {
       "name": "db",
@@ -90,7 +90,7 @@
       "container_envvars": [
         {
           "key": "POSTGRES_PASSWORD",
-          "value": "CWzYG_DZiDMY60sDDf9APw"
+          "value": "688OMWXwaaD-nw1Yf8R6fg"
         }
       ]
     }

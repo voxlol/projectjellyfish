@@ -1,6 +1,14 @@
 ---
 version: '2'
 services:
+  app:
+    ports:
+    - 3000:3000
+    command: bundle exec puma -C config/puma.rb
+    extends:
+      service: common
+    links:
+    - db
   worker:
     extends:
       service: common
@@ -14,18 +22,10 @@ services:
   common:
     build: "."
     environment:
-      DATABASE_URL: postgres://postgres:CWzYG_DZiDMY60sDDf9APw@db:5432/postgres
       NODE_ENV: production
       RACK_ENV: production
-  app:
-    extends:
-      service: common
-    command: bundle exec puma -C config/puma.rb
-    links:
-    - db
-    ports:
-    - 3000:3000
+      DATABASE_URL: postgres://postgres:688OMWXwaaD-nw1Yf8R6fg@db:5432/postgres
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: CWzYG_DZiDMY60sDDf9APw
+      POSTGRES_PASSWORD: 688OMWXwaaD-nw1Yf8R6fg
