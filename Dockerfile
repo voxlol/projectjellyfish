@@ -1,36 +1,42 @@
-FROM ruby:2.2.3
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get install -y nodejs
+FROM ubuntu
 
-RUN mkdir /api
-WORKDIR /api
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -q -y install git-core build-essential wget libssl-dev curl git zlib1g-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev libsqlite3-dev libpq-dev
 
-ENV RACK_ENV=docker
-ENV RAILS_ENV=docker
-ENV DEVISE_SECRET_KEY=978e423d107dc2277f2987787a2f8ccd5ee0dcedf40f05f0188d732516a79559a7434feb56f35f31376f1b12325ac28ea540c8387fba83cb070e43af271ff9e9
-ENV SECRET_KEY_BASE=c7a71de57183e6e8aefede7737332c6283ce85a061a779fd761eac14c011255b6fd151d8cb3dd7403404b0f248f01bf4cfb97a17ec72b9ff3c5d1bd1ca3d72b2
+ENV PORT="3000" \
+    DEVISE_SECRET_KEY="79b2aa444ce12b995c83f19654b057de80c8cd57194a8398efdb3dd8b0ec1ae9688a28c9ca858ad155b229cabcd90612c5f8e2b42b6893a795407afc7a37b0f7" \
+    RAILS_ENV="production" \
+    SECRET_KEY_BASE="$(openssl rand -base64 32)" \
+    NODE_ENV="production" \
+    NODE_VERSION="5.x" \
+    RUBY_VERSION="2.3.5" \
+    CONFIGURE_OPTS="--disable-install-doc" \
+    PATH="/root/.rbenv/bin:/root/.rbenv/shims:$PATH"
 
-# If you are not using Docker compose, you need to set your database connection info here
-# ENV DATABASE_URL=postgres://user:pass@hostname:5432/database_name
-
-COPY Gemfile /api/
-COPY Gemfile.lock /api/
-
-COPY . /api/
-
-RUN npm install -g gulp bower
-RUN npm install gulp bower
-
-RUN bundle install --without development test
-RUN npm install --production
-RUN bower install --allow-root --config.interactive=false
-RUN gulp build --production
-
-# Note: Don't forget you have to run the migrations manually, by SSH'ing 
-# into the web server and running the following:
-# rake db:migrate && rake db:seed && rake sample:demo
+RUN git clone https://github.com/tj/n.git ~/.n \
+    && cd ~/.n \
+    && make install \
+    && n ${NODE_VERSION} \
+    && rm -rf ~/.n
+RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv \
+    && git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build \
+    && ~/.rbenv/plugins/ruby-build/install.sh \
+    && echo 'eval "$(rbenv init -)"' >> ~/.bashrc \
+    && rbenv install $RUBY_VERSION \
+    && rbenv global $RUBY_VERSION \
+    && echo "gem: --no-ri --no-rdoc" > ~/.gemrc \
+    && gem install bundler
+RUN mkdir -p /app
+RUN npm install -g gulp && npm install gulp
+RUN npm install -g bower && npm install bower
+WORKDIR /app
+COPY . /app
+COPY Gemfile* /app/
+RUN bundle install --without development test --jobs 4
+COPY . /app/
+RUN bundle exec rake assets:precompile
+RUN echo '{ "allow_root": true }' > ~/.bowerrc \
+    && bower install --config.interactive=false
+RUN rm -rf ./node_modules \
+    && npm install --production
 
 EXPOSE 3000
-
-CMD bundle exec rails s -p 3000 -b '0.0.0.0'
